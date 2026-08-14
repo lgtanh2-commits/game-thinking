@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Art of Game Design — Chapter 10: The Experience Is in the Player's Mind</title>
+<style>
+ :root {
+ --orange: #27ae60;
+ --orange-light: #6cc999;
+ --orange-pale: #edf9f2;
+ --dark: #0e231c;
+ --gray: #656a75;
+ --gray-light: #656a75;
+ --bg: #f4f7f2;
+ --white: #ffffff;
+ --card-border: #e4ebe2;
+ --accent-teal: #27ae60;
+ --accent-blue: #27ae60;
+ --accent-purple: #27ae60;
+ --accent-green: #27ae60;
+ --accent-gold: #27ae60;
+ 
+ --forest: #0e231c;
+ --fog: #879b93;
+ --sage: #defaca;
+ --mint: #edf9f2;
+ --sprout-d: #1c8a4c;}
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ body {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ background: var(--bg);
+ color: var(--dark);
+ line-height: 1.75;
+ font-size: 16px;
+ }
+
+ /* ── HERO ── */
+ .hero {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ padding: 72px 40px 64px;
+ text-align: center;
+ position: relative;
+ overflow: hidden;
+ }
+ .hero::before {
+ content: '';
+ position: absolute;
+ inset: 0;
+ background: none;
+ }
+ .hero-badge {
+ display: inline-block;
+ background: rgba(39,174,96,0.2);
+ border: 1px solid rgba(39,174,96,0.4);
+ color: var(--orange-light);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 600;
+ letter-spacing: 0.14em;
+ text-transform: uppercase;
+ padding: 6px 16px;
+ border-radius: 20px;
+ margin-bottom: 20px;
+ }
+ .hero h1 {
+ font-size: clamp(28px, 5vw, 52px);
+ color: var(--white);
+ font-weight: 400;
+ line-height: 1.2;
+ margin-bottom: 10px;
+ position: relative;
+ }
+ .hero h1 em {
+ color: var(--orange);
+ font-style: normal;
+ }
+ .hero-subtitle {
+ color: rgba(255,255,255,0.6);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 14px;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ margin-bottom: 24px;
+ position: relative;
+ }
+ .hero-desc {
+ max-width: 680px;
+ margin: 0 auto 40px;
+ color: rgba(255,255,255,0.75);
+ font-size: 17px;
+ line-height: 1.8;
+ position: relative;
+ }
+ .hero-meta {
+ display: flex;
+ justify-content: center;
+ gap: 32px;
+ flex-wrap: wrap;
+ position: relative;
+ }
+ .hero-meta-item { text-align: center; }
+ .hero-meta-item .num {
+ font-size: 28px;
+ font-weight: 700;
+ color: var(--orange);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .hero-meta-item .label {
+ font-size: 11px;
+ color: rgba(255,255,255,0.5);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ }
+
+ /* ── CHAPTER MAP ── */
+ .chapter-map {
+ background: var(--white);
+ border-bottom: 1px solid var(--card-border);
+ padding: 36px 40px;
+ display: flex;
+ justify-content: center;
+ gap: 8px;
+ flex-wrap: wrap;
+ }
+ .map-node {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 4px;
+ }
+ .map-dot {
+ width: 44px;
+ height: 44px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 16px;
+ font-weight: 700;
+ color: white;
+ }
+ .map-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 10px;
+ color: var(--gray-light);
+ text-align: center;
+ max-width: 70px;
+ line-height: 1.3;
+ }
+ .map-arrow {
+ align-self: center;
+ color: var(--gray-light);
+ font-size: 18px;
+ margin-top: -20px;
+ }
+
+ /* ── MAIN ── */
+ main {
+ max-width: 880px;
+ margin: 0 auto;
+ padding: 60px 24px 120px;
+ }
+
+ /* ── SECTION ── */
+ .section {
+ margin-bottom: 80px;
+ scroll-margin-top: 60px;
+ }
+ .section-header {
+ display: flex;
+ align-items: flex-start;
+ gap: 20px;
+ margin-bottom: 32px;
+  scroll-margin-top: 108px;}
+ .section-num {
+ min-width: 52px;
+ height: 52px;
+ border-radius: 14px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 20px;
+ font-weight: 800;
+ color: white;
+ flex-shrink: 0;
+ }
+ .section-title-wrap h2 {
+ font-size: clamp(22px, 3.5vw, 32px);
+ font-weight: 400;
+ color: var(--dark);
+ line-height: 1.2;
+ }
+ .section-title-wrap .section-en {
+ font-size: 12px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ color: var(--gray-light);
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ margin-top: 4px;
+ }
+
+ /* ── CARDS ── */
+ .card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin-bottom: 20px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .card h3 {
+ font-size: 18px;
+ color: var(--dark);
+ margin-bottom: 12px;
+ }
+ .card p {
+ color: var(--gray);
+ line-height: 1.8;
+ }
+
+ /* ── QUOTE ── */
+ .quote-block {
+ border-left: 4px solid var(--orange);
+ background: var(--orange-pale);
+ border-radius: 0 12px 12px 0;
+ padding: 20px 28px;
+ margin: 24px 0;
+ }
+ .quote-block blockquote {
+ font-size: 17px;
+ font-style: italic;
+ color: var(--dark);
+ line-height: 1.7;
+ margin-bottom: 8px;
+ }
+ .quote-block cite {
+ font-size: 12px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ color: var(--gray-light);
+ letter-spacing: 0.06em;
+ font-style: normal;
+ }
+
+ /* ── HIGHLIGHT BOX ── */
+ .highlight-box {
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin-bottom: 24px;
+ }
+ .highlight-box.orange {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+ }
+ .highlight-box.teal {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+ }
+ .highlight-box.purple {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+ }
+ .highlight-box.blue {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+ }
+ .highlight-box.green {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+ }
+ .highlight-box.gold {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+ }
+ .highlight-box h3 {
+ font-size: 16px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-weight: 700;
+ letter-spacing: 0.04em;
+ margin-bottom: 12px;
+ }
+ .highlight-box p, .highlight-box li {
+ font-size: 15px;
+ line-height: 1.75;
+ color: var(--gray);
+ }
+ .highlight-box ul {
+ padding-left: 20px;
+ }
+ .highlight-box li { margin-bottom: 6px; }
+
+ /* ── FLOW DIAGRAM ── */
+ .flow-diagram-wrap {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin-bottom: 24px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ text-align: center;
+ }
+ .flow-diagram-wrap h3 {
+ font-size: 16px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 8px;
+ }
+ .flow-diagram-wrap .diagram-note {
+ font-size: 13px;
+ color: var(--gray-light);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ margin-bottom: 20px;
+ }
+
+ /* ── FLOW COMPONENTS GRID ── */
+ .flow-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 16px;
+ margin-bottom: 24px;
+ }
+ @media (max-width: 600px) {
+ .flow-grid { grid-template-columns: 1fr; }
+ }
+ .flow-component {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ padding: 22px 24px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .flow-component-num {
+ width: 32px;
+ height: 32px;
+ border-radius: 8px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 14px;
+ font-weight: 800;
+ color: white;
+ margin-bottom: 12px;
+ }
+ .flow-component h4 {
+ font-size: 15px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 6px;
+ }
+ .flow-component .fc-en {
+ font-size: 11px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ color: var(--gray-light);
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ margin-bottom: 10px;
+ }
+ .flow-component p {
+ font-size: 14px;
+ color: var(--gray);
+ line-height: 1.7;
+ }
+
+ /* ── LENS BOX ── */
+ .lens-box {
+ background: #edf9f2;
+ border: 2px solid rgba(39,174,96,0.35);
+ border-radius: 20px;
+ padding: 36px 40px;
+ margin-bottom: 28px;
+ position: relative;
+ overflow: hidden;
+ }
+ .lens-box::before {
+ content: '';
+ position: absolute;
+ right: 32px;
+ top: 28px;
+ font-size: 48px;
+ opacity: 0.18;
+ }
+ .lens-header {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ margin-bottom: 20px;
+ }
+ .lens-num-badge {
+ background: var(--orange);
+ color: white;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ padding: 6px 14px;
+ border-radius: 20px;
+ letter-spacing: 0.06em;
+ white-space: nowrap;
+ }
+ .lens-title {
+ font-size: 22px;
+ font-weight: 400;
+ color: var(--dark);
+ }
+ .lens-title em {
+ color: var(--orange);
+ font-style: normal;
+ }
+ .lens-intro {
+ font-size: 15px;
+ color: var(--gray);
+ line-height: 1.75;
+ margin-bottom: 24px;
+ }
+ .lens-questions {
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
+ }
+ .lens-q {
+ display: flex;
+ gap: 14px;
+ align-items: flex-start;
+ background: rgba(255,255,255,0.7);
+ border-radius: 12px;
+ padding: 14px 18px;
+ }
+ .lens-q-num {
+ width: 26px;
+ height: 26px;
+ background: var(--orange);
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 800;
+ color: white;
+ flex-shrink: 0;
+ margin-top: 2px;
+ }
+ .lens-q p {
+ font-size: 15px;
+ color: var(--dark);
+ line-height: 1.65;
+ }
+
+ /* ── ALEX JOURNEY ── */
+ .alex-journey {
+ display: flex;
+ gap: 12px;
+ align-items: center;
+ flex-wrap: wrap;
+ margin: 20px 0;
+ justify-content: center;
+ }
+ .alex-state {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 12px;
+ padding: 14px 18px;
+ text-align: center;
+ min-width: 90px;
+ }
+ .alex-state .state-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 4px;
+ }
+ .alex-state .state-desc {
+ font-size: 12px;
+ color: var(--gray-light);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ line-height: 1.4;
+ }
+ .alex-arrow {
+ color: var(--orange);
+ font-size: 22px;
+ font-weight: 700;
+ }
+
+ /* ── EMPATHY EXPERIMENT ── */
+ .experiment-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 16px;
+ margin-bottom: 20px;
+ }
+ @media (max-width: 580px) {
+ .experiment-grid { grid-template-columns: 1fr; }
+ .flow-grid { grid-template-columns: 1fr; }
+ .gift-diagram { grid-template-columns: 1fr; }
+ }
+ .exp-group {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 14px;
+ padding: 20px 22px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .exp-group-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 700;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ margin-bottom: 10px;
+ padding: 4px 10px;
+ border-radius: 20px;
+ display: inline-block;
+ }
+ .exp-group.group-a .exp-group-label { background: rgba(39,174,96,0.15); color: var(--orange); }
+ .exp-group.group-b .exp-group-label { background: rgba(39,174,96,0.15); color: var(--accent-teal); }
+ .exp-group h4 {
+ font-size: 15px;
+ color: var(--dark);
+ margin-bottom: 8px;
+ }
+ .exp-group p {
+ font-size: 14px;
+ color: var(--gray);
+ line-height: 1.7;
+ }
+
+ /* ── YIN YANG BOX ── */
+ .yin-yang-box {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ border-radius: 20px;
+ padding: 40px;
+ text-align: center;
+ margin-bottom: 28px;
+ position: relative;
+ overflow: hidden;
+ }
+ .yin-yang-box::before {
+ content: '';
+ position: absolute;
+ inset: 0;
+ background: none;
+ }
+ .yin-yang-symbol {
+ font-size: 64px;
+ margin-bottom: 20px;
+ position: relative;
+ display: block;
+ }
+ .yin-yang-text {
+ font-size: 22px;
+ color: var(--white);
+ font-weight: 400;
+ line-height: 1.5;
+ margin-bottom: 8px;
+ position: relative;
+ }
+ .yin-yang-text em {
+ color: var(--orange);
+ font-style: normal;
+ }
+ .yin-yang-sub {
+ color: rgba(255,255,255,0.55);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ position: relative;
+ margin-top: 12px;
+ }
+
+ /* ── IMAGINATION FUNCTIONS ── */
+ .imagine-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 16px;
+ margin-bottom: 24px;
+ }
+ @media (max-width: 580px) { .imagine-grid { grid-template-columns: 1fr; } }
+ .imagine-card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 14px;
+ padding: 22px 24px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ text-align: center;
+ }
+ .imagine-icon {
+ font-size: 36px;
+ margin-bottom: 12px;
+ }
+ .imagine-card h4 {
+ font-size: 16px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 8px;
+ }
+ .imagine-card .ig-en {
+ font-size: 11px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ color: var(--gray-light);
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ margin-bottom: 10px;
+ }
+ .imagine-card p {
+ font-size: 14px;
+ color: var(--gray);
+ line-height: 1.7;
+ }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+  .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .topnav .crumb { color: #879b93; font-size: 14px; }
+  .topnav .crumb a { color: #879b93; text-decoration: none; }
+  .topnav .crumb b { color: #fff; font-weight: 600; }
+  .chapnav-wrap { background: #f4f7f2; padding: 40px 24px 56px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .chapnav { display: flex; justify-content: space-between; gap: 12px; max-width: 820px; margin: 0 auto; }
+  .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+  .tocnav { position: sticky; top: 52px; z-index: 100; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; overflow-x: auto; scrollbar-width: none; }
+  .tocnav::-webkit-scrollbar { display: none; }
+  .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
+
+</style>
+<nav class="topnav">
+  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 10</b></span>
+</nav>
+
+<nav class="tocnav">
+  <a href="#s1">Não Bộ Xây Dựng Mô Hình</a>
+  <a href="#s2">Sự Tập Trung & Trạng Thái Flow</a>
+  <a href="#s3">Sự Đồng Cảm</a>
+  <a href="#s4">Trí Tưởng Tượng</a>
+</nav>
+
+
+<!-- ══════════════════════════════════════
+ HERO
+══════════════════════════════════════ -->
+<div class="hero">
+ <div class="hero-badge">Chapter 10 · The Art of Game Design</div>
+ <h1>Trải Nghiệm Nằm Trong<br><em>Tâm Trí Người Chơi</em></h1>
+ <div class="hero-subtitle">The Experience Is in the Player's Mind</div>
+ <p class="hero-desc">
+ Trò chơi không tồn tại hoàn toàn trên màn hình hay trên bảng cờ — phần quan trọng nhất của nó diễn ra bên trong đầu người chơi. Hiểu cách não bộ xử lý thông tin, trải nghiệm flow, cảm thông, và tưởng tượng chính là chìa khoá để thiết kế những trò chơi thực sự đáng nhớ.
+ </p>
+ <div class="hero-meta">
+ <div class="hero-meta-item">
+ <div class="num">4</div>
+ <div class="label">Chủ đề chính</div>
+ </div>
+ <div class="hero-meta-item">
+ <div class="num">1</div>
+ <div class="label">Lens (#21)</div>
+ </div>
+ <div class="hero-meta-item">
+ <div class="num">4</div>
+ <div class="label">Thành phần Flow</div>
+ </div>
+ <div class="hero-meta-item">
+ <div class="num">5</div>
+ <div class="label">Câu hỏi Flow</div>
+ </div>
+ </div>
+</div>
+
+<!-- ══════════════════════════════════════
+ CHAPTER MAP
+══════════════════════════════════════ -->
+<main>
+
+ <!-- ══ SECTION 1: MODELING ══ -->
+ <div class="section" id="modeling">
+ <div class="section-header" id="s1">
+ <div class="section-num" style="background: var(--accent-blue);">1</div>
+ <div class="section-title-wrap">
+ <h2>Não Bộ Xây Dựng Mô Hình</h2>
+ <div class="section-en">Modeling — How the Brain Makes Sense of Reality</div>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3> Não không chứa thực tại — nó chứa mô hình của thực tại</h3>
+ <p>
+ Não người không bao giờ xử lý trực tiếp thực tế xung quanh. Thay vào đó, nó liên tục xây dựng những <em>mô hình rút gọn</em> — đủ để ra quyết định, đủ để hành động, nhưng không nhất thiết phải hoàn chỉnh hay chính xác tuyệt đối. Đây là điểm xuất phát quan trọng nhất của chương này: trải nghiệm người chơi cảm nhận không phải là trò chơi thực sự, mà là <em>mô hình của trò chơi</em> mà não họ đã tự tạo ra.
+ </p>
+ </div>
+
+ <div class="highlight-box blue">
+ <h3> Ví dụ: Charlie Brown và cái đầu khổng lồ</h3>
+ <p>
+ Vì sao chúng ta chấp nhận hoàn toàn một nhân vật có cái đầu to gấp đôi cơ thể? Bởi vì não bộ lưu trữ thông tin về khuôn mặt và đầu người nhiều hơn nhiều so với thân người — khuôn mặt là nơi chứa đựng biểu cảm, cảm xúc, danh tính. Vì vậy, khi Schulz vẽ Charlie Brown với tỉ lệ phi thực, não ta không "sửa lỗi" — nó chấp nhận ngay vì mô hình bên trong đã được kích hoạt đúng cách.
+ </p>
+ </div>
+
+ <div class="card">
+ <h3> Truyện tranh: Mô hình đã được tiêu hoá sẵn</h3>
+ <p>
+ Các nhân vật truyện tranh, phim hoạt hình, hay biểu tượng đồ hoạ đơn giản hoá hoạt động như những <strong>"predigested" mental models</strong> — mô hình đã được tinh chế trước, dễ hấp thụ hơn thực tế. Não không cần mất thêm công sức phân tích; nó nhận dạng ngay lập tức. Đây là lý do các nhân vật đơn giản thường gây ấn tượng mạnh hơn nhân vật siêu thực tế.
+ </p>
+ </div>
+
+ <div class="highlight-box orange">
+ <h3> Ảo thuật gia và nghệ thuật phá vỡ mô hình</h3>
+ <p>
+ Ảo thuật gia chuyên nghiệp làm điều ngược lại: họ <em>phá vỡ mô hình</em> mà não bạn đã xây dựng. Khi bạn thấy một vật biến mất hay xuất hiện theo cách "không thể", cảm giác ngạc nhiên xuất phát từ đúng chỗ đó — mô hình dự đoán của bạn sụp đổ, và bạn phải tái cấu trúc lại cách hiểu về thế giới.
+ </p>
+ </div>
+
+ <div class="card">
+ <h3> Trò chơi = Mô hình mà não có thể học và vận hành</h3>
+ <p>
+ Khi người chơi bắt đầu một trò chơi, điều đầu tiên họ làm — dù có ý thức hay không — là xây dựng mô hình về trò chơi đó trong đầu: cơ chế hoạt động như thế nào, mục tiêu là gì, điều gì được phép và điều gì không. Một trò chơi thiết kế tốt là trò chơi tạo ra những mô hình vừa đủ đơn giản để não có thể học, vừa đủ phong phú để mang lại cảm giác thú vị khi khám phá.
+ </p>
+ <p style="margin-top: 12px;">
+ Phổ mô hình trải dài từ <strong>Abstract Strategy</strong> (cờ vua, cờ go — model thuần tuý, không cần lớp phủ thẩm mỹ) cho đến <strong>RPG</strong> (model ẩn sâu bên dưới nhiều lớp narrative, nhân vật, và thế giới). Nhưng dù ở đâu trên phổ đó, bộ máy cốt lõi vẫn là: não xây dựng model → vận hành model → học hỏi và tinh chỉnh model.
+ </p>
+ </div>
+
+ <div class="highlight-box teal">
+ <h3> Insight dành cho nhà thiết kế</h3>
+ <p>
+ Hãy tự hỏi: <em>mô hình của trò chơi mà người chơi sẽ xây dựng trong đầu là gì?</em> Mô hình đó có rõ ràng không? Có thú vị không? Có đủ phức tạp để duy trì sự hứng thú nhưng không quá phức tạp đến mức không ai hiểu nổi?
+ </p>
+ </div>
+ </div>
+
+ <!-- ══ SECTION 2: FLOW ══ -->
+ <div class="section" id="flow">
+ <div class="section-header" id="s2">
+ <div class="section-num" style="background: var(--accent-teal);">2</div>
+ <div class="section-title-wrap">
+ <h2>Sự Tập Trung & Trạng Thái Flow</h2>
+ <div class="section-en">Focus & The Flow State</div>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3> Cocktail Party Effect — Não chọn lọc thứ gì để chú ý</h3>
+ <p>
+ Hãy hình dung bạn đang ở một bữa tiệc ồn ào. Hàng chục cuộc trò chuyện diễn ra cùng lúc — vậy mà bạn vẫn nghe ngay tên mình dù người nhắc đến đứng cách xa mười bước. Đây là <strong>cocktail party effect</strong>: não không xử lý tất cả âm thanh như nhau. Nó liên tục lọc, ưu tiên, và chỉ đưa vào ý thức những gì được coi là quan trọng.
+ </p>
+ </div>
+
+ <div class="card">
+ <h3> Nghiên cứu Dichotic Listening</h3>
+ <p>
+ Các thí nghiệm nghe hai tai (dichotic listening) đã cho thấy khi người ta được yêu cầu tập trung vào một tai, họ gần như không nhận thức được những gì tai kia nghe — kể cả khi đó là giọng nói bình thường với từ ngữ có nghĩa. Não bộ có tài nguyên chú ý rất có hạn, và nó phân bổ tài nguyên đó một cách chọn lọc. Đây là bài học trực tiếp cho thiết kế trò chơi: nếu bạn không kiểm soát được sự tập trung của người chơi, người chơi sẽ đặt sự tập trung vào những thứ ngẫu nhiên — và trải nghiệm sẽ bị phân tán.
+ </p>
+ </div>
+
+ <div class="quote-block">
+ <blockquote>"Complete and energized focus in an activity, with a high level of enjoyment and fulfillment."</blockquote>
+ <cite>— Mihaly Csikszentmihalyi, định nghĩa trạng thái Flow</cite>
+ </div>
+
+ <div class="card">
+ <h3> Flow là gì?</h3>
+ <p>
+ Nhà tâm lý học <strong>Mihaly Csikszentmihalyi</strong> đã dành nhiều thập kỷ nghiên cứu những khoảnh khắc người ta cảm thấy hoàn toàn cuốn vào một hoạt động — lúc thời gian như ngừng trôi, bản thân như biến mất, chỉ còn lại hành động. Ông gọi đây là <strong>flow state</strong> — trạng thái dòng chảy. Những người chơi thực sự đã trải nghiệm điều này biết chính xác nó là gì: khi bạn nhìn lên đồng hồ và không thể tin ba tiếng đồng hồ đã trôi qua.
+ </p>
+ </div>
+
+ <!-- 4 Components of Flow -->
+ <div class="flow-grid">
+ <div class="flow-component">
+ <div class="flow-component-num" style="background: var(--orange);">1</div>
+ <h4>Mục tiêu rõ ràng</h4>
+ <div class="fc-en">Clear Goals</div>
+ <p>Người chơi phải biết mình đang cố gắng đạt được điều gì. Không có mục tiêu rõ ràng, không có flow — bộ não không biết phải phân bổ sự chú ý vào đâu.</p>
+ </div>
+ <div class="flow-component">
+ <div class="flow-component-num" style="background: var(--accent-teal);">2</div>
+ <h4>Không có gián đoạn</h4>
+ <div class="fc-en">No Distractions</div>
+ <p>Bất kỳ điều gì kéo sự chú ý ra khỏi vòng lặp cốt lõi của trò chơi đều phá vỡ trạng thái flow. UI lộn xộn, loading màn hình, thông báo hệ thống — tất cả đều là kẻ thù của flow.</p>
+ </div>
+ <div class="flow-component">
+ <div class="flow-component-num" style="background: var(--accent-purple);">3</div>
+ <h4>Phản hồi trực tiếp</h4>
+ <div class="fc-en">Direct Feedback</div>
+ <p>Người chơi cần biết ngay lập tức hành động của mình có hiệu quả hay không. Phản hồi chậm hoặc mơ hồ khiến mô hình trong não không cập nhật được — flow bị ngắt.</p>
+ </div>
+ <div class="flow-component">
+ <div class="flow-component-num" style="background: var(--accent-green);">4</div>
+ <h4>Thử thách liên tục tăng</h4>
+ <div class="fc-en">Continuously Challenging</div>
+ <p>Trò chơi phải duy trì sự cân bằng tinh tế: không quá dễ (nhàm chán) cũng không quá khó (bực bội). Và khi kỹ năng người chơi tăng, độ khó cũng phải tăng theo.</p>
+ </div>
+ </div>
+
+ <!-- Flow Channel Diagram -->
+ <div class="flow-diagram-wrap">
+ <h3> Flow Channel — Kênh Flow</h3>
+ <div class="diagram-note">Biểu đồ Challenges (Thử thách) vs. Skills (Kỹ năng) — dải giữa là vùng Flow lý tưởng</div>
+ <svg viewBox="0 0 500 360" xmlns="http://www.w3.org/2000/svg" style="max-width:500px; width:100%; margin-top:8px;">
+ <!-- Background -->
+ <rect width="500" height="360" fill="#f4f7f2" rx="12"/>
+
+ <!-- Axes -->
+ <line x1="60" y1="300" x2="460" y2="300" stroke="#C8C8CC" stroke-width="1.5"/>
+ <line x1="60" y1="300" x2="60" y2="30" stroke="#C8C8CC" stroke-width="1.5"/>
+
+ <!-- Axis labels -->
+ <text x="260" y="330" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#656a75" font-weight="600">Skills (Kỹ năng)</text>
+ <text x="22" y="170" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#656a75" font-weight="600" transform="rotate(-90, 22, 170)">Challenges (Thử thách)</text>
+
+ <!-- Axis arrow tips -->
+ <polygon points="460,296 470,300 460,304" fill="#C8C8CC"/>
+ <polygon points="56,30 60,20 64,30" fill="#C8C8CC"/>
+
+ <!-- LOW / HIGH labels -->
+ <text x="68" y="316" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#656a75">Thấp</text>
+ <text x="430" y="316" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#656a75">Cao</text>
+ <text x="66" y="46" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#656a75">Cao</text>
+ <text x="66" y="296" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#656a75">Thấp</text>
+
+ <!-- ANXIETY zone (upper-left triangle) -->
+ <polygon points="60,30 60,200 230,80" fill="rgba(220,53,69,0.10)"/>
+ <text x="100" y="120" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#C0392B" font-weight="700">Anxiety</text>
+ <text x="100" y="136" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#C0392B">(Bực bội)</text>
+
+ <!-- BOREDOM zone (lower-right triangle) -->
+ <polygon points="230,280 450,300 450,160" fill="rgba(39,174,96,0.10)"/>
+ <text x="340" y="270" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="13" fill="#B07D10" font-weight="700">Boredom</text>
+ <text x="340" y="286" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#B07D10">(Nhàm chán)</text>
+
+ <!-- FLOW channel band -->
+ <!-- Upper boundary line of flow channel -->
+ <line x1="60" y1="200" x2="450" y2="60" stroke="rgba(39,174,96,0.6)" stroke-width="1.5" stroke-dasharray="5,4"/>
+ <!-- Lower boundary line of flow channel -->
+ <line x1="60" y1="280" x2="450" y2="160" stroke="rgba(39,174,96,0.6)" stroke-width="1.5" stroke-dasharray="5,4"/>
+ <!-- Flow band fill -->
+ <polygon points="60,200 450,60 450,160 60,280" fill="rgba(39,174,96,0.18)"/>
+
+ <!-- Flow channel label -->
+ <text x="255" y="158" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="15" fill="#27ae60" font-weight="700">Flow Channel</text>
+ <text x="255" y="176" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#27ae60">(Kênh Flow)</text>
+
+ <!-- Alex journey points -->
+ <!-- A1 -->
+ <circle cx="130" cy="235" r="8" fill="var(--orange)" opacity="0.9"/>
+ <text x="138" y="224" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#27ae60" font-weight="700">A1</text>
+
+ <!-- Arrow A1→A2 -->
+ <line x1="138" y1="232" x2="196" y2="202" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr)"/>
+
+ <!-- A2 -->
+ <circle cx="205" cy="197" r="8" fill="var(--orange)" opacity="0.9"/>
+ <text x="213" y="186" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#27ae60" font-weight="700">A2</text>
+
+ <!-- Arrow A2→A3 (skills grow, moves right-up out of flow, into boredom area first) -->
+ <line x1="213" y1="197" x2="278" y2="193" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr)"/>
+
+ <!-- A3 -->
+ <circle cx="287" cy="190" r="8" fill="var(--orange)" opacity="0.9"/>
+ <text x="295" y="179" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#27ae60" font-weight="700">A3</text>
+
+ <!-- Arrow A3→A4 -->
+ <line x1="293" y1="185" x2="348" y2="155" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr)"/>
+
+ <!-- A4 -->
+ <circle cx="357" cy="150" r="8" fill="var(--orange)" opacity="0.9"/>
+ <text x="365" y="140" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#27ae60" font-weight="700">A4</text>
+
+ <!-- Arrow defs -->
+ <defs>
+ <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+ <path d="M0,0 L0,6 L8,3 z" fill="#27ae60"/>
+ </marker>
+ </defs>
+ </svg>
+ </div>
+
+ <div class="card">
+ <h3> Câu chuyện của Alex — Ở lại trong Flow Channel</h3>
+ <p>
+ Hãy tưởng tượng Alex — người mới bắt đầu chơi tennis. Ban đầu (A1), cả kỹ năng lẫn thử thách đều thấp — Alex chỉ cần học cách cầm vợt và không đánh trượt bóng. Dần dần kỹ năng tăng lên (A2), Alex đánh được bóng nhưng đối thủ yếu hơn khiến trận đấu bắt đầu nhàm (A3 — trượt ra khỏi flow về phía Boredom). Khi được ghép với đối thủ mạnh hơn và bắt đầu học thêm kỹ thuật, thử thách tăng lên tương ứng với kỹ năng mới của Alex (A4 — trở lại flow).
+ </p>
+ <p style="margin-top: 12px;">
+ Trò chơi giỏi luôn tự điều chỉnh để giữ người chơi trong <em>flow channel</em> đó — không quá dễ, không quá khó, luôn ở ngay biên giới của năng lực hiện tại.
+ </p>
+ </div>
+
+ <div class="alex-journey">
+ <div class="alex-state">
+ <div class="state-label">A1</div>
+ <div class="state-desc">Bắt đầu<br><small>Kỹ năng thấp<br>Thử thách thấp</small></div>
+ </div>
+ <div class="alex-arrow">→</div>
+ <div class="alex-state">
+ <div class="state-label">A2</div>
+ <div class="state-desc">Tiến bộ<br><small>Kỹ năng tăng<br>Trong Flow</small></div>
+ </div>
+ <div class="alex-arrow">→</div>
+ <div class="alex-state">
+ <div class="state-label">A3</div>
+ <div class="state-desc">Nhàm chán<br><small>Kỹ năng vượt<br>thử thách</small></div>
+ </div>
+ <div class="alex-arrow">→</div>
+ <div class="alex-state">
+ <div class="state-label">A4</div>
+ <div class="state-desc">Flow mới<br><small>Thử thách tăng<br>theo kỹ năng</small></div>
+ </div>
+ </div>
+
+ <div class="highlight-box teal">
+ <h3> Tense-and-Release — Căng thẳng rồi giải phóng</h3>
+ <p>
+ Flow không có nghĩa là trạng thái thư giãn đều đều. Các trò chơi hay nhất tạo ra những nhịp điệu <strong>tense-and-release</strong>: xây dựng căng thẳng, tăng áp lực, rồi cho người chơi giải phóng nó qua một hành động thành công. Chính cái chu kỳ đó — căng, rồi phá — mới tạo ra cảm giác thoả mãn sâu sắc và duy trì trạng thái flow qua nhiều giờ chơi.
+ </p>
+ </div>
+
+ <!-- LENS #21 -->
+ <div class="lens-box">
+ <div class="lens-header">
+ <div class="lens-num-badge">Lens #21</div>
+ <div class="lens-title">The Lens of <em>Flow</em></div>
+ </div>
+ <p class="lens-intro">
+ Để đảm bảo trò chơi của bạn duy trì được trạng thái flow — sự cuốn hút hoàn toàn và năng lượng tràn đầy — hãy tự hỏi những câu hỏi sau:
+ </p>
+ <div class="lens-questions">
+ <div class="lens-q">
+ <div class="lens-q-num">1</div>
+ <p>Trò chơi của tôi có <strong>mục tiêu rõ ràng</strong> không? Người chơi có biết mình đang cố gắng làm gì không?</p>
+ </div>
+ <div class="lens-q">
+ <div class="lens-q-num">2</div>
+ <p>Mục tiêu đó có phải là mục tiêu tôi <em>thực sự muốn</em> người chơi theo đuổi không?</p>
+ </div>
+ <div class="lens-q">
+ <div class="lens-q-num">3</div>
+ <p>Có phần nào trong trò chơi <strong>làm sao lãng</strong> và kéo người chơi ra khỏi mục tiêu chính không?</p>
+ </div>
+ <div class="lens-q">
+ <div class="lens-q-num">4</div>
+ <p>Trò chơi có cung cấp <strong>dòng thử thách liên tục</strong> — không quá dễ, không quá khó — phù hợp với kỹ năng đang tăng của người chơi không?</p>
+ </div>
+ <div class="lens-q">
+ <div class="lens-q-num">5</div>
+ <p>Kỹ năng của người chơi có <strong>phát triển đúng tốc độ</strong> tôi kỳ vọng không? Họ có cảm thấy mình ngày càng giỏi hơn không?</p>
+ </div>
+ </div>
+ </div>
+
+ </div>
+
+ <!-- ══ SECTION 3: EMPATHY ══ -->
+ <div class="section" id="empathy">
+ <div class="section-header" id="s3">
+ <div class="section-num" style="background: var(--accent-purple);">3</div>
+ <div class="section-title-wrap">
+ <h2>Sự Đồng Cảm</h2>
+ <div class="section-en">Empathy — The Mirror in the Mind</div>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3> Thí nghiệm sân khấu: Cảm xúc lây lan</h3>
+ <p>
+ Trong một bài tập sân khấu kinh điển, Nhóm A được yêu cầu chủ động chiếu cảm xúc — hạnh phúc, buồn bã, tức giận — về phía Nhóm B đứng ở phía đối diện. Nhóm B không được thông báo gì cả. Kết quả: Nhóm B vô thức <em>phản chiếu lại</em> đúng những cảm xúc đó — không nói một lời, không ra hiệu, chỉ đơn giản là cảm nhận từ trường cảm xúc của nhóm kia.
+ </p>
+ </div>
+
+ <div class="experiment-grid">
+ <div class="exp-group group-a">
+ <div class="exp-group-label">Nhóm A</div>
+ <h4>Chiếu cảm xúc</h4>
+ <p>Chủ động nghĩ đến một cảm xúc cụ thể, tập trung vào nó, và "phát" nó về phía nhóm kia — không nói, không ra hiệu.</p>
+ </div>
+ <div class="exp-group group-b">
+ <div class="exp-group-label">Nhóm B</div>
+ <h4>Phản chiếu vô thức</h4>
+ <p>Không được thông báo gì. Nhưng tự nhiên cảm thấy cảm xúc tương ứng — và bắt đầu phản chiếu lại những gì nhóm kia đang chiếu ra.</p>
+ </div>
+ </div>
+
+ <div class="highlight-box purple">
+ <h3> Chó và sự tiến hoá của đồng cảm</h3>
+ <p>
+ Không phải ngẫu nhiên mà chó là loài vật gần gũi nhất với con người. Trong hàng ngàn năm chung sống, chó đã tiến hoá để phát triển <strong>các cơ bắp mặt</strong> phục vụ riêng cho việc giao tiếp cảm xúc với người. Chó có thể nhướng mày, tạo ra ánh mắt "tội nghiệp", biểu đạt vui mừng — những biểu cảm mà tổ tiên chúng (sói) không có. Đây là bằng chứng sinh học cho thấy khả năng đồng cảm không chỉ là phản ứng cảm xúc tức thời — nó được hình thành bởi tiến hoá, bởi nhu cầu kết nối.
+ </p>
+ </div>
+
+ <div class="card">
+ <h3> Đồng cảm hoạt động qua mô hình, không phải người thật</h3>
+ <p>
+ Điều thú vị: chúng ta không thực sự đồng cảm với <em>người</em> — chúng ta đồng cảm với <em>mô hình của người</em> mà não ta tạo ra. Khi bạn xem phim và khóc vì một nhân vật hư cấu chết đi, bạn không khóc cho một người thật — bạn khóc vì não bạn đã xây dựng một mô hình đủ sinh động và đủ "thật" của nhân vật đó, và mô hình đó khiến bạn có phản ứng cảm xúc thực sự.
+ </p>
+ <p style="margin-top: 12px;">
+ Đây là lý do tại sao game không cần đồ hoạ siêu thực tế để tạo ra sự gắn kết cảm xúc — chỉ cần đủ gợi ý để não người chơi hoàn thiện phần còn lại.
+ </p>
+ </div>
+
+ <div class="highlight-box orange">
+ <h3> Trong game: Bạn chiếu cả năng lực ra quyết định của mình vào nhân vật</h3>
+ <p>
+ Khác với phim hay sách — nơi bạn chỉ quan sát nhân vật — trong trò chơi, bạn <em>trở thành</em> nhân vật. Không chỉ là cảm xúc được đồng cảm, mà toàn bộ hệ thống ra quyết định của bạn được chiếu vào nhân vật đó. Đây là loại đồng cảm sâu sắc và độc đáo nhất mà game mang lại — một loại trải nghiệm không có phương tiện nghệ thuật nào khác tạo ra được theo cách tương tự.
+ </p>
+ </div>
+ </div>
+
+ <!-- ══ SECTION 4: IMAGINATION ══ -->
+ <div class="section" id="imagination">
+ <div class="section-header" id="s4">
+ <div class="section-num" style="background: var(--orange);">4</div>
+ <div class="section-title-wrap">
+ <h2>Trí Tưởng Tượng</h2>
+ <div class="section-en">Imagination — The Game Within</div>
+ </div>
+ </div>
+
+ <div class="quote-block">
+ <blockquote>"Imagination is more important than knowledge."</blockquote>
+ <cite>— Albert Einstein (trích dẫn bởi Schell liên quan đến Helen Keller và sức mạnh của trí tưởng tượng)</cite>
+ </div>
+
+ <!-- Yin-yang box -->
+ <div class="yin-yang-box">
+ <span class="yin-yang-symbol"></span>
+ <div class="yin-yang-text">
+ <em>The player is in the game</em><br>
+ <em>The game is in the player</em>
+ </div>
+ <div class="yin-yang-sub">
+ Trò chơi và người chơi không tách rời — mỗi bên tạo ra và định nghĩa bên kia
+ </div>
+ </div>
+
+ <div class="card">
+ <h3> Câu chuyện người đưa thư — Trí tưởng tượng tự lấp đầy khoảng trống</h3>
+ <p>
+ Khi bạn đọc câu: "Người đưa thư gõ cửa, tay cầm một phong bì màu vàng" — não bạn lập tức hình dung ra một người đưa thư cụ thể. Có thể là người cao hay thấp, mặc đồng phục màu gì, đứng trước căn nhà như thế nào... Không ai kể cho bạn những chi tiết đó. Não tự điền vào, dựa trên kinh nghiệm và ký ức riêng của bạn.
+ </p>
+ <p style="margin-top: 12px;">
+ Và đây là điều kỳ diệu: nhân vật đó trong đầu bạn sẽ <em>khác hoàn toàn</em> với người đưa thư trong đầu người đọc cạnh bạn — dù cùng đọc một câu như nhau. Trí tưởng tượng không chỉ nhận thông tin, nó <em>cùng tạo ra</em> câu chuyện.
+ </p>
+ </div>
+
+ <!-- Two functions of imagination -->
+ <div class="imagine-grid">
+ <div class="imagine-card">
+ <h4>Giao tiếp & Kể chuyện</h4>
+ <div class="ig-en">Communication & Storytelling</div>
+ <p>Trí tưởng tượng là cầu nối giữa người kể và người nghe. Khi tác giả gợi ra hình ảnh, người đọc hoàn thiện nó bằng trải nghiệm riêng của mình — tạo ra một phiên bản câu chuyện chỉ dành riêng cho họ.</p>
+ </div>
+ <div class="imagine-card">
+ <h4>Giải quyết vấn đề</h4>
+ <div class="ig-en">Problem Solving</div>
+ <p>Trí tưởng tượng cho phép não vận hành những tình huống giả định — "nếu tôi làm điều này thì điều gì xảy ra?" — mà không cần thực sự hành động. Đây chính là bản chất của chơi game.</p>
+ </div>
+ </div>
+
+ <div class="highlight-box gold">
+ <h3> Nghệ thuật biết khi nào nên để trống</h3>
+ <p>
+ Một trong những kỹ năng thiết kế tinh tế nhất là biết <em>điều gì nên hiển thị và điều gì nên để trí tưởng tượng người chơi tự lấp đầy</em>. Cho thấy quá nhiều thì không còn chỗ cho trí tưởng tượng — câu chuyện trở nên phẳng, thiếu chiều sâu. Để quá nhiều khoảng trống thì người chơi bị lạc, không biết đặt trí tưởng tượng vào đâu.
+ </p>
+ <p style="margin-top: 10px;">
+ Những trò chơi kinh điển thường nắm giữ điều này rất tốt: họ gợi ra vừa đủ để trí tưởng tượng được tiếp thêm năng lượng và bay xa — thay vì bị khoá chặt trong một hình ảnh duy nhất đã xác định sẵn.
+ </p>
+ </div>
+
+ <div class="card">
+ <h3> Vòng lặp hoàn hảo: Trò chơi ↔ Người chơi</h3>
+ <p>
+ Schell kết thúc chương với một hình ảnh yin-yang: <em>the player is in the game, and the game is in the player</em>. Trò chơi tồn tại một phần trên màn hình, trong code, trong cơ chế — nhưng phần còn lại, phần quan trọng không kém, tồn tại trong tâm trí người chơi. Đó là mô hình họ xây dựng, là flow họ trải qua, là sự đồng cảm họ cảm nhận, là trí tưởng tượng họ đóng góp vào.
+ </p>
+ <p style="margin-top: 12px;">
+ Nhà thiết kế không chỉ thiết kế <em>một trò chơi</em> — họ thiết kế <em>một trải nghiệm tâm lý</em>. Và trải nghiệm đó không bao giờ hoàn chỉnh cho đến khi người chơi mang nó vào đầu họ.
+ </p>
+ </div>
+
+ <div class="highlight-box teal">
+ <h3> Tổng kết Chương 10</h3>
+ <p>
+ Bốn sức mạnh tâm lý cốt lõi mà nhà thiết kế game cần hiểu sâu:
+ </p>
+ <ul style="margin-top: 10px;">
+ <li><strong>Modeling</strong> — Não xây dựng mô hình rút gọn của thực tại. Trò chơi tốt tạo ra những mô hình hấp dẫn, dễ học, đủ phong phú.</li>
+ <li><strong>Flow</strong> — Trạng thái tập trung hoàn toàn chỉ xuất hiện khi mục tiêu rõ ràng, không gián đoạn, có phản hồi trực tiếp, và thử thách tương xứng với kỹ năng.</li>
+ <li><strong>Empathy</strong> — Người chơi đồng cảm với nhân vật qua mô hình não tạo ra — và chiếu cả năng lực ra quyết định của họ vào nhân vật đó.</li>
+ <li><strong>Imagination</strong> — Trí tưởng tượng tự lấp đầy khoảng trống. Nhà thiết kế giỏi biết khi nào nên gợi ý và khi nào nên để chỗ trống cho người chơi tự hoàn thiện.</li>
+ </ul>
+ </div>
+ </div>
+
+</main>
+<div class="chapnav-wrap"><div class="chapnav"><a href="C9-The Player.html"><span class="lbl">Chương trước</span>Chương 9: The Player</a><a href="C11-Player's Motivation.html"><span class="lbl">Chương sau</span>Chương 11: Tâm Trí Người Chơi Bị Thúc Đẩy Bởi Động Lực của Người Chơi</a></div></div>
+
+<script>
+  (function(){
+    var sections = document.querySelectorAll('.section-header[id]');
+    var navLinks = document.querySelectorAll('.tocnav a');
+    if (!sections.length || !navLinks.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(a){
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
+</body>
+</html>

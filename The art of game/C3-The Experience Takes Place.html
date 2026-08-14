@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Art of Game Design — Chương 3: The Experience Takes Place in a Venue</title>
+<style>
+ :root {
+ --orange: #27ae60;
+ --orange-dark: #1c8a4c;
+ --orange-light: #6cc999;
+ --orange-pale: #edf9f2;
+ --orange-mid: #3fbd75;
+ --dark: #0e231c;
+ --gray: #656a75;
+ --gray-light: #656a75;
+ --gray-bg: #656a75;
+ --bg: #f4f7f2;
+ --white: #ffffff;
+ --card-border: #e4ebe2;
+ --teal: #27ae60;
+ --teal-light: #6cc999;
+ --blue: #27ae60;
+ --blue-light: #6cc999;
+ --green: #27ae60;
+ --green-light: #6cc999;
+ --purple: #27ae60;
+ --purple-light: #6cc999;
+ --gold: #27ae60;
+ --gold-light: #6cc999;
+ --rose: #27ae60;
+ --rose-light: #6cc999;
+ --nav-h: 54px;
+ --radius: 12px;
+ --shadow: 0 2px 16px rgba(0,0,0,0.07);
+ --shadow-lg: 0 6px 32px rgba(0,0,0,0.11);
+ 
+ --forest: #0e231c;
+ --fog: #879b93;
+ --sage: #defaca;
+ --mint: #edf9f2;
+ --sprout-d: #1c8a4c;}
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html { scroll-behavior: smooth; font-size: 16px; }
+
+ body {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ background: var(--bg);
+ color: var(--dark);
+ line-height: 1.8;
+ }
+
+ /* ── NAV ─────────────────────────────────────────── */
+ nav {
+ position: sticky; top: 52px; z-index: 100;
+ background: var(--dark);
+ display: flex; align-items: center; gap: 0;
+ overflow-x: auto; scrollbar-width: none;
+ box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+ height: var(--nav-h);
+ }
+ nav::-webkit-scrollbar { display: none; }
+ nav a {
+ display: block; padding: 0 18px; height: var(--nav-h);
+ line-height: var(--nav-h);
+ color: rgba(255,255,255,0.68);
+ text-decoration: none;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11.5px; font-weight: 500;
+ letter-spacing: 0.06em; text-transform: uppercase;
+ white-space: nowrap;
+ border-bottom: 3px solid transparent;
+ transition: color .2s, border-color .2s;
+ }
+ nav a:hover, nav a.active { color: var(--orange-light); border-bottom-color: var(--orange); }
+ .nav-brand {
+ padding: 0 20px; height: var(--nav-h); line-height: var(--nav-h);
+ color: var(--white); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+ white-space: nowrap; border-right: 1px solid rgba(255,255,255,0.1);
+ margin-right: 4px; flex-shrink: 0;
+ }
+
+ /* ── HERO ────────────────────────────────────────── */
+ .hero {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ padding: 80px 40px 68px; text-align: center;
+ position: relative; overflow: hidden;
+ }
+ .hero::before {
+ content: ''; position: absolute; inset: 0;
+ background: none,
+ none;
+ }
+ .hero-badge {
+ display: inline-block;
+ background: rgba(39,174,96,0.18); border: 1px solid rgba(39,174,96,0.4);
+ color: var(--orange-light); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+ padding: 6px 20px; border-radius: 20px; margin-bottom: 24px;
+ position: relative;
+ }
+ .hero h1 {
+ font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 700;
+ color: var(--white); line-height: 1.2; max-width: 760px;
+ margin: 0 auto 16px; position: relative;
+ }
+ .hero h1 em { color: var(--orange-light); font-style: italic; }
+ .hero-sub {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 1.05rem; color: rgba(255,255,255,0.6);
+ max-width: 560px; margin: 0 auto 36px; position: relative;
+ }
+ .hero-thesis {
+ background: rgba(255,255,255,0.05); border: 1px solid rgba(39,174,96,0.25);
+ border-left: 4px solid var(--orange);
+ border-radius: var(--radius); padding: 22px 32px;
+ max-width: 680px; margin: 0 auto;
+ color: rgba(255,255,255,0.85); font-size: 1.05rem;
+ font-style: italic; line-height: 1.8; position: relative;
+ }
+ .hero-thesis strong { color: var(--orange-light); font-style: normal; }
+
+ .hero-stats {
+ display: flex; gap: 40px; margin-top: 40px;
+ justify-content: center; flex-wrap: wrap; position: relative;
+ }
+ .hero-stat-num { font-size: 2.1rem; font-weight: 700; color: var(--orange-light); line-height: 1; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+ .hero-stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+ /* ── LAYOUT ──────────────────────────────────────── */
+ main { max-width: 1080px; margin: 0 auto; padding: 60px 28px 100px; }
+ section { margin-bottom: 72px; }
+
+ .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+ .section-icon {
+ width: 48px; height: 48px; border-radius: 12px;
+ display: flex; align-items: center; justify-content: center;
+ font-size: 1.4rem; flex-shrink: 0;
+ }
+ .section-title h2 { font-size: 1.55rem; font-weight: 700; color: var(--dark); line-height: 1.2; }
+ .section-title p { color: var(--gray-light); font-size: 0.88rem; margin-top: 3px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+ /* ── CARD ────────────────────────────────────────── */
+ .card {
+ background: var(--white); border-radius: var(--radius);
+ box-shadow: var(--shadow); padding: 28px 32px; margin-bottom: 20px;
+ border: 1px solid var(--card-border);
+ }
+ .card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+ .card p { color: var(--gray); line-height: 1.8; }
+ .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+
+ /* ── CALLOUTS (following Ch1 pattern) ───────────── */
+ .callout {
+ border-radius: var(--radius); padding: 20px 26px;
+ margin: 20px 0; display: flex; gap: 16px; align-items: flex-start;
+ border: 1px solid;
+ }
+ .callout-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+ .callout-body h4 { font-size: 1rem; font-weight: 700; margin-bottom: 5px; }
+ .callout-body p { font-size: 0.92rem; color: var(--gray); line-height: 1.75; }
+ .callout.orange, .callout.info, .callout.success, .callout.warning, .callout.purple, .callout.teal, .callout.rose { background: rgba(39,174,96,0.07); border-color: rgba(39,174,96,0.25); }
+ .callout.orange .callout-body h4, .callout.info .callout-body h4, .callout.success .callout-body h4, .callout.warning .callout-body h4, .callout.purple .callout-body h4, .callout.teal .callout-body h4, .callout.rose .callout-body h4 { color: var(--orange-dark); }
+
+ /* ── QUOTE ───────────────────────────────────────── */
+ .quote-block {
+ background: var(--dark); border-radius: var(--radius);
+ padding: 32px 40px; position: relative; margin: 28px 0;
+ }
+ .quote-block::before {
+ content: '"'; position: absolute; top: 12px; left: 28px;
+ font-size: 5rem; color: var(--orange); opacity: 0.25;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1;
+ }
+ .quote-text { font-size: 1.1rem; color: var(--white); font-style: italic; line-height: 1.8; padding-left: 28px; }
+ .quote-source { margin-top: 14px; padding-left: 28px; font-size: 0.83rem; color: rgba(255,255,255,0.45); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-style: normal; }
+
+ /* ── LENS CARD (Ch1-style orange) ───────────────── */
+ .lens-card {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ border-radius: 16px; padding: 36px 40px;
+ border: 1px solid rgba(39,174,96,0.3);
+ box-shadow: 0 0 36px rgba(39,174,96,0.12);
+ margin: 32px 0;
+ }
+ .lens-number {
+ display: inline-block; background: var(--orange); color: var(--white);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+ text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px;
+ }
+ .lens-title { font-size: 1.65rem; font-weight: 700; color: var(--white); margin-bottom: 8px; font-style: italic; }
+ .lens-subtitle { color: var(--orange-light); font-size: 0.9rem; margin-bottom: 8px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+ .lens-intro { color: rgba(255,255,255,0.75); font-size: 0.92rem; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+ .lens-questions { display: flex; flex-direction: column; gap: 12px; }
+ .lens-q {
+ display: flex; gap: 14px; align-items: flex-start;
+ background: rgba(255,255,255,0.05); border-radius: 9px;
+ padding: 14px 18px; border: 1px solid rgba(255,255,255,0.07);
+ }
+ .lens-q-num {
+ width: 26px; height: 26px; border-radius: 50%;
+ background: var(--orange); color: var(--white);
+ display: flex; align-items: center; justify-content: center;
+ font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .lens-q-text { color: rgba(255,255,255,0.88); font-size: 0.92rem; line-height: 1.65; font-style: italic; }
+ .lens-q-text strong { color: var(--orange-light); font-style: normal; }
+
+ /* ── VENUE CARDS ─────────────────────────────────── */
+ .venue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+ .venue-card {
+ background: var(--white); border-radius: var(--radius);
+ box-shadow: var(--shadow); overflow: hidden;
+ border: 1px solid var(--card-border);
+ }
+ .venue-header {
+ padding: 20px 24px 14px;
+ border-bottom: 1px solid var(--card-border);
+ }
+ .venue-emoji { font-size: 1.8rem; margin-bottom: 8px; }
+ .venue-type {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+ text-transform: uppercase; margin-bottom: 4px;
+ }
+ .venue-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); }
+ .venue-body { padding: 16px 24px 20px; }
+ .venue-body p { color: var(--gray); font-size: 0.91rem; line-height: 1.75; margin-bottom: 10px; }
+ .venue-body p:last-child { margin-bottom: 0; }
+ .venue-tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+ .tag {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em;
+ padding: 3px 10px; border-radius: 5px;
+ }
+ .tag-orange, .tag-blue, .tag-green, .tag-purple, .tag-teal, .tag-gold, .tag-rose { background: var(--orange-pale); color: var(--orange-dark); border: 1px solid rgba(39,174,96,0.2); }
+ .tag-gray { background: var(--card-border); color: var(--dark); border: 1px solid var(--card-border); }
+
+ /* ── PLATFORM INSIGHT STRIP ──────────────────────── */
+ .insight-strip {
+ background: #edf9f2;
+ border-radius: 18px; padding: 32px 36px; margin: 32px 0;
+ border: 1px solid rgba(39,174,96,0.18);
+ }
+ .insight-strip h3 { font-size: 1.15rem; font-weight: 700; color: var(--dark); margin-bottom: 20px; }
+ .insight-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+ .insight-item {
+ background: var(--white); border-radius: 10px;
+ padding: 16px 18px; border: 1px solid rgba(39,174,96,0.15);
+ }
+ .insight-item-icon { font-size: 1.3rem; margin-bottom: 8px; }
+ .insight-item h4 { font-size: 0.92rem; font-weight: 700; color: var(--dark); margin-bottom: 5px; }
+ .insight-item p { font-size: 0.83rem; color: var(--gray); line-height: 1.6; }
+
+ /* ── VENN DIAGRAM (SVG-based) ────────────────────── */
+ .venn-container {
+ background: var(--white); border-radius: var(--radius);
+ box-shadow: var(--shadow); padding: 40px 20px 32px;
+ margin: 28px 0; border: 1px solid var(--card-border);
+ text-align: center;
+ }
+ .venn-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+ text-transform: uppercase; color: var(--gray-light); margin-bottom: 8px;
+ }
+ .venn-subtitle { font-size: 0.88rem; color: var(--gray); margin-bottom: 28px; font-style: italic; }
+ .venn-svg-wrap { max-width: 620px; margin: 0 auto; }
+
+ /* ── COMPARISON TABLE ────────────────────────────── */
+ .compare-row {
+ display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px;
+ background: var(--card-border); border-radius: var(--radius);
+ overflow: hidden; margin: 20px 0;
+ box-shadow: var(--shadow);
+ }
+ .compare-row > * { background: var(--white); padding: 18px 20px; }
+ .compare-head { background: var(--dark) !important; color: var(--white); text-align: center; }
+ .compare-head h4 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+ }
+ .compare-cell { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
+ .compare-cell .cell-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+ margin-bottom: 5px;
+ }
+
+ /* ── KEY TAKEAWAY ────────────────────────────────── */
+ .takeaway-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 24px 0; }
+ .takeaway-item {
+ background: var(--white); border-radius: 10px;
+ padding: 20px 22px; box-shadow: var(--shadow);
+ border-left: 4px solid; border: 1px solid var(--card-border);
+ border-left-width: 4px;
+ }
+ .takeaway-item .ti-icon { font-size: 1.5rem; margin-bottom: 8px; }
+ .takeaway-item h4 { font-size: 0.92rem; font-weight: 700; color: var(--dark); margin-bottom: 5px; }
+ .takeaway-item p { font-size: 0.83rem; color: var(--gray); line-height: 1.6; }
+
+ /* ── PLATFORM VS VENUE TABLE ─────────────────────── */
+ .pvt-table {
+ width: 100%; border-collapse: collapse; background: var(--white);
+ border-radius: var(--radius); overflow: hidden;
+ box-shadow: var(--shadow); border: 1px solid var(--card-border);
+ margin: 20px 0; font-size: 0.9rem;
+ }
+ .pvt-table th {
+ background: var(--dark); color: var(--white); padding: 14px 20px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 0.78rem;
+ font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: left;
+ }
+ .pvt-table th:first-child { color: var(--orange-light); }
+ .pvt-table td { padding: 13px 20px; border-bottom: 1px solid var(--card-border); color: var(--gray); line-height: 1.6; vertical-align: top; }
+ .pvt-table tr:last-child td { border-bottom: none; }
+ .pvt-table tr:nth-child(even) td { background: var(--bg); }
+ .pvt-strong { font-weight: 700; color: var(--dark); }
+
+ /* ── FOOTER ──────────────────────────────────────── */
+ footer {
+ background: var(--dark); color: rgba(255,255,255,0.5);
+ text-align: center; padding: 40px 24px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 0.83rem; border-top: 1px solid rgba(255,255,255,0.06);
+ }
+ footer strong { color: rgba(255,255,255,0.8); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+  .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .topnav .crumb { color: #879b93; font-size: 14px; }
+  .topnav .crumb a { color: #879b93; text-decoration: none; }
+  .topnav .crumb b { color: #fff; font-weight: 600; }
+  .chapnav-wrap { background: #f4f7f2; padding: 40px 24px 56px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .chapnav { display: flex; justify-content: space-between; gap: 12px; max-width: 820px; margin: 0 auto; }
+  .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+</style>
+<nav class="topnav">
+  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 3</b></span>
+</nav>
+
+
+<!-- NAV -->
+<nav>
+ <div class="nav-brand"> Art of Game Design</div>
+ <a href="#thesis">Luận Điểm</a>
+ <a href="#platform-shift">Platform → Venue</a>
+ <a href="#venue-map">Bản Đồ Venue</a>
+ <a href="#private">Private Venues</a>
+ <a href="#public">Public Venues</a>
+ <a href="#hybrid">Half &amp; Half</a>
+ <a href="#mixed">Mixed &amp; Matched</a>
+ <a href="#lens3"> Lens #3</a>
+ <a href="#takeaways">Takeaways</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+ <div class="hero-badge">The Art of Game Design — Chương 3 • pp. 25–32</div>
+ <h1>The Experience Takes Place<br>in a <em>Venue</em></h1>
+ <p class="hero-sub">Jesse Schell • Nơi chơi game định hình cách thiết kế game — venue là lăng kính bất biến vượt qua mọi platform</p>
+ <div class="hero-thesis">
+ <strong>"Technologies come and go, but venues have been with us since the dawn of humanity."</strong><br>
+ Người thiết kế thực sự không thiết kế cho một platform — họ thiết kế cho một <strong>venue</strong>: một loại không gian tồn tại trong cuộc sống của con người từ hàng nghìn năm trước và sẽ tiếp tục tồn tại.
+ </div>
+ <div class="hero-stats">
+ <div class="hero-stat">
+ <div class="hero-stat-num">9</div>
+ <div class="hero-stat-label">Venues</div>
+ </div>
+ <div class="hero-stat">
+ <div class="hero-stat-num">3</div>
+ <div class="hero-stat-label">Categories</div>
+ </div>
+ <div class="hero-stat">
+ <div class="hero-stat-num">1</div>
+ <div class="hero-stat-label">Lens (#3)</div>
+ </div>
+ <div class="hero-stat">
+ <div class="hero-stat-num">∞</div>
+ <div class="hero-stat-label">Years venues persist</div>
+ </div>
+ </div>
+</div>
+
+<main>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 1: THESIS -->
+<!-- ══════════════════════════════════════════════════ -->
+<section id="thesis">
+ <div class="section-header">
+ <div class="section-title">
+ <h2>Luận Điểm Cốt Lõi</h2>
+ <p>Venue là gì và tại sao nó quan trọng hơn platform?</p>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3> Vị Trí Của Chương 3 Trong Toàn Bộ Framework</h3>
+ <p>Schell xây dựng một chuỗi logic xuyên suốt các chương đầu: Designer tạo ra Experience (Ch.2) → Experience đó <em>xảy ra ở đâu đó</em> (Ch.3) → Experience đó phát sinh từ một Game (Ch.4). Chương 3 đặt ra một bối cảnh quan trọng: trước khi thiết kế game, designer phải hiểu <strong>không gian vật lý và xã hội mà game sẽ được chơi</strong>.</p>
+ <br>
+ <p>Figure 3.1 trong sách minh họa điều này: Designer → (qua sợi dây vô hình) → Experience → (trong) → Venue. Không gian chứa đựng experience không phải là chi tiết phụ — nó là một lực lượng thiết kế quan trọng.</p>
+ </div>
+
+ <div class="callout orange">
+ <div class="callout-body">
+ <h4>Venue Là Gì? Định Nghĩa Của Schell</h4>
+ <p>Venue là những <strong>nơi trong cuộc sống của chúng ta mà chúng ta dùng các công nghệ đó</strong> — không phải technology, mà là loại không gian: "the places in our lives that we use those technologies." Hearth, workbench, reading nook, gaming table — những nơi này tồn tại từ trước khi có gaming và sẽ tiếp tục tồn tại sau khi mọi technology hiện tại đã lỗi thời.</p>
+ </div>
+ </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 2: THE SHIFTING SANDS OF PLATFORM -->
+<!-- ══════════════════════════════════════════════════ -->
+<section id="platform-shift">
+ <div class="section-header">
+ <div class="section-title">
+ <h2>The Shifting Sands of Platform</h2>
+ <p>Tại sao debate về platform là sai hướng — và đúng hướng là gì</p>
+ </div>
+ </div>
+
+ <div class="quote-block">
+ <div class="quote-text">"It takes a bit of a mental shift to look past the technologies we use and instead to see the patterns of how we use them, but it is a good exercise, as it helps to give us insight about the past, present, and future of gameplay."</div>
+ <div class="quote-source">— Jesse Schell, Ch. 3, p. 26</div>
+ </div>
+
+ <div class="card" style="margin-top:24px">
+ <h3> Lịch Sử Nói Gì</h3>
+ <p>Schell nhắc lại pattern lặp đi lặp lại trong lịch sử gaming và media: Television mostly replaced radio, nhưng không replace movies. Arcade gaming was replaced by PC gaming, which was replaced by console gaming, but then PC gaming came back, and mobile and tablet gaming rose up. Mỗi khi một technology mới thành công, người ta kết luận: <em>"cái cũ sẽ chết."</em> Và mỗi lần, kết luận đó đều sai — hoặc chỉ đúng một phần.</p>
+ <br>
+ <p>Lý do? Vì chúng ta nhìn vào <strong>technology</strong> (ephemeral, thay đổi liên tục) thay vì nhìn vào <strong>venue</strong> (persistent, tồn tại qua nhiều millennia). Hearth đã tồn tại từ khi con người kiểm soát được lửa — hơn 1 triệu năm trước. TV thay thế fireplace về mặt vật lý, nhưng <em>the hearth as a venue</em> — nơi gia đình tụ họp quanh ánh sáng và câu chuyện — vẫn còn đó.</p>
+ </div>
+
+ <table class="pvt-table" style="margin-top:24px">
+ <thead>
+ <tr>
+ <th>Dimension</th>
+ <th>Platform / Technology</th>
+ <th>Venue</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td><span class="pvt-strong">Tốc độ thay đổi</span></td>
+ <td>Nhanh — thay đổi mỗi vài năm (PC → console → mobile → cloud → VR...)</td>
+ <td>Chậm — tồn tại qua hàng trăm đến hàng nghìn năm</td>
+ </tr>
+ <tr>
+ <td><span class="pvt-strong">Câu hỏi trọng tâm</span></td>
+ <td>"Game này chạy trên thiết bị gì?"</td>
+ <td>"Game này được chơi ở đâu, trong bối cảnh xã hội nào?"</td>
+ </tr>
+ <tr>
+ <td><span class="pvt-strong">Design implications</span></td>
+ <td>Technical specs, controls, performance constraints</td>
+ <td>Session length, social context, interruption tolerance, screen size needs, lighting</td>
+ </tr>
+ <tr>
+ <td><span class="pvt-strong">Ví dụ</span></td>
+ <td>iOS, Android, PS5, PC, Nintendo Switch</td>
+ <td>Hearth (family room TV), Workbench (solo PC desk), Reading Nook (bed/couch/tablet)</td>
+ </tr>
+ <tr>
+ <td><span class="pvt-strong">Có thể dự đoán tương lai?</span></td>
+ <td>Khó — technology surprise liên tục</td>
+ <td>Khả thi hơn — "will there be hearths in 50 years?" Gần như chắc chắn có</td>
+ </tr>
+ </tbody>
+ </table>
+
+ <div class="insight-strip" style="margin-top:24px">
+ <h3> Key Insight: Tại Sao Chúng Ta Mắc Bẫy Platform Thinking</h3>
+ <div class="insight-list">
+ <div class="insight-item">
+ <h4>Technology Is Shiny</h4>
+ <p>Technologies are "new and shiny" — naturally grab attention. Venues are so familiar as to be invisible.</p>
+ </div>
+ <div class="insight-item">
+ <h4>Recency Bias</h4>
+ <p>Human nature: "when something is successful, it will remain that way forever." But it isn't the case.</p>
+ </div>
+ <div class="insight-item">
+ <h4>Venue Persistence</h4>
+ <p>The factors making specific technologies come and go are "as old and persistent as humanity itself."</p>
+ </div>
+ <div class="insight-item">
+ <h4>Design Advantage</h4>
+ <p>Seeing venue patterns gives insight into "past, present, AND future of gameplay" — a huge design advantage.</p>
+ </div>
+ </div>
+ </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 3: VENUE MAP -->
+<!-- ══════════════════════════════════════════════════ -->
+<section id="venue-map">
+ <div class="section-header">
+ <div class="section-title">
+ <h2>Bản Đồ 9 Venues</h2>
+ <p>Figure 3.2 — Hệ thống phân loại theo Public vs. Private</p>
+ </div>
+ </div>
+
+ <div class="venn-container">
+ <div class="venn-title">Hệ Thống Venue Của Jesse Schell</div>
+ <div class="venn-subtitle">Không phải perfect taxonomy — có gaps và overlaps — nhưng hữu ích để hiểu gameplay works best where and why</div>
+
+ <!-- SVG Venn Diagram -->
+ <div class="venn-svg-wrap">
+ <svg viewBox="0 0 620 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
+ <!-- Left circle: Public -->
+ <ellipse cx="220" cy="160" rx="190" ry="140" fill="rgba(39,174,96,0.08)" stroke="rgba(39,174,96,0.4)" stroke-width="2"/>
+ <!-- Right circle: Private -->
+ <ellipse cx="400" cy="160" rx="190" ry="140" fill="rgba(39,174,96,0.08)" stroke="rgba(39,174,96,0.4)" stroke-width="2"/>
+ <!-- Overlap zone -->
+ <ellipse cx="310" cy="160" rx="80" ry="130" fill="rgba(39,174,96,0.08)" stroke="none"/>
+
+ <!-- Labels: Public only -->
+ <text x="130" y="100" text-anchor="middle" font-family="'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif" font-size="13" font-weight="bold" fill="#27ae60"> The Theater</text>
+ <text x="115" y="155" text-anchor="middle" font-family="'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif" font-size="13" font-weight="bold" fill="#27ae60"> The Arena</text>
+ <text x="128" y="210" text-anchor="middle" font-family="'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif" font-size="13" font-weight="bold" fill="#27ae60"> The Museum</text>
+
+ <!-- Labels: Overlap -->
+ <text x="310" y="108" text-anchor="middle" font-family="'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif" font-size="12" font-weight="bold" fill="#27ae60"> Anywhere</text>
+ <text x="310" y="165" text-anchor="middle" font-family="'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif" font-size="12" font-weight="bold" fill="#27ae60"> Gaming Table</text>
+ <text x="310" y="218" text-anchor="middle" font-family="'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif" font-size="12" font-weight="bold" fill="#27ae60"> Playground</text>
+
+ <!-- Labels: Private only -->
+ <text x="494" y="100" text-anchor="middle" font-family="'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif" font-size="13" font-weight="bold" fill="#27ae60"> Reading Nook</text>
+ <text x="494" y="155" text-anchor="middle" font-family="'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif" font-size="13" font-weight="bold" fill="#27ae60"> Workbench</text>
+ <text x="494" y="210" text-anchor="middle" font-family="'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif" font-size="13" font-weight="bold" fill="#27ae60"> The Hearth</text>
+
+ <!-- Section labels -->
+ <text x="133" y="285" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700" fill="#27ae60" letter-spacing="1">PUBLIC VENUES</text>
+ <text x="487" y="285" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700" fill="#27ae60" letter-spacing="1">PRIVATE VENUES</text>
+ <text x="310" y="285" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="700" fill="#27ae60" letter-spacing="0.5">HALF &amp; HALF</text>
+ </svg>
+ </div>
+ </div>
+
+ <div class="callout info">
+ <div class="callout-body">
+ <h4>Hệ Thống Không Phải Perfect — Và Đó Là Chủ Đích</h4>
+ <p>Schell thẳng thắn: <em>"It's not a perfect system — it has both gaps and overlaps."</em> Bowling alley thuộc về đâu? Casino? Restaurant có pinball? Không có câu trả lời rõ ràng. Nhưng đó không phải vấn đề — <strong>mục đích không phải là taxonomy hoàn hảo mà là một công cụ tư duy</strong> giúp designer nhìn past platforms để thấy venue properties.</p>
+ </div>
+ </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 4: PRIVATE VENUES -->
+<!-- ══════════════════════════════════════════════════ -->
+<section id="private">
+ <div class="section-header">
+ <div class="section-title">
+ <h2>Private Venues</h2>
+ <p>Ba venue trong căn nhà — mỗi venue tạo ra một loại experience khác nhau</p>
+ </div>
+ </div>
+
+ <div class="callout success" style="margin-bottom:28px">
+ <div class="callout-body">
+ <h4>Tại Sao Privacy Quan Trọng Với Gaming</h4>
+ <p>Schell giải thích: <em>"Gameplay is often aided by privacy. To take the risk of immersing yourself in a fantasy world, we like to be in a safe place, either alone or surrounded by people we know and trust."</em> Privacy không phải là luxury — nó là điều kiện tâm lý cho phép người chơi đủ vulnerable để fully immerse vào game world.</p>
+ </div>
+ </div>
+
+ <div class="venue-grid">
+
+ <!-- THE HEARTH -->
+ <div class="venue-card">
+ <div class="venue-header" style="background:#edf9f2">
+ <div class="venue-emoji"></div>
+ <div class="venue-type" style="color:var(--orange)">Private Venue #1</div>
+ <h3>The Hearth</h3>
+ </div>
+ <div class="venue-body">
+ <p><strong>Nguồn gốc:</strong> Fire defined humanity — warmth, safety, cooking, social gathering. Controlling fire changed us "culturally, psychologically, and physically." Anthropologists theorize that trance-like staring at fire may be an evolved behavior — a survival advantage.</p>
+ <p><strong>Ngày nay:</strong> TV screen replaced fireplace — right size, gives light in darkness, flickers similarly, tells its own stories. Homes still built with fireplaces because it "feels wrong" not to have one.</p>
+ <p><strong>Game Design Implication:</strong> Hearth games work best for <em>multiple people</em> — either playing together OR fun to watch. Nintendo's Wii was perfect hearth hardware: whole family could play AND entertaining to watch. Wii U failed precisely because its separate handheld screen took it <em>away</em> from hearth dynamic.</p>
+ <p><strong>Natural Fit:</strong> SingStar, Dance Central, party games, games fun to watch.</p>
+ <div class="venue-tag-row">
+ <span class="tag tag-orange">Family / Multi-player</span>
+ <span class="tag tag-orange">Fun to Watch</span>
+ <span class="tag tag-orange">Shared Screen</span>
+ <span class="tag tag-gray">TV / Console</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- THE WORKBENCH -->
+ <div class="venue-card">
+ <div class="venue-header" style="background:#edf9f2">
+ <div class="venue-emoji"></div>
+ <div class="venue-type" style="color:var(--blue)">Private Venue #2</div>
+ <h3>The Workbench</h3>
+ </div>
+ <div class="venue-body">
+ <p><strong>Bản chất:</strong> Private space for working on hard problems — basement, quiet desk corner, sewing machine. Solitary, quiet, often a bit messy. Guests don't visit these spaces — it's the most private space in the home.</p>
+ <p><strong>Tại Sao Máy Tính Tìm Đến Đây:</strong> Computers naturally found workbench — both work AND play on computer tend to be intense and solitary. Work of Warcraft và massive multiplayers stayed at the workbench because they require hours of focused play.</p>
+ <p><strong>Steam's Secret:</strong> Valve's Steam succeeds at workbench precisely because Sony, Microsoft, Nintendo, Apple are focused on other venues — leaving Steam to own the workbench. VR head-mounted displays will likely also end up here.</p>
+ <p><strong>Game Characteristics:</strong> Difficult, intense, hours of play at a time, online with like-minded others, technical depth.</p>
+ <div class="venue-tag-row">
+ <span class="tag tag-blue">Solo / Intense</span>
+ <span class="tag tag-blue">Long Sessions</span>
+ <span class="tag tag-blue">Lean Forward</span>
+ <span class="tag tag-gray">PC / Steam / VR</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- THE READING NOOK -->
+ <div class="venue-card">
+ <div class="venue-header" style="background:#edf9f2">
+ <div class="venue-emoji"></div>
+ <div class="venue-type" style="color:var(--purple)">Private Venue #3</div>
+ <h3>The Reading Nook</h3>
+ </div>
+ <div class="venue-body">
+ <p><strong>Bản chất:</strong> Reading chỉ phổ biến trong ~2000 năm gần đây nhưng đã ăn sâu vào văn hóa. Magic of sitting alone, letting text carry your mind away. Portable but preferred in specific quiet, comfortable spaces — bedroom, quiet chair away from TV.</p>
+ <p><strong>Không Phải Hearth, Không Phải Workbench:</strong> Hearth is noisy and full of interruptions. Workbench is "lean forward" — too intense. Reading nook is the "lean back" activity — peaceful, relaxing, comfortable.</p>
+ <p><strong>iPad Case Study:</strong> Game industry initially dismissed iPad — no phone convenience, no game console controls. But iPad captured reading nook perfectly: comfortable to hold in bed or on couch, peaceful and relaxing experience. Result: became a major gaming force. Tablet games are easier, simpler, more relaxing — exactly right for reading nook.</p>
+ <div class="venue-tag-row">
+ <span class="tag tag-purple">Lean Back</span>
+ <span class="tag tag-purple">Relaxing / Simple</span>
+ <span class="tag tag-purple">Interruptible</span>
+ <span class="tag tag-gray">Tablet / iPad</span>
+ </div>
+ </div>
+ </div>
+
+ </div>
+
+ <!-- Private Venues Comparison -->
+ <div class="callout info" style="margin-top:16px">
+ <div class="callout-body">
+ <h4>So Sánh Ba Private Venues: Game Design Implications</h4>
+ <p><strong>Hearth:</strong> Shared screen, social, broad audience (all ages), sessions can be short, visually impressive enough to be entertaining even when not playing.<br>
+ <strong>Workbench:</strong> Individual screen, complex UI okay, long sessions, niche/dedicated audience, deep systems rewarded, players willing to pay more upfront.<br>
+ <strong>Reading Nook:</strong> Handheld, one-thumb control possible, short bitable sessions, simple mechanics, free-to-play model often necessary, relaxing aesthetic preferred.</p>
+ </div>
+ </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 5: PUBLIC VENUES -->
+<!-- ══════════════════════════════════════════════════ -->
+<section id="public">
+ <div class="section-header">
+ <div class="section-title">
+ <h2>Public Venues</h2>
+ <p>Ba venue ngoài gia đình — và thách thức độc đáo của interactivity trong public spaces</p>
+ </div>
+ </div>
+
+ <div class="callout info" style="margin-bottom:28px">
+ <div class="callout-body">
+ <h4>Rule of Public Venues: Give Them Something They Can't Get at Home</h4>
+ <p>Schell trích dẫn nguyên tắc cốt lõi của location-based entertainment (LBE): <em>"give them something they can't get at home."</em> Whether running a tavern, theater, restaurant, brothel, theme park, or video arcade — the rule is the same. Public venues thành công khi họ cung cấp một <strong>experience không thể replicate trong không gian riêng tư</strong>.</p>
+ </div>
+ </div>
+
+ <div class="venue-grid">
+
+ <!-- THE THEATER -->
+ <div class="venue-card">
+ <div class="venue-header" style="background:#edf9f2">
+ <div class="venue-emoji"></div>
+ <div class="venue-type" style="color:var(--purple)">Public Venue #1</div>
+ <h3>The Theater</h3>
+ </div>
+ <div class="venue-body">
+ <p><strong>Magic Của Đám Đông:</strong> Something magical happens when a crowd focuses on a sequence of events simultaneously. We subconsciously sense how others feel about the performance — amplifying our own feelings. This is why TV shows have laugh tracks.</p>
+ <p><strong>Tension Với Games:</strong> Games want to be a <em>unique experience for each player</em>. But theater depends on <em>shared collective experience</em>. These two things fundamentally conflict. When you try to make theatrical gaming (everyone in audience participates), "the joy of interactivity is watered down proportionately by the number of seats."</p>
+ <p><strong>Current Status:</strong> No long-term theatrical gaming successes yet — either tiresome quickly OR theater too small to be profitable. Digital has made little impact here, but VR/AR may change this with clever solutions.</p>
+ <div class="venue-tag-row">
+ <span class="tag tag-purple">Collective Experience</span>
+ <span class="tag tag-rose">Hard for Games</span>
+ <span class="tag tag-gray">Shared Narrative</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- THE ARENA -->
+ <div class="venue-card">
+ <div class="venue-header" style="background:#edf9f2">
+ <div class="venue-emoji"></div>
+ <div class="venue-type" style="color:var(--orange)">Public Venue #2</div>
+ <h3>The Arena</h3>
+ </div>
+ <div class="venue-body">
+ <p><strong>Lịch Sử 4000+ Năm:</strong> Chariot racing, boxing, team sports — all take place in specialized competitive fields. Baseball diamonds, golf courses, soccer fields, tennis courts, horse tracks = arenas. Designed specifically for that type of gameplay.</p>
+ <p><strong>Đặc Tính Cốt Lõi:</strong> Public record — who wins and who loses is witnessed publicly, not private. And when a crowd forms to watch, a theater forms around the arena — two venues in one!</p>
+ <p><strong>Digital Arena Evolution:</strong> Multiplayer FPS = arena play in mind even if bodies are at workbench. BarCraft (watching StarCraft at bars), Twitch, YouTube gaming — virtual theaters forming around digital arenas. As mobile/AR advances, traditional arenas will become more digital.</p>
+ <div class="venue-tag-row">
+ <span class="tag tag-orange">Competitive</span>
+ <span class="tag tag-orange">Public Record</span>
+ <span class="tag tag-orange">Spectator-Friendly</span>
+ <span class="tag tag-gray">Esports / Streaming</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- THE MUSEUM -->
+ <div class="venue-card">
+ <div class="venue-header" style="background:#edf9f2">
+ <div class="venue-emoji"></div>
+ <div class="venue-type" style="color:var(--teal)">Public Venue #3</div>
+ <h3>The Museum</h3>
+ </div>
+ <div class="venue-body">
+ <p><strong>Bản Chất:</strong> Breaking from day-to-day life to examine exotic things → expand knowledge of world → return home with new perspective. Zoos, aquariums, shopping at unusual stores, sightseeing in cities = museum experiences.</p>
+ <p><strong>Games Và Museums — Surprising Fit:</strong> Real museums increasingly incorporate gameplay to introduce visitors to exhibits. And visiting a video arcade has a very museum-like quality: "as you pass from game to game, trying each and thinking about which ones you like best."</p>
+ <p><strong>Design Implication:</strong> Museum venue games benefit from: easy to pick up quickly, interesting to try briefly, designed for standalone play without prior knowledge, showcasing something "exotic" or novel.</p>
+ <div class="venue-tag-row">
+ <span class="tag tag-teal">Discovery-First</span>
+ <span class="tag tag-teal">Low Barrier Entry</span>
+ <span class="tag tag-teal">Novel / Exotic</span>
+ <span class="tag tag-gray">Arcade / LBE</span>
+ </div>
+ </div>
+ </div>
+
+ </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 6: HALF & HALF -->
+<!-- ══════════════════════════════════════════════════ -->
+<section id="hybrid">
+ <div class="section-header">
+ <div class="section-title">
+ <h2>Half Private / Half Public Venues</h2>
+ <p>Ba venue nằm ở ranh giới — linh hoạt nhất trong hệ thống</p>
+ </div>
+ </div>
+
+ <div class="card" style="margin-bottom:24px">
+ <p>Những venue này đặc biệt thú vị vì chúng <strong>tồn tại ở cả hai thế giới</strong>. Bạn có thể có gaming table ở nhà (khi có khách) nhưng cũng ở bar hay casino. Playground tồn tại trong sân nhà nhưng cũng ở công viên. Anywhere thì tất nhiên không cần một nơi cố định. Sự linh hoạt này tạo ra những design challenges và opportunities khác nhau.</p>
+ </div>
+
+ <div class="venue-grid">
+
+ <!-- THE GAMING TABLE -->
+ <div class="venue-card">
+ <div class="venue-header" style="background:#edf9f2">
+ <div class="venue-emoji"></div>
+ <div class="venue-type" style="color:var(--gold)">Half &amp; Half #1</div>
+ <h3>The Gaming Table</h3>
+ </div>
+ <div class="venue-body">
+ <p><strong>Special Intimacy:</strong> Players sit "like gods over the toy world they control" — a face-to-face intensity unique to table play. You can see your opponents' faces, read tells, share the same physical space over the same game.</p>
+ <p><strong>Private và Public:</strong> Mostly done at home when guests are over (semi-public) but also exists publicly: pool tables at bars, poker tables at casinos. This flexibility is key to its longevity.</p>
+ <p><strong>Historical Fun Fact:</strong> The sandwich AND the sushi roll were both invented in the 18th century, by table gameplayers so obsessed with their games that they needed a way to eat without stopping play — in very different parts of the world.</p>
+ <p><strong>Digital Gap:</strong> Board, card, dice games dominate this venue. Digital games haven't found a home there yet (due to reliance on vertical screens). But touch screens growing cheaper and larger → whole new world of digital gaming table possible.</p>
+ <div class="venue-tag-row">
+ <span class="tag tag-gold">Face-to-Face</span>
+ <span class="tag tag-gold">Intense / Social</span>
+ <span class="tag tag-gold">Tabletop-First</span>
+ <span class="tag tag-gray">Board / Card / Dice</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- THE PLAYGROUND -->
+ <div class="venue-card">
+ <div class="venue-header" style="background:#edf9f2">
+ <div class="venue-emoji"></div>
+ <div class="venue-type" style="color:var(--green)">Half &amp; Half #2</div>
+ <h3>The Playground</h3>
+ </div>
+ <div class="venue-body">
+ <p><strong>Largely Children's Domain:</strong> Adults forget that play is primarily children's territory. Children play differently: formally in arena-like spaces (organized sports) AND informally out-of-doors with friends (improvisational).</p>
+ <p><strong>Definition:</strong> Any space where children gather for improvisational play — public park equipment, but also a backyard, a street, a vacant lot, a cave in the woods. Playground is defined by the <em>activity and social context</em>, not the specific location.</p>
+ <p><strong>Industry Blind Spot:</strong> Video game industry has largely ignored playground play — not feasible to create games that work outdoors with rough-and-tumble play. But technology becoming more rugged and mobile → this will likely change.</p>
+ <p><strong>Importance:</strong> Playground play is "an important part of [children's] development" — not a niche, but fundamental to childhood.</p>
+ <div class="venue-tag-row">
+ <span class="tag tag-green">Improvisational</span>
+ <span class="tag tag-green">Children / Outdoor</span>
+ <span class="tag tag-green">Physical</span>
+ <span class="tag tag-gray">Underserved by Digital</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- ANYWHERE -->
+ <div class="venue-card">
+ <div class="venue-header" style="background:#edf9f2">
+ <div class="venue-emoji"></div>
+ <div class="venue-type" style="color:var(--gray)">Half &amp; Half #3</div>
+ <h3>Anywhere</h3>
+ </div>
+ <div class="venue-body">
+ <p><strong>Classic Anywhere Games:</strong> Crossword puzzles, Sudoku, Word Find — "play anywhere" games that fill spare minutes on a bus or at work. These games pre-date smartphones by decades.</p>
+ <p><strong>Smartphone Revolution:</strong> Explosion of smartphone games has changed the anywhere venue forever — vastly richer set of games playable anywhere, anytime. But the fundamental <em>venue properties</em> remain the same.</p>
+ <p><strong>Key Properties:</strong> Playable in tiny bites. Very simple interfaces and stories. Interruptible at any moment. Small screen size. Players generally unwilling to pay much upfront — prefer free if possible.</p>
+ <p><strong>Design Constraint:</strong> These limitations are not bugs — they're features of the venue. Games that succeed in Anywhere are <em>designed for interruption</em>, not fighting against it.</p>
+ <div class="venue-tag-row">
+ <span class="tag tag-gray">Bite-Sized</span>
+ <span class="tag tag-gray">Interruptible</span>
+ <span class="tag tag-gray">Simple UI</span>
+ <span class="tag tag-gray">Free-to-Play</span>
+ </div>
+ </div>
+ </div>
+
+ </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 7: VENUES MIXED AND MATCHED -->
+<!-- ══════════════════════════════════════════════════ -->
+<section id="mixed">
+ <div class="section-header">
+ <div class="section-title">
+ <h2>Venues Mixed and Matched</h2>
+ <p>Sử dụng hệ thống venue như một design tool — không phải taxonomy</p>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3> Các Câu Đố Thú Vị Của Schell</h3>
+ <p>Schell đặt ra một số câu hỏi để minh họa rằng hệ thống có gaps và overlaps — và đó là điểm mấu chốt:</p>
+ <br>
+ <p>• <em>"What venue am I in when I play a game of pinball at a restaurant?"</em> (Museum? Arena? Gaming Table?)<br>
+ • <em>"What venue is a bowling alley?"</em> (Arena? Somewhere public but also intimate?)<br>
+ • <em>"Is a casino a museum, an arena, a collection of table games, or something else entirely?"</em></p>
+ <br>
+ <p>Câu trả lời thường là: <strong>nhiều venues cùng một lúc</strong>. Đây không phải lỗi của hệ thống — đây là thực tế. Nhiều không gian cung cấp nhiều loại experience đồng thời.</p>
+ </div>
+
+ <div class="callout orange" style="margin-top:20px">
+ <div class="callout-body">
+ <h4>Mục Đích Thực Sự Của Hệ Thống Venue</h4>
+ <p>Schell nói rõ: <em>"The important thing isn't to have a perfect taxonomy of venues; the important thing is to see past the games and platforms so that you are aware of the venues and their properties, because while games and technologies change constantly, venues change very little."</em> Framework này là một <strong>lens để nhìn</strong>, không phải một rulebook để tuân theo.</p>
+ </div>
+ </div>
+
+ <!-- Property comparison grid -->
+ <div style="margin-top:28px">
+ <h3 style="font-size:1.15rem;font-weight:700;color:var(--dark);margin-bottom:18px"> Venue Properties Quan Trọng Với Design</h3>
+ <div class="insight-strip">
+ <div class="insight-list">
+ <div class="insight-item">
+ <div class="insight-item-icon">⏱</div>
+ <h4>Session Length</h4>
+ <p>Anywhere = minutes. Reading Nook = 20-60 min. Workbench = hours. Hearth = flexible but social pacing.</p>
+ </div>
+ <div class="insight-item">
+ <h4>Social Context</h4>
+ <p>Hearth = family/friends watching. Workbench = solo or online strangers. Gaming Table = intimate face-to-face. Arena = public competition.</p>
+ </div>
+ <div class="insight-item">
+ <h4>Interruption Tolerance</h4>
+ <p>Anywhere = must handle interruption. Reading Nook = low interruption expected. Workbench = low. Hearth = moderate (social interruptions).</p>
+ </div>
+ <div class="insight-item">
+ <h4>Willingness to Pay</h4>
+ <p>Anywhere = prefer free. Workbench = willing to pay significant upfront. Hearth = depends on family budget. Arena = event tickets.</p>
+ </div>
+ <div class="insight-item">
+ <h4>Screen &amp; Controls</h4>
+ <p>Hearth = large shared screen. Workbench = individual monitor. Reading Nook = handheld. Anywhere = phone-sized.</p>
+ </div>
+ <div class="insight-item">
+ <h4>Cognitive Load</h4>
+ <p>Workbench = high complexity welcomed. Hearth = moderate (accessible to all family). Reading Nook = low-medium. Anywhere = very low.</p>
+ </div>
+ </div>
+ </div>
+ </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 8: LENS #3 -->
+<!-- ══════════════════════════════════════════════════ -->
+<section id="lens3">
+ <div class="section-header">
+ <div class="section-title">
+ <h2>Lens #3: The Lens of the Venue</h2>
+ <p>Lens thứ ba trong 113 lenses — kiểm tra design của bạn trong bối cảnh venue</p>
+ </div>
+ </div>
+
+ <div class="lens-card">
+ <div class="lens-number">Lens #3 of 113</div>
+ <div class="lens-title">The Lens of the Venue</div>
+ <div class="lens-subtitle">Venue định hình game — đừng design trong chân không</div>
+ <div class="lens-intro">"The places that we play exert tremendous influence on the design of our games. To make sure you aren't designing in a vacuum, ask yourself these questions:"</div>
+ <div class="lens-questions">
+ <div class="lens-q">
+ <div class="lens-q-num">1</div>
+ <div class="lens-q-text">
+ <strong>What type of venue best suits the game I'm trying to create?</strong><br>
+ Ai sẽ chơi game này và ở đâu? Không gian nào trong cuộc sống của họ là phù hợp nhất? Hearth (family gaming?), Workbench (solo deep-dive?), Reading Nook (relaxing mobile?), Arena (competitive?)?
+ </div>
+ </div>
+ <div class="lens-q">
+ <div class="lens-q-num">2</div>
+ <div class="lens-q-text">
+ <strong>Does my venue have special properties that will influence my game?</strong><br>
+ Những đặc tính của venue đó là gì? Session length, interruption tolerance, social context, screen size, willingness to pay, cognitive load available? Những đặc tính này buộc bạn phải design như thế nào?
+ </div>
+ </div>
+ <div class="lens-q">
+ <div class="lens-q-num">3</div>
+ <div class="lens-q-text">
+ <strong>What elements of my game are in harmony with my venue? What elements are not?</strong><br>
+ Đối chiếu từng mechanic, UI decision, session structure, social feature với venue. Nếu một element không phù hợp với venue — ví dụ một complex MMO-style UI cho Anywhere game — đó là một red flag cần address.
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div class="card-grid" style="margin-top:24px">
+ <div class="callout success">
+ <div class="callout-body">
+ <h4>Lens #3 Trong Thực Tế: Wii Success</h4>
+ <p>Nintendo designed Wii explicitly for the <strong>Hearth venue</strong>: simple motion controls accessible to all ages, games fun to watch even when not playing, no complex controller configurations. Every element in harmony with the venue → massive commercial success.</p>
+ </div>
+ </div>
+ <div class="callout rose">
+ <div class="callout-body">
+ <h4>Lens #3 Trong Thực Tế: Wii U Failure</h4>
+ <p>Wii U's separate handheld screen moved focus from shared Hearth TV to individual handheld — <strong>shifting venue to Reading Nook</strong>, which already had iPad and 3DS. Elements no longer in harmony with the Hearth venue it was supposed to serve.</p>
+ </div>
+ </div>
+ </div>
+
+ <div class="callout warning" style="margin-top:20px">
+ <div class="callout-body">
+ <h4>Further Reading: A Pattern Language — Christopher Alexander et al.</h4>
+ <p>Schell recommends này như "an incredibly thought-provoking book about the relationship between humans and the spaces they live in." Alexander's work on how physical spaces shape human behavior và culture is highly relevant to venue-based game design thinking. (Schell sẽ reference lại trong Chapter 21: "Spaces.")</p>
+ </div>
+ </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SECTION 9: TAKEAWAYS -->
+<!-- ══════════════════════════════════════════════════ -->
+<section id="takeaways">
+ <div class="section-header">
+ <div class="section-title">
+ <h2>Tóm Tắt Chương 3 — Key Takeaways</h2>
+ <p>Những concepts cần nhớ và áp dụng trong game design</p>
+ </div>
+ </div>
+
+ <div class="takeaway-grid">
+ <div class="takeaway-item" style="border-left:4px solid var(--orange)">
+ <h4>Platforms Are Ephemeral, Venues Are Permanent</h4>
+ <p>Technologies come and go. The Hearth, Workbench, Arena — these have existed for thousands of years and will persist. Design for venue, not platform.</p>
+ </div>
+ <div class="takeaway-item" style="border-left:4px solid var(--blue)">
+ <h4>The Hearth: Shared, Social, Watchable</h4>
+ <p>Family room TV games. Must work for multiple people — playable together AND fun to watch. Wii succeeded; Wii U failed by violating this principle.</p>
+ </div>
+ <div class="takeaway-item" style="border-left:4px solid var(--green)">
+ <h4>The Workbench: Intense, Solo, Deep</h4>
+ <p>PC desk, long sessions, high complexity, dedicated players. Steam owns this. VR will likely live here. Willing to pay premium for depth.</p>
+ </div>
+ <div class="takeaway-item" style="border-left:4px solid var(--purple)">
+ <h4>The Reading Nook: Lean Back, Relax</h4>
+ <p>Tablet/handheld, simple and calming. iPad captured this venue unexpectedly. Games here: easier, simpler, more relaxing than hearth or workbench.</p>
+ </div>
+ <div class="takeaway-item" style="border-left:4px solid var(--rose)">
+ <h4>Theater + Interactivity = Hard Problem</h4>
+ <p>Collective experience dilutes individual interactivity. "Joy of interactivity watered down proportionately by number of seats." No long-term solutions yet.</p>
+ </div>
+ <div class="takeaway-item" style="border-left:4px solid var(--orange)">
+ <h4>Arena Creates Theater Around Itself</h4>
+ <p>Competitive games attract spectators → theater forms around arena. Esports, BarCraft, Twitch = this ancient pattern applied to digital games.</p>
+ </div>
+ <div class="takeaway-item" style="border-left:4px solid var(--gold)">
+ <h4>Gaming Table: Face-to-Face Intensity</h4>
+ <p>Unique intimacy. "Players sit like gods over the toy world they control." Sandwich + sushi roll invented here. Digital not yet found its place at this venue.</p>
+ </div>
+ <div class="takeaway-item" style="border-left:4px solid var(--gray)">
+ <h4>Anywhere: Design FOR Interruption</h4>
+ <p>Bite-sized, simple, free-to-play. Smartphone revolution expanded this venue but didn't change its fundamental properties. Work with the constraints, not against them.</p>
+ </div>
+ <div class="takeaway-item" style="border-left:4px solid var(--teal)">
+ <h4>Lens #3: Audit Every Element vs. Venue</h4>
+ <p>What venue? What are its special properties? What's in harmony, what isn't? This lens prevents designing in a vacuum and grounds decisions in real player context.</p>
+ </div>
+ </div>
+
+ <div class="callout orange" style="margin-top:24px">
+ <div class="callout-body">
+ <h4>Chương 3 → Chương 4: Bridge</h4>
+ <p>Chương 3 đặt context: experience xảy ra trong một venue. Chương 4 sẽ hỏi: <strong>"What exactly makes a game a game?"</strong> — tìm định nghĩa của game qua việc phân tích toy → fun → play → game, với các Lenses #4 (Surprise), #5 (Fun), #6 (Curiosity), và #7 (Endogenous Value). Schell cũng giới thiệu khái niệm "magic circle" — ranh giới kỳ diệu của game space.</p>
+ </div>
+ </div>
+</section>
+
+</main>
+
+<footer>
+ <strong>The Art of Game Design: A Book of Lenses</strong> — Jesse Schell<br>
+ 2nd Edition, CRC Press 2015 &nbsp;·&nbsp; Chương 3: The Experience Takes Place in a Venue (pp. 25–32)<br>
+ <span style="margin-top:10px;display:block;font-size:0.78rem">Concept Output · Wiki PO Vault · QTS</span>
+</footer>
+
+<script>
+ // Active nav on scroll
+ const sections = document.querySelectorAll('section[id]');
+ const navLinks = document.querySelectorAll('nav a[href^="#"]');
+ const obs = new IntersectionObserver(entries => {
+ entries.forEach(entry => {
+ if (entry.isIntersecting) {
+ navLinks.forEach(l => l.classList.remove('active'));
+ const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+ if (active) active.classList.add('active');
+ }
+ });
+ }, { rootMargin: '-25% 0px -65% 0px' });
+ sections.forEach(s => obs.observe(s));
+</script>
+<div class="chapnav-wrap"><div class="chapnav"><a href="C2-Create Experience.html"><span class="lbl">Chương trước</span>Chương 2: The Designer Creates an Experience</a><a href="C4-The Experience Rises Out of a Game.html"><span class="lbl">Chương sau</span>Chương 4: Trải Nghiệm Nảy Sinh Từ Chính Game</a></div></div>
+</body>
+</html>

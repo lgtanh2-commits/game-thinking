@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 26 – Đội Nhóm Đôi Khi Giao Tiếp Qua Tài Liệu</title>
+<style>
+ :root {
+ --orange: #27ae60;
+ --orange-light: #6cc999;
+ --orange-pale: #edf9f2;
+ --dark: #0e231c;
+ --gray: #656a75;
+ --gray-light: #656a75;
+ --bg: #f4f7f2;
+ --white: #ffffff;
+ --card-border: #e4ebe2;
+ --accent-teal: #27ae60;
+ --accent-blue: #27ae60;
+ --accent-purple: #27ae60;
+ --accent-green: #27ae60;
+ --accent-gold: #27ae60;
+ 
+ --forest: #0e231c;
+ --fog: #879b93;
+ --sage: #defaca;
+ --mint: #edf9f2;
+ --sprout-d: #1c8a4c;}
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ body {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ background: var(--bg);
+ color: var(--dark);
+ line-height: 1.75;
+ font-size: 17px;
+ }
+
+ /* ── HERO ── */
+ .hero {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ color: white;
+ padding: 80px 24px 60px;
+ text-align: center;
+ }
+ .hero-badge {
+ display: inline-block;
+ background: rgba(39,174,96,0.12);
+ border: 1px solid rgba(39,174,96,0.35);
+ border-radius: 20px;
+ padding: 6px 18px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--orange-light);
+ margin-bottom: 24px;
+ }
+ .hero h1 {
+ font-size: clamp(26px, 4vw, 40px);
+ font-weight: 700;
+ line-height: 1.25;
+ margin-bottom: 14px;
+ letter-spacing: -0.01em;
+ }
+ .hero h1 em {
+ color: var(--orange-light);
+ font-style: normal;
+ }
+ .hero-sub {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 16px;
+ color: rgba(255,255,255,0.60);
+ margin-bottom: 40px;
+ font-style: italic;
+ }
+ .hero-stats {
+ display: flex;
+ justify-content: center;
+ gap: 12px;
+ flex-wrap: wrap;
+ }
+ .stat-chip {
+ background: rgba(255,255,255,0.06);
+ border: 1px solid rgba(255,255,255,0.14);
+ border-radius: 12px;
+ padding: 10px 20px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ color: rgba(255,255,255,0.80);
+ }
+ .stat-chip strong {
+ display: block;
+ font-size: 20px;
+ font-weight: 700;
+ color: var(--orange-light);
+ line-height: 1.2;
+ }
+
+ /* ── MAIN LAYOUT ── */
+ main {
+ max-width: 880px;
+ margin: 0 auto;
+ padding: 60px 24px 120px;
+ }
+
+ /* ── CHAPTER MAP ── */
+ .chapter-map {
+ background: white;
+ border: 1px solid var(--card-border);
+ border-radius: 20px;
+ padding: 36px 32px;
+ margin-bottom: 56px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .chapter-map h2 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 28px;
+ }
+ .map-flow {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ flex-wrap: wrap;
+ }
+ .map-node {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ background: var(--bg);
+ border: 1px solid var(--card-border);
+ border-radius: 12px;
+ padding: 10px 16px;
+ flex: 1;
+ min-width: 150px;
+ }
+ .map-dot {
+ width: 36px;
+ height: 36px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 14px;
+ font-weight: 800;
+ color: white;
+ flex-shrink: 0;
+ }
+ .dot-orange { background: var(--orange); }
+ .dot-teal { background: var(--accent-teal); }
+ .dot-blue { background: var(--accent-blue); }
+ .dot-purple { background: var(--accent-purple); }
+ .dot-green { background: var(--accent-green); }
+ .dot-gold { background: var(--accent-gold); }
+
+ .map-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 600;
+ color: var(--gray);
+ line-height: 1.3;
+ }
+ .map-arrow {
+ font-size: 18px;
+ color: var(--gray-light);
+ flex-shrink: 0;
+ }
+
+ /* ── SECTION HEADERS ── */
+ .section-header {
+ display: flex;
+ align-items: center;
+ gap: 18px;
+ margin: 56px 0 24px;
+  scroll-margin-top: 108px;}
+ .section-num {
+ width: 52px;
+ height: 52px;
+ border-radius: 14px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 18px;
+ font-weight: 800;
+ color: white;
+ flex-shrink: 0;
+ }
+ .section-header h2 {
+ font-size: clamp(18px, 2.5vw, 23px);
+ font-weight: 700;
+ line-height: 1.3;
+ color: var(--dark);
+ }
+
+ /* ── CARDS ── */
+ .card {
+ background: white;
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin-bottom: 20px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .card h3 {
+ font-size: 17px;
+ font-weight: 700;
+ margin-bottom: 12px;
+ color: var(--dark);
+ }
+ .card p { color: var(--gray); margin-bottom: 10px; }
+ .card p:last-child { margin-bottom: 0; }
+
+ /* ── QUOTE BLOCK ── */
+ .quote-block {
+ border-left: 4px solid var(--orange);
+ background: var(--orange-pale);
+ border-radius: 0 12px 12px 0;
+ padding: 20px 24px;
+ margin: 20px 0;
+ font-style: italic;
+ color: var(--gray);
+ }
+ .quote-block cite {
+ display: block;
+ margin-top: 10px;
+ font-style: normal;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 600;
+ color: var(--orange);
+ }
+
+ /* ── HIGHLIGHT BOXES ── */
+ .hl-box {
+ border-radius: 14px;
+ padding: 22px 26px;
+ margin: 20px 0;
+ display: flex;
+ gap: 16px;
+ align-items: flex-start;
+ }
+ .hl-icon { font-size: 24px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+ .hl-body h4 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 14px;
+ font-weight: 700;
+ margin-bottom: 6px;
+ text-transform: uppercase;
+ letter-spacing: 0.05em;
+ }
+ .hl-body p { font-size: 15px; line-height: 1.65; color: var(--gray); margin: 0; }
+
+ .hl-orange { background: #edf9f2; border: 1px solid #6cc999; }
+ .hl-orange .hl-body h4 { color: var(--orange); }
+
+ .hl-teal { background: #EAF5F5; border: 1px solid #7BBFBF; }
+ .hl-teal .hl-body h4 { color: var(--accent-teal); }
+
+ .hl-blue { background: #EAF0F8; border: 1px solid #8AB0CC; }
+ .hl-blue .hl-body h4 { color: var(--accent-blue); }
+
+ .hl-purple { background: #F3EFF8; border: 1px solid #B09DCF; }
+ .hl-purple .hl-body h4 { color: var(--accent-purple); }
+
+ .hl-green { background: #EBF4EF; border: 1px solid #88BB9F; }
+ .hl-green .hl-body h4 { color: var(--accent-green); }
+
+ .hl-gold { background: #FDF6E3; border: 1px solid #D4AC4A; }
+ .hl-gold .hl-body h4 { color: var(--accent-gold); }
+
+ /* ── LENS BOX ── */
+ .lens-box {
+ border: 2px solid var(--orange);
+ background: #edf9f2;
+ border-radius: 18px;
+ padding: 32px 36px;
+ margin: 32px 0;
+ }
+ .lens-header {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ margin-bottom: 20px;
+ }
+ .lens-icon {
+ width: 56px;
+ height: 56px;
+ background: var(--orange);
+ border-radius: 14px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 26px;
+ flex-shrink: 0;
+ }
+ .lens-title-block {}
+ .lens-number {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: var(--orange);
+ margin-bottom: 2px;
+ }
+ .lens-title {
+ font-size: 20px;
+ font-weight: 700;
+ color: var(--dark);
+ }
+ .lens-desc {
+ color: var(--gray);
+ margin-bottom: 20px;
+ font-size: 15.5px;
+ }
+ .lens-questions {
+ list-style: none;
+ border-top: 1px solid rgba(39,174,96,0.20);
+ padding-top: 18px;
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+ }
+ .lens-questions li {
+ display: flex;
+ gap: 10px;
+ font-size: 15px;
+ color: var(--gray);
+ line-height: 1.6;
+ }
+ .lens-questions li::before {
+ content: "→";
+ color: var(--orange);
+ font-weight: 700;
+ flex-shrink: 0;
+ }
+
+ /* ── TWO-PURPOSE CARDS ── */
+ .purpose-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 16px;
+ margin: 20px 0;
+ }
+ .purpose-card {
+ background: white;
+ border: 1px solid var(--card-border);
+ border-radius: 14px;
+ padding: 24px 22px;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+ }
+ .purpose-card .p-icon { font-size: 28px; margin-bottom: 10px; }
+ .purpose-card h4 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 15px;
+ font-weight: 800;
+ margin-bottom: 8px;
+ text-transform: uppercase;
+ letter-spacing: 0.06em;
+ }
+ .purpose-card p { font-size: 14px; color: var(--gray); line-height: 1.6; margin: 0; }
+ .purpose-orange h4 { color: var(--orange); border-bottom: 2px solid var(--orange); padding-bottom: 8px; margin-bottom: 12px; }
+ .purpose-blue h4 { color: var(--accent-blue); border-bottom: 2px solid var(--accent-blue); padding-bottom: 8px; margin-bottom: 12px; }
+
+ /* ── DOC GROUP ── */
+ .doc-group {
+ background: white;
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ margin-bottom: 20px;
+ overflow: hidden;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .doc-group-header {
+ display: flex;
+ align-items: center;
+ gap: 14px;
+ padding: 18px 24px;
+ border-bottom: 1px solid var(--card-border);
+ }
+ .doc-group-icon {
+ font-size: 22px;
+ }
+ .doc-group-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 16px;
+ font-weight: 800;
+ letter-spacing: 0.04em;
+ text-transform: uppercase;
+ }
+ .doc-group-body {
+ padding: 8px 0;
+ }
+ .doc-item {
+ display: flex;
+ gap: 16px;
+ padding: 16px 24px;
+ border-bottom: 1px solid #F5F0EB;
+ align-items: flex-start;
+ }
+ .doc-item:last-child { border-bottom: none; }
+ .doc-num {
+ width: 28px;
+ height: 28px;
+ border-radius: 7px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 800;
+ color: white;
+ flex-shrink: 0;
+ margin-top: 2px;
+ }
+ .doc-content { flex: 1; }
+ .doc-content strong {
+ display: block;
+ font-size: 15px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 4px;
+ }
+ .doc-content p {
+ font-size: 14px;
+ color: var(--gray);
+ line-height: 1.65;
+ margin: 0;
+ }
+ .doc-tip {
+ display: inline-block;
+ font-size: 12px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-style: italic;
+ color: var(--gray-light);
+ margin-top: 5px;
+ }
+
+ /* ── READING LIST ── */
+ .reading-list {
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
+ margin: 16px 0;
+ }
+ .reading-item {
+ display: flex;
+ gap: 14px;
+ background: white;
+ border: 1px solid var(--card-border);
+ border-radius: 12px;
+ padding: 16px 18px;
+ }
+ .reading-icon { font-size: 22px; flex-shrink: 0; }
+ .reading-body h4 {
+ font-size: 15px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 4px;
+ }
+ .reading-body p {
+ font-size: 13.5px;
+ color: var(--gray);
+ line-height: 1.55;
+ margin: 0;
+ }
+
+ /* ── BIG ALERT ── */
+ .big-alert {
+ background: var(--dark);
+ color: white;
+ border-radius: 16px;
+ padding: 32px 36px;
+ text-align: center;
+ margin: 28px 0;
+ }
+ .big-alert .ba-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+ color: var(--orange-light);
+ margin-bottom: 12px;
+ }
+ .big-alert .ba-text {
+ font-size: clamp(18px, 3vw, 26px);
+ font-weight: 700;
+ font-style: italic;
+ line-height: 1.35;
+ color: white;
+ }
+
+ /* ── DIVIDER ── */
+ .divider {
+ border: none;
+ border-top: 1px solid var(--card-border);
+ margin: 40px 0;
+ }
+
+ /* ── FOOTER ── */
+ footer {
+ text-align: center;
+ padding: 40px 24px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ color: var(--gray-light);
+ }
+
+ @media (max-width: 600px) {
+ .purpose-grid { grid-template-columns: 1fr; }
+ .map-flow { gap: 6px; }
+ .map-node { min-width: 130px; }
+ .card { padding: 22px 18px; }
+ .lens-box { padding: 24px 20px; }
+ }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+  .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .topnav .crumb { color: #879b93; font-size: 14px; }
+  .topnav .crumb a { color: #879b93; text-decoration: none; }
+  .topnav .crumb b { color: #fff; font-weight: 600; }
+  .chapnav-wrap { background: #f4f7f2; padding: 40px 24px 56px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .chapnav { display: flex; justify-content: space-between; gap: 12px; max-width: 820px; margin: 0 auto; }
+  .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+  .tocnav { position: sticky; top: 52px; z-index: 100; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; overflow-x: auto; scrollbar-width: none; }
+  .tocnav::-webkit-scrollbar { display: none; }
+  .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
+
+</style>
+<nav class="topnav">
+  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 26</b></span>
+</nav>
+
+<nav class="tocnav">
+  <a href="#s1">Huyền thoại về Game Design Document</a>
+  <a href="#s2">Mục đích của tài liệu</a>
+  <a href="#s3">15 loại tài liệu trong 5 nhóm</a>
+  <a href="#s4">Vậy bắt đầu từ đâu?</a>
+  <a href="#s5">Tài liệu đọc thêm</a>
+</nav>
+
+
+<!-- ══════════════ HERO ══════════════ -->
+<div class="hero">
+ <div class="hero-badge">Chương 26 · The Art of Game Design</div>
+ <h1>Đội Nhóm Đôi Khi Giao Tiếp<br><em>Qua Tài Liệu</em></h1>
+ <p class="hero-sub">The Team Sometimes Communicates through Documents</p>
+ <div class="hero-stats">
+ <div class="stat-chip"><strong>1</strong>Lens mới</div>
+ <div class="stat-chip"><strong>#102</strong>Documentation</div>
+ <div class="stat-chip"><strong>15</strong>Loại tài liệu</div>
+ <div class="stat-chip"><strong>5</strong>Nhóm tài liệu</div>
+ </div>
+</div>
+
+<main>
+
+<!-- ══════════════ CHAPTER MAP ══════════════ -->
+<div class="chapter-map">
+ <h2>Bản đồ chương</h2>
+ <div class="map-flow">
+ <div class="map-node">
+ <div class="map-dot dot-orange">1</div>
+ <span class="map-label">Huyền thoại GDD: Không có template ma thuật</span>
+ </div>
+ <span class="map-arrow">→</span>
+ <div class="map-node">
+ <div class="map-dot dot-blue">2</div>
+ <span class="map-label">Mục đích tài liệu: Memory + Communication</span>
+ </div>
+ <span class="map-arrow">→</span>
+ <div class="map-node">
+ <div class="map-dot dot-teal">3</div>
+ <span class="map-label">15 loại tài liệu trong 5 nhóm</span>
+ </div>
+ </div>
+ <div class="map-flow" style="margin-top:10px;">
+ <div class="map-node">
+ <div class="map-dot dot-green">4</div>
+ <span class="map-label">Bắt đầu từ đâu? Viết đơn giản, để nó lớn tự nhiên</span>
+ </div>
+ <span class="map-arrow">→</span>
+ <div class="map-node">
+ <div class="map-dot dot-purple">5</div>
+ <span class="map-label">Lens #102: Documentation</span>
+ </div>
+ </div>
+</div>
+
+<!-- ══════════════ SECTION 1 ══════════════ -->
+<div class="section-header" id="s1">
+ <div class="section-num dot-orange">1</div>
+ <h2>Huyền thoại về Game Design Document</h2>
+</div>
+
+<div class="card">
+ <p>Nhiều nhà thiết kế mới thường tưởng tượng quy trình làm game như thế này: một thiên tài ngồi xuống, gõ ra một bản thiết kế hoàn hảo, rồi giao cho đội ngũ kỹ thuật và họa sĩ thực thi. Họ tin rằng nếu chỉ tìm được đúng <em>template</em> cho Game Design Document, mọi thứ sẽ vào guồng.</p>
+</div>
+
+<div class="big-alert">
+ <div class="ba-label">Sự thật quan trọng nhất của chương này</div>
+ <div class="ba-text">"The magic template does not exist!"</div>
+</div>
+
+<div class="card">
+ <p>Không có template nào phù hợp với mọi game và mọi đội nhóm. Điều này không phải ý kiến của Schell — đây là sự thật khách quan về bản chất của sáng tạo game. Designer Jason VandenBerghe giải thích rõ hơn:</p>
+
+ <div class="quote-block">
+ "The trouble with GDDs is that they are literally out of date the moment you write them. Design documents are an expression of your current theories about what will make your game good… but until you see those theories in practice, you cannot know. Unfortunately, it is in our nature to treat official documents as though they were specifications, or scripts, or blueprints. They are not — they are theories. Evil abounds when you have a document that some people think is a plan, some people think is a theory, and some people think is a blueprint."
+ <cite>— Jason VandenBerghe, game designer</cite>
+ </div>
+
+ <p>Tài liệu thiết kế game là <em>công cụ</em>, không phải thánh kinh. Chúng quan trọng và cần thiết — nhưng cấu trúc của chúng phải phục vụ nhu cầu thực tế của từng game và từng nhóm, không phải ngược lại.</p>
+</div>
+
+<!-- ══════════════ SECTION 2 ══════════════ -->
+<div class="section-header" id="s2">
+ <div class="section-num dot-blue">2</div>
+ <h2>Mục đích của tài liệu</h2>
+</div>
+
+<div class="card">
+ <p>Để hiểu tài liệu nào mình cần, trước tiên phải hiểu tài liệu phục vụ điều gì. Schell chỉ ra hai mục đích duy nhất và đủ:</p>
+</div>
+
+<div class="purpose-grid">
+ <div class="purpose-card purpose-orange">
+ <h4>Memory — Ghi nhớ</h4>
+ <p>Con người có trí nhớ rất tệ. Một game đầy đủ đòi hỏi hàng nghìn quyết định thiết kế. Ngay cả những ý tưởng tưởng chừng không thể quên cũng sẽ phai dần sau hai tuần và hàng trăm quyết định khác. Ghi lại các quyết định giúp bạn không phải giải quyết lại cùng một vấn đề hai lần.</p>
+ </div>
+ <div class="purpose-card purpose-blue">
+ <h4>Communication — Giao tiếp</h4>
+ <p>Dù trí nhớ có hoàn hảo, các quyết định vẫn phải được truyền đạt đến nhiều người khác trong nhóm. Tài liệu không phải là giao tiếp một chiều — chúng khởi đầu một cuộc đối thoại. Ngay khi quyết định được viết ra, người khác sẽ tìm thấy vấn đề hoặc cách cải thiện nó. Google Docs đã trở thành chuẩn mực vì lý do đó.</p>
+ </div>
+</div>
+
+<div class="hl-box hl-teal">
+ <div class="hl-body">
+ <h4>Nguyên tắc vàng</h4>
+ <p>Khi không biết tài liệu nào mình cần, hãy hỏi: <em>"Điều gì cần được nhớ? Điều gì cần được truyền đạt?"</em> Câu trả lời sẽ chỉ ra chính xác loại tài liệu phù hợp — không phải template sẵn có nào đó mà ai đó nghĩ ra trước đây.</p>
+ </div>
+</div>
+
+<!-- ══════════════ SECTION 3 ══════════════ -->
+<div class="section-header" id="s3">
+ <div class="section-num dot-teal">3</div>
+ <h2>15 loại tài liệu trong 5 nhóm</h2>
+</div>
+
+<div class="card">
+ <p>Schell xác định sáu nhóm cần ghi nhớ và giao tiếp khác nhau, tạo ra các loại tài liệu riêng biệt. Không phải game nào cũng cần tất cả 15 loại này — nhưng biết chúng tồn tại giúp bạn tự hỏi xem mình đang thiếu cái gì.</p>
+</div>
+
+<!-- GROUP 1: DESIGN -->
+<div class="doc-group">
+ <div class="doc-group-header" style="background: #edf9f2;">
+ <span class="doc-group-title" style="color: var(--orange);">Design — Thiết kế</span>
+ </div>
+ <div class="doc-group-body">
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--orange);">1</div>
+ <div class="doc-content">
+ <strong>Game design overview</strong>
+ <p>Tài liệu tổng quan cấp cao, thường chỉ vài trang. Viết chủ yếu cho management để họ hiểu game là gì và dành cho ai mà không cần đi vào chi tiết. Designer Stone Librande đưa ra lời khuyên xuất sắc: mọi game đều nên có thể giải thích được bằng một sơ đồ trên một tờ poster duy nhất.</p>
+ <span class="doc-tip">→ Đối tượng chính: quản lý, bên ngoài nhóm</span>
+ </div>
+ </div>
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--orange);">2</div>
+ <div class="doc-content">
+ <strong>Detailed design document</strong>
+ <p>Mô tả toàn bộ cơ chế và giao diện game ở mức chi tiết. Phục vụ hai mục đích: giúp designer nhớ các ý tưởng nhỏ và truyền đạt chúng cho kỹ sư và họa sĩ. Tài liệu này thường rất lộn xộn, hiếm khi cập nhật sau nửa dự án, và đôi khi bị bỏ hoàn toàn khi game chứa đủ thông tin thực tế. Rich Marmura có triết lý hay: <em>"Tôi điều chỉnh GDD theo từng nhóm — nó phải là nơi để tổ chức suy nghĩ và nơi thành viên nhóm tra cứu thông tin."</em></p>
+ <span class="doc-tip">→ Không nên là một tài liệu khổng lồ — nhiều tài liệu nhỏ theo từng hệ thống tốt hơn</span>
+ </div>
+ </div>
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--orange);">3</div>
+ <div class="doc-content">
+ <strong>Story overview</strong>
+ <p>Nhiều game thuê writer chuyên nghiệp từ bên ngoài để viết hội thoại và lời dẫn. Những writer này thường làm việc từ xa và cần tài liệu ngắn gọn mô tả các bối cảnh, nhân vật và hành động quan trọng trong game. Writer thường phản hồi lại bằng những ý tưởng mới thú vị thay đổi cả thiết kế game.</p>
+ </div>
+ </div>
+ </div>
+</div>
+
+<!-- GROUP 2: ENGINEERING -->
+<div class="doc-group">
+ <div class="doc-group-header" style="background: #EAF0F8;">
+ <span class="doc-group-title" style="color: var(--accent-blue);">Engineering — Kỹ thuật</span>
+ </div>
+ <div class="doc-group-body">
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--accent-blue);">4</div>
+ <div class="doc-content">
+ <strong>Technical design document (TDD)</strong>
+ <p>Game thường có nhiều hệ thống kỹ thuật phức tạp không liên quan đến cơ chế game — hiển thị, networking, data management. TDD ghi lại các chi tiết này. Ít ai ngoài engineering team quan tâm, nhưng thiếu nó khi team lớn thì khi thành viên mới vào sẽ không hiểu tổng thể hoạt động như thế nào. Như GDD, TDD thường lỗi thời trước khi dự án hoàn thành.</p>
+ </div>
+ </div>
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--accent-blue);">5</div>
+ <div class="doc-content">
+ <strong>Pipeline overview</strong>
+ <p>Phần lớn công sức kỹ thuật trong game nằm ở việc tích hợp đúng các art assets vào game. Tài liệu này mô tả những quy tắc "do's and don'ts" mà art team phải tuân theo để tác phẩm của họ hiển thị đúng trong game. Tài liệu càng đơn giản càng tốt.</p>
+ </div>
+ </div>
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--accent-blue);">6</div>
+ <div class="doc-content">
+ <strong>System limitations</strong>
+ <p>Designer và họa sĩ thường không biết (hoặc giả vờ không biết) giới hạn của hệ thống đang làm việc. Kỹ sư đôi khi tạo tài liệu xác định các giới hạn cứng — số polygon trên màn hình, số lượng particle effects đồng thời, số tin nhắn cập nhật mỗi giây. Việc ghi rõ những giới hạn này có thể tiết kiệm rất nhiều tranh cãi về sau.</p>
+ </div>
+ </div>
+ </div>
+</div>
+
+<!-- GROUP 3: ART -->
+<div class="doc-group">
+ <div class="doc-group-header" style="background: #F3EFF8;">
+ <span class="doc-group-title" style="color: var(--accent-purple);">Art — Nghệ thuật</span>
+ </div>
+ <div class="doc-group-body">
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--accent-purple);">7</div>
+ <div class="doc-content">
+ <strong>Art bible</strong>
+ <p>Khi nhiều họa sĩ cùng làm việc, cần có hướng dẫn để đảm bảo tính nhất quán về phong cách. Art bible cung cấp các hướng dẫn này — character sheets, ví dụ về môi trường, ví dụ về cách dùng màu sắc, ví dụ về giao diện. Bất kỳ yếu tố nào định nghĩa diện mạo của game đều cần có ở đây.</p>
+ </div>
+ </div>
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--accent-purple);">8</div>
+ <div class="doc-content">
+ <strong>Concept art overview</strong>
+ <p>Nhiều người trong nhóm cần hiểu game trông như thế nào trước khi nó được xây dựng. Đây là nhiệm vụ của concept art. Concept art thường không tự nói lên điều gì một mình — nó thường đi kèm với tài liệu thiết kế. Những hình ảnh sớm này lan tỏa khắp nơi: trong game overview, trong detailed design doc, và trong technical documents.</p>
+ </div>
+ </div>
+ </div>
+</div>
+
+<!-- GROUP 4: PRODUCTION -->
+<div class="doc-group">
+ <div class="doc-group-header" style="background: #FDF6E3;">
+ <span class="doc-group-title" style="color: var(--accent-gold);">Production — Sản xuất</span>
+ </div>
+ <div class="doc-group-body">
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--accent-gold);">9</div>
+ <div class="doc-content">
+ <strong>Game budget</strong>
+ <p>Thực tế kinh doanh yêu cầu phải ước tính chi phí phát triển trước khi hiểu rõ mình đang xây dựng gì. Thường là một spreadsheet liệt kê toàn bộ công việc cần làm kèm ước tính thời gian và chi phí. Producer làm việc chặt chẽ với mọi bộ phận để ước tính này chính xác nhất có thể. Đây thường là một trong những tài liệu đầu tiên được tạo ra, vì nó dùng để đảm bảo funding.</p>
+ </div>
+ </div>
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--accent-gold);">10</div>
+ <div class="doc-content">
+ <strong>Asset tracker</strong>
+ <p>Theo dõi tất cả những gì đã được tạo ra và trạng thái hiện tại của chúng — code, game levels, art assets, âm thanh, nhạc, tài liệu thiết kế. Có thể là spreadsheet đơn giản hoặc hệ thống quản lý chính thức hơn.</p>
+ </div>
+ </div>
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--accent-gold);">11</div>
+ <div class="doc-content">
+ <strong>Project schedule</strong>
+ <p>Tài liệu được cập nhật thường xuyên nhất trong suốt dự án. Dù quá trình game design đầy bất ngờ và thay đổi, vẫn cần một loại kế hoạch nào đó. Lịch dự án tốt liệt kê tất cả nhiệm vụ, thời hạn, thứ tự phụ thuộc và người chịu trách nhiệm. Trên game tầm trung trở lên, duy trì tài liệu này có thể là công việc toàn thời gian.</p>
+ <span class="doc-tip">→ Thường được cập nhật hàng tuần; có thể dùng spreadsheet hoặc phần mềm PM chuyên dụng</span>
+ </div>
+ </div>
+ </div>
+</div>
+
+<!-- GROUP 5: WRITING -->
+<div class="doc-group">
+ <div class="doc-group-header" style="background: #EBF4EF;">
+ <span class="doc-group-title" style="color: var(--accent-green);">Writing + Players — Nội dung & Người chơi</span>
+ </div>
+ <div class="doc-group-body">
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--accent-green);">12</div>
+ <div class="doc-content">
+ <strong>Story bible</strong>
+ <p>Mặc dù có thể nghĩ rằng câu chuyện do writers quyết định, thực tế là mọi người trong dự án đều đóng góp thay đổi có ý nghĩa vào câu chuyện. Kỹ sư engine có thể nhận ra một yếu tố cốt truyện gây khó khăn kỹ thuật; họa sĩ có thể hình dung ra một phần mới của câu chuyện. Story bible làm rõ "luật" của thế giới game, giúp mọi người đóng góp ý tưởng câu chuyện nhất quán và tạo ra một thế giới được tích hợp tốt với nghệ thuật, công nghệ và gameplay.</p>
+ </div>
+ </div>
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--accent-green);">13</div>
+ <div class="doc-content">
+ <strong>Script</strong>
+ <p>Nếu NPC trong game có lời thoại, dialog đó phải đến từ đâu đó. Script thường là tài liệu riêng biệt hoặc phụ lục của detailed design doc. Quan trọng: designer phải review toàn bộ dialog vì rất dễ để một dòng script mâu thuẫn với một quy tắc gameplay nào đó.</p>
+ </div>
+ </div>
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--accent-green);">14</div>
+ <div class="doc-content">
+ <strong>Game tutorial and manual</strong>
+ <p>Game hiện đại rất phức tạp và người chơi cần học cách chơi. Tutorial trong game, trang web hướng dẫn và sách hướng dẫn in là những cách thông thường. Nội dung trong những tài liệu này rất quan trọng — nếu người chơi không hiểu game, làm sao họ tận hưởng được? Chi tiết sẽ thay đổi cho đến phút cuối, nên cần liên tục kiểm tra tính chính xác của nội dung.</p>
+ </div>
+ </div>
+ <div class="doc-item">
+ <div class="doc-num" style="background: var(--accent-teal);">15</div>
+ <div class="doc-content">
+ <strong>Game walk-through</strong>
+ <p>Developer không phải là người duy nhất viết tài liệu về game. Khi người chơi thích một game, họ sẽ tự viết hướng dẫn và đăng lên mạng. Nghiên cứu những gì người chơi viết về game là cách tuyệt vời để hiểu chi tiết điều họ thích và không thích, phần nào quá khó hay quá dễ. Tất nhiên, khi walk-through được viết, thường đã quá muộn để thay đổi game — nhưng ít nhất bạn sẽ biết cho lần sau!</p>
+ <span class="doc-tip">→ Tài liệu do chính người chơi tạo ra — ngoài tầm kiểm soát của developer</span>
+ </div>
+ </div>
+ </div>
+</div>
+
+<!-- ══════════════ SECTION 4 ══════════════ -->
+<div class="section-header" id="s4">
+ <div class="section-num dot-green">4</div>
+ <h2>Vậy bắt đầu từ đâu?</h2>
+</div>
+
+<div class="card">
+ <p>Câu trả lời của Schell rất đơn giản và thực tế: <strong>bắt đầu từ một danh sách bullet points thô ráp</strong> về những ý tưởng bạn muốn đưa vào game.</p>
+
+ <div class="hl-box hl-green">
+ <div class="hl-body">
+ <h4>Quy trình hữu cơ (Organic Process)</h4>
+ <p>Khi danh sách lớn dần, những câu hỏi về thiết kế sẽ nảy sinh trong đầu bạn. <strong>Viết chúng xuống ngay.</strong> "Làm việc trên thiết kế" đa phần có nghĩa là trả lời những câu hỏi đó — đừng để mất chúng. Mỗi khi trả lời xong một câu hỏi, ghi lại quyết định và lý do tại sao bạn đưa ra quyết định đó.<br><br>Dần dần, danh sách ý tưởng, kế hoạch, câu hỏi và câu trả lời sẽ phình to và tự nhiên phân thành các mục. Hãy tiếp tục viết những gì cần nhớ và những gì cần truyền đạt. Không lâu sau, bạn sẽ có một design document — không phải dựa trên template ma thuật nào đó, mà là một tài liệu lớn lên tự nhiên xung quanh thiết kế độc đáo của game bạn.</p>
+ </div>
+ </div>
+</div>
+
+<div class="quote-block">
+ "If you give a good idea to a mediocre group, they'll screw it up. If you give a mediocre idea to a good group, they'll fix it."
+ <cite>— Ed Catmull, đồng sáng lập Pixar</cite>
+</div>
+
+<div class="card">
+ <p>Bạn có thể nghĩ rằng tất cả những giao tiếp nhóm này không liên quan đến bạn với tư cách là designer, và rằng nếu người khác không làm tốt công việc của họ thì đó không phải lỗi của bạn. Nhưng thực tế thì ngược lại — vì mọi người chạm vào game đều tạo ra ảnh hưởng lên thiết kế của nó. Bạn cần cả nhóm cùng cộng lực, nếu tầm nhìn tuyệt vời mà bạn chia sẻ muốn trở thành sự thật.</p>
+</div>
+
+<!-- ══════════════ LENS #102 ══════════════ -->
+<div class="lens-box">
+ <div class="lens-header">
+ <div class="lens-title-block">
+ <div class="lens-number">Lens #102</div>
+ <div class="lens-title">The Lens of Documentation</div>
+ </div>
+ </div>
+ <p class="lens-desc">Lens này không hỏi "tài liệu của bạn trông như thế nào?" — mà hỏi "tài liệu của bạn đang phục vụ mục đích gì?" Đây là lăng kính thực dụng nhất: thay vì theo đuổi format hoàn hảo, hãy xác định nhu cầu thực sự và xây dựng tài liệu từ đó.</p>
+ <ul class="lens-questions">
+ <li>Điều gì cần được nhớ trong khi làm game này? Chúng ta có đang ghi lại chúng không?</li>
+ <li>Điều gì cần được giao tiếp trong khi làm game này? Các kênh giao tiếp hiện tại có đang phục vụ tốt không?</li>
+ <li>Chúng ta có đang tạo ra tài liệu vì chúng thực sự cần thiết, hay chỉ vì cảm thấy nên có?</li>
+ <li>Có tài liệu nào đang lỗi thời mà vẫn được mọi người tin tưởng như sự thật không?</li>
+ </ul>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════ READING LIST ══════════════ -->
+<div class="section-header" id="s5">
+ <div class="section-num dot-blue"></div>
+ <h2>Tài liệu đọc thêm</h2>
+</div>
+
+<div class="reading-list">
+ <div class="reading-item">
+ <div class="reading-body">
+ <h4>Game Design Logs — Daniel Cook (Lost Garden blog)</h4>
+ <p>Bài viết xuất sắc của Daniel Cook cung cấp một giải pháp thực tế cho vấn đề tài liệu thiết kế luôn lỗi thời. Thay vì cố duy trì một tài liệu "sống", Cook đề xuất mô hình log — ghi lại quyết định theo thứ tự thời gian, với lý do đằng sau mỗi quyết định. Khi nhìn lại, bạn thấy được tiến trình tư duy, không chỉ kết quả cuối cùng.</p>
+ </div>
+ </div>
+ <div class="reading-item">
+ <div class="reading-body">
+ <h4>One Page Designs — Stone Librande (GDC 2010)</h4>
+ <p>Bài thuyết trình GDC 2010 của Stone Librande thay đổi ngành công nghiệp game trong một đêm. Ý tưởng đơn giản đến mức ai cũng tự hỏi tại sao mình chưa nghĩ ra: mọi thiết kế game đều phải được mô tả được trên <em>một tờ giấy</em> với sơ đồ trực quan. Nếu không, thiết kế chưa đủ rõ ràng. Đây đã trở thành chuẩn mực ngành. Slides tại stonetronix.com/gdc-2010/.</p>
+ </div>
+ </div>
+</div>
+
+<!-- ══════════════ TỔNG KẾT ══════════════ -->
+<div class="card" style="margin-top: 48px; border-color: var(--accent-blue); background: #edf9f2;">
+ <h3 style="color: var(--accent-blue);"> Bài học cốt lõi của chương 26</h3>
+ <p>Bí quyết của tài liệu game không nằm ở việc tìm đúng template — mà nằm ở việc hiểu rõ bạn cần <em>nhớ</em> gì và cần <em>truyền đạt</em> gì. Khi hai câu hỏi đó được trả lời, cấu trúc tài liệu sẽ tự hình thành một cách tự nhiên.</p>
+ <p style="margin-top: 10px;">Một tài liệu tốt không phải là tài liệu theo đúng format — đó là tài liệu khiến đội ngũ hiểu nhau hơn và nhớ được những quyết định quan trọng. Một tài liệu tệ, dù có format hoàn hảo đến đâu, cũng không cứu được một nhóm thiếu giao tiếp thực sự.</p>
+</div>
+
+</main>
+
+<footer>
+ The Art of Game Design · Jesse Schell · Chương 26 · Tóm tắt học thuật bằng tiếng Việt
+</footer>
+
+<div class="chapnav-wrap"><div class="chapnav"><a href="C25-Teamwork.html"><span class="lbl">Chương trước</span>Chương 25: Nhà Thiết Kế Thường Làm Việc Cùng Đội Nhóm</a><a href="C27-Playtesting.html"><span class="lbl">Chương sau</span>Chương 27: Good Games Are Created through Playtesting</a></div></div>
+
+<script>
+  (function(){
+    var sections = document.querySelectorAll('.section-header[id]');
+    var navLinks = document.querySelectorAll('.tocnav a');
+    if (!sections.length || !navLinks.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(a){
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Chương 9 – The Player | The Art of Game Design</title>
+ <style>
+ :root {
+ --orange: #27ae60;
+ --orange-light: #6cc999;
+ --orange-pale: #edf9f2;
+ --dark: #0e231c;
+ --gray: #656a75;
+ --bg: #f4f7f2;
+ --teal: #27ae60;
+ --teal-pale: #edf9f2;
+ --blue: #27ae60;
+ --blue-pale: #edf9f2;
+ --purple: #27ae60;
+ --purple-pale: #edf9f2;
+ --green: #27ae60;
+ --green-pale: #edf9f2;
+ --amber: #27ae60;
+ --amber-pale: #edf9f2;
+ --red: #27ae60;
+ --red-pale: #edf9f2;
+ 
+ --forest: #0e231c;
+ --fog: #879b93;
+ --sage: #defaca;
+ --mint: #edf9f2;
+ --sprout-d: #1c8a4c;}
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+ body {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ background: var(--bg);
+ color: var(--dark);
+ line-height: 1.7;
+ }
+
+
+ /* ── HERO ── */
+ .hero {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ color: white;
+ padding: 5rem 2rem 3.5rem;
+ text-align: center;
+ }
+ .hero-tag {
+ display: inline-block;
+ background: var(--orange);
+ color: white;
+ font-size: 0.75rem;
+ letter-spacing: 0.18em;
+ text-transform: uppercase;
+ padding: 0.35rem 1.1rem;
+ border-radius: 20px;
+ margin-bottom: 1.8rem;
+ }
+ .hero h1 {
+ font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+ font-weight: normal;
+ letter-spacing: -0.02em;
+ margin-bottom: 0.3rem;
+ line-height: 1.15;
+ }
+ .hero h1 em { color: var(--orange-light); font-style: italic; }
+ .hero-sub {
+ font-size: 1.05rem;
+ color: #bbb;
+ font-style: italic;
+ max-width: 600px;
+ margin: 1.2rem auto 3rem;
+ line-height: 1.65;
+ }
+ .hero-stats {
+ display: flex;
+ justify-content: center;
+ gap: 3.5rem;
+ flex-wrap: wrap;
+ }
+ .stat { text-align: center; }
+ .stat-num {
+ display: block;
+ font-size: 2.2rem;
+ font-weight: bold;
+ color: var(--orange-light);
+ line-height: 1;
+ margin-bottom: 0.3rem;
+ }
+ .stat-label {
+ font-size: 0.7rem;
+ color: #999;
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+ }
+
+ /* ── MAIN LAYOUT ── */
+ .content { max-width: 920px; margin: 0 auto; padding: 3.5rem 2rem; }
+
+ /* ── CHAPTER MAP ── */
+ .chapter-map {
+ background: white;
+ border-radius: 16px;
+ padding: 2rem;
+ margin-bottom: 3rem;
+ box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+ }
+ .map-title {
+ font-size: 0.76rem;
+ color: var(--gray);
+ letter-spacing: 0.14em;
+ text-transform: uppercase;
+ margin-bottom: 1.4rem;
+ }
+ .map-flow {
+ display: flex;
+ align-items: center;
+ flex-wrap: wrap;
+ gap: 0.4rem;
+ row-gap: 0.9rem;
+ }
+ .map-node { display: flex; align-items: center; gap: 0.4rem; }
+ .dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+ .node-text { font-size: 0.8rem; color: var(--dark); }
+ .arrow { color: #ccc; font-size: 0.9rem; margin: 0 0.1rem; }
+
+ /* ── SECTION HEADER ── */
+ .section-header {
+ display: flex;
+ align-items: flex-start;
+ gap: 1.1rem;
+ margin: 3.5rem 0 1.5rem;
+  scroll-margin-top: 108px;}
+ .sec-num {
+ width: 44px; height: 44px;
+ border-radius: 50%;
+ display: flex; align-items: center; justify-content: center;
+ font-size: 1.1rem; font-weight: bold; color: white;
+ flex-shrink: 0; margin-top: 3px;
+ }
+ .sec-info h2 {
+ font-size: 1.55rem;
+ font-weight: normal;
+ color: var(--dark);
+ line-height: 1.2;
+ }
+ .sec-en {
+ font-size: 0.82rem;
+ color: var(--gray);
+ font-style: italic;
+ margin-top: 0.15rem;
+ }
+
+ /* ── BODY TEXT ── */
+ p.bp { font-size: 1rem; line-height: 1.85; margin-bottom: 1.3rem; }
+
+ /* ── CALLOUT ── */
+ .callout {
+ border-radius: 12px;
+ padding: 1.4rem 1.6rem;
+ margin: 1.5rem 0;
+ }
+ .callout-icon { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
+ .callout h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+ .callout p { font-size: 0.93rem; line-height: 1.75; }
+ .callout ul { font-size: 0.93rem; padding-left: 1.2rem; line-height: 1.75; }
+ .callout li { margin-bottom: 0.25rem; }
+
+ /* ── DEMOGRAPHICS GRID ── */
+ .demo-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+ gap: 1rem;
+ margin: 1.5rem 0;
+ }
+ .demo-card {
+ background: white;
+ border-radius: 12px;
+ padding: 1.1rem 1.2rem;
+ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+ border-top: 4px solid;
+ }
+ .demo-age { font-size: 1.1rem; font-weight: bold; margin-bottom: 0.15rem; }
+ .demo-nickname {
+ font-size: 0.7rem;
+ text-transform: uppercase;
+ letter-spacing: 0.09em;
+ margin-bottom: 0.65rem;
+ font-weight: bold;
+ }
+ .demo-desc { font-size: 0.86rem; color: var(--dark); line-height: 1.6; }
+
+ /* ── GENDER COMPARE ── */
+ .gender-compare {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 1.5rem;
+ margin: 1.5rem 0;
+ }
+ .gender-col { border-radius: 12px; padding: 1.5rem; }
+ .gender-col h3 { font-size: 1rem; margin-bottom: 1rem; }
+ .gender-col ul { list-style: none; padding: 0; }
+ .gender-col li {
+ padding: 0.55rem 0 0.55rem 1.3rem;
+ border-bottom: 1px solid rgba(0,0,0,0.07);
+ font-size: 0.9rem;
+ position: relative;
+ }
+ .gender-col li:last-child { border-bottom: none; }
+ .gender-col li::before {
+ content: '▸';
+ position: absolute; left: 0;
+ font-size: 0.75rem; top: 0.65rem;
+ }
+
+ /* ── PIRATES GRID ── */
+ .pirates-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 1rem;
+ margin: 1.5rem 0;
+ }
+ .pirate-card {
+ background: white;
+ border-radius: 12px;
+ padding: 1.3rem;
+ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+ border-top: 4px solid;
+ }
+ .pirate-who {
+ font-size: 0.7rem;
+ font-weight: bold;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ margin-bottom: 0.5rem;
+ }
+ .pirate-title { font-size: 0.97rem; font-weight: bold; margin-bottom: 0.4rem; }
+ .pirate-desc { font-size: 0.87rem; color: var(--gray); line-height: 1.6; }
+
+ /* ── LENS BOX ── */
+ .lens-box {
+ border: 2px solid var(--orange);
+ border-radius: 16px;
+ padding: 2rem;
+ margin: 2rem 0;
+ background: white;
+ }
+ .lens-header {
+ display: flex; align-items: center; gap: 1.1rem;
+ margin-bottom: 1.4rem;
+ }
+ .lens-icon {
+ width: 54px; height: 54px;
+ background: var(--orange);
+ border-radius: 12px;
+ display: flex; align-items: center; justify-content: center;
+ font-size: 1.65rem; flex-shrink: 0;
+ }
+ .lens-num {
+ font-size: 0.73rem;
+ color: var(--gray);
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+ margin-bottom: 0.15rem;
+ }
+ .lens-title { font-size: 1.4rem; color: var(--orange); }
+ .lens-desc { font-size: 0.93rem; color: var(--gray); margin-bottom: 1.2rem; }
+ .lens-q { list-style: none; padding: 0; }
+ .lens-q li {
+ padding: 0.75rem 0 0.75rem 1.7rem;
+ border-top: 1px solid #eee;
+ font-size: 0.95rem;
+ position: relative;
+ }
+ .lens-q li::before {
+ content: '→';
+ position: absolute; left: 0;
+ color: var(--orange);
+ }
+
+ /* ── LEBLANC PLEASURE GRID ── */
+ .pleasure-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+ gap: 1rem;
+ margin: 1.5rem 0;
+ }
+ .pleasure-card {
+ background: white;
+ border-radius: 12px;
+ padding: 1.1rem 1.2rem;
+ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+ border-left: 4px solid;
+ }
+ .p-num {
+ font-size: 0.7rem;
+ text-transform: uppercase;
+ letter-spacing: 0.1em;
+ margin-bottom: 0.25rem;
+ }
+ .p-name { font-size: 1rem; font-weight: bold; margin-bottom: 0.15rem; }
+ .p-vi { font-size: 0.82rem; color: var(--gray); font-style: italic; margin-bottom: 0.45rem; }
+ .p-desc { font-size: 0.84rem; line-height: 1.55; color: var(--dark); }
+
+ /* ── BARTLE MAP ── */
+ .bartle-wrap {
+ background: white;
+ border-radius: 16px;
+ padding: 2rem;
+ margin: 1.5rem 0;
+ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+ }
+ .bartle-intro {
+ font-size: 0.93rem;
+ color: var(--gray);
+ margin-bottom: 1.2rem;
+ font-style: italic;
+ }
+ .axis-row {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ font-size: 0.72rem;
+ color: var(--gray);
+ margin-bottom: 0.5rem;
+ padding: 0 0.5rem;
+ }
+ .axis-world {
+ text-align: center;
+ font-size: 0.72rem;
+ color: var(--gray);
+ margin-bottom: 0.5rem;
+ font-style: italic;
+ }
+ .bartle-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 1rem;
+ }
+ .bq { border-radius: 12px; padding: 1.2rem; }
+ .bq-suit { font-size: 1.8rem; margin-bottom: 0.15rem; line-height: 1; }
+ .bq-name { font-size: 1rem; font-weight: bold; margin-bottom: 0.1rem; }
+ .bq-axis {
+ font-size: 0.7rem;
+ text-transform: uppercase;
+ letter-spacing: 0.08em;
+ color: var(--gray);
+ margin-bottom: 0.5rem;
+ }
+ .bq-desc { font-size: 0.85rem; line-height: 1.55; }
+ .bartle-axis-bottom {
+ display: flex;
+ justify-content: space-between;
+ font-size: 0.72rem;
+ color: var(--gray);
+ margin-top: 0.5rem;
+ padding: 0 0.5rem;
+ font-style: italic;
+ }
+ .bartle-note {
+ margin-top: 1.2rem;
+ font-size: 0.85rem;
+ color: var(--gray);
+ font-style: italic;
+ text-align: center;
+ line-height: 1.6;
+ }
+
+ /* ── MORE PLEASURES (CHIPS) ── */
+ .pleasure-chips {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 0.75rem;
+ margin: 1.5rem 0;
+ }
+ .chip {
+ background: white;
+ border-radius: 20px;
+ padding: 0.5rem 1.1rem;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+ font-size: 0.88rem;
+ display: flex;
+ align-items: center;
+ gap: 0.4rem;
+ line-height: 1;
+ }
+
+ /* ── INSIGHT STRIP ── */
+ .insight-strip {
+ background: var(--orange-pale);
+ border-left: 4px solid var(--orange);
+ padding: 1.6rem 2rem;
+ border-radius: 0 12px 12px 0;
+ margin: 3rem 0;
+ }
+ .insight-label {
+ font-size: 0.71rem;
+ color: var(--orange);
+ letter-spacing: 0.16em;
+ text-transform: uppercase;
+ font-weight: bold;
+ margin-bottom: 0.55rem;
+ }
+ .insight-text {
+ font-size: 1.05rem;
+ color: var(--dark);
+ font-style: italic;
+ line-height: 1.75;
+ }
+
+ /* ── QUOTE GRID ── */
+ .quote-section { margin: 3rem 0; }
+ .quote-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+ gap: 1.5rem;
+ }
+ .quote-card {
+ background: white;
+ border-radius: 16px;
+ padding: 2rem;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+ position: relative;
+ }
+ .quote-card::before {
+ content: '\201C';
+ position: absolute;
+ top: 0.8rem; left: 1.5rem;
+ font-size: 4rem;
+ color: var(--orange-pale);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ line-height: 1;
+ }
+ .quote-card blockquote {
+ font-size: 0.97rem;
+ line-height: 1.75;
+ color: var(--dark);
+ font-style: italic;
+ padding-top: 1.2rem;
+ margin-bottom: 1rem;
+ }
+ .quote-source {
+ font-size: 0.77rem;
+ color: var(--gray);
+ text-transform: uppercase;
+ letter-spacing: 0.1em;
+ }
+
+ /* ── FOOTER ── */
+ footer {
+ background: var(--dark);
+ color: #888;
+ text-align: center;
+ padding: 2.5rem 2rem;
+ font-size: 0.82rem;
+ line-height: 1.8;
+ }
+ footer .hi { color: var(--orange); }
+
+ /* ── DIVIDER ── */
+ hr.div { border: none; border-top: 1px solid #e5e0d8; margin: 2.5rem 0; }
+
+ /* ── RESPONSIVE ── */
+ @media (max-width: 640px) {
+ .gender-compare { grid-template-columns: 1fr; }
+ .pirates-grid { grid-template-columns: 1fr; }
+ .bartle-grid { grid-template-columns: 1fr; }
+ .quote-grid { grid-template-columns: 1fr; }
+ .hero-stats { gap: 2rem; }
+ nav { padding: 0.75rem 1rem; gap: 1rem; }
+ .content { padding: 2.5rem 1.2rem; }
+ }
+ </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+  .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .topnav .crumb { color: #879b93; font-size: 14px; }
+  .topnav .crumb a { color: #879b93; text-decoration: none; }
+  .topnav .crumb b { color: #fff; font-weight: 600; }
+  .chapnav-wrap { background: #f4f7f2; padding: 40px 24px 56px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .chapnav { display: flex; justify-content: space-between; gap: 12px; max-width: 820px; margin: 0 auto; }
+  .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+  .tocnav { position: sticky; top: 52px; z-index: 100; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; overflow-x: auto; scrollbar-width: none; }
+  .tocnav::-webkit-scrollbar { display: none; }
+  .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
+
+</style>
+<nav class="topnav">
+  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 9</b></span>
+</nav>
+
+<nav class="tocnav">
+  <a href="#s1">Đàn violin của Einstein</a>
+  <a href="#s2">Chiếu mình vào tâm trí người chơi</a>
+  <a href="#s3">Nhân khẩu học</a>
+  <a href="#s4">Giới tính &amp; Game</a>
+  <a href="#s5">The Lens of the Player</a>
+  <a href="#s6">Pirates of the Caribbean</a>
+  <a href="#s7">Tâm lý học hưởng thụ</a>
+  <a href="#s8">8 Thú vui Game của LeBlanc</a>
+  <a href="#s9">Bartle's 4 Player Types</a>
+  <a href="#s10">Những thú vui khác</a>
+  <a href="#s11">The Lens of Pleasure</a>
+</nav>
+
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<header class="hero">
+ <div class="hero-tag">Chương 9</div>
+ <h1>The <em>Player</em></h1>
+ <p class="hero-sub">
+ Bạn thiết kế game cho ai? Muốn thực sự chạm đến người chơi, bạn phải hiểu họ từ bên ngoài vào bên trong — từ nhân khẩu học đến tâm lý, từ sở thích giới tính đến những thú vui sâu thẳm nhất mà chỉ game mới mang lại được.
+ </p>
+ <div class="hero-stats">
+ <div class="stat">
+ <span class="stat-num">2</span>
+ <span class="stat-label">Lenses (#19–20)</span>
+ </div>
+ <div class="stat">
+ <span class="stat-num">9</span>
+ <span class="stat-label">Nhóm tuổi</span>
+ </div>
+ <div class="stat">
+ <span class="stat-num">8</span>
+ <span class="stat-label">Game Pleasures</span>
+ </div>
+ <div class="stat">
+ <span class="stat-num">4</span>
+ <span class="stat-label">Bartle Player Types</span>
+ </div>
+ </div>
+</header>
+
+<!-- ═══════════════════ CONTENT ═══════════════════ -->
+<main class="content">
+
+ <!-- CHAPTER MAP -->
+ <div class="chapter-map">
+ <p class="map-title">Bản đồ chương</p>
+ <div class="map-flow">
+ <div class="map-node">
+ <div class="dot" style="background:var(--orange)"></div>
+ <span class="node-text">Đàn violin của Einstein</span>
+ </div>
+ <span class="arrow">→</span>
+ <div class="map-node">
+ <div class="dot" style="background:var(--blue)"></div>
+ <span class="node-text">Chiếu mình vào người chơi</span>
+ </div>
+ <span class="arrow">→</span>
+ <div class="map-node">
+ <div class="dot" style="background:var(--teal)"></div>
+ <span class="node-text">Demographics (9 nhóm tuổi)</span>
+ </div>
+ <span class="arrow">→</span>
+ <div class="map-node">
+ <div class="dot" style="background:var(--purple)"></div>
+ <span class="node-text">Giới tính &amp; Game</span>
+ </div>
+ <span class="arrow">→</span>
+ <div class="map-node">
+ <div class="dot" style="background:var(--orange)"></div>
+ <span class="node-text">Lens #19</span>
+ </div>
+ <span class="arrow">→</span>
+ <div class="map-node">
+ <div class="dot" style="background:var(--amber)"></div>
+ <span class="node-text">Case Study: Pirates</span>
+ </div>
+ <span class="arrow">→</span>
+ <div class="map-node">
+ <div class="dot" style="background:var(--blue)"></div>
+ <span class="node-text">Psychographics</span>
+ </div>
+ <span class="arrow">→</span>
+ <div class="map-node">
+ <div class="dot" style="background:var(--purple)"></div>
+ <span class="node-text">LeBlanc's 8 Pleasures</span>
+ </div>
+ <span class="arrow">→</span>
+ <div class="map-node">
+ <div class="dot" style="background:var(--teal)"></div>
+ <span class="node-text">Bartle's 4 Types</span>
+ </div>
+ <span class="arrow">→</span>
+ <div class="map-node">
+ <div class="dot" style="background:var(--green)"></div>
+ <span class="node-text">Thú vui mở rộng</span>
+ </div>
+ <span class="arrow">→</span>
+ <div class="map-node">
+ <div class="dot" style="background:var(--orange)"></div>
+ <span class="node-text">Lens #20</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- SECTION 1: EINSTEIN'S VIOLIN -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="section-header" id="s1">
+ <div class="sec-num" style="background:var(--orange)">1</div>
+ <div class="sec-info">
+ <h2>Đàn violin của Einstein</h2>
+ <div class="sec-en">Einstein's Violin</div>
+ </div>
+ </div>
+
+ <p class="bp">
+ Albert Einstein là một nhạc sĩ violin đam mê. Khi cần trình bày những lý thuyết khoa học phức tạp cho công chúng, ông không bắt đầu bằng công thức hay thuật ngữ chuyên môn — ông dùng hình ảnh gần gũi, cách kể chuyện giản dị, điều chỉnh ngôn ngữ cho từng đối tượng nghe.
+ </p>
+ <p class="bp">
+ Thiên tài của ông không chỉ là <em>biết nhiều</em>, mà còn là <em>biết mình đang nói chuyện với ai</em>. Đây là bài học mở đầu của chương 9: dù game của bạn có xuất sắc đến đâu, nếu bạn không thực sự biết người chơi là ai, bạn sẽ thiết kế sai người.
+ </p>
+
+ <div class="callout" style="background:var(--orange-pale);">
+ <h3>Nguyên tắc Einstein</h3>
+ <p>Game designer giỏi, như Einstein với violin, luôn tự hỏi: <em>"Người đang trải nghiệm tác phẩm của mình cần gì? Họ muốn cảm thấy gì? Họ hiểu thế giới theo cách nào?"</em> Câu trả lời định hình toàn bộ quyết định thiết kế.</p>
+ </div>
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- SECTION 2: PROJECT YOURSELF -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="section-header" id="s2">
+ <div class="sec-num" style="background:var(--blue)">2</div>
+ <div class="sec-info">
+ <h2>Chiếu mình vào tâm trí người chơi</h2>
+ <div class="sec-en">Project Yourself into the Player's Mind</div>
+ </div>
+ </div>
+
+ <p class="bp">
+ Walt Disney có một thói quen nổi tiếng: mỗi khi kiểm tra thiết kế của khu vui chơi hay sản phẩm dành cho trẻ em, ông cúi thấp xuống ngang tầm mắt của chúng. Không phải để thể hiện — mà để thực sự nhìn thế giới từ chiều cao của một đứa trẻ, cảm nhận điều chúng cảm nhận, thấy điều chúng thấy.
+ </p>
+ <p class="bp">
+ Schell gọi đây là <strong>empathy by projection</strong>: không chỉ quan sát người chơi từ bên ngoài, mà chủ động <em>chiếu bản thân mình vào tâm trí họ</em>. Đặt câu hỏi thật cụ thể: Lúc này họ đang nghĩ gì? Họ đang cảm thấy gì? Điều gì đang làm họ thỏa mãn, và điều gì đang làm họ bực bội?
+ </p>
+
+ <div class="callout" style="background:var(--blue-pale);">
+ <h3>Trở thành nhà nhân học văn hóa</h3>
+ <p>Khi thiết kế cho một nhóm đối tượng xa lạ — khác tuổi, khác giới, khác nền văn hóa — hãy tiếp cận như một <strong>cultural anthropologist</strong>: quan sát họ với sự tò mò chân thật, không phán xét. Đi theo họ, xem họ chơi gì, nghe họ nói gì, chú ý điều gì khiến họ cười và điều gì khiến họ đặt game xuống. Sự thấu cảm không đến từ phỏng đoán — nó đến từ quan sát.</p>
+ </div>
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- SECTION 3: DEMOGRAPHICS -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="section-header" id="s3">
+ <div class="sec-num" style="background:var(--teal)">3</div>
+ <div class="sec-info">
+ <h2>Nhân khẩu học</h2>
+ <div class="sec-en">Demographics</div>
+ </div>
+ </div>
+
+ <p class="bp">
+ Demographics (nhân khẩu học) phân loại người chơi theo các đặc điểm bên ngoài: tuổi, giới tính, địa lý, thu nhập. Đây là lớp đầu tiên của sự thấu hiểu — cần thiết nhưng chưa đủ. Schell chia độ tuổi thành 9 nhóm với tâm lý phát triển và sở thích game rất khác nhau:
+ </p>
+
+ <div class="demo-grid">
+ <div class="demo-card" style="border-top-color:var(--red);">
+ <div class="demo-age" style="color:var(--red);">0 – 3 tuổi</div>
+ <div class="demo-nickname" style="color:var(--red);">Trẻ sơ sinh &amp; mới biết đi</div>
+ <div class="demo-desc">Học qua cảm giác: âm thanh, màu sắc, kết cấu, chuyển động. Chưa phân biệt game với đồ chơi. Vận động cơ thể là trải nghiệm chính — ấn, kéo, lắc.</div>
+ </div>
+ <div class="demo-card" style="border-top-color:var(--orange);">
+ <div class="demo-age" style="color:var(--orange);">4 – 6 tuổi</div>
+ <div class="demo-nickname" style="color:var(--orange);">Mẫu giáo</div>
+ <div class="demo-desc">Bắt đầu hiểu quy tắc đơn giản. Yêu thích nhân vật và câu chuyện. Chơi hợp tác vui hơn cạnh tranh — không thích cảm giác thua và bị loại khỏi game.</div>
+ </div>
+ <div class="demo-card" style="border-top-color:var(--amber);">
+ <div class="demo-age" style="color:var(--amber);">7 – 9 tuổi</div>
+ <div class="demo-nickname" style="color:var(--amber);">Age of Reason</div>
+ <div class="demo-desc">Lần đầu tiên có khả năng lý luận trừu tượng và hiểu logic phức tạp. Bắt đầu sưu tập. Muốn có thách thức thực sự — chán ngay nếu game quá dễ.</div>
+ </div>
+ <div class="demo-card" style="border-top-color:var(--green);">
+ <div class="demo-age" style="color:var(--green);">10 – 13 tuổi</div>
+ <div class="demo-nickname" style="color:var(--green);">Age of Obsession</div>
+ <div class="demo-desc">Muốn thành chuyên gia tuyệt đối về một thứ. Bạn bè và peer group là trung tâm cuộc sống. Bắt đầu chịu ảnh hưởng của xu hướng xã hội mạnh mẽ.</div>
+ </div>
+ <div class="demo-card" style="border-top-color:var(--teal);">
+ <div class="demo-age" style="color:var(--teal);">13 – 18 tuổi</div>
+ <div class="demo-nickname" style="color:var(--teal);">Thiếu niên</div>
+ <div class="demo-desc">Muốn chứng tỏ bản thân và được công nhận. Bị hấp dẫn bởi game "trưởng thành" như phương tiện thể hiện. Hình ảnh xã hội cực kỳ nhạy cảm.</div>
+ </div>
+ <div class="demo-card" style="border-top-color:var(--blue);">
+ <div class="demo-age" style="color:var(--blue);">18 – 24 tuổi</div>
+ <div class="demo-nickname" style="color:var(--blue);">Hardcore Gamers</div>
+ <div class="demo-desc">Nhóm chơi nhiều nhất — nhiều thời gian tự do nhất. Thích game phức tạp, cạnh tranh cao, yêu cầu kỹ năng thực sự. Sẵn sàng đầu tư tiền và công sức.</div>
+ </div>
+ <div class="demo-card" style="border-top-color:var(--purple);">
+ <div class="demo-age" style="color:var(--purple);">25 – 35 tuổi</div>
+ <div class="demo-nickname" style="color:var(--purple);">Peak Family Formation</div>
+ <div class="demo-desc">Ít thời gian hơn vì công việc và gia đình. Thích game nhanh, casual, dễ tạm dừng. Thường là người giới thiệu con cái vào thế giới game lần đầu tiên.</div>
+ </div>
+ <div class="demo-card" style="border-top-color:var(--gray);">
+ <div class="demo-age" style="color:var(--gray);">35 – 50 tuổi</div>
+ <div class="demo-nickname" style="color:var(--gray);">Family Maturation</div>
+ <div class="demo-desc">Nhiều tiền hơn, ít thời gian hơn. Thích game chiến lược, puzzle nhẹ nhàng. Là cha mẹ của những gamer trẻ tuổi — đóng vai trò người ra quyết định mua.</div>
+ </div>
+ <div class="demo-card" style="border-top-color:#8B6914;">
+ <div class="demo-age" style="color:#8B6914;">50+ tuổi</div>
+ <div class="demo-nickname" style="color:#8B6914;">Empty Nesters</div>
+ <div class="demo-desc">Con đã trưởng thành và ở riêng. Có cả thời gian lẫn tiền. Yêu thích game casual, social, và những game kích thích trí não như puzzle hay chiến lược nhẹ.</div>
+ </div>
+ </div>
+
+ <div class="callout" style="background:var(--teal-pale);">
+ <h3>Age of Reason &amp; Age of Obsession — Hai mốc quan trọng nhất</h3>
+ <p>Trẻ 7–9 tuổi lần đầu tiên có thể hiểu và áp dụng logic trừu tượng — đây là thời điểm vàng để giới thiệu những mechanic thực sự phức tạp. Trẻ 10–13 tuổi thì "cuồng nhiệt" theo đúng nghĩa: một khi đã thích thứ gì, chúng tìm hiểu nó đến từng chi tiết nhỏ nhất. Đây là hai nhóm tuổi mà game design có thể tạo ra dấu ấn sâu sắc và lâu dài nhất.</p>
+ </div>
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- SECTION 4: GENDER & GAMES -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="section-header" id="s4">
+ <div class="sec-num" style="background:var(--purple)">4</div>
+ <div class="sec-info">
+ <h2>Giới tính &amp; Game</h2>
+ <div class="sec-en">The Medium Is the Misogynist?</div>
+ </div>
+ </div>
+
+ <p class="bp">
+ Raph Koster đưa ra một lý thuyết gây tranh cãi: những <strong>hệ thống hình thức trừu tượng</strong> (abstract formal systems) — tức bản chất cốt lõi của game — tự nhiên hấp dẫn nam giới hơn nữ giới. Đây không phải vấn đề thông minh hay khả năng, mà là sự khác biệt trong sở thích học tập và trải nghiệm.
+ </p>
+
+ <div class="gender-compare">
+ <div class="gender-col" style="background:var(--blue-pale);">
+ <h3 style="color:var(--blue);"> 5 điều nam giới thường thích</h3>
+ <ul style="color:var(--dark);">
+ <li style="color:var(--blue)"><strong>Mastery</strong> — Thành thạo, chinh phục kỹ năng đến mức hoàn hảo</li>
+ <li style="color:var(--blue)"><strong>Competition</strong> — Cạnh tranh, xếp hạng, so sánh thứ bậc</li>
+ <li style="color:var(--blue)"><strong>Destruction</strong> — Phá vỡ, tàn phá, tiêu diệt</li>
+ <li style="color:var(--blue)"><strong>Spatial puzzles</strong> — Bài toán không gian, bản đồ, điều hướng</li>
+ <li style="color:var(--blue)"><strong>Trial and error</strong> — Thử sai không ngần ngại, chấp nhận thất bại để học</li>
+ </ul>
+ </div>
+ <div class="gender-col" style="background:var(--purple-pale);">
+ <h3 style="color:var(--purple);"> 5 điều nữ giới thường thích</h3>
+ <ul style="color:var(--dark);">
+ <li style="color:var(--purple)"><strong>Emotion</strong> — Cảm xúc phong phú, quan hệ nhân vật sâu sắc</li>
+ <li style="color:var(--purple)"><strong>Real world</strong> — Kết nối với cuộc sống và những tình huống thực</li>
+ <li style="color:var(--purple)"><strong>Nurturing</strong> — Chăm sóc, xây dựng, bảo vệ người/vật khác</li>
+ <li style="color:var(--purple)"><strong>Dialog &amp; verbal puzzles</strong> — Đối thoại, câu đố ngôn ngữ</li>
+ <li style="color:var(--purple)"><strong>Learning by example</strong> — Học theo mẫu, quan sát trước khi làm</li>
+ </ul>
+ </div>
+ </div>
+
+ <div class="callout" style="background:var(--purple-pale);">
+ <h3>Case Study: Hasbro's Pox</h3>
+ <p>Hasbro phát triển game cầm tay <strong>Pox</strong> — người chơi chạy quanh sân trường, thiết bị tự động tấn công thiết bị của người đứng gần nhất. Bé trai thích ngay lập tức. Bé gái từ chối hoàn toàn. Khi hỏi tại sao, các bé gái nói rõ: <em>"Tôi không muốn phải đi tấn công bạn của mình."</em> Vấn đề không phải độ khó hay công nghệ — mechanic đòi hỏi chủ động phá hoại mối quan hệ xã hội trực tiếp, điều mà các bé gái xem là giá trị không thể đánh đổi để thắng một ván game.</p>
+ </div>
+
+ <p class="bp">
+ Máy tính cá nhân được marketing chủ yếu như "công cụ kinh doanh" từ thập niên 1980, và early adopter phần lớn là nam giới. Điều này khiến văn hóa máy tính — từ ngôn ngữ lập trình đến game — dần loại trừ những yếu tố xã hội, cảm xúc, và kết nối thực tế. Kết quả: một ngành công nghiệp game phục vụ chủ yếu cho nam giới trong nhiều thập kỷ, không phải vì nữ giới không thích game, mà vì game không được thiết kế để chào đón họ.
+ </p>
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- SECTION 5: LENS #19 -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="section-header" id="s5">
+ <div class="sec-num" style="background:var(--orange)">5</div>
+ <div class="sec-info">
+ <h2>Lens #19: The Lens of the Player</h2>
+ <div class="sec-en">Thấu kính thứ 19 — Người Chơi</div>
+ </div>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-header">
+ <div>
+ <div class="lens-num">Lens #19</div>
+ <div class="lens-title">The Lens of the Player</div>
+ </div>
+ </div>
+ <p class="lens-desc">Để dùng thấu kính này, hãy dừng thiết kế lại và nhìn thật kỹ vào người chơi của mình — không phải game, không phải mechanic, mà là <em>con người</em> sẽ ngồi trước game đó.</p>
+ <ul class="lens-q">
+ <li>Người chơi của tôi thích gì? Không thích gì? Tôi biết điều này từ quan sát hay chỉ đang phỏng đoán?</li>
+ <li>Điều gì khiến họ cảm thấy được trân trọng và thấu hiểu qua game này?</li>
+ <li>Tôi đang thiết kế dựa trên giả định hay dựa trên những gì tôi thực sự quan sát được?</li>
+ <li>Tôi có thực sự đặt mình vào góc nhìn của họ chưa — không phải một lần, mà liên tục?</li>
+ <li>Nếu tôi là người chơi đó, tôi sẽ cảm thấy thế nào sau 5 phút? Sau 30 phút? Sau một tuần?</li>
+ </ul>
+ </div>
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- SECTION 6: PIRATES CASE STUDY -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="section-header" id="s6">
+ <div class="sec-num" style="background:var(--amber)">6</div>
+ <div class="sec-info">
+ <h2>Case Study: Pirates of the Caribbean</h2>
+ <div class="sec-en">Battle for Buccaneer Gold — DisneyQuest</div>
+ </div>
+ </div>
+
+ <p class="bp">
+ <strong>DisneyQuest</strong> là hệ thống giải trí trong nhà của Disney — theme park thu nhỏ với các game thực tế ảo quy mô lớn. Trong quá trình phát triển game <em>Pirates of the Caribbean: Battle for Buccaneer Gold</em>, đội ngũ thiết kế test với 4 nhóm người chơi khác nhau và nhận được 4 hành vi hoàn toàn khác biệt:
+ </p>
+
+ <div class="pirates-grid">
+ <div class="pirate-card" style="border-top-color:var(--blue);">
+ <div class="pirate-who" style="color:var(--blue);"> Bé trai</div>
+ <div class="pirate-title">Tấn công toàn diện</div>
+ <div class="pirate-desc">Lao vào chiến đấu ngay lập tức, bắn phá mọi thứ di chuyển được. Mục tiêu là tiêu diệt nhiều địch nhất. Chiến lược phòng thủ hoàn toàn không hấp dẫn.</div>
+ </div>
+ <div class="pirate-card" style="border-top-color:var(--purple);">
+ <div class="pirate-who" style="color:var(--purple);"> Bé gái</div>
+ <div class="pirate-title">Bảo vệ &amp; Thu thập kho báu</div>
+ <div class="pirate-desc">Tập trung phòng thủ con tàu và bảo vệ đồng đội. Ưu tiên thu thập kho báu hơn tiêu diệt địch. Phối hợp nhóm và giao tiếp là mấu chốt.</div>
+ </div>
+ <div class="pirate-card" style="border-top-color:var(--teal);">
+ <div class="pirate-who" style="color:var(--teal);"> Đàn ông</div>
+ <div class="pirate-title">"Tall Boys with Credit Cards"</div>
+ <div class="pirate-desc">Schell mô tả ngắn gọn: về cơ bản là bé trai nhưng cao hơn và có thể chi tiền nhiều hơn. Hành vi tương tự — tấn công, chiến đấu — nhưng thêm khả năng phân tích chiến lược.</div>
+ </div>
+ <div class="pirate-card" style="border-top-color:var(--orange);">
+ <div class="pirate-who" style="color:var(--orange);"> Phụ nữ — Người mẹ</div>
+ <div class="pirate-title">Thuyền trưởng của gia đình</div>
+ <div class="pirate-desc">Muốn điều khiển tay lái — vị trí quyền lực nhất trên con tàu. Mục tiêu thực sự không phải thắng game, mà là chứng kiến cả gia đình cùng vui và được trân trọng.</div>
+ </div>
+ </div>
+
+ <div class="callout" style="background:var(--amber-pale);">
+ <h3>"Wow Mom, you were really good at that!"</h3>
+ <p>Insight thiết kế quan trọng nhất của case study: các bà mẹ không cần chiến thắng — họ cần <em>được gia đình thừa nhận và tôn trọng</em>. Khi đội ngũ thiết kế lại tay lái để phản hồi tự nhiên hơn và dễ điều khiển hơn cho người không phải gamer, những đứa trẻ tự nhiên thốt lên: <em>"Wow Mom, you were really good at that!"</em> — và đó chính là phần thưởng thực sự mà người mẹ tìm kiếm trong trải nghiệm chơi game cùng gia đình.</p>
+ </div>
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- SECTION 7: PSYCHOGRAPHICS -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="section-header" id="s7">
+ <div class="sec-num" style="background:var(--blue)">7</div>
+ <div class="sec-info">
+ <h2>Tâm lý học hưởng thụ</h2>
+ <div class="sec-en">Psychographics</div>
+ </div>
+ </div>
+
+ <p class="bp">
+ Demographics cho bạn biết người chơi là <em>ai</em> từ bên ngoài — tuổi, giới tính, địa điểm, thu nhập. Psychographics đi sâu hơn: nó nói về <em>điều gì khiến họ hạnh phúc từ bên trong</em> — sở thích nội tâm, cách họ tìm kiếm niềm vui, điều gì thực sự làm họ thỏa mãn hay thất vọng.
+ </p>
+
+ <div class="callout" style="background:var(--blue-pale);">
+ <h3>Demographics vs Psychographics</h3>
+ <p>
+ <strong>Demographics</strong> → Bên ngoài: 28 tuổi, nam, thành thị, thu nhập trung bình<br><br>
+ <strong>Psychographics</strong> → Bên trong: thích cảm giác chiến thắng sau thử thách kéo dài, ghét tutorial dài dòng, tìm kiếm kết nối xã hội nhưng không muốn cạnh tranh quá căng thẳng, cảm thấy hài lòng khi khám phá ra bí mật ẩn trong thế giới game<br><br>
+ Hai người cùng demographics có thể có psychographics hoàn toàn khác nhau — và ngược lại. Đây là lý do tại sao không thể chỉ dùng một mình demographics để thiết kế cho đúng người.
+ </p>
+ </div>
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- SECTION 8: LEBLANC'S 8 PLEASURES -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="section-header" id="s8">
+ <div class="sec-num" style="background:var(--purple)">8</div>
+ <div class="sec-info">
+ <h2>8 Thú vui Game của LeBlanc</h2>
+ <div class="sec-en">LeBlanc's 8 Kinds of Fun / Game Pleasures</div>
+ </div>
+ </div>
+
+ <p class="bp">
+ Marc LeBlanc — nhà thiết kế game và nhà nghiên cứu nổi tiếng với framework <strong>MDA (Mechanics, Dynamics, Aesthetics)</strong> — đề xuất rằng tất cả niềm vui trong game đều có thể quy về 8 loại cơ bản. Hiểu rõ game của mình đang cung cấp loại thú vui nào giúp thiết kế có chủ đích và có thể đánh giá được:
+ </p>
+
+ <div class="pleasure-grid">
+ <div class="pleasure-card" style="border-left-color:var(--teal);">
+ <div class="p-num" style="color:var(--teal);">Pleasure #1</div>
+ <div class="p-name">Sensation</div>
+ <div class="p-vi">Cảm giác giác quan</div>
+ <div class="p-desc">Âm thanh, hình ảnh, rung động — khoái cảm thuần cảm giác, không cần suy nghĩ. Đỉnh điểm khi nhạc nền, hiệu ứng âm thanh và hình ảnh hòa quyện hoàn hảo.</div>
+ </div>
+ <div class="pleasure-card" style="border-left-color:var(--purple);">
+ <div class="p-num" style="color:var(--purple);">Pleasure #2</div>
+ <div class="p-name">Fantasy</div>
+ <div class="p-vi">Tưởng tượng &amp; nhập vai</div>
+ <div class="p-desc">Trở thành ai đó khác, sống trong thế giới khác. RPG, game phiêu lưu, game nhập vai — nơi bạn thoát khỏi bản thân để trải nghiệm điều không thể trong đời thực.</div>
+ </div>
+ <div class="pleasure-card" style="border-left-color:var(--blue);">
+ <div class="p-num" style="color:var(--blue);">Pleasure #3</div>
+ <div class="p-name">Narrative</div>
+ <div class="p-vi">Câu chuyện &amp; kịch tính</div>
+ <div class="p-desc">Bị cuốn vào cốt truyện, quan tâm số phận nhân vật, không thể đặt game xuống vì muốn biết chuyện gì xảy ra tiếp theo. Visual novel, adventure game đậm cốt truyện.</div>
+ </div>
+ <div class="pleasure-card" style="border-left-color:var(--orange);">
+ <div class="p-num" style="color:var(--orange);">Pleasure #4</div>
+ <div class="p-name">Challenge</div>
+ <div class="p-vi">Thử thách &amp; chinh phục</div>
+ <div class="p-desc">Cảm giác vượt qua khó khăn bằng kỹ năng thực sự của mình. Platformer khó, game chiến thuật sâu, puzzle phức tạp — niềm vui đến từ chính nỗ lực chiến thắng.</div>
+ </div>
+ <div class="pleasure-card" style="border-left-color:var(--green);">
+ <div class="p-num" style="color:var(--green);">Pleasure #5</div>
+ <div class="p-name">Fellowship</div>
+ <div class="p-vi">Đồng hành &amp; kết nối</div>
+ <div class="p-desc">Niềm vui đến từ mối quan hệ — cùng chơi, giúp đỡ nhau, xây dựng cộng đồng. Game MMO, co-op, party game — game chỉ là bối cảnh, con người mới là trung tâm.</div>
+ </div>
+ <div class="pleasure-card" style="border-left-color:var(--amber);">
+ <div class="p-num" style="color:var(--amber);">Pleasure #6</div>
+ <div class="p-name">Discovery</div>
+ <div class="p-vi">Khám phá &amp; tìm tòi</div>
+ <div class="p-desc">Hứng thú khi khám phá thế giới mới, tìm bí mật ẩn, phá vỡ giới hạn mà game đặt ra. Open world, metroidvania, game ẩn easter egg — phần thưởng dành cho sự tò mò.</div>
+ </div>
+ <div class="pleasure-card" style="border-left-color:var(--red);">
+ <div class="p-num" style="color:var(--red);">Pleasure #7</div>
+ <div class="p-name">Expression</div>
+ <div class="p-vi">Tự thể hiện &amp; sáng tạo</div>
+ <div class="p-desc">Xây dựng, tạo ra, để lại dấu ấn cá nhân. Minecraft, game xây dựng, tùy chỉnh nhân vật sâu — niềm vui của sự sáng tạo không có giới hạn.</div>
+ </div>
+ <div class="pleasure-card" style="border-left-color:var(--gray);">
+ <div class="p-num" style="color:var(--gray);">Pleasure #8</div>
+ <div class="p-name">Submission</div>
+ <div class="p-vi">Đắm chìm &amp; buông thả</div>
+ <div class="p-desc">Thoát khỏi cuộc sống thường nhật, để tâm trí trôi theo dòng chảy của game mà không cần nỗ lực lớn. Game casual, idle game, farming sim — chơi để thư giãn.</div>
+ </div>
+ </div>
+
+ <div class="callout" style="background:var(--purple-pale);">
+ <h3>Dùng LeBlanc như công cụ thiết kế</h3>
+ <p>Khi bắt đầu một dự án game, hãy liệt kê ngay: <em>"Game này cung cấp loại thú vui nào?"</em> Điều đó giúp bạn tập trung thiết kế vào điều thực sự quan trọng và tránh bị phân tán. Một game không cần phải cung cấp cả 8 loại — cung cấp tốt 2–3 loại còn hiệu quả hơn nhiều so với cung cấp tất cả một cách nửa vời.</p>
+ </div>
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- SECTION 9: BARTLE'S 4 TYPES -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="section-header" id="s9">
+ <div class="sec-num" style="background:var(--teal)">9</div>
+ <div class="sec-info">
+ <h2>Bartle's 4 Player Types</h2>
+ <div class="sec-en">4 Kiểu Người Chơi của Richard Bartle</div>
+ </div>
+ </div>
+
+ <p class="bp">
+ Richard Bartle — nhà tiên phong game online với MUD (Multi-User Dungeon) từ thập niên 1970–80 — nghiên cứu hành vi người chơi và đề xuất mô hình phân loại 4 kiểu, dựa trên hai trục chính: <em>họ tương tác với cái gì</em> (World vs Players) và <em>cách họ tương tác</em> (Acting vs Interacting).
+ </p>
+
+ <div class="bartle-wrap">
+ <p class="bartle-intro">Hai trục: <strong>Acting ↔ Interacting</strong> (cách tương tác) &nbsp;×&nbsp; <strong>World ↕ Players</strong> (đối tượng tương tác)</p>
+ <div class="axis-row">
+ <span>← Acting (chủ động tác động)</span>
+ <span>Interacting (khám phá / giao tiếp) →</span>
+ </div>
+ <div class="bartle-grid">
+ <!-- Top Left: Acting × World = Achievers -->
+ <div class="bq" style="background:var(--amber-pale);">
+ <div class="bq-suit"></div>
+ <div class="bq-name" style="color:var(--amber);">Achievers</div>
+ <div class="bq-axis">Acting × World — Tác động lên thế giới game</div>
+ <div class="bq-desc">Thu thập thành tích, điểm số, vật phẩm, hoàn thành quest. Thích "100% completion," bộ sưu tập đầy đủ, bảng xếp hạng. Mục tiêu: thống trị và làm chủ thế giới game.</div>
+ </div>
+ <!-- Top Right: Interacting × World = Explorers -->
+ <div class="bq" style="background:var(--teal-pale);">
+ <div class="bq-suit"></div>
+ <div class="bq-name" style="color:var(--teal);">Explorers</div>
+ <div class="bq-axis">Interacting × World — Khám phá thế giới game</div>
+ <div class="bq-desc">Tương tác với thế giới để khám phá, vẽ bản đồ, tìm bí mật và phá giới hạn của hệ thống. Thích world-building, lore, bí ẩn ẩn sâu. Mục tiêu: hiểu tất cả những gì thế giới game có.</div>
+ </div>
+ <!-- Bottom Left: Acting × Players = Killers -->
+ <div class="bq" style="background:var(--red-pale);">
+ <div class="bq-suit"></div>
+ <div class="bq-name" style="color:var(--red);">Killers</div>
+ <div class="bq-axis">Acting × Players — Tác động lên người chơi khác</div>
+ <div class="bq-desc">Áp đảo, PvP hung hăng, phá trải nghiệm của người khác. Thích cảm giác quyền lực và kiểm soát tuyệt đối. Mục tiêu: thống trị và gây ảnh hưởng lên người chơi khác.</div>
+ </div>
+ <!-- Bottom Right: Interacting × Players = Socializers -->
+ <div class="bq" style="background:var(--purple-pale);">
+ <div class="bq-suit"></div>
+ <div class="bq-name" style="color:var(--purple);">Socializers</div>
+ <div class="bq-axis">Interacting × Players — Giao tiếp với người chơi khác</div>
+ <div class="bq-desc">Xây dựng quan hệ, trò chuyện, giúp đỡ, tổ chức guild. Game chỉ là bối cảnh — con người và cộng đồng mới là lý do thực sự để chơi. Mục tiêu: kết nối và thuộc về.</div>
+ </div>
+ </div>
+ <div class="bartle-axis-bottom">
+ <span>↑ World (thế giới game là đối tượng)</span>
+ <span>Players (người chơi khác là đối tượng) ↓</span>
+ </div>
+ <p class="bartle-note">Hầu hết người chơi mang sự kết hợp của nhiều kiểu, nhưng thường nghiêng về một kiểu chủ đạo. Một game online cân bằng tốt thường thiết kế reward system, progression, và social features để phục vụ cả 4 kiểu người chơi.</p>
+ </div>
+
+ <div class="callout" style="background:var(--teal-pale);">
+ <h3>Bartle's taxonomy — Áp dụng rộng hơn MUD</h3>
+ <p>Mô hình của Bartle ban đầu được xây dựng cho game online đa người chơi, nhưng nguyên tắc cốt lõi áp dụng rộng hơn rất nhiều. Khi thiết kế bất kỳ game nào, hãy tự hỏi: game này có phần dành cho Achievers không? Cho Explorers? Cho Socializers? Và nếu có Killers, làm thế nào để họ không phá trải nghiệm của những nhóm còn lại?</p>
+ </div>
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- SECTION 10: MORE PLEASURES -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="section-header" id="s10">
+ <div class="sec-num" style="background:var(--green)">10</div>
+ <div class="sec-info">
+ <h2>Mở rộng: Những thú vui khác</h2>
+ <div class="sec-en">More Kinds of Pleasure</div>
+ </div>
+ </div>
+
+ <p class="bp">
+ Ngoài danh sách 8 của LeBlanc, Schell và các nhà nghiên cứu khác ghi nhận thêm nhiều loại thú vui tinh tế hơn — những cảm xúc và trạng thái đặc thù mà game có thể tạo ra, đôi khi không có phương tiện giải trí nào khác làm được:
+ </p>
+
+ <div class="pleasure-chips">
+ <div class="chip">⏳ <strong>Anticipation</strong> — háo hức chờ đợi điều sắp xảy ra</div>
+ <div class="chip"> <strong>Completion</strong> — cảm giác hoàn thành trọn vẹn</div>
+ <div class="chip"> <strong>Schadenfreude</strong> — vui vì thấy đối thủ thất bại</div>
+ <div class="chip"> <strong>Gift giving</strong> — niềm vui của việc cho đi</div>
+ <div class="chip"> <strong>Humor</strong> — hài hước, bật cười</div>
+ <div class="chip"> <strong>Possibility</strong> — cảm giác "tôi có thể làm được"</div>
+ <div class="chip"> <strong>Naches</strong> — tự hào về thành công của người khác</div>
+ <div class="chip"> <strong>Surprise</strong> — bất ngờ thú vị, ngoài dự đoán</div>
+ <div class="chip"> <strong>Thrill / Fiero</strong> — phấn khích bùng nổ khi chiến thắng</div>
+ <div class="chip"> <strong>Triumph over adversity</strong> — vượt qua nghịch cảnh lớn</div>
+ <div class="chip"> <strong>Wonder</strong> — kinh ngạc trước sự kỳ diệu, vĩ đại</div>
+ </div>
+
+ <div class="callout" style="background:var(--green-pale);">
+ <h3>Fiero — Thú vui đặc trưng nhất của game</h3>
+ <p><strong>Fiero</strong> (tiếng Ý: <em>niềm tự hào mãnh liệt</em>) là cảm giác bùng nổ khi vượt qua một thử thách cực kỳ khó khăn sau nhiều lần thất bại — đấm tay vào không khí, la hét, cảm giác như mình có thể làm được mọi thứ trên đời. Đây là một trong những thú vui đặc trưng nhất mà <em>chỉ game mới tạo ra được</em> ở cường độ như vậy — bởi vì chỉ game mới có thể đặt người chơi vào vòng lặp thất bại-cố gắng-vượt qua một cách hoàn toàn có kiểm soát.</p>
+ </div>
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- SECTION 11: LENS #20 -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="section-header" id="s11">
+ <div class="sec-num" style="background:var(--orange)">11</div>
+ <div class="sec-info">
+ <h2>Lens #20: The Lens of Pleasure</h2>
+ <div class="sec-en">Thấu kính thứ 20 — Thú Vui</div>
+ </div>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-header">
+ <div>
+ <div class="lens-num">Lens #20</div>
+ <div class="lens-title">The Lens of Pleasure</div>
+ </div>
+ </div>
+ <p class="lens-desc">Để dùng thấu kính này, hãy nghĩ về tất cả các loại thú vui mà game của bạn đang cung cấp — và tất cả những loại mà game <em>chưa</em> cung cấp nhưng có thể.</p>
+ <ul class="lens-q">
+ <li>Game của tôi đang mang lại những loại thú vui nào? Tôi có thể liệt kê chúng cụ thể không?</li>
+ <li>Còn loại thú vui nào mà game này chưa khai thác nhưng hoàn toàn có thể — và có phù hợp không?</li>
+ </ul>
+ </div>
+
+ <hr class="div">
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- INSIGHT STRIP -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="insight-strip">
+ <div class="insight-label">Insight cốt lõi — Chương 9</div>
+ <p class="insight-text">
+ Hiểu người chơi là hành trình từ ngoài vào trong: <strong>Demographics → Psychographics → Pleasure</strong>. Bạn bắt đầu từ dữ liệu nhân khẩu học, nhưng phải đào sâu đến cách họ tìm kiếm niềm vui mới thực sự thiết kế được game chạm đến họ. Không có phím tắt nào — chỉ có quan sát kiên nhẫn, thấu cảm chân thành, và thiết kế lặp đi lặp lại với người chơi thật ở trung tâm.
+ </p>
+ </div>
+
+ <!-- ─────────────────────────────────────────── -->
+ <!-- QUOTE GRID -->
+ <!-- ─────────────────────────────────────────── -->
+ <div class="quote-section">
+ <p class="map-title">Trích dẫn đáng nhớ</p>
+ <div class="quote-grid">
+ <div class="quote-card">
+ <blockquote>"You aren't designing a game for yourself. You are designing it for your players. And if you don't know who they are, how can you know what they want?"</blockquote>
+ <div class="quote-source">Jesse Schell — The Art of Game Design, Ch.9</div>
+ </div>
+ <div class="quote-card">
+ <blockquote>"Demographics are the exterior of a player. Psychographics are the interior. To really know your player, you need both."</blockquote>
+ <div class="quote-source">Jesse Schell — The Art of Game Design, Ch.9</div>
+ </div>
+ <div class="quote-card">
+ <blockquote>"Wow Mom, you were really good at that!"</blockquote>
+ <div class="quote-source">DisneyQuest playtest — Pirates of the Caribbean: Battle for Buccaneer Gold</div>
+ </div>
+ <div class="quote-card">
+ <blockquote>"Games are not just systems of rules. They are systems of pleasure — and different people find pleasure in different things."</blockquote>
+ <div class="quote-source">Jesse Schell — The Art of Game Design, Ch.9</div>
+ </div>
+ </div>
+ </div>
+
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+ <p>The Art of Game Design — <span class="hi">Chương 9: The Player</span></p>
+ <p>Jesse Schell &nbsp;·&nbsp; Tóm tắt &amp; trực quan hóa bằng tiếng Việt</p>
+ <p style="margin-top:0.5rem;font-size:0.75rem;color:#666;">Lens #19 · Lens #20 · Demographics · Psychographics · LeBlanc · Bartle</p>
+</footer>
+
+<div class="chapnav-wrap"><div class="chapnav"><a href="C8-Improve Game.html"><span class="lbl">Chương trước</span>Chương 8: The Game Improves Through Iteration</a><a href="C10-Player Mind.html"><span class="lbl">Chương sau</span>Chương 10: Trải Nghiệm Nằm Trong Tâm Trí Người Chơi</a></div></div>
+
+<script>
+  (function(){
+    var sections = document.querySelectorAll('.section-header[id]');
+    var navLinks = document.querySelectorAll('.tocnav a');
+    if (!sections.length || !navLinks.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(a){
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
+</body>
+</html>

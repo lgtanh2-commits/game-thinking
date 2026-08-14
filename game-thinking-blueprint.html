@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Thinking Blueprint — Phân tích chi tiết</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Designmodo-style tokens — xem DESIGN (1).md, đồng bộ với index.html */
+    --forest: #0e231c;
+    --canopy: #1a3029;
+    --pine: #233630;
+    --ink: #313942;
+    --ash: #656a75;
+    --mist: #c3cecb;
+    --fog: #879b93;
+    --parchment: #f4f7f2;
+    --dew: #e4ebe2;
+    --sprout: #27ae60;
+    --sprout-d: #1c8a4c;
+    --mint: #edf9f2;
+    --sage: #defaca;
+    --iris: #5c51e0;
+    --iris-d: #423aa8;
+    --lavender: #f1ebff;
+    --sky: #186bff;
+    --sky-d: #0d4fa8;
+    --sky-tint: #e8f1fd;
+    --tangerine: #ff5722;
+    --tangerine-d: #c23d10;
+    --tangerine-tint: #ffece6;
+    --red: #c0392b;
+    --red-tint: #fdecea;
+
+    --font-main: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-main);
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 15.5px;
+    -webkit-font-feature-settings: "cv03","cv04","cv06","cv09","ss03";
+    font-feature-settings: "cv03","cv04","cv06","cv09","ss03";
+  }
+  a { color: inherit; text-decoration: none; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+
+  /* ── TOP NAV (đồng bộ index.html) ── */
+  nav.topnav {
+    background: var(--forest);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  nav.topnav .brand { color: #fff; font-weight: 700; font-size: 16px; }
+  nav.topnav .crumb { color: var(--fog); font-size: 14px; }
+  nav.topnav .crumb b { color: #fff; font-weight: 600; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(140deg, var(--forest) 0%, var(--canopy) 55%, var(--forest) 100%);
+    color: #fff;
+    padding: 56px 32px 0;
+    text-align: center;
+  }
+  .hero-inner { padding-bottom: 40px; }
+  .hero-badge {
+    display: inline-block;
+    background: var(--tangerine);
+    color: #fff;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .hero h1 { font-size: 40px; font-weight: 700; letter-spacing: -0.8px; line-height: 1.15; margin-bottom: 12px; }
+  .hero h1 .accent { color: var(--sage); }
+  .hero-lead { font-size: 16px; color: var(--fog); max-width: 600px; margin: 0 auto 26px; line-height: 1.6; }
+  .hero-chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+  .hero-chip {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 17px;
+    padding: 6px 15px;
+    font-size: 12.5px;
+    color: rgba(255,255,255,.85);
+  }
+
+  /* ── TAB NAVIGATION (section jump) — theo đúng component DESIGN.md: đặt trên nền tối,
+       active underline sprout 2px, inactive màu fog ── */
+  .subnav {
+    background: var(--forest);
+    border-top: 1px solid var(--pine);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 32px;
+    overflow-x: auto;
+  }
+  .subnav-inner { max-width: 900px; margin: 0 auto; display: flex; gap: 4px; white-space: nowrap; }
+  .subnav a {
+    display: block;
+    padding: 13px 16px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--fog);
+    border-bottom: 2px solid transparent;
+  }
+  .subnav a:hover { color: #fff; border-bottom-color: var(--sprout); }
+
+  /* ── LAYOUT ── */
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 96px; }
+  .sec { margin-top: 56px; }
+  .sec-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--sprout); margin-bottom: 18px;
+  }
+
+  /* ── CARDS ── */
+  .card { background: #fff; border: 1px solid var(--dew); border-radius: 20px; padding: 28px 32px; margin-bottom: 20px; }
+  .card-h { font-size: 19px; font-weight: 700; letter-spacing: -0.1px; margin-bottom: 10px; }
+  .card p { color: var(--ash); margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* ── GRID ── */
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+
+  /* ── OVERVIEW STATS (Stats Counter Card) ── */
+  .stat { background: #fff; border: 1px solid var(--dew); border-radius: 20px; padding: 20px 22px; border-top: 3px solid var(--sky); }
+  .stat.o { border-top-color: var(--tangerine); }
+  .stat.p { border-top-color: var(--iris); }
+  .stat.g { border-top-color: var(--sprout); }
+  .stat-l { font-size: 10px; letter-spacing: 1.3px; text-transform: uppercase; color: var(--ash); margin-bottom: 6px; }
+  .stat-v { font-size: 15px; font-weight: 700; color: var(--ink); }
+  .stat-d { font-size: 12px; color: var(--ash); margin-top: 4px; }
+
+  /* ── CONNECT DIAGRAM ── */
+  .connect { background: var(--forest); border-radius: 20px; padding: 26px 28px; margin: 16px 0; }
+  .connect-row { display: flex; align-items: center; }
+  .connect-box { flex: 1; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 14px; padding: 14px 16px; text-align: center; }
+  .connect-box .cb-name { font-size: 12px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: .5px; }
+  .connect-box .cb-sub { font-size: 10.5px; color: var(--fog); margin-top: 4px; }
+  .connect-arr { color: rgba(255,255,255,.35); font-size: 22px; padding: 0 10px; flex-shrink: 0; }
+  .connect-note { text-align: center; margin-top: 14px; font-size: 12px; color: var(--fog); }
+
+  /* ── TOOL HEADER ── */
+  .tool-hd { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1px solid var(--dew); }
+  .tool-ico { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .ico-1 { background: var(--iris); }
+  .ico-2 { background: var(--tangerine); }
+  .ico-3 { background: var(--sky); }
+  .tool-num { font-size: 10px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--ash); margin-bottom: 3px; }
+  .tool-name { font-size: 24px; font-weight: 700; letter-spacing: -0.24px; }
+  .nm-1 { color: var(--iris); }
+  .nm-2 { color: var(--tangerine-d); }
+  .nm-3 { color: var(--sky-d); }
+  .tool-tagline { font-size: 13.5px; color: var(--ash); margin-top: 4px; }
+
+  /* ── MASTERY PATH VISUAL ── */
+  .path-vis { background: linear-gradient(135deg, var(--forest), var(--canopy)); border-radius: 20px; padding: 26px 30px; margin: 22px 0; }
+  .path-vis-title { font-size: 10px; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 18px; }
+  .path-stages { display: flex; align-items: stretch; }
+  .path-s { flex: 1; text-align: center; padding: 14px 8px; position: relative; }
+  .path-s::after { content: '→'; position: absolute; right: -6px; top: 30px; color: rgba(255,255,255,.3); font-size: 18px; }
+  .path-s:last-child::after { display: none; }
+  .ps-name { font-size: 11.5px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: #fff; margin-bottom: 3px; }
+  .ps-user { font-size: 10px; color: rgba(255,255,255,.45); margin-bottom: 8px; }
+  .ps-focus { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 8px; padding: 6px 8px; font-size: 10px; color: rgba(255,255,255,.65); text-align: left; line-height: 1.5; }
+
+  /* ── STAGE DEEP DIVE (4-way: Discovery=sky · Onboarding=sprout · Habit=tangerine · Mastery=iris) ── */
+  .stage { border-radius: 16px; padding: 22px 24px; margin-bottom: 14px; border: 1px solid; }
+  .stage-1 { background: var(--sky-tint); border-color: #b8d4f7; }
+  .stage-2 { background: var(--mint); border-color: #a8ddbe; }
+  .stage-3 { background: var(--tangerine-tint); border-color: #ffbfa8; }
+  .stage-4 { background: var(--lavender); border-color: #c7bdf2; }
+  .stage-top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .stage-num { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px; color: #fff; flex-shrink: 0; }
+  .stage-1 .stage-num { background: var(--sky); } .stage-1 .stage-title { color: var(--sky-d); }
+  .stage-2 .stage-num { background: var(--sprout); } .stage-2 .stage-title { color: var(--sprout-d); }
+  .stage-3 .stage-num { background: var(--tangerine); } .stage-3 .stage-title { color: var(--tangerine-d); }
+  .stage-4 .stage-num { background: var(--iris); } .stage-4 .stage-title { color: var(--iris-d); }
+  .stage-title { font-size: 19px; font-weight: 700; }
+  .stage-audience { font-size: 12px; font-weight: 600; opacity: .65; margin-top: 2px; }
+  .stage-body { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .stage-col-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 10px; opacity: .7; }
+  .stage-point { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 9px; font-size: 13px; color: var(--ink); }
+  .stage-point::before { content: '–'; flex-shrink: 0; opacity: .5; }
+  .stage-slack { background: rgba(0,0,0,.045); border-radius: 8px; padding: 10px 14px; margin-top: 10px; }
+  .stage-slack-label { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--iris-d); margin-bottom: 5px; }
+  .stage-slack p { font-size: 12.5px; color: var(--ink); margin: 0; }
+  .design-tip { background: #fff; border-left: 3px solid; border-radius: 0 8px 8px 0; padding: 10px 14px; margin-top: 12px; font-size: 12.5px; }
+  .stage-1 .design-tip { border-color: var(--sky-d); color: var(--sky-d); }
+  .stage-2 .design-tip { border-color: var(--sprout-d); color: var(--sprout-d); }
+  .stage-3 .design-tip { border-color: var(--tangerine-d); color: var(--tangerine-d); }
+  .stage-4 .design-tip { border-color: var(--iris-d); color: var(--iris-d); }
+  .design-tip strong { display: block; margin-bottom: 3px; font-size: 10.5px; letter-spacing: .4px; text-transform: uppercase; opacity: .75; }
+
+  /* ── WORKSHEET ── */
+  .ws { background: linear-gradient(135deg, #fff9f0, var(--tangerine-tint)); border: 2px dashed var(--tangerine); border-radius: 20px; padding: 26px 30px; margin: 22px 0; }
+  .ws-hd { margin-bottom: 20px; }
+  .ws-title { font-size: 17px; font-weight: 700; color: var(--tangerine-d); }
+  .ws-sub { font-size: 12.5px; color: var(--ash); margin-top: 2px; }
+  .ws-grid { display: grid; gap: 16px; }
+  .ws-q { background: #fff; border-radius: 14px; padding: 16px 20px; }
+  .ws-q-label { font-size: 13px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; }
+  /* Category Badge — theo đúng component DESIGN.md: 1 màu cam duy nhất cho mọi tag phân loại */
+  .category-badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; padding: 4px 8px; border-radius: 6px; flex-shrink: 0; white-space: nowrap; background: var(--tangerine); color: #fff; }
+  .ws-line { height: 32px; border-bottom: 1px solid var(--dew); }
+  .ws-hint { font-size: 11px; color: var(--ash); font-style: italic; margin-top: 8px; }
+
+  /* ── LEARNING LOOP VISUAL ── */
+  .loop-vis { background: linear-gradient(135deg, #fff6f2, var(--tangerine-tint)); border: 1px solid #ffcbb5; border-radius: 20px; padding: 26px; margin: 20px 0; }
+  .loop-vis-title { font-size: 11px; color: var(--ash); text-transform: uppercase; letter-spacing: 1.3px; font-weight: 700; margin-bottom: 16px; }
+  .loop-center { display: flex; gap: 22px; align-items: center; }
+  .loop-wheel { flex-shrink: 0; width: 190px; height: 190px; }
+  .loop-items { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .loop-item { background: #fff; border: 1px solid var(--dew); border-radius: 12px; padding: 15px 17px; border-left: 3px solid var(--tangerine); }
+  .loop-item-h { font-size: 13.5px; font-weight: 700; color: var(--tangerine-d); margin-bottom: 5px; }
+  .loop-item p { font-size: 12.5px; color: var(--ash); margin: 0; }
+
+  /* ── TRIGGER TYPES (4-way, same mapping) ── */
+  .triggers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+  .trig { border-radius: 12px; padding: 15px 17px; }
+  .trig-1 { background: var(--lavender); border-left: 3px solid var(--iris); }
+  .trig-2 { background: var(--sky-tint); border-left: 3px solid var(--sky); }
+  .trig-3 { background: var(--tangerine-tint); border-left: 3px solid var(--tangerine); }
+  .trig-4 { background: var(--mint); border-left: 3px solid var(--sprout); }
+  .trig-label { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 5px; }
+  .trig-1 .trig-label { color: var(--iris-d); }
+  .trig-2 .trig-label { color: var(--sky-d); }
+  .trig-3 .trig-label { color: var(--tangerine-d); }
+  .trig-4 .trig-label { color: var(--sprout-d); }
+  .trig-def { font-size: 13px; color: var(--ink); margin-bottom: 6px; font-weight: 600; }
+  .trig-ex { font-size: 12px; color: var(--ash); }
+
+  /* ── COMPONENT DEEP DIVE ── */
+  .comp { margin: 20px 0; }
+  .comp-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .comp-body { background: #fff; border: 1px solid var(--dew); border-radius: 14px; padding: 18px 22px; }
+  .comp-body p { font-size: 13px; color: var(--ash); margin-bottom: 10px; }
+  .comp-body p:last-child { margin-bottom: 0; }
+  .ex-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .ex-tag { background: var(--parchment); border: 1px solid var(--dew); border-radius: 17px; padding: 5px 14px; font-size: 12px; color: var(--ink); }
+  .ex-tag strong { color: var(--sprout-d); }
+
+  /* ── PRINCIPLE BOX ── */
+  .principle { background: var(--mint); border: 1px solid #b7e3c9; border-radius: 12px; padding: 15px 19px; margin: 14px 0; }
+  .principle strong { color: var(--sprout-d); display: block; margin-bottom: 4px; font-size: 14px; }
+  .principle span { font-size: 13px; color: var(--ash); }
+
+  /* ── ROADMAP TABLE ── */
+  .roadmap-wrap { overflow-x: auto; margin: 20px 0; }
+  .roadmap-table { width: 100%; border-collapse: collapse; border-radius: 14px; overflow: hidden; border: 1px solid var(--dew); }
+  .roadmap-table th { background: var(--forest); color: #fff; padding: 13px 14px; font-size: 11.5px; letter-spacing: .6px; text-transform: uppercase; text-align: center; }
+  .roadmap-table th.row-h { text-align: left; background: var(--canopy); min-width: 96px; }
+  .roadmap-table td { padding: 13px 14px; text-align: center; border-bottom: 1px solid var(--dew); background: #fff; vertical-align: middle; }
+  .roadmap-table td.row-h { text-align: left; background: var(--parchment); font-weight: 700; font-size: 12.5px; }
+  .roadmap-table tr:last-child td { border-bottom: none; }
+  .rd-cell { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .rd-dot { width: 22px; height: 22px; border-radius: 50%; }
+  .rd-primary { background: var(--sprout); }
+  .rd-active { background: var(--tangerine-tint); border: 2px solid var(--tangerine); }
+  .rd-light { background: var(--parchment); border: 2px solid var(--dew); }
+  .rd-future { border: 2px dashed var(--mist); background: transparent; }
+  .rd-label { font-size: 9.5px; color: var(--ash); font-weight: 600; }
+  .roadmap-note { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 16px; }
+  .rn-item { background: #fff; border: 1px solid var(--dew); border-radius: 12px; padding: 14px 15px; border-top: 3px solid; }
+  .rn-mvp { border-top-color: var(--sky); } .rn-mvp .rn-stage { color: var(--sky-d); }
+  .rn-beta { border-top-color: var(--iris); } .rn-beta .rn-stage { color: var(--iris-d); }
+  .rn-launch { border-top-color: var(--tangerine); } .rn-launch .rn-stage { color: var(--tangerine-d); }
+  .rn-expansion { border-top-color: var(--sprout); } .rn-expansion .rn-stage { color: var(--sprout-d); }
+  .rn-stage { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 6px; }
+  .rn-focus { font-size: 12.5px; color: var(--ink); font-weight: 700; margin-bottom: 4px; }
+  .rn-why { font-size: 11.5px; color: var(--ash); }
+
+  /* ── CASE STUDY ── */
+  .case-card { background: var(--lavender); border: 1px solid #d6cdf5; border-radius: 20px; padding: 26px 30px; }
+  .case-hd { margin-bottom: 20px; }
+  .case-title { font-size: 19px; font-weight: 700; color: var(--iris-d); }
+  .case-sub { font-size: 12px; color: var(--ash); margin-top: 2px; }
+  .case-rows { display: flex; flex-direction: column; gap: 12px; }
+  .case-row { display: grid; grid-template-columns: 110px 1fr; gap: 12px; align-items: start; }
+  .case-desc { font-size: 13px; color: var(--ink); }
+  .case-detail { font-size: 12px; color: var(--ash); margin-top: 4px; }
+  .through-line { background: linear-gradient(135deg, var(--iris-d), var(--iris)); border-radius: 12px; padding: 14px 18px; margin-top: 16px; color: #fff; font-size: 13.5px; }
+  .through-line strong { color: var(--sage); }
+
+  /* ── ANTI-PATTERNS ── */
+  .anti-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  .anti { background: var(--red-tint); border: 1px solid #f3c9c3; border-radius: 12px; padding: 15px 17px; }
+  .good { background: var(--mint); border: 1px solid #a8ddbe; border-radius: 12px; padding: 15px 17px; }
+  .anti-h { font-size: 12.5px; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .4px; }
+  .anti .anti-h { color: var(--red); }
+  .good .anti-h { color: var(--sprout-d); }
+  .anti p, .good p { font-size: 12.5px; color: var(--ash); margin: 0; }
+
+  /* ── INSIGHTS ── */
+  .insight-list { list-style: none; }
+  .insight-item { display: flex; align-items: flex-start; gap: 14px; padding: 15px 0; border-bottom: 1px solid var(--dew); }
+  .insight-item:last-child { border-bottom: none; }
+  .in-num { width: 32px; height: 32px; border-radius: 50%; background: var(--mint); color: var(--sprout-d); font-weight: 700; font-size: 13.5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .in-h { font-size: 14.5px; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
+  .in-body { font-size: 13px; color: var(--ash); }
+
+  /* ── CALLOUTS ── */
+  .warn { background: var(--red-tint); border: 1px solid #f3c9c3; border-left: 4px solid var(--red); border-radius: 0 12px 12px 0; padding: 15px 19px; margin: 20px 0; }
+  .warn strong { color: var(--red); display: block; font-size: 14px; margin-bottom: 4px; }
+  .warn span { font-size: 13px; color: var(--ash); }
+  .quote { background: var(--mint); border-left: 4px solid var(--sprout); border-radius: 0 12px 12px 0; padding: 18px 22px; margin: 20px 0; font-size: 14.5px; font-style: italic; color: var(--ink); }
+  .quote cite { display: block; margin-top: 8px; font-style: normal; font-size: 12.5px; color: var(--sprout-d); font-weight: 700; }
+
+  /* ── APPLY / CHECKLIST ── */
+  .apply-box { border-radius: 14px; padding: 18px 20px; }
+  .apply-box .apply-h { font-size: 13.5px; font-weight: 700; margin-bottom: 12px; }
+  .apply-before { background: var(--lavender); border: 1px solid #d6cdf5; }
+  .apply-before .apply-h { color: var(--iris-d); }
+  .apply-during { background: var(--tangerine-tint); border: 1px solid #ffcbb5; }
+  .apply-during .apply-h { color: var(--tangerine-d); }
+  .apply-check { background: var(--mint); border: 1px solid #a8ddbe; margin-top: 16px; }
+  .apply-check .apply-h { color: var(--sprout-d); }
+
+  /* ── FOOTER ── */
+  .footer { text-align: center; padding: 28px 0 8px; color: var(--ash); font-size: 12px; border-top: 1px solid var(--dew); margin-top: 56px; }
+
+  @media (max-width: 640px) {
+    .g2, .g4, .stage-body, .loop-items, .triggers-grid, .anti-grid, .roadmap-note { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 28px; }
+    .path-stages { flex-direction: column; }
+    .path-s::after { display: none; }
+    .case-row { grid-template-columns: 1fr; }
+    .loop-center { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="brand" href="index.html">Thư viện Sách</a>
+  <span class="crumb">/ <b>Game Thinking Blueprint</b></span>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge">Phân tích chuyên sâu</span>
+    <h1>Game Thinking <span class="accent">Blueprint</span></h1>
+    <p class="hero-lead">Framework thiết kế sản phẩm lấy cảm hứng từ game design — 3 Power-Tools giúp xây MVP đúng người, đúng lúc, và giữ người dùng quay lại mãi mãi</p>
+    <div class="hero-chips">
+      <span class="hero-chip">Amy Jo Kim · gamethinking.io · 2017</span>
+      <span class="hero-chip">14 trang · 3 Power-Tools</span>
+      <span class="hero-chip">Dành cho PO · PM · Startup Founder</span>
+      <span class="hero-chip">Case Study: Slack</span>
+    </div>
+  </div>
+</div>
+
+<nav class="subnav">
+  <div class="subnav-inner">
+    <a href="#overview">Tổng quan</a>
+    <a href="#tool1">Tool 1: Mastery Path</a>
+    <a href="#tool2">Tool 2: Learning Loop</a>
+    <a href="#tool3">Tool 3: Roadmap</a>
+    <a href="#casestudy">Case Study Slack</a>
+    <a href="#antipatterns">Anti-Patterns</a>
+    <a href="#insights">Key Insights</a>
+    <a href="#apply">Ứng dụng</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ══ TỔNG QUAN ══ -->
+<div class="sec" id="overview">
+  <div class="sec-label">Tổng quan tài liệu</div>
+
+  <div class="g4" style="margin-bottom: 20px">
+    <div class="stat"><div class="stat-l">Series</div><div class="stat-v">Phần 3/3</div><div class="stat-d">Sau Innovator's Cheatsheet &amp; Customer Discovery Playbook</div></div>
+    <div class="stat o"><div class="stat-l">Số Power-Tools</div><div class="stat-v">3 công cụ</div><div class="stat-d">Mastery Path · Learning Loop · Roadmap</div></div>
+    <div class="stat p"><div class="stat-l">Vấn đề giải quyết</div><div class="stat-v">MVP scope</div><div class="stat-d">Đưa feature nào vào? Bỏ gì ra?</div></div>
+    <div class="stat g"><div class="stat-l">Case Study chính</div><div class="stat-v">Slack</div><div class="stat-d">Game thất bại → Enterprise hit $7B+</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-h">Tại sao Game Thinking?</div>
+    <p>Ngành game đã "giải" bài toán engagement từ hàng thập kỷ trước. Những game thành công nhất thế giới — từ Mario, Rock Band đến Minecraft — đều có chung một cấu trúc thiết kế: họ biết <em>chính xác</em> cần dạy người chơi điều gì ở mỗi giai đoạn, cần phần thưởng gì để giữ họ quay lại, và cần mở ra gì để giữ người chơi lâu dài.</p>
+    <p>Amy Jo Kim lập luận rằng bất kỳ sản phẩm kỹ thuật số nào cũng có thể (và nên) được thiết kế theo cùng nguyên tắc này. Không phải bằng cách gắn thêm points và badges vào — mà bằng cách <strong>tư duy như game designer ngay từ đầu</strong>: thiết kế hành trình người dùng như một hành trình phát triển kỹ năng có cấu trúc rõ ràng.</p>
+    <p><strong>Câu hỏi cốt lõi tài liệu này trả lời:</strong> Khi build MVP, làm sao biết đưa feature nào vào và bỏ cái gì ra? Game Thinking Blueprint cho bạn một framework có hệ thống để trả lời câu hỏi đó — không phải theo cảm tính.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-h">3 Power-Tools kết nối với nhau như thế nào</div>
+    <div class="connect">
+      <div class="connect-row">
+        <div class="connect-box">
+          <div class="cb-name">Mastery Path</div>
+          <div class="cb-sub">Bức tranh toàn cảnh hành trình</div>
+        </div>
+        <div class="connect-arr">→</div>
+        <div class="connect-box">
+          <div class="cb-name">Learning Loop</div>
+          <div class="cb-sub">Zoom vào Habit-Building stage</div>
+        </div>
+        <div class="connect-arr">→</div>
+        <div class="connect-box">
+          <div class="cb-name">GT Roadmap</div>
+          <div class="cb-sub">Timeline phát triển sản phẩm</div>
+        </div>
+      </div>
+      <div class="connect-note">Tool 1 cho bạn thấy toàn bộ hành trình → Tool 2 giúp bạn thiết kế phần lõi (Habit-Building) → Tool 3 cho biết nên build gì trước theo thứ tự nào</div>
+    </div>
+    <p>Ba tools này không hoạt động độc lập — chúng là một hệ thống. <strong>Mastery Path</strong> là bản đồ tổng thể. <strong>Learning Loop</strong> là động cơ của chiếc xe. <strong>Game Thinking Roadmap</strong> là lịch trình để lắp ráp từng phần theo đúng thứ tự.</p>
+  </div>
+</div>
+
+<!-- ══ TOOL 1 ══ -->
+<div class="sec" id="tool1">
+  <div class="sec-label">Power-Tool 1</div>
+  <div class="card">
+    <div class="tool-hd">
+      <div class="tool-ico ico-1">1</div>
+      <div>
+        <div class="tool-num">Game Thinking Power-Tool 1</div>
+        <div class="tool-name nm-1">4-Stage Mastery Path</div>
+        <div class="tool-tagline">Vẽ hành trình khách hàng — tập trung vào cách nhu cầu thay đổi theo thời gian</div>
+      </div>
+    </div>
+
+    <p style="color:var(--ash);margin-bottom:20px">Mastery Path không phải là user journey map thông thường. Điểm khác biệt là nó tập trung vào <strong>skill-building</strong> — cách người dùng trở nên thành thạo hơn theo thời gian. Đây là bản chất của game design tốt, và đó chính là điều các sản phẩm thành công nhất có chung.</p>
+
+    <div class="path-vis">
+      <div class="path-vis-title">Hành trình khách hàng — 4 Stages of Mastery</div>
+      <div class="path-stages">
+        <div class="path-s">
+          <div class="ps-name">Discovery</div>
+          <div class="ps-user">→ Visitor</div>
+          <div class="ps-focus">Hiểu value proposition · Quyết định có phù hợp không</div>
+        </div>
+        <div class="path-s">
+          <div class="ps-name">Onboarding</div>
+          <div class="ps-user">→ Newcomer</div>
+          <div class="ps-focus">Học cơ bản · Tạo giá trị nhanh · Mục tiêu nhỏ đạt được</div>
+        </div>
+        <div class="path-s">
+          <div class="ps-name">Habit-Building</div>
+          <div class="ps-user">→ Regular</div>
+          <div class="ps-focus">Core Loop · Quay lại thường xuyên · Trở nên tốt hơn</div>
+        </div>
+        <div class="path-s">
+          <div class="ps-name">Mastery</div>
+          <div class="ps-user">→ Expert / Enthusiast</div>
+          <div class="ps-focus">Elder Game · Power user · Tạo giá trị cho cả ecosystem</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage stage-1">
+      <div class="stage-top">
+        <div class="stage-num">1</div>
+        <div>
+          <div class="stage-title">Discovery</div>
+          <div class="stage-audience">Đối tượng: Visitor — Chưa đăng ký / chưa download / chưa mua</div>
+        </div>
+      </div>
+      <div class="stage-body">
+        <div>
+          <div class="stage-col-title">Mục tiêu thiết kế</div>
+          <div class="stage-point">Truyền tải rõ ràng value proposition</div>
+          <div class="stage-point">Giúp visitor đánh giá "sản phẩm này có phù hợp với mình không?"</div>
+          <div class="stage-point">Giảm rào cản thử lần đầu (friction to first try)</div>
+          <div class="stage-point">Khai thác social proof và word-of-mouth</div>
+          <div class="stage-point">Tạo curiosity gap đủ để khiến họ muốn xem thêm</div>
+        </div>
+        <div>
+          <div class="stage-col-title">Sai lầm phổ biến</div>
+          <div class="stage-point">Cố gắng giải thích quá nhiều tính năng ngay từ đầu</div>
+          <div class="stage-point">Không có social proof rõ ràng (ai đã dùng, kết quả gì)</div>
+          <div class="stage-point">Landing page quá chung chung, không address "người như tôi"</div>
+          <div class="stage-point">CTA không rõ ràng hoặc có quá nhiều bước để bắt đầu</div>
+          <div class="stage-slack">
+            <div class="stage-slack-label">Slack làm thế nào</div>
+            <p>Thiết kế email invite viral — được mời bởi đồng nghiệp đang dùng. Không phải marketing ngẫu nhiên. "Ai đó bạn biết đang dùng Slack và mời bạn" — đây là strongest social signal có thể có. Cộng với: <em>"It's more fun with people you know"</em> — positioning rất thông minh.</p>
+          </div>
+        </div>
+      </div>
+      <div class="design-tip"><strong>Design Principle</strong>Discovery nên được thiết kế như Social Pull — kéo người vào thông qua người họ tin tưởng, không phải push marketing một chiều.</div>
+    </div>
+
+    <div class="stage stage-2">
+      <div class="stage-top">
+        <div class="stage-num">2</div>
+        <div>
+          <div class="stage-title">Onboarding</div>
+          <div class="stage-audience">Đối tượng: Newcomer — Vừa đăng ký / download / mua lần đầu</div>
+        </div>
+      </div>
+      <div class="stage-body">
+        <div>
+          <div class="stage-col-title">Mục tiêu thiết kế</div>
+          <div class="stage-point">Dạy đủ để bắt đầu — không cần dạy tất cả</div>
+          <div class="stage-point">Đưa người dùng đến "aha moment" / first value nhanh nhất có thể</div>
+          <div class="stage-point">Sử dụng small, achievable goals để giữ momentum</div>
+          <div class="stage-point">Giảm embarrassment — cho phép mắc lỗi trong môi trường an toàn</div>
+          <div class="stage-point">Dẫn dắt từ từ vào Core Loop (không throw vào deep-end ngay)</div>
+        </div>
+        <div>
+          <div class="stage-col-title">Game Design Parallel</div>
+          <div class="stage-point">Training level / Tutorial mission trong game</div>
+          <div class="stage-point">Single-player trước khi bước vào multiplayer</div>
+          <div class="stage-point">Checkpoint saves — người dùng có thể dừng và tiếp tục</div>
+          <div class="stage-point">Progressive disclosure — mở tính năng từ từ theo mức độ thành thạo</div>
+          <div class="stage-slack">
+            <div class="stage-slack-label">Slack làm thế nào</div>
+            <p>Slackbot: thân thiện, hướng dẫn cơ bản, dạy đủ để bắt đầu. Quan trọng: bạn đang nói chuyện với bot — không phải người thật — nên bớt ngại khi sai. Đây là "single-player mode" trước khi bước vào team communication thật sự.</p>
+          </div>
+        </div>
+      </div>
+      <div class="design-tip"><strong>Design Principle</strong>Onboarding là "kem" — cần có, nhưng không thể đứng một mình. Cần phải có "bánh" (Habit-Building) phía sau mới có giá trị thật sự.</div>
+    </div>
+
+    <div class="stage stage-3">
+      <div class="stage-top">
+        <div class="stage-num">3</div>
+        <div>
+          <div class="stage-title">Habit-Building</div>
+          <div class="stage-audience">Đối tượng: Regular — Người dùng thường xuyên, đang hình thành thói quen</div>
+        </div>
+      </div>
+      <div class="stage-body">
+        <div>
+          <div class="stage-col-title">Mục tiêu thiết kế</div>
+          <div class="stage-point">Tạo ra một hoạt động thú vị, lặp đi lặp lại (Core Loop)</div>
+          <div class="stage-point">Cung cấp feedback giúp người dùng giỏi hơn theo thời gian</div>
+          <div class="stage-point">Xây dựng investment — người dùng đưa thứ gì đó của mình vào</div>
+          <div class="stage-point">Tạo cảm giác "sản phẩm này là của mình" (ownership, personalization)</div>
+          <div class="stage-point">Đây là giai đoạn QUAN TRỌNG NHẤT — build trước cả Onboarding trong MVP</div>
+        </div>
+        <div>
+          <div class="stage-col-title">Game Design Parallel</div>
+          <div class="stage-point">Core gameplay loop — "just one more round" feeling</div>
+          <div class="stage-point">Skill progression — bạn giỏi hơn thật sự, không chỉ cảm giác</div>
+          <div class="stage-point">Customization layer — biến game thành "của mình"</div>
+          <div class="stage-point">Variable reward — không phải mỗi session đều giống nhau</div>
+          <div class="stage-slack">
+            <div class="stage-slack-label">Slack làm thế nào</div>
+            <p>Core activity: đọc và reply team updates. Customization là driver chính: chỉnh notification, tạo channel, thêm integrations. Mỗi thứ bạn customize làm Slack trở nên "của bạn" hơn — và khó bỏ hơn.</p>
+          </div>
+        </div>
+      </div>
+      <div class="design-tip"><strong>Design Principle</strong>Habit-Building là lý do tồn tại của sản phẩm. "Finding the fun" ở đây là công việc quan trọng nhất của team — không phải UI đẹp, không phải onboarding mượt.</div>
+    </div>
+
+    <div class="stage stage-4">
+      <div class="stage-top">
+        <div class="stage-num">4</div>
+        <div>
+          <div class="stage-title">Mastery</div>
+          <div class="stage-audience">Đối tượng: Expert / Enthusiast — Power users, người dùng tốt nhất của bạn</div>
+        </div>
+      </div>
+      <div class="stage-body">
+        <div>
+          <div class="stage-col-title">Mục tiêu thiết kế</div>
+          <div class="stage-point">Cung cấp "Elder Game" — nội dung / trải nghiệm chỉ dành cho experts</div>
+          <div class="stage-point">Unlock powers, roles, privileges khi đạt mức thành thạo</div>
+          <div class="stage-point">Cho phép experts đóng góp giá trị cho cả community/ecosystem</div>
+          <div class="stage-point">Tạo path từ Regular → Expert rõ ràng và đáng khao khát</div>
+          <div class="stage-point">Giữ chân best customers bằng trải nghiệm mà beginner không có</div>
+        </div>
+        <div>
+          <div class="stage-col-title">Tại sao Mastery quan trọng với toàn bộ sản phẩm</div>
+          <div class="stage-point">Expert users tạo ra content / giá trị cho beginners (trickle-down effect)</div>
+          <div class="stage-point">Họ là brand ambassador và evangelist tốt nhất</div>
+          <div class="stage-point">Mastery path tạo aspirational journey — beginners thấy và muốn đạt đến</div>
+          <div class="stage-point">Giữ chân segment có giá trị cao nhất, ít churn nhất</div>
+          <div class="stage-slack">
+            <div class="stage-slack-label">Slack làm thế nào</div>
+            <p>Tạo channel riêng, viết bot tùy chỉnh, tích hợp sản phẩm của mình vào Slack ecosystem cho người khác dùng. Power users biến Slack thành platform chứ không chỉ là tool. Giá trị họ tạo ra lan tỏa cho cả tổ chức.</p>
+          </div>
+        </div>
+      </div>
+      <div class="design-tip"><strong>Design Principle</strong>Đừng bao giờ neglect Expert users. Giá trị họ tạo ra sẽ "trickle down and enrich your offering for everyone" — bao gồm cả beginners.</div>
+    </div>
+
+    <div class="ws">
+      <div class="ws-hd">
+        <div class="ws-title">Worksheet 1: Mastery Path của dự án bạn</div>
+        <div class="ws-sub">Sketch ra 4 giai đoạn — tập trung vào nhu cầu thay đổi theo thời gian</div>
+      </div>
+      <div class="ws-grid">
+        <div class="ws-q">
+          <div class="ws-q-label"><span class="category-badge">Discovery</span>Khách hàng quan trọng nhất cần học gì / hiểu gì để quyết định thử sản phẩm của bạn?</div>
+          <div class="ws-line"></div><div class="ws-line"></div><div class="ws-line"></div>
+          <div class="ws-hint">Gợi ý: Họ cần biết gì để trả lời "đây có phải dành cho người như tôi không?"</div>
+        </div>
+        <div class="ws-q">
+          <div class="ws-q-label"><span class="category-badge">Onboarding</span>Skills quan trọng nhất / thứ cần học trong Onboarding để bắt đầu tạo ra giá trị?</div>
+          <div class="ws-line"></div><div class="ws-line"></div><div class="ws-line"></div>
+          <div class="ws-hint">Gợi ý: "Aha moment" của sản phẩm bạn là gì? Cần bao nhiêu bước để đến đó?</div>
+        </div>
+        <div class="ws-q">
+          <div class="ws-q-label"><span class="category-badge">Habit-Building</span>Hoạt động thú vị, lặp đi lặp lại nào sẽ kéo người dùng quay lại? Họ làm gì "again and again"?</div>
+          <div class="ws-line"></div><div class="ws-line"></div><div class="ws-line"></div>
+          <div class="ws-hint">Gợi ý: Nếu xóa hết tính năng phụ, người dùng sẽ quay lại vì điều gì?</div>
+        </div>
+        <div class="ws-q">
+          <div class="ws-q-label"><span class="category-badge">Mastery</span>Powers, access, roles, hoặc privileges nào expert users có thể earn/unlock? Họ có thể đóng góp gì cho ecosystem?</div>
+          <div class="ws-line"></div><div class="ws-line"></div><div class="ws-line"></div>
+          <div class="ws-hint">Gợi ý: "Elder Game" của sản phẩm bạn là gì? Điều gì chỉ dành cho người đã dùng lâu?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TOOL 2 ══ -->
+<div class="sec" id="tool2">
+  <div class="sec-label">Power-Tool 2</div>
+  <div class="card">
+    <div class="tool-hd">
+      <div class="tool-ico ico-2">2</div>
+      <div>
+        <div class="tool-num">Game Thinking Power-Tool 2</div>
+        <div class="tool-name nm-2">Learning Loop</div>
+        <div class="tool-tagline">Thiết kế Core Loop — trái tim của giai đoạn Habit-Building</div>
+      </div>
+    </div>
+
+    <p style="color:var(--ash);margin-bottom:6px">Learning Loop là thuật ngữ game design chỉ tập hợp các hoạt động, feedback, và lựa chọn mà người chơi thực hiện trong <strong>một phiên sử dụng</strong>. Đây không phải khái niệm chỉ dành cho game — nó áp dụng được cho bất kỳ sản phẩm, app, dịch vụ nào có tiềm năng <em>evolve theo thời gian khi người dùng thành thạo hơn</em>.</p>
+    <p style="color:var(--ash);margin-bottom:20px">Nếu Mastery Path là bản đồ toàn bộ hành trình, thì Learning Loop là <strong>engine</strong> bên trong chiếc xe — thứ khiến xe thực sự chạy.</p>
+
+    <div class="loop-vis">
+      <p class="loop-vis-title">Cấu trúc Learning Loop</p>
+      <div class="loop-center">
+        <svg class="loop-wheel" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#e4ebe2" stroke-width="2" stroke-dasharray="6,4"/>
+          <circle cx="100" cy="100" r="55" fill="none" stroke="#ff5722" stroke-width="3"/>
+          <circle cx="100" cy="100" r="30" fill="#ffece6" stroke="#ff5722" stroke-width="2"/>
+          <text x="100" y="96" text-anchor="middle" font-size="9" font-weight="700" fill="#c23d10">CORE</text>
+          <text x="100" y="108" text-anchor="middle" font-size="9" font-weight="700" fill="#c23d10">LOOP</text>
+          <text x="100" y="22" text-anchor="middle" font-size="9" font-weight="700" fill="#656a75">ACTIVITY</text>
+          <text x="178" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#656a75">FEED-</text>
+          <text x="178" y="114" text-anchor="middle" font-size="9" font-weight="700" fill="#656a75">BACK</text>
+          <text x="100" y="190" text-anchor="middle" font-size="9" font-weight="700" fill="#656a75">PROGRESS</text>
+          <text x="22" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#656a75">TRIG-</text>
+          <text x="22" y="114" text-anchor="middle" font-size="9" font-weight="700" fill="#656a75">GERS</text>
+          <path d="M 100 45 A 55 55 0 0 1 155 100" fill="none" stroke="#ff5722" stroke-width="3" marker-end="url(#arr)"/>
+          <path d="M 155 100 A 55 55 0 0 1 100 155" fill="none" stroke="#ff5722" stroke-width="3" marker-end="url(#arr)"/>
+          <path d="M 100 155 A 55 55 0 0 1 45 100" fill="none" stroke="#ff5722" stroke-width="3" marker-end="url(#arr)"/>
+          <path d="M 45 100 A 55 55 0 0 1 100 45" fill="none" stroke="#ff5722" stroke-width="3" marker-end="url(#arr)"/>
+          <defs>
+            <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+              <path d="M 0 0 L 6 3 L 0 6 z" fill="#ff5722"/>
+            </marker>
+          </defs>
+        </svg>
+        <div class="loop-items">
+          <div class="loop-item">
+            <div class="loop-item-h">1. Cues &amp; Triggers</div>
+            <p>Tín hiệu kéo người dùng vào vòng lặp. Có 4 loại: internal, situational, external, engaged.</p>
+          </div>
+          <div class="loop-item">
+            <div class="loop-item-h">2. Repeatable Activity</div>
+            <p>Hoạt động thú vị, lặp đi lặp lại — "trái tim" của loop. Phải pleasurable và triggerable bởi cảm xúc nội tại.</p>
+          </div>
+          <div class="loop-item">
+            <div class="loop-item-h">3. Skill-Building Feedback</div>
+            <p>Feedback cho người dùng biết họ đang tiến bộ. Đơn giản, coherent, và giúp họ thật sự giỏi hơn.</p>
+          </div>
+          <div class="loop-item">
+            <div class="loop-item-h">4. Progress &amp; Investment</div>
+            <p>Layer thêm sau khi feedback hoạt động. Tạo "sunk cost" tích cực — người dùng đầu tư vào sản phẩm.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="comp-title">1. Cues &amp; Triggers <span class="category-badge">Điểm kích hoạt Loop</span></div>
+      <div class="comp-body">
+        <p>Triggers là thứ kéo người dùng quay lại bắt đầu một session mới. Amy Jo Kim phân loại 4 loại trigger, từ yếu nhất đến mạnh nhất:</p>
+        <div class="triggers-grid">
+          <div class="trig trig-1">
+            <div class="trig-label">Internal Trigger</div>
+            <div class="trig-def">Nhu cầu / cảm xúc nội tại thúc đẩy tìm đến sản phẩm</div>
+            <div class="trig-ex"><strong>Slack:</strong> "Tôi tự hỏi team đang làm gì?" / "Tôi cần check update từ dự án" → mở Slack. Không ai nhắc — đây là strongest trigger vì đến từ bên trong.</div>
+          </div>
+          <div class="trig trig-2">
+            <div class="trig-label">Situational Trigger</div>
+            <div class="trig-def">Hoàn cảnh / thói quen hàng ngày gắn với sản phẩm</div>
+            <div class="trig-ex"><strong>Slack:</strong> "Sáng đầu giờ vào office → mở Slack" / "Sau cuộc họp → check Slack". Trigger gắn với context cụ thể trong ngày.</div>
+          </div>
+          <div class="trig trig-3">
+            <div class="trig-label">External Trigger</div>
+            <div class="trig-def">Notification, email, reminder từ bên ngoài</div>
+            <div class="trig-ex"><strong>Slack:</strong> Push notification, email digest, badge trên app icon. Đây là trigger bạn control được nhưng cần cẩn thận — quá nhiều = spam, người dùng tắt notification.</div>
+          </div>
+          <div class="trig trig-4">
+            <div class="trig-label">Engaged Trigger</div>
+            <div class="trig-def">Được triggered bởi action của người dùng khác trong hệ thống</div>
+            <div class="trig-ex"><strong>Slack:</strong> Ai đó mention @you → bạn bị kéo vào. Đây là multiplayer trigger — đặc biệt mạnh vì đến từ người thật mà bạn quan tâm.</div>
+          </div>
+        </div>
+        <div class="principle"><strong>Design Principle: Hướng tới Internal Trigger</strong><span>External trigger (notification) dễ bị tắt. Internal trigger (nhu cầu tự nhiên) thì không. Mục tiêu là thiết kế sản phẩm sao cho người dùng tự nhiên nghĩ đến nó khi có nhu cầu — không cần bạn nhắc.</span></div>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="comp-title">2. Repeatable Pleasurable Activity <span class="category-badge">Trái tim của Loop</span></div>
+      <div class="comp-body">
+        <p><strong>"The beating heart of your Learning Loop"</strong> — đây là hoạt động được trigger bởi một cảm xúc hoặc nhu cầu nội tại, và mang lại đủ pleasure để người dùng muốn làm lại. Không có điều này, rất khó drive long-term engagement.</p>
+        <p>Đặc điểm quan trọng: hoạt động này phải <strong>(a) repeatable</strong> — có thể làm nhiều lần mà không chán, và <strong>(b) pleasurable</strong> — mang lại cảm giác tốt, thỏa mãn, hoặc có ý nghĩa.</p>
+        <p>Đặt câu hỏi: <em>"Nếu bạn dùng sản phẩm 100 lần trong 3 tháng, bạn đang làm gì?"</em> — đó là core activity của bạn.</p>
+        <div class="ex-row">
+          <div class="ex-tag"><strong>Mario:</strong> Chạy, nhảy, thu coins</div>
+          <div class="ex-tag"><strong>Rock Band:</strong> Chơi nhạc cùng bạn bè</div>
+          <div class="ex-tag"><strong>Slack:</strong> Đọc và reply team updates</div>
+          <div class="ex-tag"><strong>Instagram:</strong> Scroll feed, double-tap</div>
+          <div class="ex-tag"><strong>Duolingo:</strong> Hoàn thành 1 lesson</div>
+          <div class="ex-tag"><strong>LinkedIn:</strong> Xem notifications, kết nối</div>
+        </div>
+        <div class="principle"><strong>Design Principle: "Find the fun" trước tiên</strong><span>Game designer gọi đây là "finding the fun" — và đây là công việc số 1. Nếu core activity không fun / meaningful / satisfying, không có UI đẹp hay onboarding nào bù đắp được. Test core activity này với real users sớm nhất có thể trong MVP.</span></div>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="comp-title">3. Simple, Coherent Feedback <span class="category-badge">Giúp người dùng tiến bộ</span></div>
+      <div class="comp-body">
+        <p>Sau khi xác định core pleasurable activity, bạn cần feedback để người dùng biết họ đang đi đúng hướng và đang cải thiện. Nguyên tắc vàng: <strong>"Every complex system starts as a simple system that works"</strong> — và hệ thống đơn giản nhất vẫn hoạt động được là một feedback loop.</p>
+        <p>Câu hỏi cần trả lời: <em>"Loại feedback nào sẽ giúp Super Fans của tôi giỏi hơn ở core activity?"</em> — không phải feedback cho tất cả mọi người, mà cho người dùng giỏi nhất bạn đang nhắm đến.</p>
+        <p><strong>Feedback tốt có đặc điểm gì?</strong> Nó phải (1) rõ ràng — người dùng hiểu ngay, (2) liên quan trực tiếp đến core activity, (3) giúp họ thật sự improve — không chỉ cảm giác tốt.</p>
+        <div class="ex-row">
+          <div class="ex-tag"><strong>Slack:</strong> "Bạn đã đọc hết messages" / "Caught up" indicator</div>
+          <div class="ex-tag"><strong>Duolingo:</strong> Streak counter, XP, hearts</div>
+          <div class="ex-tag"><strong>GitHub:</strong> Contribution graph (green squares)</div>
+          <div class="ex-tag"><strong>Grammarly:</strong> Score, suggestions inline</div>
+        </div>
+        <div class="principle"><strong>Design Principle: Feedback trước Points/Badges</strong><span>Slack không có points, levels, hay badges — chỉ có feedback đơn giản và customization options. Điều này giúp interface sạch và experience coherent. Gamification nếu không gắn với skill development thực sự sẽ cảm thấy cheap và không bền.</span></div>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="comp-title">4. Progress &amp; Investment <span class="category-badge">Tạo switching cost tích cực</span></div>
+      <div class="comp-body">
+        <p>Sau khi đã có feedback system đơn giản hoạt động, <em>mới</em> layer thêm progress mechanics và investment path. <strong>Thứ tự này rất quan trọng</strong> — đừng build progress trước khi feedback đã hoạt động.</p>
+        <p><strong>Progress</strong> là cơ chế hiển thị người dùng đang tiến về phía nào, đạt được gì, còn bao nhiêu để đến mốc tiếp theo. <strong>Investment</strong> là khi người dùng đưa thứ gì đó của mình vào sản phẩm — data, customization, content, thời gian — khiến sản phẩm trở nên "của họ" hơn.</p>
+        <p>Investment tạo ra switching cost tự nhiên: càng đầu tư nhiều, càng khó bỏ — không phải vì bị lock-in, mà vì sản phẩm đã được cá nhân hóa theo họ.</p>
+        <div class="ex-row">
+          <div class="ex-tag"><strong>Slack:</strong> Customize channels, highlight words, integrations — build environment "của mình"</div>
+          <div class="ex-tag"><strong>Rock Band:</strong> Beat own score → harder songs → bigger arenas → cooler outfits</div>
+          <div class="ex-tag"><strong>Minecraft:</strong> Build world — mỗi block đặt xuống = investment</div>
+          <div class="ex-tag"><strong>Spotify:</strong> Playlists, liked songs, listening history → personalized recommendations</div>
+        </div>
+        <div class="principle"><strong>Design Principle: Progress phải nằm trong narrative coherent</strong><span>Rock Band không chỉ add progress mechanics lên trên gameplay — mọi thứ diễn ra trong narrative bạn hiểu: chơi nhạc, giỏi hơn, cơ hội lớn hơn mở ra. Progress cảm thấy tự nhiên vì nó nhất quán với through-line của sản phẩm.</span></div>
+      </div>
+    </div>
+
+    <div class="ws">
+      <div class="ws-hd">
+        <div class="ws-title">Worksheet 2: Learning Loop của dự án bạn</div>
+        <div class="ws-sub">Xác định 4 thành phần của Core Loop — đây là priority #1 cho MVP</div>
+      </div>
+      <div class="ws-grid">
+        <div class="ws-q">
+          <div class="ws-q-label"><span class="category-badge">Trigger</span>Internal trigger/urge/need nào khiến người ta tự nhiên nghĩ đến và tìm đến sản phẩm của bạn? (Không cần ai nhắc)</div>
+          <div class="ws-line"></div><div class="ws-line"></div><div class="ws-line"></div>
+          <div class="ws-hint">Gợi ý: "Tôi dùng [sản phẩm] khi tôi cảm thấy ___" — điền vào chỗ trống đó là gì?</div>
+        </div>
+        <div class="ws-q">
+          <div class="ws-q-label"><span class="category-badge">Core Activity</span>Hoạt động thú vị, lặp đi lặp lại nào kéo người dùng quay lại? Họ làm gì "again and again" trong một session?</div>
+          <div class="ws-line"></div><div class="ws-line"></div><div class="ws-line"></div>
+          <div class="ws-hint">Gợi ý: Nếu dùng 100 lần, họ đang làm gì? Điều đó có thể trở nên thú vị hơn khi lặp lại không?</div>
+        </div>
+        <div class="ws-q">
+          <div class="ws-q-label"><span class="category-badge">Feedback</span>Simple feedback system nào sẽ giúp Super Fans giỏi hơn ở core activity đó? Họ biết mình đang đi đúng hướng bằng cách nào?</div>
+          <div class="ws-line"></div><div class="ws-line"></div><div class="ws-line"></div>
+          <div class="ws-hint">Gợi ý: Start với feedback đơn giản nhất có thể hoạt động — đừng build leaderboard hay badge system trước.</div>
+        </div>
+        <div class="ws-q">
+          <div class="ws-q-label"><span class="category-badge">Progress</span>Progress / investment path nào dẫn người dùng đến Mastery? Người dùng "đặt" gì của mình vào sản phẩm để nó trở nên "của họ"?</div>
+          <div class="ws-line"></div><div class="ws-line"></div><div class="ws-line"></div>
+          <div class="ws-hint">Gợi ý: Customization nào giúp sản phẩm phản ánh cá nhân họ? Switching cost tự nhiên là gì?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TOOL 3 ══ -->
+<div class="sec" id="tool3">
+  <div class="sec-label">Power-Tool 3</div>
+  <div class="card">
+    <div class="tool-hd">
+      <div class="tool-ico ico-3">3</div>
+      <div>
+        <div class="tool-num">Game Thinking Power-Tool 3</div>
+        <div class="tool-name nm-3">Game Thinking Roadmap</div>
+        <div class="tool-tagline">Timeline iterate sản phẩm — từ MVP đến Expansion</div>
+      </div>
+    </div>
+
+    <p style="color:var(--ash);margin-bottom:20px">Matrix này kết hợp <strong>4 stages của Mastery Path</strong> (trục ngang — hành trình khách hàng) với <strong>4 giai đoạn phát triển sản phẩm</strong> (trục dọc — từ MVP đến Expansion). Nó cho bạn thấy rõ: ở mỗi giai đoạn phát triển, bạn nên focus vào đâu trong hành trình khách hàng.</p>
+
+    <div class="roadmap-wrap">
+      <table class="roadmap-table">
+        <thead>
+          <tr>
+            <th class="row-h">Giai đoạn</th>
+            <th>Discovery</th>
+            <th>Onboarding</th>
+            <th>Habit-Building</th>
+            <th>Mastery</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-h">MVP</td>
+            <td><div class="rd-cell"><div class="rd-dot rd-light"></div><div class="rd-label">Chưa cần</div></div></td>
+            <td><div class="rd-cell"><div class="rd-dot rd-light"></div><div class="rd-label">Tối thiểu</div></div></td>
+            <td><div class="rd-cell"><div class="rd-dot rd-primary"></div><div class="rd-label">FOCUS CHÍNH</div></div></td>
+            <td><div class="rd-cell"><div class="rd-dot rd-light"></div><div class="rd-label">Chưa cần</div></div></td>
+          </tr>
+          <tr>
+            <td class="row-h">BETA</td>
+            <td><div class="rd-cell"><div class="rd-dot rd-light"></div><div class="rd-label">Bắt đầu</div></div></td>
+            <td><div class="rd-cell"><div class="rd-dot rd-primary"></div><div class="rd-label">FOCUS CHÍNH</div></div></td>
+            <td><div class="rd-cell"><div class="rd-dot rd-active"></div><div class="rd-label">Đang hoàn thiện</div></div></td>
+            <td><div class="rd-cell"><div class="rd-dot rd-light"></div><div class="rd-label">Chưa cần</div></div></td>
+          </tr>
+          <tr>
+            <td class="row-h">LAUNCH</td>
+            <td><div class="rd-cell"><div class="rd-dot rd-primary"></div><div class="rd-label">FOCUS CHÍNH</div></div></td>
+            <td><div class="rd-cell"><div class="rd-dot rd-active"></div><div class="rd-label">Đang hoàn thiện</div></div></td>
+            <td><div class="rd-cell"><div class="rd-dot rd-active"></div><div class="rd-label">Đã vững</div></div></td>
+            <td><div class="rd-cell"><div class="rd-dot rd-future"></div><div class="rd-label">Lên kế hoạch</div></div></td>
+          </tr>
+          <tr>
+            <td class="row-h">EXPANSION</td>
+            <td><div class="rd-cell"><div class="rd-dot rd-active"></div><div class="rd-label">Đang hoàn thiện</div></div></td>
+            <td><div class="rd-cell"><div class="rd-dot rd-active"></div><div class="rd-label">Đã vững</div></div></td>
+            <td><div class="rd-cell"><div class="rd-dot rd-active"></div><div class="rd-label">Đã vững</div></div></td>
+            <td><div class="rd-cell"><div class="rd-dot rd-primary"></div><div class="rd-label">FOCUS CHÍNH</div></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="roadmap-note">
+      <div class="rn-item rn-mvp">
+        <div class="rn-stage">MVP</div>
+        <div class="rn-focus">Focus: Habit-Building</div>
+        <div class="rn-why">Làm Learning Loop hoạt động là ưu tiên số 1. Đây là thứ quan trọng hơn cả onboarding đẹp. Test với small group early customers.</div>
+      </div>
+      <div class="rn-item rn-beta">
+        <div class="rn-stage">BETA</div>
+        <div class="rn-focus">Focus: Onboarding</div>
+        <div class="rn-why">Habit-Building đã vững → scale sang Onboarding. Build ra đủ để newcomers có thể bắt đầu và đến được Core Loop.</div>
+      </div>
+      <div class="rn-item rn-launch">
+        <div class="rn-stage">LAUNCH</div>
+        <div class="rn-focus">Focus: Discovery</div>
+        <div class="rn-why">Lúc này Habit-Building và Onboarding đã đủ vững. Mới bắt đầu đầu tư vào Discovery / acquisition. Bắt đầu plan Mastery path.</div>
+      </div>
+      <div class="rn-item rn-expansion">
+        <div class="rn-stage">EXPANSION</div>
+        <div class="rn-focus">Focus: Mastery</div>
+        <div class="rn-why">Build "Elder Game" cho power users. Giá trị họ tạo ra lan tỏa cho toàn bộ ecosystem và giúp attract new users.</div>
+      </div>
+    </div>
+
+    <div class="card" style="background:var(--parchment);border:1px solid var(--dew);margin-top:20px;margin-bottom:0">
+      <div class="card-h" style="font-size:15.5px">Tại sao thứ tự này quan trọng</div>
+      <p>Amy Jo Kim chia sẻ câu chuyện về một entrepreneur mà bà coaching: người đó bị "seduced by the siren song of beautiful onboarding" và ship onboarding experience như MVP. Kết quả: rất nhiều người thử app — nhưng gần như không ai quay lại. Không có compelling reason để return.</p>
+      <p><strong>Logic của Roadmap:</strong> Nếu Core Loop (Habit-Building) chưa hoạt động, việc có nhiều người discover sản phẩm chỉ là lãng phí — họ sẽ đến, thử, và bỏ. Bạn cần đảm bảo có gì đó đáng để quay lại TRƯỚC khi acquisition. Đây là cách "great games and products come to life."</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CASE STUDY ══ -->
+<div class="sec" id="casestudy">
+  <div class="sec-label">Case Study</div>
+  <div class="card">
+    <div class="case-card">
+      <div class="case-hd">
+        <div class="case-title">Slack — Game Thinking trong thực tế</div>
+        <div class="case-sub">Từ in-house communication tool của game studio → $7B+ enterprise hit</div>
+      </div>
+
+      <p style="font-size:13.5px;color:var(--ash);margin-bottom:18px"><strong>Bối cảnh:</strong> Slack ban đầu là tool giao tiếp nội bộ cho team game Glitch (một multiplayer co-op game). Khi game thất bại về tài chính, Stewart Butterfield quyết định pivot: biến in-house tool thành sản phẩm team communication. Điều thú vị là Slack mang nguyên DNA của game design — vì nó được build bởi game developers.</p>
+
+      <div class="case-rows">
+        <div class="case-row">
+          <div class="category-badge">Discovery</div>
+          <div>
+            <div class="case-desc"><strong>Cơ chế:</strong> Email invite từ đồng nghiệp đang dùng — không phải cold marketing</div>
+            <div class="case-detail">Slack thiết kế để viral qua social network thật (colleagues). Email invite rõ ràng: "Người bạn biết đã mời bạn vào team [X]". Positioning: <em>"It's more fun with people you know"</em> — gắn thẳng với pleasure của việc dùng. Không có paid acquisition, chỉ social pull. → Discovery = Social Pull, không phải Push Marketing.</div>
+          </div>
+        </div>
+        <div class="case-row">
+          <div class="category-badge">Onboarding</div>
+          <div>
+            <div class="case-desc"><strong>Cơ chế:</strong> Slackbot — bot thân thiện, hướng dẫn cơ bản, single-player mode</div>
+            <div class="case-detail">Slackbot dạy đủ để bắt đầu — không phải tất cả tính năng. Quan trọng: bạn đang interact với bot, không phải đồng nghiệp thật → thoải mái hơn khi thử và mắc lỗi. Đây là "training level" trước khi bước vào multiplayer co-op thật sự. Một khi bạn học cơ bản, bot biết "khi nào" cần giới thiệu tính năng tiếp theo.</div>
+          </div>
+        </div>
+        <div class="case-row">
+          <div class="category-badge">Habit-Building</div>
+          <div>
+            <div class="case-desc"><strong>Core Activity:</strong> Đọc và reply team updates trong channels</div>
+            <div class="case-detail"><strong>Trigger:</strong> "Tôi tự hỏi team đang làm gì?" (internal) / notification mới (external). <strong>Feedback:</strong> "Caught up" — biết đã đọc hết. <strong>Progress:</strong> Customization layer — tweak notifications, thêm emoji reaction, chỉnh highlight words, tích hợp tools. Mỗi thứ bạn customize làm Slack trở nên "của bạn" hơn. Không có points hay badges — experience coherent và sạch.</div>
+          </div>
+        </div>
+        <div class="case-row">
+          <div class="category-badge">Mastery</div>
+          <div>
+            <div class="case-desc"><strong>Elder Game:</strong> Tạo và own channels, viết custom bots, tích hợp sản phẩm vào Slack ecosystem</div>
+            <div class="case-detail">Power users không chỉ dùng Slack — họ extend Slack. Tạo workflow automation, viết bots cho cả team, build integrations. Giá trị họ tạo ra không chỉ cho họ mà cho cả organization. Một Slack admin giỏi là tài sản của cả team — đây là Mastery trong thực tế.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="through-line">
+        <strong>Through-line của Slack: Customization</strong><br>
+        Nhất quán từ Onboarding (học customize cơ bản) → Habit-Building (customize environment của mình) → Mastery (customize cho cả tổ chức). Đây chính là secret sauce: một through-line rõ ràng chạy xuyên suốt toàn bộ trải nghiệm, làm mọi thứ cảm thấy coherent và intentional.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ANTI-PATTERNS ══ -->
+<div class="sec" id="antipatterns">
+  <div class="sec-label">Anti-Patterns cần tránh</div>
+  <div class="card">
+    <div class="card-h">Những sai lầm phổ biến — và cách làm đúng</div>
+    <div class="anti-grid">
+      <div class="anti"><div class="anti-h">Sai lầm: Ship Onboarding đẹp như MVP</div><p>Người dùng thử → không có lý do compelling để quay lại → bỏ. Onboarding không thể đứng một mình — cần có "bánh" (Habit-Building) phía sau.</p></div>
+      <div class="good"><div class="anti-h">Đúng: Build Core Loop trước</div><p>Tìm và validate pleasurable repeatable activity TRƯỚC. Khi Core Loop đã hoạt động, Onboarding có lý do để tồn tại: nó dẫn người dùng đến một chỗ đáng đến.</p></div>
+      <div class="anti"><div class="anti-h">Sai lầm: Gắn Points/Badges lên mọi thứ</div><p>"Gamification" sai chỗ — thêm mechanics vào experience không có substance. Kết quả: cảm giác cheap, clutter UI, không bền. Người dùng farm points rồi bỏ khi hết novelty.</p></div>
+      <div class="good"><div class="anti-h">Đúng: Feedback gắn với skill development thật</div><p>Feedback giúp người dùng thật sự giỏi hơn ở core activity. Nếu có progress mechanics, đặt trong narrative coherent — không phải layer on top.</p></div>
+      <div class="anti"><div class="anti-h">Sai lầm: Neglect Expert Users (Mastery)</div><p>Chỉ focus vào acquisition và onboarding. Bỏ quên power users — những người tạo ra nhiều giá trị nhất và ít churn nhất.</p></div>
+      <div class="good"><div class="anti-h">Đúng: Build Elder Game từ sớm trong roadmap</div><p>Plan Mastery path từ Launch, build ở Expansion. Giá trị experts tạo ra trickle down cho toàn bộ user base — và thu hút thêm users mới.</p></div>
+      <div class="anti"><div class="anti-h">Sai lầm: Build complex system trước khi simple works</div><p>Build leaderboard, achievement system, social features trước khi có feedback loop đơn giản hoạt động. Complexity trước simplicity = disaster.</p></div>
+      <div class="good"><div class="anti-h">Đúng: Simple → Complex, theo đúng thứ tự</div><p>"Every complex system starts as a simple system that works." Simple feedback loop trước. Progress mechanics sau. Social layer sau nữa. Mỗi layer build trên nền vững.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ KEY INSIGHTS ══ -->
+<div class="sec" id="insights">
+  <div class="sec-label">Key Insights từ tài liệu</div>
+  <div class="card">
+    <ul class="insight-list">
+      <li class="insight-item"><div class="in-num">1</div><div><div class="in-h">"Finding the fun" là công việc quan trọng nhất</div><div class="in-body">Teams xây dựng sản phẩm hit đều có chung điểm: họ "stay focused on finding the fun" — cái pleasurable repeatable activity khiến người dùng muốn quay lại. Đây không phải optional — đây là điều kiện tiên quyết. Get this right FIRST, rồi mới build từ đó.</div></div></li>
+      <li class="insight-item"><div class="in-num">2</div><div><div class="in-h">Thứ tự build quan trọng hơn nhiều bạn nghĩ</div><div class="in-body">Habit-Building → Onboarding → Discovery → Mastery là thứ tự đúng trong Roadmap. Không phải thứ tự bạn nghĩ theo logic tuyến tính. Vì sao? Vì nếu Core Loop chưa work, tất cả mọi thứ khác chỉ là lãng phí.</div></div></li>
+      <li class="insight-item"><div class="in-num">3</div><div><div class="in-h">Through-line = secret weapon của product design</div><div class="in-body">Slack có customization chạy xuyên suốt từ Onboarding đến Mastery. Rock Band có narrative "chơi trong ban nhạc, giỏi hơn, cơ hội lớn hơn". Khi có một through-line rõ ràng, mọi design decision trở nên dễ hơn và experience cảm thấy intentional và coherent.</div></div></li>
+      <li class="insight-item"><div class="in-num">4</div><div><div class="in-h">Simple Feedback &gt; Complex Gamification</div><div class="in-body">Slack không có points, levels, badges — và vẫn cực kỳ engaging. Feedback đơn giản gắn với core activity thật sự hiệu quả hơn gamification phức tạp không liên quan. "Every complex system starts as a simple system that works."</div></div></li>
+      <li class="insight-item"><div class="in-num">5</div><div><div class="in-h">Expert users tạo giá trị cho cả ecosystem</div><div class="in-body">Mastery path không chỉ giữ chân power users — nó tạo ra giá trị trickle-down. Slack admin giỏi làm cả team dùng tốt hơn. Minecraft master builder làm người mới muốn chơi hơn. Đây là compound effect của Mastery design.</div></div></li>
+      <li class="insight-item"><div class="in-num">6</div><div><div class="in-h">Social Pull mạnh hơn Push Marketing trong Discovery</div><div class="in-body">Slack viral qua colleague invites — không phải paid ads. Games viral qua "chơi với bạn mình". Thiết kế Discovery để người dùng tự nhiên muốn mời người họ biết — vì "it's more fun with people you know." Đây là bài học đắt nhất từ game industry.</div></div></li>
+    </ul>
+  </div>
+
+  <div class="warn">
+    <strong>Cảnh báo từ Amy Jo Kim</strong>
+    <span>"I see this all too often — teams ship beautiful onboarding as their MVP. Lots of people tried the app — but hardly anyone stuck around, because there wasn't any compelling reason to return. Don't let this happen to you."</span>
+  </div>
+
+  <div class="quote">
+    "The teams who actually produce hits stay focused on 'finding the fun' — that core value, that pleasurable repeatable activity that gets people to come back. If you get that right FIRST — you can build from there, find success, and start to drive long-term engagement."
+    <cite>— Amy Jo Kim, Game Thinking Blueprint (2017)</cite>
+  </div>
+</div>
+
+<!-- ══ ỨNG DỤNG ══ -->
+<div class="sec" id="apply">
+  <div class="sec-label">Ứng dụng thực tế — Checklist cho PO/PM</div>
+  <div class="card">
+    <div class="card-h">Làm thế nào để áp dụng Game Thinking vào dự án của bạn</div>
+    <p style="color:var(--ash);margin-bottom:20px">Framework này không chỉ dành cho consumer apps hay games. Bất kỳ B2B tool, internal system, fintech product nào cũng có thể được thiết kế theo Game Thinking — vì đều có người dùng với learning curve và engagement challenge.</p>
+
+    <div class="g2">
+      <div class="apply-box apply-before">
+        <div class="apply-h">Trước khi build MVP — Phải làm xong</div>
+        <div class="stage-point">Xác định rõ 4 stages của Mastery Path cho user base của bạn</div>
+        <div class="stage-point">Identify core pleasurable repeatable activity (Core Loop)</div>
+        <div class="stage-point">Xác định internal trigger chính — điều gì khiến user TỰ NHIÊN tìm đến sản phẩm</div>
+        <div class="stage-point">Test Core Loop với small group early adopters TRƯỚC khi build onboarding</div>
+        <div class="stage-point">Xác định through-line — narrative nhất quán chạy xuyên suốt 4 stages</div>
+      </div>
+      <div class="apply-box apply-during">
+        <div class="apply-h">Khi build MVP — Chỉ focus vào</div>
+        <div class="stage-point">Làm Core Loop hoạt động — đừng bị distract bởi onboarding hay features khác</div>
+        <div class="stage-point">Simple feedback system gắn với core activity — không cần complex gamification</div>
+        <div class="stage-point">Minimum viable onboarding — đủ để user đến được Core Loop, không hơn</div>
+        <div class="stage-point">Đo lường: user có quay lại không? Tần suất là gì? (Retention, not just Acquisition)</div>
+        <div class="stage-point">Interview early users: "Tại sao bạn quay lại?" / "Bạn làm gì nhiều nhất?"</div>
+      </div>
+    </div>
+
+    <div class="apply-box apply-check">
+      <div class="apply-h">Câu hỏi kiểm tra bạn đang đúng hướng</div>
+      <div class="g2">
+        <div>
+          <div class="stage-point">User có tự nhiên quay lại mà không cần push notification không?</div>
+          <div class="stage-point">User có thể giải thích tại sao họ dùng sản phẩm trong 1 câu không?</div>
+          <div class="stage-point">Core activity có trở nên thú vị hơn / có ý nghĩa hơn theo thời gian không?</div>
+        </div>
+        <div>
+          <div class="stage-point">User có customize / đầu tư vào sản phẩm (tạo switching cost tự nhiên) không?</div>
+          <div class="stage-point">Best users của bạn có thể giới thiệu sản phẩm cho người khác một cách tự nhiên không?</div>
+          <div class="stage-point">Có through-line rõ ràng từ newcomer experience đến expert experience không?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Nguồn: <strong>Game Thinking Blueprint</strong> — Amy Jo Kim © 2017 · gamethinking.io</p>
+  <p style="margin-top:6px;opacity:.7">Trình bày lại theo design system của Thư viện Sách · Wiki PO / Tâm Anh · 2026-08-13</p>
+</div>
+
+</div><!-- end wrap -->
+
+</body>
+</html>

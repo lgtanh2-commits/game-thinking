@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thư viện Sách</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Designmodo-style tokens — xem DESIGN (1).md */
+      --color-forest-floor: #0e231c;
+      --color-canopy-shadow: #1a3029;
+      --color-pine-border: #233630;
+      --color-slate-ink: #313942;
+      --color-ash: #656a75;
+      --color-mist: #c3cecb;
+      --color-fog: #879b93;
+      --color-parchment: #f4f7f2;
+      --color-dew: #e4ebe2;
+      --color-sprout: #27ae60;
+      --color-sprout-dark: #1e8e4e;
+      --color-sage-whisper: #defaca;
+
+      --font-main: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+      --radius-buttons: 999px;
+      --radius-cards: 32px;
+      --radius-chapter-row: 16px;
+      --radius-badges: 6px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: var(--color-parchment);
+      color: var(--color-slate-ink);
+      -webkit-font-feature-settings: "cv03", "cv04", "cv06", "cv09", "ss03";
+      font-feature-settings: "cv03", "cv04", "cv06", "cv09", "ss03";
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ── NAV ── */
+    nav.topnav {
+      background: var(--color-forest-floor);
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    nav.topnav .brand {
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.1px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    nav.topnav .crumb {
+      color: var(--color-fog);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    nav.topnav .crumb b {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* ── HERO (dark) ── */
+    .hero {
+      background: var(--color-forest-floor);
+      padding: 64px 32px 80px;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      color: #ffffff;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1.06px;
+    }
+
+    .hero h1 .accent {
+      color: var(--color-sage-whisper);
+    }
+
+    .hero .lead {
+      color: var(--color-fog);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-top: 12px;
+      max-width: 560px;
+    }
+
+    .search-wrap {
+      margin-top: 32px;
+      max-width: 420px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--color-canopy-shadow);
+      border: 1px solid var(--color-pine-border);
+      color: #ffffff;
+      font-family: var(--font-main);
+      font-size: 15px;
+      padding: 13px 20px;
+      border-radius: var(--radius-buttons);
+      outline: none;
+      transition: border-color .15s ease;
+    }
+
+    .search-input::placeholder {
+      color: var(--color-fog);
+    }
+
+    .search-input:focus {
+      border-color: var(--color-sprout);
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, .35);
+      color: #ffffff;
+      border-radius: var(--radius-buttons);
+      padding: 7px 19px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+
+    .back-btn:hover {
+      border-color: #ffffff;
+    }
+
+    .book-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      background: var(--color-canopy-shadow);
+      color: var(--color-fog);
+      border: 1px solid var(--color-pine-border);
+      border-radius: var(--radius-chapter-row);
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .chip.count {
+      color: #ffffff;
+      background: rgba(39, 174, 96, .18);
+      border-color: rgba(39, 174, 96, .4);
+    }
+
+    /* Category Badge / Status Badge — nền riêng, tự tương phản tốt dù đặt trên nền tối (hero) hay sáng (book-card) */
+    .category-badge,
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: var(--radius-badges);
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+
+    .category-badge {
+      background: var(--color-sage-whisper);
+      color: var(--color-sprout-dark);
+    }
+
+    .status-badge {
+      background: var(--color-sprout);
+      color: #ffffff;
+    }
+
+    /* ── CONTENT (light) ── */
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 32px 96px;
+    }
+
+    /* Book grid */
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+      margin-top: -56px;
+    }
+
+    /* Feature Product Card — theo đúng component DESIGN.md: nền mint, bo 32px, không shadow, padding 50px */
+    .book-card {
+      background: var(--color-mint-card);
+      border-radius: var(--radius-cards);
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform .15s ease;
+    }
+
+    .book-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .book-card h2 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.48px;
+      line-height: 1.3;
+    }
+
+    .book-card .author {
+      color: var(--color-slate-ink);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .book-card .chapter-count {
+      color: var(--color-ash);
+      font-size: 14px;
+    }
+
+    /* Primary CTA Button — theo đúng component DESIGN.md: nền sprout, chữ trắng, pill, mũi tên */
+    .primary-cta {
+      align-self: flex-start;
+      margin-top: 8px;
+      background: var(--color-sprout);
+      color: #ffffff;
+      border-radius: var(--radius-buttons);
+      padding: 13px 28px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .book-card:hover .primary-cta {
+      background: var(--color-sprout-dark);
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--color-ash);
+      padding: 48px 0;
+      font-size: 15px;
+    }
+
+    /* Chapter list */
+    .chapter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: -32px;
+    }
+
+    .chapter-row {
+      background: #ffffff;
+      border: 1px solid var(--color-dew);
+      border-radius: var(--radius-chapter-row);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .chapter-num {
+      flex: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-sprout);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .chapter-text {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .chapter-text h3 {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .chapter-text .sub {
+      color: var(--color-ash);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .read-btn {
+      flex: none;
+      background: var(--color-sprout);
+      color: #ffffff;
+      border-radius: var(--radius-buttons);
+      padding: 9px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .read-btn:hover {
+      background: var(--color-sprout-dark);
+    }
+
+    @media (max-width: 560px) {
+      .hero {
+        padding: 48px 20px 64px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+        letter-spacing: -0.48px;
+      }
+
+      .content {
+        padding: 40px 20px 64px;
+      }
+
+      .chapter-row {
+        flex-wrap: wrap;
+      }
+
+      .read-btn {
+        margin-left: 54px;
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="topnav">
+    <a class="brand" href="#/">Tổng hợp insight</a>
+    <span class="crumb" id="crumb"></span>
+  </nav>
+
+  <!-- ══════════════ LIBRARY VIEW ══════════════ -->
+  <div id="view-library">
+    <div class="hero">
+      <div class="hero-inner">
+        <h1>Tổng hợp insight <span class="accent">trong Game Thinking</span></h1>
+        <p class="lead">Được tổng hợp từ The art of Game, Game Thinking.</p>
+        <div class="search-wrap">
+          <input type="text" id="search-input" class="search-input" placeholder="Tìm theo tên sách…" autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="book-grid" id="book-grid"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════ BOOK DETAIL VIEW ══════════════ -->
+  <div id="view-detail" class="hidden">
+    <div class="hero">
+      <div class="hero-inner">
+        <a href="#/" class="back-btn">Quay lại trang trước</a>
+        <h1 id="detail-title"></h1>
+        <p class="lead" id="detail-author"></p>
+        <div class="book-meta-row" id="detail-meta"></div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="chapter-list" id="chapter-list"></div>
+    </div>
+  </div>
+
+  <script>
+    /*
+     * ═══════════════════════════════════════════════════════════════
+     * CÁCH THÊM SÁCH / CHƯƠNG MỚI
+     * ───────────────────────────────────────────────────────────────
+     * 1. Thêm 1 file HTML chương mới vào cùng folder này (hoặc folder
+     *    con), rồi thêm 1 object vào mảng `chapters` của book tương ứng
+     *    bên dưới: { n: <số chương>, title: '<tên chương>',
+     *    sub: '<phụ đề / tên chương ngôn ngữ còn lại>', file: '<tên file .html>' }.
+     * 2. Thêm 1 quyển sách mới: thêm 1 object vào mảng LIBRARY với
+     *    slug (kebab-case, duy nhất), title, author, tag, và chapters.
+     * 3. Không cần build/server — chỉ cần lưu file này, mở lại trình
+     *    duyệt (hoặc F5) là thấy ngay.
+     * ═══════════════════════════════════════════════════════════════
+     */
+    const LIBRARY = [
+      {
+        slug: 'game-thinking-blueprint',
+        title: 'Game Thinking Blueprint',
+        author: 'Amy Jo Kim · gamethinking.io · 2017',
+        tag: 'Framework · 14 trang · 3 Power-Tools',
+        chapters: [
+          {
+            n: 1,
+            title: 'Game Thinking Blueprint',
+            sub: 'Framework thiết kế sản phẩm lấy cảm hứng từ game design — 3 Power-Tools giúp xây MVP đúng người, đúng lúc, và giữ người dùng quay lại mãi mãi',
+            file: 'game-thinking-blueprint.html'
+          }
+        ]
+      },
+      {
+        slug: 'the-art-of-game-design',
+        title: 'The Art of Game Design',
+        author: 'Jesse Schell',
+        tag: 'Game Design · A Book of Lenses',
+        chapters: [
+          { n: 1, title: "In the Beginning, There Is the Designer", sub: "Chapter One · Chương Một", file: "The art of game/C1-The beginning.html" },
+          { n: 2, title: "The Designer Creates an Experience", sub: "Jesse Schell • Câu hỏi căn bản nhất của game design: chúng ta thực sự đang tạo ra gì?", file: "The art of game/C2-Create Experience.html" },
+          { n: 3, title: "The Experience Takes Place in a Venue", sub: "Jesse Schell • Venue là lăng kính bất biến vượt qua mọi platform", file: "The art of game/C3-The Experience Takes Place.html" },
+          { n: 4, title: "Trải Nghiệm Nảy Sinh Từ Chính Game", sub: "Tìm hiểu game, đồ chơi, sự chơi và niềm vui — nền móng tư duy (Lens #4–#8)", file: "The art of game/C4-The Experience Rises Out of a Game.html" },
+          { n: 5, title: "The Game Consists of Elements", sub: "Jesse Schell · Mọi trò chơi đều được tạo nên từ bốn thành phần cốt lõi", file: "The art of game/C5-Element of game.html" },
+          { n: 6, title: "The Elements Support a Theme", sub: "Jesse Schell · Khi mọi thứ cùng hướng về một ý tưởng duy nhất", file: "The art of game/C6-Theme.html" },
+          { n: 7, title: "The Game Begins with an Idea", sub: "", file: "The art of game/C7-Idea.html" },
+          { n: 8, title: "The Game Improves Through Iteration", sub: "", file: "The art of game/C8-Improve Game.html" },
+          { n: 9, title: "The Player", sub: "Hiểu người chơi từ nhân khẩu học đến tâm lý (2 Lenses #19–20)", file: "The art of game/C9-The Player.html" },
+          { n: 10, title: "Trải Nghiệm Nằm Trong Tâm Trí Người Chơi", sub: "The Experience Is in the Player's Mind", file: "The art of game/C10-Player Mind.html" },
+          { n: 11, title: "Tâm Trí Người Chơi Bị Thúc Đẩy Bởi Động Lực của Người Chơi", sub: "The Player's Mind Is Driven by the Player's Motivation", file: "The art of game/C11-Player's Motivation.html" },
+          { n: 12, title: "Some Elements Are Game Mechanics", sub: "7 cơ chế game cơ bản — Space, Time, Objects & States, Actions, Rules, Skill, Chance (11 Lens #26–#36)", file: "The art of game/C12-Mechanic.html" },
+          { n: 13, title: "Game Mechanics Must Be in Balance", sub: "", file: "The art of game/C13-Mechanic Balance.html" },
+          { n: 14, title: "Game Mechanics Support Puzzles", sub: "Cơ chế trò chơi phục vụ thử thách tư duy — 10 Nguyên tắc Puzzle", file: "The art of game/C14-Mechanic support puzzle.html" },
+          { n: 15, title: "Players Play Games through an Interface", sub: "Người chơi chạm đến thế giới game qua lớp màng Interface (9 Lenses #59–#67)", file: "The art of game/C15-Interface.html" },
+          { n: 16, title: "Trải Nghiệm Được Đánh Giá Qua Đường Cong Hứng Thú", sub: "Không chỉ nội dung mà cả hình dạng trải nghiệm mới quyết định sức hút (5 Lenses mới)", file: "The art of game/C16-Interest Curve.html" },
+          { n: 17, title: "Một Loại Trải Nghiệm Là Story", sub: "Story và gameplay là hai biểu hiện của cùng một hiện tượng (6 Lenses mới)", file: "The art of game/C17-Story.html" },
+          { n: 18, title: "Story và Game Structures Có Thể Được Kết Hợp Khéo Léo Thông Qua Indirect Control", sub: "Khiến người chơi muốn làm đúng điều bạn muốn họ làm (4 Lenses #79–#82)", file: "The art of game/C18-Indirect Control.html" },
+          { n: 19, title: "Stories and Games Take Place in Worlds", sub: "Game mở ra cánh cửa vào một thế giới có thể tồn tại mãi mãi (2 Lenses #83–#84)", file: "The art of game/C19-World.html" },
+          { n: 20, title: "Worlds Contain Characters", sub: "Nhân vật là linh hồn của thế giới game — 10 kỹ thuật xây dựng nhân vật (7 Lenses #85–#91)", file: "The art of game/C20-Characters.html" },
+          { n: 21, title: "Worlds Contain Spaces", sub: "Thế Giới Chứa Đựng Không Gian", file: "The art of game/C21-Game Space.html" },
+          { n: 22, title: "The Look and Feel of a World Is Defined by Its Aesthetics", sub: "Jesse Schell · Bản dịch & phân tích tiếng Việt", file: "The art of game/C22-Aesthetics.html" },
+          { n: 23, title: "Some Games Are Played with Other Players", sub: "Jesse Schell · Bản dịch & phân tích tiếng Việt", file: "The art of game/C23-Play Together.html" },
+          { n: 24, title: "Other Players Sometimes Form Communities", sub: "Jesse Schell · Bản dịch & phân tích tiếng Việt", file: "The art of game/C24-Communities.html" },
+          { n: 25, title: "Nhà Thiết Kế Thường Làm Việc Cùng Đội Nhóm", sub: "The Designer Usually Works with a Team (2 Lenses mới)", file: "The art of game/C25-Teamwork.html" },
+          { n: 26, title: "Đội Nhóm Đôi Khi Giao Tiếp Qua Tài Liệu", sub: "The Team Sometimes Communicates through Documents (1 Lens mới)", file: "The art of game/C26-Game Design Document.html" },
+          { n: 27, title: "Good Games Are Created through Playtesting", sub: "Jesse Schell · Tóm tắt & phân tích tiếng Việt (1 Lens)", file: "The art of game/C27-Playtesting.html" },
+          { n: 28, title: "The Team Builds a Game with Technology", sub: "Jesse Schell · Tóm tắt & phân tích tiếng Việt (3 Lenses)", file: "The art of game/C28-Tech.html" },
+          { n: 29, title: "Your Game Will Probably Have a Client", sub: "Jesse Schell · Tóm tắt & phân tích tiếng Việt (1 Lens)", file: "The art of game/C29-Client.html" },
+          { n: 30, title: "The Designer Gives the Client a Pitch", sub: "Thuyết phục người ra quyết định bằng nghệ thuật — không phải may mắn", file: "The art of game/C30-Pitching.html" },
+          { n: 31, title: "The Designer and Client Want the Game to Make a Profit", sub: "Game thành công không chỉ về nghệ thuật — nó còn phải đứng vững trên thị trường", file: "The art of game/C31-Make Profit.html" },
+          { n: 32, title: "Games Transform Their Players", sub: "Game không chỉ giải trí — chúng thay đổi người chơi sâu sắc hơn ta nghĩ", file: "The art of game/C32-Games Transform.html" },
+          { n: 33, title: "Designers Have Certain Responsibilities", sub: "Game designer chịu trách nhiệm không chỉ với employer, mà với người chơi và xã hội", file: "The art of game/C33-Responsibilities.html" },
+          { n: 34, title: "Each Designer Has a Purpose", sub: "Đã học cách lắng nghe audience, team, client, game — giờ lắng nghe chính mình", file: "The art of game/C34-End.html" }
+        ]
+      }
+    ];
+
+    const bookGrid = document.getElementById('book-grid');
+    const searchInput = document.getElementById('search-input');
+    const viewLibrary = document.getElementById('view-library');
+    const viewDetail = document.getElementById('view-detail');
+    const crumb = document.getElementById('crumb');
+
+    let searchQuery = '';
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function renderBookGrid() {
+      const q = searchQuery.trim().toLowerCase();
+      const books = LIBRARY.filter(b => b.title.toLowerCase().includes(q));
+
+      if (books.length === 0) {
+        bookGrid.innerHTML = `<div class="empty-state">Không tìm thấy sách nào khớp với "${escapeHtml(searchQuery)}".</div>`;
+        return;
+      }
+
+      bookGrid.innerHTML = books.map(b => `
+    <a class="book-card" href="#/book/${b.slug}">
+      <span class="category-badge">${escapeHtml(b.tag)}</span>
+      <h2>${escapeHtml(b.title)}</h2>
+      <div class="author">${escapeHtml(b.author)}</div>
+      <div class="chapter-count">${b.chapters.length} chương</div>
+      <span class="primary-cta">Xem mục lục →</span>
+    </a>
+  `).join('');
+    }
+
+    function renderDetail(slug) {
+      const book = LIBRARY.find(b => b.slug === slug);
+      if (!book) {
+        location.hash = '#/';
+        return;
+      }
+
+      document.getElementById('detail-title').textContent = book.title;
+      document.getElementById('detail-author').textContent = book.author;
+      document.getElementById('detail-meta').innerHTML = `
+    <span class="category-badge">${escapeHtml(book.tag)}</span>
+    <span class="status-badge">${book.chapters.length} chương</span>
+  `;
+
+      const list = document.getElementById('chapter-list');
+      list.innerHTML = book.chapters.map(ch => `
+    <div class="chapter-row">
+      <div class="chapter-num">${ch.n}</div>
+      <div class="chapter-text">
+        <h3>${escapeHtml(ch.title)}</h3>
+        ${ch.sub ? `<div class="sub">${escapeHtml(ch.sub)}</div>` : ''}
+      </div>
+      <a class="read-btn" href="${encodeURI(ch.file)}">Đọc →</a>
+    </div>
+  `).join('');
+
+      crumb.innerHTML = `/ <b>${escapeHtml(book.title)}</b>`;
+    }
+
+    function render() {
+      const hash = location.hash || '#/';
+      const bookMatch = hash.match(/^#\/book\/(.+)$/);
+
+      if (bookMatch) {
+        viewLibrary.classList.add('hidden');
+        viewDetail.classList.remove('hidden');
+        renderDetail(decodeURIComponent(bookMatch[1]));
+      } else {
+        viewDetail.classList.add('hidden');
+        viewLibrary.classList.remove('hidden');
+        crumb.innerHTML = '';
+        searchInput.value = searchQuery;
+        renderBookGrid();
+      }
+      window.scrollTo(0, 0);
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderBookGrid();
+    });
+
+    window.addEventListener('hashchange', render);
+    render();
+  </script>
+
+</body>
+
+</html>

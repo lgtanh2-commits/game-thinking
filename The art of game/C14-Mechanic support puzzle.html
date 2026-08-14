@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 14 – Game Mechanics Support Puzzles | The Art of Game Design</title>
+<style>
+ :root {
+ --orange: #27ae60;
+ --orange-light: #6cc999;
+ --orange-pale: #edf9f2;
+ --dark: #0e231c;
+ --gray: #656a75;
+ --gray-light: #656a75;
+ --bg: #f4f7f2;
+ --white: #ffffff;
+ --card-border: #e4ebe2;
+ --accent-teal: #27ae60;
+ --accent-blue: #27ae60;
+ --accent-purple: #27ae60;
+ --accent-green: #27ae60;
+ --accent-gold: #27ae60;
+ 
+ --forest: #0e231c;
+ --fog: #879b93;
+ --sage: #defaca;
+ --mint: #edf9f2;
+ --sprout-d: #1c8a4c;}
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ body {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ background: var(--bg);
+ color: var(--dark);
+ line-height: 1.75;
+ font-size: 17px;
+ }
+
+ /* ── HERO ── */
+ .hero {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ color: var(--white);
+ padding: 72px 24px 64px;
+ text-align: center;
+ position: relative;
+ overflow: hidden;
+ }
+ .hero::before {
+ content: '';
+ position: absolute; inset: 0;
+ background: none;
+ pointer-events: none;
+ }
+ .hero-badge {
+ display: inline-block;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ color: var(--orange-light);
+ background: rgba(39,174,96,0.12);
+ border: 1px solid rgba(39,174,96,0.35);
+ border-radius: 20px;
+ padding: 6px 18px;
+ margin-bottom: 28px;
+ }
+ .hero h1 {
+ font-size: clamp(28px, 5vw, 46px);
+ font-weight: 400;
+ line-height: 1.25;
+ margin-bottom: 14px;
+ letter-spacing: -0.5px;
+ }
+ .hero h1 em {
+ color: var(--orange);
+ font-style: normal;
+ }
+ .hero-sub {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 16px;
+ color: rgba(255,255,255,0.62);
+ margin-bottom: 44px;
+ font-weight: 300;
+ }
+ .hero-stats {
+ display: flex;
+ justify-content: center;
+ gap: 48px;
+ flex-wrap: wrap;
+ }
+ .hero-stat { text-align: center; }
+ .hero-stat .num {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 28px;
+ font-weight: 700;
+ color: var(--orange);
+ display: block;
+ }
+ .hero-stat .lbl {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ color: rgba(255,255,255,0.45);
+ text-transform: uppercase;
+ letter-spacing: 1.2px;
+ }
+
+ /* ── CHAPTER MAP ── */
+ .chapter-map-wrap {
+ background: var(--white);
+ border-bottom: 1px solid var(--card-border);
+ padding: 44px 24px 48px;
+ }
+ .chapter-map-inner {
+ max-width: 820px;
+ margin: 0 auto;
+ }
+ .map-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 700;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ text-align: center;
+ margin-bottom: 32px;
+ }
+ .map-row {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-wrap: wrap;
+ gap: 0;
+ }
+ .map-node {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 10px;
+ }
+ .map-dot {
+ width: 44px; height: 44px;
+ border-radius: 50%;
+ display: flex; align-items: center; justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 15px;
+ font-weight: 800;
+ color: var(--white);
+ flex-shrink: 0;
+ }
+ .map-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 10px;
+ font-weight: 600;
+ color: var(--gray);
+ text-align: center;
+ max-width: 88px;
+ line-height: 1.3;
+ }
+ .map-arrow {
+ font-size: 18px;
+ color: var(--gray-light);
+ margin: 0 6px;
+ margin-bottom: 24px;
+ flex-shrink: 0;
+ }
+
+ /* dot color variants */
+ .dot-orange { background: var(--orange); }
+ .dot-teal { background: var(--accent-teal); }
+ .dot-purple { background: var(--accent-purple); }
+ .dot-blue { background: var(--accent-blue); }
+ .dot-green { background: var(--accent-green); }
+ .dot-gold { background: var(--accent-gold); }
+
+ /* ── MAIN CONTENT ── */
+ main {
+ max-width: 880px;
+ margin: 0 auto;
+ padding: 60px 24px 120px;
+ }
+
+ /* ── SECTION HEADERS ── */
+ .section-header {
+ display: flex;
+ align-items: center;
+ gap: 20px;
+ margin: 64px 0 28px;
+  scroll-margin-top: 108px;}
+ .section-num {
+ width: 52px; height: 52px;
+ border-radius: 14px;
+ display: flex; align-items: center; justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 20px;
+ font-weight: 800;
+ color: var(--white);
+ flex-shrink: 0;
+ }
+ .section-header h2 {
+ font-size: 26px;
+ font-weight: 700;
+ color: var(--dark);
+ letter-spacing: -0.3px;
+ }
+ .section-header h2 span {
+ display: block;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 600;
+ letter-spacing: 1.5px;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 4px;
+ }
+
+ /* ── CARDS ── */
+ .card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ padding: 28px 32px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ margin-bottom: 20px;
+ }
+ .card h3 {
+ font-size: 18px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 12px;
+ }
+ .card h4 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ letter-spacing: 1.2px;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 10px;
+ }
+ .card p { color: var(--gray); margin-bottom: 12px; }
+ .card p:last-child { margin-bottom: 0; }
+
+ /* ── QUOTE BLOCK ── */
+ .quote-block {
+ border-left: 4px solid var(--orange);
+ background: var(--orange-pale);
+ border-radius: 0 12px 12px 0;
+ padding: 20px 24px;
+ margin: 20px 0;
+ }
+ .quote-block p {
+ font-style: italic;
+ color: var(--dark);
+ font-size: 16px;
+ line-height: 1.7;
+ margin-bottom: 8px;
+ }
+ .quote-block .attribution {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 1px;
+ text-transform: uppercase;
+ color: var(--orange);
+ font-style: normal;
+ }
+
+ /* ── HIGHLIGHT BOXES ── */
+ .highlight {
+ border-radius: 14px;
+ padding: 22px 26px;
+ margin: 20px 0;
+ border-left: 4px solid;
+ }
+ .hl-orange {
+ background: #edf9f2;
+ border-color: var(--orange);
+ }
+ .hl-teal {
+ background: #edf9f2;
+ border-color: var(--accent-teal);
+ }
+ .hl-purple {
+ background: #edf9f2;
+ border-color: var(--accent-purple);
+ }
+ .hl-blue {
+ background: #edf9f2;
+ border-color: var(--accent-blue);
+ }
+ .hl-green {
+ background: #edf9f2;
+ border-color: var(--accent-green);
+ }
+ .hl-gold {
+ background: #edf9f2;
+ border-color: var(--accent-gold);
+ }
+ .highlight .hl-icon {
+ font-size: 22px;
+ margin-bottom: 8px;
+ display: block;
+ }
+ .highlight .hl-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 800;
+ letter-spacing: 1px;
+ text-transform: uppercase;
+ margin-bottom: 8px;
+ }
+ .hl-orange .hl-title { color: var(--orange); }
+ .hl-teal .hl-title { color: var(--accent-teal); }
+ .hl-purple .hl-title { color: var(--accent-purple); }
+ .hl-blue .hl-title { color: var(--accent-blue); }
+ .hl-green .hl-title { color: var(--accent-green); }
+ .hl-gold .hl-title { color: var(--accent-gold); }
+ .highlight p { color: var(--gray); font-size: 15.5px; line-height: 1.7; margin-bottom: 6px; }
+ .highlight p:last-child { margin-bottom: 0; }
+
+ /* ── LENS BOX ── */
+ .lens-box {
+ background: #edf9f2;
+ border: 2px solid var(--orange);
+ border-radius: 18px;
+ padding: 30px 32px;
+ margin: 28px 0;
+ }
+ .lens-header {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ margin-bottom: 18px;
+ }
+ .lens-icon {
+ font-size: 36px;
+ line-height: 1;
+ }
+ .lens-title-group {}
+ .lens-num {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 800;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ color: var(--orange);
+ display: block;
+ margin-bottom: 3px;
+ }
+ .lens-name {
+ font-size: 21px;
+ font-weight: 700;
+ color: var(--dark);
+ }
+ .lens-desc {
+ color: var(--gray);
+ font-size: 15.5px;
+ line-height: 1.7;
+ margin-bottom: 16px;
+ }
+ .lens-questions {
+ background: rgba(255,255,255,0.7);
+ border-radius: 12px;
+ padding: 18px 22px;
+ }
+ .lens-questions p {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 800;
+ letter-spacing: 1.2px;
+ text-transform: uppercase;
+ color: var(--orange);
+ margin-bottom: 10px;
+ }
+ .lens-questions li {
+ color: var(--gray);
+ font-size: 15px;
+ line-height: 1.65;
+ margin-bottom: 6px;
+ padding-left: 4px;
+ }
+ .lens-questions li:last-child { margin-bottom: 0; }
+
+ /* ── PRINCIPLE BLOCK ── */
+ .principle-block {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin-bottom: 24px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ position: relative;
+ }
+ .principle-num-badge {
+ position: absolute;
+ top: 28px; left: 32px;
+ width: 38px; height: 38px;
+ border-radius: 10px;
+ display: flex; align-items: center; justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 16px;
+ font-weight: 800;
+ color: var(--white);
+ }
+ .principle-content {
+ padding-left: 56px;
+ }
+ .principle-block h3 {
+ font-size: 19px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 10px;
+ line-height: 1.3;
+ }
+ .principle-block h3 .en {
+ display: block;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 600;
+ letter-spacing: 1.2px;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 4px;
+ }
+ .principle-block p { color: var(--gray); font-size: 15.5px; line-height: 1.7; margin-bottom: 10px; }
+ .principle-block p:last-child { margin-bottom: 0; }
+
+ /* ── GRID 2-COL ── */
+ .grid-2 {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 18px;
+ margin: 20px 0;
+ }
+ @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+ /* ── COMPARE STRIP ── */
+ .compare-strip {
+ display: grid;
+ grid-template-columns: 1fr auto 1fr;
+ align-items: center;
+ gap: 12px;
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 14px;
+ padding: 22px 24px;
+ margin: 20px 0;
+ }
+ .compare-side { text-align: center; }
+ .compare-side .cs-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 10px;
+ font-weight: 700;
+ letter-spacing: 1.5px;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 8px;
+ }
+ .compare-side .cs-title {
+ font-size: 16px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 6px;
+ }
+ .compare-side p { color: var(--gray); font-size: 14px; line-height: 1.6; }
+ .compare-vs {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 18px;
+ font-weight: 800;
+ color: var(--gray-light);
+ text-align: center;
+ }
+
+ /* ── CHECKLIST STYLE ── */
+ .check-list {
+ list-style: none;
+ padding: 0;
+ margin: 0;
+ }
+ .check-list li {
+ display: flex;
+ align-items: flex-start;
+ gap: 12px;
+ padding: 9px 0;
+ border-bottom: 1px solid rgba(228,235,226,0.5);
+ color: var(--gray);
+ font-size: 15.5px;
+ line-height: 1.6;
+ }
+ .check-list li:last-child { border-bottom: none; }
+ .check-list li .ci { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+
+ /* ── DIVIDER ── */
+ .divider {
+ border: none;
+ border-top: 1px solid var(--card-border);
+ margin: 52px 0;
+ }
+
+ /* ── READING LIST ── */
+ .reading-list {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+ border-radius: 14px;
+ padding: 24px 28px;
+ margin-top: 24px;
+ }
+ .reading-list .rl-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 800;
+ letter-spacing: 1.5px;
+ text-transform: uppercase;
+ color: var(--accent-purple);
+ margin-bottom: 14px;
+ }
+ .reading-list li {
+ color: var(--gray);
+ font-size: 15px;
+ line-height: 1.65;
+ padding: 5px 0;
+ }
+ .reading-list li em { font-style: italic; }
+
+ /* ── FOOTER ── */
+ .page-footer {
+ background: var(--dark);
+ color: rgba(255,255,255,0.45);
+ text-align: center;
+ padding: 36px 24px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ letter-spacing: 0.5px;
+ }
+ .page-footer strong { color: rgba(255,255,255,0.7); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+  .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .topnav .crumb { color: #879b93; font-size: 14px; }
+  .topnav .crumb a { color: #879b93; text-decoration: none; }
+  .topnav .crumb b { color: #fff; font-weight: 600; }
+  .chapnav-wrap { background: #f4f7f2; padding: 40px 24px 56px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .chapnav { display: flex; justify-content: space-between; gap: 12px; max-width: 820px; margin: 0 auto; }
+  .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+  .tocnav { position: sticky; top: 52px; z-index: 100; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; overflow-x: auto; scrollbar-width: none; }
+  .tocnav::-webkit-scrollbar { display: none; }
+  .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
+
+</style>
+<nav class="topnav">
+  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 14</b></span>
+</nav>
+
+<nav class="tocnav">
+  <a href="#s1">Bí ẩn của Puzzle</a>
+  <a href="#s2">Puzzle còn sống không?</a>
+  <a href="#s3">10 Nguyên tắc Puzzle hay</a>
+  <a href="#s4">Nhìn puzzle như một Nhà thiết kế</a>
+  <a href="#s5">5 Lenses của Chương 14</a>
+  <a href="#s6">Tài liệu mở rộng</a>
+</nav>
+
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<div class="hero">
+ <div class="hero-badge">The Art of Game Design · Chương 14</div>
+ <h1>Game Mechanics<br><em>Support Puzzles</em></h1>
+ <p class="hero-sub">Cơ chế trò chơi phục vụ thử thách tư duy</p>
+ <div class="hero-stats">
+ <div class="hero-stat">
+ <span class="num">10</span>
+ <span class="lbl">Nguyên tắc Puzzle</span>
+ </div>
+ <div class="hero-stat">
+ <span class="num">5</span>
+ <span class="lbl">Lenses (#54–#58)</span>
+ </div>
+ <div class="hero-stat">
+ <span class="num">14</span>
+ <span class="lbl">Chương</span>
+ </div>
+ </div>
+</div>
+
+<!-- ═══════════════════════════════ CHAPTER MAP ═══════════════════════════════ -->
+<div class="chapter-map-wrap">
+ <div class="chapter-map-inner">
+ <div class="map-title">Bản đồ chương</div>
+ <div class="map-row">
+ <div class="map-node">
+ <div class="map-dot dot-orange">1</div>
+ <div class="map-label">Puzzle là gì?</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-teal">2</div>
+ <div class="map-label">Puzzle còn sống?</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-purple">3</div>
+ <div class="map-label">10 Nguyên tắc</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-blue">4</div>
+ <div class="map-label">Lens #54–#55</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-green">5</div>
+ <div class="map-label">Lens #56–#57</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-gold">6</div>
+ <div class="map-label">Lens #58</div>
+ </div>
+ </div>
+ </div>
+</div>
+
+<!-- ═══════════════════════════════ MAIN ═══════════════════════════════ -->
+<main>
+
+ <!-- ──────────────────── OPENING ──────────────────── -->
+ <div class="highlight hl-orange" style="margin-top: 0;">
+ <div class="hl-title">Điểm xuất phát</div>
+ <p>Puzzle là nơi game bắt buộc người chơi <strong>dừng lại và suy nghĩ</strong>. Đây là phần "đầu óc" trong thang cân bằng Head vs. Hands (Lens #42). Puzzle vừa là trò chơi độc lập, vừa là thành phần được nhúng vào game lớn hơn — và thiết kế tốt hay xấu của chúng tác động trực tiếp đến trải nghiệm người chơi.</p>
+ </div>
+
+ <!-- ══════════════════════════════════════════════════════════════ -->
+ <!-- SECTION 1 -->
+ <!-- ══════════════════════════════════════════════════════════════ -->
+ <div class="section-header" id="s1">
+ <div class="section-num dot-orange">1</div>
+ <h2>
+ <span>Phần 1</span>
+ Bí ẩn của Puzzle
+ </h2>
+ </div>
+
+ <div class="card">
+ <h4>Puzzle là gì theo định nghĩa của game design?</h4>
+ <p>Jesse Schell định nghĩa puzzle theo cách khác với trực giác thông thường: <strong>Puzzle = "A Game with a Dominant Strategy"</strong> — tức là một trò chơi mà ở đó tồn tại <em>một</em> chiến lược tối ưu rõ ràng. Khi người chơi tìm ra chiến lược đó, puzzle kết thúc.</p>
+ <p>Điều này giải thích tại sao puzzle thường <strong>không có tính replayable</strong>: một khi bạn biết đáp án, trải nghiệm "khám phá" biến mất hoàn toàn.</p>
+ </div>
+
+ <div class="quote-block">
+ <p>"A puzzle is fun, and has a right answer."</p>
+ <span class="attribution">— Scott Kim, nhà thiết kế puzzle</span>
+ </div>
+
+ <div class="grid-2">
+ <div class="card">
+ <h3> Puzzle như một Game</h3>
+ <p>Puzzle có đủ các yếu tố của một game: mục tiêu, quy tắc, thử thách. Nhưng không gian giải pháp của nó <strong>hội tụ về một điểm</strong> — đáp án đúng — thay vì mở ra vô số khả năng chiến lược.</p>
+ </div>
+ <div class="card">
+ <h3> Game như một Puzzle</h3>
+ <p>Ngược lại, nhiều game "thuần" có thể trở thành puzzle nếu người chơi tìm ra dominant strategy: ví dụ một game cờ đơn giản có thể bị "giải" hoàn toàn bởi máy tính.</p>
+ </div>
+ </div>
+
+ <!-- ══════════════════════════════════════════════════════════════ -->
+ <!-- SECTION 2 -->
+ <!-- ══════════════════════════════════════════════════════════════ -->
+ <div class="section-header" id="s2">
+ <div class="section-num dot-teal">2</div>
+ <h2>
+ <span>Phần 2</span>
+ Puzzle còn sống không?
+ </h2>
+ </div>
+
+ <div class="compare-strip">
+ <div class="compare-side">
+ <div class="cs-label">Cách cũ – Puzzle tách biệt</div>
+ <div class="cs-title"> The 7th Guest (1993)</div>
+ <p>Puzzle được nhét vào game adventure một cách tùy tiện, không liên quan đến thế giới hay câu chuyện. Người chơi cảm thấy bị "giam" trong một mini-game xa lạ.</p>
+ </div>
+ <div class="compare-vs">VS</div>
+ <div class="compare-side">
+ <div class="cs-label">Cách mới – Puzzle hòa quyện</div>
+ <div class="cs-title"> Zelda: Wind Waker</div>
+ <p>Puzzle <em>là</em> thế giới: đẩy khối đá đúng vị trí, sử dụng gió đúng chiều. Không có ranh giới rõ ràng giữa "chơi game" và "giải puzzle".</p>
+ </div>
+ </div>
+
+ <div class="highlight hl-teal">
+ <div class="hl-title">Puzzle không chết — chỉ hòa tan vào game</div>
+ <p>Các game hiện đại không từ bỏ puzzle; họ <strong>tích hợp puzzle vào môi trường</strong> thay vì biến chúng thành "vật thể xa lạ". Bất kỳ thể loại game nào — action, RPG, adventure, strategy — đều có thể chứa puzzle nếu thiết kế khéo léo.</p>
+ <p>Người chơi không phản đối việc phải suy nghĩ. Họ phản đối puzzle <em>cảm thấy cưỡng bức</em> hoặc vô nghĩa trong ngữ cảnh.</p>
+ </div>
+
+ <!-- ══════════════════════════════════════════════════════════════ -->
+ <!-- SECTION 3: 10 PRINCIPLES -->
+ <!-- ══════════════════════════════════════════════════════════════ -->
+ <div class="section-header" id="s3">
+ <div class="section-num dot-purple">3</div>
+ <h2>
+ <span>Phần 3</span>
+ 10 Nguyên tắc Puzzle hay
+ </h2>
+ </div>
+
+ <div class="highlight hl-purple" style="margin-bottom: 32px;">
+ <div class="hl-title">Nền tảng thiết kế</div>
+ <p>10 nguyên tắc sau đây áp dụng cho cả puzzle độc lập lẫn puzzle được nhúng trong game lớn hơn. Chúng không phải quy tắc cứng nhắc mà là <strong>hướng dẫn tư duy</strong> — mỗi nguyên tắc có thể có ngoại lệ hợp lý tùy ngữ cảnh.</p>
+ </div>
+
+ <!-- Principle 1 -->
+ <div class="principle-block">
+ <div class="principle-num-badge" style="background: #27ae60;">1</div>
+ <div class="principle-content">
+ <h3>
+ <span class="en">Principle 1 · Make the Goal Easily Understood</span>
+ Mục tiêu phải hiểu ngay từ đầu
+ </h3>
+ <p>Người chơi không thể giải puzzle nếu họ không biết mình đang cố làm gì. Điều này nghe có vẻ hiển nhiên, nhưng nhiều nhà thiết kế vô tình tạo ra puzzle mà mục tiêu mơ hồ hoặc bị che khuất bởi cơ chế phức tạp.</p>
+ <div class="quote-block" style="margin: 12px 0 14px;">
+ <p>Hasbro từng tạo ra một thiết bị gọi là <strong>Nemesis Factor</strong> — người chơi nhấn các nút nhưng không hiểu mình đang cố đạt điều gì. Dù thiết bị trông ấn tượng, nó thất bại hoàn toàn vì không ai biết mục tiêu là gì.</p>
+ </div>
+ <p><strong>Ví dụ tốt:</strong> Một khối gỗ rỗng với lỗ hình chiếc chìa khóa, và một chiếc chìa khóa nằm bên cạnh — mục tiêu tự giải thích bản thân mà không cần một chữ hướng dẫn.</p>
+ </div>
+ </div>
+
+ <!-- Principle 2 -->
+ <div class="principle-block">
+ <div class="principle-num-badge" style="background: #27ae60;">2</div>
+ <div class="principle-content">
+ <h3>
+ <span class="en">Principle 2 · Make It Easy to Get Started</span>
+ Tạo điểm bắt đầu dễ dàng
+ </h3>
+ <p>Người chơi cần có thể <em>bắt đầu làm gì đó ngay lập tức</em> — dù hành động đó chưa giải được puzzle. Rào cản ngưỡng vào quá cao khiến người chơi bỏ cuộc trước khi thực sự thử.</p>
+ <div class="quote-block" style="margin: 12px 0 14px;">
+ <p>Sam Loyd's famous "15 Puzzle" (xếp 15 ô số vào đúng thứ tự) dễ hiểu và dễ bắt đầu — ai cũng có thể di chuyển ô đầu tiên ngay lập tức, dù giải hoàn toàn cần kỹ năng.</p>
+ </div>
+ <p><strong>Phản ví dụ:</strong> Một puzzle mật mã không giải thích quy tắc mã hóa — người chơi không biết phải bắt đầu từ đâu nên không thử gì cả.</p>
+ <div class="quote-block" style="margin: 12px 0 0;">
+ <p>"First, build a good toy."</p>
+ <span class="attribution">— Scott Kim · Mọi puzzle tốt trước tiên phải thú vị khi nghịch, dù chưa giải được</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- Lens 54 -->
+ <div class="lens-box">
+ <div class="lens-header">
+ <div class="lens-title-group">
+ <span class="lens-num">Lens #54</span>
+ <div class="lens-name">The Lens of Accessibility</div>
+ </div>
+ </div>
+ <p class="lens-desc">Một puzzle dù thú vị đến đâu cũng vô dụng nếu người chơi không thể bước vào. Lens này kiểm tra xem liệu <strong>mọi người chơi có thể dễ dàng hiểu mục tiêu và bắt đầu hành động ngay</strong> không — không phân biệt kinh nghiệm hay độ tuổi.</p>
+ <div class="lens-questions">
+ <p>Câu hỏi cần hỏi:</p>
+ <ul>
+ <li>Người chơi có hiểu ngay mục tiêu của puzzle không?</li>
+ <li>Bước đầu tiên họ có thể thực hiện là gì — và nó có rõ ràng không?</li>
+ <li>Có rào cản nào vô hình đang chặn người chơi bắt đầu không?</li>
+ <li>Puzzle có "dễ nghịch" ngay cả trước khi được giải không?</li>
+ </ul>
+ </div>
+ </div>
+
+ <!-- Principle 3 -->
+ <div class="principle-block">
+ <div class="principle-num-badge" style="background: #27ae60;">3</div>
+ <div class="principle-content">
+ <h3>
+ <span class="en">Principle 3 · Give a Sense of Progress</span>
+ Tạo cảm giác tiến triển
+ </h3>
+ <p>Người chơi cần biết họ đang đến gần đáp án hơn — nếu không, puzzle cảm thấy như bịt mắt đi trong bóng tối. Đây là sự khác biệt cốt lõi giữa <strong>câu đố (riddle)</strong> và <strong>puzzle thực sự</strong>.</p>
+ <p><strong>Câu đố:</strong> "Con gì có 4 chân buổi sáng, 2 chân buổi trưa, 3 chân buổi tối?" — bạn hoặc biết hoặc không, không có trung gian, không có tiến triển từng bước.</p>
+ <p><strong>Puzzle thực sự:</strong> Trò chơi "Twenty Questions" — mỗi câu hỏi thu hẹp không gian khả năng, tạo cảm giác tiến về phía trước rõ ràng.</p>
+ <div class="quote-block" style="margin: 12px 0 0;">
+ <p>Rubik's Cube thiếu điều này: bạn giải một mặt nhưng xoay thêm thì phá vỡ mặt đó. Schell ví von như inflation — nỗ lực không tích lũy, tạo cảm giác tuyệt vọng. Nhưng khi học được một số thuật toán, cảm giác tiến triển xuất hiện trở lại.</p>
+ </div>
+ </div>
+ </div>
+
+ <!-- Lens 55 -->
+ <div class="lens-box">
+ <div class="lens-header">
+ <div class="lens-title-group">
+ <span class="lens-num">Lens #55</span>
+ <div class="lens-name">The Lens of Visible Progress</div>
+ </div>
+ </div>
+ <p class="lens-desc">Người chơi cần <strong>nhìn thấy bằng mắt</strong> rằng họ đang tiến triển. Không phải chỉ <em>cảm thấy</em> — mà là thấy được bằng chứng cụ thể: các ô đã điền, mảnh ghép đã đặt, khu vực đã mở khóa.</p>
+ <div class="lens-questions">
+ <p>Câu hỏi cần hỏi:</p>
+ <ul>
+ <li>Người chơi có thể thấy rõ họ đang tiến gần đến đáp án không?</li>
+ <li>Liệu nỗ lực có tích lũy — hay mỗi bước đi lại bị "reset"?</li>
+ <li>Có chỉ số hay trạng thái nào giúp người chơi đánh giá khoảng cách đến mục tiêu không?</li>
+ <li>Nếu người chơi đi sai hướng, họ có biết không?</li>
+ </ul>
+ </div>
+ </div>
+
+ <!-- Principle 4 -->
+ <div class="principle-block">
+ <div class="principle-num-badge" style="background: #27ae60;">4</div>
+ <div class="principle-content">
+ <h3>
+ <span class="en">Principle 4 · Give a Sense of Solvability</span>
+ Khắc sâu niềm tin "puzzle này giải được"
+ </h3>
+ <p>Người chơi sẽ bỏ cuộc rất nhanh nếu họ nghi ngờ puzzle có thể không có đáp án — hoặc đáp án quá xa tầm tay của họ. <strong>Niềm tin vào khả năng giải được là điều kiện tiên quyết để người chơi tiếp tục cố gắng.</strong></p>
+ <div class="highlight hl-gold" style="margin: 14px 0 0;">
+ <div class="hl-title">Bài học từ Rubik's Cube</div>
+ <p>Khi Rubik's Cube mới ra mắt, nhà sản xuất bán nó đã được <em>giải sẵn</em>. Người mua tự mình xáo trộn — và điều đó có nghĩa là họ <strong>biết chắc chắn có đáp án</strong>, vì chính họ vừa tạo ra trạng thái xáo trộn từ trạng thái đã giải. Đây là chiêu thức thiết kế xuất sắc.</p>
+ </div>
+ </div>
+ </div>
+
+ <!-- Principle 5 -->
+ <div class="principle-block">
+ <div class="principle-num-badge" style="background: #27ae60;">5</div>
+ <div class="principle-content">
+ <h3>
+ <span class="en">Principle 5 · Increase Difficulty Gradually</span>
+ Tăng độ khó từng bước một
+ </h3>
+ <p>Puzzle nên có <strong>đường cong học tập</strong> — dẫn dắt người chơi từ dễ đến khó theo cách tự nhiên. Ném người chơi vào ngay độ khó cao nhất là cách chắc chắn để họ bỏ cuộc.</p>
+ <p><strong>Ví dụ kinh điển — Jigsaw Puzzle:</strong></p>
+ <ul style="color: var(--gray); font-size: 15px; padding-left: 20px; margin: 8px 0 12px; line-height: 1.8;">
+ <li>Lấy tất cả mảnh ra khỏi hộp</li>
+ <li>Lật hết mặt lên</li>
+ <li>Tìm 4 góc → ghép trước</li>
+ <li>Tìm các cạnh thẳng → ghép viền</li>
+ <li>Nhóm theo màu/hình</li>
+ <li>Ghép từng vùng</li>
+ <li>Kết nối các vùng lại</li>
+ </ul>
+ <p>Chuỗi 7 bước tự nhiên này không ai bảo — người chơi tự tạo ra lộ trình từ dễ đến khó. <strong>"One Tough Puzzle"</strong> (chỉ 9 mảnh nhưng cực kỳ khó) là ngoại lệ cố ý — nhưng ngay cả nó cũng dựa trên kỳ vọng ban đầu rằng "9 mảnh thì dễ thôi".</p>
+ </div>
+ </div>
+
+ <!-- Principle 6 -->
+ <div class="principle-block">
+ <div class="principle-num-badge" style="background: #27ae60;">6</div>
+ <div class="principle-content">
+ <h3>
+ <span class="en">Principle 6 · Parallelism Lets the Player Rest</span>
+ Song song hóa cho phép nghỉ ngơi tinh thần
+ </h3>
+ <p>Khi người chơi bị kẹt ở một puzzle, <strong>có thứ khác để làm</strong> là cứu cánh quan trọng. Không phải để né tránh thử thách — mà để não bộ "nạp lại" và thường tìm ra đáp án khi không còn tập trung cố ép.</p>
+ <div class="grid-2" style="margin: 12px 0 12px;">
+ <div class="highlight hl-teal" style="margin: 0;">
+ <div class="hl-title">Crossword &amp; Sudoku</div>
+ <p>Khi kẹt một ô chữ, bỏ qua — giải ô khác. Rồi quay lại. Câu trả lời thường hiện ra ngay.</p>
+ </div>
+ <div class="highlight hl-blue" style="margin: 0;">
+ <div class="hl-title">RPG Parallel Challenges</div>
+ <p>Boss quá khó? Đi farm cấp, hoàn thành side quest, khám phá vùng đất mới. Khi quay lại thường thấy boss "dễ hơn".</p>
+ </div>
+ </div>
+ <p>Song song hóa không làm giảm thách thức — nó <strong>duy trì momentum</strong> của người chơi thay vì để họ rơi vào trạng thái bế tắc hoàn toàn.</p>
+ </div>
+ </div>
+
+ <!-- Lens 56 -->
+ <div class="lens-box">
+ <div class="lens-header">
+ <div class="lens-title-group">
+ <span class="lens-num">Lens #56</span>
+ <div class="lens-name">The Lens of Parallelism</div>
+ </div>
+ </div>
+ <p class="lens-desc">Khi người chơi gặp bế tắc, game không được để họ "treo" ở đó mãi. Lens này hỏi liệu game có cung cấp <strong>đủ đường song song</strong> để người chơi luôn có lựa chọn tiếp tục không — mà không làm loãng trải nghiệm chính.</p>
+ <div class="lens-questions">
+ <p>Câu hỏi cần hỏi:</p>
+ <ul>
+ <li>Nếu người chơi kẹt một thử thách, có thử thách khác họ có thể chuyển sang không?</li>
+ <li>Các thử thách song song có cùng kỹ năng/tư duy không, hay đa dạng đủ để thực sự "nghỉ ngơi"?</li>
+ <li>Liệu song song hóa có làm loãng trọng tâm của game không?</li>
+ <li>Sau khi hoàn thành thử thách song song, người chơi có dễ dàng quay lại thử thách gốc không?</li>
+ </ul>
+ </div>
+ </div>
+
+ <!-- Principle 7 -->
+ <div class="principle-block">
+ <div class="principle-num-badge" style="background: #27ae60;">7</div>
+ <div class="principle-content">
+ <h3>
+ <span class="en">Principle 7 · Pyramid Structure Extends Interest</span>
+ Cấu trúc kim tự tháp kéo dài sự hứng thú
+ </h3>
+ <p>Thay vì một puzzle lớn duy nhất, hãy chia thành <strong>nhiều puzzle nhỏ hội tụ về một đỉnh duy nhất</strong>. Cấu trúc này tạo ra nhiều khoảnh khắc thỏa mãn nhỏ dẫn đến một khoảnh khắc thỏa mãn lớn cuối cùng.</p>
+ <div class="quote-block" style="margin: 14px 0 14px;">
+ <p><strong>Jumble</strong> — trò chơi chữ xáo trộn: người chơi giải nhiều từ nhỏ (các puzzle nhỏ), lấy các chữ được đánh dấu từ mỗi đáp án, rồi xáo trộn các chữ đó để tạo thành câu đùa cuối cùng (puzzle lớn). Mỗi từ giải được là một chiến thắng nhỏ; câu đùa cuối là phần thưởng tổng hợp.</p>
+ </div>
+ <p>Cấu trúc kim tự tháp cũng giúp dễ điều chỉnh độ khó: puzzle đáy nhẹ nhàng hơn, puzzle đỉnh cần toàn bộ thông tin từ tầng dưới.</p>
+ </div>
+ </div>
+
+ <!-- Lens 57 -->
+ <div class="lens-box">
+ <div class="lens-header">
+ <div class="lens-title-group">
+ <span class="lens-num">Lens #57</span>
+ <div class="lens-name">The Lens of the Pyramid</div>
+ </div>
+ </div>
+ <p class="lens-desc">Lens này đặt câu hỏi liệu game/puzzle của bạn có <strong>cấu trúc hội tụ</strong> không — liệu có đỉnh duy nhất mà mọi nhánh dẫn đến, tạo cảm giác hoàn chỉnh và thỏa mãn khi hoàn thành.</p>
+ <div class="lens-questions">
+ <p>Câu hỏi cần hỏi:</p>
+ <ul>
+ <li>Các thử thách nhỏ có hội tụ về một mục tiêu lớn không?</li>
+ <li>Liệu người chơi có cảm thấy mỗi bước nhỏ đang "xây" hướng đến điều gì đó lớn hơn không?</li>
+ <li>Đỉnh kim tự tháp có đủ ấn tượng để xứng đáng với hành trình không?</li>
+ <li>Nếu thiếu cấu trúc hội tụ, game sẽ có thêm chiều sâu gì nếu thêm vào?</li>
+ </ul>
+ </div>
+ </div>
+
+ <!-- Principle 8 -->
+ <div class="principle-block">
+ <div class="principle-num-badge" style="background: #27ae60;">8</div>
+ <div class="principle-content">
+ <h3>
+ <span class="en">Principle 8 · Hints Extend Interest</span>
+ Gợi ý kéo dài sự tham gia
+ </h3>
+ <p>Gợi ý không phải là "dễ dãi hóa" puzzle — chúng là <strong>van điều áp</strong> giúp người chơi không nổ tung vì thất vọng. Điều quan trọng là thiết kế gợi ý theo cách không phá vỡ cảm giác thành tựu.</p>
+ <div class="highlight hl-blue" style="margin: 12px 0 12px;">
+ <div class="hl-title">Ví dụ từ Hasbro Nemesis Factor</div>
+ <p>Thiết bị này có nút "Hint" — nhưng mỗi lần nhấn gợi ý, người chơi bị trừ điểm. Điều này tạo ra <strong>đánh đổi có ý nghĩa</strong>: tiếp tục tự vật lộn (rủi ro tốn thêm thời gian) hay nhận gợi ý (mất điểm). Người chơi cảm thấy tự chủ.</p>
+ </div>
+ <p><strong>Escape room games</strong> đi xa hơn: họ <em>tính phí</em> cho từng gợi ý (game master gõ chuông báo giá). Điều này tạo áp lực thực sự và làm tăng giá trị của việc tự giải.</p>
+ </div>
+ </div>
+
+ <!-- Principle 9 -->
+ <div class="principle-block">
+ <div class="principle-num-badge" style="background: #27ae60;">9</div>
+ <div class="principle-content">
+ <h3>
+ <span class="en">Principle 9 · Give the Answer!</span>
+ Đừng sợ cho biết đáp án
+ </h3>
+ <p>Điều này nghe phản trực giác, nhưng <strong>đôi khi cách tốt nhất để phục vụ người chơi là cho họ đáp án</strong>. Không phải vì puzzle dễ — mà vì trải nghiệm "Aha!" quan trọng hơn là quá trình vật lộn kéo dài vô ích.</p>
+ <div class="quote-block" style="margin: 12px 0 14px;">
+ <p>Mystery novels thường in đáp án ở cuối sách. Ai cũng biết — nhưng không ai cảm thấy "bị gian lận" khi lật ra xem, vì cảm giác "Ồ, tôi đã nghi ngờ đúng!" hoặc "Thú vị thật, tôi không nghĩ ra điều đó" vẫn thú vị theo cách của nó.</p>
+ </div>
+ <p>Trong game: cung cấp đáp án rõ ràng cho người chơi bị kẹt — thay vì để họ tìm kiếm trên mạng rồi mất luôn cảm giác immersion. <em>Bạn kiểm soát trải nghiệm hơn</em> khi tự cung cấp đáp án trong game.</p>
+ </div>
+ </div>
+
+ <!-- Principle 10 -->
+ <div class="principle-block">
+ <div class="principle-num-badge" style="background: #27ae60;">10</div>
+ <div class="principle-content">
+ <h3>
+ <span class="en">Principle 10 · Perceptual Shifts Are a Double-Edged Sword</span>
+ Thay đổi nhận thức là con dao hai lưỡi
+ </h3>
+ <p>Một số puzzle yêu cầu người chơi <strong>nhìn vấn đề theo cách hoàn toàn khác</strong> — thay đổi frame nhận thức, chứ không phỉa tìm kiếm thêm thông tin.</p>
+ <div class="quote-block" style="margin: 12px 0 14px;">
+ <p><strong>Câu đố 6 que diêm:</strong> "Dùng 6 que diêm, tạo ra 4 tam giác đều." Hầu hết mọi người cố ghép trong mặt phẳng 2D — và thất bại. Đáp án: <strong>xây hình chóp 3D</strong>. Bạn phải thoát khỏi "giả định 2D" ngầm định để nhìn thấy đáp án.</p>
+ </div>
+ <div class="grid-2" style="margin: 12px 0 12px;">
+ <div class="highlight hl-green" style="margin: 0;">
+ <div class="hl-title">Khi dùng được</div>
+ <p>Khoảnh khắc "Aha!" khi thay đổi nhận thức thành công tạo ra sự thỏa mãn vô cùng mạnh mẽ và đáng nhớ. Người giải được tự hào về "cú breakthrough" của mình.</p>
+ </div>
+ <div class="highlight hl-orange" style="margin: 0;">
+ <div class="hl-title">Rủi ro lớn</div>
+ <p>"Either you get it or you don't" — không có tiến triển trung gian. Không thể gợi ý từng bước. Không có Visible Progress. Nên dùng rất thưa thớt và không phải điểm bắt buộc để tiếp tục.</p>
+ </div>
+ </div>
+ <p>Nếu puzzle yêu cầu thay đổi nhận thức mà người chơi không đạt được, họ cảm thấy <em>ngu ngốc</em> — không phải thử thách. Đây là lý do lớn nhất để hạn chế loại puzzle này.</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ══════════════════════════════════════════════════════════════ -->
+ <!-- SECTION 4: TỔNG KẾT VÀ LENS CUỐI -->
+ <!-- ══════════════════════════════════════════════════════════════ -->
+ <div class="section-header" id="s4">
+ <div class="section-num dot-gold">4</div>
+ <h2>
+ <span>Phần 4</span>
+ Tổng hợp: Nhìn puzzle như một Nhà thiết kế
+ </h2>
+ </div>
+
+ <div class="card">
+ <h4>A Final Piece · Tổng quan nguyên tắc</h4>
+ <ul class="check-list">
+ <li><span class="ci"></span><span>Mục tiêu phải hiểu ngay — không cần đọc hướng dẫn</span></li>
+ <li><span class="ci"></span><span>Bước đầu tiên phải dễ dàng — mọi người đều có thể thử một cái gì đó</span></li>
+ <li><span class="ci"></span><span>Tiến triển phải <em>nhìn thấy được</em> — người chơi biết họ đang tiến</span></li>
+ <li><span class="ci"></span><span>Người chơi phải tin puzzle <em>có thể giải được</em></span></li>
+ <li><span class="ci"></span><span>Tăng độ khó từng bước — không ném người chơi vào deep end</span></li>
+ <li><span class="ci"></span><span>Cung cấp puzzle song song — để người chơi nghỉ ngơi và quay lại</span></li>
+ <li><span class="ci"></span><span>Cấu trúc kim tự tháp — nhiều puzzle nhỏ hội tụ về đỉnh lớn</span></li>
+ <li><span class="ci"></span><span>Gợi ý có đánh đổi — giúp người chơi tiếp tục mà không phá cảm giác thành tựu</span></li>
+ <li><span class="ci"></span><span>Cung cấp đáp án khi cần — tốt hơn để người chơi Google mất immersion</span></li>
+ <li><span class="ci"></span><span>Dùng perceptual shift rất dè dặt — không dùng làm điểm bắt buộc chính</span></li>
+ </ul>
+ </div>
+
+ <!-- Lens 58 -->
+ <div class="lens-box" style="margin-top: 32px;">
+ <div class="lens-header">
+ <div class="lens-title-group">
+ <span class="lens-num">Lens #58</span>
+ <div class="lens-name">The Lens of the Puzzle</div>
+ </div>
+ </div>
+ <p class="lens-desc">Lens cuối cùng của chương này là lens tổng hợp: nhìn vào <em>bất kỳ thử thách nào</em> trong game của bạn và hỏi liệu nó có đang hành xử như một puzzle tốt không. Áp dụng cho cả puzzle tường minh lẫn những "thử thách tư duy" ngầm định trong game design.</p>
+ <div class="lens-questions">
+ <p>Câu hỏi cần hỏi:</p>
+ <ul>
+ <li>Mục tiêu của thử thách có rõ ràng không?</li>
+ <li>Người chơi có biết cách bắt đầu không?</li>
+ <li>Họ có thấy tiến triển rõ ràng khi làm đúng hướng không?</li>
+ <li>Họ có tin rằng thử thách này giải được không?</li>
+ <li>Có con đường song song nếu họ bị kẹt không?</li>
+ <li>Nếu cần thay đổi nhận thức, liệu người chơi có đủ manh mối để đạt được không?</li>
+ <li>Khi giải xong, người chơi có cảm thấy thông minh và thỏa mãn không?</li>
+ </ul>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ══════════════════════════════════════════════════════════════ -->
+ <!-- TỔNG KẾT LENS -->
+ <!-- ══════════════════════════════════════════════════════════════ -->
+ <div class="section-header" id="s5">
+ <div class="section-num dot-blue">5</div>
+ <h2>
+ <span>Phần 5</span>
+ 5 Lenses của Chương 14
+ </h2>
+ </div>
+
+ <div class="grid-2">
+ <div class="card" style="border-left: 4px solid var(--orange);">
+ <h4 style="color: var(--orange);">Lens #54 · Accessibility</h4>
+ <p>Mọi người chơi có thể hiểu mục tiêu và bắt đầu ngay không?</p>
+ </div>
+ <div class="card" style="border-left: 4px solid var(--accent-teal);">
+ <h4 style="color: var(--accent-teal);">Lens #55 · Visible Progress</h4>
+ <p>Người chơi có <em>nhìn thấy</em> họ đang tiến triển về phía đáp án không?</p>
+ </div>
+ <div class="card" style="border-left: 4px solid var(--accent-blue);">
+ <h4 style="color: var(--accent-blue);">Lens #56 · Parallelism</h4>
+ <p>Game có cung cấp con đường thay thế khi người chơi bị kẹt không?</p>
+ </div>
+ <div class="card" style="border-left: 4px solid var(--accent-purple);">
+ <h4 style="color: var(--accent-purple);">Lens #57 · The Pyramid</h4>
+ <p>Các thử thách nhỏ có hội tụ về một đỉnh lớn tạo cảm giác hoàn chỉnh không?</p>
+ </div>
+ </div>
+ <div class="card" style="border-left: 4px solid var(--accent-gold); margin-top: 0;">
+ <h4 style="color: var(--accent-gold);">Lens #58 · The Puzzle</h4>
+ <p>Nhìn bất kỳ thử thách nào qua lăng kính: mục tiêu rõ, bắt đầu dễ, tiến triển thấy được, solvable, có song song hóa, thỏa mãn khi giải xong?</p>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ══════════════════════════════════════════════════════════════ -->
+ <!-- OTHER READING -->
+ <!-- ══════════════════════════════════════════════════════════════ -->
+ <div class="section-header" id="s6">
+ <div class="section-num dot-purple">6</div>
+ <h2>
+ <span>Phần 6</span>
+ Tài liệu mở rộng
+ </h2>
+ </div>
+
+ <div class="card">
+ <p>Jesse Schell gợi ý hai tài liệu bổ sung cho ai muốn đào sâu hơn về thiết kế puzzle:</p>
+ <div class="reading-list">
+ <div class="rl-title"> Further Reading</div>
+ <ul style="padding-left: 20px; color: var(--gray);">
+ <li><em>"What is a Puzzle?"</em> — Scott Kim. Tiểu luận định nghĩa puzzle từ góc nhìn của nhà thiết kế puzzle chuyên nghiệp, nguồn gốc của định nghĩa "a puzzle is fun and has a right answer".</li>
+ <li style="margin-top: 8px;"><em>"Designing and Integrating Puzzles into Action Adventure Games"</em> — Pascal Luban (Gamasutra). Hướng dẫn thực tiễn về cách tích hợp puzzle vào game action-adventure mà không làm gián đoạn flow chính của game.</li>
+ </ul>
+ </div>
+ </div>
+
+ <div class="highlight hl-orange" style="margin-top: 28px;">
+ <div class="hl-title">Kết nối với các chương khác</div>
+ <p>Puzzle design không tồn tại độc lập — nó liên hệ chặt chẽ với:</p>
+ <p><strong>Lens #42 (Head vs. Hands):</strong> Puzzle là phần "đầu óc" của thang cân bằng đó.</p>
+ <p><strong>Chương 13 – Balancing:</strong> Độ khó của puzzle cần được cân bằng cẩn thận — quá dễ thì chán, quá khó thì bỏ cuộc. Đường cong học tập trong nguyên tắc 5 chính là bài toán balancing.</p>
+ <p><strong>Chương 10 – Interest Curves:</strong> Cấu trúc kim tự tháp (nguyên tắc 7) tạo ra interest curve tự nhiên — nhiều đỉnh nhỏ dẫn đến đỉnh lớn cuối cùng.</p>
+ </div>
+
+</main>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<div class="page-footer">
+ <strong>The Art of Game Design</strong> · Jesse Schell &nbsp;·&nbsp;
+ Chương 14: Game Mechanics Support Puzzles &nbsp;·&nbsp;
+ Lens #54 – #58
+</div>
+
+<div class="chapnav-wrap"><div class="chapnav"><a href="C13-Mechanic Balance.html"><span class="lbl">Chương trước</span>Chương 13: Game Mechanics Must Be in Balance</a><a href="C15-Interface.html"><span class="lbl">Chương sau</span>Chương 15: Players Play Games through an Interface</a></div></div>
+
+<script>
+  (function(){
+    var sections = document.querySelectorAll('.section-header[id]');
+    var navLinks = document.querySelectorAll('.tocnav a');
+    if (!sections.length || !navLinks.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(a){
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
+</body>
+</html>

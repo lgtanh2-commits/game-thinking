@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 12 – Some Elements Are Game Mechanics | The Art of Game Design</title>
+<style>
+:root {
+ --orange: #27ae60;
+ --orange-light: #6cc999;
+ --orange-pale: #edf9f2;
+ --dark: #0e231c;
+ --gray: #656a75;
+ --gray-light: #656a75;
+ --bg: #f4f7f2;
+ --white: #ffffff;
+ --card-border: #e4ebe2;
+ --accent-teal: #27ae60;
+ --accent-blue: #27ae60;
+ --accent-purple: #27ae60;
+ --accent-green: #27ae60;
+ --accent-gold: #27ae60;
+
+ --forest: #0e231c;
+ --fog: #879b93;
+ --sage: #defaca;
+ --mint: #edf9f2;
+ --sprout-d: #1c8a4c;}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+ background: var(--bg);
+ color: var(--dark);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ line-height: 1.7;
+}
+
+main {
+ max-width: 880px;
+ margin: 0 auto;
+ padding: 60px 24px 120px;
+}
+
+/* HERO */
+.hero {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 20px;
+ padding: 48px 48px 40px;
+ margin-bottom: 48px;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.hero-badge {
+ display: inline-block;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+ color: var(--orange);
+ background: rgba(39,174,96,0.12);
+ border: 1px solid rgba(39,174,96,0.35);
+ border-radius: 20px;
+ padding: 5px 14px;
+ margin-bottom: 20px;
+}
+
+.hero h1 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 38px;
+ font-weight: 700;
+ color: var(--dark);
+ line-height: 1.2;
+ margin-bottom: 16px;
+}
+
+.hero h1 em {
+ color: var(--orange);
+ font-style: normal;
+}
+
+.hero-sub {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 15px;
+ color: var(--gray);
+ margin-bottom: 32px;
+ line-height: 1.6;
+}
+
+.hero-stats {
+ display: flex;
+ gap: 32px;
+ flex-wrap: wrap;
+}
+
+.stat { text-align: center; }
+
+.stat .num {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 28px;
+ font-weight: 700;
+ color: var(--orange);
+ display: block;
+}
+
+.stat .label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--gray-light);
+}
+
+/* CHAPTER MAP */
+.chapter-map {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 20px;
+ padding: 36px 32px 40px;
+ margin-bottom: 56px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.chapter-map h2 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 28px;
+}
+
+.map-row {
+ display: flex;
+ align-items: flex-start;
+ justify-content: center;
+ gap: 0;
+ flex-wrap: nowrap;
+ overflow-x: auto;
+ padding-bottom: 4px;
+}
+
+.map-node {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ flex-shrink: 0;
+}
+
+.map-dot {
+ width: 44px;
+ height: 44px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 16px;
+ font-weight: 800;
+ color: var(--white);
+ flex-shrink: 0;
+}
+
+.map-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 10px;
+ font-weight: 600;
+ color: var(--gray);
+ text-align: center;
+ margin-top: 8px;
+ max-width: 60px;
+ line-height: 1.3;
+}
+
+.map-arrow {
+ font-size: 18px;
+ color: var(--gray-light);
+ margin: 0 4px;
+ padding-top: 13px;
+ flex-shrink: 0;
+}
+
+/* SECTION HEADER */
+.section-header {
+ display: flex;
+ align-items: flex-start;
+ gap: 20px;
+ margin-bottom: 28px;
+ margin-top: 64px;
+ scroll-margin-top: 108px;}
+
+.section-num {
+ width: 52px;
+ height: 52px;
+ border-radius: 14px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 20px;
+ font-weight: 800;
+ color: var(--white);
+ flex-shrink: 0;
+}
+
+.section-title-block h2 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 26px;
+ font-weight: 700;
+ color: var(--dark);
+ line-height: 1.2;
+ margin-bottom: 4px;
+}
+
+.section-title-block .section-subtitle {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ color: var(--gray-light);
+ font-weight: 500;
+}
+
+/* CARD */
+.card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin-bottom: 20px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.card h3 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 14px;
+ font-weight: 700;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 14px;
+}
+
+.card p {
+ font-size: 16px;
+ color: var(--gray);
+ line-height: 1.75;
+ margin-bottom: 12px;
+}
+
+.card p:last-child { margin-bottom: 0; }
+
+/* QUOTE */
+.quote-block {
+ border-left: 4px solid var(--orange);
+ background: var(--orange-pale);
+ border-radius: 0 12px 12px 0;
+ padding: 18px 24px;
+ margin: 16px 0;
+}
+
+.quote-block p {
+ font-style: italic;
+ color: var(--dark);
+ font-size: 16px;
+ line-height: 1.65;
+ margin-bottom: 8px;
+}
+
+.quote-block .attr {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 600;
+ color: var(--orange);
+ font-style: normal;
+}
+
+/* HIGHLIGHT BOXES */
+.highlight {
+ border-radius: 14px;
+ padding: 22px 26px;
+ margin: 16px 0;
+}
+
+.highlight.orange {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+}
+
+.highlight.teal {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+}
+
+.highlight.blue {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+}
+
+.highlight.purple {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+}
+
+.highlight.green {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+}
+
+.highlight.gold {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.25);
+}
+
+.highlight-icon {
+ font-size: 22px;
+ margin-bottom: 10px;
+}
+
+.highlight h4 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 14px;
+ font-weight: 700;
+ margin-bottom: 10px;
+ color: var(--dark);
+}
+
+.highlight p {
+ font-size: 15px;
+ color: var(--gray);
+ line-height: 1.7;
+ margin-bottom: 8px;
+}
+
+.highlight p:last-child { margin-bottom: 0; }
+
+/* LENS BOX */
+.lens-box {
+ background: #edf9f2;
+ border: 2px solid var(--orange);
+ border-radius: 16px;
+ padding: 26px 30px;
+ margin: 24px 0;
+}
+
+.lens-box .lens-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 700;
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+ color: var(--orange);
+ margin-bottom: 6px;
+}
+
+.lens-box h3 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 20px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 14px;
+}
+
+.lens-box .lens-intro {
+ font-size: 15px;
+ color: var(--gray);
+ margin-bottom: 14px;
+ line-height: 1.65;
+}
+
+.lens-box ul {
+ list-style: none;
+ padding: 0;
+}
+
+.lens-box ul li {
+ font-size: 15px;
+ color: var(--gray);
+ padding: 7px 0 7px 22px;
+ border-bottom: 1px solid rgba(39,174,96,0.15);
+ position: relative;
+ line-height: 1.6;
+}
+
+.lens-box ul li:last-child { border-bottom: none; }
+
+.lens-box ul li::before {
+ content: '●';
+ position: absolute;
+ left: 0;
+ color: var(--orange);
+ font-size: 10px;
+ top: 10px;
+}
+
+/* GRID */
+.grid-2 {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 16px;
+ margin: 16px 0;
+}
+
+.grid-3 {
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ gap: 14px;
+ margin: 16px 0;
+}
+
+/* TABLE */
+.data-table {
+ width: 100%;
+ border-collapse: collapse;
+ margin: 16px 0;
+ font-size: 14px;
+}
+
+.data-table th {
+ background: rgba(39,174,96,0.12);
+ color: var(--dark);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-weight: 700;
+ padding: 10px 14px;
+ text-align: left;
+ border-bottom: 2px solid rgba(39,174,96,0.3);
+}
+
+.data-table td {
+ padding: 9px 14px;
+ border-bottom: 1px solid var(--card-border);
+ color: var(--gray);
+ vertical-align: top;
+}
+
+.data-table tr:last-child td { border-bottom: none; }
+
+/* NUMBERED LIST */
+.num-list {
+ counter-reset: item;
+ padding: 0;
+ margin: 16px 0 4px;
+}
+
+.num-list li {
+ counter-increment: item;
+ list-style: none;
+ position: relative;
+ padding-left: 38px;
+ margin-bottom: 14px;
+ font-size: 15px;
+ color: var(--gray);
+ line-height: 1.65;
+}
+
+.num-list li::before {
+ content: counter(item);
+ position: absolute;
+ left: 0;
+ top: 1px;
+ width: 24px;
+ height: 24px;
+ border-radius: 50%;
+ background: var(--orange);
+ color: white;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ line-height: 24px;
+ text-align: center;
+}
+
+/* DIVIDER */
+.section-divider {
+ border: none;
+ border-top: 1px solid var(--card-border);
+ margin: 52px 0;
+}
+
+/* PROBABILITY RULES */
+.prob-rule {
+ display: flex;
+ gap: 16px;
+ align-items: flex-start;
+ padding: 14px 0;
+ border-bottom: 1px solid var(--card-border);
+}
+
+.prob-rule:last-child { border-bottom: none; }
+
+.prob-num {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 22px;
+ font-weight: 800;
+ color: var(--orange);
+ min-width: 32px;
+ text-align: center;
+ flex-shrink: 0;
+ padding-top: 2px;
+}
+
+.prob-content strong {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ color: var(--dark);
+ display: block;
+ margin-bottom: 4px;
+}
+
+.prob-content span {
+ font-size: 14px;
+ color: var(--gray);
+ line-height: 1.6;
+}
+
+/* CHIP */
+.chip {
+ display: inline-block;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 600;
+ padding: 3px 10px;
+ border-radius: 20px;
+ margin: 2px;
+}
+
+.chip.orange { background: rgba(39,174,96,0.15); color: #B84E28; }
+.chip.teal { background: rgba(39,174,96,0.15); color: #1D6B6B; }
+.chip.blue { background: rgba(39,174,96,0.15); color: #2A5080; }
+.chip.purple { background: rgba(39,174,96,0.15); color: #5B3E87; }
+.chip.green { background: rgba(39,174,96,0.15); color: #2A6C4F; }
+.chip.gold { background: rgba(39,174,96,0.15); color: #9B7500; }
+
+/* CONCLUSION */
+.conclusion-card {
+ background: #edf9f2;
+ border-radius: 20px;
+ padding: 40px 44px;
+ margin-top: 64px;
+}
+
+.conclusion-card h2 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 22px;
+ font-weight: 700;
+ margin-bottom: 16px;
+ color: var(--white);
+}
+
+.conclusion-card p {
+ font-size: 16px;
+ line-height: 1.75;
+ color: rgba(255,255,255,0.92);
+ margin-bottom: 14px;
+}
+
+.conclusion-card p:last-child { margin-bottom: 0; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+  .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .topnav .crumb { color: #879b93; font-size: 14px; }
+  .topnav .crumb a { color: #879b93; text-decoration: none; }
+  .topnav .crumb b { color: #fff; font-weight: 600; }
+  .chapnav-wrap { background: #f4f7f2; padding: 40px 24px 56px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .chapnav { display: flex; justify-content: space-between; gap: 12px; max-width: 820px; margin: 0 auto; }
+  .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+  .tocnav { position: sticky; top: 52px; z-index: 100; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; overflow-x: auto; scrollbar-width: none; }
+  .tocnav::-webkit-scrollbar { display: none; }
+  .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
+
+</style>
+<nav class="topnav">
+  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 12</b></span>
+</nav>
+
+<nav class="tocnav">
+  <a href="#s1">Space</a>
+  <a href="#s2">Time</a>
+  <a href="#s3">Objects, Attributes &amp; States</a>
+  <a href="#s4">Actions</a>
+  <a href="#s5">Rules</a>
+  <a href="#s6">Skill</a>
+  <a href="#s7">Chance</a>
+</nav>
+
+<main>
+
+ <!-- HERO -->
+ <div class="hero">
+ <div class="hero-badge">Chương 12</div>
+ <h1>Some Elements Are Game <em>Mechanics</em></h1>
+ <p class="hero-sub">7 cơ chế game cơ bản — từ Space, Time, Objects &amp; States, Actions, Rules, Skill, cho đến Chance — cùng 11 Lens (#26–#36) giúp designer phân tích và kiến tạo gameplay một cách có hệ thống.</p>
+ <div class="hero-stats">
+ <div class="stat"><span class="num">7</span><span class="label">Game Mechanics</span></div>
+ <div class="stat"><span class="num">11</span><span class="label">Lenses (#26–#36)</span></div>
+ <div class="stat"><span class="num">44</span><span class="label">Trang sách</span></div>
+ </div>
+ </div>
+
+ <!-- CHAPTER MAP -->
+ <div class="chapter-map">
+ <h2>Bản đồ chương</h2>
+ <div class="map-row">
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--orange);">1</div>
+ <div class="map-label">Space</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--accent-teal);">2</div>
+ <div class="map-label">Time</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--accent-blue);">3</div>
+ <div class="map-label">Objects &amp; States</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--accent-purple);">4</div>
+ <div class="map-label">Actions</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--accent-green);">5</div>
+ <div class="map-label">Rules</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--accent-gold);">6</div>
+ <div class="map-label">Skill</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--orange);">7</div>
+ <div class="map-label">Chance</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- INTRO CARD -->
+ <div class="card">
+ <p>Sau khi khám phá trải nghiệm game, tâm lý người chơi, và nghệ thuật kể chuyện, chương này đi vào trái tim kỹ thuật của game design: <strong>game mechanics</strong> — những quy luật và cơ chế tạo ra gameplay. Không phải mọi thứ trong game đều là mechanic; nhưng có <strong>7 loại cơ bản</strong> mà hầu hết mọi trò chơi đều có ít nhất một vài trong số đó.</p>
+ <p>Mục tiêu: hiểu rõ từng mechanic, biết cách phân tích chúng bằng state diagrams và probability trees, và dùng 11 Lens để đặt đúng câu hỏi khi thiết kế.</p>
+ </div>
+
+ <!-- ======================== MECHANIC 1: SPACE ======================== -->
+ <div class="section-header" id="s1">
+ <div class="section-num" style="background:var(--orange);">1</div>
+ <div class="section-title-block">
+ <h2>Mechanic 1: Space</h2>
+ <div class="section-subtitle">Không gian game — nền tảng toán học của mọi gameplay</div>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Không gian game là gì?</h3>
+ <p>Mọi trò chơi đều diễn ra trong một không gian — nhưng không gian đó không nhất thiết phải là không gian vật lý. <strong>Game space</strong> là không gian toán học mà gameplay xảy ra bên trong, và nó có thể rất khác với thế giới thực.</p>
+ <p>Không gian game có hai dạng căn bản, và cách phân chia này ảnh hưởng rất lớn đến cảm giác chơi:</p>
+ </div>
+
+ <div class="grid-2">
+ <div class="highlight orange">
+ <h4>Discrete (Rời rạc)</h4>
+ <p>Không gian được chia thành các ô riêng biệt — bạn hoặc ở ô này, hoặc ở ô kia, không có điểm nào ở giữa.</p>
+ <p><strong>Ví dụ:</strong> Tic-tac-toe (9 ô), Monopoly (40 ô), Scrabble (lưới 15×15)</p>
+ </div>
+ <div class="highlight teal">
+ <div class="highlight-icon">〰</div>
+ <h4>Continuous (Liên tục)</h4>
+ <p>Bạn có thể ở bất kỳ điểm nào trong không gian — không có ranh giới rời rạc giữa các vị trí.</p>
+ <p><strong>Ví dụ:</strong> Bàn billiards, đa số video game hành động, thể thao</p>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Phân tích không gian của các game kinh điển</h3>
+ <div class="highlight blue">
+ <h4>Tic-tac-toe — Không phải 2D đơn giản như bạn tưởng</h4>
+ <p>Nhìn bề ngoài là lưới 2D. Nhưng về mặt toán học: đây là 9 <strong>zero-dimensional spaces</strong> (mỗi ô là một điểm đơn, không có chiều nào) được <em>kết nối</em> trong cấu trúc 2D. Điều tạo ra gameplay không phải là vị trí vật lý mà là <em>cấu trúc kết nối</em> giữa các ô (win condition theo hàng, cột, chéo).</p>
+ </div>
+ <div class="highlight purple">
+ <h4>Monopoly — Thực ra là 1D, không phải 2D!</h4>
+ <p>Dù bàn Monopoly trông như hình vuông 2D, nhưng về mặt gameplay: đây là <strong>1D loop</strong> — 40 ô xếp thành vòng tròn. "Khoảng cách" giữa các ô là số bước đi, không phải tọa độ trên mặt phẳng. Hình dạng bàn thực ra không ảnh hưởng gì đến cách chơi.</p>
+ </div>
+ <div class="highlight green">
+ <h4>Bàn billiards — Continuous và thực sự là 3D</h4>
+ <p>Mặt bàn là 2D, nhưng physics của các cú đánh có tính đến spin (xoáy) và chiều cao điểm chạm — mô hình đầy đủ là <strong>continuous 3D</strong>. Đây là lý do billiards phức tạp hơn nhìn vẻ bề ngoài rất nhiều.</p>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Các đặc điểm quan trọng khác của Space</h3>
+ <p><strong>Bounded vs Unbounded:</strong> Không gian có ranh giới không? Bàn cờ vua có ranh giới cứng — quân cờ không thể ra ngoài. Một số game chiến thuật cho phép bản đồ trải dài vô tận hoặc wrap around.</p>
+ <p><strong>Nested Spaces (Không gian lồng nhau):</strong> Nhiều RPG có overworld (bản đồ ngoài trời) chứa các dungeon — mỗi dungeon là một sub-space với quy tắc riêng. Không gian lồng nhau tạo cảm giác thế giới rộng lớn và đa tầng.</p>
+ <p><strong>Zero Dimensions:</strong> Game <em>Twenty Questions</em> không có không gian nào cả. Mọi câu trả lời chỉ là "yes/no" — không có vị trí, không có chiều. Đây là game hoàn toàn zero-dimensional.</p>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-label">Lens #26</div>
+ <h3>The Lens of Functional Space</h3>
+ <p class="lens-intro">Nhìn game của bạn như một nhà toán học — không gian "chức năng" thực sự trông như thế nào bên dưới bề mặt?</p>
+ <ul>
+ <li>Không gian trong game là discrete hay continuous?</li>
+ <li>Game có bao nhiêu chiều (dimensions)?</li>
+ <li>Ranh giới của không gian là gì? Bounded hay unbounded?</li>
+ <li>Game có sub-spaces nào không? Chúng kết nối với nhau ra sao?</li>
+ <li>Có nhiều hơn một mô hình không gian hữu ích để mô tả game không?</li>
+ </ul>
+ </div>
+
+ <hr class="section-divider">
+
+ <!-- ======================== MECHANIC 2: TIME ======================== -->
+ <div class="section-header" id="s2">
+ <div class="section-num" style="background:var(--accent-teal);">2</div>
+ <div class="section-title-block">
+ <h2>Mechanic 2: Time</h2>
+ <div class="section-subtitle">Thời gian — cách game kiểm soát nhịp điệu và áp lực</div>
+ </div>
+ </div>
+
+ <div class="grid-2">
+ <div class="highlight teal">
+ <h4>Discrete Time (Lượt chơi)</h4>
+ <p>Thời gian được chia thành các <strong>turns</strong>. Giữa các turn, thời gian không tồn tại bên trong game — bạn suy nghĩ bao lâu cũng được.</p>
+ <p><strong>Ví dụ:</strong> Scrabble, cờ vua — không ai thua vì chậm suy nghĩ (trừ khi dùng game clock).</p>
+ </div>
+ <div class="highlight orange">
+ <div class="highlight-icon">⏱</div>
+ <h4>Continuous Time (Thời gian thực)</h4>
+ <p>Thời gian chạy liên tục. Phản xạ và tốc độ quyết định trực tiếp kết quả game.</p>
+ <p><strong>Ví dụ:</strong> Hầu hết video game hành động, thể thao, StarCraft</p>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Ba cách kiểm soát thời gian trong game</h3>
+
+ <div class="highlight blue">
+ <div class="highlight-icon">⏰</div>
+ <h4>Clocks — Đồng hồ đếm ngược</h4>
+ <p>Đặt giới hạn thời gian cho một hành động — tạo áp lực và urgency trực tiếp.</p>
+ <p>• <strong>Boggle:</strong> cát chảy trong 3 phút — tất cả phải tìm từ thật nhanh<br>
+ • <strong>Football:</strong> game clock tạo drama ở những phút cuối<br>
+ • <strong>Mario jump:</strong> thời gian <em>giữ</em> nút nhảy quyết định độ cao — đây là "clock" ẩn trong cơ chế di chuyển cơ bản</p>
+ </div>
+
+ <div class="highlight purple">
+ <h4>Races — Cuộc đua với thời gian</h4>
+ <p>Hoàn thành mục tiêu <em>trước khi</em> điều gì đó xấu xảy ra.</p>
+ <p>• <strong>Space Invaders:</strong> mục tiêu thực sự không phải "bắn hết alien" — mà là "bắn hết alien <em>trước khi</em> chúng đổ bộ xuống Trái Đất". Cơ chế race này hoàn toàn khác về mặt tâm lý và chiến thuật so với một game bắn súng thông thường.</p>
+ </div>
+
+ <div class="highlight green">
+ <div class="highlight-icon">⏩</div>
+ <h4>Controlling Time — Người chơi điều khiển thời gian</h4>
+ <p>Một số game trao cho người chơi quyền can thiệp vào chính dòng thời gian:</p>
+ <p>• <strong>Pause / Timeout:</strong> đông cứng thời gian để suy nghĩ chiến thuật (nhiều strategy games)<br>
+ • <strong>Speed up:</strong> <em>Civilization</em> — fast-forward qua các pha chờ đợi không cần ra quyết định<br>
+ • <strong>Rewind / Checkpoint:</strong> <em>Braid</em> — quay ngược thời gian là toàn bộ cơ chế core của game</p>
+ </div>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-label">Lens #27</div>
+ <h3>The Lens of Time</h3>
+ <p class="lens-intro">Thời gian ảnh hưởng đến cảm giác chơi theo những cách tinh tế và mạnh mẽ. Hỏi về nó:</p>
+ <ul>
+ <li>Điều gì quyết định độ dài của game hoặc một activity cụ thể?</li>
+ <li>Người chơi có bị frustrated vì game <em>quá ngắn</em>?</li>
+ <li>Người chơi có bị bored vì game <em>quá dài</em>?</li>
+ <li>Clocks hoặc races có thể cải thiện trải nghiệm không?</li>
+ <li>Time limits có làm người chơi bực bội thay vì hứng thú không?</li>
+ <li>Một hierarchy of time structures — vòng ngắn lồng trong vòng dài — có giúp ích không?</li>
+ </ul>
+ </div>
+
+ <hr class="section-divider">
+
+ <!-- ======================== MECHANIC 3: OBJECTS, ATTRIBUTES & STATES ======================== -->
+ <div class="section-header" id="s3">
+ <div class="section-num" style="background:var(--accent-blue);">3</div>
+ <div class="section-title-block">
+ <h2>Mechanic 3: Objects, Attributes &amp; States</h2>
+ <div class="section-subtitle">Danh từ, tính từ, trạng thái — ngữ pháp của game</div>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Cấu trúc phân tích cơ bản</h3>
+ <p>Mọi thứ trong game có thể được phân tích qua ba lớp lồng nhau:</p>
+ <div class="grid-3">
+ <div class="highlight orange">
+ <h4>Objects</h4>
+ <p>"Danh từ" của game — mọi thứ có thể nhìn thấy hoặc tương tác được: quân cờ, ô đất, người chơi, bộ bài...</p>
+ </div>
+ <div class="highlight teal">
+ <h4>Attributes</h4>
+ <p>"Tính từ" — các tính chất của object: màu sắc, tốc độ, sức mạnh, trạng thái di chuyển...</p>
+ </div>
+ <div class="highlight blue">
+ <h4>States</h4>
+ <p>Giá trị hiện tại của một attribute. <em>Màu quân cờ = đen</em> (static). <em>Trạng thái di chuyển = king</em> (dynamic).</p>
+ </div>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Static vs Dynamic Attributes</h3>
+ <div class="grid-2">
+ <div class="highlight green">
+ <h4>Static Attributes</h4>
+ <p>Không thay đổi trong suốt game.</p>
+ <p><em>Màu của quân cờ dame — luôn là đen hoặc trắng, không bao giờ đổi.</em></p>
+ </div>
+ <div class="highlight purple">
+ <h4>Dynamic Attributes</h4>
+ <p>Thay đổi trong quá trình chơi — đây chính là nơi gameplay diễn ra.</p>
+ <p><em>Trạng thái di chuyển của quân dame: thường → king → bị bắt.</em></p>
+ </div>
+ </div>
+ <p style="margin-top:14px; font-size:15px; color:var(--gray);">Quân vua trong cờ vua có 3 states: <em>free, in check, checkmated</em>. Ô đất trong Monopoly có 7 states: không xây → 1 nhà → 2 nhà → 3 nhà → 4 nhà → khách sạn → thế chấp.</p>
+ </div>
+
+ <div class="card">
+ <h3>State Diagrams — Bản đồ trạng thái</h3>
+ <p>State diagram là công cụ visualize tất cả trạng thái có thể của một object và các <em>transitions</em> (điều kiện chuyển đổi) giữa chúng.</p>
+
+ <div class="highlight gold">
+ <h4>Ví dụ điển hình: Ghost trong Pac-Man</h4>
+ <p>Một ghost có <strong>5 trạng thái</strong> — và chính các transitions giữa chúng tạo nên toàn bộ drama của game:</p>
+ <div style="margin-top:14px; font-family:'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size:13px; line-height:2.2; text-align:center;">
+ <span class="chip purple">In Cage</span>
+ <span style="color:var(--gray-light); margin:0 4px;">→ (released)</span>
+ <span class="chip orange">Chasing</span>
+ <span style="color:var(--gray-light); margin:0 4px;">→ (power pellet)</span>
+ <span class="chip blue">Blue Fleeing</span>
+ <span style="color:var(--gray-light); margin:0 4px;">→ (warning)</span>
+ <span class="chip teal">Flashing</span>
+ <span style="color:var(--gray-light); margin:0 4px;">→ (eaten)</span>
+ <span class="chip green">Eyes Only</span>
+ <span style="color:var(--gray-light); margin:0 4px;">→ (home)</span>
+ <span class="chip purple">In Cage</span>
+ </div>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Secrets — Ai biết gì trong game?</h3>
+ <p>Thông tin trong game không phải lúc nào cũng công khai. Schell đề xuất mô hình <strong>Hierarchy of Knowers</strong> — ai có quyền truy cập vào thông tin nào:</p>
+
+ <div class="highlight orange">
+ <h4>Hierarchy of Knowers</h4>
+ <p>Từ cao nhất đến thấp nhất:</p>
+ <p>
+ <span class="chip orange">God / Designer</span> → biết tất cả mọi thứ<br>
+ <span class="chip blue">Game System</span> → biết trạng thái toàn bộ game<br>
+ <span class="chip teal">Player 1</span>&nbsp;<span class="chip purple">Player 2</span>&nbsp;<span class="chip green">Player 3</span> → mỗi người biết một phần<br>
+ <span class="chip gold">Random</span> → không ai biết trước
+ </p>
+ <p style="margin-top:10px;">Cách sắp xếp ai biết gì tạo ra 5 kiểu bất đối xứng thông tin (Type A–E) — từ "mọi người biết như nhau" đến "hoàn toàn bí ẩn". Đây là nền tảng của bluffing, deduction game, và asymmetric multiplayer.</p>
+ </div>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-label">Lens #28</div>
+ <h3>The Lens of State Machine</h3>
+ <p class="lens-intro">Nhìn game của bạn như một cỗ máy trạng thái và phân tích cấu trúc của nó:</p>
+ <ul>
+ <li>Game của bạn có những objects nào?</li>
+ <li>Mỗi object có những attributes nào?</li>
+ <li>Attributes nào là static, attributes nào là dynamic?</li>
+ <li>Khi nào và tại sao states thay đổi? Điều kiện transition là gì?</li>
+ </ul>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-label">Lens #29</div>
+ <h3>The Lens of Secrets</h3>
+ <p class="lens-intro">Thông tin bí mật tạo ra bất đối xứng thú vị — và đó là nguồn gốc của nhiều gameplay sâu sắc:</p>
+ <ul>
+ <li>Thông tin nào là public, thông tin nào là private?</li>
+ <li>Có thông tin nào nên được chia sẻ thêm hoặc giấu đi không?</li>
+ <li>Người chơi có quá nhiều hay quá ít thông tin không?</li>
+ <li>Thay đổi ai biết gì có tạo ra gameplay thú vị hơn không?</li>
+ </ul>
+ </div>
+
+ <hr class="section-divider">
+
+ <!-- ======================== MECHANIC 4: ACTIONS ======================== -->
+ <div class="section-header" id="s4">
+ <div class="section-num" style="background:var(--accent-purple);">4</div>
+ <div class="section-title-block">
+ <h2>Mechanic 4: Actions</h2>
+ <div class="section-subtitle">Những gì người chơi làm — động từ của game</div>
+ </div>
+ </div>
+
+ <div class="grid-2">
+ <div class="highlight purple">
+ <h4>Basic Actions</h4>
+ <p>Thao tác cơ bản nhất người chơi có thể thực hiện trực tiếp.</p>
+ <p><strong>Cờ dame:</strong> trượt quân, nhảy qua quân đối thủ, phong vương — chỉ có <em>3 basic actions</em>.</p>
+ </div>
+ <div class="highlight orange">
+ <h4>Strategic Actions</h4>
+ <p>Hành động có ý nghĩa trong bức tranh lớn hơn — xuất phát từ sự kết hợp thông minh của basic actions.</p>
+ <p><strong>Cờ dame:</strong> từ 3 basic actions → <em>vô số</em> strategic actions (bẫy, sacrifice, chiếm vị trí...).</p>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Emergent Gameplay — Khu vườn của game designer</h3>
+ <p>Schell ví emergent gameplay như chăm sóc một khu vườn: bạn trồng seeds (basic actions) và tưới nước (rules), nhưng khu vườn tự phát triển theo cách của nó — bạn không thể kiểm soát hoàn toàn kết quả.</p>
+ <p>Emergence rất <strong>fragile</strong> — dễ bị phá vỡ bởi một rule thay đổi nhỏ. Text adventure ngày xưa có hàng trăm verbs nhưng chúng không kết nối với nhau đủ → không có emergence thực sự.</p>
+
+ <h3 style="margin-top:20px;">5 Cách Tạo Ra Emergence</h3>
+ <ol class="num-list">
+ <li><strong>Thêm nhiều verbs hơn</strong> — Nhiều hành động → nhiều tổ hợp có thể có</li>
+ <li><strong>Verbs tác động lên nhiều objects</strong> — Một hành động áp dụng được cho nhiều thứ khác nhau</li>
+ <li><strong>Mục tiêu đạt được theo nhiều cách</strong> — Không khóa người chơi vào một con đường duy nhất</li>
+ <li><strong>Nhiều subjects</strong> — Nhiều "diễn viên" trong game, không chỉ một người chơi</li>
+ <li><strong>Side effects thay đổi constraints</strong> — Hành động A tạo ra hệ quả làm thay đổi điều kiện cho hành động B</li>
+ </ol>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-label">Lens #30</div>
+ <h3>The Lens of Emergence</h3>
+ <p class="lens-intro">Tìm cách tạo ra nhiều gameplay hơn từ ít rules hơn:</p>
+ <ul>
+ <li>Game có bao nhiêu verbs? Bao nhiêu nouns để verbs tác động lên?</li>
+ <li>Khi kết hợp, game có đủ phức tạp và bất ngờ không?</li>
+ <li>Người chơi có thể đạt mục tiêu theo nhiều hướng khác nhau không?</li>
+ <li>Những interactions bất ngờ có xuất hiện tự nhiên không?</li>
+ <li>Side effects có tạo ra gameplay thú vị hay chỉ gây confusion?</li>
+ </ul>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-label">Lens #31</div>
+ <h3>The Lens of Action</h3>
+ <p class="lens-intro">Nhìn thẳng vào những gì người chơi thực sự làm trong game:</p>
+ <ul>
+ <li>Basic actions trong game của bạn là gì?</li>
+ <li>Strategic actions là gì? Chúng có phong phú và thú vị không?</li>
+ <li>Có hành động nào người chơi muốn làm nhưng không thể không?</li>
+ <li>Có hành động nào làm được nhưng hoàn toàn vô nghĩa không?</li>
+ <li>Hành động nào xuất hiện nhiều nhất? Nó có đáng để nhấn mạnh không?</li>
+ </ul>
+ </div>
+
+ <hr class="section-divider">
+
+ <!-- ======================== MECHANIC 5: RULES ======================== -->
+ <div class="section-header" id="s5">
+ <div class="section-num" style="background:var(--accent-green);">5</div>
+ <div class="section-title-block">
+ <h2>Mechanic 5: Rules</h2>
+ <div class="section-subtitle">"A game is its rules" — Luật chơi là linh hồn của game</div>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Phân loại Rules theo David Parlett</h3>
+ <p>Game designer David Parlett phân tích rằng một game có thể có nhiều lớp rules khác nhau — và hiểu sự khác biệt này giúp designer làm việc có hệ thống hơn:</p>
+
+ <ol class="num-list">
+ <li><strong>Operational Rules:</strong> Những gì người chơi trực tiếp thực hiện — hướng dẫn hành động cơ bản nhất</li>
+ <li><strong>Foundational Rules:</strong> Cấu trúc toán học trừu tượng bên dưới — mô tả game về mặt logic thuần túy</li>
+ <li><strong>Behavioral Rules:</strong> Phép lịch sự và sportsmanship — "Unwritten Rules" không ai ghi ra nhưng ai cũng ngầm hiểu</li>
+ <li><strong>Written Rules:</strong> Rulebook đi kèm hộp game — nhưng interactive tutorial thường dạy hiệu quả hơn văn bản rất nhiều</li>
+ <li><strong>Laws:</strong> Tournament rules — quy tắc khi chơi competitive chính thức. (<em>Tekken 5 tại Penny Arcade Expo: "Mokujin is banned."</em>)</li>
+ <li><strong>Official Rules:</strong> Quy tắc nghi lễ chính thức. (<em>Cờ vua: phải nói "check" khi chiếu tướng — dù thực ra không bắt buộc theo luật FIDE.</em>)</li>
+ <li><strong>Advisory Rules:</strong> Mẹo chiến thuật từ sách hướng dẫn — không bắt buộc nhưng giúp chơi tốt hơn</li>
+ <li><strong>House Rules:</strong> Biến thể do người chơi tự nghĩ ra — thực ra đây là <em>feedback trực tiếp cho designer</em>!</li>
+ </ol>
+ </div>
+
+ <div class="card">
+ <h3>Ba Nguyên tắc Quan trọng về Rules</h3>
+
+ <div class="highlight teal">
+ <h4>Modes — Đừng bao giờ quên trò chơi chính</h4>
+ <p>Nhiều game có sub-modes (màn hình pit stop trong racing game, mini-game trong RPG). Sid Meier: <em>"Never forget the main game in a subgame."</em> Sub-mode phải phục vụ main game — không được cạnh tranh sự chú ý với nó.</p>
+ </div>
+
+ <div class="highlight blue">
+ <h4>Enforcer — Ai thực thi luật?</h4>
+ <p>Khi máy tính làm Enforcer (tự động thực thi rules), game có thể có rules phức tạp hơn rất nhiều mà không làm người chơi choáng ngợp. <em>Warcraft</em> với hàng trăm unit rules là ví dụ — người chơi không cần nhớ hết, chỉ cần chơi và khám phá. Đây là lý do video game có thể phức tạp hơn board game về mặt cơ học mà vẫn accessible.</p>
+ </div>
+
+ <div class="highlight orange">
+ <div class="highlight-icon">🃏</div>
+ <h4>Cheatability — Cảm giác công bằng quan trọng không kém sự công bằng thực</h4>
+ <p>Nếu người chơi <em>tin</em> rằng game có thể bị gian lận hoặc thiếu công bằng — dù thực tế có như vậy hay không — hầu hết họ sẽ ngừng chơi. Design phải đảm bảo game vừa công bằng thực sự, vừa cảm thấy công bằng.</p>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>The Most Important Rule — Mục tiêu của game</h3>
+ <p>Rule quan trọng nhất của bất kỳ game nào là <strong>mục tiêu thắng/thua</strong>. Một mục tiêu tốt cần ba tính chất:</p>
+
+ <div class="grid-3" style="margin-top:16px;">
+ <div class="highlight green">
+ <h4>Concrete</h4>
+ <p>Người chơi biết chính xác khi nào họ thắng — không mơ hồ.</p>
+ </div>
+ <div class="highlight blue">
+ <h4>Achievable</h4>
+ <p>Mục tiêu phải khả thi — không phải lý tưởng không ai đạt được.</p>
+ </div>
+ <div class="highlight gold">
+ <h4>Rewarding</h4>
+ <p>Đạt được mục tiêu phải cảm thấy thỏa mãn và có ý nghĩa.</p>
+ </div>
+ </div>
+
+ <div class="quote-block" style="margin-top:16px;">
+ <p>Mục tiêu "thực" của cờ vua là bắt được vua đối thủ — nhưng luật lại nói "chiếu hết" (checkmate), và game kết thúc trước khi vua thực sự bị bắt. Tại sao? Vì để vua thực sự bị bắt thì <em>không rewarding</em> — không ai muốn mất vua. Dừng game ở "checkmate" kết thúc ở khoảnh khắc đẹp nhất, khi chiến thắng đã chắc chắn nhưng chưa nhục nhã.</p>
+ <span class="attr">— Jesse Schell, phân tích mục tiêu của cờ vua</span>
+ </div>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-label">Lens #32</div>
+ <h3>The Lens of Goals</h3>
+ <p class="lens-intro">Mục tiêu là kim chỉ nam của người chơi. Đảm bảo nó đủ tốt:</p>
+ <ul>
+ <li>Mục tiêu của game có rõ ràng và dễ hiểu không?</li>
+ <li>Có bao nhiêu mục tiêu — một, nhiều, hay lồng nhau (short-term trong long-term)?</li>
+ <li>Mục tiêu có concrete, achievable, và rewarding không?</li>
+ <li>Người chơi có tự đặt mục tiêu riêng cho bản thân không?</li>
+ <li>Mục tiêu có phù hợp với theme và experience của game không?</li>
+ <li>Có quá nhiều hay quá ít mục tiêu không?</li>
+ <li>Short-term và long-term goals có cân bằng không?</li>
+ </ul>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-label">Lens #33</div>
+ <h3>The Lens of Rules</h3>
+ <p class="lens-intro">Rules là xương sống của game — và cũng là chính game đó:</p>
+ <ul>
+ <li>Các rules có đủ rõ ràng để người chơi hiểu không?</li>
+ <li>Có rules nào đang gây ra vấn đề trong gameplay không?</li>
+ <li>Người chơi có phá vỡ rules theo cách thú vị không? Nên chính thức hóa không?</li>
+ <li>Ai là Enforcer của rules? Điều đó ảnh hưởng gì đến gameplay?</li>
+ <li><em>"A game is its rules"</em> — Rules của game của bạn nói gì về bản chất của trò chơi đó?</li>
+ </ul>
+ </div>
+
+ <hr class="section-divider">
+
+ <!-- ======================== MECHANIC 6: SKILL ======================== -->
+ <div class="section-header" id="s6">
+ <div class="section-num" style="background:var(--accent-gold);">6</div>
+ <div class="section-title-block">
+ <h2>Mechanic 6: Skill</h2>
+ <div class="section-subtitle">Kỹ năng người chơi — nền tảng của thách thức thực sự</div>
+ </div>
+ </div>
+
+ <div class="quote-block">
+ <p>"In virtute sunt multi ascensus." (Trên con đường đức hạnh có nhiều bậc thang để leo.)</p>
+ <span class="attr">— Marcus Tullius Cicero</span>
+ </div>
+
+ <div class="card">
+ <h3>Ba Nhóm Skill Cơ Bản</h3>
+ <div class="grid-3">
+ <div class="highlight orange">
+ <h4>Physical Skills</h4>
+ <p>Sức mạnh, khéo léo (dexterity), phối hợp tay-mắt (coordination), sức bền (endurance)</p>
+ <p><em>Ví dụ: aim trong FPS, button timing trong fighting game</em></p>
+ </div>
+ <div class="highlight teal">
+ <h4>Mental Skills</h4>
+ <p>Trí nhớ, quan sát, nhận diện pattern, giải quyết vấn đề (puzzle solving)</p>
+ <p><em>Ví dụ: ghi nhớ bài trong Blackjack, tính nước cờ trong Chess</em></p>
+ </div>
+ <div class="highlight purple">
+ <h4>Social Skills</h4>
+ <p>Đọc hiểu đối thủ, bluffing, đàm phán, làm việc nhóm</p>
+ <p><em>Poker là game rất social — tâm lý là kỹ năng quan trọng nhất!</em></p>
+ </div>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Real Skills vs Virtual Skills</h3>
+ <div class="grid-2">
+ <div class="highlight blue">
+ <h4>Real Skills</h4>
+ <p>Kỹ năng người chơi <em>thực sự phải có</em>. Giỏi aim trong FPS đòi hỏi phản xạ và phối hợp tay-mắt thực sự — không có cách nào thay thế.</p>
+ </div>
+ <div class="highlight gold">
+ <h4>Virtual Skills</h4>
+ <p>Kỹ năng mà <em>nhân vật</em> có, không phải người chơi. Grind nhiều hơn → stat cao hơn → "giỏi hơn" trong game, dù người chơi chẳng học được gì.</p>
+ <p><strong>F2P games</strong> thường monetize trực tiếp virtual skills này — trả tiền để mua stat.</p>
+ </div>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Enumerating Skills — Liệt kê tất cả kỹ năng thực sự cần thiết</h3>
+ <p>Một bài tập hữu ích cho designers: ngồi xuống và liệt kê ra <em>tất cả</em> kỹ năng mà người chơi cần để chơi tốt game của bạn. Kết quả thường rất bất ngờ.</p>
+
+ <div class="highlight green">
+ <h4>Ví dụ thực tế: RC Pro-Am (NES)</h4>
+ <p>Nhìn bề ngoài là racing game đơn giản. Nhưng khi enumerate đầy đủ:</p>
+ <p>• Điều khiển xe, đọc đường đua → <em>(expected)</em><br>
+ • <strong>Bất ngờ #1: Problem-solving</strong> — một số power-up chỉ xuất hiện khi nhấn tổ hợp A+B theo sequence cụ thể mà rulebook không đề cập<br>
+ • <strong>Bất ngờ #2: Physical grip technique</strong> — cách cầm controller ảnh hưởng trực tiếp đến tốc độ phản xạ của ngón tay</p>
+ <p>→ Hai kỹ năng này không ai nghĩ đến khi thiết kế — nhưng lại là thứ phân biệt người chơi giỏi và kém!</p>
+ </div>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-label">Lens #34</div>
+ <h3>The Lens of Skill</h3>
+ <p class="lens-intro">Đảm bảo game của bạn đang test đúng kỹ năng từ đúng người chơi:</p>
+ <ul>
+ <li>Game đòi hỏi những kỹ năng gì? Liệt kê đầy đủ.</li>
+ <li>Có loại kỹ năng nào (Physical / Mental / Social) bị thiếu không?</li>
+ <li>Kỹ năng nào được dùng nhiều nhất? Có phù hợp với experience bạn muốn tạo ra không?</li>
+ <li>Game có tạo ra đúng loại trải nghiệm như bạn muốn không?</li>
+ <li>Một số người chơi có thể giỏi hơn hẳn người khác không? Tại sao?</li>
+ <li>Người chơi có thể cải thiện kỹ năng qua luyện tập không?</li>
+ <li>Level kỹ năng yêu cầu có phù hợp với đối tượng mục tiêu không?</li>
+ </ul>
+ </div>
+
+ <hr class="section-divider">
+
+ <!-- ======================== MECHANIC 7: CHANCE ======================== -->
+ <div class="section-header" id="s7">
+ <div class="section-num" style="background:var(--orange);">7</div>
+ <div class="section-title-block">
+ <h2>Mechanic 7: Chance</h2>
+ <div class="section-subtitle">May mắn và xác suất — nguồn gốc của bất ngờ và niềm vui</div>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Tại sao Chance là Mechanic?</h3>
+ <p><strong>Uncertainty → Surprises → Fun.</strong> Sự không chắc chắn là nguyên liệu thô của bất ngờ, và bất ngờ là một trong những nguồn vui cơ bản nhất trong game. Không có Chance, game trở nên có thể dự đoán hoàn toàn.</p>
+
+ <div class="highlight orange">
+ <h4>Câu chuyện lịch sử: Chevalier de Méré và lý thuyết xác suất</h4>
+ <p>Năm 1654, tay cờ bạc người Pháp Antoine Gombaud (Chevalier de Méré) gặp bài toán xác suất không thể giải được và nhờ nhà toán học Blaise Pascal. Pascal viết thư cho Pierre de Fermat bàn về vấn đề này — và cuộc trao đổi thư từ lịch sử đó đã <strong>khai sinh lý thuyết xác suất</strong>, thứ ngày nay là nền tảng toán học của mọi game có yếu tố ngẫu nhiên.</p>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>10 Quy tắc Xác suất cho Game Designers</h3>
+
+ <div class="prob-rule">
+ <div class="prob-num">1</div>
+ <div class="prob-content">
+ <strong>Fractions = Decimals = Percents</strong>
+ <span>1/2 = 0.5 = 50%. Ba cách viết khác nhau, cùng một ý nghĩa. Dùng cách nào rõ ràng nhất với ngữ cảnh.</span>
+ </div>
+ </div>
+
+ <div class="prob-rule">
+ <div class="prob-num">2</div>
+ <div class="prob-content">
+ <strong>Chỉ nằm trong khoảng 0 đến 1</strong>
+ <span>Xác suất &lt; 0 hay &gt; 1 là vô nghĩa. 0 = không bao giờ xảy ra; 1 = chắc chắn xảy ra.</span>
+ </div>
+ </div>
+
+ <div class="prob-rule">
+ <div class="prob-num">3</div>
+ <div class="prob-content">
+ <strong>Looked-For ÷ Possible = Probability</strong>
+ <span>Số kết quả mình muốn chia cho tổng số kết quả có thể xảy ra. Đây là định nghĩa cơ bản nhất của xác suất.</span>
+ </div>
+ </div>
+
+ <div class="prob-rule">
+ <div class="prob-num">4</div>
+ <div class="prob-content">
+ <strong>Enumerate! — Liệt kê hết!</strong>
+ <span>Khi bài toán phức tạp, đừng đoán mò — hãy liệt kê tất cả kết quả có thể. Đây là cách an toàn nhất để tính xác suất đúng, đặc biệt khi trực giác có thể sai.</span>
+ </div>
+ </div>
+
+ <div class="prob-rule">
+ <div class="prob-num">5</div>
+ <div class="prob-content">
+ <strong>OR = Cộng — nhưng chỉ khi mutually exclusive</strong>
+ <span>P(A hoặc B) = P(A) + P(B) chỉ đúng khi A và B không thể đồng thời xảy ra. Nếu có overlap, phải dùng: P(A∪B) = P(A) + P(B) − P(A∩B).</span>
+ </div>
+ </div>
+
+ <div class="prob-rule">
+ <div class="prob-num">6</div>
+ <div class="prob-content">
+ <strong>AND = Nhân — khi các sự kiện độc lập</strong>
+ <span>P(A và B) = P(A) × P(B). Tung được 6 hai lần liên tiếp: 1/6 × 1/6 = 1/36.</span>
+ </div>
+ </div>
+
+ <div class="prob-rule">
+ <div class="prob-num">7</div>
+ <div class="prob-content">
+ <strong>1 − P(xảy ra) = P(không xảy ra)</strong>
+ <span>Complement rule — đôi khi tính "không" dễ hơn tính "có". Xác suất không tung được 6 trong 3 lần: 1 − (1/6)³... thực ra tính ngược từ "ít nhất một lần ra 6" dễ hơn.</span>
+ </div>
+ </div>
+
+ <div class="prob-rule">
+ <div class="prob-num">8</div>
+ <div class="prob-content">
+ <strong>Tổng nhiều dice KHÔNG phân phối đều</strong>
+ <span>2d6 không cho xác suất bằng nhau cho các kết quả 2–12. Tổng = 7 có xác suất cao nhất (6/36 ≈ 16.7%) — tạo ra đường cong hình chuông. Dùng nhiều dice nhỏ tạo ra phân phối "tự nhiên" hơn một dice lớn duy nhất.</span>
+ </div>
+ </div>
+
+ <div class="prob-rule">
+ <div class="prob-num">9</div>
+ <div class="prob-content">
+ <strong>Roll the Dice — Phương pháp Monte Carlo</strong>
+ <span>Khi phép tính quá phức tạp, hãy thực sự thử nghiệm (hoặc simulate bằng code) hàng ngàn lần và đếm kết quả. Thực tiễn và lý thuyết đôi khi sai lệch vì các yếu tố ngoài dự kiến.</span>
+ </div>
+ </div>
+
+ <div class="prob-rule">
+ <div class="prob-num">10</div>
+ <div class="prob-content">
+ <strong>Geeks Love Showing Off — Hỏi chuyên gia toán học</strong>
+ <span>Nếu không chắc, hãy nhờ người giỏi toán. Họ thích giúp với những bài toán xác suất thú vị — đây chính là lý do lý thuyết xác suất ra đời từ bài toán cờ bạc của Chevalier de Méré!</span>
+ </div>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Expected Value — Giá trị kỳ vọng</h3>
+ <p>Expected Value (EV) = trung bình có trọng số của tất cả kết quả có thể, dùng xác suất làm trọng số. Đây là công cụ cốt lõi để phân tích và cân bằng game.</p>
+
+ <table class="data-table">
+ <thead>
+ <tr>
+ <th>Attack Name</th>
+ <th>Chance of Hitting</th>
+ <th>Damage</th>
+ <th>Expected Value</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Wind</td>
+ <td>100%</td>
+ <td>4</td>
+ <td><strong>4.0</strong> (100%×4)</td>
+ </tr>
+ <tr>
+ <td>Fireball</td>
+ <td>80%</td>
+ <td>5</td>
+ <td><strong>4.0</strong> (80%×5 + 20%×0)</td>
+ </tr>
+ <tr>
+ <td>Lightning Bolt</td>
+ <td>20%</td>
+ <td>40</td>
+ <td><strong>8.0</strong> (20%×40 + 80%×0)</td>
+ </tr>
+ </tbody>
+ </table>
+
+ <div class="highlight orange">
+ <h4>Context thay đổi tất cả</h4>
+ <p>Lightning Bolt có EV = 8 — rất hiệu quả khi đánh kẻ thù 500 HP. Nhưng với kẻ thù chỉ có <strong>15 HP</strong>: EV thực sự chỉ là (20%×15) + (80%×0) = <strong>3 điểm</strong> — vì 25 damage dư thừa hoàn toàn vô dụng. Lúc này Wind và Fireball (EV = 4) vượt trội hơn hẳn.</p>
+ <p><em>Bài học quan trọng: Luôn tính EV trong context cụ thể của game, không phải trong chân không.</em></p>
+ </div>
+ </div>
+
+ <div class="card">
+ <h3>Human Element — Con người không hành động theo EV thuần túy</h3>
+ <p>Kahneman và Tversky đã chứng minh rằng con người thường <em>không</em> chọn phương án có EV cao nhất — và điều đó ảnh hưởng trực tiếp đến game design:</p>
+
+ <div class="grid-2">
+ <div class="highlight blue">
+ <h4>Game A</h4>
+ <p>66% → thắng $2,400<br>33% → thắng $2,500<br>1% → thắng $0</p>
+ <p><strong>EV = $2,409</strong></p>
+ </div>
+ <div class="highlight green">
+ <h4>Game B</h4>
+ <p>100% → thắng $2,400</p>
+ <br>
+ <p><strong>EV = $2,400</strong></p>
+ </div>
+ </div>
+
+ <p style="margin-top:14px; font-size:15px; color:var(--gray);">Game A có EV cao hơn — nhưng <strong>82% người tham gia chọn Game B</strong>. Tại sao?</p>
+
+ <div class="highlight purple">
+ <h4>Regret (Nỗi sợ hối hận) — Yếu tố human không thể bỏ qua</h4>
+ <p>Con người không chỉ maximize lợi ích — họ còn minimize khả năng cảm thấy hối hận. Nếu chọn Game A và rơi vào 1% kết quả = $0, cảm giác <em>"đáng lẽ mình nên chọn B"</em> rất đau đớn.</p>
+ <p>Tversky: <em>"When it comes to taking risks for gains, people are often conservative. But when faced with a choice between a small certain loss and a large probable loss, they will gamble."</em></p>
+ <p>Đây là lý do <strong>Puzzle &amp; Dragons</strong> thành công về mặt monetization — khi người chơi sắp chết trong dungeon sau nhiều giờ, game thông báo: <em>"Bạn sắp mất tất cả treasure đã kiếm được. Chỉ cần trả một ít tiền thật để tiếp tục..."</em> Và nhiều người trả.</p>
+ </div>
+
+ <div class="highlight gold">
+ <h4>Perceived Probabilities — Xác suất theo cảm nhận sai lệch</h4>
+ <p>Nghiên cứu Tversky: người ta đánh giá sai xác suất có hệ thống — <em>underestimate</em> các nguyên nhân tự nhiên (tim mạch: ước 22%, thực 34%), <em>overestimate</em> các nguyên nhân bạo lực và tai nạn (accident: ước 32%, thực 5%). Bộ não phóng đại những gì đáng sợ và kịch tính.</p>
+ <p>Designer phải tính đến cả <strong>xác suất thực</strong> lẫn <strong>xác suất người chơi tin là thực</strong> — cả hai đều ảnh hưởng đến quyết định trong game.</p>
+ </div>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-label">Lens #35</div>
+ <h3>The Lens of Expected Value</h3>
+ <p class="lens-intro">Dùng EV để phân tích và cân bằng game — nhưng đừng quên context và tâm lý con người:</p>
+ <ul>
+ <li>Xác suất thực sự của mỗi sự kiện trong game là bao nhiêu?</li>
+ <li>Xác suất mà người chơi <em>cảm nhận</em> là bao nhiêu? Chúng có khớp không?</li>
+ <li>Outcome của mỗi sự kiện có giá trị gì? Có thể quantify không? Có yếu tố intangible nào không?</li>
+ <li>Khi tổng hợp tất cả outcomes × probabilities, EV của mỗi action có tạo ra những lựa chọn thực sự thú vị cho người chơi không?</li>
+ </ul>
+ </div>
+
+ <div class="card">
+ <h3>Skill và Chance Đan Xen — 5 Mối Quan Hệ Không Thể Tách Rời</h3>
+ <p>Skill và Chance không phải hai cực đối lập — chúng liên tục tương tác với nhau theo những cách tinh tế:</p>
+
+ <ol class="num-list">
+ <li>
+ <strong>Estimating chance IS a skill (Ước tính xác suất là một kỹ năng thực):</strong>
+ Trong Blackjack, "card counting" — theo dõi những lá bài đã ra để ước tính xác suất các lá còn lại — là kỹ năng thực sự đòi hỏi luyện tập. Perceived probabilities của người chơi giỏi và kém khác nhau rất nhiều.
+ </li>
+ <li>
+ <strong>Skills have a probability of success (Kỹ năng cũng có xác suất thất bại):</strong>
+ Ngay cả trong game "pure skill" như cờ vua hay baseball, mọi action đều có rủi ro. Cố "steal a base" trong baseball — đó là risk assessment, không khác gì tính xác suất.
+ </li>
+ <li>
+ <strong>Estimating opponent's skill IS a skill (Đọc hiểu đối thủ là kỹ năng):</strong>
+ Bluffing trong poker, nghi binh trong chiến thuật — bạn đang điều chỉnh perceived probability của đối thủ về năng lực của bạn. Và đôi khi chiến lược tốt nhất là để đối thủ <em>underestimate</em> bạn.
+ </li>
+ <li>
+ <strong>Predicting pure chance là imagined skill (Ảo tưởng về khả năng "đọc" may mắn):</strong>
+ Humans tìm kiếm patterns ngay cả khi không có. "Lucky streak fallacy" (thắng nhiều → lần sau cũng thắng) và "gambler's fallacy" (thua nhiều → sắp thắng) — cả hai đều sai về toán học, nhưng rất phổ biến. Designer có thể khai thác tâm lý này.
+ </li>
+ <li>
+ <strong>Controlling pure chance là imagined skill (Ảo tưởng về khả năng kiểm soát ngẫu nhiên):</strong>
+ Người ta lắc xúc xắc "theo cách đặc biệt", mang bùa may mắn, nói "come on, come on..." Không có hiệu quả thực tế — nhưng <em>cảm giác</em> kiểm soát được số phận chính là phần tạo ra sự hứng khởi của gambling. Nếu bạn hoàn toàn tách mình ra khỏi ý tưởng có thể ảnh hưởng kết quả, phần lớn sự thú vị tan biến.
+ </li>
+ </ol>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-label">Lens #36</div>
+ <h3>The Lens of Chance</h3>
+ <p class="lens-intro">Risk và randomness như gia vị — đúng lượng khuếch đại hương vị của mọi thứ; quá nhiều làm hỏng tất cả:</p>
+ <ul>
+ <li>Điều gì trong game <em>thực sự</em> ngẫu nhiên? Điều gì chỉ <em>cảm giác</em> ngẫu nhiên?</li>
+ <li>Yếu tố ngẫu nhiên tạo ra cảm giác excitement và challenge, hay hopelessness và lack of control?</li>
+ <li>Thay đổi probability distribution curves có cải thiện game không?</li>
+ <li>Người chơi có cơ hội để take interesting risks không?</li>
+ <li>Mối quan hệ giữa chance và skill trong game như thế nào? Có cách nào để random elements cảm giác như exercise of skill không? Và ngược lại?</li>
+ </ul>
+ </div>
+
+ <!-- CONCLUSION -->
+ <div class="conclusion-card">
+ <h2>Tổng kết: 7 Mechanics, Vô Số Khả Năng</h2>
+ <p>Sau khi khám phá cả 7 mechanics cơ bản — Space, Time, Objects &amp; States, Actions, Rules, Skill, và Chance — điều rõ ràng là chúng không tồn tại độc lập. Chúng đan xen, tương tác, và tạo ra nhau theo những cách mà không thể dự đoán hoàn toàn từ trước.</p>
+ <p>Schell kết thúc với hình ảnh đẹp về Chance: <em>"Risk and randomness are like spices. A game without any hint of them can be completely bland, but put in too much and they overwhelm everything else. Get them just right, and they bring out the flavor of everything else in your game."</em></p>
+ <p>Đây mới chỉ là 7 mechanics <em>cơ bản</em>. Tiếp theo: những mechanics phức tạp hơn được xây dựng từ những nền tảng này — như puzzles và interactive story structures. Nhưng trước tiên, phải học cách đưa chúng vào <strong>Balance</strong>.</p>
+ </div>
+
+</main>
+<div class="chapnav-wrap"><div class="chapnav"><a href="C11-Player's Motivation.html"><span class="lbl">Chương trước</span>Chương 11: Tâm Trí Người Chơi Bị Thúc Đẩy Bởi Động Lực của Người Chơi</a><a href="C13-Mechanic Balance.html"><span class="lbl">Chương sau</span>Chương 13: Game Mechanics Must Be in Balance</a></div></div>
+
+<script>
+  (function(){
+    var sections = document.querySelectorAll('.section-header[id]');
+    var navLinks = document.querySelectorAll('.tocnav a');
+    if (!sections.length || !navLinks.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(a){
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
+</body>
+</html>

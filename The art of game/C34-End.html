@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 34 – Each Designer Has a Purpose</title>
+<style>
+ :root {
+ --orange: #27ae60;
+ --orange-light: #6cc999;
+ --orange-pale: #edf9f2;
+ --dark: #0e231c;
+ --gray: #656a75;
+ --gray-light: #656a75;
+ --bg: #f4f7f2;
+ --white: #ffffff;
+ --card-border: #e4ebe2;
+ --accent-teal: #27ae60;
+ --accent-blue: #27ae60;
+ --accent-purple: #27ae60;
+ --accent-green: #27ae60;
+ --accent-gold: #27ae60;
+ 
+ --forest: #0e231c;
+ --fog: #879b93;
+ --sage: #defaca;
+ --mint: #edf9f2;
+ --sprout-d: #1c8a4c;}
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ body {
+ background: var(--bg);
+ color: var(--dark);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 17px;
+ line-height: 1.75;
+ }
+
+ main {
+ max-width: 880px;
+ margin: 0 auto;
+ padding: 60px 24px 120px;
+ }
+
+ /* ── HERO ── */
+ .hero {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 24px;
+ padding: 52px 48px 44px;
+ margin-bottom: 56px;
+ box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+ position: relative;
+ overflow: hidden;
+ }
+ .hero::before {
+ content: '';
+ position: absolute;
+ top: 0; left: 0; right: 0;
+ height: 5px;
+ background: #edf9f2;
+ }
+ .hero-badge {
+ display: inline-block;
+ background: rgba(39,174,96,0.12);
+ border: 1px solid rgba(39,174,96,0.35);
+ border-radius: 20px;
+ padding: 6px 18px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 600;
+ color: var(--orange);
+ letter-spacing: 0.04em;
+ text-transform: uppercase;
+ margin-bottom: 20px;
+ }
+ .hero h1 {
+ font-size: 32px;
+ font-weight: 700;
+ color: var(--dark);
+ line-height: 1.25;
+ margin-bottom: 10px;
+ }
+ .hero-sub {
+ font-size: 17px;
+ color: var(--gray);
+ margin-bottom: 32px;
+ font-style: italic;
+ }
+ .hero-stats {
+ display: flex;
+ gap: 32px;
+ flex-wrap: wrap;
+ padding-top: 28px;
+ border-top: 1px solid var(--card-border);
+ }
+ .hero-stat { display: flex; flex-direction: column; gap: 4px; }
+ .hero-stat .label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ }
+ .hero-stat .value {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 15px;
+ font-weight: 700;
+ color: var(--dark);
+ }
+
+ /* ── CHAPTER MAP ── */
+ .chapter-map {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 20px;
+ padding: 40px 40px 36px;
+ margin-bottom: 56px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .chapter-map h2 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 32px;
+ }
+ .map-flow {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 0;
+ row-gap: 20px;
+ }
+ .map-node {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 8px;
+ min-width: 90px;
+ }
+ .map-dot {
+ width: 52px;
+ height: 52px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 22px;
+ font-weight: 800;
+ color: var(--white);
+ flex-shrink: 0;
+ }
+ .dot-dark { background: var(--dark); }
+ .dot-purple { background: var(--accent-purple); }
+ .dot-orange { background: var(--orange); }
+ .map-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 600;
+ color: var(--gray);
+ text-align: center;
+ max-width: 90px;
+ line-height: 1.3;
+ }
+ .map-arrow {
+ font-size: 20px;
+ color: var(--gray-light);
+ padding: 0 8px;
+ margin-bottom: 24px;
+ }
+
+ /* ── SECTION ── */
+ .section { margin-bottom: 64px; }
+ .section-header {
+ display: flex;
+ align-items: center;
+ gap: 18px;
+ margin-bottom: 28px;
+  scroll-margin-top: 108px;}
+ .section-num {
+ width: 52px;
+ height: 52px;
+ border-radius: 14px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 20px;
+ font-weight: 800;
+ color: var(--white);
+ flex-shrink: 0;
+ }
+ .sn-dark { background: var(--dark); }
+ .sn-purple { background: var(--accent-purple); }
+ .sn-orange { background: var(--orange); }
+ .section-title {
+ font-size: 24px;
+ font-weight: 700;
+ color: var(--dark);
+ line-height: 1.2;
+ }
+ .section-title span {
+ display: block;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 4px;
+ }
+
+ /* ── CARD ── */
+ .card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ padding: 28px 32px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ margin-bottom: 20px;
+ }
+ .card p { margin-bottom: 14px; }
+ .card p:last-child { margin-bottom: 0; }
+
+ /* ── QUOTE ── */
+ .quote-block {
+ border-left: 4px solid var(--orange);
+ background: var(--orange-pale);
+ border-radius: 0 12px 12px 0;
+ padding: 20px 24px;
+ margin: 20px 0;
+ font-style: italic;
+ color: var(--dark);
+ font-size: 16px;
+ line-height: 1.7;
+ }
+ .quote-block .attr {
+ font-style: normal;
+ font-size: 13px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-weight: 600;
+ color: var(--orange);
+ margin-top: 10px;
+ }
+
+ /* ── HIGHLIGHT BOXES ── */
+ .hl-box {
+ border-radius: 14px;
+ padding: 22px 26px;
+ margin: 18px 0;
+ }
+ .hl-box .hl-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ letter-spacing: 0.06em;
+ text-transform: uppercase;
+ margin-bottom: 10px;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ }
+ .hl-purple { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.3); }
+ .hl-purple .hl-title { color: var(--accent-purple); }
+ .hl-gold { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.3); }
+ .hl-gold .hl-title { color: var(--accent-gold); }
+ .hl-dark { background: #edf9f2; border: 1.5px solid rgba(14,35,28,0.15); }
+ .hl-dark .hl-title { color: var(--dark); }
+ .hl-orange { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.35); }
+ .hl-orange .hl-title { color: var(--orange); }
+
+ /* ── DIVIDER ── */
+ .divider { border: none; border-top: 1px solid var(--card-border); margin: 48px 0; }
+
+ /* ── RAVEN LENS (special dark styling) ── */
+ .raven-lens {
+ border: 2px solid var(--dark);
+ background: #edf9f2;
+ border-radius: 18px;
+ padding: 32px 36px;
+ margin: 28px 0;
+ }
+ .raven-lens .lens-header {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ margin-bottom: 22px;
+ }
+ .raven-lens .lens-icon {
+ width: 56px;
+ height: 56px;
+ background: var(--dark);
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 24px;
+ flex-shrink: 0;
+ }
+ .raven-lens .lens-num {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: var(--gray);
+ margin-bottom: 3px;
+ }
+ .raven-lens .lens-name {
+ font-size: 20px;
+ font-weight: 700;
+ color: var(--dark);
+ }
+ .raven-lens .lens-questions { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+ .raven-lens .lens-questions li { display: flex; gap: 12px; align-items: flex-start; color: var(--gray); font-size: 16px; }
+ .raven-lens .lens-questions li::before { content: ''; font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+
+ /* ── SECRET PURPOSE LENS ── */
+ .lens-box {
+ border: 2px solid var(--orange);
+ background: #edf9f2;
+ border-radius: 18px;
+ padding: 32px 36px;
+ margin: 28px 0;
+ }
+ .lens-box .lens-header {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ margin-bottom: 22px;
+ }
+ .lens-box .lens-icon {
+ width: 56px;
+ height: 56px;
+ background: var(--orange);
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 24px;
+ flex-shrink: 0;
+ }
+ .lens-box .lens-num {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: var(--orange);
+ margin-bottom: 3px;
+ }
+ .lens-box .lens-name {
+ font-size: 20px;
+ font-weight: 700;
+ color: var(--dark);
+ }
+ .lens-box .lens-questions { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+ .lens-box .lens-questions li { display: flex; gap: 12px; align-items: flex-start; }
+ .lens-box .lens-questions li::before { content: ''; font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+
+ /* ── WHY CARDS ── */
+ .why-grid {
+ display: flex;
+ flex-direction: column;
+ gap: 14px;
+ margin-top: 16px;
+ }
+ .why-card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 14px;
+ padding: 18px 22px;
+ display: flex;
+ gap: 16px;
+ align-items: flex-start;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+ }
+ .why-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+ .why-card p { font-size: 15px; color: var(--gray); line-height: 1.7; margin: 0; }
+
+ /* ── FINAL CALL TO ACTION ── */
+ .final-cta {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ border-radius: 20px;
+ padding: 44px 48px;
+ text-align: center;
+ margin: 40px 0;
+ color: var(--white);
+ }
+ .final-cta .cta-icon { font-size: 48px; margin-bottom: 16px; display: block; }
+ .final-cta .cta-title {
+ font-size: 22px;
+ font-weight: 700;
+ color: var(--white);
+ margin-bottom: 16px;
+ }
+ .final-cta .cta-body {
+ font-size: 15.5px;
+ color: rgba(255,255,255,0.75);
+ line-height: 1.8;
+ max-width: 560px;
+ margin: 0 auto;
+ }
+ .final-cta .cta-question {
+ margin-top: 28px;
+ font-size: 20px;
+ font-weight: 700;
+ color: var(--orange-light);
+ font-style: italic;
+ }
+
+ /* ── LISTENING JOURNEY ── */
+ .journey-row {
+ display: grid;
+ grid-template-columns: repeat(4, 1fr);
+ gap: 12px;
+ margin: 18px 0;
+ }
+ @media (max-width: 600px) { .journey-row { grid-template-columns: repeat(2, 1fr); } }
+ .journey-card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 14px;
+ padding: 16px 14px;
+ text-align: center;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+ }
+ .journey-card .j-icon { font-size: 24px; margin-bottom: 8px; }
+ .journey-card .j-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ color: var(--gray);
+ line-height: 1.4;
+ }
+ .journey-card.j-final {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ border-color: var(--dark);
+ }
+ .journey-card.j-final .j-label { color: var(--white); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+  .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .topnav .crumb { color: #879b93; font-size: 14px; }
+  .topnav .crumb a { color: #879b93; text-decoration: none; }
+  .topnav .crumb b { color: #fff; font-weight: 600; }
+  .chapnav-wrap { background: #f4f7f2; padding: 40px 24px 56px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .chapnav { display: flex; justify-content: space-between; gap: 12px; max-width: 820px; margin: 0 auto; }
+  .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+  .tocnav { position: sticky; top: 52px; z-index: 100; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; overflow-x: auto; scrollbar-width: none; }
+  .tocnav::-webkit-scrollbar { display: none; }
+  .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
+
+</style>
+<nav class="topnav">
+  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 34</b></span>
+</nav>
+
+<nav class="tocnav">
+  <a href="#s1">Hành trình lắng nghe qua toàn bộ cuốn…</a>
+  <a href="#s2">The Deepest Theming</a>
+</nav>
+
+<main>
+
+ <!-- ── HERO ── -->
+ <div class="hero">
+ <div class="hero-badge">Chương 34 — Chương cuối</div>
+ <h1>Each Designer Has a <em>Purpose</em></h1>
+ <div class="hero-sub">Bạn đã học cách lắng nghe audience, team, client, và game. Giờ là lúc lắng nghe điều quan trọng nhất — bản thân mình.</div>
+ <div class="hero-stats">
+ <div class="hero-stat">
+ <span class="label">Lenses</span>
+ <span class="value">#112 &amp; #∞</span>
+ </div>
+ <div class="hero-stat">
+ <span class="label">Chủ đề</span>
+ <span class="value">Mục đích cá nhân</span>
+ </div>
+ <div class="hero-stat">
+ <span class="label">Câu hỏi cốt lõi</span>
+ <span class="value">Why am I doing this?</span>
+ </div>
+ <div class="hero-stat">
+ <span class="label">Vị trí</span>
+ <span class="value">Chương kết của cuốn sách</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- ── CHAPTER MAP ── -->
+ <div class="chapter-map">
+ <h2>Bản đồ chương</h2>
+ <div class="map-flow">
+ <div class="map-node">
+ <div class="map-dot dot-dark">1</div>
+ <div class="map-label">Hành trình lắng nghe</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-purple">2</div>
+ <div class="map-label">The Deepest Theming</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--dark);"></div>
+ <div class="map-label">Lens #112 The Raven</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-orange">∞</div>
+ <div class="map-label">Lens #∞ Secret Purpose</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- ── SECTION 1: HÀNH TRÌNH LẮNG NGHE ── -->
+ <div class="section">
+ <div class="section-header" id="s1">
+ <div class="section-num sn-dark">1</div>
+ <div class="section-title">
+ <span>Section 1</span>
+ Hành trình lắng nghe qua toàn bộ cuốn sách
+ </div>
+ </div>
+
+ <div class="card">
+ <p>Ngay từ đầu cuốn sách, chúng ta đã nói về việc <em>lắng nghe</em> là kỹ năng quan trọng nhất của một game designer. Và xuyên suốt hành trình, chúng ta đã xem xét nhiều mặt khác nhau của sự lắng nghe đó.</p>
+ </div>
+
+ <div class="journey-row">
+ <div class="journey-card">
+ <div class="j-label">Lắng nghe<br>Audience</div>
+ </div>
+ <div class="journey-card">
+ <div class="j-label">Lắng nghe<br>Game của mình</div>
+ </div>
+ <div class="journey-card">
+ <div class="j-label">Lắng nghe<br>Team</div>
+ </div>
+ <div class="journey-card">
+ <div class="j-label">Lắng nghe<br>Client</div>
+ </div>
+ </div>
+
+ <div class="card" style="margin-top: 20px;">
+ <p>Nhưng bây giờ — ở chương cuối cùng này — là lúc nói về loại lắng nghe quan trọng nhất trong tất cả: lắng nghe <strong>chính mình</strong>.</p>
+ </div>
+
+ <div class="journey-row" style="grid-template-columns: 1fr;">
+ <div class="journey-card j-final" style="padding: 20px 24px; text-align: center;">
+ <div class="j-label" style="font-size: 16px;">Lắng nghe bản thân — điều quan trọng nhất</div>
+ </div>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ── SECTION 2: THE DEEPEST THEMING ── -->
+ <div class="section">
+ <div class="section-header" id="s2">
+ <div class="section-num sn-purple">2</div>
+ <div class="section-title">
+ <span>Section 2</span>
+ The Deepest Theming
+ </div>
+ </div>
+
+ <div class="card">
+ <p>Bạn có thể nghĩ việc tự suy ngẫm có thể để sau. Nhưng không thể — vì cuộc đời rất ngắn ngủi.</p>
+ </div>
+
+ <div class="hl-box hl-dark">
+ <div class="hl-title"> Tiếng gọi của con quạ</div>
+ <p style="font-style: italic; font-size: 16px; line-height: 1.85; color: var(--dark);">"In a blink, you will look up and realize you don't have any time left. Like Poe's raven, it mocks you, cackling 'nevermore' as it glides into the night. You can't stop it. Your only hope is to do your important work <em>now</em> while you still can. You must run like death is behind you because <em>death is behind you.</em>"</p>
+ <p style="margin-top: 10px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 600; color: var(--gray);">— Jesse Schell</p>
+ </div>
+
+ <div class="card">
+ <p>Vì vậy — nhanh lên, hãy nhận lấy lens này để đừng quên:</p>
+ </div>
+
+ <!-- Lens #112: The Raven -->
+ <div class="raven-lens">
+ <div class="lens-header">
+ <div>
+ <div class="lens-num">Lens #112</div>
+ <div class="lens-name">The Lens of the Raven</div>
+ </div>
+ </div>
+ <p style="margin-bottom: 16px; font-size: 15.5px; color: var(--gray);">Để nhắc nhở mình chỉ làm việc trên những gì thực sự quan trọng, hãy tự hỏi:</p>
+ <ul class="lens-questions">
+ <li>Việc làm game này có xứng đáng với thời gian của mình không?</li>
+ </ul>
+ </div>
+
+ <div class="card">
+ <p>Nhưng đâu là công việc quan trọng đó? Làm sao bạn biết được? Đây là lý do bạn phải học cách lắng nghe chính mình. Có một mục đích quan trọng đang ẩn giấu bên trong bạn — và bạn phải tìm ra nó.</p>
+ </div>
+
+ <div class="hl-box hl-purple">
+ <div class="hl-title"> Tại sao game design quan trọng với bạn đến vậy?</div>
+ <p>Chắc chắn có lý do nào đó khiến bạn chịu đựng tất cả những khó khăn của việc thiết kế game tuyệt vời. Có thể là...</p>
+ </div>
+
+ <div class="why-grid">
+ <div class="why-card">
+ <p>Bạn thấy trong tâm trí mình điều gì đó mà bạn cảm thấy sẽ thay đổi cuộc đời ai đó.</p>
+ </div>
+ <div class="why-card">
+ <p>Vì điều gì đó tuyệt vời bạn đã trải nghiệm một lần, và bạn muốn chia sẻ nó với thế giới.</p>
+ </div>
+ <div class="why-card">
+ <p>Vì điều gì đó khủng khiếp đã xảy ra với ai đó bạn yêu thương, và bạn muốn chắc chắn nó không bao giờ xảy ra lại với bất kỳ ai.</p>
+ </div>
+ </div>
+
+ <div class="card" style="margin-top: 20px;">
+ <p>Không ai có thể biết mục đích này ngoài bạn — và không ai cần biết ngoài bạn. Chúng ta đã nói về việc game của bạn sẽ mạnh mẽ hơn bao nhiêu khi bạn biết theme của nó. Nhưng bạn có biết <em>personal theme</em> của chính mình không?</p>
+ <p>Bạn phải tìm ra càng sớm càng tốt — vì một khi bạn biết, bạn sẽ trải qua một sự thay đổi sáng tạo quan trọng: <strong>những động lực có ý thức và tiềm thức của bạn sẽ được hợp nhất</strong>, và công việc của bạn sẽ đạt được một đam mê, một tiêu điểm, và một cường độ không thể lớn hơn được nữa.</p>
+ </div>
+
+ <div class="card">
+ <p>Để giúp bạn tìm thấy động lực thực sự của mình, hãy nhận lấy lens cuối cùng này.</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ── LENS #∞ ── -->
+ <div class="lens-box">
+ <div class="lens-header">
+ <div class="lens-icon">∞</div>
+ <div>
+ <div class="lens-num">Lens #∞</div>
+ <div class="lens-name">The Lens of Your Secret Purpose</div>
+ </div>
+ </div>
+ <p style="margin-bottom: 16px; font-size: 16px; color: var(--gray);">Để đảm bảo bạn đang làm việc hướng đến mục đích thực sự duy nhất của mình, hãy tự hỏi câu hỏi duy nhất thực sự quan trọng:</p>
+ <ul class="lens-questions">
+ <li>Tại sao tôi đang làm điều này?</li>
+ </ul>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ── FINAL CTA ── -->
+ <div class="final-cta">
+ <div class="cta-title">Hành trình kết thúc — và bắt đầu</div>
+ <div class="cta-body">
+ Bạn đã có bản đồ. Bạn đã có chiếc nhẫn. Và bạn đã có tất cả các lenses. Nhưng quan trọng nhất — bạn đã có câu hỏi cuối cùng mà chỉ bạn mới có thể trả lời. Đó là điểm xuất phát thực sự của mọi game tuyệt vời.
+ </div>
+ <div class="cta-question">"Why am I doing this?"</div>
+ </div>
+
+</main>
+<div class="chapnav-wrap"><div class="chapnav"><a style="margin-right:auto" href="C33-Responsibilities.html"><span class="lbl">Chương trước</span>Chương 33: Designers Have Certain Responsibilities</a></div></div>
+
+<script>
+  (function(){
+    var sections = document.querySelectorAll('.section-header[id]');
+    var navLinks = document.querySelectorAll('.tocnav a');
+    if (!sections.length || !navLinks.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(a){
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
+</body>
+</html>

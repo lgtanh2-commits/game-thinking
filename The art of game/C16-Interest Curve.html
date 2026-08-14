@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 16 – Trải Nghiệm Được Đánh Giá Qua Đường Cong Hứng Thú</title>
+<style>
+ :root {
+ --orange: #27ae60;
+ --orange-light: #6cc999;
+ --orange-pale: #edf9f2;
+ --dark: #0e231c;
+ --gray: #656a75;
+ --gray-light: #656a75;
+ --bg: #f4f7f2;
+ --white: #ffffff;
+ --card-border: #e4ebe2;
+ --accent-teal: #27ae60;
+ --accent-blue: #27ae60;
+ --accent-purple: #27ae60;
+ --accent-green: #27ae60;
+ --accent-gold: #27ae60;
+ 
+ --forest: #0e231c;
+ --fog: #879b93;
+ --sage: #defaca;
+ --mint: #edf9f2;
+ --sprout-d: #1c8a4c;}
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ body {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ background: var(--bg);
+ color: var(--dark);
+ line-height: 1.75;
+ font-size: 17px;
+ }
+
+ main {
+ max-width: 880px;
+ margin: 0 auto;
+ padding: 60px 24px 120px;
+ }
+
+ /* HERO */
+ .hero {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 20px;
+ padding: 48px 44px 40px;
+ margin-bottom: 56px;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+ position: relative;
+ overflow: hidden;
+ }
+ .hero::before {
+ content: '';
+ position: absolute;
+ top: 0; left: 0; right: 0;
+ height: 4px;
+ background: #edf9f2;
+ }
+ .hero-badge {
+ display: inline-block;
+ background: rgba(39,174,96,0.12);
+ border: 1px solid rgba(39,174,96,0.35);
+ color: var(--orange);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 1.5px;
+ text-transform: uppercase;
+ padding: 5px 14px;
+ border-radius: 20px;
+ margin-bottom: 20px;
+ }
+ .hero h1 {
+ font-size: 34px;
+ font-weight: 700;
+ line-height: 1.25;
+ color: var(--dark);
+ margin-bottom: 14px;
+ }
+ .hero h1 em {
+ color: var(--orange);
+ font-style: normal;
+ }
+ .hero-sub {
+ color: var(--gray);
+ font-size: 16px;
+ margin-bottom: 32px;
+ max-width: 600px;
+ }
+ .hero-stats {
+ display: flex;
+ gap: 36px;
+ flex-wrap: wrap;
+ padding-top: 24px;
+ border-top: 1px solid var(--card-border);
+ }
+ .stat { text-align: center; }
+ .stat .num {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 28px;
+ font-weight: 700;
+ color: var(--orange);
+ display: block;
+ }
+ .stat .lbl {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 600;
+ color: var(--gray-light);
+ letter-spacing: 0.8px;
+ text-transform: uppercase;
+ }
+
+ /* CHAPTER MAP */
+ .chapter-map {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 20px;
+ padding: 36px 44px;
+ margin-bottom: 56px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .map-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 700;
+ letter-spacing: 1.5px;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 28px;
+ }
+ .map-row {
+ display: flex;
+ align-items: flex-start;
+ flex-wrap: wrap;
+ gap: 0;
+ }
+ .map-node {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ width: 110px;
+ }
+ .map-dot {
+ width: 44px;
+ height: 44px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 16px;
+ font-weight: 800;
+ color: var(--white);
+ margin-bottom: 10px;
+ flex-shrink: 0;
+ }
+ .map-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 10px;
+ font-weight: 600;
+ color: var(--gray);
+ text-align: center;
+ line-height: 1.3;
+ max-width: 90px;
+ }
+ .map-arrow {
+ font-size: 18px;
+ color: var(--gray-light);
+ margin-top: 12px;
+ flex-shrink: 0;
+ padding: 0 4px;
+ }
+
+ /* SECTIONS */
+ .section {
+ margin-bottom: 64px;
+ }
+ .section-header {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ margin-bottom: 28px;
+  scroll-margin-top: 108px;}
+ .section-num {
+ width: 52px;
+ height: 52px;
+ border-radius: 14px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 20px;
+ font-weight: 800;
+ color: var(--white);
+ flex-shrink: 0;
+ }
+ .section-title {
+ font-size: 22px;
+ font-weight: 700;
+ color: var(--dark);
+ line-height: 1.3;
+ }
+ .section-title span {
+ display: block;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 600;
+ letter-spacing: 1.2px;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 4px;
+ }
+
+ /* CARDS */
+ .card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ padding: 28px 32px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ margin-bottom: 20px;
+ }
+ .card h3 {
+ font-size: 17px;
+ font-weight: 700;
+ margin-bottom: 10px;
+ color: var(--dark);
+ }
+ .card p { color: var(--gray); font-size: 16px; margin-bottom: 10px; }
+ .card p:last-child { margin-bottom: 0; }
+
+ /* QUOTE */
+ .quote-block {
+ border-left: 4px solid var(--orange);
+ background: var(--orange-pale);
+ border-radius: 0 12px 12px 0;
+ padding: 20px 24px;
+ margin: 20px 0;
+ font-style: italic;
+ font-size: 16.5px;
+ color: var(--dark);
+ }
+ .quote-block cite {
+ display: block;
+ margin-top: 10px;
+ font-style: normal;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 600;
+ letter-spacing: 0.5px;
+ color: var(--orange);
+ }
+
+ /* HIGHLIGHT BOXES */
+ .highlight {
+ border-radius: 14px;
+ padding: 20px 24px;
+ margin: 20px 0;
+ display: flex;
+ gap: 14px;
+ align-items: flex-start;
+ }
+ .highlight .icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+ .highlight-content h4 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ letter-spacing: 0.4px;
+ margin-bottom: 6px;
+ }
+ .highlight-content p { font-size: 15px; color: var(--gray); line-height: 1.6; }
+
+ .hl-orange { background: #FEF3ED; border: 1px solid #F8C4A8; }
+ .hl-orange .highlight-content h4 { color: #C05A2A; }
+ .hl-teal { background: #EEF7F7; border: 1px solid #A8D5D5; }
+ .hl-teal .highlight-content h4 { color: var(--accent-teal); }
+ .hl-blue { background: #EEF4FB; border: 1px solid #A8C4E0; }
+ .hl-blue .highlight-content h4 { color: var(--accent-blue); }
+ .hl-purple { background: #F4F0FA; border: 1px solid #C5B0E0; }
+ .hl-purple .highlight-content h4 { color: var(--accent-purple); }
+ .hl-green { background: #EEF6F1; border: 1px solid #A8D0B8; }
+ .hl-green .highlight-content h4 { color: var(--accent-green); }
+ .hl-gold { background: #FEF9ED; border: 1px solid #E8D080; }
+ .hl-gold .highlight-content h4 { color: var(--accent-gold); }
+
+ /* LENS BOX */
+ .lens-box {
+ border: 2px solid var(--orange);
+ background: #edf9f2;
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin: 28px 0;
+ }
+ .lens-header {
+ display: flex;
+ align-items: center;
+ gap: 14px;
+ margin-bottom: 16px;
+ }
+ .lens-icon {
+ width: 48px;
+ height: 48px;
+ background: var(--orange);
+ border-radius: 12px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 22px;
+ flex-shrink: 0;
+ }
+ .lens-num {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 700;
+ letter-spacing: 1.2px;
+ text-transform: uppercase;
+ color: var(--orange);
+ }
+ .lens-name {
+ font-size: 19px;
+ font-weight: 700;
+ color: var(--dark);
+ line-height: 1.25;
+ }
+ .lens-intro { font-size: 15.5px; color: var(--gray); margin-bottom: 16px; font-style: italic; }
+ .lens-questions {
+ list-style: none;
+ padding: 0;
+ }
+ .lens-questions li {
+ padding: 8px 0 8px 20px;
+ position: relative;
+ font-size: 15.5px;
+ color: var(--dark);
+ border-bottom: 1px solid rgba(39,174,96,0.12);
+ line-height: 1.55;
+ }
+ .lens-questions li:last-child { border-bottom: none; padding-bottom: 0; }
+ .lens-questions li::before {
+ content: '→';
+ position: absolute;
+ left: 0;
+ color: var(--orange);
+ font-weight: 700;
+ }
+
+ /* GRID */
+ .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+ @media(max-width:620px){ .grid-2 { grid-template-columns: 1fr; } }
+ .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 20px 0; }
+ @media(max-width:700px){ .grid-3 { grid-template-columns: 1fr; } }
+
+ /* MINI CARD */
+ .mini-card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 12px;
+ padding: 18px 20px;
+ }
+ .mini-card .mc-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 10px;
+ font-weight: 700;
+ letter-spacing: 1px;
+ text-transform: uppercase;
+ margin-bottom: 8px;
+ }
+ .mini-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--dark); }
+ .mini-card p { font-size: 14px; color: var(--gray); line-height: 1.55; }
+
+ /* DIAGRAM: INTEREST CURVE */
+ .diagram-box {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ padding: 32px;
+ margin: 20px 0;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .diagram-box h4 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 1px;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 20px;
+ text-align: center;
+ }
+
+ /* SVG interest curve */
+ .curve-svg { width: 100%; max-width: 700px; display: block; margin: 0 auto; }
+
+ /* FACTOR BLOCKS */
+ .factor-block {
+ border-radius: 14px;
+ padding: 26px 28px;
+ margin-bottom: 18px;
+ }
+ .factor-block .factor-num {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 10px;
+ font-weight: 700;
+ letter-spacing: 1.2px;
+ text-transform: uppercase;
+ margin-bottom: 6px;
+ }
+ .factor-block h3 {
+ font-size: 18px;
+ font-weight: 700;
+ margin-bottom: 10px;
+ }
+ .factor-block p { font-size: 15.5px; color: var(--gray); line-height: 1.65; margin-bottom: 8px; }
+ .factor-block p:last-of-type { margin-bottom: 0; }
+
+ .fb-orange { background: #FEF3ED; border: 1px solid #F8C4A8; }
+ .fb-orange .factor-num { color: #C05A2A; }
+ .fb-orange h3 { color: #7A3010; }
+
+ .fb-teal { background: #EEF7F7; border: 1px solid #A8D5D5; }
+ .fb-teal .factor-num { color: var(--accent-teal); }
+ .fb-teal h3 { color: #1D5E5E; }
+
+ .fb-blue { background: #EEF4FB; border: 1px solid #A8C4E0; }
+ .fb-blue .factor-num { color: var(--accent-blue); }
+ .fb-blue h3 { color: #254A70; }
+
+ /* EXAMPLE TABLE */
+ .example-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 15px; }
+ .example-table th {
+ background: var(--orange);
+ color: var(--white);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.5px;
+ padding: 10px 14px;
+ text-align: left;
+ }
+ .example-table th:first-child { border-radius: 8px 0 0 0; }
+ .example-table th:last-child { border-radius: 0 8px 0 0; }
+ .example-table td { padding: 10px 14px; border-bottom: 1px solid var(--card-border); color: var(--gray); vertical-align: top; }
+ .example-table tr:last-child td { border-bottom: none; }
+ .example-table tr:hover td { background: var(--orange-pale); }
+
+ /* STACKED AREA VISUAL */
+ .stacked-area {
+ display: flex;
+ flex-direction: column;
+ gap: 0;
+ border-radius: 12px;
+ overflow: hidden;
+ border: 1px solid var(--card-border);
+ margin: 16px 0;
+ }
+ .sa-row {
+ padding: 14px 20px;
+ font-size: 14.5px;
+ font-weight: 600;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ }
+ .sa-row .sa-note { font-weight: 400; font-size: 13px; color: var(--gray); }
+
+ /* FRACTAL LIST */
+ .fractal-list { list-style: none; padding: 0; margin: 10px 0; }
+ .fractal-list li {
+ padding: 12px 0 12px 28px;
+ position: relative;
+ border-bottom: 1px solid var(--card-border);
+ font-size: 15.5px;
+ color: var(--gray);
+ line-height: 1.55;
+ }
+ .fractal-list li:last-child { border-bottom: none; }
+ .fractal-list li::before {
+ content: attr(data-n);
+ position: absolute;
+ left: 0;
+ width: 20px;
+ height: 20px;
+ background: var(--orange);
+ color: white;
+ border-radius: 50%;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 700;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ top: 14px;
+ }
+ .fractal-list li strong { color: var(--dark); }
+
+ /* DIVIDER */
+ .divider {
+ height: 1px;
+ background: #edf9f2;
+ margin: 48px 0;
+ }
+
+ /* BOOK REF */
+ .book-ref {
+ background: #F4F0FA;
+ border: 1px solid #C5B0E0;
+ border-radius: 12px;
+ padding: 16px 20px;
+ margin-top: 16px;
+ display: flex;
+ align-items: flex-start;
+ gap: 12px;
+ }
+ .book-ref .br-icon { font-size: 22px; flex-shrink: 0; }
+ .book-ref p { font-size: 14.5px; color: var(--gray); line-height: 1.55; }
+ .book-ref strong { color: var(--accent-purple); }
+
+ /* PROJECTION RINGS */
+ .rings-visual {
+ display: flex;
+ justify-content: center;
+ gap: 0;
+ margin: 20px 0;
+ flex-wrap: wrap;
+ }
+ .ring {
+ text-align: center;
+ padding: 20px 28px;
+ border-radius: 12px;
+ margin: 4px;
+ min-width: 120px;
+ }
+ .ring .ring-emoji { font-size: 28px; display: block; margin-bottom: 6px; }
+ .ring .ring-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.5px;
+ }
+ .ring .ring-sub { font-size: 12px; color: var(--gray); margin-top: 4px; }
+
+ .ring-stranger { background: #f4f7f2; border: 1px solid #E0D8D0; }
+ .ring-stranger .ring-label { color: var(--gray); }
+ .ring-friend { background: #EEF4FB; border: 1px solid #A8C4E0; }
+ .ring-friend .ring-label { color: var(--accent-blue); }
+ .ring-self { background: #FEF3ED; border: 1px solid #F8C4A8; }
+ .ring-self .ring-label { color: var(--orange); }
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+  .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .topnav .crumb { color: #879b93; font-size: 14px; }
+  .topnav .crumb a { color: #879b93; text-decoration: none; }
+  .topnav .crumb b { color: #fff; font-weight: 600; }
+  .chapnav-wrap { background: #f4f7f2; padding: 40px 24px 56px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .chapnav { display: flex; justify-content: space-between; gap: 12px; max-width: 820px; margin: 0 auto; }
+  .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+  .tocnav { position: sticky; top: 52px; z-index: 100; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; overflow-x: auto; scrollbar-width: none; }
+  .tocnav::-webkit-scrollbar { display: none; }
+  .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
+
+</style>
+<nav class="topnav">
+  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 16</b></span>
+</nav>
+
+<nav class="tocnav">
+  <a href="#s1">Lens Đầu Tiên Của Tôi</a>
+  <a href="#s2">Đường Cong Hứng Thú (Interest Curves)</a>
+  <a href="#s3">Patterns Inside Patterns — Mô Hình…</a>
+  <a href="#s4">Hứng Thú Được Tạo Ra Từ 3 Yếu Tố</a>
+  <a href="#s5">Ba Yếu Tố Trong Các Ví Dụ Điển Hình</a>
+  <a href="#s6">5 Lenses Chương 16</a>
+</nav>
+
+<main>
+
+ <!-- HERO -->
+ <section class="hero">
+ <div class="hero-badge">The Art of Game Design · Chương 16</div>
+ <h1>Trải Nghiệm Được Đánh Giá Qua<br><em>Đường Cong Hứng Thú</em></h1>
+ <p class="hero-sub">
+ Không chỉ nội dung mà còn cả <em>hình dạng</em> của trải nghiệm mới quyết định sức hút. Một buổi biểu diễn hay không phải vì từng màn đều xuất sắc, mà vì nó đi đúng cung bậc cảm xúc — bùng nổ ở đầu, nâng dần, và chạm đỉnh đúng lúc.
+ </p>
+ <div class="hero-stats">
+ <div class="stat">
+ <span class="num">5</span>
+ <span class="lbl">Lenses mới</span>
+ </div>
+ <div class="stat">
+ <span class="num">#68–72</span>
+ <span class="lbl">Lens số</span>
+ </div>
+ <div class="stat">
+ <span class="num">3</span>
+ <span class="lbl">Yếu tố hứng thú</span>
+ </div>
+ <div class="stat">
+ <span class="num">8</span>
+ <span class="lbl">Điểm trên đường cong</span>
+ </div>
+ </div>
+ </section>
+
+ <!-- CHAPTER MAP -->
+ <section class="chapter-map">
+ <div class="map-title">Bản đồ chương</div>
+ <div class="map-row">
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--orange)">1</div>
+ <div class="map-label">Câu chuyện mở đầu</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--accent-blue)">2</div>
+ <div class="map-label">Đường cong hứng thú</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--accent-teal)">3</div>
+ <div class="map-label">Mô hình fractal</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--accent-purple)">4</div>
+ <div class="map-label">3 Yếu tố hứng thú</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot" style="background:var(--accent-green)">5</div>
+ <div class="map-label">Ví dụ thực tế</div>
+ </div>
+ </div>
+ </section>
+
+ <!-- SECTION 1: OPENING STORY -->
+ <section class="section">
+ <div class="section-header" id="s1">
+ <div class="section-num" style="background:var(--orange)">1</div>
+ <div class="section-title">
+ <span>Mở đầu</span>
+ Lens Đầu Tiên Của Tôi
+ </div>
+ </div>
+
+ <div class="card">
+ <p>
+ Khi còn 16 tuổi, Schell làm việc tại công viên giải trí cùng người bạn Tom — hai anh chàng đang học nghề tung hứng. Một ngày, họ biểu diễn cho người cố vấn <strong>Mark Tripp</strong> — một nghệ sĩ kỳ cựu — xem.
+ </p>
+ <p>
+ Tripp nhận xét: kỹ thuật tung hứng của họ ổn, nhưng <em>hình dạng của màn biểu diễn</em> thì tệ. Tiết mục không có cấu trúc — cứ phẳng lặng từ đầu đến cuối, không đỉnh điểm, không hướng đi.
+ </p>
+ </div>
+
+ <div class="highlight hl-orange">
+ <div class="highlight-content">
+ <h4>Bài học cốt lõi</h4>
+ <p>Một buổi biểu diễn tệ không phải vì kỹ năng kém — mà vì nó không có <strong>hình dạng đúng</strong>. Hình dạng tốt: bùng nổ ngay từ đầu, ổn định, nâng dần qua các đỉnh nhỏ, và kết thúc bằng <strong>đại cao trào</strong>. Đây là "progression" — mà Tripp gọi là yếu tố quan trọng hơn mọi kỹ thuật.</p>
+ </div>
+ </div>
+
+ <div class="quote-block">
+ "Một màn biểu diễn phẳng như mặt bàn — dù có kỹ thuật tốt đến đâu — cũng là một màn biểu diễn tệ."
+ <cite>— Mark Tripp (dẫn lại qua Jesse Schell)</cite>
+ </div>
+
+ <div class="highlight hl-gold">
+ <div class="highlight-content">
+ <h4>Sách gợi ý đọc thêm</h4>
+ <p>Ngay hôm sau câu chuyện đó, Tripp tặng Schell cuốn <strong><em>Magic and Showmanship</em></strong> của Henning Nelms — một quyển cẩm nang về nghệ thuật tạo ra sự hấp dẫn trong biểu diễn.</p>
+ </div>
+ </div>
+ </section>
+
+ <div class="divider"></div>
+
+ <!-- SECTION 2: INTEREST CURVES -->
+ <section class="section">
+ <div class="section-header" id="s2">
+ <div class="section-num" style="background:var(--accent-blue)">2</div>
+ <div class="section-title">
+ <span>Khái niệm trung tâm</span>
+ Đường Cong Hứng Thú (Interest Curves)
+ </div>
+ </div>
+
+ <div class="card">
+ <p>
+ Đường cong hứng thú là biểu đồ đo mức độ <strong>hứng thú / phấn khích</strong> của người chơi (hoặc khán giả) theo thời gian. Các nhà thiết kế tại Disney Imagineering thường dùng câu hỏi: <em>"10 khoảnh khắc đáng nhớ nhất trong trải nghiệm này là gì?"</em> — sau đó vẽ đồ thị phân bổ của chúng để xem hình dạng tổng thể.
+ </p>
+ <p>
+ Việc vẽ ra biểu đồ giúp phát hiện <strong>"vùng tối"</strong> — những khoảng thời gian mà hứng thú tuột xuống quá thấp và người chơi có thể bỏ cuộc.
+ </p>
+ </div>
+
+ <!-- GOOD INTEREST CURVE SVG -->
+ <div class="diagram-box">
+ <h4>Đường cong hứng thú lý tưởng (Figure 16.3)</h4>
+ <svg class="curve-svg" viewBox="0 0 700 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+ <!-- axes -->
+ <line x1="60" y1="240" x2="660" y2="240" stroke="#C8C0B8" stroke-width="1.5"/>
+ <line x1="60" y1="30" x2="60" y2="240" stroke="#C8C0B8" stroke-width="1.5"/>
+ <!-- axis labels -->
+ <text x="350" y="268" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#656a75">Thời gian →</text>
+ <text x="20" y="140" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#656a75" transform="rotate(-90,20,140)">Hứng thú</text>
+ <!-- interest threshold line -->
+ <line x1="60" y1="195" x2="660" y2="195" stroke="#e4ebe2" stroke-width="1" stroke-dasharray="6,4"/>
+ <text x="665" y="198" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="10" fill="#656a75">ngưỡng</text>
+ <!-- curve path: A→B→C→D→E→F→G→H -->
+ <path d="M 80,210 C 100,190 130,85 160,100 C 190,115 210,155 240,140 C 270,125 290,90 330,80 C 360,72 390,130 420,120 C 450,110 470,75 520,55 C 560,38 590,80 640,160"
+ stroke="var(--orange)" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+ <!-- points -->
+ <circle cx="80" cy="210" r="5" fill="var(--accent-blue)"/>
+ <circle cx="155" cy="102" r="5" fill="var(--orange)"/>
+ <circle cx="238" cy="142" r="5" fill="var(--accent-teal)"/>
+ <circle cx="295" cy="118" r="5" fill="var(--accent-teal)"/>
+ <circle cx="330" cy="80" r="5" fill="var(--accent-teal)"/>
+ <circle cx="420" cy="120" r="5" fill="var(--accent-teal)"/>
+ <circle cx="522" cy="54" r="5" fill="var(--accent-purple)"/>
+ <circle cx="640" cy="160" r="5" fill="var(--accent-green)"/>
+ <!-- labels -->
+ <text x="72" y="228" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="var(--accent-blue)">A</text>
+ <text x="148" y="94" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="var(--orange)">B</text>
+ <text x="230" y="157" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="var(--gray)">C</text>
+ <text x="287" y="108" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="var(--gray)">D</text>
+ <text x="322" y="72" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="var(--gray)">E</text>
+ <text x="412" y="112" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="var(--gray)">F</text>
+ <text x="514" y="46" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="var(--accent-purple)">G</text>
+ <text x="634" y="153" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="var(--accent-green)">H</text>
+ </svg>
+ </div>
+
+ <!-- Points A-H explained -->
+ <div class="grid-2">
+ <div class="mini-card">
+ <div class="mc-label" style="color:var(--accent-blue)">Điểm A</div>
+ <h4>Initial Interest</h4>
+ <p>Kỳ vọng có sẵn từ trước. Người chơi đã nghĩ gì về game này trước khi bắt đầu?</p>
+ </div>
+ <div class="mini-card">
+ <div class="mc-label" style="color:var(--orange)">Điểm B — The Hook</div>
+ <h4>Điểm thu hút</h4>
+ <p>Màn mở đầu gây chú ý ngay, gợi mở những điều thú vị phía trước. Nếu không có hook → người chơi có thể bỏ cuộc ngay từ đầu.</p>
+ </div>
+ <div class="mini-card">
+ <div class="mc-label" style="color:var(--gray)">Điểm C, E</div>
+ <h4>Đỉnh tạm thời</h4>
+ <p>Những khoảnh khắc hứng khởi trong quá trình — giữ người chơi gắn kết.</p>
+ </div>
+ <div class="mini-card">
+ <div class="mc-label" style="color:var(--gray)">Điểm D, F</div>
+ <h4>Thung lũng nghỉ ngơi</h4>
+ <p>Khoảng lặng sau đỉnh — để người chơi lấy hơi, chuẩn bị tinh thần cho đỉnh tiếp theo.</p>
+ </div>
+ <div class="mini-card">
+ <div class="mc-label" style="color:var(--accent-purple)">Điểm G</div>
+ <h4>Grand Climax</h4>
+ <p>Đại cao trào — khoảnh khắc hứng thú lên đến đỉnh điểm. Thường là màn boss cuối hoặc khoảnh khắc kịch tính nhất.</p>
+ </div>
+ <div class="mini-card">
+ <div class="mc-label" style="color:var(--accent-green)">Điểm H</div>
+ <h4>Resolution</h4>
+ <p>Giải quyết và kết thúc. Người chơi hài lòng, có cảm giác <em>"leave them wanting more"</em>.</p>
+ </div>
+ </div>
+
+ <!-- BAD CURVE -->
+ <div class="highlight hl-orange" style="margin-top:28px">
+ <div class="highlight-content">
+ <h4>Đường cong tệ (Bad Interest Curve)</h4>
+ <p>Không có hook → hứng thú giảm dần → cắt qua ngưỡng sớm (điểm C) → người chơi bỏ cuộc. Đỉnh cao nhất (D) đến quá muộn — không còn ai ở lại để thấy nó. Cuối cùng trải nghiệm <em>tàn lụi</em> thay vì <em>bùng cháy</em>.</p>
+ </div>
+ </div>
+
+ <!-- Lens 68 -->
+ <div class="lens-box">
+ <div class="lens-header">
+ <div class="lens-icon">⏱</div>
+ <div>
+ <div class="lens-num">Lens #68</div>
+ <div class="lens-name">The Lens of Moments</div>
+ </div>
+ </div>
+ <p class="lens-intro">Không phải mọi khoảnh khắc đều có giá trị như nhau — hãy xác định những khoảnh khắc <em>then chốt</em> và đầu tư tối đa vào chúng.</p>
+ <ul class="lens-questions">
+ <li>Đâu là những khoảnh khắc quan trọng nhất trong game?</li>
+ <li>Làm thế nào để mỗi khoảnh khắc đó trở nên ấn tượng nhất có thể?</li>
+ </ul>
+ </div>
+ </section>
+
+ <div class="divider"></div>
+
+ <!-- SECTION 3: FRACTAL PATTERNS -->
+ <section class="section">
+ <div class="section-header" id="s3">
+ <div class="section-num" style="background:var(--accent-teal)">3</div>
+ <div class="section-title">
+ <span>Cấu trúc đa tầng</span>
+ Patterns Inside Patterns — Mô Hình Fractal
+ </div>
+ </div>
+
+ <div class="card">
+ <p>
+ Đường cong hứng thú không chỉ tồn tại ở cấp độ toàn bộ game — nó xuất hiện ở <strong>mọi cấp độ</strong> của trải nghiệm, từ màn chơi tổng thể đến từng thử thách nhỏ. Đây là cấu trúc <strong>fractal</strong>: hình dạng giống nhau lặp lại trong lòng chính nó.
+ </p>
+ </div>
+
+ <div class="highlight hl-teal">
+ <div class="highlight-content">
+ <h4>Ví dụ thực tế: Aladdin's Magic Carpet VR (Disneyland)</h4>
+ <p>Sản phẩm VR của Disney có một đoạn giữa quá phẳng — hứng thú tuột xuống thấp. Giải pháp: thêm vào một <strong>lối tắt qua lều thương nhân</strong> để phá vỡ sự đơn điệu và tạo ra một điểm thú vị bổ sung.</p>
+ </div>
+ </div>
+
+ <div class="highlight hl-blue">
+ <div class="highlight-content">
+ <h4>Dữ liệu thực tế: Half-Life 2 Episode 1 (Valve)</h4>
+ <p>Valve theo dõi <strong>biểu đồ tử vong</strong> của người chơi theo từng đoạn game. Kết quả: hình dạng của đường cong hứng thú <em>giống hệt nhau</em> dù game được chơi ở difficulty thấp hay cao — xác nhận cấu trúc fractal là thuộc tính nội tại của thiết kế, không phải độ khó.</p>
+ </div>
+ </div>
+
+ <div class="card" style="margin-top:24px">
+ <h3>Ba cấp độ fractal điển hình trong video game</h3>
+ <ul class="fractal-list">
+ <li data-n="1"><strong>Cấp toàn game:</strong> Phim intro thu hút → các màn chơi nâng dần → trận boss cuối là đại cao trào.</li>
+ <li data-n="2"><strong>Cấp từng màn:</strong> Giới thiệu mỹ thuật/thử thách mới → leo thang → boss battle kết màn.</li>
+ <li data-n="3"><strong>Cấp từng thử thách:</strong> Mở đầu thú vị → bậc thang thử thách nâng dần → giải quyết.</li>
+ </ul>
+ </div>
+
+ <!-- Lens 69 -->
+ <div class="lens-box">
+ <div class="lens-header">
+ <div>
+ <div class="lens-num">Lens #69</div>
+ <div class="lens-name">The Lens of the Interest Curve</div>
+ </div>
+ </div>
+ <p class="lens-intro">Hãy vẽ đồ thị trải nghiệm của người chơi — rồi tự hỏi nó có đúng hình dạng chưa.</p>
+ <ul class="lens-questions">
+ <li>Game có hook ở đầu không? Nó có đủ mạnh để giữ người chơi không?</li>
+ <li>Hứng thú có nâng dần, được xen kẽ bởi những khoảng nghỉ hợp lý không?</li>
+ <li>Grand finale có thực sự là đỉnh cao nhất không?</li>
+ <li>Cấu trúc fractal — đường cong nhỏ trong đường cong lớn — có xuất hiện ở nhiều cấp độ không?</li>
+ <li>Trực giác của tác giả về những điểm thú vị có khớp với quan sát thực tế từ người chơi không?</li>
+ <li>Hãy nhờ playtesters <strong>tự vẽ đường cong hứng thú của họ</strong> sau khi chơi xong.</li>
+ </ul>
+ </div>
+ </section>
+
+ <div class="divider"></div>
+
+ <!-- SECTION 4: THREE FACTORS OF INTEREST -->
+ <section class="section">
+ <div class="section-header" id="s4">
+ <div class="section-num" style="background:var(--accent-purple)">4</div>
+ <div class="section-title">
+ <span>Phân tích</span>
+ Hứng Thú Được Tạo Ra Từ 3 Yếu Tố
+ </div>
+ </div>
+
+ <div class="card">
+ <p>
+ Tại sao đường cong hứng thú lại lên xuống? Điều gì tạo ra <em>hứng thú</em>? Schell phân tích ra 3 yếu tố độc lập, có thể cộng hưởng hoặc bù trừ cho nhau.
+ </p>
+ </div>
+
+ <!-- Factor 1 -->
+ <div class="factor-block fb-orange">
+ <div class="factor-num">Yếu tố 1</div>
+ <h3>Inherent Interest — Hứng thú tự thân</h3>
+ <p>Một số thứ <em>tự nhiên</em> đã thú vị hơn những thứ khác, bất kể được thể hiện thế nào. Rủi ro thú vị hơn an toàn; điều bất thường thú vị hơn điều bình thường; thay đổi kịch tính thú vị hơn trạng thái tĩnh.</p>
+ <p>Trong storytelling: những sự kiện nhàm chán làm nền để những sự kiện thú vị nổi bật hơn — hiệu ứng Goldilocks. Đừng sợ những khoảnh khắc bình lặng — chúng là bệ đỡ để đỉnh tiếp theo cao hơn.</p>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-header">
+ <div>
+ <div class="lens-num">Lens #70</div>
+ <div class="lens-name">The Lens of Inherent Interest</div>
+ </div>
+ </div>
+ <div class="quote-block" style="margin-bottom:16px">
+ "Drama is anticipation mingled with uncertainty."
+ <cite>— William Archer</cite>
+ </div>
+ <ul class="lens-questions">
+ <li>Điều gì trong game tạo ra sự chú ý ngay lập tức?</li>
+ <li>Game có khai thác những thứ <em>mới lạ</em> không?</li>
+ <li>Có những bản năng cơ bản nào (sợ hãi, tò mò, cạnh tranh) được khai thác không?</li>
+ <li>Thay đổi kịch tính xuất hiện như thế nào, và vào đúng lúc không?</li>
+ </ul>
+ </div>
+
+ <!-- Factor 2 -->
+ <div class="factor-block fb-teal">
+ <div class="factor-num">Yếu tố 2</div>
+ <h3>Poetry of Presentation — Vẻ đẹp trình bày</h3>
+ <p>Tính thẩm mỹ của trải nghiệm: văn viết, âm nhạc, vũ đạo, diễn xuất, hài hước, quay phim, thiết kế đồ họa. Trình bày càng đẹp → trải nghiệm càng thú vị.</p>
+ <p>Một bản concerto violin không có gì "inherently" hấp dẫn — nhưng khi được chơi xuất sắc, nó trở nên vô cùng cuốn hút nhờ vào vẻ đẹp thuần túy của âm nhạc. Chủ đề này sẽ được phân tích sâu hơn ở <strong>Chương 22 (Aesthetics)</strong>.</p>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-header">
+ <div>
+ <div class="lens-num">Lens #71</div>
+ <div class="lens-name">The Lens of Beauty</div>
+ </div>
+ </div>
+ <p class="lens-intro">"Beauty is mysterious. Why do beautiful things have a touch of sadness?"</p>
+ <ul class="lens-questions">
+ <li>Mỗi yếu tố trong game (âm thanh, hình ảnh, cơ chế) có thể đẹp hơn theo cách nào?</li>
+ <li>Các yếu tố có thể tạo thành một chỉnh thể đẹp hơn tổng các phần không?</li>
+ <li>Vẻ đẹp trong ngữ cảnh của game này có ý nghĩa gì — nó trông như thế nào, cảm giác ra sao?</li>
+ </ul>
+ </div>
+
+ <!-- Factor 3 -->
+ <div class="factor-block fb-blue">
+ <div class="factor-num">Yếu tố 3</div>
+ <h3>Projection — Sự đồng cảm &amp; tưởng tượng</h3>
+ <p>Mức độ mà trải nghiệm buộc người xem/người chơi phải dùng <strong>trí tưởng tượng và sự đồng cảm</strong> để đặt bản thân vào bên trong. Càng dễ tưởng tượng rằng <em>"đó là mình"</em> → hứng thú càng cao.</p>
+ <p>Ví dụ xổ số: bạn ít quan tâm đến vé số của người lạ, quan tâm hơn với vé của bạn bè, và cực kỳ hứng khởi với vé của chính mình. <strong>Projection</strong> tạo ra sự chênh lệch đó.</p>
+ <p>Trong storytelling: nhà kể chuyện tạo ra nhân vật để khán giả có thể đồng cảm. <em>Suspension of belief</em> rất dễ vỡ — đừng phá vỡ nó bằng những inconsistency. Phim nhiều tập càng về sau càng có projection cao — nhưng đổi lại phải giữ nhất quán nhân vật.</p>
+ <p>Lợi thế của <strong>interactive entertainment</strong>: người chơi <em>chính là</em> nhân vật chính — mọi sự kiện thực sự xảy ra với họ, không phải với ai khác.</p>
+ </div>
+
+ <!-- Projection Rings -->
+ <div class="diagram-box">
+ <h4>Vòng tròn Projection — Lottery Example</h4>
+ <div class="rings-visual">
+ <div class="ring ring-stranger">
+ <span class="ring-emoji"></span>
+ <div class="ring-label">Người lạ</div>
+ <div class="ring-sub">Ít quan tâm</div>
+ </div>
+ <div style="font-size:22px; color:var(--gray-light); display:flex; align-items:center;">→</div>
+ <div class="ring ring-friend">
+ <span class="ring-emoji"></span>
+ <div class="ring-label">Bạn bè</div>
+ <div class="ring-sub">Quan tâm hơn</div>
+ </div>
+ <div style="font-size:22px; color:var(--gray-light); display:flex; align-items:center;">→</div>
+ <div class="ring ring-self">
+ <span class="ring-emoji"></span>
+ <div class="ring-label">Bản thân</div>
+ <div class="ring-sub">Cực kỳ hứng khởi</div>
+ </div>
+ </div>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-header">
+ <div>
+ <div class="lens-num">Lens #72</div>
+ <div class="lens-name">The Lens of Projection</div>
+ </div>
+ </div>
+ <p class="lens-intro">"One key indicator of enjoyment is projection." — Mức độ người chơi có thể đặt bản thân vào trải nghiệm là thước đo quan trọng nhất.</p>
+ <ul class="lens-questions">
+ <li>Người chơi có thể tự đồng nhất với điều gì trong game?</li>
+ <li>Điều gì kích thích trí tưởng tượng — nơi chốn muốn đến thăm, nhân vật muốn trở thành?</li>
+ <li>Có hành động nào trong game mà người chơi muốn thực hiện trong đời thực không?</li>
+ <li>Có hoạt động nào khiến người chơi không thể dừng lại một khi đã bắt đầu không?</li>
+ </ul>
+ </div>
+ </section>
+
+ <div class="divider"></div>
+
+ <!-- SECTION 5: EXAMPLES -->
+ <section class="section">
+ <div class="section-header" id="s5">
+ <div class="section-num" style="background:var(--accent-green)">5</div>
+ <div class="section-title">
+ <span>So sánh thực tế</span>
+ Ba Yếu Tố Trong Các Ví Dụ Điển Hình
+ </div>
+ </div>
+
+ <div class="card">
+ <p>Ba yếu tố không nhất thiết phải cùng cao. Chúng bù trừ và cộng hưởng cho nhau — một trải nghiệm có thể chỉ mạnh về một yếu tố và vẫn rất thú vị.</p>
+ </div>
+
+ <div class="diagram-box">
+ <h4>So sánh 3 yếu tố hứng thú</h4>
+ <table class="example-table">
+ <thead>
+ <tr>
+ <th>Trải nghiệm</th>
+ <th>Inherent Interest</th>
+ <th>Poetry of Presentation</th>
+ <th>Projection</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td><strong>Tung hứng cưa máy</strong><br><span style="font-size:13px;color:var(--gray-light)">Chainsaw juggling</span></td>
+ <td> Rất cao — rủi ro thực sự</td>
+ <td> Hạn chế</td>
+ <td> Vừa phải — dễ tưởng tượng bắt nhầm</td>
+ </tr>
+ <tr>
+ <td><strong>Concerto violin</strong><br><span style="font-size:13px;color:var(--gray-light)">Violin concerto</span></td>
+ <td> Thấp vốn có</td>
+ <td> Rất cao — nếu được chơi xuất sắc</td>
+ <td> Tiềm năng cao — nếu người nghe yêu âm nhạc</td>
+ </tr>
+ <tr>
+ <td><strong>Tetris</strong></td>
+ <td> Thấp — rơi gạch xuống không có gì đặc biệt</td>
+ <td> Thấp — đồ họa đơn giản</td>
+ <td> Cực cao — người chơi ra mọi quyết định, thành công/thất bại hoàn toàn do họ</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+
+ <div class="highlight hl-orange">
+ <div class="highlight-content">
+ <h4>Tetris — Case Study về Projection thuần túy</h4>
+ <p>Tetris không có gì inherently hấp dẫn (gạch rơi), không có poetry đặc biệt — nhưng người chơi <em>ra mọi quyết định</em> và kết quả <em>hoàn toàn phụ thuộc vào họ</em>. Đây là Projection ở dạng thuần túy nhất, đủ để tạo ra một trong những game cuốn hút nhất lịch sử.</p>
+ </div>
+ </div>
+
+ <!-- STACKED AREA -->
+ <div class="diagram-box" style="margin-top:24px">
+ <h4>Biểu đồ tổng hợp 3 yếu tố theo thời gian (Figure 16.12)</h4>
+ <div class="stacked-area">
+ <div class="sa-row" style="background:#FEF3ED; color:#7A3010;">
+ <span>Inherent Interest</span>
+ <span class="sa-note">Tự nhiên thu hút — biến thiên theo sự kiện trong game</span>
+ </div>
+ <div class="sa-row" style="background:#EEF7F7; color:#1D5E5E;">
+ <span>Poetry of Presentation</span>
+ <span class="sa-note">Thẩm mỹ — nâng dần theo chất lượng thực thi</span>
+ </div>
+ <div class="sa-row" style="background:#EEF4FB; color:#254A70;">
+ <span>Projection</span>
+ <span class="sa-note">Đồng cảm/tưởng tượng — tăng theo mức độ gắn kết người chơi</span>
+ </div>
+ </div>
+ <p style="font-size:14px; color:var(--gray); margin-top:12px; text-align:center; font-style:italic;">
+ Ba yếu tố xếp chồng tạo thành đường cong hứng thú tổng thể. Mỗi loại trải nghiệm có "hỗn hợp" khác nhau — không có công thức tuyệt đối.
+ </p>
+ </div>
+
+ <div class="highlight hl-purple">
+ <div class="highlight-content">
+ <h4>Tổng kết chiến lược</h4>
+ <p>Khi thiết kế một khoảnh khắc trong game, hãy hỏi: yếu tố nào đang dẫn dắt hứng thú ở đây — <em>inherent, poetry, hay projection</em>? Nếu cả ba đều thấp, đó là điểm cần được thiết kế lại. Nếu một yếu tố rất mạnh, có thể bù cho hai yếu tố còn lại yếu hơn.</p>
+ </div>
+ </div>
+ </section>
+
+ <div class="divider"></div>
+
+ <!-- LENS SUMMARY -->
+ <section class="section">
+ <div class="section-header" id="s6">
+ <div class="section-num" style="background:var(--gray)">∑</div>
+ <div class="section-title">
+ <span>Tổng kết</span>
+ 5 Lenses Chương 16
+ </div>
+ </div>
+ <div class="grid-2">
+ <div class="mini-card">
+ <div class="mc-label" style="color:var(--orange)">Lens #68</div>
+ <h4>The Lens of Moments</h4>
+ <p>Xác định các khoảnh khắc then chốt và đầu tư tối đa vào từng khoảnh khắc đó.</p>
+ </div>
+ <div class="mini-card">
+ <div class="mc-label" style="color:var(--orange)">Lens #69</div>
+ <h4>The Lens of the Interest Curve</h4>
+ <p>Vẽ đường cong hứng thú — kiểm tra hook, fractal structure, grand finale.</p>
+ </div>
+ <div class="mini-card">
+ <div class="mc-label" style="color:var(--orange)">Lens #70</div>
+ <h4>The Lens of Inherent Interest</h4>
+ <p>Hứng thú tự thân: rủi ro, bất thường, thay đổi kịch tính — cộng với sự tương phản để nổi bật.</p>
+ </div>
+ <div class="mini-card">
+ <div class="mc-label" style="color:var(--orange)">Lens #71</div>
+ <h4>The Lens of Beauty</h4>
+ <p>Vẻ đẹp trong trình bày — âm nhạc, hình ảnh, thiết kế — và cách chúng hợp thành chỉnh thể.</p>
+ </div>
+ <div class="mini-card" style="grid-column: span 2">
+ <div class="mc-label" style="color:var(--orange)">Lens #72</div>
+ <h4>The Lens of Projection</h4>
+ <p>Người chơi có thể đặt bản thân vào trải nghiệm không? Interactive entertainment có lợi thế tự nhiên vì người chơi <em>là</em> nhân vật chính.</p>
+ </div>
+ </div>
+
+ <div class="book-ref" style="margin-top:28px">
+ <div>
+ <p>Để tìm hiểu sâu hơn về nghệ thuật tạo ra sự hấp dẫn trong biểu diễn, Schell giới thiệu cuốn:<br>
+ <strong>Magic and Showmanship</strong> của Henning Nelms — cuốn sách được chính Mark Tripp tặng cho Schell ngay sau buổi biểu diễn tung hứng năm đó.</p>
+ </div>
+ </div>
+ </section>
+
+</main>
+<div class="chapnav-wrap"><div class="chapnav"><a href="C15-Interface.html"><span class="lbl">Chương trước</span>Chương 15: Players Play Games through an Interface</a><a href="C17-Story.html"><span class="lbl">Chương sau</span>Chương 17: Một Loại Trải Nghiệm Là Story</a></div></div>
+
+<script>
+  (function(){
+    var sections = document.querySelectorAll('.section-header[id]');
+    var navLinks = document.querySelectorAll('.tocnav a');
+    if (!sections.length || !navLinks.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(a){
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
+</body>
+</html>

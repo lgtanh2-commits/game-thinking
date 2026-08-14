@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch.8 – The Game Improves Through Iteration | The Art of Game Design</title>
+<style>
+ :root {
+ --orange: #27ae60;
+ --orange-light: #6cc999;
+ --orange-pale: #edf9f2;
+ --dark: #0e231c;
+ --gray: #656a75;
+ --gray-light: #656a75;
+ --bg: #f4f7f2;
+ --white: #ffffff;
+ --teal: #27ae60;
+ --teal-pale: #edf9f2;
+ --blue: #27ae60;
+ --blue-pale: #edf9f2;
+ --purple: #27ae60;
+ --purple-pale: #edf9f2;
+ --green: #27ae60;
+ --green-pale: #edf9f2;
+ --amber: #27ae60;
+ --amber-pale: #edf9f2;
+ --red: #27ae60;
+ --red-pale: #edf9f2;
+ 
+ --forest: #0e231c;
+ --fog: #879b93;
+ --sage: #defaca;
+ --mint: #edf9f2;
+ --sprout-d: #1c8a4c;}
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ body {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ background: var(--bg);
+ color: var(--dark);
+ line-height: 1.75;
+ }
+
+ /* ── NAV ── */
+ nav {
+ background: var(--dark); color: var(--white);
+ padding: 14px 32px;
+ display: flex; align-items: center; justify-content: space-between;
+ position: sticky; top: 52px; z-index: 100;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ nav .series { font-size: 12px; color: var(--gray-light); letter-spacing: .08em; text-transform: uppercase; }
+ nav .title { font-size: 15px; font-weight: 600; }
+ nav .badge {
+ background: var(--orange); color: var(--white);
+ font-size: 11px; font-weight: 700; padding: 4px 12px;
+ border-radius: 20px; letter-spacing: .05em;
+ }
+
+ /* ── HERO ── */
+ .hero {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ color: var(--white); padding: 72px 48px 60px;
+ text-align: center; position: relative; overflow: hidden;
+ }
+ .hero::before {
+ content: ''; position: absolute;
+ width: 600px; height: 600px; border-radius: 50%;
+ background: none;
+ top: -150px; left: 50%; transform: translateX(-50%);
+ }
+ .hero-tag {
+ display: inline-block;
+ background: rgba(39,174,96,.25); color: var(--orange-light);
+ font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+ padding: 6px 18px; border-radius: 20px; margin-bottom: 20px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .hero h1 { font-size: 38px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+ .hero h1 span { color: var(--orange-light); }
+ .hero p { font-size: 18px; color: rgba(255,255,255,.75); max-width: 640px; margin: 0 auto 36px; }
+ .hero-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+ .stat { text-align: center; }
+ .stat .num { font-size: 28px; font-weight: 700; color: var(--orange-light); }
+ .stat .lbl {
+ font-size: 12px; color: rgba(255,255,255,.55);
+ text-transform: uppercase; letter-spacing: .06em;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+
+ /* ── LAYOUT ── */
+ .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+ /* ── CHAPTER MAP ── */
+ .chapter-map {
+ background: var(--white); border-radius: 16px;
+ padding: 36px 32px; margin: 48px 0 36px;
+ box-shadow: 0 2px 16px rgba(0,0,0,.07);
+ }
+ .map-title {
+ font-size: 13px; font-weight: 700; text-transform: uppercase;
+ letter-spacing: .1em; color: var(--gray-light); margin-bottom: 24px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .map-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+ .map-node {
+ display: flex; align-items: center; gap: 8px;
+ background: var(--bg); border-radius: 10px; padding: 8px 14px;
+ font-size: 13px; font-weight: 600;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .map-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+ .dot-orange { background: var(--orange); }
+ .dot-teal { background: var(--teal); }
+ .dot-blue { background: var(--blue); }
+ .dot-purple { background: var(--purple); }
+ .dot-green { background: var(--green); }
+ .dot-amber { background: var(--amber); }
+ .dot-red { background: var(--red); }
+ .map-arrow { color: var(--gray-light); font-size: 18px; }
+
+ /* ── SECTION HEADERS ── */
+ .section-header { display: flex; align-items: center; gap: 16px; margin: 52px 0 20px;  scroll-margin-top: 108px;}
+ .section-num {
+ width: 44px; height: 44px; border-radius: 50%;
+ display: flex; align-items: center; justify-content: center;
+ font-size: 17px; font-weight: 700; flex-shrink: 0; color: var(--white);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .num-orange { background: var(--orange); }
+ .num-teal { background: var(--teal); }
+ .num-blue { background: var(--blue); }
+ .num-purple { background: var(--purple); }
+ .num-green { background: var(--green); }
+ .num-amber { background: var(--amber); }
+ .num-red { background: var(--red); }
+ .section-header h2 { font-size: 26px; font-weight: 700; }
+
+ p { margin-bottom: 16px; }
+
+ /* ── CALLOUT BOXES ── */
+ .callout {
+ border-radius: 12px; padding: 20px 24px; margin: 24px 0;
+ display: flex; gap: 16px; align-items: flex-start;
+ }
+ .callout .icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+ .callout.info { background: var(--blue-pale); border-left: 4px solid var(--blue); }
+ .callout.success { background: var(--green-pale); border-left: 4px solid var(--green); }
+ .callout.warning { background: var(--amber-pale); border-left: 4px solid var(--amber); }
+ .callout.idea { background: var(--orange-pale); border-left: 4px solid var(--orange); }
+ .callout.insight { background: var(--purple-pale); border-left: 4px solid var(--purple); }
+ .callout.teal { background: var(--teal-pale); border-left: 4px solid var(--teal); }
+ .callout.danger { background: var(--red-pale); border-left: 4px solid var(--red); }
+ .callout h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+ .callout p { margin: 0; font-size: 15px; }
+
+ /* ── HIGHLIGHT BOX ── */
+ .highlight-box {
+ background: var(--orange-pale); border-radius: 12px;
+ padding: 24px 28px; margin: 24px 0;
+ border: 1.5px solid rgba(39,174,96,.25);
+ }
+ .highlight-box h3 {
+ font-size: 16px; font-weight: 700; color: var(--orange); margin-bottom: 12px;
+ text-transform: uppercase; letter-spacing: .06em;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+
+ /* ── RULE OF LOOP BOX ── */
+ .loop-rule {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ color: var(--white);
+ border-radius: 16px;
+ padding: 36px 40px;
+ margin: 32px 0;
+ text-align: center;
+ position: relative;
+ overflow: hidden;
+ }
+ .loop-rule::before {
+ content: '';
+ position: absolute;
+ font-size: 120px;
+ opacity: .06;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ }
+ .loop-rule .rule-label {
+ font-size: 11px; font-weight: 700; letter-spacing: .12em;
+ text-transform: uppercase; color: var(--orange-light);
+ margin-bottom: 16px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .loop-rule blockquote {
+ font-size: 22px; font-style: italic; line-height: 1.4;
+ color: var(--white); font-weight: 600;
+ }
+ .loop-rule .rule-note {
+ font-size: 14px; color: rgba(255,255,255,.6);
+ margin-top: 12px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+
+ /* ── LENS BOX ── */
+ .lens-box {
+ background: var(--white); border-radius: 16px;
+ padding: 28px 32px; margin: 32px 0;
+ box-shadow: 0 4px 20px rgba(0,0,0,.09);
+ border-top: 4px solid var(--orange);
+ }
+ .lens-tag {
+ display: inline-block; background: var(--orange); color: var(--white);
+ font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+ padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .lens-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+ .lens-icon { font-size: 40px; text-align: center; margin-bottom: 12px; }
+ .lens-body { font-size: 15px; color: var(--gray); margin-bottom: 16px; }
+ .lens-qs { list-style: none; padding: 0; }
+ .lens-qs li {
+ padding: 10px 16px; background: var(--bg); border-radius: 8px;
+ margin-bottom: 8px; font-size: 14px; font-style: italic;
+ border-left: 3px solid var(--orange);
+ }
+
+ /* ── QUOTE CARD ── */
+ .quote-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin: 28px 0; }
+ .quote-card {
+ background: var(--white); border-radius: 12px; padding: 24px 20px 20px;
+ box-shadow: 0 2px 12px rgba(0,0,0,.07); position: relative;
+ }
+ .quote-card::before {
+ content: '"'; position: absolute; top: -4px; left: 16px;
+ font-size: 72px; color: var(--orange-light); line-height: 1; opacity: .4;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .quote-card p { font-style: italic; font-size: 15px; color: var(--gray); margin: 0 0 12px; padding-top: 20px; }
+ .quote-card .author {
+ font-size: 12px; font-weight: 700; color: var(--orange);
+ text-transform: uppercase; letter-spacing: .07em;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+
+ /* ── INSIGHT STRIP ── */
+ .insight-strip {
+ background: var(--orange-pale); border-radius: 14px;
+ padding: 28px 32px; margin: 40px 0;
+ border: 1.5px solid rgba(39,174,96,.2);
+ }
+ .insight-strip h3 {
+ font-size: 14px; font-weight: 700; text-transform: uppercase;
+ letter-spacing: .09em; color: var(--orange); margin-bottom: 16px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .insight-list { list-style: none; padding: 0; }
+ .insight-list li {
+ padding: 10px 0; border-bottom: 1px solid rgba(39,174,96,.15);
+ font-size: 15px; display: flex; align-items: flex-start; gap: 10px;
+ }
+ .insight-list li:last-child { border-bottom: none; }
+ .insight-list li::before { content: '→'; color: var(--orange); font-weight: 700; flex-shrink: 0; }
+
+ /* ── WATERFALL DIAGRAM ── */
+ .waterfall {
+ background: var(--white); border-radius: 14px;
+ padding: 28px; margin: 24px 0;
+ box-shadow: 0 2px 12px rgba(0,0,0,.07);
+ border-left: 4px solid var(--red);
+ }
+ .waterfall-title {
+ font-size: 13px; font-weight: 700; color: var(--red);
+ letter-spacing: .08em; text-transform: uppercase; margin-bottom: 20px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .wfall-steps { display: flex; flex-direction: column; gap: 4px; }
+ .wfall-step {
+ display: flex; align-items: center; gap: 12px;
+ }
+ .wfall-box {
+ background: var(--red-pale); border: 1.5px solid rgba(39,174,96,.2);
+ border-radius: 8px; padding: 10px 18px;
+ font-size: 14px; font-weight: 600; color: var(--sprout-d);
+ white-space: nowrap;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .wfall-arrow { color: var(--gray-light); font-size: 20px; transform: rotate(90deg); }
+
+ /* ── SPIRAL MODEL ── */
+ .spiral-box {
+ background: var(--teal-pale); border-radius: 14px;
+ padding: 28px 32px; margin: 24px 0;
+ border: 1.5px solid rgba(39,174,96,.2);
+ }
+ .spiral-box h3 { font-size: 18px; font-weight: 700; color: var(--teal); margin-bottom: 16px; }
+ .spiral-steps { counter-reset: spiral; }
+ .spiral-step {
+ display: flex; align-items: flex-start; gap: 12px;
+ padding: 10px 0; border-bottom: 1px solid rgba(39,174,96,.12);
+ }
+ .spiral-step:last-child { border-bottom: none; }
+ .spiral-num {
+ width: 28px; height: 28px; border-radius: 50%;
+ background: var(--teal); color: var(--white);
+ display: flex; align-items: center; justify-content: center;
+ font-size: 13px; font-weight: 700; flex-shrink: 0;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .spiral-step p { font-size: 15px; margin: 0; padding-top: 2px; }
+
+ /* ── AGILE GRID ── */
+ .agile-values {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+ gap: 14px; margin: 24px 0;
+ }
+ .agile-val {
+ background: var(--white); border-radius: 12px;
+ padding: 18px 16px; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+ border-top: 3px solid var(--blue);
+ text-align: center;
+ }
+ .agile-val .av-icon { font-size: 28px; margin-bottom: 8px; }
+ .agile-val h4 { font-size: 13px; font-weight: 700; color: var(--blue); margin-bottom: 4px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+ .agile-val p { font-size: 12px; color: var(--gray); margin: 0; }
+
+ .agile-practices {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+ gap: 14px; margin: 24px 0;
+ }
+ .agile-card {
+ background: var(--white); border-radius: 10px;
+ padding: 16px 18px; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+ border-left: 3px solid var(--blue);
+ }
+ .agile-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+ .agile-card p { font-size: 13px; color: var(--gray); margin: 0; }
+
+ /* ── RISK TABLE ── */
+ .risk-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+ .risk-table th {
+ background: var(--dark); color: var(--white);
+ padding: 12px 16px; text-align: left;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px; letter-spacing: .05em; text-transform: uppercase;
+ }
+ .risk-table td { padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,.06); vertical-align: top; }
+ .risk-table tr:last-child td { border-bottom: none; }
+ .risk-table tr:nth-child(even) td { background: var(--bg); }
+ .risk-num {
+ display: inline-block;
+ background: var(--red); color: var(--white);
+ font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ white-space: nowrap;
+ }
+ .risk-mit {
+ font-size: 13px; color: var(--green); font-weight: 600;
+ }
+
+ /* ── PROTO TIPS ── */
+ .proto-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+ gap: 16px; margin: 24px 0;
+ }
+ .proto-card {
+ background: var(--white); border-radius: 12px;
+ padding: 20px 18px; box-shadow: 0 2px 10px rgba(0,0,0,.06);
+ border-top: 3px solid var(--purple);
+ }
+ .proto-card .p-num {
+ font-size: 11px; font-weight: 700; letter-spacing: .08em;
+ text-transform: uppercase; color: var(--purple); margin-bottom: 6px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .proto-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+ .proto-card p { font-size: 13px; color: var(--gray); margin: 0; }
+
+ /* ── LOOP COMPARISON ── */
+ .loop-compare {
+ display: grid; grid-template-columns: 1fr 1fr;
+ gap: 20px; margin: 24px 0;
+ }
+ @media (max-width: 600px) { .loop-compare { grid-template-columns: 1fr; } }
+ .loop-col {
+ background: var(--white); border-radius: 12px;
+ padding: 22px 20px; box-shadow: 0 2px 10px rgba(0,0,0,.06);
+ }
+ .loop-col h4 {
+ font-size: 14px; font-weight: 700; margin-bottom: 14px;
+ padding-bottom: 10px; border-bottom: 2px solid var(--bg);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .loop-col.informal h4 { color: var(--gray); border-color: rgba(0,0,0,.08); }
+ .loop-col.formal h4 { color: var(--orange); border-color: var(--orange-pale); }
+ .loop-steps { list-style: none; padding: 0; }
+ .loop-steps li {
+ display: flex; align-items: flex-start; gap: 10px;
+ padding: 7px 0; font-size: 14px;
+ border-bottom: 1px solid rgba(0,0,0,.05);
+ }
+ .loop-steps li:last-child { border-bottom: none; }
+ .loop-step-num {
+ width: 22px; height: 22px; border-radius: 50%;
+ display: flex; align-items: center; justify-content: center;
+ font-size: 11px; font-weight: 700; flex-shrink: 0; color: var(--white);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .informal .loop-step-num { background: var(--gray-light); }
+ .formal .loop-step-num { background: var(--orange); }
+
+ /* ── RACING LOOPS ── */
+ .racing-loops { display: flex; flex-direction: column; gap: 16px; margin: 24px 0; }
+ .racing-loop {
+ background: var(--white); border-radius: 12px;
+ padding: 20px 22px; box-shadow: 0 2px 10px rgba(0,0,0,.06);
+ border-left: 4px solid var(--teal);
+ position: relative;
+ }
+ .rl-badge {
+ display: inline-block;
+ background: var(--teal); color: var(--white);
+ font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+ margin-bottom: 8px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .racing-loop h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+ .racing-loop p { font-size: 14px; color: var(--gray); margin: 0; }
+
+ /* ── FIFTY PERCENT ── */
+ .fifty-grid {
+ display: grid; grid-template-columns: 1fr 1fr;
+ gap: 20px; margin: 24px 0;
+ }
+ @media (max-width: 600px) { .fifty-grid { grid-template-columns: 1fr; } }
+ .fifty-card {
+ background: var(--white); border-radius: 14px;
+ padding: 24px 22px; box-shadow: 0 2px 12px rgba(0,0,0,.07);
+ border-top: 4px solid var(--green);
+ text-align: center;
+ }
+ .fifty-card .fifty-num {
+ font-size: 52px; font-weight: 700; color: var(--green);
+ line-height: 1; margin-bottom: 8px;
+ }
+ .fifty-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+ .fifty-card p { font-size: 13px; color: var(--gray); margin: 0; }
+
+ /* ── CASE STUDY ── */
+ .case-study {
+ background: var(--white); border-radius: 14px;
+ padding: 24px 28px; margin: 24px 0;
+ box-shadow: 0 2px 12px rgba(0,0,0,.07);
+ border-left: 4px solid var(--amber);
+ }
+ .case-tag {
+ font-size: 11px; font-weight: 700; letter-spacing: .08em;
+ text-transform: uppercase; color: var(--amber); margin-bottom: 8px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ .case-study h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+ .case-study p { font-size: 15px; color: var(--gray); margin: 0; }
+
+ /* ── DIVIDER ── */
+ .divider { border: none; border-top: 1.5px solid rgba(0,0,0,.08); margin: 48px 0; }
+
+ /* ── FOOTER ── */
+ footer {
+ background: var(--dark); color: rgba(255,255,255,.5);
+ text-align: center; padding: 36px 24px; margin-top: 80px;
+ font-size: 13px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ }
+ footer span { color: var(--orange-light); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+  .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; justify-content: flex-start; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .topnav .crumb { color: #879b93; font-size: 14px; }
+  .topnav .crumb a { color: #879b93; text-decoration: none; }
+  .topnav .crumb b { color: #fff; font-weight: 600; }
+  .chapnav-wrap { background: #f4f7f2; padding: 40px 24px 56px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .chapnav { display: flex; justify-content: space-between; gap: 12px; max-width: 820px; margin: 0 auto; }
+  .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+  .tocnav { position: sticky; top: 52px; z-index: 100; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: flex-start; padding: 0; overflow-x: auto; scrollbar-width: none; }
+  .tocnav::-webkit-scrollbar { display: none; }
+  .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
+
+</style>
+<nav class="topnav">
+  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 8</b></span>
+</nav>
+
+<nav class="tocnav">
+  <a href="#s1">The Rule of the Loop</a>
+  <a href="#s2">Lịch Sử Ngắn Về Software Engineering</a>
+  <a href="#s3">The Agile Manifesto</a>
+  <a href="#s4">Risk Assessment &amp; Prototyping —…</a>
+  <a href="#s5">Ten Tips for Productive Prototyping</a>
+  <a href="#s6">Closing the Loop — Formal vs Informal</a>
+  <a href="#s7">How Much Is Enough? — Hai Quy Tắc 50%</a>
+  <a href="#s8">Your Secret Fuel — Passion</a>
+</nav>
+
+
+
+<!-- HERO -->
+<div class="hero">
+ <div class="hero-tag">Chapter 8</div>
+ <h1>The Game Improves Through<br><span>Iteration</span></h1>
+ <p>Game tốt không được tạo ra một lần — chúng được rèn giũa qua hàng chục, hàng trăm vòng lặp thử nghiệm và cải tiến. Đây là chân lý không có ngoại lệ.</p>
+ <div class="hero-stats">
+ <div class="stat"><div class="num">4</div><div class="lbl">Lenses Mới</div></div>
+ <div class="stat"><div class="num">10</div><div class="lbl">Tips Prototyping</div></div>
+ <div class="stat"><div class="num">7</div><div class="lbl">Bước Formal Loop</div></div>
+ <div class="stat"><div class="num">50%</div><div class="lbl">Hai Quy tắc Vàng</div></div>
+ </div>
+</div>
+
+<!-- CHAPTER MAP -->
+<div class="container">
+ <div class="chapter-map">
+ <div class="map-title"> Hành Trình Chương 8</div>
+ <div class="map-flow">
+ <div class="map-node"><div class="map-dot dot-orange"></div>Rule of the Loop</div>
+ <div class="map-arrow">→</div>
+ <div class="map-node"><div class="map-dot dot-red"></div>Waterfall (Nguy hiểm)</div>
+ <div class="map-arrow">→</div>
+ <div class="map-node"><div class="map-dot dot-teal"></div>Spiral Model</div>
+ <div class="map-arrow">→</div>
+ <div class="map-node"><div class="map-dot dot-blue"></div>Agile Manifesto</div>
+ <div class="map-arrow">→</div>
+ <div class="map-node"><div class="map-dot dot-amber"></div>Risk Assessment</div>
+ <div class="map-arrow">→</div>
+ <div class="map-node"><div class="map-dot dot-purple"></div>10 Tips Prototyping</div>
+ <div class="map-arrow">→</div>
+ <div class="map-node"><div class="map-dot dot-green"></div>50% Rules</div>
+ </div>
+ </div>
+
+ <!-- SECTION 1: RULE OF THE LOOP -->
+ <div class="section-header" id="s1">
+ <div class="section-num num-orange">1</div>
+ <h2>The Rule of the Loop</h2>
+ </div>
+
+ <p>Chương 7 đã đề cập đến bước <em>"(1) Nghĩ ra ý tưởng."</em> Bây giờ đến bước tiếp theo: <em>"(2) Thử nghiệm."</em> Nghe đơn giản — nhưng đây là nơi hầu hết các game developer gặp khó khăn nhất. Schell đưa ra một chân lý tuyệt đối:</p>
+
+ <div class="loop-rule">
+ <div class="rule-label"> The Rule of the Loop</div>
+ <blockquote>"The more times you test and improve your design, the better your game will be."</blockquote>
+ <div class="rule-note">Đây không phải Lens — đây là sự thật tuyệt đối. Không có ngoại lệ. Không có cách nào né tránh.</div>
+ </div>
+
+ <p>Đây không phải lời khuyên — đây là <strong>quy luật</strong>. Mỗi lần bạn cố tự thuyết phục rằng "thiết kế này quá tốt nên không cần test," hoặc "thời gian quá eo hẹp để lặp lại," bạn đang vi phạm Rule of the Loop và game của bạn sẽ chịu hậu quả.</p>
+
+ <p>Vấn đề đặc biệt nghiêm trọng với game máy tính: chi phí thời gian và tiền bạc để test-và-điều-chỉnh cao hơn nhiều so với game truyền thống, nên developer buộc phải lặp ít hơn — và đây là rủi ro cực lớn.</p>
+
+ <div class="callout warning">
+ <div>
+ <h4>Hai câu hỏi cốt lõi của vòng lặp</h4>
+ <p><strong>Loop question 1:</strong> How can I make every loop count? (Làm thế nào để mỗi vòng lặp có giá trị tối đa?)<br>
+ <strong>Loop question 2:</strong> How can I loop as fast as possible? (Làm thế nào để loop nhanh nhất có thể?)</p>
+ </div>
+ </div>
+
+ <!-- LENS #15 -->
+ <div class="lens-box">
+ <div class="lens-tag"> Lens #15</div>
+ <h3>The Lens of the Eight Filters</h3>
+ <p class="lens-body">Thiết kế của bạn chỉ hoàn thành khi nó vượt qua tất cả tám bộ lọc này mà không cần thay đổi. Mỗi bộ lọc đại diện cho một nhóm người có thể "kill" game của bạn.</p>
+ <p class="lens-body">Hỏi bản thân tám câu hỏi:</p>
+ <ul class="lens-qs">
+ <li>"Does this game feel right?" — Cảm giác có đúng không?</li>
+ <li>"Will the intended audience like this game enough?" — Khán giả mục tiêu có thích đủ không?</li>
+ <li>"Is this a well-designed game?" — Đây có phải game được thiết kế tốt không?</li>
+ <li>"Is this game novel enough?" — Có đủ mới lạ không?</li>
+ <li>"Will this game sell?" — Game này có bán được không?</li>
+ <li>"Is it technically possible to build this game?" — Có khả thi về mặt kỹ thuật không?</li>
+ <li>"Does this game meet our social and community goals?" — Có đáp ứng mục tiêu xã hội/cộng đồng không?</li>
+ <li>"Do the playtesters enjoy this game enough?" — Người playtesting có thích đủ không?</li>
+ </ul>
+ <div class="callout info" style="margin-top:16px;">
+ <div><p>Với game giáo dục, có thêm bộ lọc thứ chín: <em>"Does this game teach what it is supposed to?"</em> — Game có dạy đúng nội dung cần không? Hãy thêm bộ lọc phù hợp với context của game bạn.</p></div>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- SECTION 2: HISTORY -->
+ <div class="section-header" id="s2">
+ <div class="section-num num-red">2</div>
+ <h2>Lịch Sử Ngắn Về Software Engineering</h2>
+ </div>
+
+ <p>Để hiểu tại sao iteration quan trọng đến vậy, Schell nhìn lại lịch sử phát triển phần mềm — với những bài học đắt giá từ các mô hình đã thất bại.</p>
+
+ <!-- WATERFALL -->
+ <div class="waterfall">
+ <div class="waterfall-title"> Mô hình Waterfall — Nguy hiểm! Tránh xa!</div>
+ <p style="font-size:14px;color:var(--gray);margin-bottom:18px;">Những năm 1970, để "kiểm soát" quy trình phần mềm vốn hỗn loạn, nhiều công ty áp dụng mô hình tuyến tính 7 bước — gọi là "waterfall" vì nước chỉ chảy xuôi, không chảy ngược:</p>
+ <div class="wfall-steps">
+ <div class="wfall-step"><div class="wfall-box">System Requirements</div><div class="wfall-arrow">↓</div></div>
+ <div class="wfall-step" style="margin-left:24px;"><div class="wfall-box">Software Requirements</div><div class="wfall-arrow">↓</div></div>
+ <div class="wfall-step" style="margin-left:48px;"><div class="wfall-box">Analysis</div><div class="wfall-arrow">↓</div></div>
+ <div class="wfall-step" style="margin-left:72px;"><div class="wfall-box">Program Design</div><div class="wfall-arrow">↓</div></div>
+ <div class="wfall-step" style="margin-left:96px;"><div class="wfall-box">Coding</div><div class="wfall-arrow">↓</div></div>
+ <div class="wfall-step" style="margin-left:120px;"><div class="wfall-box">Testing</div><div class="wfall-arrow">↓</div></div>
+ <div class="wfall-step" style="margin-left:144px;"><div class="wfall-box">Operations</div></div>
+ </div>
+ <div class="callout danger" style="margin-top:18px;margin-bottom:0;">
+ <div><p>Mô hình này vi phạm hoàn toàn Rule of the Loop — <strong>không có vòng lặp nào cả!</strong> Manager yêu thích vì trông có vẻ có kiểm soát. Nhưng developer biết nó vô lý. Winston Royce — người viết paper gốc — thực ra <em>nhấn mạnh</em> tầm quan trọng của iteration; từ "waterfall" thậm chí không có trong paper của ông!</p></div>
+ </div>
+ </div>
+
+ <!-- SPIRAL MODEL -->
+ <div class="spiral-box">
+ <h3> Barry Boehm's Spiral Model (1986)</h3>
+ <p style="font-size:15px;margin-bottom:18px;">Barry Boehm mô tả quy trình phát triển thực tế hơn: development bắt đầu từ giữa và xoắn ra ngoài theo chiều kim đồng hồ, lặp đi lặp lại qua 4 góc phần tư. Ba ý tưởng cốt lõi: <strong>risk assessment</strong>, <strong>prototypes</strong>, và <strong>looping</strong>.</p>
+ <div class="spiral-steps">
+ <div class="spiral-step"><div class="spiral-num">1</div><p>Come up with a basic design (phác thảo thiết kế cơ bản)</p></div>
+ <div class="spiral-step"><div class="spiral-num">2</div><p>Figure out the greatest risks in your design (xác định rủi ro lớn nhất)</p></div>
+ <div class="spiral-step"><div class="spiral-num">3</div><p>Build prototypes that mitigate those risks (xây prototype để giảm rủi ro)</p></div>
+ <div class="spiral-step"><div class="spiral-num">4</div><p>Test the prototypes (test prototype)</p></div>
+ <div class="spiral-step"><div class="spiral-num">5</div><p>Come up with a more detailed design based on what you learned (thiết kế chi tiết hơn từ kết quả học được)</p></div>
+ <div class="spiral-step"><div class="spiral-num">6</div><p><strong>Return to step 2</strong> — lặp lại cho đến khi xong</p></div>
+ </div>
+ <div class="callout teal" style="margin-top:16px;">
+ <div>
+ <p><strong>Loop Q1:</strong> Làm sao để mỗi loop có giá trị? → <em>Assess your risks and mitigate them</em><br>
+ <strong>Loop Q2:</strong> Làm sao để loop nhanh nhất? → <em>Build many rough prototypes</em></p>
+ </div>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- SECTION 3: AGILE -->
+ <div class="section-header" id="s3">
+ <div class="section-num num-blue">3</div>
+ <h2>The Agile Manifesto</h2>
+ </div>
+
+ <p>Năm 2001, tại khu nghỉ dưỡng Snowbird, Utah, một nhóm software engineer tập hợp lại và tạo ra <em>The Agile Manifesto</em> — văn kiện định hình cách phát triển game hiện đại. Hơn 80% game developer ngày nay sử dụng một phiên bản nào đó của agile.</p>
+
+ <div class="agile-values">
+ <div class="agile-val">
+ <h4>Individuals & Interactions</h4>
+ <p>Over processes and tools</p>
+ </div>
+ <div class="agile-val">
+ <h4>Working Software</h4>
+ <p>Over comprehensive documentation</p>
+ </div>
+ <div class="agile-val">
+ <h4>Customer Collaboration</h4>
+ <p>Over contract negotiation</p>
+ </div>
+ <div class="agile-val">
+ <h4>Responding to Change</h4>
+ <p>Over following a plan</p>
+ </div>
+ </div>
+
+ <p>Những giá trị này không phủ nhận phía phải — mà khẳng định phía trái <em>quan trọng hơn</em>. Manifesto đi kèm 12 nguyên tắc, và trong thực tế được áp dụng qua "scrum" — với các yếu tố cốt lõi sau:</p>
+
+ <div class="agile-practices">
+ <div class="agile-card">
+ <h4> Flexible Goals</h4>
+ <p>Không lập kế hoạch cứng nhắc — <em>plan for</em> changes, không chỉ tolerate. Team có thể thích nghi với ý tưởng mới trong suốt quá trình.</p>
+ </div>
+ <div class="agile-card">
+ <h4> Prioritized Backlog</h4>
+ <p>Danh sách tính năng được xếp hạng theo độ ưu tiên. Không có gì đảm bảo là "sẽ làm" — chỉ đảm bảo những thứ quan trọng nhất sẽ xong trước.</p>
+ </div>
+ <div class="agile-card">
+ <h4> Sprints</h4>
+ <p>Làm việc theo chu kỳ ngắn vài tuần với deliverable cụ thể ở cuối mỗi sprint. Atari's Nolan Bushnell: <em>"The ultimate inspiration is the deadline."</em></p>
+ </div>
+ <div class="agile-card">
+ <h4> Scrum Meetings</h4>
+ <p>Họp hàng ngày, đứng, 10-15 phút. Mỗi thành viên chỉ trả lời 3 câu: hôm qua làm gì? hôm nay làm gì? đang gặp vướng mắc gì?</p>
+ </div>
+ <div class="agile-card">
+ <h4> Demo Day</h4>
+ <p>Cuối mỗi sprint, cả team tập hợp để xem và trải nghiệm những gì đã làm được. Từ baseline mới này, phân tích rủi ro và lên kế hoạch sprint tiếp theo.</p>
+ </div>
+ <div class="agile-card">
+ <h4> Retrospectives</h4>
+ <p>Họp cuối sprint để nhìn lại <em>quy trình</em> — không phải sản phẩm. Team làm gì đúng, gì sai, và cần điều chỉnh gì cho sprint sau?</p>
+ </div>
+ </div>
+
+ <div class="callout insight">
+ <div>
+ <h4>Agile là triết lý, không phải công thức</h4>
+ <p>Agile không phải một phương pháp cố định — mà là triết lý. Các team có cách áp dụng khác nhau, nhưng tất cả đều nhằm một mục tiêu: <em>tạo ra nhiều loop nhất có thể, và làm mỗi loop có giá trị nhất có thể.</em></p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- SECTION 4: RISK ASSESSMENT -->
+ <div class="section-header" id="s4">
+ <div class="section-num num-amber">4</div>
+ <h2>Risk Assessment &amp; Prototyping — Prisoners of Bubbleville</h2>
+ </div>
+
+ <p>Schell minh họa risk assessment bằng một game giả định: <strong>Prisoners of Bubbleville</strong> — game về một con mèo biết nhảy dù tên Smiley, phải giải cứu thành phố khỏi phù thủy ác.</p>
+
+ <div class="case-study">
+ <div class="case-tag"> Prisoners of Bubbleville — Design Brief</div>
+ <h3>Elemental Tetrad</h3>
+ <p><strong>Story:</strong> Bạn là Smiley, một con mèo nhảy dù. Người dân Bubbleville bị giam trong nhà bởi phù thủy ác. Bạn phải nhảy dù vào thành phố, trượt theo ống khói để gặp gỡ dân cư và tìm cách đánh bại phù thủy.<br><br>
+ <strong>Mechanics:</strong> Bắt bong bóng ma thuật bay lên từ thành phố, dùng năng lượng của chúng để bắn tia vào kền kền ác đang cố phá dù của bạn. Đồng thời điều hướng để đáp xuống các tòa nhà mục tiêu.<br><br>
+ <strong>Aesthetics:</strong> Hình ảnh cartoon vui nhộn.<br>
+ <strong>Technology:</strong> Game 3D đa nền tảng, dùng engine bên thứ ba.</p>
+ </div>
+
+ <p>Nếu bắt tay vào code ngay, có thể mất đến 6 tháng trước khi có gì đó để playtest. Và nếu lúc đó phát hiện cơ chế gameplay không vui — bạn đã hoàn thành được 1/3 dự án với chỉ 1 vòng lặp!</p>
+
+ <p>Thay vào đó, hãy ngồi lại với team và <strong>lập danh sách rủi ro</strong>:</p>
+
+ <div style="overflow-x:auto;">
+ <table class="risk-table">
+ <thead>
+ <tr>
+ <th>Rủi ro</th>
+ <th>Mô tả rủi ro</th>
+ <th>Cách giảm thiểu</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td><span class="risk-num">Risk #1</span></td>
+ <td>Cơ chế bắt bong bóng + bắn kền kền có thể không vui như ta nghĩ</td>
+ <td><span class="risk-mit">→ Build prototype 2D đơn giản với hình hình học, có thể chơi được trong 1-2 tuần. Nếu không vui, điều chỉnh trước khi làm 3D.</span></td>
+ </tr>
+ <tr>
+ <td><span class="risk-num">Risk #2</span></td>
+ <td>Game engine có thể không render được toàn bộ thành phố + bong bóng + kền kền cùng lúc</td>
+ <td><span class="risk-mit">→ Build prototype kỹ thuật đơn giản, chỉ hiển thị số lượng item tương đương trên màn hình để test giới hạn engine.</span></td>
+ </tr>
+ <tr>
+ <td><span class="risk-num">Risk #3</span></td>
+ <td>Cần 30 nhà khác nhau — tạo nội thất và nhân vật animated cho tất cả có thể tốn quá nhiều thời gian</td>
+ <td><span class="risk-mit">→ Yêu cầu artist tạo ngay 1 căn nhà + 1 nhân vật animated để đo thời gian thực tế. Điều chỉnh scope ngay nếu quá lâu.</span></td>
+ </tr>
+ <tr>
+ <td><span class="risk-num">Risk #4</span></td>
+ <td>Không chắc người chơi có thích nhân vật và câu chuyện không</td>
+ <td><span class="risk-mit">→ Art prototype (không cần digital): tạo bảng concept art, storyboard. Show cho người trong target demographic và quan sát phản ứng.</span></td>
+ </tr>
+ <tr>
+ <td><span class="risk-num">Risk #5</span></td>
+ <td>Publisher có thể yêu cầu đổi theme game theo một bộ phim hè mới</td>
+ <td><span class="risk-mit">→ Không có prototype giúp ích nhiều — thay vào đó thiết kế game có thể "re-theme" dễ dàng, hoặc làm việc với management để quyết định sớm.</span></td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+
+ <div class="callout success">
+ <div>
+ <h4>Prototype là throwaway — và đó là tốt</h4>
+ <p>Code prototype 2D sẽ không bao giờ xuất hiện trong game cuối cùng — nhưng bạn đang <em>code game đúng</em> sớm hơn thay vì <em>code game sai</em> mãi mãi. Đây là lý do tại sao "lãng phí" khi làm prototype thực ra là đầu tư tốt nhất bạn có thể làm.</p>
+ </div>
+ </div>
+
+ <!-- LENS #16 -->
+ <div class="lens-box">
+ <div class="lens-tag"> Lens #16</div>
+ <h3>The Lens of Risk Mitigation</h3>
+ <p class="lens-body">Ngừng nghĩ tích cực và bắt đầu nhìn thẳng vào những gì có thể đi sai. Sage đối mặt với khó khăn — do đó ông không bao giờ thực sự gặp chúng.</p>
+ <blockquote style="font-style:italic;font-size:14px;color:var(--gray);margin-bottom:16px;padding-left:16px;border-left:3px solid var(--orange-light);">"Because the sage always confronts difficulties, he never experiences them." — Tao Te Ching</blockquote>
+ <ul class="lens-qs">
+ <li>"What could keep this game from being great?"</li>
+ <li>"How can we stop that from happening?"</li>
+ </ul>
+ <div class="callout warning" style="margin-top:16px;">
+ <div><p>Risk management rất khó — nó đòi hỏi bạn phải nhìn thẳng vào những vấn đề bạn muốn tránh nhất và giải quyết chúng ngay lập tức. Nhưng nếu bạn kỷ luật làm điều đó, bạn sẽ loop nhiều hơn, hiệu quả hơn, và có game tốt hơn.</p></div>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- SECTION 5: 10 PROTOTYPING TIPS -->
+ <div class="section-header" id="s5">
+ <div class="section-num num-purple">5</div>
+ <h2>Ten Tips for Productive Prototyping</h2>
+ </div>
+
+ <p>Rapid prototyping là kỹ năng thiết yếu trong game design. Schell chia sẻ 10 mẹo thực chiến để xây prototype hiệu quả nhất:</p>
+
+ <div class="proto-grid">
+ <div class="proto-card">
+ <div class="p-num">Tip 01</div>
+ <h4>Answer a Question</h4>
+ <p>Mỗi prototype phải được thiết kế để trả lời một câu hỏi cụ thể. Nếu bạn không thể phát biểu câu hỏi rõ ràng, prototype đó sẽ lãng phí thời gian. Đừng overbuild — chỉ cần đủ để trả lời câu hỏi.</p>
+ </div>
+ <div class="proto-card">
+ <div class="p-num">Tip 02</div>
+ <h4>Forget Quality</h4>
+ <p>Tất cả những gì quan trọng là <em>liệu prototype có trả lời được câu hỏi không</em>. Prototype bóng bẩy có thể che giấu vấn đề thực sự — người playtest sẽ chỉ ra vấn đề của thứ trông thô hơn. Nicole Epps: <em>"You must learn how to cut up your babies."</em></p>
+ </div>
+ <div class="proto-card">
+ <div class="p-num">Tip 03</div>
+ <h4>Don't Get Attached</h4>
+ <p>Fred Brooks trong <em>The Mythical Man Month</em>: <em>"Plan to throw one away — you will anyway."</em> Phiên bản đầu tiên không phải sản phẩm cuối — đó là bài luyện tập. Nhìn mỗi prototype như cơ hội học hỏi, không phải thứ cần giữ lại.</p>
+ </div>
+ <div class="proto-card">
+ <div class="p-num">Tip 04</div>
+ <h4>Prioritize Your Prototypes</h4>
+ <p>Khi có nhiều rủi ro, hãy ưu tiên prototype theo rủi ro lớn nhất trước. Chú ý đến <em>dependency</em>: nếu kết quả của prototype A có thể làm prototype B trở nên vô nghĩa, hãy làm A trước.</p>
+ </div>
+ <div class="proto-card">
+ <div class="p-num">Tip 05</div>
+ <h4>Parallelize Prototypes Productively</h4>
+ <p>Nhiều prototype có thể chạy song song: trong khi system engineer test technology, artist làm art prototype, designer làm gameplay prototype. Nhiều loop nhỏ cùng lúc = tiến độ nhanh hơn.</p>
+ </div>
+ <div class="proto-card">
+ <div class="p-num">Tip 06</div>
+ <h4>It Doesn't Have to Be Digital</h4>
+ <p>Paper prototype giúp bạn loop cực nhanh. Toontown Online combat system được balance hoàn toàn bằng paper prototype — theo dõi HP và combo trên giấy. Tetris và Halo đều có thể prototype bằng giấy.</p>
+ </div>
+ <div class="proto-card">
+ <div class="p-num">Tip 07</div>
+ <h4>It Doesn't Have to Be Interactive</h4>
+ <p>Animations và sketches đơn giản có thể trả lời nhiều câu hỏi thiết kế mà không cần interactive. <em>Prince of Persia: Sands of Time</em> được prototype ban đầu bằng animation phi-tương-tác để team có thể thảo luận về cơ chế nhảy và đảo ngược thời gian.</p>
+ </div>
+ <div class="proto-card">
+ <div class="p-num">Tip 08</div>
+ <h4>Pick a "Fast Loop" Game Engine</h4>
+ <p>Cách truyền thống: Write → Compile → Run → Test → Back to Write. Cách "fast loop": Run → Test → Write (trong khi game đang chạy!) → Back to Test. Dùng scripting language (Unity + C#/JS) để thay đổi code ngay khi game đang chạy, như nhào đất sét thay vì nướng bánh mì.</p>
+ </div>
+ <div class="proto-card">
+ <div class="p-num">Tip 09</div>
+ <h4>Build the Toy First</h4>
+ <p>Xây "đồ chơi" trước khi nghĩ đến game. <em>Lemmings</em> bắt đầu từ thế giới với nhiều sinh vật nhỏ di chuyển xung quanh — chỉ sau khi thấy "toy" đó thú vị, team mới nghĩ đến game. <em>Grand Theft Auto</em> được thiết kế như một "thành phố sống, có thể thở" — game được xây quanh đó.</p>
+ </div>
+ <div class="proto-card">
+ <div class="p-num">Tip 10</div>
+ <h4>Seize Opportunities for More Loops</h4>
+ <p>Khi có thời gian dư bất ngờ, hãy dùng nó để loop. <em>Halo</em> được phát triển ban đầu cho Mac → chuyển sang PC → rồi Microsoft yêu cầu đổi sang Xbox. Mỗi lần chuyển đổi đều cho thêm thời gian iteration — và chất lượng game tăng vọt.</p>
+ </div>
+ </div>
+
+ <!-- Case studies for Tip 6 -->
+ <div class="case-study">
+ <div class="case-tag"> Paper Prototype — Tetris</div>
+ <h3>Tetris bằng giấy trong 15 phút</h3>
+ <p>Cắt các mảnh Tetris từ bìa cứng, đặt thành pile. Nhờ người khác chọn ngẫu nhiên và trượt xuống "bảng" (phác thảo trên giấy). Bạn xoay chúng bằng dao X-Acto khi cần. Không hoàn hảo — nhưng đủ để biết liệu hình dạng và tốc độ rơi có đúng không. Và bạn có thể làm xong trong 15 phút.</p>
+ </div>
+
+ <div class="case-study">
+ <div class="case-tag"> Paper Prototype — Halo</div>
+ <h3>First-person shooter bằng giấy và metronome</h3>
+ <p>Vẽ bản đồ lên giấy kẻ ô, dùng quân cờ đại diện cho người chơi và kẻ thù. Dùng app metronome để "tick" mỗi 5 giây — mỗi tick bạn di chuyển 1 ô và bắn nếu có line of sight. Kết quả? Bạn hiểu được kích thước bản đồ, hình dạng hành lang, weapon properties — tất cả cực nhanh.</p>
+ </div>
+
+ <!-- LENS #17 -->
+ <div class="lens-box">
+ <div class="lens-tag"> Lens #17</div>
+ <h3>The Lens of the Toy</h3>
+ <p class="lens-body">Ngừng nghĩ về việc game có vui để chơi không — bắt đầu nghĩ về việc game có vui để <em>chơi với</em> không. Sự khác biệt: game cần mục tiêu, toy thì không cần.</p>
+ <ul class="lens-qs">
+ <li>"If my game had no goal, would it be fun at all? If not, how can I change that?"</li>
+ <li>"When people see my game, do they want to start interacting with it, even before they know what to do? If not, how can I change that?"</li>
+ </ul>
+ <div class="callout success" style="margin-top:16px;">
+ <div><p>GTA không được thiết kế là một racing game hay shooter — nó được thiết kế là một <em>thành phố sống, có thể thở</em>. Mechanic Pac-Man (mê cung, đuổi bắt) được áp dụng sau khi "toy" đã được chứng minh là thú vị. <em>"GTA came from Pac-Man. The dots are the little people. There's me in my little yellow car. And the ghosts are policemen."</em> — David Jones</p></div>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- SECTION 6: CLOSING THE LOOP -->
+ <div class="section-header" id="s6">
+ <div class="section-num num-teal">6</div>
+ <h2>Closing the Loop — Formal vs Informal</h2>
+ </div>
+
+ <p>Bây giờ ta đã có đủ công cụ để so sánh hai phiên bản của design loop: bản cũ, không chính thức — và bản mới, được cải tiến:</p>
+
+ <div class="loop-compare">
+ <div class="loop-col informal">
+ <h4>The Informal Loop (cũ)</h4>
+ <ul class="loop-steps">
+ <li><div class="loop-step-num">1</div>Think of an idea</li>
+ <li><div class="loop-step-num">2</div>Try it out</li>
+ <li><div class="loop-step-num">3</div>Keep changing it until it seems good enough</li>
+ </ul>
+ </div>
+ <div class="loop-col formal">
+ <h4>The Formal Loop (mới)</h4>
+ <ul class="loop-steps">
+ <li><div class="loop-step-num">1</div>State the problem</li>
+ <li><div class="loop-step-num">2</div>Brainstorm possible solutions</li>
+ <li><div class="loop-step-num">3</div>Choose a solution</li>
+ <li><div class="loop-step-num">4</div>List the risks of using that solution</li>
+ <li><div class="loop-step-num">5</div>Build prototypes to mitigate the risks</li>
+ <li><div class="loop-step-num">6</div>Test the prototypes. If good enough, stop.</li>
+ <li><div class="loop-step-num">7</div>State the new problems → go to step 2</li>
+ </ul>
+ </div>
+ </div>
+
+ <p>Schell minh họa bằng ví dụ phát triển một racing game. Xem cách problem statement trở nên cụ thể hơn sau mỗi vòng lặp:</p>
+
+ <div class="racing-loops">
+ <div class="racing-loop" style="border-left-color:var(--teal);">
+ <div class="rl-badge" style="background:var(--teal);">Loop 1 — "New Racing" Game</div>
+ <h4>Underwater Submarine Races</h4>
+ <p><strong>Rủi ro:</strong> Không biết underwater racetrack trông như thế nào; có thể không đủ mới; engine có thể không handle water effects.<br>
+ <strong>Prototype:</strong> Artist vẽ concept sketch, designer hack existing racing game với submarines.<br>
+ <strong>Kết quả:</strong> Underwater tunnel sẽ tuyệt! Subs cần có thể bay lên khỏi mặt nước. Tốc độ cực cao. <em>Buộc phải có networked multiplayer.</em></p>
+ </div>
+ <div class="racing-loop" style="border-left-color:var(--blue);">
+ <div class="rl-badge" style="background:var(--blue);">Loop 2 — "Racing Subs" Game</div>
+ <h4>Flying Submarines</h4>
+ <p><strong>Rủi ro:</strong> Sub trông cartoony quá → alienate older players. Balance thời gian dưới nước / trên không. Networked multiplayer chưa làm bao giờ.<br>
+ <strong>Prototype:</strong> Artists sketch subs nhiều style. Programmers & designers test balance thời gian dưới/trên nước. Rough networking framework.<br>
+ <strong>Kết quả:</strong> <em>"Dino-sub"</em> (khủng long bơi) được tất cả vote chọn. 60% underwater / 20% air / 20% surface. Không dùng rapid-fire machine guns vì networking.</p>
+ </div>
+ <div class="racing-loop" style="border-left-color:var(--purple);">
+ <div class="rl-badge" style="background:var(--purple);">Loop 3 — "Flying Dinos" Game</div>
+ <h4>Dinosaur Racing In and Above Water</h4>
+ <p><strong>Problem statements cụ thể hơn:</strong> Có đủ thời gian animate khủng long không? Cần bao nhiêu levels? Power-ups nào sẽ có? Weapons nào? (không rapid-fire)<br>
+ <strong>Nhận xét:</strong> Chỉ 2 vòng lặp, nhưng vì tận dụng song song, thực ra có 6 design loops! Cả team tham gia quyết định thiết kế — design được inform bởi cả technology lẫn aesthetics.</p>
+ </div>
+ </div>
+
+ <div class="callout idea">
+ <div>
+ <h4>Điều quan trọng nhất từ ví dụ này</h4>
+ <p>Chú ý cách những vấn đề xấu xí (ugly problems) nổi lên rất nhanh: machine gun + networking conflict, dino animation budget, v.v. Nếu team đợi đến giữa dự án mới phát hiện những vấn đề này, họ đã bị mắc kẹt. Loops sớm = vấn đề được giải quyết sớm.</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- SECTION 7: HOW MUCH IS ENOUGH -->
+ <div class="section-header" id="s7">
+ <div class="section-num num-green">7</div>
+ <h2>How Much Is Enough? — Hai Quy Tắc 50%</h2>
+ </div>
+
+ <p>Bao nhiêu vòng lặp là đủ? Câu hỏi rất khó — và đó chính là lý do game development khó schedule. Rule of the Loop nói rằng <em>thêm một vòng lặp sẽ luôn cải thiện game</em>. Như người ta nói: <strong>"the work is never finished — only abandoned."</strong></p>
+
+ <div class="callout info">
+ <div>
+ <h4>Mark Cerny's "The Method" — Preproduction vs Production</h4>
+ <p>Mark Cerny (designer của Crash Bandicoot, Spyro) phân biệt: bạn đang trong <strong>preproduction</strong> cho đến khi bạn có <em>hai publishable levels hoàn chỉnh</em>. Chỉ khi đó mới chuyển sang <strong>production</strong>. Thời điểm này thường rơi vào khi bạn đã dùng ~30% ngân sách — và từ đó bạn mới có thể estimate chính xác phần còn lại.</p>
+ </div>
+ </div>
+
+ <p>Schell bổ sung hai quy tắc 50% từ kinh nghiệm cá nhân — đây là kim chỉ nam để đưa game về đích đúng hạn và đúng ngân sách:</p>
+
+ <div class="fifty-grid">
+ <div class="fifty-card">
+ <div class="fifty-num">50%</div>
+ <h4>Rule the First — Xây Game "Survive Cuts"</h4>
+ <p>Khi lập kế hoạch, hãy xây game sao cho nếu 50% ngân sách bị cắt đột ngột, bạn vẫn có <em>một game có thể ship được</em>. Điều này buộc hệ thống đơn giản và đảm bảo có sản phẩm dù things go wrong.</p>
+ </div>
+ <div class="fifty-card">
+ <div class="fifty-num">50%</div>
+ <h4>Rule the Second — Core Gameplay ở Điểm Giữa</h4>
+ <p>Tất cả core gameplay elements phải <em>fully playable</em> ở mốc 50% thời gian. Nửa đầu để game hoạt động, nửa sau để làm nó tuyệt vời. Đừng plan 80% để build + 20% để polish — vì 20% đó sẽ bị ăn mất.</p>
+ </div>
+ </div>
+
+ <div class="callout warning">
+ <div>
+ <h4>Cái bẫy phổ biến nhất</h4>
+ <p>Các team thường plan 80% thời gian để "get it working" và 20% để "make it great." Thực tế, khi things go wrong (và chúng sẽ wrong), 20% đó bị ăn mất — và bạn ra mắt game late & weak. 50% rule buộc bạn có thời gian cho những loops quan trọng làm game tuyệt vời.</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- SECTION 8: YOUR SECRET FUEL -->
+ <div class="section-header" id="s8">
+ <div class="section-num num-orange">8</div>
+ <h2>Your Secret Fuel — Passion</h2>
+ </div>
+
+ <p>Toàn bộ chương này rất analytical — và đó là điều cần thiết. Nhưng với tất cả sự phân tích đó, dễ quên mất tại sao bạn bắt đầu làm game ngay từ đầu.</p>
+
+ <div class="loop-rule" style="background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);">
+ <div class="rule-label"> Your Secret Fuel</div>
+ <blockquote>"Passion is the way your subconscious tells you that it is excited about your game."</blockquote>
+ <div class="rule-note">Nếu passion đã biến mất và bạn không tìm lại được — thứ bạn đang làm có thể sẽ chết ngay khi ra mắt.</div>
+ </div>
+
+ <!-- LENS #18 -->
+ <div class="lens-box">
+ <div class="lens-tag"> Lens #18</div>
+ <h3>The Lens of Passion</h3>
+ <p class="lens-body">Cuối mỗi sprint, khi bạn đang study prototypes và lên kế hoạch tiếp theo, hãy nhớ thực hiện một "passion check." Passion là irrational emotion — nhưng đừng bỏ qua nó, vì nó thường là thứ duy nhất có thể carry một game đến thành công.</p>
+ <ul class="lens-qs">
+ <li>"Am I filled with blinding passion about how great this game will be?"</li>
+ <li>"If I've lost the passion, can I find it again?"</li>
+ <li>"If the passion isn't coming back, shouldn't I be doing something else?"</li>
+ </ul>
+ <div class="callout idea" style="margin-top:16px;">
+ <div><p>Passion có rủi ro của nó — đó là irrational emotion. Nhưng thường thì chính passion là thứ <em>knock down obstacles</em> và carry game đến thành công. Khi bạn dừng quan tâm đến game của mình, người chơi cũng sẽ dừng quan tâm.</p></div>
+ </div>
+ </div>
+
+ <!-- FINAL SUMMARY -->
+ <hr class="divider">
+
+ <div class="highlight-box">
+ <h3> Tổng Kết Chương 8</h3>
+ <p style="margin-bottom:16px;">Chương 8 xây dựng nền tảng thực chiến cho việc phát triển game tốt. Bốn trụ cột:</p>
+ </div>
+
+ <div class="insight-strip">
+ <h3> Những Điều Không Thể Bỏ Qua</h3>
+ <ul class="insight-list">
+ <li><strong>Rule of the Loop là tuyệt đối:</strong> Không có ngoại lệ. Càng nhiều loop, game càng tốt. Mỗi lần bạn cố bỏ qua nó, bạn sẽ trả giá.</li>
+ <li><strong>Waterfall = nguy hiểm, Agile = sống còn:</strong> Lịch sử software engineering đã chứng minh — linear process không work cho bất kỳ sản phẩm phức tạp nào, đặc biệt là game.</li>
+ <li><strong>Risk first, prototype fast:</strong> Đừng xây phần bạn thích trước — xây phần rủi ro nhất trước. Prototype xấu trả lời câu hỏi nhanh hơn prototype đẹp.</li>
+ <li><strong>Paper prototype là vũ khí bí mật:</strong> Tetris, Halo, Toontown Online đều dùng nó. Không cần digital, không cần interactive — chỉ cần trả lời câu hỏi.</li>
+ <li><strong>50% rules bảo vệ bạn:</strong> Nếu 50% ngân sách bị cắt, game vẫn ship được. Core gameplay phải playable ở mốc giữa dự án.</li>
+ <li><strong>Passion check là phần của quy trình:</strong> Cuối mỗi sprint, kiểm tra cả prototype lẫn trái tim bạn. Nếu passion biến mất, cần hành động ngay.</li>
+ </ul>
+ </div>
+
+ <div class="quote-grid" style="margin-top:32px;">
+ <div class="quote-card">
+ <p>The more times you test and improve your design, the better your game will be. There are no exceptions to this rule.</p>
+ <div class="author">Jesse Schell — The Rule of the Loop</div>
+ </div>
+ <div class="quote-card">
+ <p>Plan to throw one away — you will anyway.</p>
+ <div class="author">Fred Brooks — The Mythical Man Month</div>
+ </div>
+ <div class="quote-card">
+ <p>The ultimate inspiration is the deadline.</p>
+ <div class="author">Nolan Bushnell — Atari Founder</div>
+ </div>
+ <div class="quote-card">
+ <p>GTA came from Pac-Man. The dots are the little people. There's me in my little yellow car. And the ghosts are policemen.</p>
+ <div class="author">David Jones — Designer, Grand Theft Auto</div>
+ </div>
+ </div>
+
+</div><!-- /container -->
+
+<footer>
+ <p><span>The Art of Game Design</span> — Jesse Schell &nbsp;|&nbsp; Chapter 8: The Game Improves Through Iteration</p>
+ <p style="margin-top:6px;">Output tổng hợp bằng tiếng Việt · Thuật ngữ và trích dẫn giữ nguyên tiếng Anh</p>
+</footer>
+
+<div class="chapnav-wrap"><div class="chapnav"><a href="C7-Idea.html"><span class="lbl">Chương trước</span>Chương 7: The Game Begins with an Idea</a><a href="C9-The Player.html"><span class="lbl">Chương sau</span>Chương 9: The Player</a></div></div>
+
+<script>
+  (function(){
+    var sections = document.querySelectorAll('.section-header[id]');
+    var navLinks = document.querySelectorAll('.tocnav a');
+    if (!sections.length || !navLinks.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(a){
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
+</body>
+</html>

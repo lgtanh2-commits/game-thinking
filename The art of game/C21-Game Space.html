@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 21 — Worlds Contain Spaces | The Art of Game Design</title>
+<style>
+ :root {
+ --orange: #27ae60;
+ --orange-light: #6cc999;
+ --orange-pale: #edf9f2;
+ --dark: #0e231c;
+ --gray: #656a75;
+ --gray-light: #656a75;
+ --bg: #f4f7f2;
+ --white: #ffffff;
+ --card-border: #e4ebe2;
+ --accent-teal: #27ae60;
+ --accent-blue: #27ae60;
+ --accent-purple: #27ae60;
+ --accent-green: #27ae60;
+ --accent-gold: #27ae60;
+ 
+ --forest: #0e231c;
+ --fog: #879b93;
+ --sage: #defaca;
+ --mint: #edf9f2;
+ --sprout-d: #1c8a4c;}
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ body {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ background: var(--bg);
+ color: var(--dark);
+ line-height: 1.75;
+ font-size: 17px;
+ }
+
+ main {
+ max-width: 880px;
+ margin: 0 auto;
+ padding: 60px 24px 120px;
+ }
+
+ /* HERO */
+ .hero {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ border-radius: 24px;
+ padding: 56px 48px;
+ margin-bottom: 56px;
+ position: relative;
+ overflow: hidden;
+ }
+ .hero::before {
+ content: '';
+ position: absolute;
+ top: -60px; right: -60px;
+ width: 260px; height: 260px;
+ background: none;
+ border-radius: 50%;
+ }
+ .hero-eyebrow {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 2.5px;
+ text-transform: uppercase;
+ color: var(--orange-light);
+ margin-bottom: 12px;
+ }
+ .hero-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 42px;
+ font-weight: 700;
+ color: #ffffff;
+ line-height: 1.2;
+ margin-bottom: 8px;
+ }
+ .hero-title em {
+ color: var(--orange-light);
+ font-style: italic;
+ }
+ .hero-subtitle {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 15px;
+ color: rgba(255,255,255,0.55);
+ margin-bottom: 32px;
+ letter-spacing: 0.3px;
+ }
+ .hero-badges {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ }
+ .hero-badge {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 600;
+ padding: 6px 14px;
+ border-radius: 20px;
+ background: rgba(39,174,96,0.12);
+ border: 1px solid rgba(39,174,96,0.35);
+ color: var(--orange-light);
+ letter-spacing: 0.3px;
+ }
+
+ /* CHAPTER MAP */
+ .chapter-map {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 20px;
+ padding: 40px 32px;
+ margin-bottom: 56px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .map-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 700;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 28px;
+ text-align: center;
+ }
+ .map-nodes {
+ display: flex;
+ align-items: center;
+ gap: 0;
+ justify-content: center;
+ flex-wrap: wrap;
+ row-gap: 16px;
+ }
+ .map-node {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 8px;
+ }
+ .node-dot {
+ width: 56px; height: 56px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 20px;
+ font-weight: 800;
+ color: white;
+ flex-shrink: 0;
+ }
+ .node-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 600;
+ color: var(--gray);
+ text-align: center;
+ max-width: 80px;
+ line-height: 1.3;
+ }
+ .map-arrow {
+ width: 32px;
+ height: 2px;
+ background: var(--card-border);
+ position: relative;
+ flex-shrink: 0;
+ margin-bottom: 28px;
+ }
+ .map-arrow::after {
+ content: '';
+ position: absolute;
+ right: -1px; top: -4px;
+ border: 5px solid transparent;
+ border-left-color: var(--card-border);
+ }
+
+ /* SECTION HEADER */
+ .section-header {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ margin: 56px 0 24px;
+  scroll-margin-top: 108px;}
+ .section-num {
+ width: 52px; height: 52px;
+ border-radius: 14px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 20px;
+ font-weight: 800;
+ color: white;
+ flex-shrink: 0;
+ }
+ .section-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 28px;
+ font-weight: 700;
+ color: var(--dark);
+ line-height: 1.2;
+ }
+
+ /* CARD */
+ .card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ padding: 28px 32px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ margin-bottom: 20px;
+ }
+ .card-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ letter-spacing: 1.5px;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 16px;
+ }
+ .card p { margin-bottom: 14px; }
+ .card p:last-child { margin-bottom: 0; }
+
+ /* QUOTE */
+ .quote-block {
+ border-left: 4px solid var(--orange);
+ background: var(--orange-pale);
+ border-radius: 0 12px 12px 0;
+ padding: 20px 24px;
+ margin: 24px 0;
+ }
+ .quote-block p {
+ font-style: italic;
+ color: var(--gray);
+ line-height: 1.7;
+ margin-bottom: 10px;
+ }
+ .quote-block p:last-of-type { margin-bottom: 0; }
+ .quote-attr {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 600;
+ color: var(--orange);
+ margin-top: 12px;
+ display: block;
+ }
+
+ /* HIGHLIGHT BOXES */
+ .hl-orange { background: #edf9f2; border: 1.5px solid #6cc999; border-radius: 14px; padding: 20px 24px; margin: 20px 0; }
+ .hl-teal { background: #edf9f2; border: 1.5px solid #7EC5C5; border-radius: 14px; padding: 20px 24px; margin: 20px 0; }
+ .hl-blue { background: #edf9f2; border: 1.5px solid #7AAED0; border-radius: 14px; padding: 20px 24px; margin: 20px 0; }
+ .hl-purple { background: #edf9f2; border: 1.5px solid #B59FD0; border-radius: 14px; padding: 20px 24px; margin: 20px 0; }
+ .hl-green { background: #edf9f2; border: 1.5px solid #7EBC9F; border-radius: 14px; padding: 20px 24px; margin: 20px 0; }
+ .hl-gold { background: #edf9f2; border: 1.5px solid #DFC06A; border-radius: 14px; padding: 20px 24px; margin: 20px 0; }
+
+ .hl-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 700;
+ letter-spacing: 1.5px;
+ text-transform: uppercase;
+ margin-bottom: 10px;
+ }
+ .hl-orange .hl-label { color: var(--orange); }
+ .hl-teal .hl-label { color: var(--accent-teal); }
+ .hl-blue .hl-label { color: var(--accent-blue); }
+ .hl-purple .hl-label { color: var(--accent-purple); }
+ .hl-green .hl-label { color: var(--accent-green); }
+ .hl-gold .hl-label { color: var(--accent-gold); }
+
+ .hl-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 17px;
+ font-weight: 700;
+ margin-bottom: 10px;
+ color: var(--dark);
+ }
+ .hl-orange p, .hl-teal p, .hl-blue p, .hl-purple p, .hl-green p, .hl-gold p {
+ color: var(--gray);
+ line-height: 1.7;
+ }
+
+ /* LENS BOX */
+ .lens-box {
+ border: 2px solid var(--orange);
+ background: #edf9f2;
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin: 28px 0;
+ }
+ .lens-header {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ color: var(--orange);
+ margin-bottom: 6px;
+ }
+ .lens-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 22px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 16px;
+ font-style: italic;
+ }
+ .lens-intro {
+ color: var(--gray);
+ margin-bottom: 16px;
+ line-height: 1.7;
+ }
+ .lens-questions {
+ list-style: none;
+ padding: 0;
+ }
+ .lens-questions li {
+ padding: 8px 0 8px 24px;
+ position: relative;
+ border-bottom: 1px solid rgba(39,174,96,0.15);
+ color: var(--dark);
+ line-height: 1.6;
+ }
+ .lens-questions li:last-child { border-bottom: none; }
+ .lens-questions li::before {
+ content: '▸';
+ position: absolute;
+ left: 0;
+ color: var(--orange);
+ font-size: 13px;
+ }
+
+ /* SPACE TYPE GRID */
+ .space-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 16px;
+ margin: 24px 0;
+ }
+ @media (max-width: 600px) { .space-grid { grid-template-columns: 1fr; } }
+
+ .space-card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 14px;
+ padding: 20px;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+ }
+ .space-card-full { grid-column: 1 / -1; }
+ .space-num {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ width: 30px; height: 30px;
+ border-radius: 8px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 800;
+ color: white;
+ margin-bottom: 10px;
+ }
+ .space-name {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 15px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 6px;
+ }
+ .space-desc {
+ font-size: 14px;
+ color: var(--gray);
+ margin-bottom: 10px;
+ line-height: 1.6;
+ }
+ .space-examples {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ color: var(--gray-light);
+ font-style: italic;
+ }
+ .space-svg { display: block; margin: 10px auto 0; }
+
+ /* PROPERTIES GRID */
+ .properties-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 12px;
+ margin: 20px 0;
+ }
+ @media (max-width: 600px) { .properties-grid { grid-template-columns: 1fr; } }
+
+ .prop-item {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 12px;
+ padding: 14px 16px;
+ display: flex;
+ gap: 12px;
+ align-items: flex-start;
+ }
+ .prop-num {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 800;
+ color: var(--orange);
+ min-width: 24px;
+ flex-shrink: 0;
+ margin-top: 2px;
+ }
+ .prop-name {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 4px;
+ }
+ .prop-desc {
+ font-size: 13px;
+ color: var(--gray);
+ line-height: 1.5;
+ }
+
+ /* SOLUTION GRID */
+ .solution-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 14px;
+ margin: 20px 0;
+ }
+ @media (max-width: 600px) { .solution-grid { grid-template-columns: 1fr; } }
+
+ .solution-card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 12px;
+ padding: 16px 18px;
+ }
+ .solution-card.best {
+ border-color: var(--accent-green);
+ background: #edf9f2;
+ }
+ .solution-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 700;
+ letter-spacing: 1px;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 6px;
+ }
+ .solution-card.best .solution-label { color: var(--accent-green); }
+ .solution-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 6px;
+ }
+ .solution-desc {
+ font-size: 13px;
+ color: var(--gray);
+ line-height: 1.5;
+ }
+
+ /* NAMELESS QUALITY CHIPS */
+ .nameless-grid {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ margin: 16px 0;
+ }
+ .nameless-chip {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 600;
+ padding: 7px 16px;
+ border-radius: 20px;
+ background: var(--orange-pale);
+ border: 1.5px solid var(--orange-light);
+ color: var(--sprout-d);
+ }
+
+ /* READING LIST */
+ .reading-item {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 12px;
+ padding: 18px 22px;
+ margin-bottom: 12px;
+ display: flex;
+ gap: 16px;
+ align-items: flex-start;
+ }
+ .reading-item:last-child { margin-bottom: 0; }
+ .reading-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+ .reading-book {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-style: italic;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 4px;
+ }
+ .reading-author {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 600;
+ color: var(--orange);
+ margin-bottom: 4px;
+ }
+ .reading-desc { font-size: 14px; color: var(--gray); line-height: 1.55; }
+
+ /* CLOSING */
+ .closing-box {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ border-radius: 20px;
+ padding: 40px 44px;
+ text-align: center;
+ margin-top: 56px;
+ }
+ .closing-box p {
+ color: rgba(255,255,255,0.75);
+ font-size: 16px;
+ line-height: 1.75;
+ margin-bottom: 16px;
+ }
+ .closing-next {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 600;
+ color: var(--orange-light);
+ letter-spacing: 0.5px;
+ }
+
+ /* DIVIDER */
+ .divider {
+ height: 1px;
+ background: #edf9f2;
+ margin: 48px 0;
+ }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+  .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .topnav .crumb { color: #879b93; font-size: 14px; }
+  .topnav .crumb a { color: #879b93; text-decoration: none; }
+  .topnav .crumb b { color: #fff; font-weight: 600; }
+  .chapnav-wrap { background: #f4f7f2; padding: 40px 24px 56px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .chapnav { display: flex; justify-content: space-between; gap: 12px; max-width: 820px; margin: 0 auto; }
+  .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+  .tocnav { position: sticky; top: 52px; z-index: 100; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; overflow-x: auto; scrollbar-width: none; }
+  .tocnav::-webkit-scrollbar { display: none; }
+  .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
+
+</style>
+<nav class="topnav">
+  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 21</b></span>
+</nav>
+
+<nav class="tocnav">
+  <a href="#s1">Mục Đích của Kiến Trúc</a>
+  <a href="#s2">Tổ Chức Không Gian Game</a>
+  <a href="#s3">Christopher Alexander Là Thiên Tài</a>
+  <a href="#s4">Kiến Trúc Thực vs. Kiến Trúc Ảo</a>
+  <a href="#s5">Thiết Kế Level</a>
+</nav>
+
+<main>
+
+ <!-- HERO -->
+ <div class="hero">
+ <div class="hero-eyebrow">The Art of Game Design · Chương 21</div>
+ <h1 class="hero-title">Worlds Contain <em>Spaces</em></h1>
+ <div class="hero-subtitle">Thế Giới Chứa Đựng Không Gian</div>
+ <div class="hero-badges">
+ <span class="hero-badge">2 Lenses: #92–#93</span>
+ <span class="hero-badge">5 Kiểu Tổ Chức Không Gian</span>
+ <span class="hero-badge">Christopher Alexander</span>
+ <span class="hero-badge">15 Tính Chất Sống</span>
+ <span class="hero-badge">Kiến Trúc Ảo &amp; Tỉ Lệ</span>
+ <span class="hero-badge">Third-Person Distortion</span>
+ </div>
+ </div>
+
+ <!-- CHAPTER MAP -->
+ <div class="chapter-map">
+ <div class="map-title">Bản Đồ Chương</div>
+ <div class="map-nodes">
+ <div class="map-node">
+ <div class="node-dot" style="background: var(--orange);">1</div>
+ <div class="node-label">Mục Đích Kiến Trúc</div>
+ </div>
+ <div class="map-arrow"></div>
+ <div class="map-node">
+ <div class="node-dot" style="background: var(--accent-teal);">2</div>
+ <div class="node-label">Tổ Chức Không Gian</div>
+ </div>
+ <div class="map-arrow"></div>
+ <div class="map-node">
+ <div class="node-dot" style="background: var(--accent-purple);">3</div>
+ <div class="node-label">Christopher Alexander</div>
+ </div>
+ <div class="map-arrow"></div>
+ <div class="map-node">
+ <div class="node-dot" style="background: var(--accent-blue);">4</div>
+ <div class="node-label">Kiến Trúc Ảo</div>
+ </div>
+ <div class="map-arrow"></div>
+ <div class="map-node">
+ <div class="node-dot" style="background: var(--accent-green);">5</div>
+ <div class="node-label">Thiết Kế Level</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- ═══════════════════════════════════════════════════
+ SECTION 1: THE PURPOSE OF ARCHITECTURE
+ ════════════════════════════════════════════════════ -->
+ <div class="section-header" id="s1">
+ <div class="section-num" style="background: var(--orange);">1</div>
+ <h2 class="section-title">Mục Đích của Kiến Trúc</h2>
+ </div>
+
+ <div class="quote-block">
+ <p>"Yes, build a Frank Lloyd house if you don't mind camping in the front yard when it rains."</p>
+ <span class="quote-attr">— Aline Barnsdall</span>
+ </div>
+
+ <div class="card">
+ <p>Khi nghe từ "kiến trúc", phần lớn mọi người nghĩ ngay đến những tòa nhà hoành tráng với hình dạng độc đáo. Người ta thường nghĩ rằng công việc chính của kiến trúc sư là tạo ra vẻ ngoài ấn tượng — và thưởng thức kiến trúc đẹp nghĩa là chiêm ngưỡng chúng như tác phẩm điêu khắc trong bảo tàng.</p>
+ <p>Nhưng thực ra, hình dạng bên ngoài chỉ là một khía cạnh nhỏ, và nó gần như không liên quan đến mục đích cốt lõi của kiến trúc. <strong>Mục đích cốt lõi của kiến trúc là kiểm soát trải nghiệm của con người.</strong></p>
+ <p>Nếu tất cả những trải nghiệm chúng ta muốn có đều dễ dàng tìm thấy trong tự nhiên, kiến trúc sẽ không có lý do tồn tại. Nhưng những trải nghiệm đó không phải lúc nào cũng có sẵn — vì thế kiến trúc sư thiết kế những thứ giúp chúng ta có những trải nghiệm mình mong muốn. Chúng ta muốn có bóng mát và khô ráo nên dựng mái che. Muốn có an toàn và bảo đảm nên xây tường. Chúng ta xây trường học, trung tâm thương mại, nhà thờ không phải vì muốn ngắm chúng từ bên ngoài — mà vì có những trải nghiệm chúng ta muốn có, và những công trình này giúp điều đó trở nên khả thi.</p>
+ <p>Khi nói một công trình "được thiết kế tốt", ta không nói về vẻ ngoài — ta đang nói về việc nó tạo ra trải nghiệm gì khi ở bên trong.</p>
+ </div>
+
+ <div class="hl-orange">
+ <div class="hl-label"> Kiến Trúc Sư &amp; Game Designer</div>
+ <div class="hl-title">Hai Người Anh Em Họ Gần Gũi</div>
+ <p>Cả kiến trúc sư lẫn game designer đều tạo ra những cấu trúc mà người dùng phải <em>bước vào</em> để sử dụng. Không ai trong hai nhóm này có thể tạo ra trải nghiệm trực tiếp — cả hai đều phải dựa vào <strong>indirect control</strong> để dẫn dắt con người đến đúng loại trải nghiệm. Và điều quan trọng nhất: cả hai đều xây dựng những công trình không có mục đích nào khác ngoài việc mang lại hạnh phúc cho con người.</p>
+ </div>
+
+ <!-- ═══════════════════════════════════════════════════
+ SECTION 2: ORGANIZING GAME SPACE
+ ════════════════════════════════════════════════════ -->
+ <div class="section-header" id="s2">
+ <div class="section-num" style="background: var(--accent-teal);">2</div>
+ <h2 class="section-title">Tổ Chức Không Gian Game</h2>
+ </div>
+
+ <div class="card">
+ <p>Không giống kiến trúc thực tế bị ràng buộc bởi gạch và vữa, không gian game hoàn toàn là cấu trúc ảo. Điều này nghe có vẻ tự do tuyệt vời — nhưng cũng là gánh nặng. Khi thiếu những ràng buộc vật lý, gần như mọi thứ đều có thể — và khi mọi thứ đều có thể, bạn bắt đầu từ đâu?</p>
+ <p>Một cách tốt là chọn <em>nguyên tắc tổ chức</em> cho không gian game của bạn. Nếu bạn đã có ý tưởng rõ ràng về cách game được chơi, hãy dùng <strong>Lens #26 — Functional Space</strong> làm bộ khung xương. Còn nếu vẫn đang hình thành, đây là 5 kiểu tổ chức phổ biến mà các designer thường dùng:</p>
+ </div>
+
+ <div class="space-grid">
+
+ <!-- 1. Linear -->
+ <div class="space-card">
+ <div class="space-num" style="background: var(--orange);">1</div>
+ <div class="space-name">Linear — Tuyến Tính</div>
+ <div class="space-desc">Người chơi chỉ di chuyển tới (và đôi khi lùi) theo một đường thẳng. Đường có thể có hai đầu, hoặc vòng kín.</div>
+ <div class="space-examples">Candyland · Monopoly · Super Mario Bros · Jetpack Joyride · Guitar Hero</div>
+ <svg class="space-svg" width="140" height="48" viewBox="0 0 140 48">
+ <path d="M12,34 Q32,14 52,28 Q72,42 92,22 Q110,10 130,16" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linecap="round"/>
+ <path d="M125,13 L130,16 L125,19" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+ <circle cx="12" cy="34" r="4" fill="#27ae60"/>
+ </svg>
+ </div>
+
+ <!-- 2. Grid -->
+ <div class="space-card">
+ <div class="space-num" style="background: var(--accent-teal);">2</div>
+ <div class="space-name">Grid — Lưới Ô</div>
+ <div class="space-desc">Sắp xếp theo lưới: ô vuông, hình chữ nhật, lục giác, hay tam giác. Dễ hiểu, dễ cân đối, rất thân thiện với máy tính.</div>
+ <div class="space-examples">Chess · Advance Wars · Settlers of Catan · Zelda NES · Minecraft</div>
+ <svg class="space-svg" width="140" height="48" viewBox="0 0 140 48">
+ <g stroke="#27ae60" stroke-width="1.5" fill="none" opacity="0.85">
+ <line x1="20" y1="10" x2="120" y2="10"/>
+ <line x1="20" y1="24" x2="120" y2="24"/>
+ <line x1="20" y1="38" x2="120" y2="38"/>
+ <line x1="20" y1="10" x2="20" y2="38"/>
+ <line x1="45" y1="10" x2="45" y2="38"/>
+ <line x1="70" y1="10" x2="70" y2="38"/>
+ <line x1="95" y1="10" x2="95" y2="38"/>
+ <line x1="120" y1="10" x2="120" y2="38"/>
+ </g>
+ </svg>
+ </div>
+
+ <!-- 3. Web -->
+ <div class="space-card">
+ <div class="space-num" style="background: var(--accent-blue);">3</div>
+ <div class="space-name">Web — Mạng Lưới Node</div>
+ <div class="space-desc">Nhiều điểm được nối bằng đường đi. Người chơi có nhiều con đường để đến đích — đôi khi di chuyển có ý nghĩa, đôi khi chỉ là dịch chuyển tức thì.</div>
+ <div class="space-examples">Trivial Pursuit · Zork · Club Penguin · Fox and Geese · Puzzle Quest</div>
+ <svg class="space-svg" width="140" height="56" viewBox="0 0 140 56">
+ <g fill="none" stroke="#27ae60" stroke-width="1.5" opacity="0.85">
+ <line x1="28" y1="30" x2="70" y2="10"/>
+ <line x1="70" y1="10" x2="112" y2="30"/>
+ <line x1="28" y1="30" x2="70" y2="48"/>
+ <line x1="70" y1="48" x2="112" y2="30"/>
+ <line x1="70" y1="10" x2="70" y2="48"/>
+ <line x1="28" y1="30" x2="112" y2="30"/>
+ </g>
+ <g fill="#27ae60">
+ <circle cx="28" cy="30" r="5.5"/>
+ <circle cx="70" cy="10" r="5.5"/>
+ <circle cx="112" cy="30" r="5.5"/>
+ <circle cx="70" cy="48" r="5.5"/>
+ </g>
+ </svg>
+ </div>
+
+ <!-- 4. Points in space -->
+ <div class="space-card">
+ <div class="space-num" style="background: var(--accent-purple);">4</div>
+ <div class="space-name">Points in Space — Điểm Tự Do</div>
+ <div class="space-desc">Không có cấu trúc cố định — như lạc trong sa mạc và thỉnh thoảng tìm thấy ốc đảo. Người chơi đôi khi tự định nghĩa không gian.</div>
+ <div class="space-examples">Bocce · Thin Ice · Polarity · Animal Crossing · Final Fantasy</div>
+ <svg class="space-svg" width="140" height="50" viewBox="0 0 140 50">
+ <g fill="#27ae60" opacity="0.85">
+ <circle cx="28" cy="14" r="5.5"/>
+ <circle cx="72" cy="9" r="5.5"/>
+ <circle cx="112" cy="18" r="5.5"/>
+ <circle cx="45" cy="36" r="5.5"/>
+ <circle cx="90" cy="40" r="5.5"/>
+ <circle cx="62" cy="27" r="4.5"/>
+ </g>
+ </svg>
+ </div>
+
+ <!-- 5. Divided space - full width -->
+ <div class="space-card space-card-full">
+ <div class="space-num" style="background: var(--accent-green);">5</div>
+ <div class="space-name">Divided Space — Không Gian Phân Vùng</div>
+ <div class="space-desc">Gần giống bản đồ thực nhất — không gian được chia thành các vùng không đều nhau theo kiểu bất quy tắc. Phổ biến trong game chiến lược muốn mô phỏng địa lý thực.</div>
+ <div class="space-examples">Risk · Axis and Allies · Dark Tower · Zelda: Ocarina of Time · Civilization</div>
+ <svg class="space-svg" width="260" height="64" viewBox="0 0 260 64">
+ <g fill="none" stroke="#27ae60" stroke-width="1.5" opacity="0.85">
+ <path d="M30,12 Q80,5 130,16 Q170,26 200,12 Q225,5 248,18 L248,54 Q200,60 130,48 Q78,58 30,52 Z"/>
+ <path d="M88,10 Q92,32 94,54"/>
+ <path d="M145,14 Q143,34 140,54"/>
+ <path d="M200,12 Q204,34 200,54"/>
+ <path d="M30,33 Q140,30 248,34"/>
+ </g>
+ </svg>
+ </div>
+
+ </div>
+
+ <div class="hl-teal">
+ <div class="hl-label"> Kết Hợp Các Kiểu</div>
+ <p>Các nguyên tắc này thường được kết hợp để tạo ra những không gian thú vị hơn. <em>Clue</em> là sự kết hợp của Grid và Divided Space. <em>Baseball</em> kết hợp Linear và Points in Space.</p>
+ </div>
+
+ <!-- Landmarks -->
+ <div class="hl-gold" style="margin-top: 28px;">
+ <div class="hl-label"> A Word about Landmarks</div>
+ <div class="hl-title">Khi Mọi Nơi Trông Giống Nhau, Bạn Không Biết Mình Ở Đâu</div>
+ <p>Game văn bản đầu tiên <em>Colossal Cave</em> có hai mê cung — một cái mọi phòng đều được mô tả là <em>"a maze of twisty passages, all alike"</em>, và một cái mọi phòng đều là <em>"all different"</em>. Cả hai đều gây bối rối như nhau, vì quá nhiều hỗn loạn cũng chán tẻ không kém quá nhiều trật tự. Người chơi <em>Colossal Cave</em> đã học cách thả đồ vật xuống để tự tạo landmark.</p>
+ <p>Bất kỳ không gian game tốt nào cũng cần <strong>landmarks tích hợp sẵn</strong> — giúp người chơi định hướng <em>và</em> làm không gian trở nên đáng nhớ. Landmarks là thứ người chơi nhớ đến và kể lại — chúng tạo nên sự khác biệt của một không gian.</p>
+ </div>
+
+ <!-- ═══════════════════════════════════════════════════
+ SECTION 3: CHRISTOPHER ALEXANDER
+ ════════════════════════════════════════════════════ -->
+ <div class="section-header" id="s3">
+ <div class="section-num" style="background: var(--accent-purple);">3</div>
+ <h2 class="section-title">Christopher Alexander Là Thiên Tài</h2>
+ </div>
+
+ <div class="card">
+ <p>Christopher Alexander là một kiến trúc sư đã dành cả đời nghiên cứu tại sao một số không gian lại khiến chúng ta cảm thấy tốt. Cuốn sách đầu tiên của ông, <em>The Timeless Way of Building</em> (1979), cố gắng mô tả một chất lượng độc đáo mà những không gian và vật thể được thiết kế thực sự tốt đều chia sẻ. Ông gọi đó là <em>"the quality which has no name"</em> — <strong>chất lượng vô danh</strong>.</p>
+ </div>
+
+ <div class="quote-block">
+ <p>"Imagine yourself on a winter afternoon with a pot of tea, a reading light, and two or three huge pillows to lean back against. Now make yourself comfortable. Not in some way which you can show to other people, and say how much you like it. I mean so that you really like it, for yourself.</p>
+ <p>You put the tea where you can reach it: but in a place where you can't possibly knock it over. You pull the light down, to shine on the book, but not too brightly, and so that you can't see the naked bulb. You put the cushions behind you, and place them, carefully, one by one, just where you want them, to support your back, your neck, your arm: so that you are supported just comfortably, just as you want to sip your tea, and read, and dream.</p>
+ <p>When you take the trouble to do all that, and you do it carefully, with much attention, then it may begin to have the quality which has no name."</p>
+ <span class="quote-attr">— Christopher Alexander, The Timeless Way of Building</span>
+ </div>
+
+ <div class="card">
+ <p>Khó để gọi tên chính xác chất lượng này — nhưng hầu hết mọi người đều nhận ra ngay khi trải nghiệm nó. Alexander nhận thấy những thứ có chất lượng vô danh thường chia sẻ 8 đặc điểm này:</p>
+ </div>
+
+ <div class="nameless-grid">
+ <span class="nameless-chip"> Alive — có năng lượng sống</span>
+ <span class="nameless-chip"> Whole — không thiếu gì</span>
+ <span class="nameless-chip"> Comfortable — dễ chịu khi ở gần</span>
+ <span class="nameless-chip"> Free — không bị ép buộc</span>
+ <span class="nameless-chip"> Exact — đúng như lẽ ra phải vậy</span>
+ <span class="nameless-chip"> Egoless — kết nối với vũ trụ</span>
+ <span class="nameless-chip"> Eternal — như đã luôn tồn tại</span>
+ <span class="nameless-chip"> Free from inner contradictions</span>
+ </div>
+
+ <div class="hl-orange">
+ <div class="hl-label"> Quan Trọng Nhất Với Designer</div>
+ <div class="hl-title">"Free from inner contradictions" — Không Có Mâu Thuẫn Nội Tại</div>
+ <p>Đây là điều quan trọng nhất với bất kỳ designer nào, vì <strong>mâu thuẫn nội tại chính là trái tim của mọi thiết kế tệ hại</strong>. Nếu một thiết bị được cho là giúp cuộc sống dễ dàng hơn mà lại khó dùng — đó là mâu thuẫn. Nếu thứ gì đó được cho là vui mà lại nhàm chán hoặc bực bội — đó cũng là mâu thuẫn. Designer giỏi phải loại bỏ mâu thuẫn nội tại một cách cẩn thận — không quen với chúng, không biện hộ cho chúng.</p>
+ </div>
+
+ <div class="hl-teal">
+ <div class="hl-label"> Rule of the Loop Trong Kiến Trúc</div>
+ <p>Alexander cũng giải thích rằng chỉ thông qua <em>iteration</em> và quan sát cách vật được dùng trong thực tế mới đạt đến thiết kế thực sự xuất sắc — nói cách khác, Rule of the Loop cũng áp dụng trong kiến trúc. Ông minh họa bằng cách làm đường đi giữa các tòa nhà: <em>"Lay no paths at all. Merely plant grass. Then come back a year later, see where people have worn paths in the grass, and only then begin to pave."</em></p>
+ </div>
+
+ <div class="hl-blue">
+ <div class="hl-label"> A Pattern Language</div>
+ <div class="hl-title">253 Mẫu Kiến Trúc Có Chất Lượng Vô Danh</div>
+ <p>Cuốn sách nổi tiếng nhất của Alexander mô tả 253 mẫu kiến trúc — từ quy mô lớn như "phân bố thị trấn" đến quy mô nhỏ như "cửa sổ mở rộng". Nhiều game designer đã kể chuyện cuốn sách này thay đổi cách họ thiết kế. <strong>Will Wright</strong> được cho là thiết kế <em>SimCity</em> dựa trên mong muốn thử nghiệm các mẫu này. Còn bản thân Schell cho biết ông hoang mang khi tổ chức thế giới <em>Toontown Online</em> — cho đến khi đọc cuốn này và mọi thứ bỗng trở nên hiển nhiên. Phong trào "design patterns" trong khoa học máy tính cũng xuất phát từ sức mạnh của văn bản này.</p>
+ </div>
+
+ <!-- Lens #92 -->
+ <div class="lens-box">
+ <div class="lens-header">Lens #92</div>
+ <div class="lens-title">The Lens of Inner Contradiction</div>
+ <p class="lens-intro">A good game cannot contain properties that defeat the game's very purpose. To remove those contradictory qualities, ask yourself these questions:</p>
+ <ul class="lens-questions">
+ <li>What is the purpose of my game?</li>
+ <li>What are the purposes of each subsystem in my game?</li>
+ <li>Is there anything at all in my game that contradicts these purposes?</li>
+ <li>If so, how can I change that?</li>
+ </ul>
+ </div>
+
+ <!-- 15 Properties -->
+ <div class="card">
+ <div class="card-title">Alexander's Fifteen Properties of Living Structures</div>
+ <p>Không bằng lòng để chất lượng vô danh mãi không có tên, trong <em>The Phenomenon of Life</em> Alexander đã nghiên cứu hàng nghìn vật thể — cái có và cái không có cảm giác đặc biệt đó — rồi chắt lọc ra 15 tính chất cơ bản. Dưới đây là cả 15 tính chất và cách chúng áp dụng vào game design:</p>
+ </div>
+
+ <div class="properties-grid">
+
+ <div class="prop-item">
+ <div class="prop-num">01</div>
+ <div>
+ <div class="prop-name">Levels of scale</div>
+ <div class="prop-desc">Mục tiêu ngắn hạn → trung hạn → dài hạn. Interest curves. Nested game worlds. <em>Spore</em> là một bản giao hưởng về levels of scale.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">02</div>
+ <div>
+ <div class="prop-name">Strong centers</div>
+ <div class="prop-desc">Avatar là trung tâm vũ trụ game. Ta thích avatar mạnh hơn avatar yếu. Ta cũng thích mục tiêu rõ ràng — strong center khi nói về purpose.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">03</div>
+ <div>
+ <div class="prop-name">Boundaries</div>
+ <div class="prop-desc">Nhiều game xoay quanh ranh giới lãnh thổ. Luật lệ cũng là một loại ranh giới — game không có luật không phải là game.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">04</div>
+ <div>
+ <div class="prop-name">Alternating repetition</div>
+ <div class="prop-desc">Bàn cờ vua đẹp nhờ xen kẽ ô sáng-tối. Level/boss/level/boss. Tense/release/tense/release — lặp lại xen kẽ dễ chịu.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">05</div>
+ <div>
+ <div class="prop-name">Positive space</div>
+ <div class="prop-desc">Tiền cảnh và hậu cảnh đều có hình dạng đẹp, bổ sung nhau như âm-dương. Game cân bằng tốt cho phép nhiều chiến lược xen kẽ nhau.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">06</div>
+ <div>
+ <div class="prop-name">Good shape</div>
+ <div class="prop-desc">Hình dạng đẹp lòng. Trong level design, một level tốt cảm giác "vững chắc" và có "đường cong đẹp".</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">07</div>
+ <div>
+ <div class="prop-name">Local symmetries</div>
+ <div class="prop-desc">Đối xứng cục bộ bên trong, không phải toàn thể. <em>Zelda: Wind Waker</em> — mỗi phòng có đối xứng riêng nhưng kết nối hữu cơ với toàn bộ.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">08</div>
+ <div>
+ <div class="prop-name">Deep interlock &amp; ambiguity</div>
+ <div class="prop-desc">Hai yếu tố gắn chặt đến mức định nghĩa nhau — như quân cờ trong Go chỉ có ý nghĩa tương đối với quân đối thủ.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">09</div>
+ <div>
+ <div class="prop-name">Contrast</div>
+ <div class="prop-desc">Đối lập giữa người chơi và đối thủ, kiểm soát được và không kiểm soát được, thưởng và phạt. Tương phản mạnh → game có ý nghĩa hơn.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">10</div>
+ <div>
+ <div class="prop-name">Gradients</div>
+ <div class="prop-desc">Thay đổi dần dần — đường cong độ khó tăng dần, đường cong xác suất được thiết kế hợp lý.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">11</div>
+ <div>
+ <div class="prop-name">Roughness</div>
+ <div class="prop-desc">Khi game quá hoàn hảo, nó mất cá tính. Cảm giác thủ công "house rules" đôi khi làm game sống động hơn.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">12</div>
+ <div>
+ <div class="prop-name">Echoes</div>
+ <div class="prop-desc">Lặp lại thống nhất đẹp lòng. Boss monster có điểm chung với minion của nó — đó là echoes. Interest curves fractal cũng vậy.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">13</div>
+ <div>
+ <div class="prop-name">The void</div>
+ <div class="prop-desc">Trong những trung tâm hoàn hảo nhất có một khoảng trống như mặt nước, vô tận — như trái tim một ngôi nhà thờ. Boss monsters thường xuất hiện ở không gian rỗng lớn.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">14</div>
+ <div>
+ <div class="prop-name">Simplicity &amp; inner calm</div>
+ <div class="prop-desc">Luật đơn giản với tính chất nổi bật. Luật phải được cân bằng tốt — điều đó mang lại sự bình tĩnh nội tại mà Alexander mô tả.</div>
+ </div>
+ </div>
+
+ <div class="prop-item">
+ <div class="prop-num">15</div>
+ <div>
+ <div class="prop-name">Not-separateness</div>
+ <div class="prop-desc">Kết nối với môi trường xung quanh như một phần của chúng. Mỗi yếu tố game nên có tính chất này. Lens #11 (Unification) là công cụ hỗ trợ tốt.</div>
+ </div>
+ </div>
+
+ </div>
+
+ <!-- Lens #93 -->
+ <div class="lens-box">
+ <div class="lens-header">Lens #93</div>
+ <div class="lens-title">The Lens of The Nameless Quality</div>
+ <p class="lens-intro">Certain things feel special and wonderful because of their natural, organic design. To ensure your game has these properties, ask yourself these questions:</p>
+ <ul class="lens-questions">
+ <li>Does my design have a special feeling of life, or do parts of my design feel dead? What would make my design feel more alive?</li>
+ <li>Which of Alexander's fifteen qualities does my design have?</li>
+ <li>Could it have more of them, somehow?</li>
+ <li>Where does my design feel like <em>myself</em>?</li>
+ </ul>
+ </div>
+
+ <!-- ═══════════════════════════════════════════════════
+ SECTION 4: REAL VS VIRTUAL ARCHITECTURE
+ ════════════════════════════════════════════════════ -->
+ <div class="section-header" id="s4">
+ <div class="section-num" style="background: var(--accent-blue);">4</div>
+ <h2 class="section-title">Kiến Trúc Thực vs. Kiến Trúc Ảo</h2>
+ </div>
+
+ <div class="card">
+ <p>Góc nhìn "deep fundamentals" của Alexander rất hữu ích, nhưng cũng đáng để xem xét những đặc thù riêng của kiến trúc ảo. Khi nghiên cứu những không gian được tạo ra cho các videogame phổ biến, chúng thường rất kỳ lạ: lượng không gian lãng phí khổng lồ, kiến trúc nguy hiểm và bất thường, không có mối liên hệ thực tế với môi trường bên ngoài — và đôi khi các khu vực còn chồng lên nhau theo những cách vật lý bất khả thi.</p>
+ <p>Những cấu trúc như vậy sẽ bị coi là điên rồ trong thế giới thực. Nhưng tại sao khi chơi game, ta không để ý đến sự kỳ lạ này?</p>
+ </div>
+
+ <div class="hl-blue">
+ <div class="hl-label"> Tại Sao Não Bộ Không Phát Hiện?</div>
+ <p>Não người rất yếu trong việc chuyển đổi không gian 3D sang bản đồ 2D. Thử nghĩ đến nơi bạn đến hàng ngày — trường học, chỗ làm — và vẽ bản đồ của nó. Hầu hết mọi người thấy điều này khá khó. Chúng ta lưu trữ không gian theo cách <em>tương đối</em>, không phải tuyệt đối — ta biết cánh cửa nào dẫn đến phòng nào, nhưng những gì đằng sau tường không có cửa thì không chắc lắm. Vì vậy, điều quan trọng không phải là bản thiết kế 2D của không gian 3D có hợp lý không, mà là <strong>không gian cảm giác thế nào khi người chơi ở trong đó</strong>.</p>
+ </div>
+
+ <!-- Know How Big -->
+ <div class="hl-orange" style="margin-top: 28px;">
+ <div class="hl-label"> Know How Big — Biết Mình To Cỡ Nào</div>
+ <div class="hl-title">Trong Không Gian Ảo, Tỉ Lệ Không Tự Nhiên Đến</div>
+ <p>Trong không gian thực, cảm giác về tỉ lệ đến tự nhiên qua ánh sáng, bóng đổ, texture, thị giác lập thể, và quan trọng nhất là sự hiện diện của cơ thể chúng ta. Trong không gian ảo, tất cả những cues này đều thiếu — rất dễ tạo ra một thế giới trông rất khác so với kích thước thực của nó, gây ra bối rối và mất phương hướng cho người chơi.</p>
+ </div>
+
+ <div class="quote-block">
+ <p>Virtual Architect: My world looks funny… but I don't know why…</p>
+ <p>Me: Well, things seem out of scale — that car is too big for the street, and those windows are too small for that building. How big is that car, anyway?</p>
+ <p>Virtual Architect: I don't know… Maybe five units?</p>
+ <p>Me: So how big is a unit?</p>
+ <p>Virtual Architect: I don't know. It's all virtual… why does it matter?</p>
+ <span class="quote-attr">— Jesse Schell và Virtual Architect (sinh viên game design)</span>
+ </div>
+
+ <div class="card">
+ <p>Miễn là mọi thứ trong thế giới của bạn đều có tỉ lệ phù hợp với nhau, đơn vị đo lường có thể là feet, mét, cubits, hay mũ lùn — cũng không sao. Nhưng ngay khi có bất cứ thứ gì sai tỉ lệ, bạn cần liên hệ nó với thế giới thực. Vì vậy, hãy dùng đơn vị mà bạn quen thuộc trong thực tế — <strong>feet hoặc meters</strong> — điều này sẽ tiết kiệm rất nhiều thời gian và nhầm lẫn. Ba nguyên nhân phổ biến nhất gây mất cảm giác tỉ lệ:</p>
+ </div>
+
+ <div class="space-grid">
+ <div class="space-card">
+ <div class="space-num" style="background: var(--orange); font-size: 16px;"></div>
+ <div class="space-name">Eye height — Chiều Cao Mắt</div>
+ <div class="space-desc">Camera góc nhìn thứ nhất quá cao (hơn 7 feet) hoặc quá thấp (dưới 5 feet) làm méo thế giới, vì người chơi tự nhiên giả định chiều cao mắt tương đương của họ.</div>
+ </div>
+ <div class="space-card">
+ <div class="space-num" style="background: var(--accent-teal); font-size: 16px;"></div>
+ <div class="space-name">People &amp; doorways — Người &amp; Cửa</div>
+ <div class="space-desc">Hai cues mạnh nhất về tỉ lệ là người và cửa ra vào (vì cửa được thiết kế để phù hợp với người). Nếu có người khổng lồ hoặc cửa quá to/nhỏ bất thường, người chơi sẽ nhầm về scale.</div>
+ </div>
+ <div class="space-card space-card-full">
+ <div class="space-num" style="background: var(--accent-purple); font-size: 16px;"></div>
+ <div class="space-name">Texture scaling — Tỉ Lệ Texture</div>
+ <div class="space-desc">Lỗi dễ mắc: texture gạch tường quá lớn, hoặc texture sàn nhà quá nhỏ so với thực tế. Hãy đảm bảo các texture khớp với tỉ lệ ngoài đời thực.</div>
+ </div>
+ </div>
+
+ <!-- Third-Person Distortion -->
+ <div class="hl-purple" style="margin-top: 8px;">
+ <div class="hl-label"> Third-Person Distortion</div>
+ <div class="hl-title">Khi Não Bộ Ở Hai Nơi Cùng Một Lúc</div>
+ <p>Mỗi người đều có cảm nhận tự nhiên về cách cơ thể mình khớp với thế giới xung quanh. Khi chơi game góc nhìn thứ ba, não bộ làm một điều kỳ diệu: cho phép ta ở <em>hai nơi cùng lúc</em> — trong thân nhân vật, đồng thời lơ lửng cách 8 feet phía sau. Điều kỳ lạ xảy ra ở không gian nội thất: không gian trông chật hẹp kinh khủng, <em>như đang lái một ngôi nhà trong chiếc ô tô</em>.</p>
+ <p>Hầu hết người chơi không nhận ra đây là vấn đề của góc nhìn — họ nghĩ căn phòng quá nhỏ. Có 4 giải pháp:</p>
+ </div>
+
+ <div class="solution-grid">
+ <div class="solution-card">
+ <div class="solution-label">Giải Pháp 1</div>
+ <div class="solution-title">Phóng to phòng VÀ đồ nội thất</div>
+ <div class="solution-desc">Có thêm chỗ để di chuyển, nhưng nhân vật trông như đứa trẻ nhỏ — ghế và sofa bình thường trông quá to để ngồi.</div>
+ </div>
+ <div class="solution-card">
+ <div class="solution-label">Giải Pháp 2</div>
+ <div class="solution-title">Phóng to phòng, giữ nguyên đồ nội thất</div>
+ <div class="solution-desc">Tạo ra căn phòng hang động với đồ nội thất tụm lại trông cô đơn và lạc lõng.</div>
+ </div>
+ <div class="solution-card">
+ <div class="solution-label">Giải Pháp 3</div>
+ <div class="solution-title">Phóng to phòng, giữ nguyên đồ, trải ra</div>
+ <div class="solution-desc">Tốt hơn — phòng không còn như hang động, nhưng trông thưa thớt kỳ lạ với khoảng cách không tự nhiên giữa các vật.</div>
+ </div>
+ <div class="solution-card best">
+ <div class="solution-label"> Giải Pháp 4 — Tốt Nhất</div>
+ <div class="solution-title">Phóng to phòng + phóng to nhẹ đồ nội thất + trải ra</div>
+ <div class="solution-desc">Tiên phong bởi đội thiết kế <em>Max Payne</em>. Ở góc nhìn thứ nhất trông có vẻ lạ, nhưng ở góc nhìn thứ ba nó bù trừ rất tốt cho distortion do điểm nhìn xa khỏi thân.</div>
+ </div>
+ </div>
+
+ <!-- ═══════════════════════════════════════════════════
+ SECTION 5: LEVEL DESIGN
+ ════════════════════════════════════════════════════ -->
+ <div class="section-header" id="s5">
+ <div class="section-num" style="background: var(--accent-green);">5</div>
+ <h2 class="section-title">Thiết Kế Level</h2>
+ </div>
+
+ <div class="card">
+ <p>Chúng ta gần đến cuối chương này — và vẫn chưa nói về <em>level design</em>. Hay đã nói rồi? Thực ra, chúng ta đã đề cập đến nó suốt — không chỉ trong chương này, mà xuyên suốt cả cuốn sách.</p>
+ <p>Level designer không làm gì khác ngoài việc sắp xếp kiến trúc, đạo cụ, và thử thách trong game theo cách vui vẻ và thú vị — đảm bảo có đúng mức độ thử thách, đúng lượng phần thưởng, đúng lượng lựa chọn có ý nghĩa, cùng tất cả những thứ tạo nên một game tốt.</p>
+ </div>
+
+ <div class="hl-green">
+ <div class="hl-label"> Level Design = Game Design Ở Cấp Độ Chi Tiết</div>
+ <p><strong>Level design là game design được thực hành trong chi tiết</strong> — và nó không dễ, vì mọi phức tạp đều nằm ở chi tiết. Level design khác nhau với mỗi game vì mỗi game là duy nhất. Nhưng nếu bạn áp dụng tất cả những gì biết về game design — quan sát qua nhiều lens — những lựa chọn level design tốt nhất sẽ bắt đầu trở nên rõ ràng.</p>
+ </div>
+
+ <!-- OTHER READING -->
+ <div class="divider"></div>
+
+ <div class="card">
+ <div class="card-title"> Đọc Thêm</div>
+
+ <div class="reading-item">
+ <div>
+ <div class="reading-book">The Timeless Way of Building</div>
+ <div class="reading-author">Christopher Alexander</div>
+ <div class="reading-desc">Lời khuyên thiên tài cho bất kỳ designer nào. Cuốn sách Alexander đầu tiên bạn nên đọc.</div>
+ </div>
+ </div>
+
+ <div class="reading-item">
+ <div>
+ <div class="reading-book">A Pattern Language</div>
+ <div class="reading-author">Christopher Alexander et al.</div>
+ <div class="reading-desc">Đọc cuốn này, và bạn sẽ không bao giờ nhìn thế giới theo cách cũ nữa. Đọc cuốn này tiếp theo.</div>
+ </div>
+ </div>
+
+ <div class="reading-item">
+ <div>
+ <div class="reading-book">The Nature of Order, Books 1–4</div>
+ <div class="reading-author">Christopher Alexander</div>
+ <div class="reading-desc">Những thế hệ tương lai sẽ kinh ngạc rằng chúng ta không thể đánh giá cao những cuốn sách này khi Alexander còn sống. Đọc sau cùng.</div>
+ </div>
+ </div>
+
+ <div class="reading-item">
+ <div>
+ <div class="reading-book">Level Design for Games: Creating Compelling Game Experiences</div>
+ <div class="reading-author">Phil Co</div>
+ <div class="reading-desc">Một cuốn sách đầy đủ với những lời khuyên thực tế cho việc thiết kế chi tiết và tài liệu hóa game.</div>
+ </div>
+ </div>
+
+ </div>
+
+ <!-- CLOSING -->
+ <div class="closing-box">
+ <p>Bây giờ bạn đã biết cách tổ chức không gian game, những nguyên tắc sâu xa của kiến trúc, và những đặc thù kỳ lạ của kiến trúc ảo. Nhưng thế giới không chỉ là không gian — thế giới có diện mạo và cảm giác riêng của nó, được định nghĩa bởi thứ gì đó căn bản hơn.</p>
+ <div class="closing-next">→ Chương 22: The Look and Feel of a World Is Defined by Its Aesthetics</div>
+ </div>
+
+</main>
+<div class="chapnav-wrap"><div class="chapnav"><a href="C20-Characters.html"><span class="lbl">Chương trước</span>Chương 20: Worlds Contain Characters</a><a href="C22-Aesthetics.html"><span class="lbl">Chương sau</span>Chương 22: The Look and Feel of a World Is Defined by Its Aesthetics</a></div></div>
+
+<script>
+  (function(){
+    var sections = document.querySelectorAll('.section-header[id]');
+    var navLinks = document.querySelectorAll('.tocnav a');
+    if (!sections.length || !navLinks.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(a){
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
+</body>
+</html>

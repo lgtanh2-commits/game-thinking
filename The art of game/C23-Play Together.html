@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 23 – The Art of Game Design</title>
+<style>
+ :root {
+ --orange: #27ae60;
+ --orange-light: #6cc999;
+ --orange-pale: #edf9f2;
+ --dark: #0e231c;
+ --gray: #656a75;
+ --gray-light: #656a75;
+ --bg: #f4f7f2;
+ --white: #ffffff;
+ --card-border: #e4ebe2;
+ --accent-teal: #27ae60;
+ --accent-blue: #27ae60;
+ --accent-purple: #27ae60;
+ --accent-green: #27ae60;
+ --accent-gold: #27ae60;
+ 
+ --forest: #0e231c;
+ --fog: #879b93;
+ --sage: #defaca;
+ --mint: #edf9f2;
+ --sprout-d: #1c8a4c;}
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ body {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ background: var(--bg);
+ color: var(--dark);
+ line-height: 1.75;
+ font-size: 17px;
+ }
+ main { max-width: 880px; margin: 0 auto; padding: 60px 24px 120px; }
+
+ /* HERO */
+ .hero {
+ background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
+ border-radius: 24px;
+ padding: 56px 48px;
+ margin-bottom: 56px;
+ color: white;
+ position: relative;
+ overflow: hidden;
+ }
+ .hero::before {
+ content: '';
+ position: absolute; top: -60px; right: -60px;
+ width: 280px; height: 280px;
+ background: none;
+ border-radius: 50%;
+ }
+ .hero-badge {
+ display: inline-block;
+ background: rgba(39,174,96,0.12);
+ border: 1px solid rgba(39,174,96,0.35);
+ color: var(--orange-light);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px; font-weight: 600;
+ letter-spacing: 0.12em; text-transform: uppercase;
+ padding: 6px 14px; border-radius: 20px;
+ margin-bottom: 20px;
+ }
+ .hero h1 {
+ font-size: 36px; font-weight: normal;
+ line-height: 1.25; margin-bottom: 12px; color: #FFF;
+ }
+ .hero h1 span { color: var(--orange-light); }
+ .hero-subtitle {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 15px; color: rgba(255,255,255,0.55);
+ margin-bottom: 32px; font-style: italic;
+ }
+ .hero-stats { display: flex; gap: 24px; flex-wrap: wrap; }
+ .stat {
+ background: rgba(255,255,255,0.07);
+ border: 1px solid rgba(255,255,255,0.12);
+ border-radius: 12px; padding: 14px 20px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ min-width: 120px;
+ }
+ .stat-num { font-size: 26px; font-weight: 700; color: var(--orange-light); line-height: 1; margin-bottom: 4px; }
+ .stat-label { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; }
+
+ /* CHAPTER MAP */
+ .chapter-map {
+ background: var(--white); border: 1px solid var(--card-border);
+ border-radius: 20px; padding: 36px 40px;
+ margin-bottom: 52px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .chapter-map h2 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px; font-weight: 600;
+ letter-spacing: 0.1em; text-transform: uppercase;
+ color: var(--gray-light); margin-bottom: 28px;
+ }
+ .map-flow { display: flex; flex-wrap: wrap; gap: 0; align-items: center; }
+ .map-node { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+ .map-dot {
+ width: 44px; height: 44px; border-radius: 50%;
+ display: flex; align-items: center; justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 15px; font-weight: 700; color: white; flex-shrink: 0;
+ }
+ .map-dot.orange { background: var(--orange); }
+ .map-dot.teal { background: var(--accent-teal); }
+ .map-dot.blue { background: var(--accent-blue); }
+ .map-dot.purple { background: var(--accent-purple); }
+ .map-dot.green { background: var(--accent-green); }
+ .map-dot.gold { background: var(--accent-gold); }
+ .map-label { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 500; color: var(--gray); max-width: 130px; line-height: 1.3; }
+ .map-arrow { font-size: 18px; color: var(--gray-light); margin: 0 6px 12px; flex-shrink: 0; }
+
+ /* SECTION */
+ .section { margin-bottom: 56px; }
+ .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px;  scroll-margin-top: 108px;}
+ .section-num {
+ width: 52px; height: 52px; border-radius: 14px;
+ display: flex; align-items: center; justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 18px; font-weight: 700; color: white; flex-shrink: 0;
+ }
+ .sn-orange { background: var(--orange); }
+ .sn-teal { background: var(--accent-teal); }
+ .sn-blue { background: var(--accent-blue); }
+ .sn-purple { background: var(--accent-purple); }
+ .sn-green { background: var(--accent-green); }
+ .sn-gold { background: var(--accent-gold); }
+ .section-title { font-size: 24px; font-weight: normal; color: var(--dark); line-height: 1.3; }
+ .section-title em { font-style: normal; color: var(--orange); }
+
+ /* CARD */
+ .card {
+ background: var(--white); border: 1px solid var(--card-border);
+ border-radius: 16px; padding: 28px 32px;
+ margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .card p { margin-bottom: 14px; }
+ .card p:last-child { margin-bottom: 0; }
+
+ /* QUOTE */
+ .quote-block {
+ border-left: 4px solid var(--orange);
+ background: var(--orange-pale);
+ border-radius: 0 12px 12px 0;
+ padding: 20px 24px; margin: 20px 0;
+ font-style: italic; color: var(--gray);
+ }
+ .quote-block .attribution {
+ display: block; margin-top: 10px; font-style: normal;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px; color: var(--orange); font-weight: 600;
+ }
+
+ /* HIGHLIGHT BOXES */
+ .hl-box {
+ border-radius: 14px; padding: 22px 26px;
+ margin-bottom: 20px; border-width: 1px; border-style: solid;
+ }
+ .hl-box .hl-icon { font-size: 22px; margin-bottom: 8px; display: block; }
+ .hl-box .hl-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px; font-weight: 700;
+ text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;
+ }
+ .hl-orange { background: #edf9f2; border-color: rgba(39,174,96,0.3); }
+ .hl-orange .hl-title { color: var(--orange); }
+ .hl-teal { background: #edf9f2; border-color: rgba(39,174,96,0.3); }
+ .hl-teal .hl-title { color: var(--accent-teal); }
+ .hl-blue { background: #edf9f2; border-color: rgba(39,174,96,0.3); }
+ .hl-blue .hl-title { color: var(--accent-blue); }
+ .hl-purple { background: #edf9f2; border-color: rgba(39,174,96,0.3); }
+ .hl-purple .hl-title { color: var(--accent-purple); }
+ .hl-green { background: #edf9f2; border-color: rgba(39,174,96,0.3); }
+ .hl-green .hl-title { color: var(--accent-green); }
+ .hl-gold { background: #edf9f2; border-color: rgba(39,174,96,0.3); }
+ .hl-gold .hl-title { color: var(--accent-gold); }
+
+ /* LENS BOX */
+ .lens-box {
+ background: #edf9f2;
+ border: 2px solid var(--orange);
+ border-radius: 18px; padding: 32px 36px; margin-bottom: 24px;
+ }
+ .lens-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+ .lens-icon {
+ width: 60px; height: 60px; border-radius: 14px;
+ background: var(--orange);
+ display: flex; align-items: center; justify-content: center;
+ font-size: 28px; flex-shrink: 0;
+ }
+ .lens-meta { flex: 1; }
+ .lens-num {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px; font-weight: 600;
+ letter-spacing: 0.1em; text-transform: uppercase;
+ color: var(--orange); margin-bottom: 4px;
+ }
+ .lens-name { font-size: 20px; font-weight: 600; color: var(--dark); }
+ .lens-questions {
+ background: rgba(255,255,255,0.7);
+ border-radius: 10px; padding: 16px 20px; margin-top: 16px;
+ }
+ .lens-questions p {
+ font-style: italic; color: var(--gray);
+ margin-bottom: 10px; padding-left: 16px;
+ border-left: 3px solid var(--orange-light);
+ }
+ .lens-questions p:last-child { margin-bottom: 0; }
+ .lens-desc { color: var(--gray); margin-top: 16px; line-height: 1.7; }
+
+ /* NUMBERED LIST */
+ .num-list { list-style: none; padding: 0; }
+ .num-list li { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
+ .num-badge {
+ width: 32px; height: 32px; border-radius: 9px;
+ background: var(--orange); color: white;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 14px; font-weight: 700;
+ display: flex; align-items: center; justify-content: center;
+ flex-shrink: 0; margin-top: 2px;
+ }
+ .num-badge.teal { background: var(--accent-teal); }
+ .num-badge.blue { background: var(--accent-blue); }
+ .num-badge.purple { background: var(--accent-purple); }
+ .num-badge.green { background: var(--accent-green); }
+ .num-badge.gold { background: var(--accent-gold); }
+
+ /* REASON CARDS */
+ .reason-card {
+ background: var(--white); border: 1px solid var(--card-border);
+ border-radius: 14px; padding: 22px 26px; margin-bottom: 16px;
+ border-left: 4px solid var(--orange);
+ }
+ .reason-card.teal { border-left-color: var(--accent-teal); }
+ .reason-card.blue { border-left-color: var(--accent-blue); }
+ .reason-card.purple { border-left-color: var(--accent-purple); }
+ .reason-card.green { border-left-color: var(--accent-green); }
+ .reason-card-header {
+ display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+ }
+ .reason-num {
+ width: 28px; height: 28px; border-radius: 8px;
+ background: var(--orange); color: white;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px; font-weight: 700;
+ display: flex; align-items: center; justify-content: center;
+ flex-shrink: 0;
+ }
+ .reason-num.teal { background: var(--accent-teal); }
+ .reason-num.blue { background: var(--accent-blue); }
+ .reason-num.purple { background: var(--accent-purple); }
+ .reason-num.green { background: var(--accent-green); }
+ .reason-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 15px; font-weight: 700; color: var(--dark);
+ }
+ .reason-lenses {
+ margin-top: 10px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px; color: var(--gray-light);
+ font-style: italic;
+ }
+
+ /* GRID */
+ .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+ @media(max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+ /* READING LIST */
+ .reading-list { list-style: none; padding: 0; }
+ .reading-list li {
+ background: var(--white); border: 1px solid var(--card-border);
+ border-radius: 12px; padding: 18px 22px;
+ margin-bottom: 12px; display: flex; gap: 14px; align-items: flex-start;
+ }
+ .book-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+ .book-title { font-weight: 600; color: var(--dark); font-style: italic; }
+ .book-author { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; color: var(--gray-light); margin-top: 2px; }
+ .book-desc { font-size: 15px; color: var(--gray); margin-top: 6px; }
+
+ /* DIVIDER */
+ .divider { border: none; border-top: 1px solid var(--card-border); margin: 48px 0; }
+
+ /* COST BOX */
+ .cost-box {
+ background: #edf9f2;
+ border: 1px solid rgba(39,174,96,0.3);
+ border-radius: 14px; padding: 22px 26px; margin-bottom: 20px;
+ }
+ .cost-box .cost-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px; font-weight: 700; text-transform: uppercase;
+ letter-spacing: 0.08em; color: var(--accent-gold); margin-bottom: 10px;
+ }
+
+ /* FOOTER */
+ .chapter-footer {
+ margin-top: 72px; padding-top: 32px;
+ border-top: 1px solid var(--card-border);
+ display: flex; justify-content: space-between; align-items: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px; color: var(--gray-light);
+ flex-wrap: wrap; gap: 12px;
+ }
+ .footer-next { color: var(--orange); font-weight: 600; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+  .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .topnav .crumb { color: #879b93; font-size: 14px; }
+  .topnav .crumb a { color: #879b93; text-decoration: none; }
+  .topnav .crumb b { color: #fff; font-weight: 600; }
+  .chapnav-wrap { background: #f4f7f2; padding: 40px 24px 56px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .chapnav { display: flex; justify-content: space-between; gap: 12px; max-width: 820px; margin: 0 auto; }
+  .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+  .tocnav { position: sticky; top: 52px; z-index: 100; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; overflow-x: auto; scrollbar-width: none; }
+  .tocnav::-webkit-scrollbar { display: none; }
+  .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
+
+</style>
+<nav class="topnav">
+  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 23</b></span>
+</nav>
+
+<nav class="tocnav">
+  <a href="#s1">Chúng ta không bao giờ chơi một mình</a>
+  <a href="#s2">5 lý do chúng ta chơi cùng nhau</a>
+  <a href="#s3">Đừng quên người xem (Spectators)</a>
+  <a href="#s4">Spectation</a>
+  <a href="#s5">Chi phí & Lợi ích của Multiplayer</a>
+  <a href="#s6">Đọc thêm</a>
+</nav>
+
+<main>
+
+ <!-- HERO -->
+ <div class="hero">
+ <div class="hero-badge">Chapter 23 · The Art of Game Design</div>
+ <h1>Some Games Are Played<br>with <span>Other Players</span></h1>
+ <div class="hero-subtitle">Jesse Schell · Bản dịch & phân tích tiếng Việt</div>
+ <div class="hero-stats">
+ <div class="stat">
+ <div class="stat-num">1</div>
+ <div class="stat-label">New Lens</div>
+ </div>
+ <div class="stat">
+ <div class="stat-num">#95</div>
+ <div class="stat-label">Lens of Spectation</div>
+ </div>
+ <div class="stat">
+ <div class="stat-num">5</div>
+ <div class="stat-label">Lý do chơi cùng nhau</div>
+ </div>
+ <div class="stat">
+ <div class="stat-num">4×</div>
+ <div class="stat-label">Chi phí Multiplayer</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- CHAPTER MAP -->
+ <div class="chapter-map">
+ <h2>Bản đồ chương</h2>
+ <div class="map-flow">
+ <div class="map-node">
+ <div class="map-dot orange">1</div>
+ <div class="map-label">Con người là sinh vật xã hội</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot teal">2</div>
+ <div class="map-label">5 lý do chơi cùng nhau</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot blue">3</div>
+ <div class="map-label">Người xem (Spectators)</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot purple">4</div>
+ <div class="map-label">Lens #95: Spectation</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot green">5</div>
+ <div class="map-label">Chi phí & Lợi ích Multiplayer</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- SECTION 1: CON NGƯỜI LÀ SINH VẬT XÃ HỘI -->
+ <div class="section">
+ <div class="section-header" id="s1">
+ <div class="section-num sn-orange">1</div>
+ <h2 class="section-title">Chúng ta <em>không bao giờ chơi một mình</em></h2>
+ </div>
+
+ <div class="quote-block">
+ "It is well to remember that the entire universe, with one trifling exception, is composed of others."
+ <span class="attribution">— John Andrew Holmes</span>
+ </div>
+
+ <div class="quote-block">
+ "No one ever said on their deathbed, 'Gee, I wish I had spent more time alone with my computer.'"
+ <span class="attribution">— Dani Bunten Berry</span>
+ </div>
+
+ <div class="card">
+ <p>Con người là sinh vật xã hội. Chúng ta tránh cô đơn bản năng — tù nhân bị đưa vào phòng biệt giam không phải vì cái phòng đó nguy hiểm, mà vì <strong>sự cô đơn còn tệ hơn</strong> bị nhốt cùng tội phạm.</p>
+ <p>Nhìn lại lịch sử hàng nghìn năm của trò chơi: phần lớn game được thiết kế để chơi <em>cùng</em> hoặc <em>chống lại</em> người khác. Trước khi máy tính xuất hiện, chơi một mình (như solitaire) là ngoại lệ hiếm gặp, không phải tiêu chuẩn.</p>
+ <p>Vậy tại sao videogame lại trở thành trải nghiệm đơn độc? Đó không phải vì bản chất con người thay đổi — mà do <strong>giới hạn công nghệ</strong> của phần cứng và phần mềm game thời kỳ đầu. Khi công nghệ ngày càng tiến bộ và các nền tảng kết nối nhau, xu hướng rõ ràng đang quay trở về: mỗi năm, càng nhiều game có thành phần multiplayer hoặc cộng đồng. Single-player thuần túy đang dần trở thành ngoại lệ thay vì tiêu chuẩn.</p>
+ </div>
+
+ <div class="hl-box hl-teal">
+ <div class="hl-title">Facebook games & Social Mobile — Bản năng trở lại</div>
+ <p>Sự bùng nổ của Facebook games và các game mobile xã hội không phải là xu hướng mới — đó là <strong>bản năng con người trở lại đúng chỗ</strong>. Single-player là giai đoạn tạm thời, được sinh ra từ giới hạn công nghệ, chứ không phải từ nhu cầu thực sự của người chơi.</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- SECTION 2: 5 LÝ DO -->
+ <div class="section">
+ <div class="section-header" id="s2">
+ <div class="section-num sn-teal">2</div>
+ <h2 class="section-title">5 lý do chúng ta chơi <em>cùng nhau</em></h2>
+ </div>
+
+ <div class="card">
+ <p>Nhiều lý do đã được thảo luận trước đây — flow, thách thức, phần thưởng — đều không <em>đòi hỏi</em> sự hiện diện của người khác. Nhưng có những điều mà chỉ có thể trải nghiệm khi chơi cùng người thật. Schell chỉ ra 5 lý do chính:</p>
+ </div>
+
+ <!-- REASON 1: COMPETITION -->
+ <div class="reason-card">
+ <div class="reason-card-header">
+ <div class="reason-num">1</div>
+ <div class="reason-title">Competition — Cạnh tranh</div>
+ </div>
+ <p>Khi nhắc đến multiplayer, đây thường là điều đầu tiên xuất hiện trong đầu — và có lý do chính đáng. Cạnh tranh đáp ứng đồng thời nhiều nhu cầu:</p>
+ <ul style="padding-left: 18px; margin-top: 10px; color: var(--gray);">
+ <li style="margin-bottom: 8px;">Cho phép sân chơi bình đẳng (Lens #37, <em>Fairness</em>)</li>
+ <li style="margin-bottom: 8px;">Cung cấp một đối thủ xứng tầm (Lens #38, <em>Challenge</em> và Lens #43, <em>Competition</em>)</li>
+ <li style="margin-bottom: 8px;">Đặt ra bài toán thú vị cần giải (Lens #8, <em>Problem Solving</em>)</li>
+ <li style="margin-bottom: 8px;">Thỏa mãn nhu cầu đánh giá cấp độ bản thân so với xã hội xung quanh (Lens #25, <em>Judgment</em> và Lens #90, <em>Status</em>)</li>
+ <li>Mở ra chiến lược phức tạp nhờ trí tuệ và tâm lý của đối thủ người thật (Lens #39, <em>Meaningful Choice</em>; Lens #34, <em>Skill</em>; Lens #79, <em>Freedom</em>)</li>
+ </ul>
+ </div>
+
+ <!-- REASON 2: COLLABORATION -->
+ <div class="reason-card teal">
+ <div class="reason-card-header">
+ <div class="reason-num teal">2</div>
+ <div class="reason-title">Collaboration — Hợp tác</div>
+ </div>
+ <p>Đối cực của cạnh tranh. Game hợp tác thú vị vì chúng cho phép những hành động và chiến lược <strong>không thể thực hiện với một người</strong> — bóng chày một-chọi-một gần như vô nghĩa. Hơn nữa, hợp tác chạm đến những niềm vui sâu xa của giải quyết vấn đề theo nhóm và cảm giác là một phần của đội thắng.</p>
+ <p style="margin-top: 10px; color: var(--gray-light); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-style: italic;">Lưu ý: Hầu hết game hợp tác vẫn tuân theo mô hình thể thao đồng đội — kết hợp cả hợp tác lẫn cạnh tranh cùng lúc.</p>
+ </div>
+
+ <!-- REASON 3: MEETING UP -->
+ <div class="reason-card blue">
+ <div class="reason-card-header">
+ <div class="reason-num blue">3</div>
+ <div class="reason-title">Meeting up — Gặp gỡ</div>
+ </div>
+ <p>Con người thích ở cạnh nhau, nhưng đôi khi thật khó xử khi chỉ ngồi nói chuyện suông. Game — như thức ăn — cho chúng ta <strong>một lý do để ở bên nhau</strong>, thứ gì đó để tập trung sự chú ý mà không ai phải ngại ngùng. Đây là lý do nhiều tình bạn lâu năm được gắn kết bởi một ván chess hàng tuần, một trận golf định kỳ, hay một buổi <em>Words with Friends</em> thường xuyên.</p>
+ </div>
+
+ <!-- REASON 4: EXPLORING FRIENDS -->
+ <div class="reason-card purple">
+ <div class="reason-card-header">
+ <div class="reason-num purple">4</div>
+ <div class="reason-title">Exploring our friends — Khám phá bạn bè</div>
+ </div>
+ <p>Trong một cuộc trò chuyện thông thường, bạn bè chỉ chia sẻ những gì họ <em>muốn bạn nghe</em> — được lọc qua nhận thức về bản thân và kỳ vọng xã hội. Nhưng khi chơi game cùng nhau, bạn nhìn thấy họ <strong>trong trạng thái tự nhiên hơn</strong>: giải quyết vấn đề, đưa ra quyết định khó, chịu áp lực, quyết định khi nào nên nhường nhịn và khi nào không.</p>
+ <div class="quote-block" style="margin-top: 14px;">
+ "You can learn more about a man in an hour of play than in a year of conversation."
+ <span class="attribution">— Plato (được trích dẫn)</span>
+ </div>
+ </div>
+
+ <!-- REASON 5: EXPLORING OURSELVES -->
+ <div class="reason-card green">
+ <div class="reason-card-header">
+ <div class="reason-num green">5</div>
+ <div class="reason-title">Exploring ourselves — Khám phá bản thân</div>
+ </div>
+ <p>Khi chơi một mình, game cho phép ta kiểm tra giới hạn kỹ năng. Nhưng khi chơi cùng người khác, ta khám phá điều còn phức tạp hơn: <strong>ta là ai trong các tình huống xã hội?</strong> Ta có xu hướng nhường bạn bè thắng không? Ta phản ứng thế nào khi bị đánh bại trước mặt người khác? Ta chọn theo ai, và vì sao? Ai ta chọn để bắt chước?</p>
+ <p style="margin-top: 10px;">Đây không phải câu hỏi tầm thường — chúng <em>gần với trái tim của việc ta nhìn nhận bản thân và liên kết với người khác như thế nào</em>.</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- SECTION 3: SPECTATORS -->
+ <div class="section">
+ <div class="section-header" id="s3">
+ <div class="section-num sn-blue">3</div>
+ <h2 class="section-title">Đừng quên <em>người xem</em> (Spectators)</h2>
+ </div>
+
+ <div class="card">
+ <p>Kết nối xã hội không chỉ dành cho người <em>đang chơi</em>. Ngồi xem người khác chơi cũng là một trải nghiệm xã hội có giá trị riêng của nó — và đây là điều dễ bị nhà thiết kế bỏ qua.</p>
+ <p>Trong bối cảnh phòng khách (hearth/living room), điều này đặc biệt quan trọng: sẽ có những người xung quanh thích xem TV hơn. Nếu game của bạn đủ hấp dẫn để họ bỏ TV mà ngồi xem — và còn cười đùa, bình luận, giúp người chơi giải quyết vấn đề — thì bạn đã làm được điều thực sự đáng giá.</p>
+ <p>Và ngày càng nhiều người xem gameplay qua livestream, video streaming từ xa. Đây là góc nhìn dễ bị quên, nhưng cần được thêm vào bộ công cụ tư duy của nhà thiết kế.</p>
+ </div>
+
+ <div class="hl-box hl-blue">
+ <div class="hl-title">Esports & Streaming — Hình thức cũ trong kỷ nguyên mới</div>
+ <p>Con người đã yêu thích việc ngồi xem người khác chơi từ hàng nghìn năm trước — từ đấu trường Hy Lạp đến bàn cờ vua trong quán cà phê. Streaming gameplay trên Twitch hay YouTube chỉ là phiên bản hiện đại của cùng một bản năng đó. Thiết kế cho spectators không phải là tính năng "nice to have" — với một số thể loại game, nó là cốt lõi của business model.</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- SECTION 4: LENS #95 -->
+ <div class="section">
+ <div class="section-header" id="s4">
+ <div class="section-num sn-purple">4</div>
+ <h2 class="section-title">Lens mới: <em>Spectation</em></h2>
+ </div>
+
+ <div class="lens-box">
+ <div class="lens-header">
+ <div class="lens-meta">
+ <div class="lens-num">Lens #95</div>
+ <div class="lens-name">The Lens of Spectation</div>
+ </div>
+ </div>
+ <div class="lens-questions">
+ <p>"Is my game interesting to watch? Why or why not?"</p>
+ <p>"How can I make it more interesting to watch?"</p>
+ </div>
+ <div class="lens-desc">
+ <p>Hàng nghìn năm qua, con người yêu thích việc ngồi xem người khác chơi game — nhưng chỉ khi game đó đáng xem. Lens này nhắc nhà thiết kế rằng audience của game không chỉ là người đang cầm tay cầm — mà còn là tất cả những người ngồi xung quanh, trực tiếp hay qua màn hình.</p>
+ <p>Một game thú vị để xem thường có: hành động rõ ràng dễ theo dõi, khoảnh khắc căng thẳng, bất ngờ, và đủ độ phức tạp để người xem muốn bình luận và dự đoán kết quả.</p>
+ </div>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- SECTION 5: CHI PHÍ & LỢI ÍCH MULTIPLAYER -->
+ <div class="section">
+ <div class="section-header" id="s5">
+ <div class="section-num sn-green">5</div>
+ <h2 class="section-title">Chi phí & Lợi ích của <em>Multiplayer</em></h2>
+ </div>
+
+ <div class="cost-box">
+ <div class="cost-title"> Quy tắc 4× — Cảnh báo quan trọng</div>
+ <p>Schell đưa ra con số thực tế: một game multiplayer online thường tốn <strong>gấp 4 lần công sức và chi phí</strong> so với game single-player tương đương. Lý do: multiplayer khó debug hơn nhiều, rất khó cân bằng, và đòi hỏi cơ sở hạ tầng server phức tạp.</p>
+ <p style="margin-top: 10px; font-weight: 600;">Nếu lý do duy nhất để thêm multiplayer là "vì multiplayer thì cool" — hãy suy nghĩ lại. Lý do phải rõ ràng và thuyết phục.</p>
+ </div>
+
+ <div class="grid-2">
+ <div class="hl-box hl-green" style="margin-bottom: 0;">
+ <div class="hl-title">Khi nào Multiplayer xứng đáng?</div>
+ <p>Khi game đó về bản chất <em>cần</em> người khác để hoạt động — chiến lược phức tạp không thể có với AI, cảm xúc xã hội đích thực, cộng đồng là một phần của gameplay.</p>
+ </div>
+ <div class="hl-box hl-orange" style="margin-bottom: 0;">
+ <div class="hl-title">Khi nào Multiplayer là rủi ro?</div>
+ <p>Khi đội ngũ chưa sẵn sàng về nguồn lực, khi gameplay core không tự nhiên đòi hỏi tương tác người-người, hoặc khi "multiplayer" chỉ là tính năng gắn thêm vào.</p>
+ </div>
+ </div>
+
+ <div class="hl-box hl-teal" style="margin-top: 20px;">
+ <div class="hl-title">Lý do mạnh nhất vẫn còn ở phía trước</div>
+ <p>Schell kết thúc chương bằng một gợi ý bí ẩn: trong 5 lý do chơi cùng nhau ở chương này, <strong>vẫn còn một lý do mạnh hơn tất cả</strong> — và đó sẽ là chủ đề của chương tiếp theo (Chương 24 về Communities).</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- SECTION 6: OTHER READING -->
+ <div class="section">
+ <div class="section-header" id="s6">
+ <div class="section-num sn-gold">6</div>
+ <h2 class="section-title">Đọc thêm</h2>
+ </div>
+ <ul class="reading-list">
+ <li>
+ <div>
+ <div class="book-title">"Testosterone and Competitive Play"</div>
+ <div class="book-author">Dan Cook — Lost Garden blog</div>
+ <div class="book-desc">Phân tích sâu về tâm lý cạnh tranh trong multiplayer. Đặc biệt quan trọng cho bất kỳ ai thiết kế game có yếu tố cạnh tranh.</div>
+ </div>
+ </li>
+ <li>
+ <div>
+ <div class="book-title">"Listen…"</div>
+ <div class="book-author">Ogden Nash — bài thơ</div>
+ <div class="book-desc">Schell cho rằng bài thơ này tóm gọn được mục tiêu thực sự của thiết kế game multiplayer.</div>
+ </div>
+ </li>
+ </ul>
+ </div>
+
+ <!-- FOOTER -->
+ <div class="chapter-footer">
+ <div>The Art of Game Design · Jesse Schell · Chapter 23</div>
+ <div class="footer-next">Tiếp theo: Chương 24 — Other Players Sometimes Form Communities →</div>
+ </div>
+
+</main>
+<div class="chapnav-wrap"><div class="chapnav"><a href="C22-Aesthetics.html"><span class="lbl">Chương trước</span>Chương 22: The Look and Feel of a World Is Defined by Its Aesthetics</a><a href="C24-Communities.html"><span class="lbl">Chương sau</span>Chương 24: Other Players Sometimes Form Communities</a></div></div>
+
+<script>
+  (function(){
+    var sections = document.querySelectorAll('.section-header[id]');
+    var navLinks = document.querySelectorAll('.tocnav a');
+    if (!sections.length || !navLinks.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(a){
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
+</body>
+</html>

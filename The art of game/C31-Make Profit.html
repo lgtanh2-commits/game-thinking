@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 31 – The Designer and Client Want the Game to Make a Profit</title>
+<style>
+ :root {
+ --orange: #27ae60;
+ --orange-light: #6cc999;
+ --orange-pale: #edf9f2;
+ --dark: #0e231c;
+ --gray: #656a75;
+ --gray-light: #656a75;
+ --bg: #f4f7f2;
+ --white: #ffffff;
+ --card-border: #e4ebe2;
+ --accent-teal: #27ae60;
+ --accent-blue: #27ae60;
+ --accent-purple: #27ae60;
+ --accent-green: #27ae60;
+ --accent-gold: #27ae60;
+ 
+ --forest: #0e231c;
+ --fog: #879b93;
+ --sage: #defaca;
+ --mint: #edf9f2;
+ --sprout-d: #1c8a4c;}
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ body {
+ background: var(--bg);
+ color: var(--dark);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 17px;
+ line-height: 1.75;
+ }
+
+ main {
+ max-width: 880px;
+ margin: 0 auto;
+ padding: 60px 24px 120px;
+ }
+
+ /* ── HERO ── */
+ .hero {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 24px;
+ padding: 52px 48px 44px;
+ margin-bottom: 56px;
+ box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+ position: relative;
+ overflow: hidden;
+ }
+ .hero::before {
+ content: '';
+ position: absolute;
+ top: 0; left: 0; right: 0;
+ height: 5px;
+ background: #edf9f2;
+ }
+ .hero-badge {
+ display: inline-block;
+ background: rgba(39,174,96,0.12);
+ border: 1px solid rgba(39,174,96,0.35);
+ border-radius: 20px;
+ padding: 6px 18px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 600;
+ color: var(--orange);
+ letter-spacing: 0.04em;
+ text-transform: uppercase;
+ margin-bottom: 20px;
+ }
+ .hero h1 {
+ font-size: 32px;
+ font-weight: 700;
+ color: var(--dark);
+ line-height: 1.25;
+ margin-bottom: 10px;
+ }
+ .hero-sub {
+ font-size: 17px;
+ color: var(--gray);
+ margin-bottom: 32px;
+ font-style: italic;
+ }
+ .hero-stats {
+ display: flex;
+ gap: 32px;
+ flex-wrap: wrap;
+ padding-top: 28px;
+ border-top: 1px solid var(--card-border);
+ }
+ .hero-stat {
+ display: flex;
+ flex-direction: column;
+ gap: 4px;
+ }
+ .hero-stat .label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ }
+ .hero-stat .value {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 15px;
+ font-weight: 700;
+ color: var(--dark);
+ }
+
+ /* ── CHAPTER MAP ── */
+ .chapter-map {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 20px;
+ padding: 40px 40px 36px;
+ margin-bottom: 56px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .chapter-map h2 {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 32px;
+ }
+ .map-flow {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 0;
+ row-gap: 20px;
+ }
+ .map-node {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 8px;
+ min-width: 80px;
+ }
+ .map-dot {
+ width: 52px;
+ height: 52px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 18px;
+ font-weight: 800;
+ color: var(--white);
+ flex-shrink: 0;
+ }
+ .dot-orange { background: var(--orange); }
+ .dot-teal { background: var(--accent-teal); }
+ .dot-blue { background: var(--accent-blue); }
+ .dot-purple { background: var(--accent-purple); }
+ .dot-green { background: var(--accent-green); }
+ .dot-gold { background: var(--accent-gold); }
+
+ .map-label {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 11px;
+ font-weight: 600;
+ color: var(--gray);
+ text-align: center;
+ max-width: 80px;
+ line-height: 1.3;
+ }
+ .map-arrow {
+ font-size: 20px;
+ color: var(--gray-light);
+ padding: 0 6px;
+ margin-bottom: 24px;
+ }
+
+ /* ── SECTION WRAPPER ── */
+ .section {
+ margin-bottom: 64px;
+ }
+ .section-header {
+ display: flex;
+ align-items: center;
+ gap: 18px;
+ margin-bottom: 28px;
+  scroll-margin-top: 108px;}
+ .section-num {
+ width: 52px;
+ height: 52px;
+ border-radius: 14px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 20px;
+ font-weight: 800;
+ color: var(--white);
+ flex-shrink: 0;
+ }
+ .sn-orange { background: var(--orange); }
+ .sn-teal { background: var(--accent-teal); }
+ .sn-blue { background: var(--accent-blue); }
+ .sn-purple { background: var(--accent-purple); }
+ .sn-green { background: var(--accent-green); }
+ .sn-gold { background: var(--accent-gold); }
+
+ .section-title {
+ font-size: 24px;
+ font-weight: 700;
+ color: var(--dark);
+ line-height: 1.2;
+ }
+ .section-title span {
+ display: block;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--gray-light);
+ margin-bottom: 4px;
+ }
+
+ /* ── CARD ── */
+ .card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ padding: 28px 32px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ margin-bottom: 20px;
+ }
+ .card p { margin-bottom: 14px; }
+ .card p:last-child { margin-bottom: 0; }
+
+ /* ── QUOTE ── */
+ .quote-block {
+ border-left: 4px solid var(--orange);
+ background: var(--orange-pale);
+ border-radius: 0 12px 12px 0;
+ padding: 20px 24px;
+ margin: 20px 0;
+ font-style: italic;
+ color: var(--dark);
+ font-size: 16px;
+ line-height: 1.7;
+ }
+ .quote-block .attr {
+ font-style: normal;
+ font-size: 13px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-weight: 600;
+ color: var(--orange);
+ margin-top: 10px;
+ }
+
+ /* ── HIGHLIGHT BOXES ── */
+ .hl-box {
+ border-radius: 14px;
+ padding: 22px 26px;
+ margin: 18px 0;
+ }
+ .hl-box .hl-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ letter-spacing: 0.06em;
+ text-transform: uppercase;
+ margin-bottom: 10px;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ }
+ .hl-orange { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.35); }
+ .hl-orange .hl-title { color: var(--orange); }
+ .hl-teal { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.3); }
+ .hl-teal .hl-title { color: var(--accent-teal); }
+ .hl-blue { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.3); }
+ .hl-blue .hl-title { color: var(--accent-blue); }
+ .hl-purple { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.3); }
+ .hl-purple .hl-title { color: var(--accent-purple); }
+ .hl-green { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.3); }
+ .hl-green .hl-title { color: var(--accent-green); }
+ .hl-gold { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.3); }
+ .hl-gold .hl-title { color: var(--accent-gold); }
+
+ /* ── LENS BOX ── */
+ .lens-box {
+ border: 2px solid var(--orange);
+ background: #edf9f2;
+ border-radius: 18px;
+ padding: 32px 36px;
+ margin: 28px 0;
+ }
+ .lens-header {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ margin-bottom: 22px;
+ }
+ .lens-icon {
+ width: 56px;
+ height: 56px;
+ background: var(--orange);
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 24px;
+ flex-shrink: 0;
+ }
+ .lens-title-block .lens-num {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: var(--orange);
+ margin-bottom: 3px;
+ }
+ .lens-title-block .lens-name {
+ font-size: 20px;
+ font-weight: 700;
+ color: var(--dark);
+ }
+ .lens-questions {
+ list-style: none;
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
+ }
+ .lens-questions li {
+ display: flex;
+ gap: 12px;
+ align-items: flex-start;
+ }
+ .lens-questions li::before {
+ content: '';
+ font-size: 14px;
+ flex-shrink: 0;
+ margin-top: 2px;
+ }
+
+ /* ── MONEY FLOW ── */
+ .money-model {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 16px;
+ overflow: hidden;
+ margin-bottom: 20px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+ }
+ .money-model-header {
+ padding: 16px 28px;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-weight: 700;
+ font-size: 15px;
+ color: var(--white);
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ }
+ .mh-orange { background: var(--orange); }
+ .mh-teal { background: var(--accent-teal); }
+ .mh-purple { background: var(--accent-purple); }
+ .money-model-body {
+ padding: 24px 28px;
+ }
+
+ .flow-row {
+ display: flex;
+ align-items: stretch;
+ gap: 0;
+ margin-bottom: 10px;
+ flex-wrap: wrap;
+ }
+ .flow-item {
+ flex: 1;
+ min-width: 100px;
+ border-radius: 10px;
+ padding: 12px 14px;
+ text-align: center;
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 13px;
+ font-weight: 600;
+ }
+ .flow-consumer { background: #EEF4FB; color: var(--sprout-d); border: 1.5px solid rgba(39,174,96,0.3); }
+ .flow-middle { background: #F5F0FB; color: var(--sprout-d); border: 1.5px solid rgba(39,174,96,0.3); }
+ .flow-dev { background: #F0F8F4; color: var(--sprout-d); border: 1.5px solid rgba(39,174,96,0.3); }
+ .flow-cost { background: #FDF8EC; color: var(--sprout-d); border: 1.5px solid rgba(39,174,96,0.3); }
+ .flow-profit { background: var(--orange-pale); color: var(--sprout-d); border: 1.5px solid rgba(39,174,96,0.35); }
+
+ .flow-arrow-h {
+ display: flex;
+ align-items: center;
+ padding: 0 6px;
+ color: var(--gray-light);
+ font-size: 16px;
+ font-weight: 700;
+ }
+ .flow-item .amount {
+ display: block;
+ font-size: 18px;
+ font-weight: 800;
+ margin-bottom: 3px;
+ }
+ .flow-item .label {
+ font-size: 11px;
+ font-weight: 500;
+ opacity: 0.85;
+ }
+
+ /* ── TERM GRID ── */
+ .term-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 16px;
+ margin-top: 16px;
+ }
+ @media (max-width: 600px) { .term-grid { grid-template-columns: 1fr; } }
+
+ .term-card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 14px;
+ padding: 18px 20px;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+ }
+ .term-card .term-name {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 14px;
+ font-weight: 800;
+ color: var(--orange);
+ margin-bottom: 6px;
+ }
+ .term-card .term-def {
+ font-size: 14.5px;
+ color: var(--gray);
+ line-height: 1.6;
+ }
+
+ /* ── BARRIER LIST ── */
+ .barrier-list {
+ display: flex;
+ flex-direction: column;
+ gap: 14px;
+ margin-top: 16px;
+ }
+ .barrier-item {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 14px;
+ padding: 18px 22px;
+ display: flex;
+ gap: 16px;
+ align-items: flex-start;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+ }
+ .barrier-num {
+ width: 36px;
+ height: 36px;
+ border-radius: 50%;
+ background: var(--accent-blue);
+ color: var(--white);
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 15px;
+ font-weight: 800;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ }
+ .barrier-content .barrier-name {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 14px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 5px;
+ }
+ .barrier-content p {
+ font-size: 14.5px;
+ color: var(--gray);
+ line-height: 1.65;
+ }
+
+ /* ── READING CARDS ── */
+ .reading-grid {
+ display: flex;
+ flex-direction: column;
+ gap: 14px;
+ }
+ .reading-card {
+ background: var(--white);
+ border: 1px solid var(--card-border);
+ border-radius: 14px;
+ padding: 20px 24px;
+ display: flex;
+ gap: 16px;
+ align-items: flex-start;
+ box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+ }
+ .reading-icon {
+ font-size: 28px;
+ flex-shrink: 0;
+ margin-top: 2px;
+ }
+ .reading-card .book-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 14px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 5px;
+ }
+ .reading-card p {
+ font-size: 14.5px;
+ color: var(--gray);
+ line-height: 1.6;
+ margin: 0;
+ }
+
+ /* ── DIVIDER ── */
+ .divider {
+ border: none;
+ border-top: 1px solid var(--card-border);
+ margin: 48px 0;
+ }
+
+ /* ── CASE STUDY ── */
+ .case-study {
+ background: #edf9f2;
+ border: 1.5px solid rgba(39,174,96,0.3);
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin: 20px 0;
+ }
+ .case-study .cs-header {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--accent-purple);
+ margin-bottom: 8px;
+ }
+ .case-study .cs-title {
+ font-size: 17px;
+ font-weight: 700;
+ color: var(--dark);
+ margin-bottom: 16px;
+ }
+ .cs-point {
+ display: flex;
+ gap: 10px;
+ align-items: flex-start;
+ margin-bottom: 10px;
+ font-size: 15px;
+ color: var(--gray);
+ line-height: 1.65;
+ }
+ .cs-point::before {
+ content: '▸';
+ color: var(--accent-purple);
+ font-weight: 700;
+ flex-shrink: 0;
+ margin-top: 1px;
+ }
+
+ /* ── OCEAN COMPARISON ── */
+ .ocean-row {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 16px;
+ margin-top: 16px;
+ }
+ @media (max-width: 580px) { .ocean-row { grid-template-columns: 1fr; } }
+ .ocean-card {
+ border-radius: 14px;
+ padding: 20px 22px;
+ border: 1.5px solid;
+ }
+ .ocean-red { background: #edf9f2; border-color: rgba(200,60,60,0.3); }
+ .ocean-blue { background: #edf9f2; border-color: rgba(39,174,96,0.35); }
+ .ocean-card .ocean-title {
+ font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ font-size: 14px;
+ font-weight: 800;
+ margin-bottom: 10px;
+ }
+ .ocean-red .ocean-title { color: #C83C3C; }
+ .ocean-blue .ocean-title { color: var(--accent-blue); }
+ .ocean-card ul {
+ list-style: none;
+ display: flex;
+ flex-direction: column;
+ gap: 7px;
+ }
+ .ocean-card ul li {
+ font-size: 13.5px;
+ color: var(--gray);
+ line-height: 1.5;
+ display: flex;
+ gap: 7px;
+ }
+ .ocean-card ul li::before {
+ content: '•';
+ font-weight: 700;
+ flex-shrink: 0;
+ }
+ .ocean-red ul li::before { color: #C83C3C; }
+ .ocean-blue ul li::before { color: var(--accent-blue); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+  .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .topnav .crumb { color: #879b93; font-size: 14px; }
+  .topnav .crumb a { color: #879b93; text-decoration: none; }
+  .topnav .crumb b { color: #fff; font-weight: 600; }
+  .chapnav-wrap { background: #f4f7f2; padding: 40px 24px 56px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .chapnav { display: flex; justify-content: space-between; gap: 12px; max-width: 820px; margin: 0 auto; }
+  .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+  .tocnav { position: sticky; top: 52px; z-index: 100; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; overflow-x: auto; scrollbar-width: none; }
+  .tocnav::-webkit-scrollbar { display: none; }
+  .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
+
+</style>
+<nav class="topnav">
+  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 31</b></span>
+</nav>
+
+<nav class="tocnav">
+  <a href="#s1">Love and Money</a>
+  <a href="#s2">Know Your Business Model</a>
+  <a href="#s3">Know Your Competition</a>
+  <a href="#s4">Know Your Audience</a>
+  <a href="#s5">Learn the Language</a>
+  <a href="#s6">Know the Top Sellers</a>
+  <a href="#s7">The Importance of Barriers</a>
+  <a href="#s8">Other Reading</a>
+</nav>
+
+<main>
+
+ <!-- ── HERO ── -->
+ <div class="hero">
+ <div class="hero-badge">Chương 31</div>
+ <h1>The Designer and Client Want the Game to Make a Profit</h1>
+ <div class="hero-sub">Game thành công không chỉ về mặt nghệ thuật — nó còn phải đứng vững trên thị trường.</div>
+ <div class="hero-stats">
+ <div class="hero-stat">
+ <span class="label">Phần</span>
+ <span class="value">7 chủ đề</span>
+ </div>
+ <div class="hero-stat">
+ <span class="label">Lens</span>
+ <span class="value">#109 – Profit</span>
+ </div>
+ <div class="hero-stat">
+ <span class="label">Chủ đề</span>
+ <span class="value">Kinh doanh game</span>
+ </div>
+ <div class="hero-stat">
+ <span class="label">Nhóm</span>
+ <span class="value">Designer · Publisher · Client</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- ── CHAPTER MAP ── -->
+ <div class="chapter-map">
+ <h2>Bản đồ chương</h2>
+ <div class="map-flow">
+ <div class="map-node">
+ <div class="map-dot dot-orange">1</div>
+ <div class="map-label">Love &amp; Money</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-teal">2</div>
+ <div class="map-label">Business Model</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-blue">3</div>
+ <div class="map-label">Competition</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-purple">4</div>
+ <div class="map-label">Audience</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-green">5</div>
+ <div class="map-label">Language</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-gold">6</div>
+ <div class="map-label">Top Sellers</div>
+ </div>
+ <div class="map-arrow">→</div>
+ <div class="map-node">
+ <div class="map-dot dot-orange">7</div>
+ <div class="map-label">Barriers</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- ── SECTION 1: LOVE AND MONEY ── -->
+ <div class="section">
+ <div class="section-header" id="s1">
+ <div class="section-num sn-orange">1</div>
+ <div class="section-title">
+ <span>Section 1</span>
+ Love and Money
+ </div>
+ </div>
+
+ <div class="card">
+ <p>Từ "amateur" (người nghiệp dư) có gốc Latin là <em>amor</em> — nghĩa là tình yêu. Người nghiệp dư làm việc vì yêu thích, không phải vì tiền. Và thực ra, hầu hết các game designer đều bắt đầu từ chỗ đó: vì đam mê thuần túy với game.</p>
+ <p>Nhưng ngành game vận hành bằng tiền. Tiền là nhiên liệu giữ cho bánh xe quay — trả lương cho lập trình viên, thuê studio, đưa sản phẩm ra thị trường. Và khi những người nắm tiền đưa ra quyết định, những quyết định đó ảnh hưởng trực tiếp đến thiết kế.</p>
+ <p>Những câu như <em>"ngân sách chỉ $200K thay vì $450K"</em>, hay <em>"dùng microtransaction thay vì subscription"</em>, hay <em>"tích hợp quảng cáo in-game"</em> — đó không phải là ý kiến nghệ thuật, nhưng chúng định hình sản phẩm cuối cùng sâu sắc không kém bất kỳ quyết định design nào.</p>
+ </div>
+
+ <div class="hl-box hl-gold">
+ <div class="hl-title"> Golden Rule</div>
+ <p>"The one with the gold makes the rules." — Người nắm tiền đặt ra luật chơi. Càng hiểu sâu về tài chính và kinh doanh, designer càng có nhiều quyền thương lượng để bảo vệ các quyết định sáng tạo của mình.</p>
+ </div>
+
+ <div class="quote-block">
+ "Making money is art and working is art and good business is the best art."
+ <div class="attr">— Andy Warhol</div>
+ </div>
+
+ <div class="card">
+ <p>Schell gợi ý hãy nhìn việc kinh doanh như một trò chơi — thú vị để suy nghĩ và phân tích. Khi bạn tiếp cận khía cạnh tài chính với cùng sự tò mò mà bạn dành cho mechanics và systems, bạn sẽ thấy mình giỏi hơn nhiều trong cả hai lĩnh vực.</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ── SECTION 2: KNOW YOUR BUSINESS MODEL ── -->
+ <div class="section">
+ <div class="section-header" id="s2">
+ <div class="section-num sn-teal">2</div>
+ <div class="section-title">
+ <span>Section 2</span>
+ Know Your Business Model
+ </div>
+ </div>
+
+ <div class="card">
+ <p>Ba mô hình kinh doanh chính trong ngành game có dòng tiền hoàn toàn khác nhau. Hiểu rõ từng mô hình — ai giữ bao nhiêu, và còn lại bao nhiêu cho developer — là bắt buộc trước khi bạn ngồi xuống với bất kỳ publisher hay client nào.</p>
+ </div>
+
+ <!-- Retail -->
+ <div class="money-model">
+ <div class="money-model-header mh-orange"> Retail Model — Game bán $50 tại cửa hàng</div>
+ <div class="money-model-body">
+ <div class="flow-row">
+ <div class="flow-item flow-consumer">
+ <span class="amount">$50</span>
+ <span class="label">Consumer trả</span>
+ </div>
+ <div class="flow-arrow-h">→</div>
+ <div class="flow-item flow-middle">
+ <span class="amount">$16</span>
+ <span class="label">Retailer giữ</span>
+ </div>
+ <div class="flow-arrow-h">→</div>
+ <div class="flow-item flow-dev">
+ <span class="amount">$8</span>
+ <span class="label">Developer nhận</span>
+ </div>
+ </div>
+ <div class="hl-box hl-orange" style="margin-top:14px;">
+ <div class="hl-title"> Phân bổ trong $34 còn lại sau retailer</div>
+ <p style="font-size:14.5px; color:var(--gray);">Platform holder (Nintendo/Xbox/Sony) giữ ~$7 · Đĩa &amp; bao bì ~$3 · Quảng cáo ~$6 · Publisher giữ ~$10 · Developer nhận ~$8</p>
+ </div>
+ <p style="font-size:14.5px; color:var(--gray); margin-top:10px;">Với mô hình retail, developer chỉ thấy khoảng <strong>$8 trên $50</strong> — và đó là trước khi tính chi phí vận hành studio.</p>
+ </div>
+ </div>
+
+ <!-- Direct Download -->
+ <div class="money-model">
+ <div class="money-model-header mh-teal"> Direct Download — Game bán $10 online</div>
+ <div class="money-model-body">
+ <div class="flow-row">
+ <div class="flow-item flow-consumer">
+ <span class="amount">$10</span>
+ <span class="label">Consumer trả</span>
+ </div>
+ <div class="flow-arrow-h">→</div>
+ <div class="flow-item flow-middle">
+ <span class="amount">$3</span>
+ <span class="label">Online store giữ</span>
+ </div>
+ <div class="flow-arrow-h">→</div>
+ <div class="flow-item flow-dev">
+ <span class="amount">$7</span>
+ <span class="label">Developer nhận</span>
+ </div>
+ </div>
+ <div class="hl-box hl-teal" style="margin-top:14px;">
+ <div class="hl-title"> Bẫy chi phí marketing</div>
+ <p style="font-size:14.5px; color:var(--gray);">$7 trông hấp dẫn — nhưng trong mô hình retail, publisher đã chi ~$6 mỗi customer để thu hút người mua. Nếu game bán direct download vẫn cần marketing tương đương, khoản lợi nhuận ấy nhanh chóng biến mất.</p>
+ </div>
+ </div>
+ </div>
+
+ <!-- Free to Play -->
+ <div class="money-model">
+ <div class="money-model-header mh-purple"> Free to Play — Average LTV $5 / player</div>
+ <div class="money-model-body">
+ <div class="flow-row">
+ <div class="flow-item flow-consumer">
+ <span class="amount">$5</span>
+ <span class="label">LTV trung bình</span>
+ </div>
+ <div class="flow-arrow-h">→</div>
+ <div class="flow-item flow-middle">
+ <span class="amount">$1.50</span>
+ <span class="label">Store giữ (30%)</span>
+ </div>
+ <div class="flow-arrow-h">→</div>
+ <div class="flow-item flow-cost">
+ <span class="amount">$3</span>
+ <span class="label">Marketing / Acquisition</span>
+ </div>
+ <div class="flow-arrow-h">→</div>
+ <div class="flow-item flow-profit">
+ <span class="amount">$0.50</span>
+ <span class="label">Lợi nhuận thực</span>
+ </div>
+ </div>
+ <div class="hl-box hl-purple" style="margin-top:14px;">
+ <div class="hl-title"> Ví dụ tính toán breakeven F2P</div>
+ <p style="font-size:14.5px; color:var(--gray);">Nếu LTV = $5 và bạn có ngân sách $500K → cần <strong>1 triệu player</strong> để hoà vốn. <br><br>
+ <strong>LTV</strong> (Lifetime Value) = tổng tiền một player chi từ lần đầu đến lần cuối chơi. <strong>Customer acquisition cost</strong> = chi phí trung bình để có một player mới chơi game.</p>
+ </div>
+ </div>
+ </div>
+
+ <div class="card">
+ <p><strong>Các mô hình khác</strong> cũng tồn tại song song: <em>subscription</em> (trả phí hàng tháng như MMO truyền thống), board game và card game (margin cao nhưng scale nhỏ), và <em>advergame</em> (game do brand tài trợ, developer được trả như làm dịch vụ). Mỗi loại có dynamics khác nhau về cash flow và rủi ro.</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ── SECTION 3: KNOW YOUR COMPETITION ── -->
+ <div class="section">
+ <div class="section-header" id="s3">
+ <div class="section-num sn-blue">3</div>
+ <div class="section-title">
+ <span>Section 3</span>
+ Know Your Competition
+ </div>
+ </div>
+
+ <div class="card">
+ <p>Trước khi đến tay người chơi, game của bạn phải chiến thắng hàng chục đối thủ cạnh tranh — ở từng bước trong chuỗi phân phối. Publisher chọn game nào để cấp vốn. Retailer hoặc app store chọn game nào để quảng bá. Người chơi chọn game nào để bỏ tiền và bỏ thời gian.</p>
+ </div>
+
+ <div class="hl-box hl-blue">
+ <div class="hl-title"> Gap Analysis</div>
+ <p>Phân tích thị trường theo kiểu "gap analysis": liệt kê tất cả những gì đang có sẵn, xác định khoảng trống chưa được lấp đầy, rồi chứng minh rằng game của bạn điền vào đúng chỗ đó. Đây là ngôn ngữ mà người làm kinh doanh hiểu rất rõ — và khi bạn nói được bằng ngôn ngữ đó, họ sẽ tin tưởng bạn hơn.</p>
+ </div>
+
+ <div class="card">
+ <p>Có hai vị thế cạnh tranh rõ ràng: <strong>best-in-breed</strong> (tốt nhất trong phân khúc — đòi hỏi ngân sách và đội ngũ lớn) hoặc <strong>low-budget alternative</strong> (thay thế giá rẻ — phải hấp dẫn ở giá thấp hơn, chấp nhận trade-off về chất lượng). Biết rõ mình đứng ở đâu là bước đầu tiên để định vị đúng game trên thị trường.</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ── SECTION 4: KNOW YOUR AUDIENCE ── -->
+ <div class="section">
+ <div class="section-header" id="s4">
+ <div class="section-num sn-purple">4</div>
+ <div class="section-title">
+ <span>Section 4</span>
+ Know Your Audience
+ </div>
+ </div>
+
+ <div class="card">
+ <p>Biết audience không chỉ là biết họ chơi game như thế nào — quan trọng hơn là biết <strong>họ trả tiền như thế nào</strong>. Price point họ chấp nhận là gì? Họ cảm thấy thế nào về F2P? Họ định giá "value" ra sao?</p>
+ </div>
+
+ <div class="case-study">
+ <div class="cs-header"> Case Study</div>
+ <div class="cs-title">Dungeons &amp; Dragons Online: Từ Subscription → Free to Play</div>
+ <div class="cs-point">Vấn đề: F2P trong adventure game có cảm giác "gian lận" — trả $5 để giết con rồng khiến người chơi thấy họ mua chiến thắng, không phải tự đạt được nó.</div>
+ <div class="cs-point">Giải pháp của D&amp;D Online: bán <em>adventures</em> thay vì bán vũ khí hay sức mạnh. Thông điệp được thay đổi thành: <em>"Bạn có muốn vào Dragon's Cave không? Adventure này tốn $5."</em></div>
+ <div class="cs-point">Kết quả: người chơi cảm thấy mình đang <em>chọn trải nghiệm</em> chứ không phải mua lợi thế — họ vẫn là anh hùng, không phải kẻ gian lận. Chuyển đổi sang F2P và doanh thu tăng vọt.</div>
+ </div>
+
+ <div class="hl-box hl-purple">
+ <div class="hl-title"> Hardcore vs. Casual — Không phải về thời gian chơi</div>
+ <p>Sự phân chia không nằm ở việc ai chơi nhiều giờ hơn — mà nằm ở <em>tự nhận dạng</em>: người chơi có gọi mình là "gamer" không?</p>
+ <br>
+ <p><strong>Hardcore gamers:</strong> sẵn sàng trả nhiều tiền cho content có ý nghĩa — họ đầu tư cả danh tính vào game. Tiếp cận được nhóm này là cơ sở thu nhập đáng tin cậy.</p>
+ <br>
+ <p><strong>Casual gamers:</strong> số lượng lớn hơn 100 lần, nhưng ít sẵn sàng trả tiền hơn nhiều. Để có doanh thu từ nhóm này, bạn cần viral ở mức Flappy Bird — rất khó tái tạo theo chủ đích.</p>
+ <br>
+ <p>Cả hai đều là thị trường hợp lệ — nhưng chiến lược tiếp cận hoàn toàn khác nhau. Đừng cố phục vụ cả hai với cùng một sản phẩm.</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ── SECTION 5: LEARN THE LANGUAGE ── -->
+ <div class="section">
+ <div class="section-header" id="s5">
+ <div class="section-num sn-green">5</div>
+ <div class="section-title">
+ <span>Section 5</span>
+ Learn the Language
+ </div>
+ </div>
+
+ <div class="card">
+ <p>Khi designer nói chuyện với publisher hay client, có một bài kiểm tra vô hình diễn ra: <em>người này có thực sự hiểu kinh doanh không?</em> Nếu bạn nói được ngôn ngữ của họ — dùng đúng thuật ngữ, hiểu đúng ý nghĩa — họ sẽ tự nhiên dành cho bạn nhiều quyền quyết định hơn về thiết kế.</p>
+ </div>
+
+ <div class="hl-box hl-green">
+ <div class="hl-title"> General Game Business Terms</div>
+ </div>
+ <div class="term-grid">
+ <div class="term-card">
+ <div class="term-name">SKU</div>
+ <div class="term-def">Stock Keeping Unit — mỗi phiên bản game trên mỗi nền tảng / ngôn ngữ là một SKU riêng. Một game có thể có hàng chục SKU.</div>
+ </div>
+ <div class="term-card">
+ <div class="term-name">COGS</div>
+ <div class="term-def">Cost of Goods Sold — chi phí thực tế để sản xuất một unit: đĩa, bao bì, phí bản quyền platform. Không bao gồm chi phí phát triển.</div>
+ </div>
+ <div class="term-card">
+ <div class="term-name">Burn Rate</div>
+ <div class="term-def">Chi phí vận hành studio mỗi tháng: lương, phúc lợi, văn phòng. Quan trọng để tính xem runway còn lại bao lâu trước khi hết tiền.</div>
+ </div>
+ <div class="term-card">
+ <div class="term-name">Sold In vs. Sold Through</div>
+ <div class="term-def"><em>Sold in</em> = retailer mua từ publisher. <em>Sold through</em> = khách hàng mua từ retailer. Chỉ "sold through" mới thực sự phản ánh nhu cầu thị trường.</div>
+ </div>
+ <div class="term-card">
+ <div class="term-name">Units Sold</div>
+ <div class="term-def">Tổng số lần game được mua. Chỉ số cơ bản nhưng thường bị nhầm với "sold in" — cần phân biệt rõ.</div>
+ </div>
+ <div class="term-card">
+ <div class="term-name">Breakeven</div>
+ <div class="term-def">Số unit cần bán để hoàn vốn đầu tư. Ví dụ: chi phí phát triển $400K, lợi nhuận $5/unit → cần bán 80,000 unit để breakeven.</div>
+ </div>
+ </div>
+
+ <div class="hl-box hl-teal" style="margin-top:28px;">
+ <div class="hl-title"> Free to Play Business Terms</div>
+ </div>
+ <div class="term-grid">
+ <div class="term-card">
+ <div class="term-name">Churn</div>
+ <div class="term-def">Tỷ lệ phần trăm người chơi rời game mỗi tháng. Lý tưởng nhất là gần bằng 0 — churn cao đồng nghĩa LTV thấp.</div>
+ </div>
+ <div class="term-card">
+ <div class="term-name">Cost of Acquisition</div>
+ <div class="term-def">Chi phí trung bình để một người tải và bắt đầu chơi game. Nếu cao hơn LTV, mỗi player mới là một khoản lỗ.</div>
+ </div>
+ <div class="term-card">
+ <div class="term-name">DAU / MAU</div>
+ <div class="term-def"><em>Daily Active Users</em> (24h qua) và <em>Monthly Active Users</em> (30 ngày qua). Tỷ lệ DAU/MAU cho thấy mức độ gắn kết — càng cao càng tốt.</div>
+ </div>
+ <div class="term-card">
+ <div class="term-name">ARPU / ARPPU</div>
+ <div class="term-def"><em>Average Revenue Per User</em> (tất cả) và <em>Average Revenue Per Paying User</em> (chỉ người có chi tiêu). ARPPU luôn cao hơn ARPU đáng kể.</div>
+ </div>
+ <div class="term-card">
+ <div class="term-name">LTV</div>
+ <div class="term-def">Lifetime Value — tổng tiền từ một player từ đầu đến cuối. Nếu LTV = $5, chi $4 để có một player là hợp lý; nếu LTV = $3, chi $4 là bài toán lỗ.</div>
+ </div>
+ <div class="term-card">
+ <div class="term-name">K-factor</div>
+ <div class="term-def">Từ viral marketing — trung bình mỗi player kéo thêm bao nhiêu người mới? K-factor cao giảm drastically chi phí acquisition.</div>
+ </div>
+ <div class="term-card">
+ <div class="term-name">Whale</div>
+ <div class="term-def">Player chi hàng trăm đến hàng nghìn dollar trong F2P. Một nghiên cứu cho thấy: 50% doanh thu đến từ chỉ 0.15% người chơi.</div>
+ </div>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ── SECTION 6: KNOW THE TOP SELLERS ── -->
+ <div class="section">
+ <div class="section-header" id="s6">
+ <div class="section-num sn-gold">6</div>
+ <div class="section-title">
+ <span>Section 6</span>
+ Know the Top Sellers
+ </div>
+ </div>
+
+ <div class="card">
+ <p>Ngành game vận hành theo kiểu "hit-driven" — một số ít tựa game tạo ra phần lớn doanh thu toàn ngành. Publisher nghiên cứu kỹ những hit đó: tại sao chúng thành công? Feature nào thu hút người chơi? Pricing model nào hoạt động?</p>
+ </div>
+
+ <div class="hl-box hl-gold">
+ <div class="hl-title"> Bài tập thực hành của Schell</div>
+ <p>Hãy thử liệt kê 10 game kiếm tiền nhiều nhất trong năm ngoái <em>mà không tra Google</em>. Rồi kiểm tra lại. Khoảng cách giữa đoán và thực tế cho thấy bạn đang bỏ lỡ bao nhiêu thông tin thị trường — và đó là thông tin mà money people theo dõi hàng ngày.</p>
+ </div>
+
+ <div class="card">
+ <p><strong>EEDAR</strong> (Electronic Entertainment Design and Research) là tổ chức chuyên phân tích game feature-by-feature để hiểu mối quan hệ giữa thiết kế và thành công tài chính. Nếu bạn có insight về lý do tại sao các hit lớn kiếm được nhiều tiền — được hỗ trợ bởi dữ liệu — đó là một lợi thế thực sự trong các cuộc đàm phán với publisher.</p>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ── SECTION 7: THE IMPORTANCE OF BARRIERS ── -->
+ <div class="section">
+ <div class="section-header" id="s7">
+ <div class="section-num sn-orange">7</div>
+ <div class="section-title">
+ <span>Section 7</span>
+ The Importance of Barriers
+ </div>
+ </div>
+
+ <div class="quote-block">
+ "Two roads diverged in a wood, and I— / I took the one less traveled by, / And that has made all the difference."
+ <div class="attr">— Robert Frost</div>
+ </div>
+
+ <div class="card">
+ <p>Khi iOS App Store ra đời, đó là một "gold rush" thực sự. Nhưng khi quá nhiều developer đổ vào, giá game sụt về $0, chi phí marketing tăng vọt, và phần lớn game iOS thua lỗ. Schell gọi đây là "red ocean" — thị trường đã ngập máu vì cạnh tranh.</p>
+ </div>
+
+ <div class="ocean-row">
+ <div class="ocean-card ocean-red">
+ <div class="ocean-title"> Red Ocean — iOS App Store</div>
+ <ul>
+ <li>Hàng triệu đối thủ cạnh tranh</li>
+ <li>Giá giảm về $0</li>
+ <li>Chi phí marketing tăng vọt</li>
+ <li>90% game lỗ tiền</li>
+ <li>Barrier to entry: gần như bằng không</li>
+ </ul>
+ </div>
+ <div class="ocean-card ocean-blue">
+ <div class="ocean-title"> Blue Ocean — Slot Machine Industry</div>
+ <ul>
+ <li>Quy định chính phủ khắt khe</li>
+ <li>Phần cứng đặc biệt, thuật toán độc quyền</li>
+ <li>Ít đối thủ có khả năng tham gia</li>
+ <li>90% công ty có lãi</li>
+ <li>Barrier to entry: rất cao</li>
+ </ul>
+ </div>
+ </div>
+
+ <div class="card" style="margin-top:20px;">
+ <p>Barrier không phải là thứ bạn dựng lên để ngăn người chơi — mà là rào cản ngăn <em>đối thủ cạnh tranh</em> gia nhập thị trường của bạn. Càng nhiều barrier bảo vệ bạn, bạn càng có thể hoạt động với margin cao hơn và ít áp lực cạnh tranh hơn.</p>
+ </div>
+
+ <div class="barrier-list">
+ <div class="barrier-item">
+ <div class="barrier-num">1</div>
+ <div class="barrier-content">
+ <div class="barrier-name">Technical Barriers</div>
+ <p>Thuật toán đặc biệt, gameplay mechanics mới lạ, server technology độc đáo cho multiplayer mà đối thủ khó sao chép. Ví dụ: một engine physics hoàn toàn mới tạo ra trải nghiệm không thể có ở nơi khác.</p>
+ </div>
+ </div>
+ <div class="barrier-item">
+ <div class="barrier-num">2</div>
+ <div class="barrier-content">
+ <div class="barrier-name">Hardware Barriers</div>
+ <p>Nền tảng phần cứng mới — có thể được patent bảo vệ. Ví dụ điển hình: <em>Skylanders</em> của Activision — kết hợp đồ chơi vật lý với game số, tạo ra cả một category mới mà chỉ họ sở hữu.</p>
+ </div>
+ </div>
+ <div class="barrier-item">
+ <div class="barrier-num">3</div>
+ <div class="barrier-content">
+ <div class="barrier-name">Expertise Barriers</div>
+ <p>Kiến thức chuyên sâu về một lĩnh vực hẹp mà không phải ai cũng có. Ví dụ: game giáo dục về phát triển cảm xúc xã hội cho trẻ nhỏ đòi hỏi hiểu biết sâu về tâm lý giáo dục — không phải studio nào cũng tích lũy được.</p>
+ </div>
+ </div>
+ <div class="barrier-item">
+ <div class="barrier-num">4</div>
+ <div class="barrier-content">
+ <div class="barrier-name">Sales and Distribution Barriers</div>
+ <p>Schell kể về công ty anh đồng sáng lập để bán training game cho lính cứu hỏa — cần lực lượng bán hàng đi từng đồn từng đồn, chi phí khổng lồ. Nếu bạn đã có mạng lưới bán hàng đặc thù, đó là lợi thế rất khó sao chép.</p>
+ </div>
+ </div>
+ <div class="barrier-item">
+ <div class="barrier-num">5</div>
+ <div class="barrier-content">
+ <div class="barrier-name">Imagination Barriers</div>
+ <p>Một ý tưởng đơn giản mà chỉ một người nghĩ ra — và tại sao nó lại hoạt động. Ví dụ: <em>Minecraft</em> không phức tạp về kỹ thuật, nhưng chỉ Notch nhìn thấy rằng mô hình bán một lần giá cố định cho một game sandbox vô hạn có thể tạo ra hiện tượng văn hóa.</p>
+ </div>
+ </div>
+ <div class="barrier-item">
+ <div class="barrier-num">6</div>
+ <div class="barrier-content">
+ <div class="barrier-name">Relationship Barriers</div>
+ <p>License phim, franchise nổi tiếng — nếu licensor chỉ làm việc với đối tác tin cậy lâu năm, đó là barrier đáng kể. Mối quan hệ mà bạn xây dựng trong nhiều năm là tài sản không thể mua bằng tiền ngay lập tức.</p>
+ </div>
+ </div>
+ <div class="barrier-item">
+ <div class="barrier-num">7</div>
+ <div class="barrier-content">
+ <div class="barrier-name">Uncertainty Barriers</div>
+ <p>Microsoft Kinect là ví dụ hoàn hảo: hầu hết developer đều hoài nghi và chờ đợi. Một nhóm nhỏ nhảy vào ngay từ đầu. Khi Kinect bất ngờ thành công lớn, chỉ có rất ít game khả dụng — và những studio đó thu lợi nhuận rất lớn từ việc đã chấp nhận rủi ro mà người khác né tránh.</p>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ── LENS #109 ── -->
+ <div class="lens-box">
+ <div class="lens-header">
+ <div class="lens-title-block">
+ <div class="lens-num">Lens #109</div>
+ <div class="lens-name">The Lens of Profit</div>
+ </div>
+ </div>
+ <ul class="lens-questions">
+ <li>Trong business model của game này, tiền chạy đi đâu? Tại sao lại như vậy?</li>
+ <li>Chi phí để sản xuất, marketing, phân phối, và duy trì game này là bao nhiêu? Tại sao ước tính đó là hợp lý?</li>
+ <li>Game này sẽ kiếm được bao nhiêu tiền? Cơ sở nào cho dự đoán đó?</li>
+ <li>Những barriers to entry nào bảo vệ game này trên thị trường?</li>
+ </ul>
+ </div>
+
+ <hr class="divider">
+
+ <!-- ── OTHER READING ── -->
+ <div class="section">
+ <div class="section-header" id="s8">
+ <div class="section-num sn-gray" style="background:var(--gray-light);"></div>
+ <div class="section-title">
+ <span>Đọc thêm</span>
+ Other Reading
+ </div>
+ </div>
+ <div class="reading-grid">
+ <div class="reading-card">
+ <div>
+ <div class="book-title">Gamers at Work — Morgan Ramsay</div>
+ <p>Tuyển tập phỏng vấn các founder ngành game về hành trình xây dựng studio — bao gồm cả những thất bại và bài học kinh doanh không có trong sách giáo khoa nào.</p>
+ </div>
+ </div>
+ <div class="reading-card">
+ <div>
+ <div class="book-title">The F2P Toolbox — Rob Fahey &amp; Nicholas Lovell</div>
+ <p>Tập hợp tốt nhất các lời khuyên thực tế cho game designer làm việc với mô hình Free to Play — từ monetization design đến retention và onboarding.</p>
+ </div>
+ </div>
+ <div class="reading-card">
+ <div>
+ <div class="book-title">How I Made a Hundred Movies in Hollywood and Never Lost a Dime — Roger Corman</div>
+ <p>Corman là huyền thoại về làm phim hấp dẫn với ngân sách cực thấp. Phương pháp của ông có sự liên quan bất ngờ với game indie — sáng tạo trong khuôn khổ eo hẹp, tối ưu mọi đồng dollar.</p>
+ </div>
+ </div>
+ </div>
+ </div>
+
+</main>
+<div class="chapnav-wrap"><div class="chapnav"><a href="C30-Pitching.html"><span class="lbl">Chương trước</span>Chương 30: The Designer Gives the Client a Pitch</a><a href="C32-Games Transform.html"><span class="lbl">Chương sau</span>Chương 32: Games Transform Their Players</a></div></div>
+
+<script>
+  (function(){
+    var sections = document.querySelectorAll('.section-header[id]');
+    var navLinks = document.querySelectorAll('.tocnav a');
+    if (!sections.length || !navLinks.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(a){
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
+</body>
+</html>
