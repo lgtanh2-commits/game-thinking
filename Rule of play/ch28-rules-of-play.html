@@ -62,9 +62,37 @@ blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color:
 .metagame-content { background: var(--bg); padding: 16px 18px; }
 .metagame-content strong { font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
 .metagame-wrap { border: 1px solid var(--rule); margin: 24px 0; }
+
+  /* ── chapter navigation (added) ── */
+  .book-topline {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 36px;
+  }
+  .book-topline a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--rule);
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--rule); border-radius: 10px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease, background .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); background: var(--pull-bg); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--dim); margin-bottom: 4px;
+  }
 </style>
 </head>
 <body>
+
+<p class="book-topline"><a href="../index.html#/book/rules-of-play">← Rules of Play — Mục lục</a></p>
 
 <header>
   <span class="eyebrow">Rules of Play · Unit 3: Play · Chapter 28</span>
@@ -376,5 +404,10 @@ blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color:
 
 <p class="callout">Katie Salen &amp; Eric Zimmerman · <em>Rules of Play: Game Design Fundamentals</em> · MIT Press, 2004 · Unit 3: Play</p>
 
+
+<nav class="chapnav">
+  <a href="ch27-rules-of-play.html"><span class="lbl">Chương trước</span>Chương 27: Games as the Play of Simulation</a>
+  <a href="ch29-rules-of-play.html"><span class="lbl">Chương sau</span>Chương 29: Defining Culture</a>
+</nav>
 </body>
 </html>

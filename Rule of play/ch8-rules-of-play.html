@@ -191,9 +191,37 @@
     color: var(--muted);
     margin-top: 3px;
   }
+
+  /* ── chapter navigation (added) ── */
+  .book-topline {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 36px;
+  }
+  .book-topline a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--rule);
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--rule); border-radius: 10px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease, background .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); background: var(--pull-bg); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--dim); margin-bottom: 4px;
+  }
 </style>
 </head>
 <body>
+
+<p class="book-topline"><a href="../index.html#/book/rules-of-play">← Rules of Play — Mục lục</a></p>
 
 <p class="book-meta">Rules of Play — Katie Salen &amp; Eric Zimmerman · MIT Press, 2004 · Unit 1: Core Concepts</p>
 
@@ -287,5 +315,10 @@
   <p>Four traits define the special capabilities of digital media for game design: immediate but narrow interactivity, information manipulation, automated complex systems, and networked communication. Each trait appears in non-digital games too, but digital games embody them most robustly. The core challenge of designing meaningful play, however, is the same regardless of medium. Unit 1 is nearly complete; Chapter 9 turns to the magic circle — the conceptual space that games create around themselves.</p>
 </section>
 
+
+<nav class="chapnav">
+  <a href="ch07-rules-of-play.html"><span class="lbl">Chương trước</span>Chương 7: Defining Games</a>
+  <a href="ch9-rules-of-play.html"><span class="lbl">Chương sau</span>Chương 9: The Magic Circle</a>
+</nav>
 </body>
 </html>

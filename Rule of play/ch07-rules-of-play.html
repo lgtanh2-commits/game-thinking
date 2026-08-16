@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 7: Defining Games — Rules of Play</title>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --text: #1a1a1a;
+  --muted: #555;
+  --dim: #888;
+  --rule: #c8c4bc;
+  --pull-bg: #eeece8;
+  --pull-border: #1a1a1a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+}
+header { margin-bottom: 56px; }
+.eyebrow { font-family: system-ui, -apple-system, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 10px; }
+h1 { font-family: Georgia, serif; font-size: 1.85rem; font-weight: normal; line-height: 1.25; margin-bottom: 14px; }
+.subtitle { font-size: 1rem; color: var(--muted); font-style: italic; }
+h2 { font-family: system-ui, -apple-system, sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-top: 8px; border-top: 1px solid var(--rule); margin-top: 52px; margin-bottom: 16px; }
+h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
+p { margin-bottom: 1em; }
+blockquote { background: var(--pull-bg); border-left: 3px solid var(--pull-border); margin: 24px 0; padding: 16px 20px; font-style: italic; }
+blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.grid-cell { background: var(--bg); padding: 18px 16px; }
+.grid-cell strong { font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.def-box { border: 1px solid var(--rule); margin: 20px 0; }
+.def-box .def-label { font-family: system-ui, sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 10px 18px; border-bottom: 1px solid var(--rule); background: var(--pull-bg); }
+.def-box .def-body { padding: 16px 18px; }
+.def-box .def-quote { font-style: italic; font-size: 0.95rem; margin-bottom: 12px; }
+.def-box ul { padding-left: 20px; }
+.def-box li { margin-bottom: 0.4em; font-size: 0.95rem; }
+.master-def { border: 2px solid var(--text); padding: 24px 28px; margin: 32px 0; text-align: center; }
+.master-def p { margin: 0; font-size: 1.05rem; font-style: italic; }
+.master-def strong { font-style: normal; }
+.summary-box { border: 1px solid var(--rule); padding: 28px 32px; margin: 40px 0 0; }
+.summary-box h3 { margin-top: 0; font-style: normal; font-size: 0.75rem; font-family: system-ui, sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.summary-box ul { padding-left: 22px; }
+.summary-box li { margin-bottom: 0.6em; }
+.callout { font-family: system-ui, sans-serif; font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 12px; margin-top: 32px; }
+
+  /* ── chapter navigation (added) ── */
+  .book-topline {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 36px;
+  }
+  .book-topline a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--rule);
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--rule); border-radius: 10px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease, background .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); background: var(--pull-bg); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--dim); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/rules-of-play">← Rules of Play — Mục lục</a></p>
+
+<header>
+  <span class="eyebrow">Unit 1: Core Concepts &nbsp;·&nbsp; Chapter 7</span>
+  <h1>Defining Games</h1>
+  <p class="subtitle">Rules of Play: Game Design Fundamentals &nbsp;·&nbsp; Salen &amp; Zimmerman</p>
+</header>
+
+<blockquote>
+  "The word [game] is used for so many different activities that it is not worth insisting on any proposed definition. All in all, it is a slippery lexicological customer, with many friends and relations in a wide variety of fields."
+  <cite>— David Parlett, <em>The Oxford History of Board Games</em></cite>
+</blockquote>
+
+<blockquote>
+  "What are games? Are they things in the sense of artifacts? Are they behavioral models, or simulations of social situations? Are they vestiges of ancient rituals, or magical rites?"
+  <cite>— E. M. Avedon, "The Structural Elements of Games"</cite>
+</blockquote>
+
+<h2>Overview</h2>
+
+<p>Entering by way of meaningful play — following a path of embedded concepts connecting design to systems to interactivity — we have arrived at the heart of the study: games. It is therefore high time to define just what it is that makes a game a game. Should we even attempt such a definition? Perhaps, as game historian David Parlett warns, any attempt to define the word "game" is a foolish endeavor. On the other hand, if one of our goals is to help formalize the field of game design, then it seems crucial to define the object that is so central to the discipline.</p>
+
+<p>Games have been studied in a myriad of ways, from economists using game-like simulations to literary theorists studying the "play" of meaning in language and literature. Our intent is to study play and games within the field of game design — a definition of "game" that should help distinguish game design from other design practices, and bring us closer to an understanding of meaningful play.</p>
+
+<h2>Play and Game</h2>
+
+<p>As a first step, we need to understand how <em>game</em> relates to the equally complex <em>play</em>. Is there a difference between the words "play" and "game"? In English there is a clear distinction — but not all languages separate the two concepts. In French and German, different versions of the same word serve both "play" and "game." English affords us the distinction, and we will use it: games and play are two separate ideas with related but distinct meanings.</p>
+
+<p>It turns out that play and games have a surprisingly complex relationship. Play is both a larger and a smaller term than "game," depending on how it is framed.</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Relationship One: Games are a subset of play</strong>
+    From two dogs chasing each other, to a child singing a nursery rhyme, to online role-players — only some forms of play constitute a game. Most play is looser and less organized. Games are the formalized instances within the larger category of play.
+  </div>
+  <div class="grid-cell">
+    <strong>Relationship Two: Play is a component of games</strong>
+    Games are complex phenomena with many ways of understanding them — RULES, PLAY, and CULTURE. The experience of play is but one aspect of games. In this sense, play is contained within games rather than the other way around.
+  </div>
+</div>
+
+<p>This double formulation is not a terminological sleight-of-hand. There are important differences between the words "game" and "play," and a good definition of game should distinguish it clearly from play in both of these senses.</p>
+
+<h2>Comparing Definitions</h2>
+
+<p>We will take a close comparative look at eight definitions of "game" that come from a variety of fields. In and among them, a handful of thorny issues appear again and again: what makes a game a game; how to differentiate games from similar phenomena; the difference between defining games themselves and defining the act of playing a game.</p>
+
+<div class="def-box">
+  <div class="def-label">Definition 1 &nbsp;·&nbsp; David Parlett</div>
+  <div class="def-body">
+    <p class="def-quote">"A formal game has a twofold structure based on ends and means: <em>Ends</em> — it is a contest to achieve an objective, and only one contender can achieve it. <em>Means</em> — it has an agreed set of equipment and procedural rules by which the equipment is manipulated to produce a winning situation."</p>
+    <ul>
+      <li><em>Ends:</em> a game is a contest with an endpoint (winning) as its goal</li>
+      <li><em>Means:</em> agreed-upon rules and materials by which one wins the contest</li>
+    </ul>
+    <p style="font-size:0.92rem; color: var(--muted); margin-top: 10px; margin-bottom:0">Parlett distinguishes formal games from informal play ("playing around"). Both winning and rules are key ideas in defining games and distinguishing them from other, less formal kinds of play.</p>
+  </div>
+</div>
+
+<div class="def-box">
+  <div class="def-label">Definition 2 &nbsp;·&nbsp; Clark C. Abt</div>
+  <div class="def-body">
+    <p class="def-quote">"Reduced to its formal essence, a game is an <em>activity</em> among two or more independent <em>decision-makers</em> seeking to achieve their <em>objectives</em> in some <em>limiting context</em>."</p>
+    <ul>
+      <li><em>Activity:</em> a game is a process, an event</li>
+      <li><em>Decision-makers:</em> games require players actively making decisions</li>
+      <li><em>Objectives:</em> games have goals</li>
+      <li><em>Limiting context:</em> rules limit and structure the activity</li>
+    </ul>
+    <p style="font-size:0.92rem; color: var(--muted); margin-top: 10px; margin-bottom:0">Abt himself admits this definition is too narrow (excludes cooperative games) and too broad (political elections and arguments could qualify). But the acknowledgment that games are an activity in which players <em>make decisions</em> is particularly important.</p>
+  </div>
+</div>
+
+<div class="def-box">
+  <div class="def-label">Definition 3 &nbsp;·&nbsp; Johann Huizinga</div>
+  <div class="def-body">
+    <p class="def-quote">"[Play is] a free activity standing quite consciously outside 'ordinary life' as being 'not serious,' but at the same time absorbing the player intensely and utterly… It proceeds within its own proper boundaries of time and space according to fixed rules and in an orderly manner."</p>
+    <ul>
+      <li>Outside ordinary life; "not serious"</li>
+      <li>Utterly absorbing; no material interest or profit</li>
+      <li>Takes place in its own boundaries of time and space</li>
+      <li>Proceeds according to rules; creates special social groups</li>
+    </ul>
+    <p style="font-size:0.92rem; color: var(--muted); margin-top: 10px; margin-bottom:0">Huizinga identifies elusive experiential qualities of play, but his definition fails to distinguish play from game — its inclusive generality is its greatest weakness.</p>
+  </div>
+</div>
+
+<div class="def-box">
+  <div class="def-label">Definition 4 &nbsp;·&nbsp; Roger Caillois</div>
+  <div class="def-body">
+    <p class="def-quote">Caillois defines play as being: Free, Separate, Uncertain, Unproductive, Governed by rules, Make-believe.</p>
+    <ul>
+      <li><em>Free:</em> playing is not obligatory; it would lose its joyous quality as diversion</li>
+      <li><em>Separate:</em> circumscribed within fixed limits of space and time</li>
+      <li><em>Uncertain:</em> the course and result cannot be determined beforehand</li>
+      <li><em>Unproductive:</em> creating neither goods nor wealth of any kind</li>
+      <li><em>Governed by rules:</em> conventions suspending ordinary laws</li>
+      <li><em>Make-believe:</em> a special awareness of a second reality or free unreality</li>
+    </ul>
+    <p style="font-size:0.92rem; color: var(--muted); margin-top: 10px; margin-bottom:0">Like Huizinga, Caillois is too broad — theater and informal rough-housing fall under his rubric. Not all games are voluntary, uncertain, or make-believe: a Chess master playing a beginner faces little uncertainty; Tic-Tac-Toe has no make-believe element.</p>
+  </div>
+</div>
+
+<div class="def-box">
+  <div class="def-label">Definition 5 &nbsp;·&nbsp; Bernard Suits</div>
+  <div class="def-body">
+    <p class="def-quote">"To play a game is to engage in activity directed towards bringing about a specific state of affairs, using only means permitted by rules, where the rules prohibit more efficient in favour of less efficient means, and where such rules are accepted just because they make possible such activity."</p>
+    <p class="def-quote" style="margin-top: 8px">"Playing a game is the voluntary effort to overcome unnecessary obstacles."</p>
+    <ul>
+      <li><em>Activity:</em> freely entered into</li>
+      <li><em>A specific state of affairs:</em> games have a goal</li>
+      <li><em>Rules:</em> limit behavior, making it less efficient</li>
+      <li><em>Inefficiency:</em> the rules require less rather than more efficient means</li>
+      <li><em>Rules are accepted:</em> the <strong>lusory attitude</strong> — players accept the rules because they make play possible</li>
+    </ul>
+    <p style="font-size:0.92rem; color: var(--muted); margin-top: 10px; margin-bottom:0">Suits gives us the concept of the <em>lusory attitude</em> — the peculiar state of mind of game players who accept unnecessary obstacles because they make play possible and meaningful. Note that Suits defines the <em>act of playing a game</em>, not a game itself.</p>
+  </div>
+</div>
+
+<div class="def-box">
+  <div class="def-label">Definition 6 &nbsp;·&nbsp; Chris Crawford</div>
+  <div class="def-body">
+    <p class="def-quote">Crawford identifies four qualities defining the category of games: Representation, Interaction, Conflict, Safety.</p>
+    <ul>
+      <li><em>Representation:</em> a game is a closed formal system that subjectively represents a subset of reality</li>
+      <li><em>Interaction:</em> cause and effect — allowing players to explore the "webwork" of the model world</li>
+      <li><em>Conflict:</em> the player actively pursues a goal; obstacles prevent easy achievement</li>
+      <li><em>Safety:</em> a game is a safe way to experience reality — results are always less harsh than the situations modeled</li>
+    </ul>
+    <p style="font-size:0.92rem; color: var(--muted); margin-top: 10px; margin-bottom:0">Crawford is the first of these authors to explicitly call games a <em>system</em> — linked to his background in digital game design. His element of <em>safety</em> echoes the artificiality of games found in other definitions. These four characteristics describe games but are not strictly definitional.</p>
+  </div>
+</div>
+
+<div class="def-box">
+  <div class="def-label">Definition 7 &nbsp;·&nbsp; Greg Costikyan</div>
+  <div class="def-body">
+    <p class="def-quote">"A game is a form of art in which participants, termed players, make decisions in order to manage resources through game tokens in the pursuit of a goal."</p>
+    <ul>
+      <li><em>Art:</em> games are identified as a form of culture</li>
+      <li><em>Decision-making players:</em> games require active participation as choices are made</li>
+      <li><em>Resource management:</em> player decisions hinge on manipulating resources</li>
+      <li><em>Game tokens:</em> the means by which players enact their decisions</li>
+      <li><em>Goal:</em> a game has an objective</li>
+    </ul>
+    <p style="font-size:0.92rem; color: var(--muted); margin-top: 10px; margin-bottom:0">Notably, Costikyan leaves out rules — the only definition to do so. His link of games to art embroils them in debates about high culture and low culture. His emphasis on resource management and game tokens is unique and design-focused.</p>
+  </div>
+</div>
+
+<div class="def-box">
+  <div class="def-label">Definition 8 &nbsp;·&nbsp; Elliot Avedon &amp; Brian Sutton-Smith</div>
+  <div class="def-body">
+    <p class="def-quote">"Games are an exercise of voluntary control systems, in which there is a contest between powers, confined by rules in order to produce a disequilibrial outcome."</p>
+    <ul>
+      <li><em>Exercise of control systems:</em> games involve physical or intellectual activity</li>
+      <li><em>Voluntary:</em> games are freely entered into</li>
+      <li><em>Contest between powers:</em> games embody a conflict between players</li>
+      <li><em>Confined by rules:</em> the limiting nature of rules is emphasized</li>
+      <li><em>Disequilibrial outcome:</em> the outcome is a goal-state different from the starting state</li>
+    </ul>
+    <p style="font-size:0.92rem; color: var(--muted); margin-top: 10px; margin-bottom:0">Compact, clear, and elegantly narrow in scope — this definition addresses games themselves rather than the activity of playing them. It clearly demarcates games from less formal play activities, though it doesn't contain all elements found in other definitions.</p>
+  </div>
+</div>
+
+<h2>A Comparison</h2>
+
+<p>In simplifying complex ideas to a grid of common elements, much of the context and subtlety of each author's ideas is lost. But the comparative analysis yields useful results. All of the authors except Costikyan include rules as a key component. Beyond that, there is no clear consensus. Although 10 of the 15 elements identified are shared by more than one author, apart from rules and goals there is no majority agreement on any single element.</p>
+
+<p>It is clear that not all elements need to be included in a definition of game. Some, such as games being voluntary or inefficient, do not seem to apply to all games. Others, such as the fact that games create social groups, describe the effects of games rather than games themselves. Still others, such as the representational or make-believe quality of games, appear in many other media and do not help differentiate games from other kinds of designed experiences.</p>
+
+<h2>Our Definition</h2>
+
+<div class="master-def">
+  <p><strong>A <em>game</em> is a system in which players engage in an artificial conflict, defined by rules, that results in a quantifiable outcome.</strong></p>
+</div>
+
+<p>This definition structurally resembles that of Avedon and Sutton-Smith, but contains concepts from many of the other authors as well. Here are the primary ideas:</p>
+
+<div class="grid">
+  <div class="grid-cell">
+    <strong>System</strong>
+    Games are systems — a concept introduced in earlier chapters. Systems are fundamental to our approach to games.
+  </div>
+  <div class="grid-cell">
+    <strong>Players</strong>
+    A game is something that one or more participants actively play. Players interact with the system of a game in order to experience the play of the game.
+  </div>
+  <div class="grid-cell">
+    <strong>Artificial</strong>
+    Games maintain a boundary from "real life" in both time and space. Although games occur within the real world, artificiality is one of their defining features.
+  </div>
+  <div class="grid-cell">
+    <strong>Conflict</strong>
+    All games embody a contest of powers. The contest can take many forms — cooperation to competition, solo conflict with a game system to multiplayer social conflict. Conflict is central to games.
+  </div>
+  <div class="grid-cell">
+    <strong>Rules</strong>
+    Rules are a crucial part of games. They provide the structure out of which play emerges, by delimiting what the player can and cannot do.
+  </div>
+  <div class="grid-cell">
+    <strong>Quantifiable outcome</strong>
+    Games have a quantifiable goal or outcome. At the conclusion of a game, a player has either won or lost or received some kind of numerical score. This is what usually distinguishes a game from less formal play activities.
+  </div>
+</div>
+
+<blockquote>
+  "Game design is the process by which a game designer creates a game, to be encountered by a player, from which meaningful play emerges."
+  <cite>— Salen &amp; Zimmerman</cite>
+</blockquote>
+
+<h2>The Puzzle of Puzzles</h2>
+
+<p>This definition is intentionally quite narrow. But is it too narrow? Are there things that are clearly games but don't fit? The chapter concludes by examining two kinds of game-activities that may or may not fit within the definition: puzzles and role-playing games.</p>
+
+<p>According to puzzle and game designer Scott Kim, puzzles differ from games because puzzles have a correct answer or outcome. A crossword puzzle: the designer creates the correct answer, and the player's activity consists of trying to reconstruct that answer. This is very different from a game of Poker, in which there is no fixed "right answer" posed by the creator.</p>
+
+<p>But this does not mean a puzzle is not a game. A crossword puzzle contains all the elements of our definition: it is a system of squares, letters, and clues; the player follows rules to arrive at an appropriate outcome; the conflict is between the player and the system rather than between players. In fact, all kinds of puzzles are games — they constitute a special subset, but they clearly meet the requirements of the definition.</p>
+
+<p>Thinking about a game as a puzzle — a game with a correct answer or set of answers — can be a useful design frame. Is your game lacking a sense of play? Perhaps it is too puzzle-like, with all outcomes predetermined. Or if your adventure game feels too open-ended, injecting some puzzle-like structure can better shape the player's sense of accomplishment.</p>
+
+<h2>Role-Playing Games</h2>
+
+<p>The second "limit case" is role-playing games — off the computer, games like Dungeons &amp; Dragons; digitally, single-player adventures like Ultima or community worlds like EverQuest. RPGs clearly have the trappings of games: dice, rulebooks, statistics, strategic play. But they are missing every component of our definition except one: a quantifiable outcome.</p>
+
+<p>As an RPG player, you move through game-stories, follow rules, overcome obstacles, accomplish tasks — but there is usually no single endpoint. Role-playing games are structured like serial narratives that grow and evolve. Gary Gygax, co-designer of Dungeons &amp; Dragons: "Advanced Dungeons and Dragons is, as are most role-playing games, open-ended. There is no 'winner,' no final objective, and the campaign grows and changes as it matures."</p>
+
+<p>From this description, multiplayer RPGs would appear not to be games. But the position here is more nuanced: RPGs can be framed either way. If you look at the game as a whole, there may not be a single overriding quantifiable goal. But if you consider the session-to-session missions, the personal goals players set, the levels of power attained — RPGs do have quantifiable outcomes. In this sense, an RPG is a larger system that facilitates game play within it, giving rise to a series of outcomes that build on each other over time.</p>
+
+<blockquote>
+  "Sometimes the answer to the question of whether or not a game is a game rests in the eye of the beholder. The terrain along the borders of more rigid definitions offers fertile ground for insight and investigation. In these playful and liminal spaces, assumptions are challenged, ideas evolve, and definitions change. It is this kind of transformative play that is at the heart of our model of game design."
+  <cite>— Salen &amp; Zimmerman</cite>
+</blockquote>
+
+<div class="summary-box">
+  <h3>Key Concepts</h3>
+  <ul>
+    <li>The words <strong>play</strong> and <strong>game</strong> have a unique relationship: (1) <em>Games are a subset of play</em> — the category of play includes many activities, only some of which are games. (2) <em>Play is a subset of games</em> — RULES, PLAY, and CULTURE are three aspects of the phenomena of games; play is one component.</li>
+    <li><strong>A game is a system in which players engage in an artificial conflict, defined by rules, that results in a quantifiable outcome.</strong> The key elements: system, players, artificial, conflict, rules, and quantifiable outcome.</li>
+    <li>Eight influential definitions of games were surveyed: Parlett (ends and means), Abt (activity among decision-makers), Huizinga (free activity outside ordinary life), Caillois (free, separate, uncertain, unproductive, rule-governed, make-believe), Suits (voluntary effort to overcome unnecessary obstacles — the <em>lusory attitude</em>), Crawford (representation, interaction, conflict, safety), Costikyan (art form involving resource management), and Avedon/Sutton-Smith (voluntary control systems producing disequilibrial outcomes).</li>
+    <li>A <strong>puzzle</strong> is a special kind of game in which there is a single correct answer or set of correct answers. All puzzles are games.</li>
+    <li>Multiplayer <strong>role-playing games</strong> (RPGs) do not clearly possess a single quantifiable outcome. Whether they fit the definition depends on how they are framed — as a whole system or as a series of quantifiable session-level outcomes.</li>
+  </ul>
+</div>
+
+<p class="callout">Unit 1: Core Concepts &nbsp;·&nbsp; Chapter 7 &nbsp;·&nbsp; Continues to Chapter 8 (Defining Digital Games)</p>
+
+<nav class="chapnav">
+  <a href="ch6-rules-of-play.html"><span class="lbl">Chương trước</span>Chương 6: Interactivity</a>
+  <a href="ch8-rules-of-play.html"><span class="lbl">Chương sau</span>Chương 8: Defining Digital Games</a>
+</nav>
+
+</body>
+</html>

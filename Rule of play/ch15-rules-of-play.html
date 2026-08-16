@@ -206,9 +206,37 @@ blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color:
   padding-top: 12px;
   margin-top: 32px;
 }
+
+  /* ── chapter navigation (added) ── */
+  .book-topline {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 36px;
+  }
+  .book-topline a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--rule);
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--rule); border-radius: 10px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease, background .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); background: var(--pull-bg); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--dim); margin-bottom: 4px;
+  }
 </style>
 </head>
 <body>
+
+<p class="book-topline"><a href="../index.html#/book/rules-of-play">← Rules of Play — Mục lục</a></p>
 
 <header>
   <span class="eyebrow">Rules of Play &nbsp;·&nbsp; Unit Two: Rules &nbsp;·&nbsp; Chapter 15</span>
@@ -474,5 +502,10 @@ blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color:
 
 <p class="callout">Unit Two complete &nbsp;·&nbsp; Next: Unit Three — Play</p>
 
+
+<nav class="chapnav">
+  <a href="ch14-rules-of-play.html"><span class="lbl">Chương trước</span>Chương 14: Games as Emergent Systems</a>
+  <a href="ch16-rules-of-play.html"><span class="lbl">Chương sau</span>Chương 16: Games as Information Theory Systems</a>
+</nav>
 </body>
 </html>

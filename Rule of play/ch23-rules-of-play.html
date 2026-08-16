@@ -47,9 +47,37 @@ blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color:
 .loop-diagram { border: 1px solid var(--rule); margin: 24px 0; padding: 24px; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; font-family: system-ui, sans-serif; font-size: 0.82rem; }
 .loop-box { background: var(--pull-bg); border: 1px solid var(--rule); padding: 10px 16px; text-align: center; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.75rem; }
 .loop-arrow { color: var(--dim); font-size: 1.2rem; }
+
+  /* ── chapter navigation (added) ── */
+  .book-topline {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 36px;
+  }
+  .book-topline a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--rule);
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--rule); border-radius: 10px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease, background .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); background: var(--pull-bg); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--dim); margin-bottom: 4px;
+  }
 </style>
 </head>
 <body>
+
+<p class="book-topline"><a href="../index.html#/book/rules-of-play">← Rules of Play — Mục lục</a></p>
 
 <header>
   <span class="eyebrow">Rules of Play · Unit 3: Play · Chapter 23</span>
@@ -253,5 +281,10 @@ blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color:
 
 <p class="callout">Katie Salen &amp; Eric Zimmerman · <em>Rules of Play: Game Design Fundamentals</em> · MIT Press, 2004 · Unit 3: Play</p>
 
+
+<nav class="chapnav">
+  <a href="ch22-rules-of-play.html"><span class="lbl">Chương trước</span>Chương 22: Defining Play</a>
+  <a href="ch24-rules-of-play.html"><span class="lbl">Chương sau</span>Chương 24: Games as the Play of Pleasure</a>
+</nav>
 </body>
 </html>
