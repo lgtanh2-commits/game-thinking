@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 23: Games as the Play of Experience — Rules of Play</title>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --text: #1a1a1a;
+  --muted: #555;
+  --dim: #888;
+  --rule: #c8c4bc;
+  --pull-bg: #eeece8;
+  --pull-border: #1a1a1a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+}
+header { margin-bottom: 56px; }
+.eyebrow { font-family: system-ui, -apple-system, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 10px; }
+h1 { font-family: Georgia, serif; font-size: 1.85rem; font-weight: normal; line-height: 1.25; margin-bottom: 14px; }
+.subtitle { font-size: 1rem; color: var(--muted); font-style: italic; }
+h2 { font-family: system-ui, -apple-system, sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-top: 8px; border-top: 1px solid var(--rule); margin-top: 52px; margin-bottom: 16px; }
+h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
+p { margin-bottom: 1em; }
+blockquote { background: var(--pull-bg); border-left: 3px solid var(--pull-border); margin: 24px 0; padding: 16px 20px; font-style: italic; }
+blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.grid-cell { background: var(--bg); padding: 18px 16px; }
+.grid-cell strong { font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.summary-box { border: 1px solid var(--rule); padding: 28px 32px; margin: 40px 0 0; }
+.summary-box h3 { margin-top: 0; font-style: normal; font-size: 0.75rem; font-family: system-ui, sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.summary-box ul { padding-left: 22px; }
+.summary-box li { margin-bottom: 0.6em; }
+.callout { font-family: system-ui, sans-serif; font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 12px; margin-top: 32px; }
+.loop-diagram { border: 1px solid var(--rule); margin: 24px 0; padding: 24px; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; font-family: system-ui, sans-serif; font-size: 0.82rem; }
+.loop-box { background: var(--pull-bg); border: 1px solid var(--rule); padding: 10px 16px; text-align: center; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.75rem; }
+.loop-arrow { color: var(--dim); font-size: 1.2rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Rules of Play · Unit 3: Play · Chapter 23</span>
+  <h1>Games as the Play of Experience</h1>
+  <p class="subtitle">How formal game systems transform into experiential ones through the core mechanic</p>
+</header>
+
+<h2>Sudnow and the Breakout Experience</h2>
+
+<p>David Sudnow's memoir <em>Pilgrim in the Microworld</em> (1983) offers one of the most remarkable first-person accounts of game play ever written. Sudnow, a sociologist, became obsessed with Atari's Breakout — spending months learning to master the game through intensive practice. His account is not primarily about the game's rules but about the <em>experience</em> of learning to play: the way his hands, eyes, and mind gradually merged with the system.</p>
+
+<blockquote>
+  What Sudnow describes is the transformation of a formal rule system into an experiential event — the way the rigid structure of Breakout became something felt, embodied, intuited.
+</blockquote>
+
+<p>This transformation — from formal to experiential — is exactly what this schema addresses. A game is more than its rules. It is an experience that players inhabit. Game designers are, ultimately, designers of experience.</p>
+
+<h2>Three Meanings of Experience</h2>
+
+<p>The word "experience" carries multiple meanings, each relevant to understanding games:</p>
+
+<div class="grid cols-3">
+  <div class="grid-cell">
+    <strong>Apprehension</strong>
+    The direct perception and apprehension of the world through the senses. Experience as the raw data of sensation — what you see, hear, feel during play.
+  </div>
+  <div class="grid-cell">
+    <strong>Active Participation</strong>
+    Experience as engagement — participating in an activity, taking action, making choices. The experience of doing, not merely perceiving.
+  </div>
+  <div class="grid-cell">
+    <strong>Events Lived Through</strong>
+    The cumulative, narrative sense of experience — events that leave a trace, that become part of who you are. "I have experience" in this sense means accumulated history.
+  </div>
+</div>
+
+<p>All three meanings are at work when a player plays a game. They perceive the game world (apprehension), make choices and take actions (active participation), and accumulate a history of play that shapes future encounters with the game (events lived through).</p>
+
+<h2>Sutton-Smith's Psychological Model</h2>
+
+<p>Psychologist Brian Sutton-Smith identified five elements that describe the psychological processes by which players experience games — particularly video games:</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Visual Scanning</strong>
+    The rapid assessment of the game state through sight — tracking moving elements, reading the interface, building a spatial model of the play space.
+  </div>
+  <div class="grid-cell">
+    <strong>Auditory Discriminations</strong>
+    The parsing of game audio — distinguishing meaningful sounds (enemy approaching, reward collected) from background.
+  </div>
+  <div class="grid-cell">
+    <strong>Motor Responses</strong>
+    The physical actions players perform in response to what they perceive — button presses, joystick movements, the embodied side of play.
+  </div>
+  <div class="grid-cell">
+    <strong>Concentration</strong>
+    The focused attention games demand — narrowing awareness onto the game state, blocking out extraneous information.
+  </div>
+  <div class="grid-cell" style="grid-column: 1 / -1;">
+    <strong>Perceptual Patterns of Learning</strong>
+    The gradual internalization of the game's patterns — learning to recognize enemy behaviors, predict outcomes, read the visual language of the game world.
+  </div>
+</div>
+
+<h2>The Experience Loop</h2>
+
+<p>These psychological processes can be abstracted into a three-part model that describes the cycle of game experience. The loop is continuous — each output from the game feeds back into the player's next moment of perception:</p>
+
+<div class="loop-diagram">
+  <div class="loop-box">Game Output<br><span style="font-weight:400;color:var(--muted);font-size:0.85em;">Visual/audio state</span></div>
+  <div class="loop-arrow">→</div>
+  <div class="loop-box">Sensory Input<br><span style="font-weight:400;color:var(--muted);font-size:0.85em;">Player perceives</span></div>
+  <div class="loop-arrow">→</div>
+  <div class="loop-box">Internal Decision<br><span style="font-weight:400;color:var(--muted);font-size:0.85em;">Player processes</span></div>
+  <div class="loop-arrow">→</div>
+  <div class="loop-box">Player Action<br><span style="font-weight:400;color:var(--muted);font-size:0.85em;">Input to system</span></div>
+  <div class="loop-arrow">→</div>
+  <div class="loop-box">Game Output<br><span style="font-weight:400;color:var(--muted);font-size:0.85em;">(loop continues)</span></div>
+</div>
+
+<p>Game design is a <strong>second-order design problem</strong>. The designer cannot directly design the player's experience — they can only design the formal system that, when set in motion by a player, produces experience. This indirection is both the challenge and the art of game design. Creating meaningful experiences means understanding the ways a game's formal system transforms into an experiential one.</p>
+
+<h2>The Core Mechanic</h2>
+
+<p>The most important concept in this schema is the <strong>core mechanic</strong> — the essential, moment-to-moment activity that players perform over and over during the course of a game. The core mechanic is the experiential heart of a game: the repeated action that creates larger patterns of play.</p>
+
+<div class="grid cols-3">
+  <div class="grid-cell">
+    <strong>Tag</strong>
+    The core mechanic is chasing and being chased — the physical act of running in pursuit or flight.
+  </div>
+  <div class="grid-cell">
+    <strong>Verbal Tennis</strong>
+    The core mechanic is responding to a question with a question — a dialogic back-and-forth of escalating improvisation.
+  </div>
+  <div class="grid-cell">
+    <strong>LOOP</strong>
+    The core mechanic is performing a looping butterfly pattern — a movement form that structures all other play.
+  </div>
+</div>
+
+<p>A core mechanic can be a single activity, such as running in a footrace. A core mechanic can also be a compound activity, such as the military tactics, resource management, and mouse-and-keyboard skills of a real-time strategy game. Too often, game designers do not consider a game design on the level of the core mechanic, instead relying on conventional interactivity to determine the key player activity.</p>
+
+<h2>Case Study: Breakout and Its Variations</h2>
+
+<h3>The Simple Core Mechanic</h3>
+
+<p>Breakout's core mechanic is strikingly simple: use a paddle to bounce a ball into a field of bricks. Hit a brick and it disappears. Clear all the bricks to advance. This simplicity is not a limitation but a strength — it creates an accessible, repeatable activity that can generate rich experiential variation.</p>
+
+<p>Sudnow's obsession with Breakout is evidence of just how much experiential depth a simple core mechanic can contain. Within that single repeated action — paddle, ball, brick — lies a world of developing skill, pattern recognition, and physical feedback.</p>
+
+<h3>Atari 2600 Variations</h3>
+
+<p>Atari exploited the core mechanic's flexibility by releasing twelve variations of Breakout on the 2600. Each variation modified a single element while keeping the essential mechanic intact:</p>
+
+<div class="grid cols-3">
+  <div class="grid-cell">
+    <strong>Timed</strong>
+    Play within a time limit — urgency added to the mechanic.
+  </div>
+  <div class="grid-cell">
+    <strong>Breakthru</strong>
+    Ball passes through bricks rather than bouncing — new movement patterns.
+  </div>
+  <div class="grid-cell">
+    <strong>Steering</strong>
+    Player can influence ball direction mid-flight — expanded agency.
+  </div>
+  <div class="grid-cell">
+    <strong>Catching</strong>
+    Paddle can catch and hold the ball — introducing a new micro-action.
+  </div>
+  <div class="grid-cell">
+    <strong>Invisible Bricks</strong>
+    Bricks are hidden until hit — spatial memory becomes critical.
+  </div>
+  <div class="grid-cell">
+    <strong>…and 7 more</strong>
+    Each variant demonstrates a different dimension of the core mechanic's potential.
+  </div>
+</div>
+
+<h3>Alleyway (Game Boy)</h3>
+
+<p>Nintendo's Alleyway took the Breakout concept and added layers that deepened the experiential architecture. Open-sided walls allowed the ball to escape the play area, creating spatial anxiety. Multiple levels offered progressive challenge. Audio feedback — a distinctive crack when the ball broke through — gave players an acoustic reward that reinforced success.</p>
+
+<p>These additions don't change the core mechanic but enrich the experience it generates. Each layer adds another dimension to what the player feels, hears, and must track.</p>
+
+<h2>Case Study: Centipede</h2>
+
+<p>Game designer Richard Rouse III offers an analysis of Centipede that illustrates how a game's five interdependent elements create escalating patterns of tension and release.</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Mushrooms</strong>
+    Clutter the play field, deflecting the centipede's descent and fragmenting into obstacles.
+  </div>
+  <div class="grid-cell">
+    <strong>Centipedes</strong>
+    The primary threat — segmented creatures descending toward the player, splitting when hit.
+  </div>
+  <div class="grid-cell">
+    <strong>Fleas</strong>
+    Drop mushrooms rapidly, cluttering the field. Arrive when the mushroom count gets too low.
+  </div>
+  <div class="grid-cell">
+    <strong>Spiders</strong>
+    Unpredictable movement that eats mushrooms. High-value targets but dangerous.
+  </div>
+  <div class="grid-cell" style="grid-column: 1 / -1;">
+    <strong>Scorpions</strong>
+    Move across the field, poisoning mushrooms and causing centipedes to dive straight down — a devastating acceleration of threat.
+  </div>
+</div>
+
+<p>These five elements are not independent — they form an interconnected system of escalating consequences. Shooting a centipede segment creates a mushroom. More mushrooms slow the centipede's descent. But they also attract fleas. Killing fleas depletes mushrooms, attracting more fleas. Scorpions poison what remains, forcing the centipede into a lethal dive.</p>
+
+<p>Each level escalates this ecosystem of threat: more centipedes, faster movement, greater mushroom density. The entire game arc is built from these systemic relationships among five elements and their interactions — a masterclass in how a small number of well-designed components can create an experience that deepens over time.</p>
+
+<h2>Extending the Core Mechanic</h2>
+
+<p>The core mechanic can be extended and enlarged through the design of variations. Breakout provides a good example of a simple core mechanic that is intrinsically successful but which has been successfully modified into many variations. The lesson is not to find new core mechanics for every game — but to deeply understand the one you have, and explore its full range of experiential possibility.</p>
+
+<blockquote>
+  What the core mechanic approach demands is that designers think first about the repeated lived activity at the heart of their game — not the story, not the setting, not the technology — but the action players will perform thousands of times during the course of play.
+</blockquote>
+
+<div class="summary-box">
+  <h3>Chapter Summary</h3>
+  <ul>
+    <li>Play is experienced through <strong>participation</strong>. The formal game system is made manifest through the experiential engagement of a player.</li>
+    <li>Sutton-Smith's psychological model identifies five elements of game experience: <strong>concentration, visual scanning, auditory discriminations, motor responses,</strong> and <strong>perceptual patterns of learning</strong>.</li>
+    <li>Game experience follows a loop: game output → sensory input → internal decision → player action → game output.</li>
+    <li>Game design is a <strong>second-order design problem</strong>: designers indirectly design experience by directly designing formal systems.</li>
+    <li>The <strong>core mechanic</strong> is the essential moment-to-moment activity players enact — repeated over and over to create larger patterns of experience.</li>
+    <li>A core mechanic can be a single activity or a compound activity. It can be extended through variations, as Breakout demonstrates.</li>
+    <li>Centipede illustrates how a small number of interdependent elements can generate escalating, richly structured experiential patterns.</li>
+  </ul>
+</div>
+
+<p class="callout">Katie Salen &amp; Eric Zimmerman · <em>Rules of Play: Game Design Fundamentals</em> · MIT Press, 2004 · Unit 3: Play</p>
+
+</body>
+</html>

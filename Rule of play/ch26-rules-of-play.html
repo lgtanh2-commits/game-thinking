@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 26: Games as Narrative Play — Rules of Play</title>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --text: #1a1a1a;
+  --muted: #555;
+  --dim: #888;
+  --rule: #c8c4bc;
+  --pull-bg: #eeece8;
+  --pull-border: #1a1a1a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+}
+header { margin-bottom: 56px; }
+.eyebrow { font-family: system-ui, -apple-system, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 10px; }
+h1 { font-family: Georgia, serif; font-size: 1.85rem; font-weight: normal; line-height: 1.25; margin-bottom: 14px; }
+.subtitle { font-size: 1rem; color: var(--muted); font-style: italic; }
+h2 { font-family: system-ui, -apple-system, sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-top: 8px; border-top: 1px solid var(--rule); margin-top: 52px; margin-bottom: 16px; }
+h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
+p { margin-bottom: 1em; }
+blockquote { background: var(--pull-bg); border-left: 3px solid var(--pull-border); margin: 24px 0; padding: 16px 20px; font-style: italic; }
+blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.grid-cell { background: var(--bg); padding: 18px 16px; }
+.grid-cell strong { font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.summary-box { border: 1px solid var(--rule); padding: 28px 32px; margin: 40px 0 0; }
+.summary-box h3 { margin-top: 0; font-style: normal; font-size: 0.75rem; font-family: system-ui, sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.summary-box ul { padding-left: 22px; }
+.summary-box li { margin-bottom: 0.6em; }
+.callout { font-family: system-ui, sans-serif; font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 12px; margin-top: 32px; }
+.definition-box { border: 2px solid var(--text); padding: 24px 28px; margin: 32px 0; }
+.definition-box .def-label { font-family: system-ui, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 12px; }
+.definition-box .def-text { font-size: 1.05rem; font-style: italic; line-height: 1.65; }
+.miller-grid { display: grid; grid-template-columns: auto 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.miller-grid .cell { background: var(--bg); padding: 16px 18px; }
+.miller-grid .cell.label { font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.cutscene-item { border-left: 2px solid var(--rule); padding: 12px 16px; margin: 12px 0; }
+.cutscene-item strong { font-family: system-ui, sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Rules of Play · Unit 3: Play · Chapter 26</span>
+  <h1>Games as Narrative Play</h1>
+  <p class="subtitle">How games tell stories through structure, space, descriptors, and retelling</p>
+</header>
+
+<h2>The Narrative Debate</h2>
+
+<p>Whether games are narrative has been one of the most contentious questions in game studies. Critics like Greg Costikyan argue that narrative and games are fundamentally opposed: stories have fixed outcomes, games do not. Drama theorist Brenda Laurel sees games as potential sites of dramatic experience. Jesper Juul offers three arguments against games-as-narrative: players don't identify with protagonists the same way readers do; games are not told by anyone; and game time differs from story time.</p>
+
+<p>Rather than adjudicating these debates, the schema <em>Games as Narrative Play</em> takes a pragmatic stance. The primary question is not <em>Are games narrative?</em> — a question that may be unanswerable — but <em>How are games narrative?</em> This reframing opens productive design questions. What narrative structures are available to games? How do games use them? How can designers craft more meaningful narrative experiences?</p>
+
+<h2>A Working Definition of Narrative</h2>
+
+<p>Literary critic J. Hillis Miller identifies three core elements of narrative that provide a useful working framework:</p>
+
+<div class="miller-grid">
+  <div class="cell label">Situation</div>
+  <div class="cell">A series of <em>events</em> that change over time. Narrative requires that something happen — that states of affairs be transformed through the unfolding of events.</div>
+  <div class="cell label">Character</div>
+  <div class="cell">Narrative is conveyed through a <em>system of representation</em> — some medium or set of signs through which the story is communicated to an audience.</div>
+  <div class="cell label">Form</div>
+  <div class="cell">Representation is constituted by <em>patterning</em> and <em>repetition</em> — the narrative is shaped by recurring structures that give it form and meaning.</div>
+</div>
+
+<p>All three elements are present in games. A game session is a series of events that change over time (Situation). The visual, audio, and interactive elements of the game constitute a system of representation (Character). And the repeated encounter with game mechanics — the core loop, the escalating patterns — provides narrative form through patterning and repetition.</p>
+
+<p>A tabletop game like Thunderstorm illustrates how ordinary game elements translate into narrative. The lines on a page become houses; dice rolls become acts of construction and destruction; the game's mounting tension becomes the approaching storm. The formal structure of the game generates narrative without requiring any explicit story content.</p>
+
+<h2>Two Narrative Structures</h2>
+
+<p>Game narratives are built from two fundamentally different kinds of elements, which can be balanced in different proportions:</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Embedded Narrative</strong>
+    Pre-generated narrative components created by the designer and scripted into the game. Cutscenes, NPC dialogue, level backstory, written lore. The narrative player receives is the same regardless of how they play.
+  </div>
+  <div class="grid-cell">
+    <strong>Emergent Narrative</strong>
+    Narrative elements created on-the-fly as the player interacts with the game system. The stories that arise from gameplay — the unexpected alliance, the last-second escape, the catastrophic miscalculation. Each play session produces a unique narrative.
+  </div>
+</div>
+
+<p>Most games blend both. Grand Theft Auto III has extensive embedded narrative in its scripted missions, while simultaneously generating emergent narratives from the player's free movement through the city. The Sims has minimal embedded narrative but generates richly emergent ones from the simulated interactions of its residents. Understanding the balance between embedded and emergent narrative is a fundamental design choice.</p>
+
+<h2>Goals, Conflict, and Uncertainty</h2>
+
+<h3>Goals as Narrative Structure</h3>
+
+<p>Goals create narrative by making player planning and decision outcomes narratively legible. In Counter-Strike, team objectives — plant the bomb, rescue the hostages — create dramatic situations with clear narrative stakes. The Sims Hot Date structures romantic encounter as a five-step progression: meet, impress, entertain, court, connect. Each step is both a game goal and a narrative beat, giving even the most mundane simulation-game interaction the shape of a story.</p>
+
+<h3>Conflict</h3>
+
+<p>Conflict is both a structural feature of games (competition, opposition, obstacle) and a narrative driver. In Settlers of Catan, the competition for resources generates emergent narratives of rivalry, alliance, and betrayal. Players who are strangers before the game begin become protagonists of a shared economic drama — building, blocking, trading, and scheming. The formal conflict structure of the game is the engine of narrative production.</p>
+
+<h3>Uncertainty</h3>
+
+<p>Uncertainty of outcome is linked to dramatic tension. When the result of a race, a battle, or a negotiation is genuinely uncertain, the experience takes on narrative stakes. In Drome Racing Challenge, the uncertainty of each race creates a sense of ongoing story: will the car hold up? Will the strategy work? In Poker, every hand is a micro-narrative whose outcome is genuinely unknown until the final reveal. Even in role-playing games, uncertainty is critical: when death is certain or success guaranteed, the narrative energy drains away.</p>
+
+<h2>Core Mechanics as Narrative</h2>
+
+<p>The core mechanic — the essential moment-to-moment activity players perform — is also the mechanism through which players enact narrative. In <em>Seaman</em>, the core mechanic of speaking into a microphone to interact with a strange evolving creature creates a conversational, observational narrative perfectly suited to the game's story of scientific discovery. The awkward button gesture of lifting Seaman out of the water forces the player to <em>perform</em> the narrative rather than simply witness it.</p>
+
+<p>In the live-action role-playing game <em>Vampire: The Masquerade (Mind's Eye Theater)</em>, conflicts are resolved by Rock-Paper-Scissors. Some play groups replace the hand signals with custom cards representing devil, angel, and human — maintaining the formal system while replacing the experiential element with one that suits the game's dark Goth narrative. This illustrates a key principle: the formal mechanic and the narrative frame can be designed independently, but the best designs align them so each reinforces the other.</p>
+
+<h2>Narrative Space</h2>
+
+<p>Space is not merely the stage on which narrative occurs — it is a narrative element in itself. Game designer Warren Spector observes that "games create 'possibility spaces,' spaces that provide compelling problems within an overarching narrative, afford creative opportunities for dealing with these problems and then respond to player choices with meaningful consequences." The layout of the game world directly shapes the stories that can emerge from it.</p>
+
+<blockquote>
+  Game designers use spatial elements to set the initial terms for the player's experiences. Information essential to the story is embedded in objects such as books, carved runes or weapons. Artifacts such as jewels may embody friendship or rivalries or may become magical sources of the player's power. The game space is organized so that paths through the game world guide or constrain action, making sure we encounter characters or situations critical to the narrative.
+  <cite>— Henry Jenkins and Kurt Squire, "The Art of Contested Spaces"</cite>
+</blockquote>
+
+<p>In Volleyball, the net divides the court into zones of friend and foe — narrative meaning is built into the spatial structure. In The Sims, the spatial design of a house defines what social interactions can occur there. In Black &amp; White, the world changes appearance to reflect the moral quality of the player's choices, creating a moral narrative written in the landscape itself.</p>
+
+<h2>Digital Game Spaces</h2>
+
+<p>Digital games have developed a remarkable range of spatial forms, each with its own narrative implications. Game scholar Mark J. P. Wolf identifies eleven distinct categories of video game space:</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Text-Only Space</strong>
+    Zork, Planetfall — narrative space constructed entirely from language. No visual representation; the player's imagination renders the world.
+  </div>
+  <div class="grid-cell">
+    <strong>One Contained Screen</strong>
+    Pong, Space Invaders, Breakout — all action visible at once. The entire game world fits within a single frame; nothing is hidden.
+  </div>
+  <div class="grid-cell">
+    <strong>Screen with Wraparound</strong>
+    Asteroids, Pac-Man — the space is continuous, looping at the edges to create an infinite field from a finite screen.
+  </div>
+  <div class="grid-cell">
+    <strong>Scrolling Space</strong>
+    Defender, Gauntlet, Sim City — the world extends beyond the frame, revealed by movement. Off-screen space exists but is hidden.
+  </div>
+  <div class="grid-cell">
+    <strong>Adjacent Rooms</strong>
+    Berzerk, Atari's Adventure — space presented as a series of connected rooms, each filling the screen in turn.
+  </div>
+  <div class="grid-cell">
+    <strong>Full 3D Spaces</strong>
+    Battlezone, DOOM, Tomb Raider — immersive three-dimensional environments with the full range of spatial possibility.
+  </div>
+</div>
+
+<p>Each spatial form shapes narrative possibility differently. Adventure's room-based structure creates tableau-like scenes — theatrical spaces that focus dramatic action. Tomb Raider's 3D world supports an entirely different narrative grammar of exploration, concealment, and discovery. The formal structure of game space, its representational style, and the way players move through it together constitute the narrative space of possibility.</p>
+
+<h3>Case Study: Atari Adventure</h3>
+
+<p>The Atari 2600 game Adventure (1980) is arguably the first graphical adventure game, and its spatial design is a masterclass in how simple spatial structures generate rich narrative. Its manual establishes the narrative stakes: an Evil Magician has stolen the Enchanted Chalice; the player must navigate three castles, their connecting rooms, and four labyrinths to recover it while avoiding three dragons of varying ferocity.</p>
+
+<p>Within this structure, the player is represented as a simple square dot. The dragons, castles, and keys are equally spare. Yet the spatial arrangement — locked gates, labyrinthine connections, the inconsistent wraparound logic of the mazes — creates genuine narrative tension. Locating the Black Key in the Catacombs while Rhindle the Red Dragon approaches, carrying only one object at a time, is a moment of emergent narrative as vivid as anything in more elaborate games.</p>
+
+<p>Adventure's "illogical" spaces — rooms that are larger on the inside than outside, mazes that wrap in non-Euclidean ways — don't undermine the narrative but enhance it. These inconsistencies perfectly suit the game's fairytale logic, evoking the uncanny spatial rules of myth and dream.</p>
+
+<h2>Narrative Descriptors</h2>
+
+<p>A <strong>narrative descriptor</strong> is any component of a game that participates in its system of representation — any element that helps communicate the game's story, setting, or characters. Narrative descriptors include cabinet graphics, game manual text, opening cinematics, audio soundtracks, interface design, and in-game visuals. Every element of a game is potentially a narrative descriptor.</p>
+
+<p>Asteroids demonstrates how thoroughly a game can be narrativized through descriptors. From the cabinet art identifying the player as a spaceship pilot, to the white geometric outlines on a black screen that "become" asteroids once the narrative frame is established, to the explosion that signals the ship's destruction — every element coordinates to create a coherent sci-fi narrative without a word of in-game text.</p>
+
+<p>Crucially, the same formal game structure can accommodate radically different narrative frames. Breakout was narrativized as a jailbreak (original arcade cabinet), a Tennis match (Atari 2600 box art), and a sci-fi force field encounter (Super Breakout). Each framing is genuine — each bears a real relationship to the game's formal structure — but each emphasizes different aspects of that structure and creates a different experiential context.</p>
+
+<h3>Fictive Worlds and Story Events</h3>
+
+<p>Game scholar Rune Klevjer identifies two interlocking components of game narrative. <strong>Fictive worlds</strong> are the larger representational frames that contain the game narrative — the gangster universe of GTA III, the fantasy medieval world of Dungeons &amp; Dragons, the far-future racing milieu of Wipeout XL. <strong>Story events</strong> are the individual incidents that take place within that world — each race, each combat, each trade, each conversation.</p>
+
+<p>These two elements are mutually constitutive. The fictive world makes the story events legible: shooting a gangster in GTA III makes sense within the established universe, whereas the same action involving a child would violate the narrative frame's logic. The story events, in turn, flesh out and define the fictive world — each successful mission adds texture to the representation of Liberty City as a place where such things happen.</p>
+
+<h2>Games as Narrative Systems</h2>
+
+<p>A game is a <strong>narrative system</strong> in which the total narrative experience arises from the functioning of the game as a whole. The richness of Ms. Pac-Man's narrative comes not from any single element — the title, the cabinet art, the between-level cartoons, the looping game music — but from their combination into a coherent whole. Each element supports and amplifies the others; the narrative is more than the sum of its parts.</p>
+
+<p>Dungeons &amp; Dragons makes this systemic quality explicit. The game is, at its core, a system for generating narrative play. The Dungeon Master provides the setting, the narrative framework, and the moment-to-moment descriptions; the players provide the characters' actions and decisions; the dice introduce uncertainty; the rules ensure that choices have consequences. Together, these components constitute a collaborative narrative machine — one in which each session produces a unique, emergent story.</p>
+
+<h2>Cutscenes</h2>
+
+<p>The cutscene — a non-interactive narrative sequence embedded within game play — is one of digital gaming's most distinctive narrative tools. Though often criticized by experienced players who skip them, cutscenes serve multiple important narrative functions:</p>
+
+<div class="cutscene-item">
+  <strong>Surveillance or Planning Tool</strong>
+  Cutscenes provide information unavailable during play: glimpses of another part of the game space, intelligence about upcoming obstacles, elaboration of the consequences of past actions. They give players narrative context for strategic planning.
+</div>
+<div class="cutscene-item">
+  <strong>Game Play Catapult</strong>
+  Cutscenes can drop players directly into new situations mid-action, grafting the narrative sequence to the game play that follows. The resulting tension — what will happen when the cutscene ends? — heightens the drama of the transition.
+</div>
+<div class="cutscene-item">
+  <strong>Scene and Mood Setting</strong>
+  Brief cutscenes before each level, like those in Virtua Fighter 4's arena introductions, establish setting and create a sense of place. In Silent Hill, cutscenes become progressively more disturbing as the narrative deepens.
+</div>
+<div class="cutscene-item">
+  <strong>Choice and Consequence</strong>
+  Cutscenes can dramatize the outcomes of player decisions — victory sequences, failure states, transformations of the game world resulting from the player's choices. They make consequences visible and meaningful.
+</div>
+<div class="cutscene-item">
+  <strong>Rhythm and Pacing</strong>
+  In James Bond 007: Agent Under Fire, short cutscenes create regular moments of release from intense action. Cutscenes control the game's overall pacing — slowing to reflect on a significant event, or accelerating to catapult the player into the next encounter.
+</div>
+<div class="cutscene-item">
+  <strong>Player Reward</strong>
+  Final Fantasy games famously use spectacular cutscenes as rewards for progress — motivating players to advance in order to see the next cinematic sequence. The cutscene becomes a tangible payoff for investment in the game.
+</div>
+
+<h2>Retelling Game Stories</h2>
+
+<p>Narrative play does not end when the game session ends. Players have a powerful tendency to reconstruct their game experiences as stories — recounting them to others, reliving dramatic moments, sharing strategic discoveries. This phenomenon of <strong>retelling play</strong> is a natural extension of the social function of narrative.</p>
+
+<p>Players retell game experiences for many reasons: to celebrate a dramatic victory, to share the sequence of a particularly memorable session, to communicate strategic discoveries, or simply to share the pleasure of play. Retelling play builds communities of players through a shared vocabulary of memorable moments.</p>
+
+<h3>The Replay</h3>
+
+<p>Digital games have developed sophisticated technical tools for supporting retelling play. The in-game <strong>replay</strong> allows players to review recordings of their game sessions. NBA Courtside's Instant Replay offers multiple camera angles and slow-motion; Wreckless: The Yakuza Missions provides cinematically edited replays with shifting film stocks and dramatic camera work; Gran Turismo 3 offers five distinct replay modes, from the racing-broadcast Standard mode to the telemetry-data Analyzer mode.</p>
+
+<p>Each replay mode reframes the same game events through a different narrative lens. NBA Courtside's replays invoke the language of televised sports coverage. Wreckless's replays reference Hong Kong action cinema. Gran Turismo's Analyzer mode approaches racing as technical science. The same game events carry different narrative meanings depending on the representational frame through which they are viewed.</p>
+
+<h3>Recams</h3>
+
+<p>A step beyond the replay is the <strong>recam</strong> — a recording in which players can alter camera positions, angles, and motions after the fact, creating a cinematic retelling that reframes game events from an external perspective. Originating in the DOOM and Quake communities, recams allow players to shift from first-person to third-person perspective, to edit the footage, and to create what are effectively short films made from game play.</p>
+
+<p>Driver: You Are the Wheelman takes this further, providing built-in editing tools for players to create their own cinematic narratives from their missions. Some players began playing the game primarily for the cinematic possibilities of the replay — making driving decisions based on how dramatic the resulting recam would look rather than on game-internal goals. Here, retelling play becomes transformative play: the player's engagement with narrative has altered the meaning of the game's formal actions.</p>
+
+<div class="summary-box">
+  <h3>Chapter Summary</h3>
+  <ul>
+    <li>The schema asks <strong>How are games narrative?</strong> — not whether they are, but through what specific structures and mechanisms.</li>
+    <li>J. Hillis Miller's three narrative elements — <strong>Situation, Character, Form</strong> — provide a framework applicable to games.</li>
+    <li>Game narratives use <strong>embedded</strong> elements (pre-authored, scripted) and <strong>emergent</strong> elements (arising from play) in varying proportions.</li>
+    <li><strong>Goals, conflict, and uncertainty</strong> are formal game elements that simultaneously function as narrative drivers.</li>
+    <li>The <strong>core mechanic</strong>, when designed with narrative in mind, can make players enact rather than merely witness the game story.</li>
+    <li><strong>Space</strong> shapes narrative play: the physical and digital arrangement of the game world constrains and enables story events.</li>
+    <li>A <strong>narrative descriptor</strong> is any representational element that contributes to the game's narrative system — including graphics, audio, interface, and text.</li>
+    <li>Klevjer's <strong>fictive worlds</strong> (narrative frames) and <strong>story events</strong> (play incidents) are mutually constitutive: each defines and enriches the other.</li>
+    <li>A game is a <strong>narrative system</strong>: the total narrative experience exceeds the sum of its individual elements.</li>
+    <li><strong>Cutscenes</strong> serve multiple narrative functions: surveillance, catapult, scene-setting, consequence-display, pacing, and reward.</li>
+    <li><strong>Retelling play</strong> — recounting game experiences as stories — extends narrative play beyond the magic circle. Digital forms include the <strong>replay</strong> and the <strong>recam</strong>.</li>
+  </ul>
+</div>
+
+<p class="callout">Katie Salen &amp; Eric Zimmerman · <em>Rules of Play: Game Design Fundamentals</em> · MIT Press, 2004 · Unit 3: Play</p>
+
+</body>
+</html>

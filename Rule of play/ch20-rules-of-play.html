@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch. 20 — Games as Systems of Conflict · Rules of Play</title>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --text: #1a1a1a;
+  --muted: #555;
+  --dim: #888;
+  --rule: #c8c4bc;
+  --pull-bg: #eeece8;
+  --pull-border: #1a1a1a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+}
+header { margin-bottom: 56px; }
+.eyebrow {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+  display: block;
+  margin-bottom: 10px;
+}
+h1 {
+  font-family: Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: normal;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.subtitle { font-size: 1rem; color: var(--muted); font-style: italic; }
+h2 {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 8px;
+  border-top: 1px solid var(--rule);
+  margin-top: 52px;
+  margin-bottom: 16px;
+}
+h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
+p { margin-bottom: 1em; }
+blockquote {
+  background: var(--pull-bg);
+  border-left: 3px solid var(--pull-border);
+  margin: 24px 0;
+  padding: 16px 20px;
+  font-style: italic;
+}
+blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.grid-cell { background: var(--bg); padding: 18px 16px; }
+.grid-cell strong {
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 6px;
+}
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.conflict-forms {
+  border: 1px solid var(--rule);
+  margin: 24px 0;
+}
+.conflict-row {
+  display: flex;
+  align-items: baseline;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--rule);
+  gap: 16px;
+}
+.conflict-row:last-child { border-bottom: none; }
+.conflict-row .num {
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--dim);
+  min-width: 20px;
+}
+.case-study {
+  border: 1px solid var(--rule);
+  margin: 28px 0;
+}
+.case-study-header {
+  background: var(--pull-bg);
+  padding: 14px 20px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--rule);
+}
+.case-study-body {
+  padding: 18px 20px;
+}
+.design-questions {
+  list-style: none;
+  border: 1px solid var(--rule);
+  margin: 20px 0;
+}
+.design-questions li {
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--rule);
+  padding-left: 40px;
+  position: relative;
+}
+.design-questions li:last-child { border-bottom: none; }
+.design-questions li::before {
+  content: "?";
+  position: absolute;
+  left: 16px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--dim);
+}
+.summary-box {
+  border: 1px solid var(--rule);
+  padding: 28px 32px;
+  margin: 40px 0 0;
+}
+.summary-box h3 {
+  margin-top: 0;
+  font-style: normal;
+  font-size: 0.75rem;
+  font-family: system-ui, sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.summary-box ul { padding-left: 22px; }
+.summary-box li { margin-bottom: 0.6em; }
+.callout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.82rem;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+  margin-top: 32px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Rules of Play &nbsp;·&nbsp; Unit Two: Rules &nbsp;·&nbsp; Chapter 20</span>
+  <h1>Games as Systems of Conflict</h1>
+  <p class="subtitle">Every game contains conflict. But conflict in games takes many structural forms — and every game is simultaneously competitive and cooperative.</p>
+</header>
+
+<h2>The Forms of Conflict</h2>
+<p>Conflict is one of the defining characteristics of games. Salen and Zimmerman define conflict, in a game context, as a struggle between two or more forces toward opposing goals. But conflict is not monolithic — it takes many different structural forms depending on who or what the opposing forces are and how they interact.</p>
+
+<div class="conflict-forms">
+  <div class="conflict-row"><span class="num">1</span><span>Single player vs. single player — direct head-to-head competition between two individuals</span></div>
+  <div class="conflict-row"><span class="num">2</span><span>Group vs. group — teams competing against each other as unified forces</span></div>
+  <div class="conflict-row"><span class="num">3</span><span>One vs. many — one player or force against a coalition of others</span></div>
+  <div class="conflict-row"><span class="num">4</span><span>Every player for themselves — individual players competing against all others simultaneously (free-for-all)</span></div>
+  <div class="conflict-row"><span class="num">5</span><span>Single player vs. the system — one player facing the game itself as an antagonist</span></div>
+  <div class="conflict-row"><span class="num">6</span><span>Group cooperating vs. the system — players collaborating against the game as a shared opponent</span></div>
+</div>
+
+<p>Beyond the structural form of conflict, games can also vary in how directly players interact with each other. Some conflicts are direct — arm wrestling, boxing, Chess — where players interact with each other face-to-face and the outcomes of interactions are immediately felt. Other conflicts are indirect — figure skating judging, golf, many racing games — where players perform independently and are evaluated against a common standard, rather than interfering with each other during play.</p>
+
+<h2>Three Arcade Archetypes</h2>
+<p>The chapter uses three classic arcade games to illustrate how different structural forms of conflict produce different kinds of player experience.</p>
+
+<h3>Centipede: Layered Conflict</h3>
+<p>Centipede is nominally a single-player game — the player vs. the system. But the conflict in Centipede actually operates on multiple simultaneous layers. There is the moment-to-moment conflict of surviving the immediate wave of insects. There is the conflict of optimizing your own score — trying to do better this game than last game. There is the conflict of competing against the high score list, which represents past performances (your own and others'). And if two players are taking turns, there is the zero-sum competitive dynamic of head-to-head rivalry.</p>
+
+<p>A single game structure generates multiple simultaneous systems of conflict, each operating at a different temporal and social scale. This layering is not accidental — it is one of the reasons Centipede remains compelling.</p>
+
+<h3>Joust: Cooperative and Competitive</h3>
+<p>Joust is a two-player simultaneous game in which each player controls a knight riding a flying ostrich. Players share the same screen at the same time. On one level, the game is cooperative: both players face a common enemy (the computer-controlled enemies), and have strong incentives to support each other. On another level, the game is competitive: when one player kills an enemy, that player earns the point. And on a third level, the game creates the peculiar dynamic of accidental conflict — a player's ostrich can kill the other player's ostrich by landing on their head at the right angle, even without any hostile intent.</p>
+
+<p>Joust's design asks players to navigate a constantly shifting relationship between cooperation and competition, sometimes within the same moment. This ambiguity is a feature, not a flaw — it is what makes the game's social dynamics so rich.</p>
+
+<h3>Gauntlet: Conflict on Every Axis</h3>
+<p>Gauntlet is a multiplayer dungeon-crawling arcade game that generates conflict on virtually every axis simultaneously. Players cooperate against the dungeon's enemies (group vs. system), but compete against each other for limited resources — food, keys, and other power-ups that only one player can take. And in its original arcade form, Gauntlet introduced a particularly sharp economic conflict: players had to insert more coins to replenish their health, creating a real-money dimension to the competition. Players who couldn't or wouldn't spend money fell behind those who could.</p>
+
+<div class="grid cols-3">
+  <div class="grid-cell">
+    <strong>Centipede</strong>
+    Single-player vs. system, but conflict layered across time (current session, personal best, high score list) and social space (head-to-head turn rivalry).
+  </div>
+  <div class="grid-cell">
+    <strong>Joust</strong>
+    Simultaneous two-player with fluid cooperation/competition boundary. Shared enemies create cooperative incentive; limited point-scoring creates competition; physical proximity creates accidental conflict.
+  </div>
+  <div class="grid-cell">
+    <strong>Gauntlet</strong>
+    Multi-player group vs. system, but resource competition among players. In its arcade form, real economic competition (coin insertion) overlays the in-game resource competition.
+  </div>
+</div>
+
+<p>These case studies generate a set of design questions that any multiplayer game designer should consider:</p>
+
+<ul class="design-questions">
+  <li>How many players does the game support, and do the rules change with player count?</li>
+  <li>Do players take turns or act simultaneously — and how does that affect the conflict dynamic?</li>
+  <li>Is there a high score list or persistent record that creates competition across play sessions?</li>
+  <li>Does the game communicate relative player scores or positions during play?</li>
+  <li>Can players directly interfere with, attack, or affect each other — or is all conflict indirect?</li>
+  <li>Are there shared or limited resources that players must compete to acquire?</li>
+  <li>Is there a pay-to-continue or economic mechanism that affects the conflict structure?</li>
+</ul>
+
+<h2>Competition and Cooperation</h2>
+<p>A key theoretical claim of this chapter: all games are simultaneously competitive and cooperative. This is not a paradox — it reflects the two distinct levels at which a game's social relationships operate.</p>
+
+<p><em>Competition</em> is a zero-sum struggle in which the players attempt to gain an advantage over one another. This is what most people mean when they say a game is competitive — players are trying to win, and winning comes at the cost of others losing.</p>
+
+<p>But competition is always embedded within a deeper cooperative structure. This cooperation operates at two levels:</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Systemic Cooperation</strong>
+    Choosing to play the game at all is a cooperative act. To enter the magic circle, all players must agree to share the same rules, the same goals, and the same constructed reality of the game. The competition can only exist because all players are cooperating to maintain the system that makes the game possible. Without this fundamental agreement, there is no game.
+  </div>
+  <div class="grid-cell">
+    <strong>Player Cooperation</strong>
+    Some games make cooperation explicit as a game mechanic — players form teams and work toward shared goals. In cooperative games like <em>Lord of the Rings</em> (Reiner Knizia), all players cooperate against the game system as a shared opponent. But even in explicitly cooperative games, the underlying systemic cooperation (agreeing to play) is still present.
+  </div>
+</div>
+
+<h2>The New Games Movement</h2>
+<p>The relationship between competition and cooperation in games was the central preoccupation of the New Games Movement — a social and cultural initiative in the 1970s led by Stewart Brand and Bernard DeKoven, among others, and documented in <em>The New Games Book</em>.</p>
+
+<p>The New Games Movement sought to create games that blurred the line between competition and cooperation — games in which winning and losing mattered less than the quality of play and the experience of the participants. Games like "Catch the Dragon's Tail," in which participants form a long line and the front of the line tries to catch the back, deliberately mix competitive and cooperative dynamics in ways that resist simple categorization.</p>
+
+<p>DeKoven's notion of the "well-played game" — a game in which players collaborate to find the most engaging and rewarding way to play, even if that means changing the rules — represents the endpoint of this movement's thinking. In the well-played game, the formal rules are not sacred constraints but starting points for a conversation about what the game should be.</p>
+
+<h2>Game Goals and the Space of Possibility</h2>
+<p>The formal goal of a game — the quantifiable outcome that determines winners and losers — is one structural pole of the conflict system. The conflict in a game is shaped in large part by the nature of its goal: what players are trying to achieve, how that achievement is measured, and what happens when someone achieves it.</p>
+
+<p>Consider Space Invaders. The game has no victorious endpoint — no state in which the player wins. Instead, the game generates an endless sequence of increasingly difficult challenges, each wave of invaders harder than the last, until the player inevitably loses. Space Invaders' conflict is not between two players or even one player and a finite system — it is a player against an inexorable escalating pressure, with no possibility of final triumph. The game's goal is not to win but to survive as long as possible.</p>
+
+<h3>Case Study: LOOP</h3>
+<p>LOOP is a single-player game in which the player controls a butterfly that must navigate a garden without being caught. The game's designers faced a key design decision: what constitutes winning? Three different victory scenarios were playtested:</p>
+
+<p>In the first version, the player won by surviving for a fixed time period. In the second, the player won by collecting a certain number of flowers. In the third, the player won by having a butterfly count that remained above a threshold throughout the session.</p>
+
+<p>After playtesting, the designers chose the time-limit loss condition — the player wins simply by surviving — and added a design constraint: the butterfly count in the garden must remain approximately constant throughout play. This constraint keeps the space of possibility full. New butterflies continuously enter the garden, maintaining the richness of navigational choices and the density of the conflict system. A fixed butterfly count also creates a natural tension: butterflies that are caught are replaced, but the replacement is not instantaneous, creating momentary fluctuations in the density of the challenge.</p>
+
+<h2>The Level Playing Field</h2>
+<p>A game's conflict can only feel meaningful if the players perceive the contest as fair. The concept of the level playing field — the condition in which all players begin from an equivalent position and are subject to the same rules — is central to how games generate a sense of meaningful competition.</p>
+
+<blockquote>
+  An examination of the contests and competitions practiced in games shows that they almost always involve artificial equality that is not found in nature. That is why it is established, and its rigor maintained.
+  <cite>— Roger Caillois, <em>Man, Play, and Games</em></cite>
+</blockquote>
+
+<p>Caillois's insight is important: the equality of competition in games is explicitly artificial — it has to be designed in, because natural situations rarely begin from equivalent starting points. The rules of a game create a constructed equality that makes the competition meaningful.</p>
+
+<h3>Pig Redux</h3>
+<p>Even a simple game like Pig (roll a die, accumulate points, decide when to stop) has a structural inequality: the first player gets to act first, giving them a statistical advantage. In a game as simple as Pig, this first-player advantage can materially affect outcomes.</p>
+
+<p>Reiner Knizia's solution is elegant: when any player reaches 100 points, all remaining players get one more roll. This single rule change converts the sequential game into one with a shared "last round" — equalizing the opportunity for all players to reach the threshold. The mathematical equality is not perfect, but the <em>feeling</em> of fairness is substantially restored. As the authors note, the feeling of fairness and mathematical equality are not the same thing — and in game design, the feeling is often more important.</p>
+
+<div class="summary-box">
+  <h3>Chapter Summary</h3>
+  <ul>
+    <li>Conflict in games takes many structural forms: single vs. single, group vs. group, one vs. many, every player for themselves, single player vs. the system, and group vs. the system. Conflicts can be direct (face-to-face interference) or indirect (performance against a common standard).</li>
+    <li>Case studies — Centipede, Joust, Gauntlet — illustrate how conflict can operate on multiple simultaneous layers (competitive, cooperative, economic) and how the same game structure can generate radically different social dynamics depending on player count and context.</li>
+    <li>All games are simultaneously <strong>competitive</strong> (players struggle against each other for advantage) and <strong>cooperative</strong> (all players must agree to share the system of rules that makes play possible — entering the magic circle is itself a cooperative act).</li>
+    <li>The <strong>New Games Movement</strong> (Stewart Brand, Bernard DeKoven) sought to blur the boundary between competition and cooperation, creating games that prioritized the quality of play over the determination of winners and losers.</li>
+    <li>A game's formal <strong>goal</strong> — the quantifiable outcome that structures conflict — is a core design decision. Space Invaders has no victorious endpoint; LOOP's designers chose a time-limit survival condition plus a constant butterfly count to keep the space of possibility full.</li>
+    <li>The <strong>level playing field</strong> is an artificial equality that games construct through their rules. Caillois: this artificial equality is maintained with rigor precisely because nature does not provide it. The <em>feeling</em> of fairness and mathematical equality are distinct — and the feeling often matters more for the play experience.</li>
+  </ul>
+</div>
+
+<p class="callout">Next: Chapter 21 — Breaking the Rules &nbsp;·&nbsp; Player types, degenerate strategies, cheating, and the spoil-sport</p>
+
+</body>
+</html>

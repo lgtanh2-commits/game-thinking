@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 6: Interactivity — Rules of Play</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f8f7f4;
+    --text: #1a1a1a;
+    --muted: #555;
+    --dim: #888;
+    --rule: #c8c4bc;
+    --pull-bg: #eeece8;
+    --pull-border: #1a1a1a;
+  }
+
+  html { background: var(--bg); }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.75;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 64px 28px 96px;
+  }
+
+  .book-meta {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 32px;
+  }
+
+  h1.chapter-title {
+    font-family: Georgia, serif;
+    font-size: 2.4rem;
+    font-weight: normal;
+    line-height: 1.15;
+    margin-bottom: 48px;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 24px;
+  }
+
+  h1.chapter-title .chapter-label {
+    display: block;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 10px;
+  }
+
+  section {
+    margin-bottom: 52px;
+  }
+
+  h2 {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+  }
+
+  h3 {
+    font-family: Georgia, serif;
+    font-size: 1.08rem;
+    font-weight: bold;
+    font-style: italic;
+    margin: 28px 0 8px;
+  }
+
+  p {
+    margin-bottom: 16px;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  blockquote {
+    background: var(--pull-bg);
+    border-left: 3px solid var(--pull-border);
+    margin: 24px 0 32px;
+    padding: 16px 20px;
+    font-style: italic;
+    color: var(--text);
+    font-size: 1rem;
+  }
+
+  blockquote cite {
+    display: block;
+    margin-top: 10px;
+    font-style: normal;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-family: system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── grid ── */
+  .grid {
+    display: grid;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .grid-cell {
+    background: var(--bg);
+    padding: 18px 16px;
+  }
+
+  .cell-label {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  /* ── modes ── */
+  .mode-row {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    border-top: 1px solid var(--rule);
+    padding: 16px 0;
+    gap: 20px;
+    align-items: baseline;
+  }
+
+  .mode-row:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .mode-num {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--dim);
+    padding-top: 2px;
+  }
+
+  .mode-body {}
+
+  .mode-title {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+
+  .mode-desc {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  /* ── anatomy table ── */
+  .anatomy-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+
+  .anatomy-table th {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--rule);
+    background: var(--bg);
+  }
+
+  .anatomy-table td {
+    padding: 12px 12px;
+    border-bottom: 1px solid var(--rule);
+    font-family: Georgia, serif;
+    line-height: 1.6;
+    vertical-align: top;
+  }
+
+  .anatomy-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .anatomy-table .stage-col {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .tag-int, .tag-ext {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+  }
+
+  /* ── further reading ── */
+  .reading-list { margin: 0; }
+
+  .reading-row {
+    border-top: 1px solid var(--rule);
+    padding: 12px 0;
+  }
+
+  .reading-row:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .reading-title {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 0.97rem;
+  }
+
+  .reading-author {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .reading-note {
+    font-family: Georgia, serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 3px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-meta">Rules of Play — Katie Salen &amp; Eric Zimmerman · MIT Press, 2004 · Unit 1: Core Concepts</p>
+
+<h1 class="chapter-title">
+  <span class="chapter-label">Chapter 6</span>
+  Interactivity
+</h1>
+
+<blockquote>
+  Interactivity is a highly over-used and little understood term. Most of the current understanding of interactive design is based on a one-size-fits-all notion of interactivity: that there is a single right approach to interactivity that should be applied across all products and situations.
+  <cite>— Brenda Laurel, <em>Computers as Theater</em></cite>
+</blockquote>
+
+<!-- ── INTRODUCING INTERACTIVITY ── -->
+<section>
+  <h2>Introducing Interactivity</h2>
+  <p>Chapter 6 completes the four-concept foundation of Unit 1. Having established meaningful play (Chapter 3), design (Chapter 4), and systems (Chapter 5), Salen and Zimmerman now examine interactivity — the mechanism through which play actually happens. Play, they argue, is fundamentally about making choices within a designed system. Interactivity is the structure of those choices.</p>
+  <p>The word "interactivity" is one of the most overused in design discourse, applied indiscriminately to everything from CD-ROMs to doorknobs. The chapter works toward a precise understanding: not all interactivity is equivalent, and the kind of interactivity that games produce is a specific, designable thing.</p>
+</section>
+
+<!-- ── DEFINING INTERACTIVITY ── -->
+<section>
+  <h2>Defining Interactivity</h2>
+  <p>Four theorists offer four distinct angles on what interactivity means. Each definition illuminates a different dimension of the concept.</p>
+
+  <h3>Littlejohn: Relational Definition</h3>
+  <p>Littlejohn defines interactivity in terms of mutual relation — two parties in a system that influence each other. This minimal definition captures the reciprocal structure common to all interactive situations: the player acts on the system, and the system acts back.</p>
+
+  <h3>Brenda Laurel: Agents in Representational Contexts</h3>
+  <p>In <em>Computers as Theater</em>, Laurel frames interactivity as the capacity to take action within a representational context. What matters is the player's sense of agency — the feeling that their actions make a difference within a represented world. Interactivity, on this view, is fundamentally about dramatic participation.</p>
+
+  <h3>Andy Cameron: Direct Intervention</h3>
+  <p>Cameron sharpens Laurel's definition by insisting on directness. True interactivity, for Cameron, involves direct intervention in the representation itself — not merely navigating a predetermined menu of options but actually altering the fabric of the represented world. This rules out passive navigation and requires genuine modification.</p>
+
+  <h3>Chris Crawford: Cyclical Conversation</h3>
+  <p>Crawford's definition is the most structural. Interactivity is a cyclical process in which two or more agents alternately listen, think, and speak. The three-step cycle — listen (perceive inputs), think (process and decide), speak (output a response) — captures the turn-taking rhythm of genuine interaction. A system that only outputs, or only accepts inputs, is not interactive by this definition. Games, Crawford argues, are among the most genuinely interactive objects humans have invented.</p>
+</section>
+
+<!-- ── FOUR MODES ── -->
+<section>
+  <h2>Four Modes of Interactivity</h2>
+  <p>Salen and Zimmerman synthesize these perspectives into a taxonomy of four modes of interactivity, arranged from the most passive to the most participatory. The third mode — designed, explicit interaction — is the one most relevant to game design.</p>
+
+  <div class="mode-row">
+    <div class="mode-num">1</div>
+    <div class="mode-body">
+      <div class="mode-title">Cognitive / Interpretive</div>
+      <div class="mode-desc">The interaction a reader has with a novel, or a viewer with a painting. No physical interface is involved — the interaction happens entirely within the mind of the person engaging with the work. All texts are "interactive" in this weak sense.</div>
+    </div>
+  </div>
+  <div class="mode-row">
+    <div class="mode-num">2</div>
+    <div class="mode-body">
+      <div class="mode-title">Functional / Utilitarian</div>
+      <div class="mode-desc">The physical and ergonomic interaction between a person and an object — pressing a button, turning a page, picking up a piece. This mode concerns usability and physical interface design. Games involve this mode, but it is not what makes them games.</div>
+    </div>
+  </div>
+  <div class="mode-row">
+    <div class="mode-num">3</div>
+    <div class="mode-body">
+      <div class="mode-title">Explicit / Designed Choices</div>
+      <div class="mode-desc">The structured space of choices and procedures that a game designer constructs for a player to navigate. This is the mode of interactivity specific to games. Salen and Zimmerman's analysis of interaction focuses here: meaningful choices within a designed system. The rules create the context; the player's decisions create the play.</div>
+    </div>
+  </div>
+  <div class="mode-row">
+    <div class="mode-num">4</div>
+    <div class="mode-body">
+      <div class="mode-title">Cultural / Beyond the Object</div>
+      <div class="mode-desc">The interaction between a game and the larger culture: fan communities, modding, role-playing culture, the critical discourse around games. This mode corresponds to the cultural system from Chapter 5. The game as cultural phenomenon.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DESIGNED INTERACTION ── -->
+<section>
+  <h2>Designed Interaction</h2>
+  <p>What distinguishes designed interactivity from ordinary causation? Salen and Zimmerman contrast two scenarios. An apple drops from a tree onto a sleeping man — there is causation, but no designed interaction. The apple was not part of a system constructed to be navigated by a person making choices. Now consider a dice roll in Craps: the same physical randomness, but embedded in a designed system with rules, stakes, and context. The dice roll is designed interactivity. Its meaning — and the player's experience — arises from the system it inhabits.</p>
+  <p>This distinction is crucial for designers. The designer does not directly produce the experience; the designer constructs the system that makes the experience possible. Design is always mediated through the structure of the game.</p>
+</section>
+
+<!-- ── MICRO AND MACRO CHOICES ── -->
+<section>
+  <h2>Interaction and Choice: Micro and Macro</h2>
+  <p>Player choices operate at two scales simultaneously.</p>
+
+  <div class="grid grid-2">
+    <div class="grid-cell">
+      <span class="cell-label">Micro-Level</span>
+      <p style="font-family: Georgia, serif; font-size: 0.95rem; line-height: 1.6;">Moment-to-moment decisions within a single exchange. In Go, the choice of where to place the next stone. In Blackjack, whether to hit or pass. In Asteroids, which button to press. These are the atomic units of gameplay.</p>
+    </div>
+    <div class="grid-cell">
+      <span class="cell-label">Macro-Level</span>
+      <p style="font-family: Georgia, serif; font-size: 0.95rem; line-height: 1.6;">Longer-term strategic trajectories that accumulate across many micro-choices. In Go, the overall shape of territory control. In a text adventure, the sequence of commands that leads to (or away from) resolution. In American football, the play-calling that defines a drive.</p>
+    </div>
+  </div>
+
+  <p>Meaningful play emerges from the relationship between these scales — micro-choices that feel locally significant and that connect intelligibly to macro-level outcomes. When that connection is broken (arbitrary outcomes, opaque feedback), play becomes hollow regardless of how technically interactive the system is.</p>
+</section>
+
+<!-- ── CHOICE MOLECULES ── -->
+<section>
+  <h2>Choice Molecules: Action → Outcome</h2>
+  <p>The fundamental unit of interactivity in games is what Salen and Zimmerman call the <em>choice molecule</em>: an action paired with its outcome. Every moment of play is analyzable as a sequence of these molecules — the player acts, the system responds.</p>
+  <p>The five buttons available to a player in <em>Asteroids</em> — rotate left, rotate right, thrust, fire, hyperspace — define the entire space of possible actions at any moment. Each action taken produces a system response (the ship rotates, a bullet fires, an asteroid is destroyed or the ship is hit). The accumulated chain of these action-outcome pairs is the game as experienced.</p>
+  <p>The simplicity of this analysis is deceptive. Five buttons produce an enormous space of possible play — because the outcomes of actions feed back into future situations, creating combinatorial depth far beyond what the button count implies. Designed interactivity is generative.</p>
+</section>
+
+<!-- ── ANATOMY OF A CHOICE ── -->
+<section>
+  <h2>Anatomy of a Choice</h2>
+  <p>Salen and Zimmerman break each choice moment into five sequential stages. Stages 1, 3, and 4 are <em>internal</em> — they occur within the player's experience and within the game system. Stages 2 and 5 are <em>external</em> — they are the interface through which inner and outer communicate.</p>
+
+  <table class="anatomy-table">
+    <thead>
+      <tr>
+        <th style="width: 52px;">Stage</th>
+        <th style="width: 68px;">Type</th>
+        <th>Question</th>
+        <th>Asteroids</th>
+        <th>Chess</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="stage-col">1</td>
+        <td><span class="tag-int">internal</span></td>
+        <td>What happened before? What is the current game state?</td>
+        <td>Ship position, asteroid field, remaining lives — the current situation.</td>
+        <td>Board position after opponent's last move.</td>
+      </tr>
+      <tr>
+        <td class="stage-col">2</td>
+        <td><span class="tag-ext">external</span></td>
+        <td>How is the range of possible choices conveyed to the player?</td>
+        <td>Screen display — position of ship, asteroids, bullets visible.</td>
+        <td>The board itself; player can visually scan all pieces.</td>
+      </tr>
+      <tr>
+        <td class="stage-col">3</td>
+        <td><span class="tag-int">internal</span></td>
+        <td>How does the player choose?</td>
+        <td>Rapid perceptual judgment — pattern recognition, reflex.</td>
+        <td>Deliberative analysis — calculating consequences of candidate moves.</td>
+      </tr>
+      <tr>
+        <td class="stage-col">4</td>
+        <td><span class="tag-int">internal</span></td>
+        <td>What is the result? What future state does the choice produce?</td>
+        <td>Ship thrusts away from asteroid; asteroid is destroyed; hyperspace deposits ship in random location.</td>
+        <td>Piece moves; new board position; opponent must respond.</td>
+      </tr>
+      <tr>
+        <td class="stage-col">5</td>
+        <td><span class="tag-ext">external</span></td>
+        <td>How is the result conveyed to the player?</td>
+        <td>Screen updates immediately — new positions, explosions, score change.</td>
+        <td>Physical board state changes; opponent begins deliberating.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Stage 5 feeds directly back into Stage 1 of the next choice moment — the cycle is continuous. The quality of a game's interactivity depends on how well all five stages are designed. Breakdowns at any stage produce the failure conditions that drain play of meaning.</p>
+</section>
+
+<!-- ── FAILURE STATES ── -->
+<section>
+  <h2>Failure States of Interactivity</h2>
+  <p>Salen and Zimmerman identify four recurring ways that interactive design fails — four situations in which the choice structure collapses and play becomes meaningless:</p>
+
+  <div class="grid grid-2">
+    <div class="grid-cell">
+      <span class="cell-label">Arbitrary Decisions</span>
+      <p style="font-family: Georgia, serif; font-size: 0.95rem; line-height: 1.6;">Choices that feel random or unmotivated — where the player cannot form any basis for decision. Without meaningful differentiation between options, selection becomes coin-flipping, not play.</p>
+    </div>
+    <div class="grid-cell">
+      <span class="cell-label">Not Knowing What To Do</span>
+      <p style="font-family: Georgia, serif; font-size: 0.95rem; line-height: 1.6;">Failure of Stage 2 — the game does not adequately communicate the available options. The player is paralyzed not by difficult choices but by opaque ones.</p>
+    </div>
+    <div class="grid-cell">
+      <span class="cell-label">Losing Without Knowing Why</span>
+      <p style="font-family: Georgia, serif; font-size: 0.95rem; line-height: 1.6;">Failure of Stage 5 — the game does not communicate the result of the player's action or the causal chain that produced defeat. Learning is impossible; frustration replaces engagement.</p>
+    </div>
+    <div class="grid-cell">
+      <span class="cell-label">No Feedback on Outcome</span>
+      <p style="font-family: Georgia, serif; font-size: 0.95rem; line-height: 1.6;">Actions are taken but the player cannot tell whether they produced any effect. The loop between action and outcome is severed, and play loses its generative character.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SPACE OF POSSIBILITY ── -->
+<section>
+  <h2>The Space of Possibility</h2>
+  <p>Chapter 6 closes with one of the most important ideas in the book: the distinction between the game as designed and the game as experienced. David Sudnow's <em>Pilgrim in the Microworld</em> documents his obsessive mastery of Breakout — a seemingly simple arcade game — in extraordinary phenomenological detail. Sudnow discovers that Breakout, despite its apparent simplicity, harbors a rich and deep world of perceptual and kinesthetic experience that no description of the rules could anticipate.</p>
+  <blockquote>
+    The designer cannot directly design the play. The designer can only design the system that produces the play.
+  </blockquote>
+  <p>This is the concept of the <em>space of possibility</em>: the totality of possible experiences that a game system can generate. The designer constructs the space; the player inhabits it. Game design is the indirect art of shaping a possibility space within which meaningful play will — if the design succeeds — spontaneously arise.</p>
+  <p>The space of possibility concept ties together all four concepts introduced in Unit 1. Meaningful play (Chapter 3) is what the player seeks within the space. Design (Chapter 4) is the act of constructing the space. Systems (Chapter 5) are the structured medium through which the space is organized. And interactivity (Chapter 6) is the mechanism through which the player explores it.</p>
+</section>
+
+<!-- ── SUMMARY ── -->
+<section>
+  <h2>Summary</h2>
+  <p>Chapter 6 defines interactivity through four theorists — Littlejohn's relational model, Laurel's agency, Cameron's direct intervention, Crawford's listen-think-speak cycle — and organizes these into four modes of interactivity, of which the third (designed, explicit choices) is game design's primary concern.</p>
+  <p>The chapter introduces the action-outcome choice molecule as the atomic unit of gameplay, and the five-stage anatomy of a choice as a diagnostic tool for evaluating interactive design. Failure at any stage produces recognizable breakdowns. The chapter closes with the space of possibility: the reminder that the designer's work is indirect — constructing the conditions for play rather than play itself. With Unit 1 complete, all the conceptual tools are in place to define "game" — which Chapter 7 does directly.</p>
+</section>
+
+<!-- ── FURTHER READING ── -->
+<section>
+  <h2>Further Reading</h2>
+  <div class="reading-list">
+    <div class="reading-row">
+      <div class="reading-title">Computers as Theater</div>
+      <div class="reading-author">Brenda Laurel — Chapters 1 and 5 on agency and interactivity</div>
+    </div>
+    <div class="reading-row">
+      <div class="reading-title">The Design of Everyday Things</div>
+      <div class="reading-author">Donald A. Norman — Chapters 1–3 on affordance, feedback, and mental models</div>
+    </div>
+    <div class="reading-row">
+      <div class="reading-title">Designing Interactive Theme Park Rides</div>
+      <div class="reading-author">Jesse Schell &amp; Joe Shochet — Applied interactivity design outside the screen</div>
+    </div>
+    <div class="reading-row">
+      <div class="reading-title">Formal Abstract Design Tools</div>
+      <div class="reading-author">Doug Church — On intentionality and perceivable consequence in game design</div>
+    </div>
+    <div class="reading-row">
+      <div class="reading-title">Pilgrim in the Microworld</div>
+      <div class="reading-author">David Sudnow — Phenomenology of Breakout mastery; chapters: Memory, Interface, Cathexis, Eyeball, Coin</div>
+    </div>
+    <div class="reading-row">
+      <div class="reading-title">The Art of Interactive Design</div>
+      <div class="reading-author">Chris Crawford — Part I (Chapters 1–6) on the listen-think-speak cycle</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

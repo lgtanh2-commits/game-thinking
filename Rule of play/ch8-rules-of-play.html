@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 8: Defining Digital Games — Rules of Play</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f8f7f4;
+    --text: #1a1a1a;
+    --muted: #555;
+    --dim: #888;
+    --rule: #c8c4bc;
+    --pull-bg: #eeece8;
+    --pull-border: #1a1a1a;
+  }
+
+  html { background: var(--bg); }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.75;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 64px 28px 96px;
+  }
+
+  .book-meta {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 32px;
+  }
+
+  h1.chapter-title {
+    font-family: Georgia, serif;
+    font-size: 2.4rem;
+    font-weight: normal;
+    line-height: 1.15;
+    margin-bottom: 48px;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 24px;
+  }
+
+  h1.chapter-title .chapter-label {
+    display: block;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 10px;
+  }
+
+  section { margin-bottom: 52px; }
+
+  h2 {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+  }
+
+  h3 {
+    font-family: Georgia, serif;
+    font-size: 1.08rem;
+    font-weight: bold;
+    font-style: italic;
+    margin: 28px 0 8px;
+  }
+
+  p { margin-bottom: 16px; }
+  p:last-child { margin-bottom: 0; }
+
+  blockquote {
+    background: var(--pull-bg);
+    border-left: 3px solid var(--pull-border);
+    margin: 24px 0 32px;
+    padding: 16px 20px;
+    font-style: italic;
+    color: var(--text);
+    font-size: 1rem;
+  }
+
+  blockquote cite {
+    display: block;
+    margin-top: 10px;
+    font-style: normal;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-family: system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── traits list ── */
+  .trait-list { margin: 0; }
+
+  .trait-entry {
+    border-top: 1px solid var(--rule);
+    padding: 20px 0;
+  }
+
+  .trait-entry:last-child { border-bottom: 1px solid var(--rule); }
+
+  .trait-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+
+  .trait-num {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dim);
+    white-space: nowrap;
+  }
+
+  .trait-title {
+    font-family: Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: bold;
+  }
+
+  .trait-body {
+    font-family: Georgia, serif;
+    font-size: 0.97rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  /* ── grid ── */
+  .grid {
+    display: grid;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+
+  .grid-cell { background: var(--bg); padding: 18px 16px; }
+
+  .cell-label {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  /* ── reading list ── */
+  .reading-list { margin: 0; }
+
+  .reading-row {
+    border-top: 1px solid var(--rule);
+    padding: 12px 0;
+  }
+
+  .reading-row:last-child { border-bottom: 1px solid var(--rule); }
+
+  .reading-title {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 0.97rem;
+  }
+
+  .reading-author {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-meta">Rules of Play — Katie Salen &amp; Eric Zimmerman · MIT Press, 2004 · Unit 1: Core Concepts</p>
+
+<h1 class="chapter-title">
+  <span class="chapter-label">Chapter 8</span>
+  Defining Digital Games
+</h1>
+
+<blockquote>
+  [The video game] is the most complex toy ever built and is vastly more responsive than any other toy ever invented. Compare it, for example, with its contemporary, the doll Chatty Cathy, which has about a dozen different sentences with which to respond when you pull the string. Chatty Cathy does not take into account the variety of your responses; the computer does. Chatty has a dozen responses; the computer has millions.
+  <cite>— Brian Sutton-Smith, <em>Toys as Culture</em></cite>
+</blockquote>
+
+<!-- ── THE COMPUTER IS NOT A COMPUTER ── -->
+<section>
+  <h2>The Computer Is Not a Computer</h2>
+  <p>The definition of "game" developed in Chapter 7 makes no distinction between digital and non-digital games. Most of the thinkers whose definitions were explored were writing before the invention of computer games. Yet digital games bring unique qualities to the practice of game design, and the chapter takes a brief look at what those qualities are.</p>
+  <p>A common mistake is to identify a digital game with its technological medium. Consider Tetris for the Game Boy: is the game constituted by the hardware and cartridge? The answer is no — the computer is one element of the system, not the system itself. Framed as a cultural system, Tetris includes fan magazines, marketing, the hybrid identity of Alexy Pajitnov's design and Nintendo's publishing, player demographics. Framed as experiential play, the system is constituted by the player and the hardware together — the circuit of interaction between the two. Even as a formal system, the rules of Tetris are not reducible to the code; they are enacted through the player's moment-to-moment decisions.</p>
+
+  <blockquote>
+    A game designer doesn't create technology. A game designer creates an experience. Computer and video game technology can be a part of that experience — it can even be the focal point — but in order to design meaningful play a designer has to consider the complete picture.
+  </blockquote>
+</section>
+
+<!-- ── WHAT CAN IT DO ── -->
+<section>
+  <h2>What Can It Do?</h2>
+  <p>The key question for game designers confronting digital media is not <em>What is it?</em> but <em>What can it do?</em> A game designer needs to understand how to harness the technology into a designed system that results in meaningful play.</p>
+  <p>Four traits characterize the special capabilities of digital media for game design. These traits are not unique to digital games — each appears in non-digital games as well — but they are most robustly present in digital form, and designers should take advantage of them accordingly.</p>
+
+  <div class="trait-list">
+
+    <div class="trait-entry">
+      <div class="trait-header">
+        <span class="trait-num">Trait 1</span>
+        <span class="trait-title">Immediate but Narrow Interactivity</span>
+      </div>
+      <div class="trait-body">
+        <p>Digital technology can offer immediate, real-time feedback — the game responds seamlessly and dynamically to player input. This is one of the most compelling qualities of the medium.</p>
+        <p>But the interactivity is also <em>narrow</em>. A home computer is generally restricted to mouse, keyboard, and screen — a thin channel compared to the kinesthetically engaging interaction of Tennis, the perceptual-theatrical communication of Charades, or the ritualized formality of a professional Go match. A fighting game like Street Fighter II gives players only six button pushes and eight joystick directions. Within this limited vocabulary, however, players develop highly personal fighting styles and a vast range of experiences. Limitations shape the space of possibility. The lightning-quick response of the program, paired with streamlined control input, contributes to the uniquely meaningful play of a well-designed fighting game.</p>
+      </div>
+    </div>
+
+    <div class="trait-entry">
+      <div class="trait-header">
+        <span class="trait-num">Trait 2</span>
+        <span class="trait-title">Information Manipulation</span>
+      </div>
+      <div class="trait-body">
+        <p>Digital media are machines for storing and manipulating information. Games capitalize on what Janet Murray in <em>Hamlet on the Holodeck</em> calls the "encyclopedic" quality of digital media — the capacity to hold and process vast amounts of data. Every aspect of a digital game — internal logic, player interactivity handling, memory management — is information that computers can manipulate in ways non-digital games cannot.</p>
+        <p>This manipulation takes forms unique to the medium. In digital games, the rules can be hidden from the player entirely: designer Karen Sideman notes that digital games make it possible to learn the rules <em>as</em> the game is being played, making the discovery of game mechanics part of the game itself. Digital games also excel at hiding and selectively revealing information: <em>Warcraft III</em>'s "fog of war" mechanic initially conceals opponents' territories, progressively revealed as the player's units explore the map. James Dunnigan, designer of both paper and computer wargames, identifies the downside — the "Black Box Syndrome": unlike paper wargames, where all the rules and probability tables are visible, computer games reveal very little of their internal workings, sometimes leaving players "muttering about mysterious 'black boxes.'"</p>
+      </div>
+    </div>
+
+    <div class="trait-entry">
+      <div class="trait-header">
+        <span class="trait-num">Trait 3</span>
+        <span class="trait-title">Automated Complex Systems</span>
+      </div>
+      <div class="trait-body">
+        <p>Perhaps the most pervasive trait of digital games is their ability to automate complicated procedures, enabling games that would be too complex to manage in a non-computerized context. In most non-digital games, players must move the game forward at every step. In a digital game, the program can automate these procedures and advance the game without direct player input at each stage.</p>
+        <p>The kinds of automated complex systems that appear in digital games vary greatly: the evolving ecosystems of <em>Sim City</em>, the sophisticated artificial intelligence opponents of <em>Thief</em>, the complex light-and-shadow rendering of <em>Unreal</em>, the natural language parsing of <em>Zork</em>. This automation is not without drawbacks. Because the internal machinations are automated and opaque, digital games generally leave their mechanisms invisible, diminishing the player's understanding and appreciation of the system they are operating. This is the same Black Box Syndrome Dunnigan identifies — a real trade-off designers must manage.</p>
+      </div>
+    </div>
+
+    <div class="trait-entry">
+      <div class="trait-header">
+        <span class="trait-num">Trait 4</span>
+        <span class="trait-title">Networked Communication</span>
+      </div>
+      <div class="trait-body">
+        <p>Many digital games can facilitate communication between players across distance. From text chat to real-time audio and video, from two Game Boys connected by a link cable to the persistent worlds of <em>Ultima Online</em> drawing tens of thousands of players into a shared social space, networked communication extends what games can do as communicative contexts.</p>
+        <p>In a <em>Quake</em> deathmatch, a small number of players gather in a single communicative game space. Although text chat is one channel, the primary form of communication takes place through the split-second decisions each player makes about movement and weapon attacks. Gameplay itself is a form of social communication. Non-digital games have always had networked communication of a sort — postal chess and play-by-mail <em>Diplomacy</em> use the postal system; sports records and statistics serve a communicative function analogous to online high-score boards — but digital networks extend this to previously impossible scales.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── INTEGRATION ── -->
+<section>
+  <h2>Integration</h2>
+  <p>The four traits are not mutually exclusive, and they generally operate simultaneously during any game experience. A <em>Quake</em> deathmatch illustrates this well: its controls demand immediate response (Trait 1); it manipulates 3D map data while hiding player movements from opponents (Trait 2); the graphics engine, AI, and control routines are automated throughout (Trait 3); and online deathmatches create a rich forum for social interaction (Trait 4).</p>
+  <p>The border case of <em>Stay Alive</em> — a non-digital board game using a mechanical grid of plastic switches — demonstrates that the traits are not exclusive to digital media. Stay Alive contains hidden information about which switch positions will drop marbles, players interact with the system indirectly, and the system advances semi-autonomously. It is not a digital game, but it shares several digital-like properties. These examples — cards, Stay Alive, digital games — form a sliding scale of complexity. They also underscore the larger point: <em>the underlying properties of games and the core challenges of game design hold true regardless of the medium in which a game manifests.</em></p>
+</section>
+
+<!-- ── SUMMARY ── -->
+<section>
+  <h2>Summary</h2>
+  <p>Chapter 8 applies the systemic framework of previous chapters to digital games specifically. The physical medium of a game — the hardware and software — is an element of the game system but does not constitute the system entirely. A game designer creates experiences, not technology.</p>
+  <p>Four traits define the special capabilities of digital media for game design: immediate but narrow interactivity, information manipulation, automated complex systems, and networked communication. Each trait appears in non-digital games too, but digital games embody them most robustly. The core challenge of designing meaningful play, however, is the same regardless of medium. Unit 1 is nearly complete; Chapter 9 turns to the magic circle — the conceptual space that games create around themselves.</p>
+</section>
+
+</body>
+</html>

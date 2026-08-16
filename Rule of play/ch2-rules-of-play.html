@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 2: The Design Process — Rules of Play</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f8f7f4;
+    --text: #1a1a1a;
+    --muted: #555;
+    --dim: #888;
+    --rule: #c8c4bc;
+    --pull-bg: #eeece8;
+    --pull-border: #1a1a1a;
+  }
+
+  html { background: var(--bg); }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.75;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 64px 28px 96px;
+  }
+
+  /* ── header ── */
+  .book-meta {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 6px;
+  }
+
+  .chapter-number {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  h1.chapter-title {
+    font-family: Georgia, serif;
+    font-size: 2.1rem;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 20px;
+  }
+
+  /* ── sections ── */
+  section {
+    margin-bottom: 52px;
+  }
+
+  h2 {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+  }
+
+  h3 {
+    font-family: Georgia, serif;
+    font-size: 1.08rem;
+    font-weight: bold;
+    font-style: italic;
+    margin: 28px 0 8px;
+    color: var(--text);
+  }
+
+  h4 {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin: 22px 0 6px;
+  }
+
+  p {
+    margin-bottom: 16px;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── pull quote ── */
+  blockquote {
+    background: var(--pull-bg);
+    border-left: 3px solid var(--pull-border);
+    margin: 24px 0;
+    padding: 16px 20px;
+    font-style: italic;
+    color: var(--text);
+    font-size: 1rem;
+  }
+
+  blockquote cite {
+    display: block;
+    margin-top: 8px;
+    font-style: normal;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-family: system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── cycle diagram ── */
+  .cycle {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+
+  .cycle-step {
+    background: var(--bg);
+    padding: 20px 14px;
+    text-align: center;
+  }
+
+  .cycle-num {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .cycle-step p {
+    font-family: Georgia, serif;
+    font-size: 0.92rem;
+    font-style: italic;
+    margin: 0;
+    color: var(--text);
+  }
+
+  /* ── commission cards ── */
+  .commission {
+    border-top: 1px solid var(--rule);
+    padding: 22px 0;
+  }
+
+  .commission:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .commission-title {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 1.05rem;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .commission-meta {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .commission p {
+    font-size: 0.94rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── exercise grid ── */
+  .exercise-group {
+    margin-bottom: 32px;
+  }
+
+  .exercise-group-label {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dim);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+  }
+
+  .exercise-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .exercise-item {
+    background: var(--bg);
+    padding: 12px 14px;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+
+  /* ── definition list ── */
+  dl {
+    margin: 16px 0;
+  }
+
+  dt {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-top: 16px;
+    margin-bottom: 4px;
+  }
+
+  dt:first-child {
+    margin-top: 0;
+  }
+
+  dd {
+    font-size: 0.95rem;
+    color: var(--muted);
+    padding-left: 16px;
+    line-height: 1.65;
+  }
+
+  /* ── further reading ── */
+  .reading-entry {
+    border-top: 1px solid var(--rule);
+    padding: 18px 0;
+  }
+
+  .reading-entry:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .reading-title {
+    font-style: italic;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 1rem;
+  }
+
+  .reading-author {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  .reading-entry p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── essay divider ── */
+  .essay-header {
+    margin: 64px 0 40px;
+    border-top: 2px solid var(--text);
+    padding-top: 20px;
+  }
+
+  .essay-label {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .essay-title {
+    font-family: Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: normal;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+
+  .essay-byline {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── timeline ── */
+  .timeline {
+    margin: 20px 0;
+    border-left: 2px solid var(--rule);
+    padding-left: 20px;
+  }
+
+  .timeline-entry {
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .timeline-entry::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 8px;
+    width: 6px;
+    height: 6px;
+    background: var(--rule);
+    border: 1px solid var(--muted);
+  }
+
+  .timeline-date {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .timeline-entry p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ── author bio ── */
+  .author-bio {
+    background: var(--pull-bg);
+    padding: 20px 22px;
+    margin-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .author-bio .bio-label {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .author-bio p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-meta">Rules of Play — Katie Salen &amp; Eric Zimmerman · MIT Press, 2004</p>
+<span class="chapter-number">Chapter 2</span>
+<h1 class="chapter-title">The Design Process</h1>
+
+<!-- ── OVERVIEW ── -->
+<section>
+  <h2>Overview</h2>
+  <p>Chapter 2 grounds the book's theoretical ambitions in practice. Where Chapter 1 mapped the landscape of game studies and established a critical vocabulary, this chapter focuses on how games actually come into being — the messy, iterative, deeply human work of design. The authors describe their own approach to game design, present four games commissioned for the book, and offer a structured set of design exercises. The chapter closes with a commissioned essay by Reiner Knizia on the development of <em>The Lord of the Rings</em> board game.</p>
+  <p>The central claim: game design is not solved through planning — it is discovered through play.</p>
+</section>
+
+<!-- ── ITERATIVE DESIGN ── -->
+<section>
+  <h2>Iterative Design</h2>
+  <p>Salen and Zimmerman advocate a play-centered, iterative design methodology. The designer's role is not to engineer a perfect system on paper but to prototype, play, observe, and refine — repeatedly, until the game becomes what it needs to be.</p>
+
+  <blockquote>
+    Design is a process of discovery. You cannot know the full shape of a game until you have played it. Each prototype is a question; each playtest session is an answer — and usually a new question.
+    <cite>— paraphrase of the chapter's core position</cite>
+  </blockquote>
+
+  <p>The process is cyclic, not linear:</p>
+
+  <div class="cycle">
+    <div class="cycle-step">
+      <span class="cycle-num">01</span>
+      <p>Prototype</p>
+    </div>
+    <div class="cycle-step">
+      <span class="cycle-num">02</span>
+      <p>Playtest</p>
+    </div>
+    <div class="cycle-step">
+      <span class="cycle-num">03</span>
+      <p>Evaluate</p>
+    </div>
+    <div class="cycle-step">
+      <span class="cycle-num">04</span>
+      <p>Refine</p>
+    </div>
+  </div>
+
+  <p>A key heuristic: the first playable prototype should exist no later than 20% into the project schedule. Leaving playtesting until late in development is a common and costly mistake — it forecloses the most important feedback loop precisely when there is still time to act on it.</p>
+
+  <p>This approach requires embracing failure as information. A broken prototype is not a setback; it is a data point. The designer who plays their own game early and often will always outperform the designer who waits for it to be "ready."</p>
+</section>
+
+<!-- ── THE COMMISSIONS ── -->
+<section>
+  <h2>The Commissions</h2>
+  <p>To demonstrate design in action, Salen and Zimmerman commissioned four original games from established designers. Each game illustrates different design approaches, player structures, and thematic concerns. All four are documented and analyzed throughout the book.</p>
+
+  <div class="commission">
+    <span class="commission-title">Sibling Rivalry</span>
+    <span class="commission-meta">Richard Garfield · Board game · 2+ players</span>
+    <p>A competitive board game centered on conflict between siblings, using dice and tracks. Garfield — creator of <em>Magic: The Gathering</em> — brings deep experience with card and probability mechanics to a game about familial power dynamics. The design explores escalation, negotiation, and the particular cruelty of sibling competition.</p>
+  </div>
+
+  <div class="commission">
+    <span class="commission-title">Ironclad</span>
+    <span class="commission-meta">Frank Lantz · 2 players</span>
+    <p>A two-player game built around two simultaneous sub-games: arena combat and philosophical debate. Lantz's design is formally ambitious — the player must manage strategic action and argument at the same time, creating an unusual cognitive double-bind. Ironclad raises questions about what counts as "winning" when both physical and intellectual contest are on the table.</p>
+  </div>
+
+  <div class="commission">
+    <span class="commission-title">Sneak</span>
+    <span class="commission-meta">Kira Snyder · Social deception · 4+ players</span>
+    <p>A social deception game in which players must identify a hidden double agent among them. Sneak belongs to the tradition of games like <em>Werewolf</em> and <em>Mafia</em> — its mechanics are primarily social, and the "game system" is largely constructed through player behavior, accusation, and trust. The design examines how games can transform everyday social dynamics into structured play.</p>
+  </div>
+
+  <div class="commission">
+    <span class="commission-title">Caribbean Star</span>
+    <span class="commission-meta">James Ernest · Card game · 2 players</span>
+    <p>A card game in which two cruise ship magicians compete for passengers and prestige. Ernest, founder of Cheapass Games, brings his characteristic wit and economy to a design that uses a standard deck of cards to create a competitive performance system. The game explores themes of spectacle, rivalry, and the economics of entertainment.</p>
+  </div>
+</section>
+
+<!-- ── DESIGN EXERCISES ── -->
+<section>
+  <h2>Game Design Exercises</h2>
+  <p>The chapter includes a structured set of fifteen design exercises, organized into three categories. These are not academic assignments — they are practical prompts meant to push designers beyond comfort and convention. The exercises build on one another and can be adapted for different contexts and skill levels.</p>
+
+  <div class="exercise-group">
+    <div class="exercise-group-label">Creation — making games from scratch</div>
+    <div class="exercise-list">
+      <div class="exercise-item">Information Manipulation</div>
+      <div class="exercise-item">The Exquisite Corpse Game Game</div>
+      <div class="exercise-item">Sensations of Play</div>
+      <div class="exercise-item">Engendering the Metagame</div>
+      <div class="exercise-item">Site-Specific Resistance</div>
+      <div class="exercise-item">Open Source Game Systems</div>
+    </div>
+  </div>
+
+  <div class="exercise-group">
+    <div class="exercise-group-label">Modification — transforming existing games</div>
+    <div class="exercise-list">
+      <div class="exercise-item">Change the Rules</div>
+      <div class="exercise-item">Destabilization</div>
+      <div class="exercise-item">A Shift in Scale</div>
+      <div class="exercise-item">Transporting the Core Mechanic</div>
+      <div class="exercise-item">New Depictions</div>
+      <div class="exercise-item">The Rhetoric of the Lottery</div>
+    </div>
+  </div>
+
+  <div class="exercise-group">
+    <div class="exercise-group-label">Analysis — reading games critically</div>
+    <div class="exercise-list">
+      <div class="exercise-item">Cybernetic Analysis</div>
+      <div class="exercise-item">Narrative Analysis</div>
+      <div class="exercise-item">Social Interaction Analysis</div>
+      <div class="exercise-item">Cultural Environment Analysis</div>
+    </div>
+  </div>
+
+  <p>The three-category structure mirrors the book's own commitments: design is not only making, but also understanding what already exists and knowing how to take it apart. Modification exercises are particularly effective early in a designer's development — transforming a known game reveals the structural assumptions that any design must make.</p>
+</section>
+
+<!-- ── FURTHER READING ── -->
+<section>
+  <h2>Further Reading</h2>
+
+  <div class="reading-entry">
+    <span class="reading-title">The Well-Played Game</span>
+    <span class="reading-author">Bernard DeKoven</span>
+    <p>A foundational text on play culture, arguing that the quality of play matters more than any formal game structure. DeKoven's concept of the "well-played game" — one in which all players are fully engaged and the experience is genuinely shared — is a touchstone for thinking about what games are actually for.</p>
+  </div>
+
+  <div class="reading-entry">
+    <span class="reading-title">The New Games Book</span>
+    <span class="reading-author">Andrew Fluegelman &amp; Shoshana Tembeck (eds.)</span>
+    <p>A collection of cooperative and non-competitive games emerging from the New Games movement of the 1970s. Challenges the assumption that games must be zero-sum, and offers practical designs built around play-for-play's-sake rather than winning. Influential on thinking about social game design and community play.</p>
+  </div>
+
+  <div class="reading-entry">
+    <span class="reading-title">New Rules for Classic Games</span>
+    <span class="reading-author">R. Wayne Schmittberger</span>
+    <p>A systematic survey of rule variations for well-known games — chess, checkers, backgammon, and dozens more. An invaluable resource for modification exercises: seeing how small rule changes ripple through a game's entire system makes the structural logic of design visible in ways that creation alone cannot.</p>
+  </div>
+</section>
+
+<!-- ── ESSAY DIVIDER ── -->
+<div class="essay-header">
+  <span class="essay-label">Commissioned Essay</span>
+  <div class="essay-title">Designing <em>Lord of the Rings:</em><br>The Fellowship of the Ring</div>
+  <span class="essay-byline">Reiner Knizia</span>
+</div>
+
+<!-- ── ESSAY: DESIGN PROCESS ── -->
+<section>
+  <h2>Design Process</h2>
+  <p>Knizia opens by noting that he has no fixed design process — and that this is intentional. The right approach depends entirely on the game: its source material, its intended experience, its audience. What remains constant are four fundamental questions that any game design must answer.</p>
+
+  <dl>
+    <dt>Who am I?</dt>
+    <dd>What role does the player occupy in the game world? What is the player's relationship to the material?</dd>
+    <dt>What am I trying to achieve?</dt>
+    <dd>What is the win condition — and more importantly, what does winning feel like? What experience is the goal state meant to produce?</dd>
+    <dt>What are my main choices?</dt>
+    <dd>What decisions does the player actually make? Where does agency live in the design?</dd>
+    <dt>How do I win?</dt>
+    <dd>What is the path from opening state to victory? How does the game's system reward good play?</dd>
+  </dl>
+
+  <p>For <em>Lord of the Rings</em>, these questions had a specific shape: players would be hobbits, collectively trying to destroy the One Ring before Sauron's forces overwhelmed them. The game needed to be cooperative — the source material demanded it. Tolkien's story is not a competitive one.</p>
+
+  <p>Knizia describes starting from feel, world, and system rather than from mechanics. The emotional experience he wanted to produce — fellowship under pressure, sacrifice, the weight of the Ring — had to be built backwards into a rule structure that could reliably generate it.</p>
+</section>
+
+<!-- ── ESSAY: SCRIPTED GAME SYSTEM ── -->
+<section>
+  <h2>The Scripted Game System</h2>
+  <p>The core structural innovation of the design is what Knizia calls the "scripted game system" — a method for distilling the key arc of a narrative into a playable sequence of mechanical events.</p>
+
+  <p>The design uses two types of boards. A central "summary board" tracks the overall progress of the fellowship — how close they are to Mount Doom, how corrupted the Ring-bearer has become. Individual "adventure boards" represent specific story locations: Bag End, Moria, Helm's Deep, Shelob's Lair, Mount Doom. Each adventure board scripts the events of that location, making the narrative structure into a mechanical structure.</p>
+
+  <blockquote>
+    The corruption line was the heart of the design. Everything else in the game exists in relationship to it — pushing players toward decisions that feel morally weighted, not just strategically optimal.
+    <cite>— Reiner Knizia</cite>
+  </blockquote>
+
+  <p>The corruption track — measuring the Ring-bearer's susceptibility to the Ring — creates the game's central tension. Players must balance the drive to complete each adventure board against the constant pressure of corruption. An event deck on each board creates time pressure: the pile of cards will run out, and if the players haven't completed the board's objectives before it does, they lose ground they cannot recover.</p>
+
+  <p>This system produces a game that feels scripted without being predetermined. Players follow Tolkien's path but face genuine decisions at every step about how to allocate resources, when to sacrifice, and how much corruption to absorb.</p>
+</section>
+
+<!-- ── ESSAY: PLAYTESTING ── -->
+<section>
+  <h2>Playtesting</h2>
+  <p>Knizia's playtesting methodology is disciplined and systematic. He begins with mental play — working through the game's logic in his head before building any physical components. Only once the system holds together conceptually does he construct a physical prototype.</p>
+
+  <p>Before each session, he plans exactly which issues he wants to observe. He does not play a session and wait to see what happens; he enters with specific hypotheses and watches for specific evidence. After each session he records what he found.</p>
+
+  <p>The schedule was intensive: three to four sessions per week. The first stage of playtesting used only a single scenario (Bag End), not the full game. This allowed Knizia to stress-test the core mechanics before adding the complexity of the full campaign. Once Bag End worked, he added Moria. Then Helm's Deep. Then Shelob's Lair. Then Mount Doom. Each location was proven independently before being integrated into the whole.</p>
+
+  <p>This staged approach mirrors the chapter's broader argument about iterative design. Knizia did not attempt to test a complete, five-board game with all its moving parts simultaneously. He built and tested in layers, which let him understand which problems belonged to which part of the system.</p>
+</section>
+
+<!-- ── ESSAY: MORE CHANGES ── -->
+<section>
+  <h2>More Changes</h2>
+  <p>Knizia describes beginning with more features than the final game contains — a deliberate strategy. The first prototype was deliberately over-designed: too many card types, too many special rules, too many mechanical variables. The playtesting process became a process of elimination, cutting everything that didn't earn its place.</p>
+
+  <p>Two specific design problems illuminate his approach:</p>
+
+  <h3>Balancing for player count</h3>
+  <p>The game had to work for two, three, four, or five players without becoming either trivially easy or impossibly hard. Player count changes resource distribution, decision complexity, and collective communication dynamics in ways that cannot be solved with a single formula. Knizia iterated separately on each player-count configuration, treating each as a distinct design problem that happened to share a rule set.</p>
+
+  <h3>The Gandalf solution</h3>
+  <p>A particularly elegant example of solving two problems at once: the Gandalf cards were designed simultaneously to give players meaningful tactical choices and to give shields — the game's primary resource — a clear purpose and identity. Rather than addressing each problem with a separate mechanism, Knizia found a single design element that resolved both. This kind of economy — one solution for multiple problems — is a mark of mature design.</p>
+
+  <p>Target audience calibration was another significant challenge. The game needed to be accessible enough for family play while retaining enough depth for dedicated hobbyists. These requirements pull in opposite directions: accessibility demands simplicity, depth demands complexity. Knizia resolved this partly through the Tolkien license itself — the audience's emotional investment in the source material provided the motivation to engage with more complex mechanics than a purely abstract game could demand.</p>
+</section>
+
+<!-- ── ESSAY: THE ROAD GOES EVER ON ── -->
+<section>
+  <h2>The Road Goes Ever On</h2>
+  <p>Development on <em>Lord of the Rings</em> lasted eighteen months. The game was released in October 2000.</p>
+
+  <div class="timeline">
+    <div class="timeline-entry">
+      <span class="timeline-date">October 2000</span>
+      <p>Base game released.</p>
+    </div>
+    <div class="timeline-entry">
+      <span class="timeline-date">2001</span>
+      <p><em>Friends &amp; Foes</em> expansion released, adding new challenges and a Sauron player variant.</p>
+    </div>
+    <div class="timeline-entry">
+      <span class="timeline-date">2002</span>
+      <p><em>Sauron</em> expansion released, formalizing the one-versus-many structure.</p>
+    </div>
+    <div class="timeline-entry">
+      <span class="timeline-date">By 2004</span>
+      <p>Over one million copies sold in seventeen languages.</p>
+    </div>
+  </div>
+
+  <p>The commercial and critical success of the game validated the design approach. But Knizia's account is not triumphalist — he is careful to describe what was cut, what was reconsidered, and where the design surprised him. The essay reads as an honest account of a process that was often uncertain, not a retrospective justification of decisions that were always obviously correct.</p>
+
+  <blockquote>
+    A game is not finished when you have added everything. It is finished when you can take nothing more away.
+    <cite>— paraphrase of Knizia's design philosophy</cite>
+  </blockquote>
+
+  <div class="author-bio">
+    <span class="bio-label">About the Author</span>
+    <p>Reiner Knizia was born in Germany and lives in the United Kingdom. He holds a doctorate in Mathematics and worked as Director of Strategic Planning at major German banks before designing games full-time. At the time of publication, he had over 200 published games to his name — among the most prolific and commercially successful game designers in the world.</p>
+  </div>
+</section>
+
+</body>
+</html>

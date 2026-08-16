@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch. 12 — Rules on Three Levels · Rules of Play</title>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --text: #1a1a1a;
+  --muted: #555;
+  --dim: #888;
+  --rule: #c8c4bc;
+  --pull-bg: #eeece8;
+  --pull-border: #1a1a1a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+}
+header { margin-bottom: 56px; }
+.eyebrow {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+  display: block;
+  margin-bottom: 10px;
+}
+h1 {
+  font-family: Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: normal;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.subtitle { font-size: 1rem; color: var(--muted); font-style: italic; }
+h2 {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 8px;
+  border-top: 1px solid var(--rule);
+  margin-top: 52px;
+  margin-bottom: 16px;
+}
+h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
+p { margin-bottom: 1em; }
+blockquote {
+  background: var(--pull-bg);
+  border-left: 3px solid var(--pull-border);
+  margin: 24px 0;
+  padding: 16px 20px;
+  font-style: italic;
+}
+blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.grid-cell { background: var(--bg); padding: 18px 16px; }
+.grid-cell strong {
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 6px;
+}
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.magic-square {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  width: fit-content;
+  margin: 20px auto;
+}
+.magic-square .cell {
+  background: var(--bg);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.magic-square .cell.highlight {
+  background: var(--pull-bg);
+  font-weight: 700;
+}
+.three-levels {
+  border: 1px solid var(--rule);
+  margin: 24px 0;
+}
+.level-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.level-row:last-child { border-bottom: none; }
+.level-label {
+  background: var(--pull-bg);
+  padding: 16px 20px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.level-content {
+  background: var(--bg);
+  padding: 16px 20px;
+}
+.summary-box {
+  border: 1px solid var(--rule);
+  padding: 28px 32px;
+  margin: 40px 0 0;
+}
+.summary-box h3 {
+  margin-top: 0;
+  font-style: normal;
+  font-size: 0.75rem;
+  font-family: system-ui, sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.summary-box ul { padding-left: 22px; }
+.summary-box li { margin-bottom: 0.6em; }
+.callout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.82rem;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+  margin-top: 32px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Rules of Play &nbsp;·&nbsp; Unit Two: Rules &nbsp;·&nbsp; Chapter 12</span>
+  <h1>Rules on Three Levels</h1>
+  <p class="subtitle">Every game has three simultaneous layers of rules: Operational, Constituative, and Implicit.</p>
+</header>
+
+<h2>The Same Game Underneath: 3-to-15</h2>
+<p>Consider a game called 3-to-15. Two players take turns selecting numbers from 1 to 9. Each number can only be chosen once. The first player to collect a set of three numbers that add up to exactly 15 wins.</p>
+
+<p>3-to-15 feels like a pure number game — a mathematical exercise. It seems categorically different from Tic-Tac-Toe. Yet the two games are mathematically identical. This is not a metaphor or an approximation: they are the same game, expressed differently.</p>
+
+<p>The proof comes from the <em>magic square</em> — a 3×3 grid in which every row, column, and diagonal sums to 15:</p>
+
+<div class="magic-square">
+  <div class="cell">2</div><div class="cell">9</div><div class="cell">4</div>
+  <div class="cell">7</div><div class="cell">5</div><div class="cell">3</div>
+  <div class="cell">6</div><div class="cell">1</div><div class="cell">8</div>
+</div>
+
+<p>Every set of three numbers that sums to 15 corresponds precisely to a row, column, or diagonal in this grid. Choosing numbers in 3-to-15 is structurally identical to placing marks in Tic-Tac-Toe squares. The winning condition — three numbers summing to 15 — maps perfectly to three marks in a line. The two games have completely different operational presentations but share identical abstract mathematical structures.</p>
+
+<p>This example opens the chapter's central argument: a single game can be described on multiple levels simultaneously, and those levels are not the same thing.</p>
+
+<h2>Three Kinds of Rules</h2>
+<p>The heart of this chapter is a tripartite model of rules. Every game, the authors argue, possesses three distinct layers of rules operating simultaneously. Understanding these layers — and their differences — is one of the most important analytical tools in game design.</p>
+
+<div class="three-levels">
+  <div class="level-row">
+    <div class="level-label">Constituative<br>Rules</div>
+    <div class="level-content">
+      <p>The abstract, mathematical, logical structure underlying a game. Constituative rules are the deep structure — the formal relationships that define what is possible, regardless of how the game is presented or played. They exist at the level of pure logic and mathematics.</p>
+      <p>In Tic-Tac-Toe and 3-to-15, the constituative rules are <em>identical</em>: both games are the same mathematical object. The magic square is the constituative structure they share. Constituative rules are rarely stated explicitly — players do not need to know them — but they determine the logical behavior of the game underneath everything else.</p>
+    </div>
+  </div>
+  <div class="level-row">
+    <div class="level-label">Operational<br>Rules</div>
+    <div class="level-content">
+      <p>The rules players actually follow during play — the instructions in the rulebook. Operational rules are the practical, procedural layer: what players do on their turn, how the game starts, what constitutes winning, what objects are used.</p>
+      <p>Tic-Tac-Toe and 3-to-15 have <em>different</em> operational rules despite identical constituative rules. One game uses a grid and marks; the other uses numbers and sums. The operational rules are what distinguish these two presentations of the same underlying structure. Operational rules are the level that most players consciously engage with.</p>
+    </div>
+  </div>
+  <div class="level-row">
+    <div class="level-label">Implicit<br>Rules</div>
+    <div class="level-content">
+      <p>The unwritten, unspoken rules of etiquette, fairness, and social convention that govern actual play — without ever appearing in any rulebook. Implicit rules are culturally determined and context-dependent. They include expectations about behavior, conduct, and the spirit of play.</p>
+      <p>For example: it is implicitly understood in most games that players should not take unreasonably long to make a move, even when no time limit is specified in the rules. Designer Stuart Sniderman notes that this implicit time-limit norm is "real" in the sense that violating it changes — and typically disrupts — the game experience, even though it has no formal status.</p>
+    </div>
+  </div>
+</div>
+
+<h3>The Sniderman Example: Implicit Time Limits</h3>
+<p>Game designer Stuart Sniderman draws attention to the implicit time-limit rule that governs most competitive games. In Chess, for example, tournament play uses formal clocks — but casual games usually do not. No formal rule says a player must move within any given time frame. Yet if a player deliberates for twenty minutes on every move in a casual game, the other players will feel something has gone wrong — not because a written rule has been violated, but because an implicit norm has been.</p>
+
+<p>This implicit norm is a rule in every meaningful sense: it constrains behavior, it is shared by players, its violation has consequences (social friction, loss of enjoyment). It simply is not written down. Implicit rules are where the formal game system meets the social world in which it is played.</p>
+
+<h2>Chutes and Ladders on All Three Levels</h2>
+<p>To demonstrate how the three-level model works in practice, the chapter applies it to Chutes and Ladders — a game as structurally simple as it is culturally familiar.</p>
+
+<div class="grid cols-3">
+  <div class="grid-cell">
+    <strong>Constituative Rules</strong>
+    A graph of positions with directed edges (ladders advance; chutes retreat), a random walk mechanism (spinner or die), and a winning condition at terminal node 100. The abstract structure is a race on a directed weighted graph with chance-determined movement.
+  </div>
+  <div class="grid-cell">
+    <strong>Operational Rules</strong>
+    Players spin the spinner, move their token that many spaces, and advance up ladders or slide down chutes as indicated on the board. First player to reach square 100 wins. Players must get exact number to win, or some versions restart from 100.
+  </div>
+  <div class="grid-cell">
+    <strong>Implicit Rules</strong>
+    Players should not deliberately delay the game. It is poor form to gloat when an opponent hits a chute or to sulk when you do. Young players may be given gentle encouragement. The game should be a pleasant shared experience, not a source of anxiety.
+  </div>
+</div>
+
+<p>Crucially, the same constituative and operational rules can be presented in multiple different operational forms. The authors identify three variant presentations of Chutes and Ladders that share the same constituative structure:</p>
+
+<div class="grid cols-3">
+  <div class="grid-cell">
+    <strong>Version A</strong>
+    Standard Chutes and Ladders: the familiar physical board with illustrated snakes or chutes, a spinner, and plastic tokens.
+  </div>
+  <div class="grid-cell">
+    <strong>Version B</strong>
+    A numbered card deck version: cards 1–100, randomly shuffle and deal in sequence, draw to advance, "chute cards" send you back.
+  </div>
+  <div class="grid-cell">
+    <strong>Version C</strong>
+    A purely verbal version: a referee calls out numbers and chute/ladder assignments; players track positions in their heads.
+  </div>
+</div>
+
+<p>These three versions feel quite different as experiences. The sensory richness differs; the physicality differs; the social dynamic differs. But their constituative rules are identical, and their operational rules are formally equivalent. The three-level model allows us to say precisely what is the same across all three versions and what is different.</p>
+
+<h2>The Identity of a Game</h2>
+<p>The three-level model raises a philosophical question with real design implications: what makes two versions of a game "the same game"?</p>
+
+<p>The authors argue that the identity of a game is located at the intersection of its <em>constituative</em> and <em>operational</em> rules. Tic-Tac-Toe and 3-to-15 share constituative rules but differ in operational rules — they are different games with the same logical structure. Two versions of Chutes and Ladders that vary only in physical presentation (board vs. cards) may share both constituative and operationally equivalent rules — they are the same game in different media.</p>
+
+<p>The implicit rules, by contrast, can vary enormously between play sessions of the "same game" without changing the game's identity. The implicit norms of a casual family game of Chutes and Ladders differ from those of a teaching session in a classroom — yet in both cases the same game is being played.</p>
+
+<h2>Specificity of Rules and Elegant Design</h2>
+<p>The three-level model also illuminates the concept of <em>rule specificity</em> — how precisely rules need to be stated in order to function. This connects to one of the most valued qualities in game design: elegance.</p>
+
+<p>Chutes and Ladders has very simple operational rules, and the board's visual design — the illustrated grid showing chutes and ladders directly — makes those rules immediately legible. A player who has never read the rules can begin to understand the game just by looking at the board. The operational rules and the physical presentation are tightly aligned.</p>
+
+<p>3-to-15, by contrast, has simple operational rules but deeply non-obvious constituative structure. A player can follow the rules perfectly — selecting numbers, checking sums — without ever perceiving the game's underlying logic. The magic square connection is invisible from the operational surface. There is a kind of elegance here too — the mathematical structure is beautiful — but it is elegance that players cannot perceive or benefit from during play.</p>
+
+<blockquote>
+  Elegant rules are not simply minimal rules. Elegant rules are rules whose formal structure and operational presentation are in productive alignment — where what players do makes the underlying logic of the game legible and beautiful.
+</blockquote>
+
+<div class="summary-box">
+  <h3>Chapter Summary</h3>
+  <ul>
+    <li><strong>The 3-to-15 / Tic-Tac-Toe identity</strong> demonstrates that two operationally different games can share identical mathematical structure — the magic square is the constituative structure both games instantiate.</li>
+    <li><strong>Constituative rules</strong> are the abstract, mathematical structure of the game — its deep logical form, independent of presentation or play procedure.</li>
+    <li><strong>Operational rules</strong> are the procedures players actually follow — the rulebook layer, defining what players do, how turns work, and how the game ends.</li>
+    <li><strong>Implicit rules</strong> are unwritten social norms governing conduct during play — etiquette, timing expectations, the spirit of fair competition. Violating them disrupts the game even when no formal rule is broken.</li>
+    <li><strong>Game identity</strong> resides at the intersection of constituative and operational rules. Same constituative structure + different operational rules = different games. Same operational rules + different physical presentation = the same game.</li>
+    <li><strong>Elegant rules</strong> align operational presentation with constituative structure, making the logical beauty of a game visible and accessible to players during play.</li>
+  </ul>
+</div>
+
+<p class="callout">Next: Chapter 13 — Rules of Digital Games &nbsp;·&nbsp; How code relates to the three-level model</p>
+
+</body>
+</html>

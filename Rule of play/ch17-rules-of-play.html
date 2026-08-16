@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch. 17 — Games as Systems of Information · Rules of Play</title>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --text: #1a1a1a;
+  --muted: #555;
+  --dim: #888;
+  --rule: #c8c4bc;
+  --pull-bg: #eeece8;
+  --pull-border: #1a1a1a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+}
+header { margin-bottom: 56px; }
+.eyebrow {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+  display: block;
+  margin-bottom: 10px;
+}
+h1 {
+  font-family: Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: normal;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.subtitle { font-size: 1rem; color: var(--muted); font-style: italic; }
+h2 {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 8px;
+  border-top: 1px solid var(--rule);
+  margin-top: 52px;
+  margin-bottom: 16px;
+}
+h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
+p { margin-bottom: 1em; }
+blockquote {
+  background: var(--pull-bg);
+  border-left: 3px solid var(--pull-border);
+  margin: 24px 0;
+  padding: 16px 20px;
+  font-style: italic;
+}
+blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.grid-cell { background: var(--bg); padding: 18px 16px; }
+.grid-cell strong {
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 6px;
+}
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.pearce-table {
+  border: 1px solid var(--rule);
+  margin: 24px 0;
+}
+.pearce-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.pearce-row:last-child { border-bottom: none; }
+.pearce-label {
+  background: var(--pull-bg);
+  padding: 14px 16px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pearce-content {
+  background: var(--bg);
+  padding: 14px 16px;
+  font-size: 0.92rem;
+}
+.info-type-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 24px 0;
+}
+.info-type-cell {
+  background: var(--bg);
+  padding: 20px 18px;
+}
+.info-type-cell .label {
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 8px;
+}
+.case-study {
+  border: 1px solid var(--rule);
+  margin: 28px 0;
+}
+.case-study-header {
+  background: var(--pull-bg);
+  padding: 14px 20px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--rule);
+}
+.case-study-body {
+  padding: 18px 20px;
+}
+.summary-box {
+  border: 1px solid var(--rule);
+  padding: 28px 32px;
+  margin: 40px 0 0;
+}
+.summary-box h3 {
+  margin-top: 0;
+  font-style: normal;
+  font-size: 0.75rem;
+  font-family: system-ui, sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.summary-box ul { padding-left: 22px; }
+.summary-box li { margin-bottom: 0.6em; }
+.callout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.82rem;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+  margin-top: 32px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Rules of Play &nbsp;·&nbsp; Unit Two: Rules &nbsp;·&nbsp; Chapter 17</span>
+  <h1>Games as Systems of Information</h1>
+  <p class="subtitle">Information as knowledge — hidden, revealed, and manipulated during play to create meaningful decisions.</p>
+</header>
+
+<blockquote>
+  All card games hinge on the fact that a card has two sides, one of which <strong>reveals</strong> its identity (Ace of spades, Queen of hearts, etc.), while the other <strong>conceals</strong> it, being indistinguishable from the reverse of any other card in the pack. This element of secrecy puts cards into the category of "games of imperfect information." This suggests that "information" and its acquisition are what card games are all about.
+  <cite>— David Parlett, <em>The Oxford Dictionary of Card Games</em></cite>
+</blockquote>
+
+<h2>A Different Kind of Information</h2>
+<p>The previous chapter framed games within information theory, where "information" is a counter-intuitive mathematical concept divorced from meaning — a measure of uncertainty in a signal. This chapter shifts to a very different understanding of "information." Here, information means <em>knowledge</em>: the informational content or data of a game.</p>
+
+<p>Rather than thinking about "information" as a measure of uncertainty, we now do just the opposite. "Information," for the purposes of this schema, means <em>knowledge</em> — the informational content or data of a game. Within classical information theory, games are signal-processing systems, balancing noise and redundancy. But in this schema, we consider games as interactive systems that put knowledge or information at play. Depending on the game, information can be randomized, acquired, transformed, hidden, rearranged, remembered, or forgotten.</p>
+
+<p>In the quote that opens this chapter, David Parlett describes playing cards as objects designed to conceal and reveal information. Poker can be framed as a system of uncertainty (the probability of being dealt a particular hand) — or it can be framed within <em>Games as Systems of Information</em>, where we explore information as a commodity to be hidden or shared. How do players hide information in the cards they hold? How is information concealed, revealed, disguised, and deduced?</p>
+
+<h2>Perfect and Imperfect Information</h2>
+<blockquote>
+  Such games have <strong>perfect information</strong>: Each player, when deciding his move, must have complete information about the current position of the board, or equivalently, about the original position of the board and all moves made so far. Examples of perfect information games would include Chess and Backgammon; games like Stratego, Kriegspiel, or the recent Stealth Chess are not perfect information games.
+  <cite>— J. Mark Thompson, "Defining the Abstract"</cite>
+</blockquote>
+
+<p>Perfect information and imperfect information refer to the relationship a player has to the information contained in the formal system of the game.</p>
+
+<div class="info-type-pair">
+  <div class="info-type-cell">
+    <span class="label">Perfect Information</span>
+    <p>All players have complete knowledge about every element in the game at all times. Chess and Backgammon are canonical examples. Every piece, every position, every move that has been made is fully visible to all players. No aspect of the game state is hidden.</p>
+    <p>Games of perfect information tend to be more analytically competitive — each player's moves and strategies are available for the other to see, creating direct intellectual confrontation.</p>
+  </div>
+  <div class="info-type-cell">
+    <span class="label">Imperfect Information</span>
+    <p>Some of the information may be hidden from players during the game. Stratego keeps the value of each piece on the gameboard hidden from each player's opponent. Card games are also good examples — in most card games, players do not know what cards opponents hold.</p>
+    <p>Imperfect information adds an element of mystery and uncertainty. It invites treachery, trickery, and deception, and can be used as a design element in games meant to inspire mistrust among players.</p>
+  </div>
+</div>
+
+<p>Importantly, randomness is not intrinsically tied to either perfect or imperfect information. Both Chess and Backgammon are games of perfect information, even though Backgammon makes use of die rolls every turn. An imperfect information game such as Stratego does not use any kind of chance mechanism, whereas Poker does, in the form of a shuffled deck.</p>
+
+<h2>Pearce's Four Categories</h2>
+<p>In <em>The Interactive Book</em>, designer and scholar Celia Pearce presents a typology for understanding the ways games manifest information. She proposes four scenarios:</p>
+
+<div class="pearce-table">
+  <div class="pearce-row">
+    <div class="pearce-label">Known to All Players</div>
+    <div class="pearce-content">In Chess, this includes the rules, board layout, and piece movement parameters. Every player has equal access to this information at all times.</div>
+  </div>
+  <div class="pearce-row">
+    <div class="pearce-label">Known to One Player</div>
+    <div class="pearce-content">In Gin, this is the cards in your hand. In any card game with private hands, each player holds information that other players cannot see.</div>
+  </div>
+  <div class="pearce-row">
+    <div class="pearce-label">Known to the Game Only</div>
+    <div class="pearce-content">In Gin, this is the unused cards remaining in the deck. In Space Invaders, this is the paths and frequency of the alien space ships before they appear on screen.</div>
+  </div>
+  <div class="pearce-row">
+    <div class="pearce-label">Randomly Generated</div>
+    <div class="pearce-content">In Backgammon, this is the roll of the dice. Information that is generated by a chance mechanism during the course of play and not known in advance by anyone.</div>
+  </div>
+</div>
+
+<p>Pearce's categories offer a useful way of describing the informational component of a game. She differentiates between two kinds of hidden information: one in which each player possesses private information, and another in which the game system itself hides information from all of the players. She also designates randomly generated information within its own informational category.</p>
+
+<p>One critique of Pearce's model: including the <em>rules</em> of a game as "information known to all players" is somewhat misleading. Rules are the formal foundation of a game — the logical structures that allow players to manipulate information. Rules generally do not constitute the information being manipulated during play. There may be hidden strategic relationships in a game that are gradually uncovered, but these are not rules. Rules are the platform; information is what moves on that platform.</p>
+
+<h2>Case Study: Enchanted Forest</h2>
+
+<div class="case-study">
+  <div class="case-study-header">Case Study &nbsp;·&nbsp; Enchanted Forest</div>
+  <div class="case-study-body">
+    <p>Enchanted Forest is a children's board game that uses information in a number of complex ways. Players are seeking a number of treasures hidden on the board. When a game begins, a set of tree objects are shuffled and placed at set locations. On the bottom of each tree is an image of one of the treasures. A deck of cards, each containing the image of one of the treasures, is shuffled and the top card is turned over — that is the treasure all players are currently seeking.</p>
+    <p>By rolling two dice and moving on a network of paths, players maneuver their pieces to specific trees. When a player lands on a tree, she can privately look at the treasure under it. If she thinks she knows the location of the treasure pictured on the face-up card, she can travel to the castle to make a guess. If she is correct, she keeps the card and turns over a new treasure. If she is incorrect, she must move to the village at the far end of the board. The first player to collect three cards and get to the castle wins.</p>
+  </div>
+</div>
+
+<p>Enchanted Forest contains all four of Pearce's categories of information:</p>
+
+<div class="grid">
+  <div class="grid-cell">
+    <strong>Known to All</strong>
+    The network of paths on the board, the locations of each player's piece, the cards already collected by each player, and the treasure currently being sought. All of this is publicly visible.
+  </div>
+  <div class="grid-cell">
+    <strong>Known to One Player</strong>
+    The treasure locations that each player discovers privately by looking under trees. Unlike most card games, this privately held information is stored in the player's memory — adding a cognitive challenge and a vulnerability.
+  </div>
+  <div class="grid-cell">
+    <strong>Known to the Game Only</strong>
+    Initially, the location of every treasure under every tree is known to no player — only to the game itself. As players move about the board, this information gradually shifts to other categories.
+  </div>
+  <div class="grid-cell">
+    <strong>Randomly Generated</strong>
+    The two-die roll. Players can use each die separately — rolling a 4 and a 5 can move five in one direction and four in another — offering flexible movement and generating new strategic opportunities every turn.
+  </div>
+</div>
+
+<p>As a game of Enchanted Forest proceeds, players gradually discover the hidden information stored under the trees, allowing them to build their own personal system of information and accompanying strategies. Will you seek trees no other player has looked at, so that you have an informational advantage? Or will you shadow other players and make sure no one else has an advantage over you?</p>
+
+<p>Because players are storing all of this information in their memories, it is easy to forget exactly where a treasure is, even after having seen it. The fact that players must memorize the locations forces them to focus their attention on the game, making each guess at the castle a little bit risky. And because strategic use of information dominates the game, even watching another player's movement becomes informative — is she heading to the castle because she knows where the current treasure is, or is it a bluff to get you to waste your time making a false guess?</p>
+
+<h3>Economies of Information</h3>
+<p>The deck of cards in Enchanted Forest creates another information dynamic. Because players know each card in the deck corresponds to one of the treasures, the predictability of the identity of the next card changes as the game proceeds. At the beginning, there is a low chance that a particular card might turn up. But near the end, when there are only two or three cards left in the deck, there is much less uncertainty about the possible outcome. That means using a special action to reshuffle the information in the deck becomes a more effective strategy later in the game.</p>
+
+<p>This occurs because the information contained on each card does not exist in isolation from the others. Instead, the information is part of a larger system: an <em>economy of information</em> that grants each card its relative value. Meaning in a game — as in any system — emerges from relational identity. The value of any piece of game information is determined by its relationship to all other pieces of information in the system.</p>
+
+<h2>Objective vs. Perceived Information</h2>
+<p>The systemic nature of information in a game generates meaningful play in two ways: through the actual makeup of the information structures in a system, and through the apprehension of that information by players. We call a game's information structures <em>objective information</em> and the player's understanding of these structures <em>perceived information</em>. The interaction of these two aspects of game information determines the way that information operates within the system of a game.</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Objective Information</strong>
+    The actual informational structures built into the game system — the formal facts about the game state at any moment. In Euchre, the objective information includes which cards have been played and whether all the trump cards have been exhausted.
+  </div>
+  <div class="grid-cell">
+    <strong>Perceived Information</strong>
+    The information that a player observes and acquires through play — their understanding of the objective information. A skilled Euchre player tracks not only the trumps, but every card played, turning objective facts into actionable game-play intelligence.
+  </div>
+</div>
+
+<p>In a trick-taking game such as Euchre, if all of the trumps have already been played during a round, the once-private but now-public information regarding the location of the trumps becomes extremely important for making game decisions. The fact that any given card can be a trump or non-trump is a function of the objective information of the game. But the systemic fact that the trumps have all been played is only meaningful because of the player's ability to convert that objective information into perceived information and make decisions accordingly.</p>
+
+<p>Scrabble also contains objective informational structures that are gradually revealed to players as perceived information over the course of play. Knowledge about the ratio of letters in the overall mix is part of how you play the game. If you desperately need to pick a Z tile to make a 7-letter word, you need to decide whether to play a single letter, make a small score this turn, and hold out for that Z — or else abandon the large-word strategy altogether. Your judgment involves not only the probability of drawing a Z (dependent on the objective informational economy of the pool of letters), but also perceived information: whether or not you know that the single Z has already been played on the board.</p>
+
+<h2>Hiding and Revealing Systems</h2>
+<p>Digital games are particularly adept at manipulating complex sets of information. They take advantage of the ability of digital games to manipulate information in complex ways to engender meaningful play:</p>
+
+<div class="grid">
+  <div class="grid-cell">
+    <strong>Fog of War — Starcraft</strong>
+    A real-time strategy game level might take place on a large map of terrain, but the game only reveals information about structures that are gradually revealed to players as perceived map near a player's own units. Initially, only your own local area is visible. Sending out scouts and spies to learn more about the terrain and the location of your enemies becomes an important part of the game. The strategic unveiling of hidden information adds suspense and tension.
+  </div>
+  <div class="grid-cell">
+    <strong>Secret Locations — Super Mario 64</strong>
+    Not only does the player slowly gain enough coins to unlock new game worlds, but some of these worlds contain items that give Mario new powers and abilities. Super Mario 64 masterfully integrates the uncovering of this information into the geography of the overall game space. Such an approach creates a rhythm of discovery that keeps players engaged throughout the game.
+  </div>
+  <div class="grid-cell">
+    <strong>Item Economies — LEGO Drome Racing</strong>
+    A multiplayer online game in which players customize their cars by purchasing parts. The game limits a player's ability to purchase parts based on their License Class. As a player progresses, they gain ability to purchase more powerful parts. The game doesn't limit informational access — players can "browse" the more powerful parts, but not acquire them. This structure gives players a better understanding of the relative value of items while allowing meaningful decisions about what to save up for.
+  </div>
+  <div class="grid-cell">
+    <strong>Rules as Information — FLUID</strong>
+    The automated nature of game systems, combined with their ability to manipulate information, forms a powerful design tool. In FLUID, the player has little information at the beginning. Interaction — poking, stroking, and prodding a touchscreen — interacts with elements of the game. Each game element is part of a miniature ecosystem; as the player plays with FLUID, interaction and observation gradually reveal the underlying principles of the system. The hidden information discovered through play is the rules of the simulation itself.
+  </div>
+</div>
+
+<p>Many digital games rely on vast sets of information rewards for player interaction — huge worlds to explore, complex economies of items, and hidden fighting moves. One challenge for digital game designers is not to rely so much on hidden content in order to generate player interest. If there is too much information, or if the information is neither discernible nor integrated, the design has failed to support meaningful play.</p>
+
+<p>In contrast, non-digital games typically consist of more limited, replayable systems — imperfect information might be a core component of Poker, but you are not going to uncover a previously hidden card in the deck after 30 hours of play. The kind of information system you design depends on the kind of game you want to create: a simple system that players fully know from the start can create the obsessive play of Tetris or the mastery-depth of Go; while a game that contains large amounts of information — strategically unveiling informational complexity, rewarding progress via new levels, powers, or narrative segments — can let players slowly come to know the game without feeling overwhelmed.</p>
+
+<div class="summary-box">
+  <h3>Chapter Summary</h3>
+  <ul>
+    <li>In this schema, the concept of <strong>information</strong> refers to knowledge or content that is manipulated, acquired, hidden, and revealed during play — a shift from the previous chapter's counter-intuitive information theory definition.</li>
+    <li>In a game of <strong>perfect information</strong> such as Chess or Backgammon, players publicly share all knowledge in the game. In a game of <strong>imperfect information</strong> such as Poker or Stratego, some information is hidden from some or all players.</li>
+    <li>Games of perfect information tend to be analytically competitive, whereas games of imperfect information tend to have more uncertainty and inspire treachery and mistrust among players.</li>
+    <li>Celia Pearce identifies four kinds of information in a game: <strong>information known to all players</strong>, <strong>information known to only one player</strong>, <strong>information known to the game only</strong>, and <strong>randomly generated information</strong>.</li>
+    <li>Information in a system does not have an intrinsic value but instead gains its value from its relationships to other units of information in the system's <strong>information economy</strong>.</li>
+    <li>Information can contribute to meaningful play in two ways: <strong>objective information</strong>, the game system's internal informational structure; and <strong>perceived information</strong>, the information that a player observes and acquires through play.</li>
+    <li>Digital games are particularly adept at manipulating complex sets of information. Because they are more automated than non-digital games, digital games can make the discovery of hidden game rules and mechanisms themselves part of the game experience.</li>
+  </ul>
+</div>
+
+<p class="callout">Next: Chapter 18 — Games as Cybernetic Systems &nbsp;·&nbsp; Feedback loops, sensors, and self-regulating game systems</p>
+
+</body>
+</html>

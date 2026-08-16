@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch. 19 — Games as Game Theory Systems · Rules of Play</title>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --text: #1a1a1a;
+  --muted: #555;
+  --dim: #888;
+  --rule: #c8c4bc;
+  --pull-bg: #eeece8;
+  --pull-border: #1a1a1a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+}
+header { margin-bottom: 56px; }
+.eyebrow {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+  display: block;
+  margin-bottom: 10px;
+}
+h1 {
+  font-family: Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: normal;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.subtitle { font-size: 1rem; color: var(--muted); font-style: italic; }
+h2 {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 8px;
+  border-top: 1px solid var(--rule);
+  margin-top: 52px;
+  margin-bottom: 16px;
+}
+h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
+p { margin-bottom: 1em; }
+blockquote {
+  background: var(--pull-bg);
+  border-left: 3px solid var(--pull-border);
+  margin: 24px 0;
+  padding: 16px 20px;
+  font-style: italic;
+}
+blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.grid-cell { background: var(--bg); padding: 18px 16px; }
+.grid-cell strong {
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 6px;
+}
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.payoff-matrix {
+  margin: 24px 0;
+  border: 1px solid var(--rule);
+}
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: system-ui, sans-serif;
+  font-size: 0.82rem;
+}
+.matrix-table th {
+  background: var(--pull-bg);
+  padding: 10px 14px;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+}
+.matrix-table td {
+  background: var(--bg);
+  padding: 12px 14px;
+  text-align: center;
+  border: 1px solid var(--rule);
+  line-height: 1.4;
+}
+.matrix-table td.row-label {
+  background: var(--pull-bg);
+  font-weight: 700;
+  color: var(--muted);
+  text-align: left;
+  letter-spacing: 0.04em;
+}
+.case-study {
+  border: 1px solid var(--rule);
+  margin: 28px 0;
+}
+.case-study-header {
+  background: var(--pull-bg);
+  padding: 14px 20px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--rule);
+}
+.case-study-body {
+  padding: 18px 20px;
+}
+.summary-box {
+  border: 1px solid var(--rule);
+  padding: 28px 32px;
+  margin: 40px 0 0;
+}
+.summary-box h3 {
+  margin-top: 0;
+  font-style: normal;
+  font-size: 0.75rem;
+  font-family: system-ui, sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.summary-box ul { padding-left: 22px; }
+.summary-box li { margin-bottom: 0.6em; }
+.callout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.82rem;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+  margin-top: 32px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Rules of Play &nbsp;·&nbsp; Unit Two: Rules &nbsp;·&nbsp; Chapter 19</span>
+  <h1>Games as Game Theory Systems</h1>
+  <p class="subtitle">Mathematical game theory maps rational decision-making onto formal games — revealing optimal strategies, insoluble dilemmas, and the structural limits of rational play.</p>
+</header>
+
+<h2>Game Theory: Not What You Think</h2>
+<p>The term "game theory" suggests it might be a unified theory of games — a framework for understanding games in general. It is not. Game theory is actually a branch of economics and mathematics, developed to model strategic decision-making among rational agents. Its formal birthplace is Oskar Morgenstern and John von Neumann's landmark 1942 text, <em>Theory of Games and Economic Behavior</em>.</p>
+
+<p>Game theory's subject matter is the structure of decisions — specifically, the decisions made by rational actors in situations where the outcome for each actor depends on the decisions of others. Its primary applications are in economics, political science, and evolutionary biology. Games — in the everyday sense of the word — are used as models precisely because they provide clean, well-defined decision structures. But the formal games studied by game theory (Prisoner's Dilemma, Matching Pennies, and so forth) are tools of analysis, not entertainment.</p>
+
+<p>Nevertheless, game theory is a valuable lens for game designers, because it makes explicit the formal decision structures embedded in game systems and offers tools for identifying when those structures produce degenerate, broken, or brilliantly elegant gameplay.</p>
+
+<h2>Decision Trees</h2>
+<p>The first tool of game theory analysis is the <em>decision tree</em>: a diagram of all possible decisions and their outcomes within a game. A decision tree maps the entire formal space of possibility of a game — every branch represents a choice, and every branch point represents the moment when a decision must be made.</p>
+
+<p>Not every game can be reduced to a decision tree. Three criteria must be met: the game must proceed in turns or discrete decision units; at each decision point, all the possible choices and their outcomes must be knowable; and the game must be finite — it must eventually reach an end state. Tic-Tac-Toe meets all three criteria. Chess technically meets them as well, though the decision tree is so vast as to be practically uncomputable.</p>
+
+<p>The decision tree's value is that it allows analysis of the <em>entire game} from any point in play — not just the immediate next move. Game theorists define a <em>strategy</em> as a comprehensive plan for the entire game, not just a plan for the current moment. A strategy specifies what a player will do in every possible situation they might encounter. This is not how most players consciously think about games, but it is how game theory conceptualizes rational play.</p>
+
+<p>For a game like Tic-Tac-Toe, a full decision tree reveals that perfect play always results in a draw. As William Poundstone observes, once players understand the decision tree of Tic-Tac-Toe, the game is essentially over as a meaningful competitive experience — its space of possibility has been exhausted. This insight connects directly to the game's notorious "solved" status and its abandonment by adult players.</p>
+
+<h2>The Requirements of Game Theory Analysis</h2>
+<p>Classic game theory operates under a set of formal constraints. These constraints are idealized — real games and real players often violate them — but they establish the analytical framework:</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Rational Players</strong>
+    Each player acts to maximize their own utility (quantified satisfaction). Players are assumed to make the best possible decision given the information available, and they know that their opponent is doing the same.
+  </div>
+  <div class="grid-cell">
+    <strong>Quantified Utility</strong>
+    Preferences can be expressed numerically. This allows game theory to compare outcomes mathematically — "winning" can be assigned a utility of 1 and "losing" a utility of 0, or any other numerical value that captures a player's relative preferences.
+  </div>
+  <div class="grid-cell">
+    <strong>Two Players</strong>
+    Classical game theory typically deals with two-player situations. Multi-player game theory exists but is considerably more complex, as each player's decisions interact with every other player's decisions in compounding ways.
+  </div>
+  <div class="grid-cell">
+    <strong>Simultaneity</strong>
+    In many game theory models, players make their decisions simultaneously — without knowing what the other has chosen. This simultaneity is central to problems like Prisoner's Dilemma and creates the conditions for the most interesting strategic dilemmas.
+  </div>
+</div>
+
+<h2>The Payoff Matrix</h2>
+<p>Once the strategies available to each player have been identified, they can be organized into a <em>payoff matrix</em> — a grid that shows the outcome for every possible combination of player strategies. The payoff matrix is one of game theory's most versatile analytical tools.</p>
+
+<p>In a two-player matrix, one player's strategies form the rows and the other player's strategies form the columns. Each cell in the matrix shows the outcome (payoff) for both players when they choose the corresponding strategies. Reading the matrix gives a complete picture of the strategic landscape of a game.</p>
+
+<h3>Zero-Sum Games</h3>
+<p>Many competitive games are <em>zero-sum</em>: one player's gain is exactly equal to the other player's loss. Chess, Checkers, and Poker (when played for a fixed pot) are zero-sum — the total "amount" in the system never changes, it only shifts from one player to another. In a payoff matrix for a zero-sum game, if one cell shows Player A gains 1, Player B necessarily loses 1.</p>
+
+<h3>The Saddle Point: Optimal but Dangerous</h3>
+<p>In a zero-sum game, a <em>saddle point</em> is a cell in the payoff matrix that is simultaneously the worst outcome in its row (from one player's perspective) and the best outcome in its column (from the other player's perspective). A saddle point represents the optimal rational solution to the game — the strategy pair from which neither player can improve their outcome by changing their choice unilaterally.</p>
+
+<p>For game designers, saddle points are double-edged. A saddle point means the game has an optimal solution — a dominant strategy that rational players will always choose. But a game in which rational players always make the same choice is a game with a degenerate strategy: an approach that guarantees the best possible result and removes meaningful decision-making from play. A saddle point is game-theoretically optimal and game-design catastrophically boring.</p>
+
+<h2>Case Studies in Game Theory</h2>
+
+<h3>Matching Pennies</h3>
+<p>Two players each secretly place a penny — heads-up or tails-down. If the pennies match, Player A wins both; if they differ, Player B wins both. The payoff matrix has no saddle point: for every strategy combination, the losing player would prefer to have chosen differently. There is no stable "best" choice.</p>
+
+<p>The game-theoretic solution to a no-saddle-point situation is a <em>mixed strategy</em>: each player should randomize their choice with the probabilities that minimize their opponent's maximum gain. In Matching Pennies, the optimal mixed strategy is a 50/50 randomization between heads and tails. Any non-random pattern becomes exploitable. The game's tension arises precisely from the impossibility of a stable rational solution.</p>
+
+<h3>Cake Division</h3>
+<p>One player cuts a cake into two pieces; the other player chooses which piece to take. This simple protocol produces a remarkably fair outcome: the cutter has a strong incentive to cut as evenly as possible, because the chooser will always take the larger piece. A rational cutter minimizes their potential loss by making both pieces equal. The game-theoretic optimum is a perfect equal division — achieved not through goodwill, but through the structure of the decision itself.</p>
+
+<h3>The Prisoner's Dilemma</h3>
+<p>Two suspects are held in separate rooms and offered the same deal: testify against your partner (defect) or stay silent (cooperate). The payoffs are structured so that defecting is the dominant strategy for both players individually — no matter what the other does, you are better off defecting. Yet when both players follow this rational logic, they both end up worse off than if they had both cooperated.</p>
+
+<div class="payoff-matrix">
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Prisoner B: Cooperate</th>
+        <th>Prisoner B: Defect</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="row-label">Prisoner A: Cooperate</td>
+        <td>Both serve 1 year<br><em>(best collective outcome)</em></td>
+        <td>A serves 10 years<br>B goes free</td>
+      </tr>
+      <tr>
+        <td class="row-label">Prisoner A: Defect</td>
+        <td>A goes free<br>B serves 10 years</td>
+        <td>Both serve 5 years<br><em>(dominant rational outcome)</em></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The Prisoner's Dilemma is not "solved" in any satisfying sense. The tension between individual rationality and collective welfare is genuine and irresolvable within the single-round game. It has become one of the most studied problems in social science, economics, and political philosophy. For game designers, it illustrates a profound structural point: the rational optimum for individuals is not always the optimal collective outcome, and designing games that encourage cooperation requires building that cooperation into the rules rather than relying on the goodwill of players.</p>
+
+<h2>Degenerate Strategies and Exploits</h2>
+<p>Game theory's concept of dominant strategies translates directly into the game design concept of <em>degenerate strategies</em>: approaches that work so reliably well that they crowd out all other meaningful choices. A degenerate strategy is not the same as a simple optimal strategy — it is a strategy so powerful that it eliminates interesting decision-making from the game entirely.</p>
+
+<div class="grid">
+  <div class="grid-cell">
+    <strong>Fighting Games</strong>
+    If one character has a single attack that, when repeated, cannot be reliably countered, the "strategy" becomes: pick that character, use that attack, win. The rich decision space of the fighting game — positioning, timing, reading the opponent — collapses into a single degenerate loop.
+  </div>
+  <div class="grid-cell">
+    <strong>Magic: The Gathering</strong>
+    The Black Lotus card, which produces three mana of any color for no cost, was so powerful that it unbalanced the mana economy the entire game was built around. A single card collapsed the strategic decision of how to build a deck into a single dominant choice: include the Black Lotus. It was eventually banned from tournament play.
+  </div>
+  <div class="grid-cell">
+    <strong>RTS Pathfinding</strong>
+    In some real-time strategy games, enemy AI units will pursue a player's units indefinitely in a straight line — even if that line leads them off a cliff or through a canyon the player controls. A degenerate strategy emerges: lure enemy units into terrain that kills them automatically. The rich strategic question of how to defeat a superior enemy force is replaced by a single exploit.
+  </div>
+  <div class="grid-cell">
+    <strong>Pac-Man Patterns</strong>
+    In the original Pac-Man arcade game, the ghost AI follows deterministic rules. Expert players discovered that fixed movement patterns — learned sequences of turns — could keep ghosts from ever catching them. The game's emergent randomness collapses into a memorization exercise for players who discover the pattern.
+  </div>
+</div>
+
+<p>Degenerate strategies reveal a truth about game design that game theory makes explicit: the formal structure of a game's rules determines its strategic landscape. A strategy becomes degenerate when the game's formal structure creates a payoff matrix with a dominant solution — and that dominant solution happens to bypass, rather than engage with, the game's intended decision space. Identifying and eliminating degenerate strategies requires exactly the kind of formal analysis that game theory provides.</p>
+
+<div class="summary-box">
+  <h3>Chapter Summary</h3>
+  <ul>
+    <li><strong>Game theory</strong> (Morgenstern and von Neumann, 1942) is a branch of economics and mathematics that models strategic decision-making among rational agents — not a general theory of games as entertainment.</li>
+    <li>A <strong>decision tree</strong> maps all possible decisions and outcomes within a game. A <strong>strategy</strong> (in game theory) is a comprehensive plan for the entire game, specifying what to do in every possible situation. Only games that are turn-based, finite, and have knowable outcomes can be reduced to decision trees.</li>
+    <li>Classic game theory assumes <strong>rational players</strong> who maximize their own <strong>utility</strong> (quantified satisfaction), and often models <strong>simultaneous</strong> decisions between <strong>two players</strong>.</li>
+    <li>A <strong>payoff matrix</strong> displays the outcome for every combination of player strategies. In <strong>zero-sum games</strong>, one player's gain is exactly the other's loss.</li>
+    <li>A <strong>saddle point</strong> is a dominant strategy pair — the game-theoretically optimal solution. For designers, a saddle point is dangerous: it produces a degenerate strategy that eliminates meaningful choice.</li>
+    <li>When no saddle point exists (as in Matching Pennies), the rational solution is a <strong>mixed strategy</strong> — randomizing choices according to specific probabilities to prevent exploitation.</li>
+    <li>The <strong>Prisoner's Dilemma</strong> shows that individual rationality can produce collectively worse outcomes than cooperation. It remains unsolved within single-round play.</li>
+    <li><strong>Degenerate strategies</strong> emerge when a dominant strategy bypasses rather than engages the game's intended decision space — eliminating meaningful play through structural imbalance.</li>
+  </ul>
+</div>
+
+<p class="callout">Next: Chapter 20 — Games as Systems of Conflict &nbsp;·&nbsp; The forms of conflict, competition, cooperation, and the level playing field</p>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch. 11 — Defining Rules · Rules of Play</title>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --text: #1a1a1a;
+  --muted: #555;
+  --dim: #888;
+  --rule: #c8c4bc;
+  --pull-bg: #eeece8;
+  --pull-border: #1a1a1a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+}
+header { margin-bottom: 56px; }
+.eyebrow {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+  display: block;
+  margin-bottom: 10px;
+}
+h1 {
+  font-family: Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: normal;
+  line-height: 1.25;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.subtitle {
+  font-size: 1rem;
+  color: var(--muted);
+  font-style: italic;
+}
+h2 {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 8px;
+  border-top: 1px solid var(--rule);
+  margin-top: 52px;
+  margin-bottom: 16px;
+}
+h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
+p { margin-bottom: 1em; }
+blockquote {
+  background: var(--pull-bg);
+  border-left: 3px solid var(--pull-border);
+  margin: 24px 0;
+  padding: 16px 20px;
+  font-style: italic;
+}
+blockquote cite {
+  display: block;
+  font-style: normal;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.grid-cell { background: var(--bg); padding: 18px 16px; }
+.grid-cell strong {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 6px;
+}
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.rule-list {
+  list-style: none;
+  counter-reset: rule-counter;
+  border: 1px solid var(--rule);
+  margin: 20px 0 24px;
+}
+.rule-list li {
+  counter-increment: rule-counter;
+  padding: 14px 20px 14px 52px;
+  position: relative;
+  border-bottom: 1px solid var(--rule);
+}
+.rule-list li:last-child { border-bottom: none; }
+.rule-list li::before {
+  content: counter(rule-counter);
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--dim);
+}
+.summary-box {
+  border: 1px solid var(--rule);
+  padding: 28px 32px;
+  margin: 40px 0 0;
+}
+.summary-box h3 {
+  margin-top: 0;
+  font-style: normal;
+  font-size: 0.75rem;
+  font-family: system-ui, sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.summary-box ul { padding-left: 22px; }
+.summary-box li { margin-bottom: 0.6em; }
+.callout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.82rem;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+  margin-top: 32px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Rules of Play &nbsp;·&nbsp; Unit Two: Rules &nbsp;·&nbsp; Chapter 11</span>
+  <h1>Defining Rules</h1>
+  <p class="subtitle">What are rules — really? The formal, abstract structure that makes a game a game.</p>
+</header>
+
+<h2>The Rules of Tic-Tac-Toe</h2>
+<p>What exactly are the rules of a game? To answer this question, Salen and Zimmerman open with the most familiar possible example: Tic-Tac-Toe. The entire game can be stated in four rules:</p>
+
+<ol class="rule-list">
+  <li>The game is played on a grid of 3 squares by 3 squares.</li>
+  <li>Players take turns. One player is X, the other is O. On your turn, place your mark in any empty square.</li>
+  <li>The first player to get three of their marks in a row — horizontally, vertically, or diagonally — wins.</li>
+  <li>If all nine squares fill up and neither player has three in a row, the game is a draw.</li>
+</ol>
+
+<p>Four sentences. That is the entirety of Tic-Tac-Toe's formal rules. Nothing about strategy, about the feel of the game, about why it's satisfying or frustrating, about the social situation in which it's played. Just four sentences that define what players may do and what constitutes a conclusion. The authors pose a deceptively simple question: what <em>are</em> these sentences? What kind of thing is a rule?</p>
+
+<h2>The Deck of Cards Thought Experiment</h2>
+<p>To understand what rules actually are, the book offers a thought experiment. Consider a standard 52-card deck. The suits are called Hearts, Diamonds, Clubs, and Spades. Now imagine renaming them: North, South, East, and West. The printed symbols on every card change. The spoken words players use change. But does the game of Poker change?</p>
+
+<p>No. Poker plays identically. The rules of Poker describe relationships between ranks and groups — four groups of thirteen ranks each — and those relationships are entirely preserved by the renaming. The names are labels; the rules are the abstract structure underneath the labels. What matters to the rules is not what the suits are <em>called</em> but how they behave in relation to each other and to the ranks.</p>
+
+<p>Push the experiment further. Replace the cards entirely with Popsicle sticks marked with numbers and symbols. Or play with poker chips of four colors in thirteen denominations. As long as the underlying relational structure — 52 distinct objects, four groups, thirteen ranks — is preserved, every rule of Poker applies. Rules are not tied to specific physical objects. They are formal descriptions of abstract structures.</p>
+
+<blockquote>
+  Rules are not the physical objects of a game. They are the formal relationships those objects instantiate. Change the medium while preserving the relationships, and you have not changed the rules.
+</blockquote>
+
+<h2>Other Kinds of Rules</h2>
+<p>But the written rules of a game are not the only rules that govern play. Game designer and theorist Bernie DeKoven makes this point directly:</p>
+
+<blockquote>
+  The rules of a game are a small subset of the rules that govern play. There are rules about how players should behave, rules about the relationship between players and the rules, and rules that are never written down at all.
+  <cite>— Bernie DeKoven, <em>The Well-Played Game</em></cite>
+</blockquote>
+
+<p>The formal rules of Chess do not say that players should not cheat, should not tip over the board in frustration, should announce "check" as a courtesy, or should wait patiently while their opponent thinks. These behavioral norms are not in the rulebook. Yet they are real constraints that govern actual play. They are rules in a social sense — expectations shared by players that structure the play experience just as powerfully as formal rules do.</p>
+
+<p>Recognizing the full range of rules — formal, social, unspoken — is essential to understanding how games actually work. The formal rules define the logical space of the game. Other kinds of rules define how players inhabit that space together.</p>
+
+<h2>Six Qualities of Rules</h2>
+<p>Drawing on game studies scholarship, the chapter identifies six core qualities that define what a rule <em>is</em> in the context of games. These qualities distinguish game rules from advice, conventions, aesthetics, or suggestions.</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>1 — Limit Action</strong>
+    Rules constrain what players can do. They carve a possibility space out of the infinite space of all possible actions, permitting some and prohibiting others. Without constraint, there is no game structure — and no game.
+  </div>
+  <div class="grid-cell">
+    <strong>2 — Explicit &amp; Unambiguous</strong>
+    Rules must be stated clearly. Ambiguous rules create disputes that stop play. A well-formed ruleset resolves every situation without requiring interpretation or guesswork. Where ambiguity exists, it is a design problem.
+  </div>
+  <div class="grid-cell">
+    <strong>3 — Shared by All Players</strong>
+    Rules apply to everyone in the game, and all players know the full ruleset. In asymmetric games — where different players have different allowed actions — the complete set of rules for all player types is still shared. No player is exempt from knowing the rules.
+  </div>
+  <div class="grid-cell">
+    <strong>4 — Fixed During Play</strong>
+    Rules do not change while a game is in progress. The rules in effect at the start remain in effect until the end. Changing rules mid-game is, in effect, ending one game and starting another. Stability is essential for the rules to function as constraints.
+  </div>
+  <div class="grid-cell">
+    <strong>5 — Binding on All Players</strong>
+    Players must follow the rules. They are not suggestions or guidelines. The binding quality is what makes them rules rather than optional etiquette. A player who ignores a rule is not playing the game — they are breaking it.
+  </div>
+  <div class="grid-cell">
+    <strong>6 — Repeatable</strong>
+    The same rules can be applied to begin a new game instance. A game is not a one-time event; it is a structure that can be instantiated repeatedly. Rules make this possible by specifying a formal system that is independent of any particular play session.
+  </div>
+</div>
+
+<p>These six qualities form a useful diagnostic lens. If a candidate "rule" fails one of these criteria — if it is vague, if it changes during play, if some players are exempt — it may be a norm, a convention, a design element, or a social expectation, but it is not a rule in the formal sense the authors are working toward.</p>
+
+<h2>Rules in Context: Candyland</h2>
+<p>A central insight of this chapter is the gap between a game's formal rules and the experience those rules produce. This gap is best illustrated by <em>Candyland</em>.</p>
+
+<p>The rules of Candyland are extremely simple: draw a card, move your pawn to the next square matching the color on the card, first to the end wins. There are no meaningful decisions. Players cannot choose which square to move to. The entire outcome of the game is determined by the shuffled card sequence before the first card is drawn. By conventional game-design metrics, Candyland is nearly the minimum possible game — just barely a game at all, in the formal sense.</p>
+
+<p>Yet Candyland is not without value. For young children, it teaches essential concepts: taking turns, following a sequence, recognizing that a game has a defined start and end. The <em>experience</em> of Candyland — social, gentle, colorful, punctuated with shared anticipation — is rich in exactly the ways the formal rules are not. The rules are trivially simple; the experience is genuinely meaningful for its intended audience.</p>
+
+<p>This gap is structurally important. A game's rules define the logical space of play, but they do not determine what that space feels like to inhabit. The same formal rules played by different people in different contexts produce different experiences. Designing a game means designing the rules, but it also means designing for the experience that emerges when players encounter those rules — and these are not the same thing.</p>
+
+<blockquote>
+  The rules are not the game. The rules enable the game. What happens when the game is played is always more than — and different from — the rules that made it possible.
+</blockquote>
+
+<div class="summary-box">
+  <h3>Chapter Summary</h3>
+  <ul>
+    <li><strong>Rules define abstract structures,</strong> not physical properties. Changing the names or materials of game objects does not change the rules, as long as the underlying relational structure is preserved (the deck-of-cards thought experiment).</li>
+    <li><strong>Six formal qualities</strong> characterize rules: they limit action, are explicit and unambiguous, are shared by all players, are fixed during play, are binding on all players, and are repeatable across game instances.</li>
+    <li><strong>Formal rules are not the only rules</strong> that govern play. Social norms, unwritten expectations, and behavioral conventions are also real constraints that structure the play experience.</li>
+    <li><strong>The rules of a game and the experience of playing</strong> are distinct. Simple rules can produce rich experiences (Candyland for young children); complex rules do not guarantee them.</li>
+    <li>Understanding what rules are — formally, precisely, and in context — is the prerequisite for understanding how game design works.</li>
+  </ul>
+</div>
+
+<p class="callout">Next: Chapter 12 — Rules on Three Levels &nbsp;·&nbsp; Operational, Constituative, and Implicit rules</p>
+
+</body>
+</html>

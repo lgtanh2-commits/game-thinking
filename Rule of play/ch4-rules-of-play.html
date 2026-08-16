@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 4: Design — Rules of Play</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f8f7f4;
+    --text: #1a1a1a;
+    --muted: #555;
+    --dim: #888;
+    --rule: #c8c4bc;
+    --pull-bg: #eeece8;
+    --pull-border: #1a1a1a;
+  }
+
+  html { background: var(--bg); }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.75;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 64px 28px 96px;
+  }
+
+  .book-meta {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 6px;
+  }
+
+  .unit-label {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 2px;
+    display: block;
+  }
+
+  .chapter-number {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  h1.chapter-title {
+    font-family: Georgia, serif;
+    font-size: 2.1rem;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 20px;
+  }
+
+  section { margin-bottom: 52px; }
+
+  h2 {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+  }
+
+  h3 {
+    font-family: Georgia, serif;
+    font-size: 1.08rem;
+    font-weight: bold;
+    font-style: italic;
+    margin: 28px 0 8px;
+    color: var(--text);
+  }
+
+  p { margin-bottom: 16px; }
+  p:last-child { margin-bottom: 0; }
+
+  blockquote {
+    background: var(--pull-bg);
+    border-left: 3px solid var(--pull-border);
+    margin: 24px 0;
+    padding: 16px 20px;
+    font-style: italic;
+    color: var(--text);
+    font-size: 1rem;
+  }
+
+  blockquote cite {
+    display: block;
+    margin-top: 8px;
+    font-style: normal;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-family: system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── core definition box ── */
+  .definition {
+    border: 1px solid var(--text);
+    padding: 22px 26px;
+    margin: 24px 0;
+  }
+
+  .definition p {
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ── definitions survey ── */
+  .def-survey {
+    margin: 20px 0;
+  }
+
+  .def-entry {
+    border-top: 1px solid var(--rule);
+    padding: 16px 0;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 20px;
+    align-items: baseline;
+  }
+
+  .def-entry:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .def-thinker {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dim);
+    line-height: 1.5;
+  }
+
+  .def-entry p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── four components grid ── */
+  .components {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+
+  .component {
+    background: var(--bg);
+    padding: 20px 16px;
+  }
+
+  .component-term {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .component p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── four semiotic concepts ── */
+  .semiotic-list {
+    margin: 20px 0;
+    counter-reset: semiotic;
+  }
+
+  .semiotic-item {
+    border-top: 1px solid var(--rule);
+    padding: 18px 0 18px 48px;
+    position: relative;
+    counter-increment: semiotic;
+  }
+
+  .semiotic-item:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .semiotic-item::before {
+    content: counter(semiotic);
+    position: absolute;
+    left: 0;
+    top: 18px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--dim);
+    width: 32px;
+  }
+
+  .semiotic-title {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .semiotic-item p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .semiotic-item p:last-child {
+    margin-bottom: 0;
+  }
+
+  .example-tag {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    color: var(--dim);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-meta">Rules of Play — Katie Salen &amp; Eric Zimmerman · MIT Press, 2004</p>
+<span class="unit-label">Unit 1: Core Concepts</span>
+<span class="chapter-number">Chapter 4</span>
+<h1 class="chapter-title">Design</h1>
+
+<!-- ── OVERVIEW ── -->
+<section>
+  <h2>Overview</h2>
+  <blockquote>
+    Design is the successive application of constraints until only a unique product is left.
+    <cite>— Donald Norman, <em>The Design of Everyday Things</em></cite>
+  </blockquote>
+  <p>"Design" is half of "game design." Chapter 4 asks what that word actually means — not in the abstract, but in a way that is useful for thinking about games. To get there, Salen and Zimmerman survey definitions from design theory, arrive at their own, and then take a detour through semiotics — the study of meaning — to explain why design and meaning are inseparable.</p>
+  <p>The chapter ends with a provocation that sets up Chapter 5: what game designers design is not objects or images or stories — it is <em>systems.</em></p>
+</section>
+
+<!-- ── SOME DEFINITIONS ── -->
+<section>
+  <h2>Some Definitions of Design</h2>
+  <p>There is no consensus definition of design. The word carries different weight in different practices. Rather than pick one, Salen and Zimmerman assemble several, chosen for how they illuminate different aspects of design that matter for games.</p>
+
+  <div class="def-survey">
+    <div class="def-entry">
+      <span class="def-thinker">Etymology<br><em>de + signare</em></span>
+      <p>"Design is making sense (of things)." The Latin root links design to signs and signification — designating an object's relation to other things, owners, users, or gods. Making sense is already a semiotic act.</p>
+    </div>
+    <div class="def-entry">
+      <span class="def-thinker">Richard Buchanan</span>
+      <p>Design is "concerned with the conception and planning of all instances of the artificial or human-made world." This situates design within the <em>artificial</em> — everything that results from human intention, as opposed to nature.</p>
+    </div>
+    <div class="def-entry">
+      <span class="def-thinker">Herbert Simon</span>
+      <p>"Everyone designs who devises courses of action aimed at changing existing situations into preferred ones." Design as deliberate, goal-directed action. By this definition, a game player is also a kind of designer.</p>
+    </div>
+    <div class="def-entry">
+      <span class="def-thinker">John Heskett</span>
+      <p>"Design: the conception of visual form." A more traditional definition, foregrounding the visual and the material. Useful as a contrast — game design is concerned with much more than appearance.</p>
+    </div>
+    <div class="def-entry">
+      <span class="def-thinker">Donald Schon</span>
+      <p>Design as a material conversation with forms, substances, and concepts. The approach is <em>process-driven</em> and <em>reflective</em>: "In a good process of design, this conversation is reflective... the designer reflects-in-action on the construction of the problem."</p>
+    </div>
+    <div class="def-entry">
+      <span class="def-thinker">George Nelson</span>
+      <p>"Every design is in some sense a social communication, and what matters is the emotional intensity with which the essentials have been explored and expressed." Design as communication — always addressed to someone, always carrying meaning.</p>
+    </div>
+    <div class="def-entry">
+      <span class="def-thinker">Emilio Ambasz</span>
+      <p>"It has always been my deep belief that architecture and design are both mythmaking acts." Design as the creation of meaning through story — poetic, cultural, not merely functional.</p>
+    </div>
+    <div class="def-entry">
+      <span class="def-thinker">Clive Dilnot</span>
+      <p>Design <em>transforms</em> — it explores the tension between the existing and the potential. "What design allows us to see is how we negotiate the limits of what we understand, at any moment, as the actual."</p>
+    </div>
+  </div>
+
+  <p>Each definition foregrounds a different quality: making, the artificial, action, visual appearance, reflection, communication, myth, transformation. Taken together they trace the territory of what design does. But none of them directly addresses the design of meaningful play. For that, Salen and Zimmerman offer their own.</p>
+
+  <div class="definition">
+    <p><strong>Design</strong> is the process by which a <em>designer</em> creates a <em>context</em> to be encountered by a <em>participant,</em> from which <em>meaning</em> emerges.</p>
+  </div>
+</section>
+
+<!-- ── FOUR COMPONENTS ── -->
+<section>
+  <h2>The Four Components</h2>
+  <p>Each term in the definition does specific work. In game design, the four components take on particular forms.</p>
+
+  <div class="components">
+    <div class="component">
+      <span class="component-term">Designer</span>
+      <p>The individual game designer or design team. Sometimes games emerge from folk or fan culture — in that case, the designer of the game can be considered culture at large.</p>
+    </div>
+    <div class="component">
+      <span class="component-term">Context</span>
+      <p>Takes the form of spaces, objects, narratives, and behaviors. The game world — its rules, its representations, its possibilities of action — is the context the designer creates.</p>
+    </div>
+    <div class="component">
+      <span class="component-term">Participant</span>
+      <p>The players. They inhabit, explore, and manipulate the designed context through play. Participants are not passive recipients — they are the ones from whom meaning emerges.</p>
+    </div>
+    <div class="component">
+      <span class="component-term">Meaning</span>
+      <p>The result of players taking actions in the course of play. Meaning is not designed into the game directly — it emerges from the interaction between participants and the context the designer has constructed.</p>
+    </div>
+  </div>
+
+  <blockquote>
+    The design is the game; without it you would have a CD full of data, but no experience.
+    <cite>— Doug Church, "Formal Abstract Design Tools"</cite>
+  </blockquote>
+
+  <p>Consider a game of Tag. Without design: a field of players scampering about, randomly touching each other. With design, a touch becomes meaningful as a "tag," the player who is "It" becomes a charged role, and the context of the playground becomes a space of structured interaction. Design does not add decoration — it creates the conditions under which play can mean anything at all.</p>
+</section>
+
+<!-- ── DESIGN AND MEANING ── -->
+<section>
+  <h2>Design and Meaning</h2>
+  <p>To ask what something "means" in a design context is to locate its value or significance — to understand what it does in relation to everything else around it. Designers are fundamentally interested in meaning because human experience is constituted by the ongoing activity of making sense: we engage with, interpret, and construct meaning from everything we encounter.</p>
+
+  <p>Consider how many ways one gesture can mean "Hello, my friend": a wave, a nod, a kiss on the cheek, a warm hug, a firm handshake, a gentle punch on the arm. Each is a sign within a system of social conventions. If you fail to read the system — if you try to shake hands in a context that calls for a bow — the meaning breaks down.</p>
+
+  <p>Game designers create systems of interaction that give rise to meaning-making activities: moving a game piece, wagering a bet, communicating "Hello" to online characters in a virtual world. The field of semiotics — the study of meaning and how it is made — offers tools for understanding how these systems work.</p>
+</section>
+
+<!-- ── SEMIOTICS ── -->
+<section>
+  <h2>Semiotics: A Brief Overview</h2>
+  <blockquote>
+    It is possible to conceive of a science which studies the role of signs as part of life... We shall call it semiology (from the Greek <em>semeîon</em>, "sign"). It would investigate the nature of signs and the laws governing them.
+    <cite>— Ferdinand de Saussure, <em>Course in General Linguistics</em></cite>
+  </blockquote>
+
+  <p>Semiotics emerged from Ferdinand de Saussure's teachings in the early twentieth century. His theory of language as a system of signs influenced Claude Lévi-Strauss, Jacques Derrida, and Roland Barthes — writers who shared an interest in how cultural products, from languages to funeral rituals to games, could produce meaning.</p>
+
+  <p>In a general sense, semiotics asks: how are meanings made? What do signs represent, and how does that representation work? A high-society dinner party, read semiotically, becomes a system of signs: the table settings denote a space for eating; fine china represents social class; the seating arrangement conveys status; the act of attending represents elegance, power, or community.</p>
+
+  <p>The basic unit of this system is the sign. Charles S. Peirce defines a sign as "something that stands for something, to somebody, in some respect or capacity." His definition identifies four concepts that constitute how signs work — and all four matter directly for game design.</p>
+</section>
+
+<!-- ── FOUR SEMIOTIC CONCEPTS ── -->
+<section>
+  <h2>Four Semiotic Concepts</h2>
+
+  <div class="semiotic-list">
+
+    <div class="semiotic-item">
+      <span class="semiotic-title">A sign represents something other than itself</span>
+      <p>A sign "stands for something" — it does not simply <em>be</em> the thing, it points to it. In Tic-Tac-Toe, the circle (O) represents not only a player's move but also the capture of a square in a nine-square grid. In Assassin, a tap on the arm means "death" or "capture" — not merely a tap.</p>
+      <p>These action-signs form "chains of signifiers" — sequences that gain meaning as part of larger patterns of interaction. Games also use signs to build their worlds: the universe of Mario is a system of signs (coins, stars, pipes, enemies) that collectively represent a game landscape.</p>
+      <p>Crucially, signs in games derive their meaning from <em>within</em> the game context. In Scrabble, the letter sequence H-O-N-K-I-E is a six-letter word worth a certain number of points — stripped of everything except its syntactical relationships. Outside Scrabble, the same sequence carries a racial meaning that has no place in the scoring system. Context is doing all the work.</p>
+      <p class="example-tag">Scrabble / Tic-Tac-Toe / Assassin / Mario</p>
+    </div>
+
+    <div class="semiotic-item">
+      <span class="semiotic-title">Signs are interpreted</span>
+      <p>Signs stand for something <em>to somebody.</em> Meaning does not reside in the sign itself — it emerges from the act of interpretation. Saussure's fundamental insight: meanings arrive arbitrarily via cultural convention. There is no necessary reason why a pig should be called "pig" — the sequence of sounds p-i-g was agreed upon by convention, not discovered in nature.</p>
+      <p>In games, players are the active interpreters of a game's sign system. Children playing Tag may change the sign for "home base" from game to game — a tree today, a pile of rocks tomorrow. Nothing in the tree makes it home base; it becomes home base through the players' collective agreement. Signs are essentially arbitrary; they gain value through shared convention.</p>
+      <p class="example-tag">Tag / Saussure</p>
+    </div>
+
+    <div class="semiotic-item">
+      <span class="semiotic-title">Meaning results when a sign is interpreted</span>
+      <p>A sign stands for something to somebody <em>in some respect or capacity.</em> Meaning emerges from the relationship between a sign and its interpreter within a system. Context determines whether a sign has value or not.</p>
+      <p>Sitting down to a formal dinner and finding chopsticks next to the bowl: if you interpret the setting within the sign system "soup utensils," the chopsticks have no value — they are not spoons. If you interpret the setting within the sign system of the dinner's host culture, the chopsticks are exactly right. One arrangement of objects, two systems of interpretation, two different meanings.</p>
+      <p>In Rock-Paper-Scissors: if player A holds up three fingers in a "W" rather than two, and player B accepts it as "scissors," a new sign has been added to the system. Meaning was negotiated in real time between the interpreters.</p>
+      <p class="example-tag">Rock-Paper-Scissors / formal dinner</p>
+    </div>
+
+    <div class="semiotic-item">
+      <span class="semiotic-title">Context shapes interpretation</span>
+      <p>Context is the environment of a sign — the surrounding elements that help determine what a sign means. The phrase "I am lost" means something different in Zork depending on whether the player has just entered the game or has been wandering a dungeon for twenty minutes. The words are the same; the context changes everything.</p>
+      <p>Related to context is <em>structure</em> — the invisible grammar of a system, prescribing how signs can be combined. In language, grammatical structure allows us to extract meaning from a sentence even when individual words are unfamiliar. Communication theorist David Berlo's example: "Most smoogles have comcom." We don't know what smoogles or comcom are, but we know smoogle is a countable noun and comcom is a quality or thing — the structure of English grammar has already told us something significant.</p>
+      <p>In games, structure takes the form of rules. The rules of Chess create an invisible structure describing how all elements of the game interact with one another. Structure participates in meaning-making — by ordering elements in particular ways, it constrains and enables interpretation.</p>
+      <p class="example-tag">Zork / Pictionary / Berlo's "smoogles"</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── WHAT DESIGNERS DESIGN ── -->
+<section>
+  <h2>What Game Designers Design</h2>
+  <p>To design is to create meaning. Not one isolated sign, but whole systems of interlocking parts — because the value of any sign only arises in relation to the other signs around it. In Rock-Paper-Scissors, "rock" has identity only in opposition to "paper" and "scissors." Remove one and the system collapses.</p>
+
+  <p>The meaningful play a designer provides for players emerges from the designed system of a game — and from how that game interacts with larger social and cultural systems. The action-outcome relationships that define meaningful play (Chapter 3) are meaningful because they take place within a sign system that gives each action and outcome its value.</p>
+
+  <blockquote>
+    What is it that game designers design? <em>Systems.</em>
+    <cite>— Salen &amp; Zimmerman</cite>
+  </blockquote>
+
+  <p>This is the question Chapter 5 takes up directly. Understanding design as the creation of contexts from which meaning emerges leads immediately to asking: what kind of thing is a context? What is its internal structure? The answer — that games are systems with specifiable elements, attributes, relationships, and environments — is the foundation on which the rest of Unit 1 is built.</p>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 28: Games as Social Play — Rules of Play</title>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --text: #1a1a1a;
+  --muted: #555;
+  --dim: #888;
+  --rule: #c8c4bc;
+  --pull-bg: #eeece8;
+  --pull-border: #1a1a1a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+}
+header { margin-bottom: 56px; }
+.eyebrow { font-family: system-ui, -apple-system, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 10px; }
+h1 { font-family: Georgia, serif; font-size: 1.85rem; font-weight: normal; line-height: 1.25; margin-bottom: 14px; }
+.subtitle { font-size: 1rem; color: var(--muted); font-style: italic; }
+h2 { font-family: system-ui, -apple-system, sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-top: 8px; border-top: 1px solid var(--rule); margin-top: 52px; margin-bottom: 16px; }
+h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
+p { margin-bottom: 1em; }
+blockquote { background: var(--pull-bg); border-left: 3px solid var(--pull-border); margin: 24px 0; padding: 16px 20px; font-style: italic; }
+blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.grid-cell { background: var(--bg); padding: 18px 16px; }
+.grid-cell strong { font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.summary-box { border: 1px solid var(--rule); padding: 28px 32px; margin: 40px 0 0; }
+.summary-box h3 { margin-top: 0; font-style: normal; font-size: 0.75rem; font-family: system-ui, sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.summary-box ul { padding-left: 22px; }
+.summary-box li { margin-bottom: 0.6em; }
+.callout { font-family: system-ui, sans-serif; font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 12px; margin-top: 32px; }
+.definition-box { border: 2px solid var(--text); padding: 24px 28px; margin: 32px 0; text-align: center; }
+.definition-box .def-label { font-family: system-ui, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 12px; }
+.definition-box .def-text { font-size: 1.2rem; font-style: italic; line-height: 1.5; }
+.role-table { border: 1px solid var(--rule); margin: 24px 0; font-size: 0.92em; }
+.role-table .rt-header { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); }
+.role-table .rt-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); }
+.rt-cell { background: var(--bg); padding: 12px 16px; }
+.rt-cell.head { background: var(--pull-bg); font-family: system-ui, sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.game-card { border: 1px solid var(--rule); margin: 20px 0; }
+.game-card-title { background: var(--pull-bg); padding: 12px 18px; font-family: system-ui, sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--rule); }
+.game-card-body { padding: 18px; }
+.metagame-row { display: grid; grid-template-columns: 80px 1fr; gap: 1px; background: var(--rule); border-bottom: 1px solid var(--rule); }
+.metagame-row:last-child { border-bottom: none; }
+.metagame-label { background: var(--pull-bg); padding: 16px 14px; font-family: system-ui, sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; }
+.metagame-content { background: var(--bg); padding: 16px 18px; }
+.metagame-content strong { font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
+.metagame-wrap { border: 1px solid var(--rule); margin: 24px 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Rules of Play · Unit 3: Play · Chapter 28</span>
+  <h1>Games as Social Play</h1>
+  <p class="subtitle">How games create, shape, and are shaped by communities of players</p>
+</header>
+
+<blockquote>
+  We are beginning to create a play community — not a forever community with a fixed code, but a community whose members share the ability to play together and to keep their game in good repair.
+  <cite>— Bernie DeKoven, <em>The Well-Played Game</em></cite>
+</blockquote>
+
+<h2>Introducing Social Play</h2>
+
+<p>The previous schemas in Unit 3 examined play as it unfolds within a single player's experience — the loop of perception, decision, and action; the pleasures of mastery and flow; the generation of meaning through signs and frames. This final schema turns outward, to the social dimension of play: the ways in which games create relationships among players, and the ways in which those relationships create and sustain games.</p>
+
+<p>For much of game design history, the single-player model dominated. Yet games are, at their origin, fundamentally social. Chess, Go, Poker, Tag, and the vast majority of games that have shaped human culture are played between and among people. The emergence of networked digital games represents not a departure from gaming's past but a return to its social roots.</p>
+
+<p>Social play introduces complexity that no formal rule system fully captures. When people play together, they bring with them their histories, relationships, strategies, and social identities. The game is not just a formal system — it is a social event, and understanding it requires attending to what happens between players as much as what happens within the rules.</p>
+
+<h2>Social Relations in Play</h2>
+
+<p>Games produce two kinds of social relations, which operate on different planes:</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Internal Social Relations</strong>
+    Relationships generated by the game's formal rules — opponent, teammate, rival, ally. These are constituted by and meaningful within the game system itself. In Chess, your opponent is your opponent because the rules make it so.
+  </div>
+  <div class="grid-cell">
+    <strong>External Social Relations</strong>
+    Relationships that players bring from outside the magic circle — friendship, rivalry, family, professional hierarchy. These pre-exist the game and continue after it ends. They shape how the game is played without being defined by the rules.
+  </div>
+</div>
+
+<p>Consider Tic-Tac-Toe played between two friends. The game is, formally, a trivial one — a solved game with a known outcome under optimal play. But Tic-Tac-Toe also functions as a communication system: the act of playing together, passing the paper back and forth, sharing attention, is a way of being with another person. The game's formal simplicity is precisely what allows the external social relation — friendship — to take center stage.</p>
+
+<p>In contrast, a game of Poker among strangers foregrounds internal relations: the game's formal structure of betting, bluffing, and confrontation creates the relationships. Players who had no connection before sitting down at the table are transformed, within the magic circle, into opponents with real stakes.</p>
+
+<h2>Player Roles: Sutton-Smith's Model</h2>
+
+<p>Psychologist Brian Sutton-Smith proposed a structural model for describing the role relationships generated within game play. He identified two fundamental player positions — the <strong>actor</strong> (the player who takes initiative) and the <strong>counteractor</strong> (the player who responds) — connected through what he called a <em>motive of play</em>: a named activity that defines the nature of their interaction.</p>
+
+<p>Sutton-Smith identified eight primary motives:</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Race</strong>
+    Actor and counteractor compete to reach a goal first. The relationship is parallel pursuit — neither directly impedes the other. Examples: footraces, competitive typing games.
+  </div>
+  <div class="grid-cell">
+    <strong>Chase</strong>
+    Actor pursues counteractor through space. The relationship is asymmetric: one defines threat, the other defines flight. Examples: Tag, Pac-Man.
+  </div>
+  <div class="grid-cell">
+    <strong>Attack</strong>
+    Actor attempts to diminish, harm, or destroy counteractor's position or resources. Direct confrontation. Examples: Chess, Battleship, fighting games.
+  </div>
+  <div class="grid-cell">
+    <strong>Capture</strong>
+    Actor seeks to possess, trap, or control the counteractor or their assets. Constraint rather than destruction. Examples: Go, capture-the-flag games.
+  </div>
+  <div class="grid-cell">
+    <strong>Harassment</strong>
+    Actor persistently impedes, annoys, or disrupts the counteractor. The goal is obstruction rather than direct defeat. Examples: many card games, Uno's draw-four attacks.
+  </div>
+  <div class="grid-cell">
+    <strong>Search</strong>
+    Actor seeks hidden information or objects. The counteractor is the concealer, or concealment itself. Examples: hide-and-seek, mystery games, Minesweeper.
+  </div>
+  <div class="grid-cell">
+    <strong>Rescue</strong>
+    Actor attempts to retrieve, protect, or restore something of value to the counteractor's advantage. Examples: many cooperative games, escort missions in video games.
+  </div>
+  <div class="grid-cell">
+    <strong>Seduction</strong>
+    Actor attempts to persuade, entice, or manipulate the counteractor into a disadvantageous position. Examples: bluffing games, negotiation games, social deduction games.
+  </div>
+</div>
+
+<p>Several important observations qualify this model. First, it is not limited to two-player games — many players may simultaneously occupy actor and counteractor roles in shifting configurations. Second, multiple motives can operate simultaneously within a single game: Chess involves both attack and capture, negotiation games involve seduction and harassment. Third, the model applies to non-human counteractors as well — a player races against time, searches a puzzle's hidden logic, is chased by the ghosts in Pac-Man. Fourth, different levels of a game may engage different motives: a real-time strategy game involves attack at the tactical level and seduction (diplomacy) at the strategic level.</p>
+
+<h2>Bartle's MUD Player Types</h2>
+
+<p>Richard Bartle, co-creator of the first MUD (Multi-User Dungeon), developed a well-known taxonomy of player types derived from observation of multi-user game communities. Unlike Sutton-Smith's model, which is generated from within the game's formal structure, Bartle's types describe players' <em>external</em> orientations — what they are playing <em>for</em>.</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Achievers (♦ Diamonds)</strong>
+    Motivated by advancement within the game's formal progress systems — leveling, unlocking, accumulating resources. The game world is a series of challenges to be mastered and milestones to be reached.
+  </div>
+  <div class="grid-cell">
+    <strong>Explorers (♠ Spades)</strong>
+    Motivated by discovering the game's internal structures — hidden areas, secret mechanics, edge cases in the rules. Content to dig where others haven't and map what hasn't been mapped.
+  </div>
+  <div class="grid-cell">
+    <strong>Socializers (♥ Hearts)</strong>
+    Motivated primarily by direct social interaction with other players. The game world is a meeting place; its formal systems are secondary to the relationships and conversations they enable.
+  </div>
+  <div class="grid-cell">
+    <strong>Killers (♣ Clubs)</strong>
+    Motivated by imposing on other players — defeating, frustrating, or disrupting them. Distinguished from Achievers by their orientation toward other players as the site of challenge rather than the game system itself.
+  </div>
+</div>
+
+<p>Bartle's model maps these types onto two axes: action versus interaction, and world versus players. Achievers act on the world; Explorers interact with the world; Socializers interact with players; Killers act on players. The model reveals that the same formal game can be experienced in fundamentally different ways depending on the player's external orientation — and that designing for one type may alienate another.</p>
+
+<h2>Three Emergent Social Games</h2>
+
+<p>The following games illustrate different facets of social play: the psychology of bluffing, the drama of hidden information, and the primacy of collective physical experience.</p>
+
+<div class="game-card">
+  <div class="game-card-title">Little Max — Reiner Knizia</div>
+  <div class="game-card-body">
+    <p>A dice bluffing game for any number of players. On each turn, a player rolls two dice secretly under a cup, then declares a result — truthfully or not. The next player must either accept the claim (taking the dice and continuing) or challenge it (lifting the cup). If the claim was false, the claimer loses a chip. If the claim was true, the challenger loses a chip.</p>
+    <p>The ranking of values: Little Max (a one and a two, the lowest roll) beats all pairs, which beat all other combinations. This inversion gives the game its psychological heart — the worst roll is also the most powerful bluff.</p>
+    <p>Knizia describes the psychology as "how to be a duck" — presenting a calm surface while managing internal uncertainty. Body language, vocal tone, and table history determine outcomes as much as probability. An experienced player loses a die from the cup and continues play as if nothing changed; a story passes through the group. Little Max is social performance as much as it is game.</p>
+  </div>
+</div>
+
+<div class="game-card">
+  <div class="game-card-title">Mafia — Social Deduction Game</div>
+  <div class="game-card-body">
+    <p>For eight to ten players. Cards deal roles secretly: one player receives the moderator's card (heart), two or three receive mafia roles (spades), the rest become villagers (diamonds). Only mafia members know their co-conspirators.</p>
+    <p>Play alternates between two phases. During the night, all players close their eyes; the moderator instructs mafia to open theirs and silently agree on a victim; all eyes reopen and the death is announced. During the day, all players discuss, accuse, and vote to execute a suspect — who reveals their card upon elimination. The mafia wins when they equal or outnumber the villagers; villagers win by eliminating all mafia.</p>
+    <p>The game's social power lies in what it does to ordinary communication. Every statement becomes suspect; every alliance is contingent; every accusation may be deflection. The shrinking circle of players — as both mafia and village are eliminated — generates mounting tension. Mafia creates the experience of paranoia as a shared social condition, formalized and made safe by the game's structure.</p>
+  </div>
+</div>
+
+<div class="game-card">
+  <div class="game-card-title">Stand Up — The New Games Book</div>
+  <div class="game-card-body">
+    <p>Two players sit on the ground, back to back, arms linked at the elbows. The goal is simple: stand up together. Facing away from each other means all coordination must happen through physical sensation alone — pressure, balance, timing felt through linked arms and shared weight.</p>
+    <p>What makes Stand Up remarkable as a social game is its self-propagating character. The spectacle of two people struggling and succeeding draws observers in; the game naturally recruits new players. Its cooperative structure creates social relationships through physical interdependence — participants cannot succeed alone, and the act of succeeding together produces a moment of shared achievement.</p>
+    <p>Stand Up belongs to the New Games tradition: play designed not to produce competition or winners, but to create social connection through structured physical experience. The game is its social function.</p>
+  </div>
+</div>
+
+<h2>Bounded Communities</h2>
+
+<p>Bernie DeKoven's concept of the <strong>play community</strong> describes the social entity that forms around a game — the group of players who share the capacity to play together and who maintain that capacity across time. A play community is not simply a collection of individuals who happen to share a game; it is a relationship sustained by shared practice.</p>
+
+<p>Play communities can be understood along a spectrum from bounded to unbounded:</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Bounded Communities</strong>
+    Closed systems: the community exists only within and for the duration of a single game instance. Players form a community precisely because they are playing; the game ends and the community dissolves. Most casual play creates bounded communities.
+  </div>
+  <div class="grid-cell">
+    <strong>Unbounded Communities</strong>
+    Open systems: the community persists across multiple games and sessions, maintaining relationships and shared history that carry forward. Tournament circuits, fan communities, ongoing campaigns, and sports leagues create unbounded play communities.
+  </div>
+</div>
+
+<p>DeKoven identifies a generative paradox at the heart of play community: the game is both the product of the community and the condition of the community's existence. Players come together to play a game; in playing, they become a community; the community, in turn, shapes what the game is and how it is played. The game does not precede the community, nor does the community precede the game — they constitute each other in the act of play.</p>
+
+<h2>The Contract for Artifice</h2>
+
+<p>Jean Piaget's landmark study <em>The Moral Judgment of the Child</em> (1932) examined how children acquire and understand game rules through extended observation of children playing marbles. His findings illuminate the social foundations of game rules themselves.</p>
+
+<p>Piaget distinguished game rules — which he called "rules of artifice" — from moral rules. Moral rules are given by adults and experienced by children as originating from an authority external to themselves. Game rules, by contrast, are <em>elaborated by children among themselves</em> — invented, negotiated, modified by mutual consent. This makes game rules a unique domain: the child's earliest encounter with rules they themselves have authority over.</p>
+
+<p>DeKoven's play community implies what we might call a <strong>contract for artifice</strong>: an implicit agreement among players to accept the game's artificial rules as binding for the duration of play. This social contract rests on two foundations:</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Safety</strong>
+    Players must be able to participate in the game without real-world harm — physical, emotional, or social. The magic circle must be a protected space. Without safety, the invitation to play cannot be genuinely accepted.
+  </div>
+  <div class="grid-cell">
+    <strong>Trust</strong>
+    Players must be able to rely on each other's commitment to the contract. A player who defects from the game's shared frame — who treats a play-punch as a real punch — destroys the social foundation on which the game depends.
+  </div>
+</div>
+
+<h2>Knowing the Rules</h2>
+
+<p>Piaget's marbles study also traced how children's understanding of rules evolves across development. He identified three stages in the acquisition of game rules:</p>
+
+<div class="grid cols-3">
+  <div class="grid-cell">
+    <strong>Stage 1 — Individual Play</strong>
+    (Around age 5) Children play alone or alongside others without fixed rules. Rituals exist, but they are personal — derived from motor habits and pleasure, not from shared convention. The child has no concept of winning or losing as socially defined.
+  </div>
+  <div class="grid-cell">
+    <strong>Stage 2 — Heteronomous Rules</strong>
+    (Around ages 8–10) Rules are understood as sacred, eternal, emanating from adult authority or divine origin. You cannot change the rules — to do so would be to violate something absolute. Paradoxically, children at this stage are often unaware of the actual rules; their reverence does not require knowledge.
+  </div>
+  <div class="grid-cell">
+    <strong>Stage 3 — Autonomous Rules</strong>
+    (After age 10) Rules are understood as a flexible social contract — valid because players agree to them, changeable by mutual consent, binding only for the duration of play. This is the mature understanding of games as artificial systems: rules matter not because of authority, but because shared agreement makes them work.
+  </div>
+</div>
+
+<p>The trajectory Piaget traces — from individual ritual to reverential obedience to autonomous contract — maps onto the development of genuine social play. The child who reaches Stage 3 understands what DeKoven articulates conceptually: games are what communities make of them, and communities are what games bring into being.</p>
+
+<h2>Transformative Social Play</h2>
+
+<p>Rules exist in at least two forms. Sociologists Jeff Goldstein and Patricia Manning distinguish between <strong>ideal rules</strong> — the official, codified regulations of a game — and <strong>real rules</strong> — the rules as actually understood and practiced by a particular play community. The gap between them is the space of transformative social play.</p>
+
+<blockquote>
+  In actual practice, players do not mechanically apply ideal rules but create real rules that serve their purposes and preferences. The play community legislates from within the magic circle.
+</blockquote>
+
+<p>Sociologist Linda Hughes spent three years observing children playing Foursquare on a playground in a Philadelphia suburb. Her findings are a masterclass in how real rules diverge from ideal rules, and what that divergence reveals about social dynamics.</p>
+
+<p>Foursquare is a simple ball game played in a four-square grid. Players occupy the four squares and volley a ball among them; players who fail to return the ball move to the lowest-ranked square. The rules are minimal and easy to learn. But Hughes found that the game children actually played was vastly more complex — layered with unofficial rules, variations, exceptions, and power dynamics that the ideal rules say nothing about.</p>
+
+<h3>The Rooie Rules Problem</h3>
+
+<p>In Hughes's observation, boys frequently called "slams" (a powerful downward strike) and "wings" (hitting the ball off to the side). Girls countered by calling "Rooie Rules" — invocation of a simplified, fair-play variant that prohibited the flashier and more aggressive techniques.</p>
+
+<p>When a boy named Andy called "wings," the group confronted a genuine conflict: his invocation of a technique and the girls' counter-invocation of a framework that disallowed it. Neither position could appeal to the ideal rules to settle the dispute — the ideal rules said nothing about either wings or Rooie Rules. Resolution required social negotiation, an appeal to the real rules of this particular play community at this particular moment.</p>
+
+<p>What Hughes observed was <strong>gaming the game</strong> — players using the game's rule system as a resource in their social and strategic interactions, rather than simply complying with it. The game's rules became instruments of social power: who could call what, when, and with what authority was itself a game played on top of the formal game.</p>
+
+<h2>Forbidden Play</h2>
+
+<p>Games also create a distinctive social possibility that Sutton-Smith calls <strong>forbidden play</strong> — games that permit behavior normally prohibited by social norms. The formal structure of the game provides a sanctioned context for experiences that would otherwise be transgressive.</p>
+
+<p>Sutton-Smith's 1959 study of adolescent kissing games in Ohio catalogued six variants practiced by twelve-to-fourteen-year-olds: The Card Game, Draw and Kiss, Endurance Kissing, Flashlight, Pass the Orange, and Spin the Bottle. Each game structured desire within formal constraints — chance mechanisms (spinning, drawing, passing) transformed voluntary individual choice into rule-governed obligation.</p>
+
+<p>The social function of the kissing game is precisely this structural transformation. Adolescents can participate in physical intimacy under the protection of the game frame: "I had to — the rules said so." The game provides what ordinary social life withholds: a legitimate context for crossing otherwise-forbidden boundaries. The magic circle becomes a space of licensed transgression.</p>
+
+<p>But forbidden play involves a deeper structure than simple license. The kissing game player is simultaneously obeying the game's formal rules and violating the implicit social rules about adolescent sexuality. The double transgression — against both the game's implicit rules (fair play, non-exploitation) and society's norms — is precisely what gives forbidden play its charge. Play rebels against the limits of both the game world and the real world at once.</p>
+
+<h2>The Metagame</h2>
+
+<p>Game designer Richard Garfield coined the term <strong>metagame</strong> to describe the social and strategic context that surrounds and exceeds any single game instance. His definition: <em>"a game interfaces outside of itself."</em> The metagame is the game beyond the game — everything that happens before, after, around, and between plays that shapes how the game is understood and experienced.</p>
+
+<div class="definition-box">
+  <span class="def-label">Metagame</span>
+  <div class="def-text">The larger social, strategic, and cultural context in which individual game instances are embedded — what players bring to a game, take from it, do between sessions, and experience during play beyond the formal rules.</div>
+</div>
+
+<p>The metagame is not an accident of play but a designed possibility — one that the best game designers cultivate deliberately, even though most of it lies beyond their direct control.</p>
+
+<h2>Garfield's Metagame Model</h2>
+
+<p>Garfield proposed four categories for analyzing the metagame, each capturing a different dimension of a game's social life:</p>
+
+<div class="metagame-wrap">
+  <div class="metagame-row">
+    <div class="metagame-label">To</div>
+    <div class="metagame-content">
+      <strong>What Players Bring to the Game</strong>
+      Resources, preparation, reputation, and skill a player brings into any given play instance. In <em>Magic: The Gathering</em>, players construct their own decks from a personal card collection — they bring half the game with them. Strategic preparation (studying decks, analyzing opponents), peripheral resources (dice, card sleeves, reference sheets), and player reputation (a known aggressive player may intimidate before playing a card) all contribute to the metagame of preparation.
+    </div>
+  </div>
+  <div class="metagame-row">
+    <div class="metagame-label">From</div>
+    <div class="metagame-content">
+      <strong>What Players Take Away</strong>
+      Stakes, experience, stories, and resources players acquire through play. In <em>Magic</em>, tournament standings, ante rules (wagering cards), and the story of a memorable game all constitute what a player takes from play. The player who walks away having told a story worth telling has gained something beyond the formal outcome.
+    </div>
+  </div>
+  <div class="metagame-row">
+    <div class="metagame-label">Between</div>
+    <div class="metagame-content">
+      <strong>What Happens Between Games</strong>
+      The social and strategic activity of the play community between play sessions. In <em>Magic</em>, trading cards, constructing new decks, reading strategy articles, and discussing the meta with other players are all between-game metagame activity. This is where communities learn, adapt, and evolve their collective understanding of the game.
+    </div>
+  </div>
+  <div class="metagame-row">
+    <div class="metagame-label">During</div>
+    <div class="metagame-content">
+      <strong>Real-Life Influences During Play</strong>
+      The social atmosphere, interpersonal dynamics, and environmental context that shape a game instance beyond its formal rules. Trash-talking, reputation-driven motivation (winning with an unusual deck to prove a point), social performance, environmental factors (home advantage, crowd energy) — all of these enter the game from the social world during play itself.
+    </div>
+  </div>
+</div>
+
+<h2>Designing the Metagame</h2>
+
+<p><em>Magic: The Gathering</em> is the paradigmatic example of deliberate metagame design. Garfield designed Magic as what game designer Greg Costikyan calls an <strong>exceptions game</strong> — a game built not on a single coherent rule set but on a cascade of specific card effects that override and modify each other. Each new card is a locally exceptional rule. The result is a system of extraordinary combinatorial depth: no two decks are identical, no two games unfold the same way.</p>
+
+<p>The modular card structure makes metagame exploration not just possible but necessary. A player cannot simply learn "the game" — they must engage with the ongoing social conversation about which cards are dominant, which combinations are underexplored, how the current competitive environment should be understood. Magic's metagame is itself a game, played by the collective intelligence of its player community over years and expansions.</p>
+
+<blockquote>
+  Metagaming increases a game's lifespan. It motivates players to return and experiment, building community relationships in the process.
+  <cite>— François Laramée</cite>
+</blockquote>
+
+<p>The metagame presents game designers with a distinctive version of the second-order design problem. Designers cannot directly design the metagame — they cannot author the conversations, the community strategies, the between-session deck-building sessions. What they can do is create formal game systems that are rich enough, flexible enough, and socially engaging enough to sustain a living metagame culture. The goal is not to control the metagame but to create conditions in which a vibrant one can emerge.</p>
+
+<h2>The Limits of Social Play</h2>
+
+<p>The analysis of games as social play reaches an edge: the social relations that games produce and depend upon are never fully contained within the magic circle. Players who sit down to play Magic: The Gathering bring with them not just their decks and their strategic knowledge, but their social identities — nationality, language, cultural background, ideological commitments, economic circumstances. These do not disappear when the game begins.</p>
+
+<p>The play community is always already embedded in a larger cultural context that shapes who can play, how they play, what they bring to the game, and what the game means to them. This is the threshold where the schema of Social Play gives way to the fourth and final unit of <em>Rules of Play</em>: games as <em>cultural play</em>. If play is social, society is cultural — and games, as social phenomena, are always also cultural ones.</p>
+
+<div class="summary-box">
+  <h3>Chapter Summary</h3>
+  <ul>
+    <li>Games produce two kinds of social relations: <strong>internal</strong> (generated by formal rules) and <strong>external</strong> (brought from outside the magic circle). Both operate simultaneously during play.</li>
+    <li>Sutton-Smith's model identifies <strong>actor</strong> and <strong>counteractor</strong> roles connected by eight primary <strong>motives of play</strong>: race, chase, attack, capture, harassment, search, rescue, and seduction. Multiple motives can operate at once; the model is not limited to two human players.</li>
+    <li>Bartle's four player types — <strong>Achievers, Explorers, Socializers, and Killers</strong> — describe externally derived orientations toward games that co-exist within any multi-player environment.</li>
+    <li>Social games like <strong>Little Max, Mafia,</strong> and <strong>Stand Up</strong> demonstrate different dimensions of emergent social play: bluffing psychology, hidden-information paranoia, and cooperative physical experience.</li>
+    <li>DeKoven's <strong>play community</strong> — the group that sustains the ability to play together — can be bounded (single session) or unbounded (cross-session). The game constitutes the community as much as the community constitutes the game.</li>
+    <li>Piaget identified three stages of game rule acquisition: individual ritual, <strong>heteronomous reverence</strong> (rules as sacred), and <strong>autonomous contract</strong> (rules as flexible mutual agreement). Only the third stage constitutes mature social play.</li>
+    <li><strong>Ideal rules</strong> (official regulations) and <strong>real rules</strong> (community practice) always diverge. Hughes's Foursquare study demonstrates how players <em>game the game</em> — using rules as instruments of social strategy.</li>
+    <li><strong>Forbidden play</strong> uses the game frame to permit normally prohibited behavior. The game's formal structure provides licensed transgression.</li>
+    <li>The <strong>metagame</strong> is the game beyond the game: everything brought <em>to</em> a game, taken <em>from</em> it, occurring <em>between</em> sessions, and happening <em>during</em> play beyond the formal rules. Garfield's four categories map this extended social space.</li>
+    <li>Deliberate <strong>metagame design</strong> — exemplified by <em>Magic: The Gathering</em> — creates formal systems flexible and rich enough to sustain a living community of practice across time. This is a second-order design challenge: designers cannot author the metagame, only cultivate conditions for it.</li>
+    <li>Social play is always embedded in cultural context — the play community exists within, and is shaped by, the larger society it inhabits.</li>
+  </ul>
+</div>
+
+<p class="callout">Katie Salen &amp; Eric Zimmerman · <em>Rules of Play: Game Design Fundamentals</em> · MIT Press, 2004 · Unit 3: Play</p>
+
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch. 13 — Rules of Digital Games · Rules of Play</title>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --text: #1a1a1a;
+  --muted: #555;
+  --dim: #888;
+  --rule: #c8c4bc;
+  --pull-bg: #eeece8;
+  --pull-border: #1a1a1a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+}
+header { margin-bottom: 56px; }
+.eyebrow {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+  display: block;
+  margin-bottom: 10px;
+}
+h1 {
+  font-family: Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: normal;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.subtitle { font-size: 1rem; color: var(--muted); font-style: italic; }
+h2 {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 8px;
+  border-top: 1px solid var(--rule);
+  margin-top: 52px;
+  margin-bottom: 16px;
+}
+h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
+p { margin-bottom: 1em; }
+blockquote {
+  background: var(--pull-bg);
+  border-left: 3px solid var(--pull-border);
+  margin: 24px 0;
+  padding: 16px 20px;
+  font-style: italic;
+}
+blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.grid-cell { background: var(--bg); padding: 18px 16px; }
+.grid-cell strong {
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 6px;
+}
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.rule-list {
+  list-style: none;
+  counter-reset: rule-counter;
+  border: 1px solid var(--rule);
+  margin: 20px 0 24px;
+}
+.rule-list li {
+  counter-increment: rule-counter;
+  padding: 12px 20px 12px 52px;
+  position: relative;
+  border-bottom: 1px solid var(--rule);
+}
+.rule-list li:last-child { border-bottom: none; }
+.rule-list li::before {
+  content: counter(rule-counter);
+  position: absolute;
+  left: 18px;
+  top: 14px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--dim);
+}
+.three-levels {
+  border: 1px solid var(--rule);
+  margin: 24px 0;
+}
+.level-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.level-row:last-child { border-bottom: none; }
+.level-label {
+  background: var(--pull-bg);
+  padding: 16px 20px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.level-content {
+  background: var(--bg);
+  padding: 16px 20px;
+}
+.layers-stack {
+  border: 1px solid var(--rule);
+  margin: 24px 0;
+}
+.layer {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+}
+.layer:last-child { border-bottom: none; }
+.layer-name {
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 2px;
+}
+.summary-box {
+  border: 1px solid var(--rule);
+  padding: 28px 32px;
+  margin: 40px 0 0;
+}
+.summary-box h3 {
+  margin-top: 0;
+  font-style: normal;
+  font-size: 0.75rem;
+  font-family: system-ui, sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.summary-box ul { padding-left: 22px; }
+.summary-box li { margin-bottom: 0.6em; }
+.callout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.82rem;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+  margin-top: 32px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Rules of Play &nbsp;·&nbsp; Unit Two: Rules &nbsp;·&nbsp; Chapter 13</span>
+  <h1>Rules of Digital Games</h1>
+  <p class="subtitle">Code enforces rules automatically — but the three-level model still applies. What changes, and what stays the same.</p>
+</header>
+
+<h2>Code Is Not Rules</h2>
+<p>The most important opening move this chapter makes is a distinction that is easy to miss: code is not the same thing as rules. Code is the mechanism by which rules are <em>enforced</em> in digital games — but the code itself is not the rules. The rules of a digital game exist at the same three levels as the rules of any game (constituative, operational, implicit), and code is simply a more powerful enforcement mechanism than a physical board or a referee.</p>
+
+<p>In a non-digital game, players enforce the rules themselves. In a digital game, the software enforces them automatically. A player cannot make an illegal Chess move in a digital Chess program — not because the code prohibits the <em>rule</em>, but because the code makes it physically impossible to enact. The rules still exist at the logical level; the code simply makes violations structurally impossible rather than merely prohibited.</p>
+
+<p>This distinction matters for designers. Thinking of code as the rules conflates two different things: the logical structure of the game (the rules) and the technical implementation of that structure (the code). A designer who only thinks about code is working at the implementation level, not the rule level. Game design requires reasoning at both.</p>
+
+<h2>The Six Qualities Still Apply</h2>
+<p>The six qualities of rules identified in Chapter 11 — limiting action, explicit and unambiguous, shared by all players, fixed during play, binding, and repeatable — apply to digital games exactly as they apply to non-digital games. Code does not change what rules are; it changes how they are enforced and made available to players.</p>
+
+<p>In some ways, digital implementation makes the six qualities <em>more</em> reliable: code ensures rules are consistently applied, eliminates ambiguity (the computer cannot misread a rule), and makes them automatically shared and fixed. But this does not mean digital rules are therefore simple or transparent. A digital game's ruleset can be extraordinarily complex, and its constituative structure — the underlying logic — may be just as opaque to players as 3-to-15's magic square structure.</p>
+
+<h2>Tetris: A Full Ruleset</h2>
+<p>To make the rules of a digital game concrete, the chapter walks through the complete operational rules of Tetris. This is valuable because Tetris <em>feels</em> simple — and in one sense it is — but writing out all its rules reveals substantial complexity:</p>
+
+<ol class="rule-list">
+  <li>The playing field is a rectangle, 10 units wide and 20 units tall.</li>
+  <li>Tetrominoes (geometric pieces composed of four square blocks) fall from the top of the field.</li>
+  <li>Seven tetromino shapes exist: I, O, T, S, Z, J, L.</li>
+  <li>The player can move the falling tetromino left or right, and rotate it clockwise or counterclockwise.</li>
+  <li>The player can also accelerate the tetromino's descent.</li>
+  <li>When a tetromino reaches the bottom or lands on another piece, it locks in place.</li>
+  <li>When a horizontal row of the field is completely filled, that row is cleared and all rows above it drop down by one.</li>
+  <li>Clearing multiple rows simultaneously scores bonus points.</li>
+  <li>A new tetromino appears at the top after each lock.</li>
+  <li>The next tetromino to appear is displayed in a preview area.</li>
+  <li>The falling speed increases over time.</li>
+  <li>The game ends when a locked piece reaches the top of the field.</li>
+</ol>
+
+<p>Twelve rules. And yet the full constituative structure of Tetris — the mathematical space of all possible configurations, the optimal clearing strategies, the way piece types interact with field states — is vastly richer than these twelve operational rules suggest. The operational layer is the doorway; the constituative structure is the vast space behind it.</p>
+
+<h2>Rules and Not-Rules</h2>
+<p>A key analytical move this chapter makes is distinguishing between what is a rule and what is not. Digital games embed enormous amounts of design that is <em>not</em> rule — aesthetic choices, presentation decisions, stylistic elements — and confusing these with rules leads to analytical errors.</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Rules (Formal Structure)</strong>
+    Conditions, constraints, and logical relationships that determine what is possible in the game. Removing or changing these changes what the game is. They exist at the constituative or operational level.
+  </div>
+  <div class="grid-cell">
+    <strong>Not-Rules (Aesthetic / Presentational)</strong>
+    Visual design, sound effects, narrative framing, color palette, character appearance, animation style. Changing these changes how the game looks and feels but does not change the game's formal structure.
+  </div>
+</div>
+
+<p>Three examples from the book illustrate where this line falls:</p>
+
+<h3>Game and Watch Gallery</h3>
+<p>Nintendo's <em>Game and Watch Gallery</em> released Classic and Modern versions of the same mini-games. The Classic version used blocky monochrome graphics; the Modern version featured full-color Mario characters. The formal rules were identical — same move sets, same win conditions, same scoring. Yet players experienced them as different games. The aesthetic layer is not rules, but it profoundly shapes experience. This is a design opportunity: the same rule structure can produce very different experiential registers depending on presentation.</p>
+
+<h3>Berzerk and Sprite Size</h3>
+<p>The arcade game <em>Berzerk</em> features robot enemies that pursue the player through a maze. The robots' visual size on screen is not a rule — it is an aesthetic parameter. But in practice, a larger sprite makes the robots feel more threatening, affects how players read the play space, and alters gameplay feel without altering any formal rule. Aesthetic choices have rule-like effects on experience even when they are not themselves rules.</p>
+
+<h3>Thief: The Dark Project</h3>
+<p>The stealth game <em>Thief</em> uses lighting as a core gameplay element: shadowed areas make the player character harder for enemies to detect. The rule is about detection probability — a formal, quantified relationship between light levels and enemy perception. The visual presentation of shadows is the aesthetic expression of that rule. Understanding the rule (detection probability) is separate from understanding its aesthetic expression (shadows). A designer must understand both levels and their relationship.</p>
+
+<h2>Wheels Within Wheels: Software Layers</h2>
+<p>Digital games exist within a nested hierarchy of software systems. The game's rules are implemented in code, but that code runs on top of an operating system, which runs on hardware, which has its own physics. The authors describe this as "wheels within wheels" — each layer enforces constraints on the layers above it.</p>
+
+<div class="layers-stack">
+  <div class="layer">
+    <div class="layer-name">Hardware</div>
+    <div>The physical computer: processor speed, memory, display resolution. Sets absolute physical limits on what is computable and displayable.</div>
+  </div>
+  <div class="layer">
+    <div class="layer-name">Operating System</div>
+    <div>Manages hardware resources, handles input and output, enforces memory boundaries. The game code runs within the constraints the OS establishes.</div>
+  </div>
+  <div class="layer">
+    <div class="layer-name">Game Engine</div>
+    <div>Provides physics simulation, rendering pipeline, audio management, input handling. The specific game logic runs on top of the engine's substrate.</div>
+  </div>
+  <div class="layer">
+    <div class="layer-name">Game Code</div>
+    <div>The rules-implementing layer — the logic that defines states, allowed transitions, winning conditions, and the formal structure of the game.</div>
+  </div>
+  <div class="layer">
+    <div class="layer-name">Player Interaction</div>
+    <div>The interface through which players act on the game system. Controller inputs, mouse clicks, and keyboard events are translated into game actions.</div>
+  </div>
+</div>
+
+<p>This layered view explains why digital game design is complex even when rules are "simple." The same formal rule can behave differently depending on how it is implemented in code, how the engine handles edge cases, and how input latency or rendering performance affects the player's ability to execute their intentions.</p>
+
+<h2>The Three-Level Model Applied to Digital Tic-Tac-Toe</h2>
+<p>To crystallize the three-level framework in the digital context, the chapter applies it to a digital version of Tic-Tac-Toe:</p>
+
+<div class="three-levels">
+  <div class="level-row">
+    <div class="level-label">Constituative Rules</div>
+    <div class="level-content">
+      <p>The abstract logical structure — the magic square, the two-player zero-sum game on a 3×3 grid — is identical to non-digital Tic-Tac-Toe. Digitization does not change the constituative level. The game system consists of discrete internal events: move selections and state transitions, defined as mathematical operations on a 3×3 matrix of values.</p>
+    </div>
+  </div>
+  <div class="level-row">
+    <div class="level-label">Operational Rules</div>
+    <div class="level-content">
+      <p>The operational layer expands to include the digital interface. The authors enumerate six operational rules for digital Tic-Tac-Toe:</p>
+      <ol style="padding-left: 20px; margin-top: 8px;">
+        <li>Click on an empty square to place your mark.</li>
+        <li>The computer alternates turns automatically.</li>
+        <li>Illegal moves (clicking an occupied square) are prevented by the interface.</li>
+        <li>The game detects win conditions automatically after each move.</li>
+        <li>When a win or draw is detected, the game displays a result screen.</li>
+        <li>Players can start a new game by clicking "Play Again."</li>
+      </ol>
+      <p style="margin-top: 12px;">The operational layer now includes I/O operations and player interaction patterns that have no equivalent in the physical game — the game enforces rules automatically rather than requiring player self-policing.</p>
+    </div>
+  </div>
+  <div class="level-row">
+    <div class="level-label">Implicit Rules</div>
+    <div class="level-content">
+      <p>The implicit rules shift with the platform. Conventions about how digital games "should" work — cursor behavior, button feedback, expected sound cues, the meaning of a "Play Again" prompt — are implicit norms players bring from their broader digital game experience. These conventions are not in the code, but they shape player expectations powerfully.</p>
+      <p>Crucially, violating platform conventions — making a game that behaves in unexpected ways for its medium — can be a powerful design strategy. Questioning implicit rules is a source of innovation.</p>
+    </div>
+  </div>
+</div>
+
+<h2>Why Rules? The Designer's Answer</h2>
+<p>The chapter closes with a return to first principles: why should game designers care about rules in this analytical depth? The answer is that understanding the formal structure of a game is the prerequisite for designing it well.</p>
+
+<p>A designer who cannot distinguish between a game's constituative structure and its operational presentation cannot make principled choices about either. A designer who cannot identify the implicit rules of their platform cannot recognize which conventions to honor and which to break. The three-level model is not academic scaffolding — it is a practical tool for understanding what a game is, what it is doing, and what changes are possible.</p>
+
+<blockquote>
+  Identifying the rules of a game — at all three levels — is one of the most important things a game designer can do. You cannot redesign what you cannot see, and the formal structure of a game is invisible unless you look for it deliberately.
+</blockquote>
+
+<div class="summary-box">
+  <h3>Chapter Summary</h3>
+  <ul>
+    <li><strong>Code is not rules.</strong> Code is the enforcement mechanism for rules in digital games. The rules themselves exist at the logical level; code makes rule violations structurally impossible rather than merely prohibited.</li>
+    <li><strong>The six qualities of rules</strong> apply to digital games exactly as to non-digital games. Digital implementation makes some qualities (consistency, unambiguity) more reliable but does not change what rules are.</li>
+    <li><strong>Tetris</strong> demonstrates that even a "simple" digital game has a complete and non-trivial ruleset at the operational level — twelve rules — with a much richer constituative structure beneath.</li>
+    <li><strong>Rules vs. not-rules:</strong> Visual design, sound, narrative, and aesthetics are not rules — they shape experience but do not define formal structure. The distinction matters for analysis and design.</li>
+    <li><strong>Digital games exist within layered software systems</strong> (hardware, OS, engine, game code, player interface). Understanding these layers explains why digital game behavior can be complex even when formal rules are simple.</li>
+    <li><strong>Implicit rules in digital games</strong> include platform conventions — expectations about how games should behave based on broader digital experience. Violating these conventions deliberately is a design opportunity.</li>
+    <li>The three-level model is a practical design tool, not just academic analysis — it reveals what is changeable, what is fixed, and what is invisible in a game's structure.</li>
+  </ul>
+</div>
+
+<p class="callout">Next: Chapter 14 — Games as Emergent Systems &nbsp;·&nbsp; How simple rules produce complex behavior</p>
+
+</body>
+</html>

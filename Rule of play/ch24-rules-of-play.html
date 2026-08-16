@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 24: Games as the Play of Pleasure — Rules of Play</title>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --text: #1a1a1a;
+  --muted: #555;
+  --dim: #888;
+  --rule: #c8c4bc;
+  --pull-bg: #eeece8;
+  --pull-border: #1a1a1a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+}
+header { margin-bottom: 56px; }
+.eyebrow { font-family: system-ui, -apple-system, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 10px; }
+h1 { font-family: Georgia, serif; font-size: 1.85rem; font-weight: normal; line-height: 1.25; margin-bottom: 14px; }
+.subtitle { font-size: 1rem; color: var(--muted); font-style: italic; }
+h2 { font-family: system-ui, -apple-system, sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-top: 8px; border-top: 1px solid var(--rule); margin-top: 52px; margin-bottom: 16px; }
+h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
+p { margin-bottom: 1em; }
+blockquote { background: var(--pull-bg); border-left: 3px solid var(--pull-border); margin: 24px 0; padding: 16px 20px; font-style: italic; }
+blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.grid-cell { background: var(--bg); padding: 18px 16px; }
+.grid-cell strong { font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.summary-box { border: 1px solid var(--rule); padding: 28px 32px; margin: 40px 0 0; }
+.summary-box h3 { margin-top: 0; font-style: normal; font-size: 0.75rem; font-family: system-ui, sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.summary-box ul { padding-left: 22px; }
+.summary-box li { margin-bottom: 0.6em; }
+.callout { font-family: system-ui, sans-serif; font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 12px; margin-top: 32px; }
+.numbered-grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+.numbered-cell { background: var(--bg); padding: 14px 16px; display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
+.num { font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--dim); padding-top: 2px; }
+.flow-chart { border: 1px solid var(--rule); margin: 24px 0; }
+.flow-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); }
+.flow-cell { background: var(--bg); padding: 14px 16px; }
+.flow-label { font-family: system-ui, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Rules of Play · Unit 3: Play · Chapter 24</span>
+  <h1>Games as the Play of Pleasure</h1>
+  <p class="subtitle">Constraint, flow, entrainment, and the architecture of desire in games</p>
+</header>
+
+<blockquote>
+  It's not that you have to "care" in order to get good, but rather that you have to be kept caring. You've got to be kept in the right state so you'll get to some places a little bit better all the time, so that a goal remains alive by always moving just ahead out of reach and you keep wanting to attain it without having to spend a fortune.
+  <cite>— David Sudnow, <em>Pilgrim in the Microworld</em></cite>
+</blockquote>
+
+<h2>Pleasure as the Central Experience of Games</h2>
+
+<p>Pleasure is, perhaps, the experience most intrinsic to games. From the visceral excitement of an online death-match to the satisfying clink of a Go stone on wood, games provide an abundant variety of pleasures. The word "pleasure" evokes delight, amusement, gratification, satisfaction, happiness — the fundamental feelings derived from intense concentration, physical exhilaration, and the hypnotically satisfying patterns that good games generate.</p>
+
+<p>Within this schema, a game's space of possibility is defined as more than a mathematical entity. It is a space in which a player's emotions and sense of desire undergo manipulation and coercion, teasing and seduction, frustration and reward. The game designer is an artisan of desire, shaping the pleasure of players through the architecture of rules.</p>
+
+<h2>Rule-Bound Pleasure</h2>
+
+<p>The core paradox of game pleasure is that it emerges from constraint. Developmental psychologist L. S. Vygotsky observed that "Play continually creates demands on the child to act against immediate impulse, i.e., to act on the line of greatest resistance." Players accept artificial restrictions not to limit pleasure but to maximize it. "To observe the rules of the play structure promises much greater pleasure from the game than the gratification of an immediate impulse."</p>
+
+<p>Three key design concepts connect rules and pleasure:</p>
+
+<div class="grid cols-3">
+  <div class="grid-cell">
+    <strong>Rules and Play</strong>
+    Players subordinate their behavior to restrictions in order to experience play — and its pleasures. The restrictions facilitate play, and in doing so, generate pleasure.
+  </div>
+  <div class="grid-cell">
+    <strong>The Lusory Attitude</strong>
+    Runners wait for the starting gun and run around a circular track rather than cutting through the field. This willing acceptance of artificial inefficiency is the heart of the lusory attitude — the game attitude.
+  </div>
+  <div class="grid-cell">
+    <strong>Stylized Behavior</strong>
+    Rules create ritualistic, collective patterns of action that are themselves pleasurable. Children derive pleasure from the collective experience of running together, pumping arms, kicking heels — not just from the dramatic tension.
+  </div>
+</div>
+
+<h2>Autotelic Play</h2>
+
+<p>Games are strongly <strong>autotelic</strong> — a term borrowed from psychologist Mihaly Csikszentmihalyi. From the Greek <em>auto</em> (self) and <em>telos</em> (goal), autotelic describes activities pursued for their own sake, where "the doing itself is the reward." Games posit their own intrinsic goals — winning conditions, points, progress — which gives them a distinctly artificial and non-utilitarian status.</p>
+
+<p>Consider the contrast: a hospital database program serves an external utilitarian goal (finding patient records). An online multiplayer game serves no such external purpose. The player explores the game world, customizes a character, kills monsters, and accumulates treasure — because she is playing the game. The play is an end in itself. We play, in some measure, for play's own sake.</p>
+
+<h2>Enter. Play. Stay.: The Double Seduction</h2>
+
+<p>Because games are premised on autotelic, intrinsic pleasures, designers face a double challenge: enticing players to cross the boundary of the magic circle, and keeping them there once they have entered. Both tasks require deliberate design.</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>The First Seduction — Entry</strong>
+    Getting players to begin. This begins before the game starts — with marketing, peer pressure, packaging, the first moment a player reads rules or sees a screenshot. Games require formal preparation (finding players, reading rules, setting up), making entry a genuine hurdle.
+  </div>
+  <div class="grid-cell">
+    <strong>The Second Seduction — Retention</strong>
+    Keeping players playing once they have entered. Once inside the magic circle, players must be continually seduced into remaining. The entire architecture of challenge, reward, and desire is devoted to this second seduction.
+  </div>
+</div>
+
+<h2>Typologies of Pleasure</h2>
+
+<p>Multiple theorists have attempted to categorize the kinds of pleasure games provide. No single typology is definitive — each offers a different lens for observing and designing game pleasure.</p>
+
+<h3>LeBlanc's Eight Categories</h3>
+
+<p>Game designer Marc LeBlanc proposed eight categories of game-induced experiential pleasure as a vocabulary for understanding and designing the range of pleasures games provide:</p>
+
+<div class="numbered-grid">
+  <div class="numbered-cell"><span class="num">1</span><div><strong>Sensation</strong> — <em>Game as sense-pleasure.</em> The immediate physical and perceptual delight of sight, sound, touch.</div></div>
+  <div class="numbered-cell"><span class="num">2</span><div><strong>Fantasy</strong> — <em>Game as make-believe.</em> The pleasure of inhabiting an imaginary world.</div></div>
+  <div class="numbered-cell"><span class="num">3</span><div><strong>Narrative</strong> — <em>Game as drama.</em> The pleasure of story, character, and unfolding events.</div></div>
+  <div class="numbered-cell"><span class="num">4</span><div><strong>Challenge</strong> — <em>Game as obstacle course.</em> The pleasure of overcoming difficulty through skill.</div></div>
+  <div class="numbered-cell"><span class="num">5</span><div><strong>Fellowship</strong> — <em>Game as social framework.</em> The pleasure of shared activity and community.</div></div>
+  <div class="numbered-cell"><span class="num">6</span><div><strong>Discovery</strong> — <em>Game as uncharted territory.</em> The pleasure of exploring new possibilities.</div></div>
+  <div class="numbered-cell"><span class="num">7</span><div><strong>Expression</strong> — <em>Game as self-discovery.</em> The pleasure of self-creation and identity.</div></div>
+  <div class="numbered-cell"><span class="num">8</span><div><strong>Submission</strong> — <em>Game as masochism.</em> The ritualized pleasure of submitting to a rule system — the hypnotic pull of Tetris, Solitaire, Bejeweled.</div></div>
+</div>
+
+<h3>Apter's Seven Cognitive Arousals</h3>
+
+<p>Psychologist Michael J. Apter described seven categories emphasizing cognitive arousal — the mental stimulation that play provides. His list complements LeBlanc's by foregrounding what games do to the mind: exposure to arousing stimulation, fiction and narrative, challenge, exploration, negativism (deliberate rule-breaking), cognitive synergy (imaginative play), and facing danger within the "protective frame" of play.</p>
+
+<h3>Caillois's Four Categories</h3>
+
+<p>From Chapter 22, Caillois's Agôn (competition), Alea (chance), Mimicry (role-play), and Ilinx (vertigo) offer a compact framework that fuses experiential and cognitive components — and can be applied quickly to any game. Unreal deathmatch, for example, contains all four: agônistic competitive struggle, aleatory uncertainty about who joins a match, mimicry through customizable avatars, and ilinx through the vertiginous experience of 3D first-person movement.</p>
+
+<h2>Game Flow</h2>
+
+<p>Psychologist Mihaly Csikszentmihalyi's research on <strong>flow</strong> — the state of deep, optimal experience — offers a powerful framework for understanding game pleasure. Flow is the exhilarating state of being in control of one's actions, masters of one's fate, deeply absorbed in an activity that perfectly matches skill to challenge.</p>
+
+<blockquote>
+  It is what the sailor holding a tight course feels when the wind whips through her hair, when the boat lunges through the waves like a colt — sails, hull, wind, and sea humming a harmony that vibrates in the sailor's veins.
+  <cite>— Mihaly Csikszentmihalyi, <em>Flow</em></cite>
+</blockquote>
+
+<p>Csikszentmihalyi identified eight components of the flow state. They divide into two groups — effects and prerequisites:</p>
+
+<div class="flow-chart">
+  <div class="flow-row">
+    <div class="flow-cell">
+      <div class="flow-label">Effects of Flow (what you feel)</div>
+      <p style="margin:0;font-size:0.92em;">Merging of action and awareness — actions become "spontaneous, almost automatic"</p>
+    </div>
+    <div class="flow-cell">
+      <div class="flow-label">Prerequisites for Flow (what enables it)</div>
+      <p style="margin:0;font-size:0.92em;">A challenging activity that requires skill — "goal-directed and bounded by rules"</p>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-cell" style="font-size:0.92em;">Concentration on the task at hand — complete focusing of attention, no room for irrelevant information</div>
+    <div class="flow-cell" style="font-size:0.92em;">Clear goals — the goal-oriented nature of games, discernible action-outcome sequences</div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-cell" style="font-size:0.92em;">Loss of self-consciousness — the sense of self becomes subservient to the greater experience</div>
+    <div class="flow-cell" style="font-size:0.92em;">Clear feedback — immediate, discernible outcomes for every action taken</div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-cell" style="font-size:0.92em;">Transformation of time — time stretches or shrinks; hours pass like minutes</div>
+    <div class="flow-cell" style="font-size:0.92em;">The paradox of control — the ability to exercise control in a situation where the outcome is uncertain</div>
+  </div>
+</div>
+
+<p>All four prerequisites of flow are characteristics of well-designed games: challenging activity, clear goals, clear feedback, and control-in-uncertainty. If you want to create flow in a game, design meaningful play. The four prerequisites of flow bear a striking resemblance to the key components of meaningful play.</p>
+
+<h2>Sculpting Desire: Same-But-Different</h2>
+
+<p>A game provides the <em>same</em> consistent structure each time but a <em>different</em> experience and outcome every time it is played. This quality — <strong>same-but-different</strong> — is a powerful engine of desire that sustains play over time.</p>
+
+<p>Within a single game, the core mechanic is repeated over and over. Players explore its permutations: Can you get that bank shot a second time? Can you control the flow of the volley? The same repeated action provides different results each time — part of what sustains engagement is the player's ability to engage repeatedly with the same kind of interactivity, but with different results.</p>
+
+<p>Across multiple games, the same-but-different dynamic operates at a larger scale. The rules remain the same, but the play is different. Players discover the comforting familiarity of a fixed structure and the challenge and danger of an uncertain outcome. Philosopher James S. Hans captures this well: "play in one sense is no more than the infection of the familiar by difference."</p>
+
+<h2>Patterns of Pleasure: Entrainment</h2>
+
+<p>Game designer Brian Moriarty uses the word <strong>entrainment</strong> — from the French <em>entrainer</em>, meaning both <em>to carry along</em> and <em>to trap</em> — to describe the rhythmic pleasure patterns that games generate.</p>
+
+<blockquote>
+  Rhythms and patterns exist in all games, if you watch. Watch someone playing a game sometime. Not the game itself, lest you be sucked in, but the player, and the space around him or her. Watch the rhythms emerge, and how the player and the game interact. It will become clear that a game is really an entrainment engine. The job of the gamewright, therefore, is to reinforce patterns, and dampen dissonance.
+  <cite>— Brian Moriarty, Game Developers Conference, 1998</cite>
+</blockquote>
+
+<p>Entrainment is visible in the meditative patterns of Tetris, the turn-taking cadence of Billiards, the rhythmic shooting pattern of Space Invaders, the pulsing flow of Blackjack. Each game experience can be understood as an instance of entrainment — the player carried along by patterned repetition, then gradually trapped by it.</p>
+
+<h2>The Role of the Goal</h2>
+
+<p>The goal is the single most powerful element shaping game pleasure. It is the object of desire held just out of reach — the carrot pulled forward through the space of possibility, guiding players from the starting state toward the end condition. The goal helps players know if they are advancing or falling behind, converting the space of possibility into a directional journey.</p>
+
+<p>Mastermind illustrates this precisely: each turn brings the player closer to the solution or reveals backpedaling. The black-and-white pegs offer glimpses of hope alongside the inevitable march of turns — a physical structure that charts the player's progress through the game. Missile Command shows the goal's emotional dimensions: the moment near the end "when the ICBMs were raining down and you knew you were just about to lose it, that was totally euphoric." The goal gives its approach, and its imminent defeat, their full emotional weight.</p>
+
+<h3>Short-Term Goals</h3>
+
+<p>Suspended between the core mechanic and the ultimate win condition are <strong>short-term goals</strong> — the micro-objectives players pursue and accomplish throughout play. As game designer Doug Church describes: "Players know what to expect from the world and thus are made to feel in control of the situation. Goals and control can be provided and created at multiple scales, from quick, low-level goals to long-term, higher-level goals."</p>
+
+<p>Short-term goals serve two functions: they allow players to make plans, and they provide moments of satisfaction when achieved. A Pokémon player earning a gym badge; a Risk player conquering South America; an Ultima Online player joining a guild. Each short-term goal is both a waypoint and a reward.</p>
+
+<h2>Conditioned Pleasure</h2>
+
+<p>Behavioral psychology offers another framework for understanding how games create and sustain pleasure. Every time a player takes an action in a game, the game rewards or punishes them. This is <strong>operant conditioning</strong> — the mechanism by which behavior is shaped through reinforcement and punishment.</p>
+
+<div class="grid cols-3">
+  <div class="grid-cell">
+    <strong>Positive Reinforcement</strong>
+    Adding something pleasant — bonus points, extra life, visual fanfare. Strengthens the behavior that preceded it.
+  </div>
+  <div class="grid-cell">
+    <strong>Negative Reinforcement</strong>
+    Removing something unpleasant — curing a disease, silencing an alarm. Also strengthens the preceding behavior.
+  </div>
+  <div class="grid-cell">
+    <strong>Punishment</strong>
+    Adding something unpleasant — damage, setback, lost progress. Discourages the preceding behavior.
+  </div>
+</div>
+
+<h3>Reward Types (Hallford &amp; Hallford)</h3>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Rewards of Glory</strong>
+    Completing the game, defeating a major enemy, finishing a difficult quest. High satisfaction, but one-time-only.
+  </div>
+  <div class="grid-cell">
+    <strong>Rewards of Sustenance</strong>
+    Health packs, mana potions, armor. Maintain the avatar's status quo, enabling continued play.
+  </div>
+  <div class="grid-cell">
+    <strong>Rewards of Access</strong>
+    Keys, passwords, unlocks. Grant entry to previously inaccessible areas — used once, then spent.
+  </div>
+  <div class="grid-cell">
+    <strong>Rewards of Facility</strong>
+    New abilities, expanded options, better tools. Increase the player's strategic range for all future play.
+  </div>
+</div>
+
+<h3>Reinforcement Schedules</h3>
+
+<p>The <em>rate</em> at which reinforcement occurs shapes behavior as much as the reinforcement itself. Two basic kinds:</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Fixed Reinforcement</strong>
+    Rewards occur at a steady, predictable rate — every five enemies killed earns a chevron; a power-up appears every 30 seconds. Consistent and learnable, but less compulsive.
+  </div>
+  <div class="grid-cell">
+    <strong>Variable Reinforcement</strong>
+    Rewards occur at irregular intervals — like slot machine payoffs. Variable ratio means random number of actions per reward. Variable interval means random time between rewards. Highly compulsive; the most powerful schedule for maintaining behavior.
+  </div>
+</div>
+
+<p>Gabe Newell of Valve described Half-Life's design philosophy as a reinforcement schedule: constant rewards (new monsters, plot advances, cool new weapons) with minimal lulls. The variable placement of Half-Life's enemies — most rooms open to empty space, not attackers — creates variable punishment intervals that generate sustained anxiety and alertness throughout the game.</p>
+
+<h2>Boredom and Anxiety: Flow Redux</h2>
+
+<p>Csikszentmihalyi's model maps a player's experience along two axes: the challenge an activity offers, and the skills the participant possesses. The narrow diagonal strip between these axes is the <strong>flow channel</strong> — where skills and challenges are matched. Outside this channel lies either boredom (skills exceed challenge) or anxiety (challenge exceeds skills).</p>
+
+<div class="grid cols-2">
+  <div class="grid-cell">
+    <strong>Boredom</strong>
+    The player's abilities outstrip what the game can provide. Choices feel arbitrary, the space of possibility falls limp. The game becomes a lifeless dance partner. Boredom arises from too-easy challenge, too much power, or too many repeated activities without new rewards.
+  </div>
+  <div class="grid-cell">
+    <strong>Anxiety</strong>
+    The challenge exceeds the player's skills. No matter what choice is made, negative outcomes follow. The space of possibility becomes stifling — the game takes over the dance completely. Anxiety arises from unfair challenge, unclear goals, or insufficient feedback.
+  </div>
+</div>
+
+<p>The Pirates of the Caribbean case study illustrates both traps in practice. Schell and Shochet at Disney Imagineering designed a five-minute pirate ship game-ride. Playtest revealed that players steering the ship could create "dull places" — moments of boredom — when no targets were in range. Their solutions were elegant: architectural "weenies" (a volcano, a fort, a burning town) always visible to guide the captain toward action; guide ships moving toward islands to keep the cannon fire continuous; sneak-attack ships that appear behind the player when no other boats are in range.</p>
+
+<h2>Meaningful Pleasure</h2>
+
+<p>Ultimately, pleasure in games is not the sum of isolated reward events — it is an emergent whole. A player experiences a more pervasive sense of engagement that arises directly from play, a total feeling that is more than the parts. Pleasure is emergent.</p>
+
+<p>For this to occur, game actions must be <strong>discernable</strong> (their outcomes are always evident) and <strong>integrated</strong> (their outcomes have implications for the larger game). In NeoPets, every small action earns points that enable future purchases — a tight loop of desire where short-term and long-term goals are constantly forming on the horizon of player action.</p>
+
+<p>Myst and Super Mario 64, though radically different games, share one quality: they treat players with care at every moment. From the first second, both games provide clear direction and purpose. Both provide satisfying increases in challenge without leaving the player feeling lost or confused. Clarity is the foundation on which meaningful pleasure is built.</p>
+
+<h2>Against "Addiction"</h2>
+
+<p>In game culture, "addiction" is used as shorthand for deeply engaging play — players who return again and again, who write fan fiction, who invest themselves in a game's community. Sutton-Smith is precise about the distinction: this compulsive attendance on games "is not an addiction where what occurs is a surrender to outside forces over which one has no control... Video games are of this first kind." They are like all games and all play — compelling, absorbing, persistent — without being pathological.</p>
+
+<p>Pathological addiction, in the medical sense, forecloses free movement. When a game activity becomes destructively compulsive, free movement is censured, meaningful play abates. In this experiential sense — when a player becomes medically addicted — play as we have defined it no longer exists. Addictive play, in the negative sense, is not really play at all.</p>
+
+<div class="summary-box">
+  <h3>Chapter Summary</h3>
+  <ul>
+    <li><strong>Pleasure</strong> is intrinsic to games. Submitting to rules is itself a form of pleasure — constraint transforms into enhanced gratification through the lusory attitude.</li>
+    <li>Games provide <strong>autotelic</strong> pleasures — intrinsic, self-contained experiences pursued for their own sake.</li>
+    <li>Designers face a <strong>double seduction</strong>: getting players to enter the magic circle, and keeping them there.</li>
+    <li>Typologies of pleasure (LeBlanc's 8, Apter's 7, Caillois's 4) offer vocabularies for organizing observations about game experience — not universal theories.</li>
+    <li>Csikszentmihalyi's <strong>flow</strong> requires four prerequisites: challenging activity, clear goals, clear feedback, and paradox of control. Four effects: merging of action/awareness, concentration, loss of self-consciousness, transformation of time.</li>
+    <li>The <strong>same-but-different</strong> quality of games is a powerful engine of desire — familiar structure, uncertain outcome, every time.</li>
+    <li><strong>Entrainment</strong> (Moriarty) — to carry along and to trap — describes the rhythmic pleasures that games generate.</li>
+    <li>The <strong>goal</strong> shapes player experience; <strong>short-term goals</strong> provide navigation and satisfaction across play.</li>
+    <li><strong>Conditioning</strong> shapes player behavior through rewards and punishments; <strong>reinforcement schedules</strong> (fixed vs. variable) affect the power and compulsiveness of rewards.</li>
+    <li><strong>Boredom</strong> (too easy) and <strong>anxiety</strong> (too hard) are the enemies of pleasurable flow. Meaningful play requires discernable and integrated actions.</li>
+    <li>"<strong>Addiction</strong>" in the game industry signifies deep engagement; genuine pathological addiction forecloses free movement and ends play.</li>
+  </ul>
+</div>
+
+<p class="callout">Katie Salen &amp; Eric Zimmerman · <em>Rules of Play: Game Design Fundamentals</em> · MIT Press, 2004 · Unit 3: Play</p>
+
+</body>
+</html>

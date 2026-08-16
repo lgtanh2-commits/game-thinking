@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 10: The Primary Schemas — Rules of Play</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f8f7f4;
+    --text: #1a1a1a;
+    --muted: #555;
+    --dim: #888;
+    --rule: #c8c4bc;
+    --pull-bg: #eeece8;
+    --pull-border: #1a1a1a;
+  }
+
+  html { background: var(--bg); }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.75;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 64px 28px 96px;
+  }
+
+  .book-meta {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 32px;
+  }
+
+  h1.chapter-title {
+    font-family: Georgia, serif;
+    font-size: 2.4rem;
+    font-weight: normal;
+    line-height: 1.15;
+    margin-bottom: 48px;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 24px;
+  }
+
+  h1.chapter-title .chapter-label {
+    display: block;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 10px;
+  }
+
+  section { margin-bottom: 52px; }
+
+  h2 {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+  }
+
+  h3 {
+    font-family: Georgia, serif;
+    font-size: 1.08rem;
+    font-weight: bold;
+    font-style: italic;
+    margin: 28px 0 8px;
+  }
+
+  p { margin-bottom: 16px; }
+  p:last-child { margin-bottom: 0; }
+
+  blockquote {
+    background: var(--pull-bg);
+    border-left: 3px solid var(--pull-border);
+    margin: 24px 0 32px;
+    padding: 16px 20px;
+    font-style: italic;
+    color: var(--text);
+    font-size: 1rem;
+  }
+
+  blockquote cite {
+    display: block;
+    margin-top: 10px;
+    font-style: normal;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-family: system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── three schemas display ── */
+  .schema-trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+
+  .schema-cell {
+    background: var(--bg);
+    padding: 22px 16px;
+    text-align: center;
+  }
+
+  .schema-name {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .schema-type {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .schema-desc {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  /* ── nested framing ── */
+  .nesting {
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+    padding: 28px 24px;
+  }
+
+  .nest-outer {
+    border: 1px solid var(--muted);
+    padding: 18px;
+    position: relative;
+  }
+
+  .nest-label {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .nest-mid {
+    border: 1px solid var(--rule);
+    padding: 16px;
+  }
+
+  .nest-inner {
+    border: 1px solid var(--rule);
+    padding: 14px;
+    background: var(--pull-bg);
+    text-align: center;
+  }
+
+  /* ── four qualities of schema ── */
+  .quality-list { margin: 0; }
+
+  .quality-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    border-top: 1px solid var(--rule);
+    padding: 14px 0;
+    gap: 20px;
+    align-items: baseline;
+  }
+
+  .quality-row:last-child { border-bottom: 1px solid var(--rule); }
+
+  .quality-key {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 0.97rem;
+    color: var(--text);
+    padding-top: 2px;
+  }
+
+  .quality-val {
+    font-family: Georgia, serif;
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  /* ── schema deep-dive ── */
+  .schema-section {
+    border-left: 3px solid var(--rule);
+    padding-left: 20px;
+    margin: 24px 0;
+  }
+
+  .schema-section-title {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  /* ── sub-schema list ── */
+  .sub-list { margin: 0; }
+
+  .sub-row {
+    border-top: 1px solid var(--rule);
+    padding: 10px 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .sub-row:last-child { border-bottom: 1px solid var(--rule); }
+
+  .sub-name {
+    font-style: italic;
+    color: var(--text);
+  }
+</style>
+</head>
+<body>
+
+<p class="book-meta">Rules of Play — Katie Salen &amp; Eric Zimmerman · MIT Press, 2004 · Unit 1: Core Concepts</p>
+
+<h1 class="chapter-title">
+  <span class="chapter-label">Chapter 10</span>
+  The Primary Schemas:<br>Rules, Play, Culture
+</h1>
+
+<blockquote>
+  In sum, there are the rhetorics of the larger culture that have their own socializing influence, there is the game-relevant rhetoric of the group that plays the game… and then, within both of these, there is the game itself.
+  <cite>— Brian Sutton-Smith, <em>The Ambiguity of Play</em></cite>
+</blockquote>
+
+<!-- ── A CONCEPTUAL FRAMEWORK ── -->
+<section>
+  <h2>A Conceptual Framework</h2>
+  <p>Chapter 10 is a turning point. In a certain sense, everything so far has been preparatory work. The concepts of design, systems, and interactivity have shaped the understanding of meaningful play and helped produce a working definition of "game." But the study of games requires more than a set of definitions — it requires a robust conceptual framework. A framework organizes how games are studied: by topic, by chronology, by type of game or technological platform. The framework guides how games are explored and explained.</p>
+  <p>The framework guiding <em>Rules of Play</em> is based on the idea of <em>game design schemas</em> — ways of conceptually framing games from distinct perspectives. A game design schema is a way of understanding games, a lens applied to the analysis or creation of any game. Salen and Zimmerman select three primary schemas:</p>
+
+  <div class="schema-trio">
+    <div class="schema-cell">
+      <span class="schema-name">Rules</span>
+      <span class="schema-type">Formal schema</span>
+      <span class="schema-desc">Focuses on the intrinsic mathematical structures of games — the formal rules as abstract objects independent of any particular instance of play.</span>
+    </div>
+    <div class="schema-cell">
+      <span class="schema-name">Play</span>
+      <span class="schema-type">Experiential schema</span>
+      <span class="schema-desc">Emphasizes the player's interaction with the game and other players — the game as something lived, felt, and experienced.</span>
+    </div>
+    <div class="schema-cell">
+      <span class="schema-name">Culture</span>
+      <span class="schema-type">Contextual schema</span>
+      <span class="schema-desc">Highlights the cultural contexts into which any game is embedded — the meanings games carry and exchange with the world around them.</span>
+    </div>
+  </div>
+
+  <p>This three-part structure also supports more detailed sub-schemas. Contained within RULES, for example, are the schemas <em>Games as Information Systems</em> and <em>Games as Systems of Uncertainty</em>. Contained within PLAY are <em>Games as Social Play</em>, <em>Games as Narrative Play</em>, and <em>Games as the Play of Pleasure</em>. The three primary schemas each contain smaller embedded schemas — a system of overlapping perspectives. The use of schemas not only offers a general framework for uncovering the richness of games, but taken as a whole, offers a general method for doing design study that can facilitate critical design thinking in any design field.</p>
+
+  <div class="nesting">
+    <div class="nest-outer">
+      <span class="nest-label">Culture — Contextual</span>
+      <div class="nest-mid">
+        <span class="nest-label">Play — Experiential</span>
+        <div class="nest-inner">
+          <span class="nest-label" style="margin-bottom: 0;">Rules — Formal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT IS A SCHEMA ── -->
+<section>
+  <h2>What Is a Schema?</h2>
+  <p>Schemas are the building blocks of the RULES, PLAY, CULTURE framework. The concept traces back to Plato, who used "schema" to mean "important rather than exhaustive information." The primary characteristic of a schema is <em>summarization</em>: a schema acts as a reduced description of important aspects of an object or event. Kant's formulation — that "knowledge can only come to us through schemata" — established schemas as the frameworks through which the mind constructs its knowledge about the world.</p>
+  <p>In more contemporary terms, the concept of schema falls under cognitive psychology and cognitive science, through the work of Frederic Bartlett, Piaget, and Marvin Minsky. For these thinkers, schema refers to the way the mind acquires, represents, and transforms knowledge.</p>
+  <p>Rumelhart and Ortony identify four qualities of schemas that are especially relevant to game design:</p>
+
+  <div class="quality-list">
+    <div class="quality-row">
+      <span class="quality-key">Schemas have variables</span>
+      <span class="quality-val">They provide a framework into which new information from the environment is integrated. Each new game encountered can be assimilated into existing schema — or may require the schema to expand.</span>
+    </div>
+    <div class="quality-row">
+      <span class="quality-key">Schemas can embed</span>
+      <span class="quality-val">A schema can contain other schemas inside itself. The schema for "airplane" may contain a schema for "wings" and a schema for "the process of traveling." Similarly, PLAY contains Games as Social Play, which contains its own sub-schemas.</span>
+    </div>
+    <div class="quality-row">
+      <span class="quality-key">Multi-level abstraction</span>
+      <span class="quality-val">Schemas can represent information about specific objects, but also about the way objects interact and the nature and structure of events. They allow many points of view on the same object simultaneously.</span>
+    </div>
+    <div class="quality-row">
+      <span class="quality-key">Knowledge, not definitions</span>
+      <span class="quality-val">Schemas are essentially "encyclopedic" rather than "definitional." They are not fixed, precise boundaries but flexible, rich frameworks. This is what makes schemas useful as critical design tools, rather than rigid categorical boxes.</span>
+    </div>
+  </div>
+
+  <p>The last quality is critical. Although <em>Rules of Play</em> offers many definitions, schemas themselves are never defined in absolute terms. As lenses for understanding games, schemas are useful because they allow sorting through the complex phenomena of games in a loose and intuitive fashion. Schemas act as a counterpoint to the more clearly defined concepts constructed throughout the book — they are ways of thinking, not conclusions to be filed away.</p>
+</section>
+
+<!-- ── RULES ── -->
+<section>
+  <h2>Rules: Formal Schemas</h2>
+  <p>Games have rules. This is perhaps the most prominent feature of games, one that distinguishes them from other forms of media, art, and entertainment. In the survey of eight definitions of "game" in Chapter 7, rules was the single most consistent element — present in nearly every definition.</p>
+  <p>The word "formal" carries two senses in the context of RULES schemas. First, <em>formal</em> as in <em>form</em>: the rules constitute the inner form or organization of games. They are the essential structures that constitute the real-world objects known as games. Consider two games of Go that differ in every external way — material, motivation, outcome, the time and space in which they are played. Despite these differences, all would be identified as "Go" because they share one thing: the rules of Go. The rules unite all games of Go that have ever been or will ever be played. They constitute the formal identity of the game.</p>
+  <p>Second, <em>formal</em> as in <em>formalization</em>: the RULES schemas are methodical, precise, and mathematical. The schemas clustered under PLAY and CULTURE tend to be fuzzy and more difficult to quantify; it is in RULES that the schemas are most analytical. Looking at games as RULES means looking at games as formal systems in both senses simultaneously.</p>
+
+  <div class="schema-section">
+    <div class="schema-section-title">Sub-schemas under Rules</div>
+    <div class="sub-list">
+      <div class="sub-row">Games as <span class="sub-name">Emergent Systems</span></div>
+      <div class="sub-row">Games as <span class="sub-name">Systems of Uncertainty</span></div>
+      <div class="sub-row">Games as <span class="sub-name">Information Theory Systems</span></div>
+      <div class="sub-row">Games as <span class="sub-name">Systems of Information</span></div>
+      <div class="sub-row">Games as <span class="sub-name">Cybernetic Systems</span></div>
+      <div class="sub-row">Games as <span class="sub-name">Game Theory Systems</span></div>
+      <div class="sub-row">Games as <span class="sub-name">Systems of Conflict</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PLAY ── -->
+<section>
+  <h2>Play: Experiential Schemas</h2>
+  <p>Although all games have rules, the very concept of games is closely intertwined with play. Play is what we do with games — we play Chess, we play Baseball, we play Tekken. The game design schemas clustered under PLAY are <em>experiential schemas</em>: they are directly focused on the actual experience of game players. This is a radical shift in point of view from RULES.</p>
+  <p>The shift matters because the play of a game is something that only exists as an experience. It is possible to consider the logic of a rule system formally, without understanding how that system will be experienced. But in framing games as PLAY, Salen and Zimmerman must consider not only the rules, but also the rule-system as a context designed to deliver a particular experience. That experience might be social, narrative, or pleasurable. Looking at games as experiential systems means looking at them as participation, as observation, as a mental state, as bodily sensation, as emotion, as something <em>lived</em>. In PLAY, the experiential dimensions of games are made explicit.</p>
+
+  <div class="schema-section">
+    <div class="schema-section-title">Sub-schemas under Play</div>
+    <div class="sub-list">
+      <div class="sub-row">Games as <span class="sub-name">Social Play</span></div>
+      <div class="sub-row">Games as <span class="sub-name">Narrative Play</span></div>
+      <div class="sub-row">Games as <span class="sub-name">the Play of Pleasure</span></div>
+      <div class="sub-row">Games and <span class="sub-name">the Rhetoric of Play</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CULTURE ── -->
+<section>
+  <h2>Culture: Contextual Schemas</h2>
+  <p>The realm of PLAY, though more expansive than RULES, is bounded in its own way. Games take place in definite locales of time and space. It is when examining games within the realm of culture that the overlap between the game world and the world at large comes to light. When considering games as PLAY, the analysis is confined to the space defined by the actual game. In CULTURE, the focus extends far beyond the game's internal properties.</p>
+  <p>The CULTURE schemas are contextual schemas. They focus on the cultural dimensions of games, game design, and play. From ideas of rhetoric and representation to the leaking of the artificial world of a game into the real world, these schemas highlight the variable boundaries between games and the contexts in which they are played and produced. While taking into account both formal and experiential qualities of games, CULTURE schemas look at the effects of culture on games, and the effects of games on culture.</p>
+  <p>Context is critical to the study of games because a context is the environment of the game system. It is the space that surrounds and exists outside the system. In creating the outer boundary of the system, the context also helps define the system itself. If the system is an open system, it interacts with its environment, changing its context even as it is changed itself.</p>
+
+  <div class="schema-section">
+    <div class="schema-section-title">Sub-schemas under Culture</div>
+    <div class="sub-list">
+      <div class="sub-row">Games as <span class="sub-name">Cultural Rhetoric</span></div>
+      <div class="sub-row">Games as <span class="sub-name">Open Culture</span></div>
+      <div class="sub-row">Games as <span class="sub-name">Cultural Resistance</span></div>
+      <div class="sub-row">Games as <span class="sub-name">Identity</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CLOSING UNIT 1 ── -->
+<section>
+  <h2>Closing Unit 1</h2>
+  <p>With Chapter 10, Unit 1 of <em>Rules of Play</em> ends. The conceptual architecture is now in place:</p>
+  <p>Meaningful play is the core goal of game design. Design is the creation of a system that produces meaningful play. Systems are organized structures of objects, attributes, relationships, and environments — frameable as formal, experiential, or cultural. Interactivity is the mechanism through which players explore the designed space of possibility. A game is a system in which players engage in an artificial conflict, defined by rules, that results in a quantifiable outcome. The magic circle is the boundary of the game's special space, entered through the lusory attitude. And RULES, PLAY, and CULTURE are the three primary schemas through which all of these concepts will be examined in the units to come.</p>
+  <p>"With this outline of our three Primary Schemas, we end Unit 1 of <em>Rules of Play</em>. In the chapters to come, we flesh out this skeletal structure, building on our fundamental key concepts to bring game design and meaningful play fully to life."</p>
+</section>
+
+<!-- ── SUMMARY ── -->
+<section>
+  <h2>Summary</h2>
+  <p>Chapter 10 establishes the three primary schemas — RULES (formal), PLAY (experiential), CULTURE (contextual) — as the conceptual framework for the entire book. Schemas are organizing lenses, not definitions: they are encyclopedic rather than definitional, embeddable within each other, capable of representing knowledge at many levels of abstraction, and flexible enough to integrate new information as the study of games deepens.</p>
+  <p>RULES schemas focus on the mathematical structures that constitute games as formal objects; PLAY schemas foreground the experience of actually playing; CULTURE schemas examine the relationship between games and the contexts in which they exist. Together, they provide a method for uncovering the full richness of any game — a method that applies not only to game design but to the critical study of design in any field.</p>
+</section>
+
+</body>
+</html>
