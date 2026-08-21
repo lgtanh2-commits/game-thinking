@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 6 — Kiểm Thử: Sớm Và Thường Xuyên</title>
+<style>
+:root {
+  --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+  --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+  --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.75; max-width: 780px; margin: 0 auto; padding: 60px 40px 100px; }
+.book-meta { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); font-family: 'Courier New', monospace; margin-bottom: 8px; }
+.chapter-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+h1.chapter-title { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--text); margin-bottom: 8px; }
+.chapter-subtitle { font-size: 1rem; color: var(--text-muted); font-style: italic; font-family: Georgia, 'Times New Roman', serif; margin-bottom: 48px; padding-bottom: 32px; border-bottom: 2px solid var(--accent-line); }
+h2 { font-size: 1.45rem; font-weight: 700; color: var(--text); margin: 48px 0 16px; letter-spacing: -0.01em; }
+h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 32px 0 10px; }
+h4 { font-size: 0.88rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin: 28px 0 8px; }
+p { margin-bottom: 18px; color: var(--text-secondary); font-size: 0.97rem; }
+blockquote { border-left: 3px solid var(--accent-line); margin: 32px 0; padding: 20px 28px; background: var(--surface); }
+blockquote p { font-size: 1.08rem; font-style: italic; font-family: Georgia, 'Times New Roman', serif; color: var(--text); margin-bottom: 10px; line-height: 1.65; }
+blockquote .attribution { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-style: normal; font-family: 'Helvetica Neue', Arial, sans-serif; }
+.case-study-box { border: 1.5px solid var(--border-strong); padding: 32px; margin: 40px 0; }
+.cs-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); font-family: 'Courier New', monospace; margin-bottom: 6px; }
+.cs-title { font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.info-box { background: var(--surface-dark); border-left: 3px solid var(--text); padding: 20px 24px; margin: 28px 0; }
+.info-box .ib-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; font-family: 'Courier New', monospace; }
+.info-box p { font-size: 0.92rem; margin-bottom: 8px; }
+.info-box p:last-child { margin-bottom: 0; }
+.setup-grid { display: grid; grid-template-columns: 1fr; gap: 0; border: 1px solid var(--border); margin: 28px 0; }
+.setup-row { display: grid; grid-template-columns: 160px 1fr; border-bottom: 1px solid var(--border); }
+.setup-row:last-child { border-bottom: none; }
+.sr-label { background: var(--surface); padding: 18px 20px; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
+.sr-label .srl-num { font-size: 0.65rem; font-family: 'Courier New', monospace; color: var(--text-muted); display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.sr-label .srl-name { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+.sr-desc { padding: 18px 20px; }
+.sr-desc p { font-size: 0.9rem; margin-bottom: 0; }
+.mindset-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 28px 0; }
+.mg-cell { background: var(--bg); padding: 14px 12px; text-align: center; }
+.mg-phase { font-size: 0.65rem; font-family: 'Courier New', monospace; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; display: block; margin-bottom: 6px; }
+.mg-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
+.further-reading { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); }
+.further-reading h2 { font-size: 1.1rem; margin-top: 0; margin-bottom: 16px; }
+.reading-list { list-style: none; }
+.reading-list li { border-bottom: 1px solid var(--border); padding: 10px 0; font-size: 0.9rem; color: var(--text-secondary); }
+.reading-list li::before { content: "→ "; color: var(--text-muted); font-family: 'Courier New', monospace; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+.closing-box { border: 2px solid var(--accent-line); padding: 32px; margin: 48px 0; }
+.closing-box .cb-title { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); font-family: 'Courier New', monospace; margin-bottom: 16px; }
+.closing-box p { font-size: 1rem; font-family: Georgia, serif; font-style: italic; color: var(--text); line-height: 1.65; margin-bottom: 0; }
+footer { margin-top: 72px; padding-top: 24px; border-top: 2px solid var(--accent-line); font-size: 0.72rem; color: var(--text-muted); font-family: 'Courier New', monospace; letter-spacing: 0.06em; }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/design-thinking-handbook">← Về mục lục</a></p>
+
+<div class="book-meta">DesignBetter.Co by InVision · Eli Woolery</div>
+<div class="chapter-label">Chương — 06</div>
+<h1 class="chapter-title">Kiểm Thử</h1>
+<p class="chapter-subtitle">Sớm và thường xuyên</p>
+
+<p>Nếu bạn từng đến lớp spin (đạp xe trong nhà), bạn biết trải nghiệm thường là: phòng tối, nhạc mạnh, huấn luyện viên hét "tăng tốc lên 8!" <strong>SoulCycle</strong> thì khác. Ngay từ khi bước vào cửa, SoulCycle tạo ra một cảm giác cộng đồng. Đi vào lớp, bạn đi qua tủ khóa nơi lớp trước vừa tan — cơ hội tình cờ gặp gỡ. Các huấn luyện viên hét những câu truyền cảm hứng khi bạn "leo đồi" và lướt trên yên xe.</p>
+
+<p>Với sự nhấn mạnh vào toàn bộ trải nghiệm người dùng như vậy, không ngạc nhiên khi SoulCycle có lượng fan cuồng nhiệt, dù giá 34 đô một buổi — và các lớp bán hết nhanh chóng. Nhưng đây chính là vấn đề:</p>
+
+<blockquote>
+  <p>"Vào thứ Hai lúc trưa — khi lịch SoulCycle tuần tới được công bố — nếu bạn không ngồi trước máy tính bấm phím ngay lúc đó như một con nghiện eBay săn tượng sứ, bạn thường xuyên hết chỗ."</p>
+  <span class="attribution">Từ bài viết trên Vanity Fair về SoulCycle</span>
+</blockquote>
+
+<p>Quy trình đặt chỗ hỗn loạn này hoàn toàn mâu thuẫn với thương hiệu SoulCycle. SoulCycle quyết định tạo ứng dụng di động để người dùng không phải dán mắt vào máy tính chờ đặt chỗ.</p>
+
+<p>Họ thuê <strong>Prolific Interactive</strong> — một agency đã đi qua toàn bộ quy trình design thinking, từ nghiên cứu thấu cảm đến kiểm thử — sử dụng InVision trong suốt quá trình. Nhóm Prolific tập tại SoulCycle hai lần mỗi tuần, đứng quầy lễ tân tại studio, và "phỏng vấn nhà sáng lập, nhân viên và những người đi tập thường xuyên để hiểu cách vận hành nội bộ của công ty."</p>
+
+<h2>Tư Duy Người Mới Học: Nền Tảng Của Kiểm Thử Tốt</h2>
+
+<p>Thiền sư Zen <strong>Shunryu Suzuki</strong> viết:</p>
+
+<blockquote>
+  <p>"Trong tâm trí người mới học có nhiều khả năng, trong tâm trí chuyên gia thì có ít."</p>
+  <span class="attribution">Shunryu Suzuki — Zen Mind, Beginner's Mind</span>
+</blockquote>
+
+<p>Để kiểm thử các giải pháp ban đầu mà không bị mù quáng bởi giả định, nhóm Prolific cần tiếp cận thách thức bằng con mắt tươi mới. Tư duy người mới học áp dụng ở mọi giai đoạn của quy trình design thinking:</p>
+
+<div class="mindset-grid">
+  <div class="mg-cell">
+    <span class="mg-phase">Thấu cảm</span>
+    <span class="mg-desc">Mở lòng với trải nghiệm của người có nền tảng khác và nhìn mọi thứ từ góc nhìn của họ</span>
+  </div>
+  <div class="mg-cell">
+    <span class="mg-phase">Định nghĩa</span>
+    <span class="mg-desc">Tái định khung vấn đề từ góc độ khác — không bị giới hạn bởi cách nhìn nhận quen thuộc</span>
+  </div>
+  <div class="mg-cell">
+    <span class="mg-phase">Ý tưởng hóa</span>
+    <span class="mg-desc">Không phán xét những ý tưởng có vẻ tầm thường hay ngớ ngẩn — chúng có thể dẫn đến hướng đi mới</span>
+  </div>
+  <div class="mg-cell">
+    <span class="mg-phase">Prototype</span>
+    <span class="mg-desc">Mục đích prototype là trả lời câu hỏi, không phải thể hiện năng lực kỹ thuật của nhà thiết kế</span>
+  </div>
+  <div class="mg-cell">
+    <span class="mg-phase">Kiểm thử</span>
+    <span class="mg-desc">Mở lòng với nhiều hướng đi khả thi và cách sản phẩm đáp ứng nhu cầu con người thực</span>
+  </div>
+</div>
+
+<p>Quy trình thiết kế hiếm khi tuyến tính. Mỗi bước kiểm thử là cơ hội để suy nghĩ lại, học hỏi lại và khởi động lại khi cần.</p>
+
+<blockquote>
+  <p>"Bạn càng lớn tuổi hơn với tư cách nhà thiết kế, bạn càng nhận ra rằng bạn không thực sự biết gì cả... nếu bạn có thể chấp nhận rằng mình không biết, nhưng bạn biết cách đi tìm ra, điều đó làm cho bạn rất hiệu quả."</p>
+  <span class="attribution">Daniel Burka — Google Ventures</span>
+</blockquote>
+
+<h2>Kiểm Thử Sớm, Kiểm Thử Thường Xuyên</h2>
+
+<p>Nếu tạo mẫu thử là nơi niềm vui bắt đầu với nhiều nhà thiết kế, thì kiểm thử đôi khi lại đáng sợ — đưa ý tưởng sản phẩm ra trước người dùng thực để nhận phản hồi có thể là khoảng khắc căng thẳng. Nhưng toàn bộ mục đích của việc prototype sớm và thường xuyên là để ngăn chúng ta tạo ra sự gắn kết với những ý tưởng có thể hoặc không có giá trị.</p>
+
+<blockquote>
+  <p>"Hãy tạo mẫu thử như thể bạn biết mình đúng, nhưng kiểm thử như thể bạn biết mình sai."</p>
+  <span class="attribution">Stanford d.school</span>
+</blockquote>
+
+<p>Bằng cách kiểm thử prototype với người dùng thực trong bối cảnh thực, quan sát phản ứng của họ và nhận phản hồi, chúng ta có thể tinh chỉnh POV, hiểu sâu hơn về người dùng, và tạo ra phiên bản tiếp theo tốt hơn đáng kể.</p>
+
+<hr class="divider">
+
+<h2>Case Study: Prolific Interactive & SoulCycle</h2>
+
+<div class="case-study-box">
+  <div class="cs-label">Case Study — Prolific Interactive & SoulCycle</div>
+  <div class="cs-title">Kiểm Thử Trong Bối Cảnh Thực Tế</div>
+
+  <blockquote>
+    <p>"Trong khi kiểm thử prototype ứng dụng, chúng tôi nhận ra rằng tốc độ là yếu tố quan trọng; một số xe đạp được đặt chỗ trong 30 giây, vì vậy thiết kế luồng theo cách mà người dùng không bị mắc kẹt ở bất kỳ bước nào thực sự rất quan trọng."</p>
+    <span class="attribution">Christine Lee — Prolific Interactive</span>
+  </blockquote>
+
+  <p>Khi nhóm Prolific bắt đầu build prototype, họ kiểm thử tại chỗ tại SoulCycle. Điểm hay: không cần tuyển người dùng — SoulCycle chào đón nhóm chạy prototype với các rider bao nhiêu lần tùy ý, miễn là tôn trọng thời gian của họ. Điều này cũng có lợi thế là <strong>phản chiếu bối cảnh thực</strong> nơi người dùng sẽ dùng ứng dụng.</p>
+
+  <p>Đã có lo lắng về việc vào lớp đúng giờ, nên người dùng phải trải qua bài kiểm thử ứng dụng trong vội vã — điều này nhanh chóng tiết lộ những điểm vấp trong luồng. Nhóm sau đó chuyển sang các phiên kiểm thử người dùng chính thức hơn: quan sát người dùng trong phòng hội nghị khi họ thực hiện một số kịch bản trong khi <em>nói to suy nghĩ</em>.</p>
+
+  <blockquote>
+    <p>"Chúng tôi bắt đầu bằng cách kiểm thử prototype trong các studio SoulCycle với các rider. Điều đó cho chúng tôi cảm nhận về những ràng buộc thực tế: sự phân tâm, kết nối internet không ổn định và áp lực thời gian. Kiểm thử người dùng thách thức các giả định của chúng tôi và chúng tôi phải bước ra khỏi cái đầu tập trung vào thiết kế của mình để xem thiết kế của chúng tôi hoạt động như thế nào trong thực tế."</p>
+    <span class="attribution">Christine Lee — Prolific Interactive</span>
+  </blockquote>
+
+  <p>Trong suốt quá trình, nhóm Prolific duy trì chu kỳ prototype-kiểm thử nhanh và liên tục cập nhật cho các stakeholder SoulCycle với những insight và quan sát mới — thay vì "ẩn giấu quy trình nghiên cứu và thiết kế sau tấm màn trong nhiều tuần trước khi tiết lộ trong một báo cáo nghiên cứu toàn diện mà không ai đọc."</p>
+
+  <p>Ứng dụng là một thành công lớn với các rider — phần lớn nhờ nỗ lực hợp tác giữa Prolific, SoulCycle và những người dùng đã giúp kiểm thử prototype.</p>
+</div>
+
+<h2>Giữ Vững Tư Duy Người Mới Học</h2>
+
+<p>Robot <strong>Tega</strong> của MIT được thiết kế như một trợ lý giáo dục cá nhân hóa cho trẻ nhỏ. Với khả năng nhận dạng biểu cảm khuôn mặt, Tega có thể bắt chước dáng điệu của trẻ — điều mà nhóm MIT hy vọng sẽ giúp robot và trẻ gắn kết trong các buổi học.</p>
+
+<p>Họ có thể thử nghiệm giả thuyết này trong phòng lab — nhưng sẽ không có manh mối nào về việc trẻ mầm non có thực sự thấy robot hấp dẫn, đáng sợ hay nhàm chán không. Vì vậy, họ mang nguyên mẫu Tega đến một lớp học mầm non để kiểm thử trong bối cảnh thực.</p>
+
+<p>Kết quả: thành viên nhóm Goren Gordon cho biết, <em>"Sau một lúc, các học sinh bắt đầu ôm nó, chạm vào nó, bắt chước biểu cảm nó đang thể hiện và chơi độc lập với hầu như không cần can thiệp hay khuyến khích."</em> Và quan trọng hơn, Tega có thể tăng cảm xúc tích cực của trẻ thông qua hành vi vật lý — nghiêng người như thể đang thích thú hay tạo ra những tiếng ồn vui vẻ.</p>
+
+<p>Các tham số này rất quan trọng: họ đang kiểm thử prototype trong bối cảnh thực tế, với trẻ em thuộc nhóm đối tượng mục tiêu, và quan sát phản ứng của người dùng theo thời gian thực. Họ không dựa vào khảo sát hay nhóm tập trung — điều đó dù sao cũng không hoạt động với trẻ em ở lứa tuổi này. Quan sát những phản ứng tự nhiên chính là điều làm cho kiểm thử với prototype trở nên mạnh mẽ; khó mà giả vờ hào hứng hay giấu sự bực bội khi tương tác với một sản phẩm.</p>
+
+<p>MIT xác định được rằng Tega là một nền tảng đầy hứa hẹn cho các bối cảnh giáo dục khác, chẳng hạn như hỗ trợ học sinh có khuyết tật học tập — điều mà họ không bao giờ có thể phát hiện nếu không đưa prototype ra thực tế, chấp nhận rằng họ không biết kết quả sẽ như thế nào.</p>
+
+<h2>Thiết Lập Bài Kiểm Thử</h2>
+
+<div class="setup-grid">
+  <div class="setup-row">
+    <div class="sr-label">
+      <span class="srl-num">Bước 01</span>
+      <span class="srl-name">Xác định mục tiêu</span>
+    </div>
+    <div class="sr-desc">
+      <p>Bạn đang kiểm thử cụ thể điều gì, và bạn muốn biết gì? Điều này định hướng mọi thứ tiếp theo: câu hỏi bạn đặt, người dùng bạn tuyển, và cách bạn xác định thành công. Đây là bước quan trọng nhất — không rõ ràng ở đây sẽ làm mờ toàn bộ kết quả sau này.</p>
+    </div>
+  </div>
+  <div class="setup-row">
+    <div class="sr-label">
+      <span class="srl-num">Bước 02</span>
+      <span class="srl-name">Tuyển người dùng</span>
+    </div>
+    <div class="sr-desc">
+      <p>Kiểm thử trực tiếp là lý tưởng nhất. Erika Hall (Just Enough Research) gợi ý: xác định rõ tham số người tham gia tốt (ví dụ: "chia sẻ mối quan tâm và mục tiêu của người dùng mục tiêu" và "có thể diễn đạt suy nghĩ rõ ràng"). Tạo screener để lọc. Đăng link trên mạng xã hội, nhờ bạn bè/gia đình, dùng Craigslist. Nếu bị giới hạn ở kiểm thử từ xa, các dịch vụ như ethn.io và UserTesting cung cấp người dùng theo nhân khẩu học được nhắm mục tiêu.</p>
+    </div>
+  </div>
+  <div class="setup-row">
+    <div class="sr-label">
+      <span class="srl-num">Bước 03</span>
+      <span class="srl-name">Kiểm thử prototype</span>
+    </div>
+    <div class="sr-desc">
+      <p>Tạo ra trải nghiệm cho người dùng trong bối cảnh gần với thực tế nhất. Nguyên tắc "Hiện thị, không giải thích": sau khi người dùng được thiết lập với prototype, đừng giải thích mọi thứ. Hãy để họ tự tìm ra. Quan sát cách họ sử dụng sản phẩm — có trực quan không, họ bối rối hay thất vọng ở đâu? Mang nhiều prototype để người dùng so sánh và đưa ra phản hồi phong phú hơn. Ghi hình và âm thanh — smartphone và phần mềm ghi màn hình là đủ.</p>
+    </div>
+  </div>
+  <div class="setup-row">
+    <div class="sr-label">
+      <span class="srl-num">Bước 04</span>
+      <span class="srl-name">Tổng hợp quan sát</span>
+    </div>
+    <div class="sr-desc">
+      <p>Sau khi kết thúc phiên kiểm thử, dành thời gian xem lại và tổng hợp phát hiện. Erika Hall (Just Enough Research): cấu trúc buổi tổng hợp (tóm tắt mục tiêu, trích dẫn và quan sát), vật tư cần thiết (sticky notes và bút dạ!), và các loại dữ liệu cần tìm. Brendan Mulligan (Cluster): tổ chức "viewing party" và ghi lại insight từ nhóm. Nhóm các pattern lại. Sau đó so sánh với POV ban đầu — dữ liệu hỗ trợ hay mâu thuẫn với giả thuyết? Đây là quy trình lặp — kiểm thử prototype giúp bạn tinh chỉnh giả thuyết ban đầu và tạo ra sản phẩm tốt hơn nhiều trong vòng tiếp theo.</p>
+    </div>
+  </div>
+</div>
+
+<h2>Thấu Cảm Và Lòng Từ Bi</h2>
+
+<blockquote>
+  <p>"Tâm trí người mới học là tâm trí từ bi. Khi tâm trí chúng ta từ bi, nó không có giới hạn."</p>
+  <span class="attribution">Shunryu Suzuki — Zen Mind, Beginner's Mind</span>
+</blockquote>
+
+<p>Thấu cảm là trái tim của thiết kế — nó cho phép chúng ta trải nghiệm những tình huống mà người dùng của chúng ta đang gặp phải. Thấu cảm giúp chúng ta khám phá các cơ hội để làm cho những trải nghiệm đó bớt đáng sợ — như Doug Dietz đã làm cho trẻ em cần chụp MRI — hoặc thú vị hơn, như nhóm Savioke đã làm với robot Relay.</p>
+
+<p>Lòng từ bi kết hợp với tư duy người mới học giúp chúng ta chuyển hóa thấu cảm thành hành động. Nếu chúng ta nuôi dưỡng ý thức trách nhiệm với người dùng trong thiết kế, chúng ta có thể căn chỉnh sản phẩm với những con người sử dụng chúng — và có lẽ cải thiện cuộc sống của họ trên đường đi.</p>
+
+<p>Chúng ta có thể giữ mở khả năng rằng những ý tưởng đầu tiên của chúng ta không phải là ý tưởng tốt nhất, và bằng cách tiếp cận lặp đi lặp lại và thu thập insight từ người dùng khi chúng ta kiểm thử prototype, chúng ta có thể tạo ra những sản phẩm tốt hơn.</p>
+
+<p>Với tư cách nhà thiết kế, chúng ta có tác động thực sự đến hình dạng sản phẩm, cách người dùng trải nghiệm chúng, và hệ quả của việc sử dụng. Hãy sử dụng những cơ hội này với thấu cảm và lòng từ bi, và thiết kế những sản phẩm mà bạn tự hào khi mang ra thế giới.</p>
+
+<div class="closing-box">
+  <div class="cb-title">Kết chương — Lời Nhắn Gửi</div>
+  <p>Quy trình design thinking không phải là công thức cứng nhắc. Nó là một tư duy — một cách tiếp cận các vấn đề bắt đầu từ con người, liên tục học hỏi từ thực tế, và không sợ thất bại nhanh để thành công sớm. Mỗi bước — Thấu cảm, Định nghĩa, Ý tưởng hóa, Tạo mẫu thử, Kiểm thử — không phải là đích đến mà là cửa dẫn đến sự hiểu biết sâu sắc hơn.</p>
+</div>
+
+<hr class="divider">
+
+<div class="further-reading">
+  <h2>Đọc Thêm</h2>
+  <ul class="reading-list">
+    <li>Erika Hall — Just Enough Research (Rosenfeld Media)</li>
+    <li>How to Run Live User Testing Part 3: The Debrief</li>
+    <li>The GV Research Sprint: Interview Participants and Summarize Findings</li>
+    <li>Remote User Testing at Vox</li>
+    <li>Shunryu Suzuki — Zen Mind, Beginner's Mind</li>
+    <li>Michael Margolis (Google Ventures) — User Testing Setup for Mobile Prototypes</li>
+  </ul>
+</div>
+
+<footer>
+  DesignBetter.Co by InVision · Eli Woolery · Design Thinking Handbook<br>
+  Chương 06 / 06 — Kiểm Thử: Sớm Và Thường Xuyên
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch5-dt-handbook.html"><span class="lbl">Chương trước</span>Chương 5: Tạo Mẫu Thử: Học Thông Minh Hơn, Nhanh Hơn</a>
+</nav>
+</body>
+</html>

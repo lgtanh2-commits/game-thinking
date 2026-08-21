@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 3 — Crossing Boundaries: Design into Business and Management</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f7f7f7;
+      --border: #e0e0e0;
+      --border-strong: #999;
+      --text: #1a1a1a;
+      --text-muted: #555;
+      --accent: #1a1a1a;
+      --rule: #ccc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.8;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 32px 100px;
+    }
+
+    /* ── HEADER ── */
+    .book-meta {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chapter-number {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .chapter-authors {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      margin-bottom: 40px;
+    }
+
+    /* ── SECTION HEADINGS ── */
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-top: 56px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--text);
+    }
+
+    h3 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 32px;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    /* ── BODY TEXT ── */
+    p {
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    p + p { text-indent: 1.5em; }
+    p:first-of-type { text-indent: 0; }
+
+    /* ── INFOBOX ── */
+    .infobox {
+      background: var(--surface);
+      border-left: 3px solid var(--text);
+      padding: 20px 24px;
+      margin: 28px 0;
+      font-size: 15.5px;
+      line-height: 1.7;
+    }
+
+    .infobox-title {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    /* ── LEARNING OBJECTIVES ── */
+    .objectives-box {
+      border: 1px solid var(--border-strong);
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+
+    .objectives-box .box-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      color: var(--text-muted);
+    }
+
+    .objectives-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .objectives-box ul li {
+      padding-left: 1.2em;
+      position: relative;
+      margin-bottom: 8px;
+      font-size: 15.5px;
+      line-height: 1.65;
+    }
+
+    .objectives-box ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    /* ── NUMBERED LIST ── */
+    ol.content-list {
+      padding-left: 1.5em;
+      margin: 16px 0 20px;
+    }
+
+    ol.content-list li {
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+    /* ── BULLET LIST ── */
+    ul.content-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 20px;
+    }
+
+    ul.content-list li {
+      padding-left: 1.4em;
+      position: relative;
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    ul.content-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      font-size: 1.4em;
+      line-height: 1.2;
+      color: var(--text-muted);
+    }
+
+    /* ── BLOCKQUOTE ── */
+    blockquote {
+      border-left: 2px solid var(--border-strong);
+      margin: 20px 0;
+      padding: 12px 20px;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── FIGURE CAPTION ── */
+    .fig-caption {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    /* ── DIAGRAM (text-based) ── */
+    .diagram {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin: 20px 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+    }
+
+    .diagram-title {
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .diagram-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-bottom: 6px;
+    }
+
+    .diagram-label {
+      min-width: 120px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      border-right: 1px solid var(--border);
+      padding-right: 12px;
+      padding-top: 8px;
+      flex-shrink: 0;
+    }
+
+    .diagram-content {
+      padding: 8px 0 8px 16px;
+      line-height: 1.5;
+    }
+
+    .diagram-node {
+      display: inline-block;
+      border: 1.5px solid var(--text);
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      margin: 3px 4px 3px 0;
+    }
+
+    /* ── TABLE ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 24px;
+      font-size: 14.5px;
+    }
+
+    .data-table th {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--surface);
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 2px solid var(--text);
+    }
+
+    .data-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+      vertical-align: top;
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .data-table .table-note {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: right;
+      padding-top: 8px;
+    }
+
+    .table-caption {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── CHAPTER SUMMARY ── */
+    .summary-box {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      padding: 28px 32px;
+      margin-top: 48px;
+    }
+
+    .summary-box p { text-indent: 0 !important; }
+
+    /* ── REVIEW / PROJECT / TASK BOX ── */
+    .review-box {
+      border: 1px solid var(--border);
+      padding: 24px 28px;
+      margin-top: 28px;
+    }
+
+    .review-box-title {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+
+    .review-box ol {
+      padding-left: 1.4em;
+    }
+
+    .review-box ol li {
+      margin-bottom: 12px;
+      line-height: 1.7;
+      font-size: 15.5px;
+    }
+
+    /* ── REFERENCES ── */
+    .references-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 16px;
+    }
+
+    .references-list li {
+      font-size: 14.5px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+      padding-left: 1.5em;
+      text-indent: -1.5em;
+    }
+
+    /* ── CITE ── */
+    cite {
+      font-style: normal;
+      color: var(--text-muted);
+    }
+
+    /* ── DIVIDER ── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 48px 0;
+    }
+
+    /* ── KEYWORD ── */
+    .keywords {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .keywords strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* ── CASE STUDY INFOBOX ── */
+    .casestudy-box {
+      background: var(--surface);
+      border: 1.5px solid var(--border-strong);
+      padding: 24px 28px;
+      margin: 36px 0;
+    }
+
+    .casestudy-box .cs-title {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .casestudy-box .cs-subtitle {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .casestudy-box p { text-indent: 0 !important; }
+
+    @media (max-width: 600px) {
+      body { font-size: 15px; padding: 32px 20px 80px; }
+      h1 { font-size: 1.6rem; }
+      h2 { font-size: 1.2rem; }
+      .data-table { font-size: 13px; }
+    }
+  
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+  <p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+
+<!-- BOOK META -->
+  <div class="book-meta">
+    Design Thinking for New Business Contexts — Yujia Huang &amp; David Hands &nbsp;·&nbsp; Palgrave Macmillan, 2022
+  </div>
+
+  <!-- CHAPTER HEADER -->
+  <div class="chapter-number">Chapter 3</div>
+  <h1>Crossing Boundaries: Design into Business and Management</h1>
+  <div class="chapter-authors">
+    Yujia Huang (University of Dundee, UK) · David Hands (Lancaster University, UK)<br>
+    <span style="font-size:11px; letter-spacing:0.05em;">DOI: 10.1007/978-3-030-94206-9_3</span>
+  </div>
+
+  <div class="keywords">
+    <strong>Keywords:</strong> Design school · Business school · Curriculum · Executive online learning · Design thinking curriculum design
+  </div>
+
+  <!-- LEARNING OBJECTIVES -->
+  <div class="objectives-box">
+    <div class="box-label">Learning Objectives</div>
+    <ul>
+      <li>Hiểu được mối quan hệ giữa việc áp dụng thiết kế chiến lược và lợi thế cạnh tranh thương mại.</li>
+      <li>Xem xét các yếu tố chung trong chương trình đại học thiết kế và ảnh hưởng của chúng đến sự phát triển các kỹ năng chuyển đổi (transferable skills).</li>
+      <li>Phát triển hiểu biết về những thách thức khi triển khai design thinking trong chương trình đào tạo của trường kinh doanh.</li>
+      <li>Giới thiệu sự phát triển của các chương trình executive design thinking trực tuyến nhằm hỗ trợ phát triển nghề nghiệp liên tục.</li>
+      <li>Phân tích phê phán việc triển khai một chương trình design thinking tại một cơ sở giáo dục đại học hàng đầu ở Bắc Mỹ.</li>
+    </ul>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <h2>3.1 Giới thiệu</h2>
+
+  <p>Trong thập kỷ qua, các nhà thực hành và học giả từ lĩnh vực kinh doanh và quản lý ngày càng coi design là một phương tiện vô giá để giải quyết các thách thức đổi mới phức tạp. Xét theo nghĩa rộng nhất, design là một hoạt động đa ngành vượt qua ranh giới truyền thống, tiến vào các lĩnh vực tham gia mang tính phê phán mà trước đây, trong những giai đoạn phát triển ban đầu của nó, người ta không thể tưởng tượng được. Bản chất chiết trung của design là "một cộng đồng rộng lớn của các ý tưởng, thái độ đa dạng và chương trình nghị sự khác nhau"; khi nhìn tổng thể, các mối quan hệ tương hỗ năng động của những yếu tố này được nhúng vào cách thức các tổ chức phát triển sản phẩm mới, dịch vụ, hệ thống và tương tác nhằm làm giàu thêm 'trải nghiệm' của con người.</p>
+
+  <p>Các nhà lãnh đạo kinh doanh của ngày mai cần được trang bị các kỹ năng và khả năng để truyền cảm hứng, động viên và khuyến khích nhân viên đạt được các mục tiêu đầy tầm nhìn. Những ví dụ điển hình như Tim Cook tại Apple, Huateng 'Pony' Ma — doanh nhân bí ẩn tạo ra Tencent tại Trung Quốc, và Marrisa Mayor, CEO của Yahoo cho thấy tầm quan trọng của tố chất lãnh đạo đổi mới. Vấn đề đào tạo lãnh đạo kinh doanh tương lai cuối cùng quy về một điểm: giáo dục. Làm thế nào và ở đâu để trang bị cho các nhà lãnh đạo kinh doanh khả năng dẫn dắt và thực hiện các dự án, khuyến khích sáng kiến, xây dựng ý thức mục tiêu chung, và trao quyền cho người khác?</p>
+
+  <p>Chương này đóng góp vào cuộc tranh luận đang diễn ra về việc phân tích phê phán vai trò và tính chất của các trường kinh doanh cũng như chương trình giảng dạy của họ trong việc chuẩn bị tốt nhất cho sinh viên đảm nhận các vị trí lãnh đạo trong ngành. Cuộc thảo luận khám phá những điểm khác biệt và tương đồng giữa chương trình đào tạo thiết kế và kinh doanh hiện có, làm nổi bật cách tư duy phê phán, giải quyết vấn đề và kỹ năng làm việc nhóm được phát triển trong sinh viên. Chương kết thúc bằng một nghiên cứu điển hình đóng góp từ <strong>Dr Beatriz Itzel Cruz Megchun</strong>, Giáo sư Phụ tá về Thiết kế &amp; Đổi mới tại Pamplin School of Business, Đại học Portland, Hoa Kỳ.</p>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <h2>3.2 Design cho Doanh nghiệp: Mệnh lệnh Tất yếu</h2>
+
+  <p>Người ta thừa nhận rộng rãi rằng design có thể mang lại nhiều lợi ích cho khả năng sinh lời và thành công lâu dài của doanh nghiệp <cite>(Nomen và BCD Barcelona Centre de Disseny, 2014; Cox, 2005; The Design Council, 2015; Kotler &amp; Rath, 2013)</cite>. Thomas Watson Jr, Tổng Giám đốc thứ hai của IBM, đã nổi tiếng với câu nói <em>"good design is good business"</em> — nhận định vẫn còn nguyên giá trị cho đến ngày nay. Các doanh nghiệp có thể khai thác sức mạnh toàn diện của design theo nhiều cách khác nhau, từ thiết kế đồ họa đến thay đổi tổ chức <cite>(Cooper et al., 2016)</cite>.</p>
+
+  <p>Bảng 3.1 dưới đây xác định cách thức và phạm vi design có thể đóng góp cho sự thành công kinh doanh gia tăng:</p>
+
+  <div class="table-caption">Bảng 3.1 — Đóng góp của design vào thành công kinh doanh</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Hoạt động Design</th>
+        <th>Design như Quy trình</th>
+        <th>Design như Chiến lược</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Phát triển sản phẩm và dịch vụ đổi mới</td><td>85%</td><td>86%</td></tr>
+      <tr><td>Phát triển sản phẩm/dịch vụ chất lượng cao hơn</td><td>83%</td><td>86%</td></tr>
+      <tr><td>Khác biệt hóa sản phẩm và dịch vụ</td><td>73%</td><td>86%</td></tr>
+      <tr><td>Thâm nhập thị trường mới</td><td>65%</td><td>84%</td></tr>
+      <tr><td>Cung cấp giá trị gia tăng cho khách hàng</td><td>81%</td><td>80%</td></tr>
+      <tr><td>Ra quyết định tốt hơn dựa trên insight khách hàng</td><td>61%</td><td>74%</td></tr>
+      <tr><td>Hỗ trợ marketing sản phẩm/dịch vụ</td><td>59%</td><td>74%</td></tr>
+      <tr><td>Xây dựng thương hiệu và hình ảnh</td><td>61%</td><td>70%</td></tr>
+      <tr><td>Đạt được cắt giảm chi phí</td><td>53%</td><td>66%</td></tr>
+      <tr><td>Thúc đẩy quá trình đổi mới</td><td>59%</td><td>64%</td></tr>
+      <tr><td>Giảm thiểu rủi ro trong quá trình đổi mới</td><td>60%</td><td>56%</td></tr>
+      <tr><td colspan="3" class="table-note">% doanh nghiệp tham gia phỏng vấn nghiên cứu</td></tr>
+    </tbody>
+  </table>
+
+  <p>Dù có sự đa dạng ứng dụng như vậy, design vẫn thường bị hiểu nhầm bởi giới kinh doanh — một giả định phổ biến là design chủ yếu được dùng cho mục đích thẩm mỹ như logo và đồ họa đơn giản. Để nâng cao giá trị design như một tài sản kinh doanh chiến lược, các tổ chức và hội đồng thiết kế như <strong>Danish Design Centre (DDC)</strong> ở Đan Mạch và <strong>KAIST</strong> ở Hàn Quốc đang liên tục hợp tác với các doanh nghiệp để truyền đạt những lợi ích đa dạng mà design có thể mang lại.</p>
+
+  <p>Ở cấp độ chiến lược, design đóng góp theo ba hướng cốt lõi:</p>
+
+  <ul class="content-list">
+    <li><em>Phát triển sản phẩm và dịch vụ đổi mới:</em> design kết nối sáng tạo với đổi mới, dẫn đến thương mại hóa sản phẩm/dịch vụ đổi mới, mở ra thị trường mới và tăng trưởng kinh doanh bền vững.</li>
+    <li><em>Phát triển sản phẩm/dịch vụ chất lượng cao hơn:</em> design cho phép công ty định vị lại các sản phẩm/dịch vụ hiện tại, hoặc nâng cao các thuộc tính sản phẩm để đảm bảo vị thế cao cấp, hoặc cung cấp cho thị trường đại chúng ở mức giá thấp hơn.</li>
+    <li><em>Khác biệt hóa sản phẩm và dịch vụ:</em> thiết lập sự khác biệt rõ ràng giữa sản phẩm của công ty và sản phẩm cạnh tranh. Design là phương tiện khác biệt hóa xuất sắc và là công cụ mạnh mẽ để giành thị phần.</li>
+  </ul>
+
+  <p>Việc ứng dụng và cân nhắc design ở cấp độ chiến lược đòi hỏi sự hỗ trợ và thẩm quyền ở cấp cao nhất để có hiệu quả. Điều này đặt design vào các vị trí cao nhất trong quá trình ra quyết định của doanh nghiệp — nơi nó đang trở thành một tài sản chiến lược. Tuy nhiên, <strong>Formosa và Kroeter (2002)</strong> tại Parsons School of Design, New York, khi xem xét 19 chương trình MBA hàng đầu của Mỹ, nhận thấy rằng <em>"không có chương trình nào giải quyết hoặc tích hợp design vào chương trình giảng dạy của mình một cách đáng kể"</em>.</p>
+
+  <p>Đây là điều kỳ lạ, khi các thương hiệu hàng đầu thế giới sử dụng design xuyên suốt trong mọi khía cạnh hoạt động: Louis Vuitton (chất lượng sản phẩm vượt trội), BMW (kỹ thuật thiết kế chính xác), Disney (trải nghiệm design), Taobao (thiết kế trải nghiệm người dùng). Thế giới kinh doanh và thương mại đang trải qua quá trình chuyển đổi triệt để, với những thay đổi xã hội và công nghệ liên tục làm gián đoạn các mô hình kinh doanh truyền thống hàng ngày. Tuy nhiên, nhiều trường kinh doanh vẫn giảng dạy chương trình đã lỗi thời và các phương pháp sư phạm không đáp ứng được những thách thức năng động và mới nổi của thiên niên kỷ thứ ba.</p>
+
+  <p><strong>Matthews và Wrigley (2011)</strong> lập luận rằng: <em>"các trường đại học Úc cho thấy một số thử nghiệm sớm với design thinking, thường nằm trong các đơn vị về đổi mới. Trong các trường kinh doanh Úc, đã có sự thừa nhận rằng lĩnh vực design thinking trong kinh doanh đang phát triển và cần thiết, và một số sáng kiến đã được bắt đầu."</em> Được dạy một cách cẩn thận trong môi trường trường kinh doanh, design thinking có thể đóng góp có ý nghĩa cho một số module kinh doanh cốt lõi: quản trị và chiến lược thiên về 'quy trình' dựa trên lập kế hoạch và phân tích hợp lý; marketing đòi hỏi hiểu biết sâu sắc về khách hàng — nhất quán với empathic design và các công cụ như user journeys, empathy maps và personas.</p>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <h2>3.3 Dạy Design trong Các Trường Thiết kế</h2>
+
+  <p>Để hiểu cách design thinking có thể được tích hợp vào các trường quản lý và kinh doanh, trước tiên cần xem xét các trường thiết kế và cách họ giảng dạy thiết kế và kỹ năng sáng tạo. Mặc dù có sự biến đổi lớn giữa các khóa học thiết kế tại các trường đại học, nhưng các yếu tố chương trình giảng dạy và nguyên tắc học tập sau đây nhìn chung vẫn nhất quán trong toàn bộ lĩnh vực giáo dục thiết kế:</p>
+
+  <h3>Nhập học các chương trình Cử nhân Thiết kế</h3>
+  <p>Hầu hết tất cả các khóa học thiết kế đều yêu cầu người nộp đơn chứng minh sự sáng tạo và phù hợp thông qua <em>danh mục tác phẩm sáng tạo</em> — dù là danh mục A0 truyền thống hay danh mục trực tuyến. Tại Vương quốc Anh, khóa học nền tảng Nghệ thuật và Thiết kế là con đường chuẩn bị phổ biến để nộp đơn vào bậc đại học.</p>
+
+  <h3>Các loại khóa học Thiết kế</h3>
+  <p>Theo truyền thống, có hai loại khóa học thiết kế đại học: <strong>thiết kế 2D</strong> (đồ họa, minh họa, xuất bản) và <strong>thiết kế 3D</strong> (nội thất, sản phẩm, thời trang). Với sự phát triển của kỹ thuật số, một lĩnh vực thứ ba đang xuất hiện — thiết kế web, gaming và thiết kế tương tác. Kiến trúc bị loại khỏi cuộc thảo luận này do có yêu cầu riêng biệt về học thuật và nghề nghiệp, được quy định bởi các cơ quan chuyên môn như RIBA.</p>
+
+  <h3>Phương pháp Giảng dạy</h3>
+  <p>Đây là sự khác biệt then chốt phân biệt giáo dục thiết kế với các ngành truyền thống. Các khóa học thiết kế chú trọng mạnh vào phát triển kỹ năng thực hành, với ít sự nhấn mạnh vào các bài giảng chính thức. Thay vì phòng giảng, sự chú ý lớn hơn được đặt vào việc học trong <strong>xưởng thiết kế (design studio)</strong>, nơi người hướng dẫn có liên hệ trực tiếp hơn với sinh viên thông qua việc học 'on the job'. Các bài thuyết trình thiết kế hình thành và phản hồi phê phán ('crits') từ người hướng dẫn và đồng nghiệp là nền tảng liên tục của việc học phản ánh thực hành ngành. Các bài giảng chủ yếu được dùng để phát triển hiểu biết về các phong trào lịch sử và nghiên cứu bối cảnh. Guest lectures từ các chuyên gia thiết kế bên ngoài rất phổ biến.</p>
+
+  <h3>Phát triển Kỹ năng Chuyển đổi</h3>
+  <p>Kỹ năng chuyển đổi là phần không thể thiếu trong hầu hết các chương trình bằng cấp, và thiết kế là một trong những ngành quan trọng nhất nơi kỹ năng là nền tảng của sự phát triển nghề nghiệp. Có hai loại kỹ năng: <em>(1) kỹ năng chuyên ngành</em> (ví dụ: sinh viên thiết kế thời trang học kỹ năng may và cắt may; sinh viên thiết kế công nghiệp sử dụng công cụ và thiết bị chuyên dụng) và <em>(2) kỹ năng chuyển đổi</em>. Các kỹ năng chuyển đổi chính đạt được trong quá trình học thiết kế bao gồm: (1) giải quyết vấn đề; (2) tư duy sáng tạo; (3) giao tiếp; (4) quản lý dự án; (5) làm việc nhóm; (6) khả năng nghiên cứu độc lập.</p>
+
+  <h3>Chuyên ngành Sau đại học</h3>
+  <p>Sau khi học đại học, sinh viên có thể tiếp tục chuyên sâu hoặc khám phá một ngành học bổ sung. Chương trình sau đại học thiết kế có định hướng kinh doanh chủ yếu nằm trong lĩnh vực quản lý thiết kế và chiến lược, thiết kế cho kinh doanh, thiết kế và thương hiệu. Ví dụ: Đại học Lancaster cung cấp chương trình quản lý thiết kế sau đại học phát triển các phương thức tư duy quan trọng cho những thách thức mà các nhà quản lý thiết kế phải đối mặt. Các yếu tố chung trong các khóa học thiết kế sau đại học có chủ đề kinh doanh bao gồm:</p>
+
+  <ul class="content-list">
+    <li><em>Phương pháp nghiên cứu sáng tạo:</em> phát triển hiểu biết về các phương pháp nghiên cứu thiết kế và ứng dụng của chúng trong bối cảnh thực tế, tập trung vào tư duy thiết kế phân tích và sáng tạo thông qua điều tra lý thuyết và hoạt động thực hành.</li>
+    <li><em>Nghiên cứu phê phán và bối cảnh:</em> khám phá mối quan hệ phức tạp giữa thiết kế và kinh doanh trong bối cảnh lịch sử và đương đại; xem xét cách design đóng góp cho các đề xuất bền vững và khả thi về mặt thương mại.</li>
+    <li><em>Design cho kinh doanh:</em> tập trung vào nguồn gốc của quản lý thiết kế/lãnh đạo thiết kế, quá khứ, hiện tại và các hình thức mới nổi; chức năng và mục đích; mối quan hệ với hoạch định chính sách.</li>
+  </ul>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <h2>3.4 Dạy Quản trị Kinh doanh trong Các Trường Kinh doanh</h2>
+
+  <p>Phần này tập trung vào việc xem xét các yếu tố chung trong chương trình đào tạo trong một loạt các trường quản trị kinh doanh — đặc biệt là bậc sau đại học do sự đa dạng rộng lớn của các khóa học đại học. Đã xác định được các module phổ biến nơi design thinking có thể đóng góp đáng kể cho kết quả học tập; tuy nhiên, hiện tại thiết kế hiếm khi được đề cập hay giảng dạy.</p>
+
+  <h3>Yếu tố chung trong các trường kinh doanh</h3>
+
+  <ul class="content-list">
+    <li><em>Nhập học:</em> yêu cầu điểm mạnh về Toán học và Tiếng Anh, bằng cử nhân trong các ngành liên quan (tài chính, kế toán, marketing), bản khai cá nhân có bằng chứng về kinh nghiệm làm việc.</li>
+    <li><em>Loại khóa học:</em> bên cạnh MBA, các lĩnh vực chuyên ngành thường bao gồm Quản trị Kinh doanh Quốc tế, Kế toán và Tài chính, Phân tích Kinh doanh, Truyền thông Marketing, Charity Marketing.</li>
+    <li><em>Phương pháp giảng dạy:</em> chủ yếu qua các bài giảng và hội thảo truyền thống; các dự án và bài tập nhóm làm việc với các công ty từ ngành; guest lectures từ học giả hàng đầu và lãnh đạo doanh nghiệp.</li>
+  </ul>
+
+  <h3>Các module có thể tích hợp Design Thinking</h3>
+
+  <ol class="content-list">
+    <li><strong>Chiến lược doanh nghiệp (Corporate Strategy):</strong> design có thể đóng góp lớn vào việc xây dựng chiến lược kinh doanh. Chiến lược doanh nghiệp chủ yếu được triển khai để xác định, lập kế hoạch và đạt được các mục tiêu kinh doanh dài hạn. Một cách tiếp cận theo kiểu nhà thiết kế sẽ mang lại phương tiện giải quyết vấn đề dựa trên giải pháp thông qua việc đưa người dùng cuối vào cuộc hoặc phát triển hiểu biết sâu hơn về nhu cầu và giá trị của người dùng.</li>
+    <li><strong>Marketing (Quốc tế):</strong> đây là chức năng kinh doanh gần nhất với thiết kế, nhưng design hiếm khi được đề cập trong yếu tố học tập cốt lõi này. Mối quan hệ giữa design và marketing ngày càng trở nên chiến lược và hướng kinh doanh hơn, với trọng tâm chính là hiểu nhu cầu người dùng — từ hành vi người tiêu dùng đến nghiên cứu marketing, quản lý quan hệ khách hàng đến truyền thông marketing.</li>
+    <li><strong>Đổi mới Kỹ thuật số (Digital Innovation):</strong> ứng dụng công nghệ phần mềm cho các vấn đề hoặc thực tiễn kinh doanh hiện có. Các công ty đang tái định hướng chiến lược kinh doanh để tăng cường hoạt động trực tuyến; design cung cấp một loạt trải nghiệm người dùng nâng cao giúp củng cố giá trị thương hiệu. Design cũng là phương tiện lý tưởng để tạo sự khác biệt trong các thị trường cạnh tranh cao.</li>
+    <li><strong>Khởi nghiệp (Entrepreneurship):</strong> trong một thế giới không thể đoán trước, những bộ não sáng tạo không ngừng tìm kiếm cơ hội thương mại mới. Các khía cạnh chính của quá trình khởi nghiệp bao gồm sáng tạo, nhận diện cơ hội, bán hàng, tài chính, lãnh đạo và giao tiếp hiệu quả — design ảnh hưởng và bao trùm tất cả các hoạt động liên kết này, biến ý tưởng thành sản phẩm hữu hình có thể thương mại hóa.</li>
+  </ol>
+
+  <p>Tuy nhiên, việc tích hợp design và tư duy sáng tạo vào chương trình trường kinh doanh không đơn giản như người ta tưởng ban đầu. Có một khoảng cách văn hóa đáng kể giữa hai ngành học, ở một số khía cạnh đối lập nhau theo chiều hướng. Chương trình đào tạo trường kinh doanh thường rất chặt chẽ, với nhiều đòi hỏi mâu thuẫn đặt ra cho sinh viên. Một cách nhanh chóng và hiệu quả để đưa design vào trường kinh doanh là thông qua việc cung cấp design thinking như một module tự chọn. Nếu thành công, các module tùy chọn này sau đó có thể trở thành một đặc điểm cốt lõi lâu dài của chương trình giảng dạy.</p>
+
+  <p>Đáng chú ý, một trong những người tiên phong sớm nhất trong lĩnh vực quản lý thiết kế tại Vương quốc Anh là <strong>Peter Gorb</strong>, người đã giới thiệu quản lý thiết kế vào London Business School năm 1976, và sau đó chính thức thành lập một <em>Design Management Unit (DMU)</em> vào năm 1982. Các bài báo hội thảo từ công việc được thực hiện tại DMU đã hình thành ấn phẩm quản lý thiết kế mang tính biểu tượng năm 1988: <em>Design Talks!</em> <cite>(Gorb &amp; Schneider, 1988)</cite>.</p>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <h2>3.5 Học thuật và Ngành nghề: Liên minh Thiết kế</h2>
+
+  <p>Với sự phát triển của học trực tuyến, chúng ta đang chứng kiến sự gia tăng của giáo dục điều hành (executive education) nhắm vào các chuyên gia quản lý, những người có thể tham gia các khóa học ngắn (thường từ 6–8 tuần) xoay quanh các chủ đề liên quan đến design thinking/chiến lược. Dưới đây là một số ví dụ điển hình về các khóa học design thinking ngắn hiện có:</p>
+
+  <div class="infobox">
+    <div class="infobox-title">Chương trình (1) — London Business School (2021), Vương quốc Anh</div>
+    <p><strong><em>Innovation through Design Thinking</em></strong> [6 tuần trực tuyến; 4–6 giờ học/tuần]</p>
+    <p>Khóa học ngắn này giới thiệu cho sinh viên các nguyên tắc cơ bản của design thinking có thể được áp dụng cho các thách thức sáng tạo trong công việc của chính họ. Các đơn vị học tập bao gồm: tầm quan trọng của đổi mới trong tổ chức; hiểu nhu cầu khách hàng; định khung vấn đề trong bối cảnh tổ chức; tạo ý tưởng và kỹ thuật tư duy sáng tạo; tạo mẫu và phát triển ý tưởng.</p>
+  </div>
+
+  <div class="infobox">
+    <div class="infobox-title">Chương trình (2) — Rotman School of Management, Canada (2021)</div>
+    <p><strong><em>Business Design Thinking: From Insight to Innovation</em></strong> [6 tuần trực tuyến; 4–6 giờ học/tuần]</p>
+    <p>Chương trình ngắn chuyên sâu này giới thiệu một framework 4 bước để định khung và giải quyết các vấn đề kinh doanh thông qua cách tiếp cận đổi mới theo kiểu nhà thiết kế. Các yếu tố học tập chính: xác định vấn đề kinh doanh thông qua sense-making; làm việc nhóm đa ngành hiệu quả; điều hướng bốn giai đoạn đổi mới và thành thạo các công cụ và kỹ thuật design thinking. Chiến lược học tập đa dạng: webinar trực tiếp, workbook tương tác và các buổi đánh giá đồng nghiệp — đưa việc học xa rời định dạng bài giảng truyền thống.</p>
+  </div>
+
+  <div class="infobox">
+    <div class="infobox-title">Chương trình (3) — MIT Management Executive Education, Hoa Kỳ (2021)</div>
+    <p><strong><em>Mastering Design Thinking — Create Value through Systematic Innovation</em></strong> [12 tuần trực tuyến; 6–8 giờ học/tuần]</p>
+    <p>Chương trình tham vọng này tuyên bố rằng khi hoàn thành, người học sẽ "thành thạo design thinking". Để hỗ trợ tuyên bố táo bạo này, việc học diễn ra trong ba tháng, điều hướng địa hình rộng lớn của phát triển sản phẩm mới với trọng tâm cụ thể vào việc xác định và phát triển giải pháp dựa trên nhu cầu lấy người dùng làm trung tâm. Mười module khóa học chuyên biệt được cung cấp, mỗi module tập trung vào một thành phần chính của thiết kế, sáng tạo và NPD.</p>
+  </div>
+
+  <div class="infobox">
+    <div class="infobox-title">Chương trình (4) — IBM Design Thinking (2021)</div>
+    <p><strong><em>Enterprise Design Thinking Framework</em></strong> [Miễn phí trực tuyến]</p>
+    <p>Đây là nguồn tài nguyên trực tuyến miễn phí nơi các cá nhân có thể sử dụng các nguồn lực design thinking để hỗ trợ thiết kế tư duy trong tổ chức của họ. Ba nguyên tắc chính tạo nên core của framework rộng lớn này: (1) tập trung vào kết quả người dùng; (2) tái phát minh không ngừng; (3) làm việc nhóm đa dạng được trao quyền. Khi hoàn thành thành công các đơn vị học tập, người tham gia có thể kiếm 'badges' kỹ thuật số. IBM (2020) thông báo đã phát hành huy hiệu thứ ba triệu, với khoảng 2.500 hoạt động nơi huy hiệu được cấp.</p>
+  </div>
+
+  <div class="infobox">
+    <div class="infobox-title">Chương trình (5) — IDEO &amp; Tsinghua University (ideo.cn, 2021)</div>
+    <p><strong><em>Lead a Creative China 2030</em></strong> [Chương trình điều hành 12 tháng]</p>
+    <p>Đây là liên doanh giữa IDEO và Tsinghua University thông qua PBC School of Finance và Academy of Arts &amp; Design. Chương trình điều hành 12 tháng nhắm vào các nhà lãnh đạo ra quyết định hàng đầu tại Trung Quốc với mục tiêu tham vọng là chuyển đổi nền kinh tế quốc gia Trung Quốc thông qua tư duy design. Chương trình bao gồm chiến lược kinh doanh, thiết kế tổ chức, phân tích ngành và đổi mới công nghệ. Những người đóng góp nổi bật bao gồm: Masayuki Kurokawa (kiến trúc sư và nhà thiết kế công nghiệp người Nhật), David Kelly (người sáng lập Stanford d.school), Jake Knapp (nhà phát minh Sprint), và Liu Guanzhong (Tsinghua University).</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <hr>
+
+  <!-- CASE STUDY -->
+  <div class="casestudy-box">
+    <div class="cs-title">Case Study: Tích hợp Design Thinking vào Chương trình Trường Kinh doanh</div>
+    <div class="cs-subtitle">Đóng góp bởi Dr Beatriz Itzel Cruz Megchun, Giáo sư Phụ tá về Thiết kế &amp; Đổi mới, Pamplin School of Business, Đại học Portland, Hoa Kỳ</div>
+
+    <p>Nghiên cứu điển hình này giới thiệu một ví dụ về cách design thinking có thể được tích hợp vào chương trình trường kinh doanh và giá trị của nó trong việc phát triển các bộ kỹ năng giải quyết vấn đề sáng tạo cho sinh viên. Nó sẽ bắt đầu bằng cách thảo luận về những thay đổi trong hoạt động trường kinh doanh để hiểu sự tích hợp của design như một tác nhân thay đổi mang tính chuyển đổi.</p>
+
+    <p>Các cơ sở học thuật trên khắp thế giới đã phải vật lộn để cung cấp các chương trình phản ánh (hoặc thách thức) chính trị của thời đại, cấu trúc xã hội, trạng thái kinh tế biến động và sự tàn phá ngày càng tăng của môi trường. WEF (2015) phát hiện ra khoảng cách giữa các kỹ năng mà mọi người học và các kỹ năng mà mọi người cần để phát triển trong nền kinh tế mới này. Điều này đòi hỏi sự hợp tác giữa các nhà hoạch định chính sách, nhà giáo dục và các nhà cung cấp công nghệ giáo dục để triển khai một hệ thống giảng dạy có thể giúp thu hẹp khoảng cách kỹ năng thế kỷ 21.</p>
+
+    <p><strong>Johansson-Sköldberg et al. (2013)</strong> chia lĩnh vực thiết kế thành năm diễn ngôn: thiết kế như sự tạo ra hiện vật <cite>(Simon, 1969)</cite>; thiết kế như thực hành phản tư <cite>(Schön, 1983)</cite>; thiết kế như hoạt động giải quyết vấn đề <cite>(Buchanan, 1992)</cite>; thiết kế như một cách tạo ra ý nghĩa <cite>(Kruger &amp; Cross, 2006)</cite>; và thiết kế như sự sáng tạo ý nghĩa <cite>(Krippendorff, 2006)</cite>. Quá trình thiết kế liên quan đến một chu kỳ lặp đi lặp lại của tổng hợp, tạo ra, phân tích và đánh giá.</p>
+
+    <p>Mọi người sử dụng design thinking có khả năng suy nghĩ qua ba chiều khác nhau <cite>(Cooper et al., 2009)</cite>: (1) <em>thinking of</em> (ví dụ: hình ảnh hóa, trực quan hóa, mơ mộng); (2) <em>thinking about</em> (ví dụ: xem xét, phản tư, suy ngẫm); và (3) <em>thinking through</em> (ví dụ: hiểu, nắm bắt và tìm ra).</p>
+
+    <h3>Bối cảnh: Đại học Portland (UP), Hoa Kỳ</h3>
+    <p>Đại học Portland (UP) là một cơ sở giáo dục tư thục Công giáo phi lợi nhuận với khoảng 3.741 sinh viên đại học toàn thời gian và 350 sinh viên sau đại học mỗi năm học. Trường có năm khoa: College of Arts and Sciences, Dr Robert Pamplin Jr. School of Business (PSOB), School of Education, Shiley School of Engineering và School of Nursing. PSOB thành lập năm 1939, là một trong năm trường kinh doanh ở Oregon được công nhận bởi AACSB. PSOB phục vụ cộng đồng Portland và các tiểu bang trên Bờ Tây Hoa Kỳ — bao gồm Los Angeles, San Francisco, Seattle với các ngành công nghệ, y tế, công việc sáng tạo và dụng cụ thể thao ngoài trời.</p>
+
+    <p>PSOB xác định design là một cơ hội để nâng cao đề xuất giá trị của họ trên Bờ Tây. Vào năm 2017, PSOB bổ nhiệm một học giả thiết kế vào bộ phận quản lý đổi mới và khởi nghiệp. Nhiệm vụ là phát triển các trải nghiệm học tập đổi mới, thiết kế các khóa học mới ở cả bậc đại học và sau đại học, đồng thời xây dựng kết nối với cộng đồng ngành tại Portland.</p>
+
+    <p>PSOB tích hợp vào chương trình giảng dạy bảy lớp thiết kế: thiết kế thương hiệu, quản lý thiết kế, đổi mới, design thinking, thiết kế trong kinh doanh và xã hội, sáng tạo đổi mới và thiết kế, thiết kế thương hiệu sáng tạo, marketing dịch vụ và design thinking trong y tế. Các lớp học nhằm cung cấp cho sinh viên cơ hội tiếp thu kiến thức, khả năng và kỹ năng để giải quyết các vấn đề phức tạp, kém xác định thông qua khả năng tư duy phê phán, quyết định sáng suốt, giao tiếp rõ ràng và thực hiện hiệu quả.</p>
+
+    <h3>Khung kỹ năng thế kỷ 21 (Hình 3.3)</h3>
+    <p>Khóa học sử dụng cách tiếp cận đa chiều, cho phép các nhà thiết kế khám phá không gian khả năng, sử dụng sự xuất hiện, đồng tiến hóa với các hiện vật và khoa học của họ, tạo ra trật tự mới, tham gia vào sự phát triển hợp tác.</p>
+
+    <div class="diagram">
+      <div class="diagram-title">Fig. 3.3 — Kỹ năng thế kỷ 21 cho tầm nhìn giáo dục mới</div>
+      <table class="data-table" style="margin:0;">
+        <thead>
+          <tr>
+            <th style="width:18%;">Lớp</th>
+            <th>Năng lực Nền tảng</th>
+            <th>Năng lực Cốt lõi</th>
+            <th>Phẩm chất Tính cách</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Thử thách Học tập</strong></td>
+            <td>Công nghệ ICT</td>
+            <td>Tư duy phê phán / Giải quyết vấn đề · Sáng tạo · Giao tiếp · Hợp tác</td>
+            <td>Tò mò · Chủ động · Kiên trì / Nghị lực · Thích nghi · Lãnh đạo · Nhận thức Xã hội &amp; Văn hóa</td>
+          </tr>
+          <tr>
+            <td><strong>Bài tập</strong></td>
+            <td colspan="3"><em>High Impact Practices:</em> Trải nghiệm trí tuệ chung · Bài tập / Dự án hợp tác · Các khóa học viết chuyên sâu · Cộng đồng học tập · Học tập đa dạng / toàn cầu</td>
+          </tr>
+          <tr>
+            <td><strong>Kết quả</strong></td>
+            <td colspan="3"><em>Career Readiness:</em> Ứng dụng thông tin và công nghệ · Làm việc nhóm / Hợp tác · Tư duy phê phán / Giải quyết vấn đề · Giao tiếp nói và viết · Chuyên nghiệp / Đạo đức làm việc</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Quy trình Thiết kế và Kết quả (Bảng 3.2)</h3>
+    <p>Giảng dạy theo quy trình design thinking chung để lập bản đồ các hoạt động thiết kế và kết quả có lợi cho mục tiêu học tập và trải nghiệm của sinh viên:</p>
+
+    <div class="table-caption">Bảng 3.2 — Hoạt động thiết kế thế kỷ 21 và kết quả</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Hoạt động thiết kế</th>
+          <th>Kết quả (Đổi mới)</th>
+          <th>Kết quả (Marketing)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Quan sát</td>
+          <td>Hiện vật · Danh từ · Đại diện · Đối tượng</td>
+          <td>Hiện vật · Đại diện · Đối tượng</td>
+        </tr>
+        <tr>
+          <td>Bối cảnh hóa</td>
+          <td>Hoạt động · Câu hỏi · Quy trình kinh doanh</td>
+          <td>Hoạt động · Quy trình công nghiệp &amp; kinh doanh · Quy trình như câu đố</td>
+        </tr>
+        <tr>
+          <td>Xác định</td>
+          <td>Quy trình như câu đố · Quy trình tạo hình ảnh · Quy trình serendipity</td>
+          <td>Nguồn kiến thức · Hoạt động nghiên cứu · Quy trình tìm hiểu</td>
+        </tr>
+        <tr>
+          <td>Khái niệm hóa</td>
+          <td>Nguồn kiến thức · Hoạt động nghiên cứu · Quy trình tìm hiểu</td>
+          <td>Kỹ thuật xã hội</td>
+        </tr>
+        <tr>
+          <td>Tạo mẫu</td>
+          <td>Kỹ thuật xã hội · Giải quyết vấn đề</td>
+          <td>Liên ngành · Đa ngành · Huyền thoại</td>
+        </tr>
+        <tr>
+          <td>Triển khai</td>
+          <td>Giá trị cốt lõi · Diễn ngôn</td>
+          <td>Huyền thoại</td>
+        </tr>
+        <tr>
+          <td>Đánh giá sau</td>
+          <td>Đa ngành · Huyền thoại</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Cấu trúc Khóa học và Dự án Học kỳ (Hình 3.4)</h3>
+    <p>Khóa học design thinking như một lớp tự chọn mở cho tất cả các ngành trong PSOB. Mục tiêu học tập tập trung vào:</p>
+
+    <ul class="content-list">
+      <li>Tích hợp kiến thức đa chức năng để giải quyết các vấn đề kinh doanh cụ thể;</li>
+      <li>Trở thành người giao tiếp hiệu quả và chuyên nghiệp;</li>
+      <li>Nhận ra cơ hội, vấn đề và rủi ro;</li>
+      <li>Đưa ra và bảo vệ quyết định trong các bối cảnh có cấu trúc hoặc không có cấu trúc;</li>
+      <li>Đưa ra các lựa chọn có đạo đức và trách nhiệm xã hội trong bối cảnh kinh doanh và cộng đồng.</li>
+    </ul>
+
+    <p>Khóa học bao gồm bốn phần: <em>(1) Giới thiệu</em> — mối quan hệ nội tại giữa DT, HCD, đổi mới và sáng tạo; <em>(2) Nhìn</em> — các công cụ và kỹ thuật để quan sát, tương tác, đồng cảm với người dùng; <em>(3) Hiểu</em> — thu thập dữ liệu, phân tích và tổng hợp; <em>(4) Triển khai</em> — các công cụ để biến ý tưởng thành kết quả hữu hình (sản phẩm, dịch vụ, hệ thống).</p>
+
+    <p>Dự án học kỳ có ba giai đoạn chính theo khung của Hình 3.4:</p>
+
+    <div class="diagram">
+      <div class="diagram-title">Fig. 3.4 — Design Thinking: Tổng quan học kỳ</div>
+      <div class="diagram-row">
+        <div class="diagram-label">GIAI ĐOẠN</div>
+        <div class="diagram-content">
+          <span class="diagram-node">IMMERSION (Ngâm mình)</span>
+          <span style="margin:0 8px; color:var(--text-muted);">→</span>
+          <span class="diagram-node">INSPIRATION (Cảm hứng)</span>
+          <span style="margin:0 8px; color:var(--text-muted);">→</span>
+          <span class="diagram-node">ARTICULATION (Diễn đạt)</span>
+        </div>
+      </div>
+      <div class="diagram-row">
+        <div class="diagram-label">HÀNH ĐỘNG</div>
+        <div class="diagram-content">Hiểu sâu nhu cầu người dùng → Hội thoại dựa trên đối thoại → Bao gồm các quan điểm đa dạng</div>
+      </div>
+      <div class="diagram-row">
+        <div class="diagram-label">PHƯƠNG PHÁP</div>
+        <div class="diagram-content">
+          <span class="diagram-node">1.0 Ghi lại thách thức</span>
+          <span class="diagram-node">2.0 Hồ sơ người dùng</span>
+          <span class="diagram-node">3.0 Bản đồ hoạt động</span>
+          <span class="diagram-node">4a. Yếu tố con người</span>
+          <span class="diagram-node">4b. POEMS</span>
+          <span class="diagram-node">5.0 Brainstorm</span>
+          <span class="diagram-node">6.0 Round Robin</span>
+          <span class="diagram-node">7.0 Tờ ý tưởng</span>
+          <span class="diagram-node">8.0 Phân tích giả thuyết giá trị</span>
+        </div>
+      </div>
+      <div class="diagram-row">
+        <div class="diagram-label">NĂNG LỰC</div>
+        <div class="diagram-content">POST EMPATHY → CREATIVE NAVIGATION → MANAGING RELATIONSHIPS</div>
+      </div>
+    </div>
+
+    <ol class="content-list">
+      <li><em>Immersion (Ngâm mình):</em> sinh viên được đắm chìm vào thách thức; tiếp xúc với cộng đồng, tổ chức và các bên liên quan; ghi lại và đánh giá các quan điểm khác nhau; thiết lập hồ sơ người dùng (user profiles) để hiểu nhu cầu, động lực và thói quen (activity map); áp dụng phương pháp pháp POEMS (People, Objects, Environments, Messages, Services).</li>
+      <li><em>Inspiration (Cảm hứng):</em> học các phương pháp cộng tác và co-design với các tác nhân khác nhau để tạo ra đối thoại đa dạng và toàn diện; sử dụng POEMS và brainstorming để giải quyết các thành kiến và biến ý tưởng trừu tượng thành hành động có thể thực hiện được.</li>
+      <li><em>Articulation (Diễn đạt):</em> devising a plausible set of solutions that includes and benefits diverse range of stakeholders; sinh viên phát triển một tờ ý tưởng để xác định khái niệm/ý tưởng/đề xuất và tạo chiến lược định vị hành động.</li>
+    </ol>
+
+    <p>Việc đưa thiết kế (và design thinking) vào trường kinh doanh đã cung cấp cho sinh viên trải nghiệm giáo dục cho phép họ phát triển năng lực nền tảng, năng lực cốt lõi và phẩm chất tính cách cần thiết trong thế kỷ 21. Ba thay đổi quan trọng: <em>(1)</em> học trải nghiệm thông qua không gian học tập năng động, nội dung sư phạm và công cụ học tập; <em>(2)</em> phát triển năng lực và phẩm chất tính cách — tư duy phê phán, sáng tạo, hợp tác, giao tiếp, tò mò, kiên trì, linh hoạt, nhận thức xã hội và văn hóa; <em>(3)</em> hiểu biết sâu hơn về mối quan hệ nội tại giữa mạng lưới kinh doanh và cộng đồng để đạt được phát triển bền vững.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+
+  <!-- CHAPTER SUMMARY -->
+  <div class="summary-box">
+    <div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:14px; color:var(--text-muted);">Tóm tắt Chương</div>
+    <p>Để chuẩn bị tốt nhất cho các nhà lãnh đạo kinh doanh đầy tầm nhìn của ngày mai, chúng ta cần đánh giá lại các thực hành giảng dạy trong giáo dục đại học — đặc biệt là trong các trường kinh doanh và quản lý. Để phát triển những bộ não dám chấp nhận rủi ro, có tinh thần khởi nghiệp và có khả năng bẩm sinh để truyền cảm hứng cho nhóm và cá nhân, cách chúng ta nhìn nhận chương trình giảng dạy và phân phối hiện tại cần thích nghi để đào tạo ra các nhà lãnh đạo sẽ hoạt động trong các thị trường và ngành công nghiệp đầy thách thức và phức tạp.</p>
+    <p>Một chiến lược để đạt được điều này là phân tích phê phán các khía cạnh cốt lõi của các phương pháp và công cụ giảng dạy sáng tạo trong các trường thiết kế truyền thống, và xem các yếu tố có thể chuyển đổi nào có thể được áp dụng vào các bối cảnh ngành học khác. Chương này đã đặt ra vấn đề về cách thức và nơi các trường thiết kế dạy sáng tạo và các phương pháp design thinking, đồng thời lập bản đồ chúng so với các chương trình giảng dạy đã được thiết lập trong trường kinh doanh. Nghiên cứu điển hình do Dr Beatriz Itzel Cruz Megchun cung cấp phần nào minh họa cách design thinking có thể trở thành một phần không thể thiếu của các hoạt động trường kinh doanh và cách những cách tiếp cận mới này có thể định hướng sự phát triển của các nhà lãnh đạo kinh doanh của ngày mai.</p>
+  </div>
+
+  <!-- REVIEW QUESTIONS -->
+  <div class="review-box">
+    <div class="review-box-title">Câu hỏi Ôn tập</div>
+    <ol>
+      <li>Design có thể mang lại nhiều lợi ích cho tổ chức; hãy xác định nơi và cách design có thể đóng góp có ý nghĩa cho sức cạnh tranh kinh doanh.</li>
+      <li>Được công nhận rộng rãi rằng design là một nguồn khác biệt hóa vô giá; design có thể thực hiện điều này như thế nào?</li>
+      <li>Các nhà tuyển dụng tiềm năng đang yêu cầu ứng viên chứng minh rằng họ có một loạt các kỹ năng chuyển đổi rộng rãi; những kỹ năng 'mềm' nào được phát triển trong giáo dục thiết kế?</li>
+      <li>Những lợi ích độc đáo của các chương trình executive design thinking được cung cấp bởi các mối quan hệ đối tác giữa giáo dục và ngành công nghiệp là gì?</li>
+      <li>Tham khảo chương trình design thinking trong nghiên cứu điển hình, bạn cho rằng những khía cạnh nào khác của design thinking cần được đưa vào lịch trình giảng dạy?</li>
+    </ol>
+  </div>
+
+  <!-- PROJECT QUESTIONS -->
+  <div class="review-box">
+    <div class="review-box-title">Câu hỏi Dự án</div>
+    <ol>
+      <li>Xác định một chiến lược khác biệt hóa sản phẩm cụ thể nơi công ty có thể phân biệt sản phẩm của họ với các sản phẩm cạnh tranh.</li>
+      <li>Kể tên ba thương hiệu hàng đầu đã sử dụng thành công chiến lược khác biệt hóa sản phẩm; điều này đã làm cho các sản phẩm của họ trở nên độc đáo như thế nào trên các thị trường tương ứng?</li>
+      <li>IBM Skills là một chương trình phát triển kỹ năng toàn diện. Bạn nghĩ họ có thể cung cấp những khóa học ngắn nào khác để thu hút người dùng mới?</li>
+      <li>Việc tạo ra user personas là một tính năng phổ biến của các hoạt động design thinking; hãy xây dựng một persona dựa trên các đặc điểm lối sống của khách hàng Generation Z.</li>
+      <li>Xác định nhu cầu ẩn của người dùng là một yếu tố cốt lõi của design thinking. Xác định một bộ công cụ có thể cho phép xác định các nhu cầu người dùng chưa được khám phá; điều gì làm cho chúng phù hợp với loại hoạt động nghiên cứu này?</li>
+    </ol>
+  </div>
+
+  <!-- CHAPTER TASKS -->
+  <div class="review-box">
+    <div class="review-box-title">Nhiệm vụ Chương</div>
+    <ol>
+      <li>Lấy bột giặt gia dụng đơn giản làm ví dụ và đưa ra chiến lược khác biệt hóa để làm cho nó trở nên độc đáo so với sản phẩm đối thủ; liệt kê các lợi ích giá trị gia tăng mà nó có thể cung cấp cho khách hàng.</li>
+      <li>Liệt kê ba kỹ năng chuyển đổi mà giáo dục thiết kế tập trung vào; cách tiếp cận thiết kế làm cho những kỹ năng này khác biệt như thế nào so với các phương pháp giảng dạy không thiết kế?</li>
+      <li>Lập danh sách các phương pháp marketing truyền thống không thành công trong việc thu hút sự chú ý của người tiêu dùng Generation Z.</li>
+      <li>Chọn hai ví dụ phổ biến về kỹ thuật giải quyết vấn đề sáng tạo; sử dụng chúng để giải quyết một vấn đề do bạn tự chọn. Xác định và liệt kê các yếu tố đã hoạt động và các khía cạnh không thành công.</li>
+      <li>Trong bối cảnh nhóm, xác định một loạt các mô hình quy trình design thinking được hình thức hóa, sau đó xếp hạng các thuộc tính hợp nhất chúng và cả những yếu tố tạo ra sự khác biệt rõ rệt.</li>
+    </ol>
+  </div>
+
+  <!-- REFERENCES -->
+  <hr>
+  <h2>Tài liệu Tham khảo</h2>
+
+  <ul class="references-list">
+    <li>Alexiou, K., Johnson, J., &amp; Zamenopoulos, T. (2010). Embracing Complexity in Design: Emerging Perspectives and Opportunities. In T. Inns (Ed.), <em>Designing for the 21st Century Interdisciplinary Methods and Findings</em> (pp. 87–100). Gower.</li>
+    <li>Baker, D. F., &amp; Baker, S. J. (2012). To "Catch the Sparkling Glow": A Canvas for Creativity in the Management Classroom. <em>Academy of Management Learning &amp; Education, 11</em>, 704–721.</li>
+    <li>Beckman, S. L., &amp; Barry, M. (2007). Innovation as a Learning Process: Embedding Design. <em>Thinking California Management Review, 50</em>, 25–56.</li>
+    <li>Boland, R., &amp; Collopy, F. (2004). <em>Managing as Designing</em>. Stanford University Press.</li>
+    <li>Brown, T. (2008). Design Thinking. <em>Harvard Business Review, 86</em>, 84–92.</li>
+    <li>Buchanan, R. (1992). Wicked Problems in Design Thinking. <em>Design Issues, 8</em>, 5–21.</li>
+    <li>Cooper, R., et al. (2016). <em>Design Value: The Role of Design in Innovation</em>. Lancaster University.</li>
+    <li>Cooper, R., Junginger, S., &amp; Lockwood, T. (2009). Design Thinking and Design Management: A Research and Practice Perspective. <em>Design Management Review, 20</em>(2), 47–55.</li>
+    <li>Cox, G. (2005). <em>Cox Review of Creativity in Business: Building on the UK's Strengths</em>. HM Treasury.</li>
+    <li>Datar, S., Garvin, D., &amp; Cullen, P. (2011). Rethinking the MBA: Business Education at a Crossroads. <em>Journal of Management Development, 30</em>(5), 451–462.</li>
+    <li>Dorst, K., &amp; Cross, N. (2001). Creativity in the Design Process: Co-evolution of Problem–Solution. <em>Design Studies, 22</em>(5), 425–437.</li>
+    <li>Dunne, D., &amp; Martin, R. (2006). Design Thinking and How It Will Change Management Education: An Interview and Discussion. <em>Academy of Management Learning &amp; Education, 5</em>, 512–523.</li>
+    <li>Findeli, A. (2001). Rethinking Design Education for the 21st Century: Theoretical, Methodological and Ethical Discussion. <em>Design Issues, 17</em>(1), 5–17.</li>
+    <li>Formosa, K., &amp; Kroeter, S. (2002). Towards Design Literacy in American Management: A Strategy for MBA Programs. <em>Design Management Journal, 13</em>(3), 46–52.</li>
+    <li>Glen, R., Suciu, C., &amp; Baughn, C. (2014). The Need for Design Thinking in Business Schools. <em>Academy of Management Learning and Education, 13</em>(4), 653–667.</li>
+    <li>Gorb, P., &amp; Schneider, E. (Eds.). (1988). <em>Design Talks! London Business School Design Management Seminars</em>. The Design Council.</li>
+    <li>IBM. (2020). IBM Awards its Three Millionth Digital Badge. IBM Corporate.</li>
+    <li>IBM. (2021). <em>Enterprise Design Thinking</em>. Retrieved from https://www.ibm.com/design/thinking/</li>
+    <li>ideo.cn. (2021). <em>Lead a Creative China 2030</em>. Retrieved from https://ideo.cn/</li>
+    <li>Johansson-Sköldberg, U., Woodilla, J., &amp; Çetinkaya, M. (2013). Design Thinking: Past, Present, and Possible Futures. <em>Creativity and Innovation Management, 22</em>, 121–145.</li>
+    <li>Johnson, J. H. (2001). The 'Can You Trust It' Problem of Simulation Science in the Design of Socio-Technical Systems. <em>Complexity, 6</em>(2), 34–40.</li>
+    <li>Khurana, R., &amp; Spender, J. C. (2012). Herbert A. Simon on What Ails Business Schools. <em>Journal of Management Studies, 46</em>, 619–639.</li>
+    <li>Kimbell, L. (2011). Rethinking Design Thinking: Part 1. <em>Design and Culture, 3</em>, 285–306.</li>
+    <li>Kotler, P., &amp; Rath, A. (2013). Design: A Powerful but Neglected Strategic Tool. In R. Cooper, S. Junginger, &amp; T. Lockwood (Eds.), <em>The Handbook of Design Management</em> (pp. 87–95). Bloomsbury Publishing.</li>
+    <li>Krippendorff, K. (2006). The Semantic Turn: A New Foundation for Design. <em>Artifact-Routledge, 1</em>(11), 51.</li>
+    <li>Kruger, C., &amp; Cross, N. (2006). Solution Driven versus Problem Driven Design: Strategies and Outcomes. <em>Design Studies, 27</em>(5), 527–548.</li>
+    <li>Liedtka, J. (2018). Why Design Thinking Works. <em>Harvard Business Review, 96</em>(5), 72–79.</li>
+    <li>Liedtka, J., &amp; Ogilvie, T. (2011). <em>Designing for Growth: A Design Thinking Toolkit for Managers</em>. Columbia Business School.</li>
+    <li>London Business School. (2021). <em>Innovation Through Design Thinking</em>. Retrieved from https://online.london.edu/innovation-through-design-thinking</li>
+    <li>Martin, R. (2009). <em>The Design of Business: Why Design Thinking Is the Next Competitive Advantage</em>. Harvard Business Press.</li>
+    <li>Matthews, J., &amp; Wrigley, C. (2011). Design and Design Thinking in Business and Management Education and Development. In K. Voges &amp; B. Cavana (Eds.), <em>Proceedings of the 25th Annual ANZAM Conference</em> (pp. 1–19). Australian and New Zealand Academy of Management.</li>
+    <li>MIT Management Executive Education. (2021). <em>Mastering Design Thinking: Create Value Through Systematic Innovation</em>. Retrieved from https://executive-ed.mit.edu/mastering-design-thinking</li>
+    <li>Nomen, E. and BCD Barcelona Centre de Disseny. (2014). <em>€Design Measuring Design Value: Guidelines for Collecting and Interpreting Data</em>. BCD.</li>
+    <li>Rotman School of Management. (2021). <em>Business Design Thinking: From Insight to Innovation</em>. University of Toronto.</li>
+    <li>Schön, D. A. (1983). <em>The Reflective Practitioner: How Professionals Think in Action</em>. Basic Books.</li>
+    <li>Simon, H. A. (1969). The Business School: A Problem in Organizational Design. <em>Journal of Management Studies, 4</em>, 1–6.</li>
+    <li>Starkey, K., &amp; Tempest, S. (2009). The Winter of Our Discontent: The Design Challenge for Business School. <em>Academy of Management Learning &amp; Education, 8</em>, 576–586.</li>
+    <li>The Design Council. (2015). <em>The Design Economy</em>. https://www.designcouncil.org.uk/resources/report/design-economy-2015-report</li>
+    <li>WEF. (2015). <em>New Vision for Education: Unlocking the Potential of Technology</em>. World Economic Forum.</li>
+  </ul>
+
+
+<nav class="chapnav">
+  <a href="ch2-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 2: Evolution of the Relationship Between Design and Business Activities</a>
+  <a href="ch4-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 4: Organisational Complexity and Change by Design</a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 2 — Thấu Cảm: Trái Tim Của Thiết Kế</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --text: #111111;
+  --text-secondary: #333333;
+  --text-muted: #888888;
+  --border: #d8d8d8;
+  --border-strong: #999999;
+  --surface: #f2f2f2;
+  --surface-dark: #e0e0e0;
+  --accent-line: #111111;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.75;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+.book-meta {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: 'Courier New', monospace;
+  margin-bottom: 8px;
+}
+.chapter-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+h1.chapter-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.chapter-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid var(--accent-line);
+}
+h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 48px 0 16px;
+  letter-spacing: -0.01em;
+}
+h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 32px 0 10px;
+}
+h4 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 28px 0 8px;
+}
+p { margin-bottom: 18px; color: var(--text-secondary); font-size: 0.97rem; }
+blockquote {
+  border-left: 3px solid var(--accent-line);
+  margin: 32px 0;
+  padding: 20px 28px;
+  background: var(--surface);
+}
+blockquote p {
+  font-size: 1.08rem;
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.65;
+}
+blockquote .attribution {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-style: normal;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+.case-study-box {
+  border: 1.5px solid var(--border-strong);
+  padding: 32px;
+  margin: 40px 0;
+}
+.cs-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: 'Courier New', monospace;
+  margin-bottom: 6px;
+}
+.cs-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.info-box {
+  background: var(--surface-dark);
+  border-left: 3px solid var(--text);
+  padding: 20px 24px;
+  margin: 28px 0;
+}
+.info-box .ib-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-family: 'Courier New', monospace;
+}
+.info-box p { font-size: 0.92rem; margin-bottom: 8px; }
+.info-box p:last-child { margin-bottom: 0; }
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: 28px 0;
+}
+.stat-cell {
+  background: var(--bg);
+  padding: 20px;
+  text-align: center;
+}
+.stat-num {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+  line-height: 1.1;
+}
+.stat-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.further-reading {
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.further-reading h2 { font-size: 1.1rem; margin-top: 0; margin-bottom: 16px; }
+.reading-list { list-style: none; }
+.reading-list li {
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.reading-list li::before {
+  content: "→ ";
+  color: var(--text-muted);
+  font-family: 'Courier New', monospace;
+}
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 40px 0;
+}
+.step-list { list-style: none; margin: 16px 0 24px 0; }
+.step-list li {
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.step-list li .sn {
+  font-size: 0.68rem;
+  font-family: 'Courier New', monospace;
+  color: var(--text-muted);
+  min-width: 24px;
+  padding-top: 3px;
+}
+footer {
+  margin-top: 72px;
+  padding-top: 24px;
+  border-top: 2px solid var(--accent-line);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.06em;
+}
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/design-thinking-handbook">← Về mục lục</a></p>
+
+<div class="book-meta">DesignBetter.Co by InVision · Eli Woolery</div>
+<div class="chapter-label">Chương — 02</div>
+<h1 class="chapter-title">Thấu Cảm</h1>
+<p class="chapter-subtitle">Trái tim của thiết kế</p>
+
+<p>Ở Nepal, 15 triệu trẻ em sinh non mỗi năm. Hạ thân nhiệt là nguyên nhân phổ biến nhất có thể phòng ngừa được gây tử vong ở trẻ sinh non. Câu chuyện này bắt đầu từ một lớp học tại Stanford d.school — và kết thúc bằng một sản phẩm đã cứu hàng ngàn sinh mạng.</p>
+
+<p>Lớp học "Design for Extreme Affordability" (Thiết kế cho Khả năng chi trả Cực kỳ thấp) của Stanford d.school được thiết kế để giải quyết những vấn đề thiết kế thực sự trong các cộng đồng có nguồn lực hạn chế. Một thành viên nhóm, Linus Liang, đã đến thăm một bệnh viện ở Nepal để nghiên cứu thực địa. Điều ông phát hiện thay đổi mọi thứ.</p>
+
+<blockquote>
+  <p>"Thấu cảm là trái tim của thiết kế. Không có sự hiểu biết về những gì người khác nhìn thấy, cảm nhận và trải nghiệm, thiết kế chỉ là một việc vô nghĩa."</p>
+  <span class="attribution">Tim Brown — CEO, IDEO</span>
+</blockquote>
+
+<h2>Câu Chuyện Embrace: Khi Thấu Cảm Cứu Sống</h2>
+
+<p>Tại bệnh viện Nepal, Linus Liang chứng kiến điều mà không ai có thể đoán được từ phòng làm việc: những lồng ấp hiện đại đắt tiền nằm trống không, trong khi các em bé sinh non vẫn chết vì hạ thân nhiệt. Nguyên nhân? Phụ huynh sống cách bệnh viện hơn 50 km trên những con đường nông thôn gồ ghề — không thể đưa con đến bệnh viện kịp thời.</p>
+
+<p>Phát hiện này — chỉ có thể đến từ việc trực tiếp quan sát bối cảnh thực — đã tái định nghĩa hoàn toàn vấn đề. Câu hỏi không còn là "làm thế nào cải thiện lồng ấp bệnh viện" mà là "làm thế nào giữ ấm trẻ sinh non ở bất kỳ đâu, với chi phí tối thiểu."</p>
+
+<p>Nhóm thiết kế tập trung vào một giải pháp đơn giản: <strong>túi ngủ ấm di động</strong> có thể sử dụng mà không cần điện. Họ đặt tên là "Embrace" (Ôm ấp). Nhưng hành trình từ ý tưởng đến sản phẩm đòi hỏi nhiều vòng thấu cảm hơn nữa.</p>
+
+<div class="info-box">
+  <div class="ib-label">Phát hiện từ kiểm thử với người dùng</div>
+  <p><strong>Vấn đề liều lượng:</strong> Phụ nữ ở làng Ấn Độ tự ý giảm một nửa liều thuốc (vì niềm tin rằng thuốc phương Tây quá mạnh). Nhóm đã loại bỏ dải đo nhiệt độ phức tạp, thay bằng chỉ báo "OK" đơn giản.</p>
+  <p><strong>Vấn đề điện năng:</strong> Nhiều khu vực không có điện. Nhóm phát triển phiên bản dùng nước nóng thay vì điện.</p>
+</div>
+
+<p>Kết quả: Embrace trở thành công ty với 90 nhân viên, đã giúp hơn <strong>3.000 em bé</strong> sống sót. Câu chuyện này minh họa sức mạnh cốt lõi của thấu cảm: không phải là cảm thông từ xa, mà là <em>hiểu biết sâu sắc từ sự chứng kiến trực tiếp</em>.</p>
+
+<h2>Thực Hành Thấu Cảm</h2>
+
+<h3>Tư Duy Người Mới Học</h3>
+<p>Để thực sự thấu cảm, bạn phải tiếp cận mỗi tình huống như người mới lần đầu — gạt bỏ mọi giả định, chuyên môn và kiến thức đã có. Điều này đặc biệt khó với các chuyên gia, những người thường mang theo những "bộ lọc" vô hình từ kinh nghiệm của mình.</p>
+
+<h3>Nguyên Tắc Đoán Ít Hơn</h3>
+<p>Thay vì ngồi trong phòng hội nghị và đưa ra giả định về người dùng, hãy ra ngoài và quan sát thực tế. Hỏi những câu hỏi mở. Lắng nghe không phán xét. Tìm kiếm những mâu thuẫn giữa những gì người dùng nói và những gì họ thực sự làm.</p>
+
+<h3>Bài Tập Ví Tiền (Wallet Project)</h3>
+<p>Stanford d.school sử dụng Wallet Project như một bài tập thực hành thấu cảm kinh điển: thiết kế lại chiếc ví của đối tác trong nhóm trong 90 phút. Bài tập buộc người thiết kế phải phỏng vấn sâu, xác định nhu cầu thực, nguyên mẫu hóa nhanh và kiểm thử — tất cả trong thời gian rất ngắn.</p>
+
+<hr class="divider">
+
+<h2>Case Study: IDEO & Bank of America — "Keep the Change"</h2>
+
+<div class="case-study-box">
+  <div class="cs-label">Case Study — 2004</div>
+  <div class="cs-title">IDEO & Bank of America: "Giữ Lại Tiền Lẻ"</div>
+
+  <p>Năm 2004, Bank of America thuê IDEO với một thách thức: thiết kế một dịch vụ ngân hàng để thu hút thêm khách hàng mới — đặc biệt là những người sống từng đồng lương một, những người trước đây không có tiết kiệm.</p>
+
+  <p>Nghiên cứu năm 2013 của Đại học Princeton cho thấy: căng thẳng tài chính thực sự làm giảm năng lực nhận thức của con người — tương đương mất 13 điểm IQ. Tiết kiệm không chỉ là vấn đề kỷ luật; nó là vấn đề thiết kế hệ thống.</p>
+
+  <p>Nhóm IDEO ăn cùng, sinh hoạt cùng và quan sát các gia đình ở nhiều thành phố khác nhau. Họ phát hiện điều bất ngờ: <strong>các bà mẹ thường làm tròn số tiền lên trong sổ séc</strong> — ví dụ, chi 4,63 đô la nhưng ghi 5 đô la. Đây là cơ chế tiết kiệm tâm lý tự nhiên họ đã tạo ra cho mình.</p>
+
+  <p>Từ quan sát này, IDEO đề xuất dịch vụ: <strong>làm tròn số mỗi giao dịch thẻ ghi nợ lên đồng đô la gần nhất và chuyển phần chênh lệch vào tài khoản tiết kiệm</strong>. Bank of America sẽ bù thêm phần chênh lệch đó.</p>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <span class="stat-num">12,3M</span>
+      <span class="stat-desc">Khách hàng đăng ký trong năm đầu</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">$2B+</span>
+      <span class="stat-desc">Tổng tiền tiết kiệm được tích lũy</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">60%</span>
+      <span class="stat-desc">Khách hàng mới đăng ký dịch vụ</span>
+    </div>
+  </div>
+
+  <blockquote>
+    <p>"Những người trước đây chưa bao giờ có tiết kiệm đột nhiên có tiết kiệm... một cảm giác quyền lực và kiểm soát."</p>
+    <span class="attribution">Faith Tucker — SVP &amp; Product Developer, Bank of America</span>
+  </blockquote>
+
+  <p>Dịch vụ ra mắt tháng 9/2005. Nó không chỉ tạo ra doanh thu — nó <strong>loại bỏ sự xấu hổ khi không tiết kiệm được và thay thế bằng niềm tự hào và quyền năng</strong>. Đây chính xác là những gì thiết kế lấy người dùng làm trung tâm có thể đạt được.</p>
+</div>
+
+<h2>Thấu Cảm Từ Xa: Camera Study</h2>
+
+<p>Không phải lúc nào cũng có thể gặp trực tiếp người dùng. Trong những trường hợp đó, các kỹ thuật thay thế vẫn có thể mang lại thông tin giá trị.</p>
+
+<h3>Camera Study (Nghiên cứu Bằng Camera)</h3>
+<p><strong>Erika Hall</strong> (Mule Design), tác giả "Just Enough Research," gọi phương pháp này là "Minimum Viable Ethnography" (Dân tộc học Tối thiểu Khả thi). <strong>Bobby Hughes</strong> (Aardvark Design Labs) mô tả: camera study cho phép nhóm thiết kế nhận một cái nhìn gần như không bị lọc về môi trường ngày-to-ngày của người dùng.</p>
+
+<p>Quy trình cơ bản: người dùng tự chụp ảnh môi trường và hoạt động thường ngày theo hướng dẫn của nhóm, sau đó chia sẻ lại. Nhóm thiết kế phân tích hình ảnh để tìm pattern, mâu thuẫn và cơ hội ẩn.</p>
+
+<h2>Thấu Cảm Như Là Nền Tảng Tiến Hóa</h2>
+
+<blockquote>
+  <p>"Tôi đang cố gắng giải quyết một vấn đề tôi thấy trong mọi ngành công nghiệp, nơi người trong phòng nói về khách hàng sẽ thắng."</p>
+  <span class="attribution">John Maeda — Automattic</span>
+</blockquote>
+
+<p>Nhà linh trưởng học <strong>Frans de Waal</strong> lập luận rằng thấu cảm là lý do con người trở thành loài thành công nhất hành tinh — khả năng hiểu và dự đoán hành vi của người khác là nền tảng của mọi hợp tác xã hội. Trong thiết kế, thấu cảm không chỉ là kỹ năng "mềm" — nó là lợi thế cạnh tranh cốt lõi.</p>
+
+<blockquote>
+  <p>"Nó gây đau đớn, và nó giúp chúng tôi hiểu những điểm yếu trong sản phẩm của mình..."</p>
+  <span class="attribution">Julie Zhou — VP Product Design, Facebook (Design Disruptors)</span>
+</blockquote>
+
+<p>Thấu cảm thực sự đòi hỏi sự can đảm — can đảm để từ bỏ giả định, can đảm để ngồi với người dùng và chứng kiến sự khó khăn của họ, và can đảm để cho phép những phát hiện đó thay đổi hướng đi của sản phẩm. Đây không phải là sự yếu đuối của nhà thiết kế — đây chính là sức mạnh của họ.</p>
+
+<hr class="divider">
+
+<div class="further-reading">
+  <h2>Đọc Thêm</h2>
+  <ul class="reading-list">
+    <li>Erika Hall — Just Enough Research (Rosenfeld Media)</li>
+    <li>Tom &amp; David Kelley — Creative Confidence (Crown Business)</li>
+    <li>Stanford d.school — Wallet Project Exercise</li>
+    <li>Dev Patnaik — Wired to Care</li>
+    <li>Interviews Aren't the Only Way: Techniques for User Research</li>
+    <li>Frans de Waal — The Age of Empathy</li>
+  </ul>
+</div>
+
+<footer>
+  DesignBetter.Co by InVision · Eli Woolery · Design Thinking Handbook<br>
+  Chương 02 / 06 — Thấu Cảm: Trái Tim Của Thiết Kế
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch1-dt-handbook.html"><span class="lbl">Chương trước</span>Chương 1: Tại Sao Chúng Ta Cần Design Thinking</a>
+  <a href="ch3-dt-handbook.html"><span class="lbl">Chương sau</span>Chương 3: Định Nghĩa: Tái Định Khung Vấn Đề</a>
+</nav>
+</body>
+</html>

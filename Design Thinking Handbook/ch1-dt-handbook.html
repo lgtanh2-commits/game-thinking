@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 1 — Tại Sao Chúng Ta Cần Design Thinking</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --text: #111111;
+  --text-secondary: #333333;
+  --text-muted: #888888;
+  --border: #d8d8d8;
+  --border-strong: #999999;
+  --surface: #f2f2f2;
+  --surface-dark: #e0e0e0;
+  --accent-line: #111111;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.75;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+/* ── HEADER ── */
+.book-meta {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: 'Courier New', monospace;
+  margin-bottom: 8px;
+}
+.chapter-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+h1.chapter-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.chapter-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid var(--accent-line);
+}
+/* ── HEADINGS ── */
+h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 48px 0 16px;
+  letter-spacing: -0.01em;
+}
+h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 32px 0 10px;
+  letter-spacing: 0.01em;
+}
+h4 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 28px 0 8px;
+}
+/* ── BODY TEXT ── */
+p { margin-bottom: 18px; color: var(--text-secondary); font-size: 0.97rem; }
+/* ── BLOCKQUOTE ── */
+blockquote {
+  border-left: 3px solid var(--accent-line);
+  margin: 32px 0;
+  padding: 20px 28px;
+  background: var(--surface);
+}
+blockquote p {
+  font-size: 1.08rem;
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.65;
+}
+blockquote .attribution {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-style: normal;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+/* ── FRAMEWORK BOX ── */
+.framework-box {
+  border: 1.5px solid var(--border-strong);
+  padding: 28px 32px;
+  margin: 36px 0;
+  background: var(--surface);
+}
+.framework-box .fw-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  font-family: 'Courier New', monospace;
+}
+.framework-steps {
+  display: flex;
+  gap: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+.framework-step {
+  flex: 1;
+  min-width: 120px;
+  border-right: 1px solid var(--border);
+  padding: 14px 16px;
+  text-align: center;
+}
+.framework-step:last-child { border-right: none; }
+.step-num {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 6px;
+  font-family: 'Courier New', monospace;
+}
+.step-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+}
+.step-vi {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 4px;
+  font-style: italic;
+}
+/* ── DEFINITION BOX ── */
+.def-box {
+  border-top: 2px solid var(--accent-line);
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0;
+  margin: 36px 0;
+}
+.def-box .def-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-family: 'Courier New', monospace;
+}
+.def-box p {
+  font-size: 1.02rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.6;
+}
+/* ── INFO BOX ── */
+.info-box {
+  background: var(--surface-dark);
+  border-left: 3px solid var(--text);
+  padding: 20px 24px;
+  margin: 28px 0;
+}
+.info-box .ib-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-family: 'Courier New', monospace;
+}
+.info-box p { font-size: 0.92rem; margin-bottom: 8px; }
+.info-box p:last-child { margin-bottom: 0; }
+/* ── PRINCIPLE LIST ── */
+.principle-list { list-style: none; margin: 16px 0 24px 0; }
+.principle-list li {
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.principle-list li .pl-num {
+  font-size: 0.68rem;
+  font-family: 'Courier New', monospace;
+  color: var(--text-muted);
+  min-width: 24px;
+  padding-top: 3px;
+}
+/* ── FURTHER READING ── */
+.further-reading {
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.further-reading h2 { font-size: 1.1rem; margin-top: 0; margin-bottom: 16px; }
+.reading-list { list-style: none; }
+.reading-list li {
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.reading-list li::before {
+  content: "→ ";
+  color: var(--text-muted);
+  font-family: 'Courier New', monospace;
+}
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 40px 0;
+}
+/* ── FOOTER ── */
+footer {
+  margin-top: 72px;
+  padding-top: 24px;
+  border-top: 2px solid var(--accent-line);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.06em;
+}
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/design-thinking-handbook">← Về mục lục</a></p>
+
+<div class="book-meta">DesignBetter.Co by InVision · Eli Woolery</div>
+<div class="chapter-label">Chương — 01</div>
+<h1 class="chapter-title">Tại Sao Chúng Ta Cần Design Thinking</h1>
+<p class="chapter-subtitle">Giải quyết những thách thức phức tạp</p>
+
+<p>Năm 1958, giáo sư kỹ thuật Stanford John Arnold đã đề xuất một hướng tiếp cận cách mạng cho việc thiết kế sản phẩm kỹ thuật: ông muốn kỹ sư thiết kế <em>vì con người</em>, không chỉ thiết kế sản phẩm đáp ứng thông số kỹ thuật. Đây là một phản ứng trực tiếp trước thời điểm lịch sử — Sputnik vừa phóng lên quỹ đạo, NASA vừa được thành lập, và áp lực đổi mới thực sự để giải quyết các vấn đề nhân loại đang ở mức tột cùng.</p>
+
+<p>Arnold cùng giáo sư nghệ thuật Matt Kahn đã tạo ra chương trình "Product Design" (Thiết kế Sản phẩm) tại Stanford — nền tảng trực tiếp dẫn đến sự ra đời của hai tổ chức mang tính biểu tượng: <strong>Stanford d.school</strong> (Hasso Plattner Institute of Design) và hãng tư vấn thiết kế toàn cầu <strong>IDEO</strong>. Cả hai đã định hình cách thế giới hiểu về design thinking cho đến ngày nay.</p>
+
+<h2>Design Thinking là gì?</h2>
+
+<div class="def-box">
+  <div class="def-label">Định nghĩa — Tim Brown, CEO IDEO</div>
+  <p>"Design thinking là một phương pháp tiếp cận lấy con người làm trung tâm trong đổi mới, lấy bộ công cụ của nhà thiết kế để tích hợp nhu cầu của con người, khả năng của công nghệ, và các yêu cầu để đạt thành công kinh doanh."</p>
+</div>
+
+<blockquote>
+  <p>"Design thinking đang khiến các tổ chức suy nghĩ về cách di chuyển nhanh hơn... với tốc độ lặp lại nhanh."</p>
+  <span class="attribution">John Maeda — Automattic</span>
+</blockquote>
+
+<p>Design thinking không chỉ là công cụ dành cho nhà thiết kế. Điểm mạnh thực sự của nó là đưa <em>tất cả mọi người</em> vào quy trình sáng tạo — từ kỹ sư, nhà tiếp thị, đến lãnh đạo cấp cao. Nó giúp giải quyết những "wicked problems" (vấn đề phức tạp không có lời giải dứt khoát) và mở rộng quy mô trên toàn tổ chức lớn. Quan trọng nhất, nó tạo ra một <strong>thiên kiến hướng tới hành động</strong> và góc nhìn lấy người dùng làm trung tâm trong mọi quyết định.</p>
+
+<h2>Khung 5 Bước của Stanford d.school</h2>
+
+<div class="framework-box">
+  <div class="fw-title">Quy trình Design Thinking — Stanford d.school</div>
+  <div class="framework-steps">
+    <div class="framework-step">
+      <span class="step-num">01</span>
+      <span class="step-name">Empathize</span>
+      <span class="step-vi">Thấu cảm</span>
+    </div>
+    <div class="framework-step">
+      <span class="step-num">02</span>
+      <span class="step-name">Define</span>
+      <span class="step-vi">Định nghĩa</span>
+    </div>
+    <div class="framework-step">
+      <span class="step-num">03</span>
+      <span class="step-name">Ideate</span>
+      <span class="step-vi">Ý tưởng hóa</span>
+    </div>
+    <div class="framework-step">
+      <span class="step-num">04</span>
+      <span class="step-name">Prototype</span>
+      <span class="step-vi">Tạo mẫu thử</span>
+    </div>
+    <div class="framework-step">
+      <span class="step-num">05</span>
+      <span class="step-name">Test</span>
+      <span class="step-vi">Kiểm thử</span>
+    </div>
+  </div>
+</div>
+
+<p>Khung này không phải là một quy trình tuyến tính cứng nhắc — các nhóm thực hành design thinking thường xuyên quay lại các bước trước, lặp đi lặp lại cho đến khi đạt được giải pháp tốt nhất. Đây là sức mạnh của phương pháp: tính linh hoạt và khả năng thích nghi.</p>
+
+<h2>Thấu Cảm: Nền Tảng Cốt Lõi</h2>
+
+<p>Trung tâm của toàn bộ quy trình là <strong>thấu cảm</strong> — khả năng đặt bản thân vào vị trí của người dùng và thực sự hiểu những gì họ trải nghiệm, cảm nhận và cần. Để thực hành thấu cảm thực sự, nhà thiết kế cần tiếp cận với tư duy người mới học (beginner's mindset): gạt bỏ mọi giả định, mở lòng với những điều bất ngờ, và đắm chìm vào cuộc sống thực của người dùng.</p>
+
+<div class="info-box">
+  <div class="ib-label">Nguyên tắc thực hành</div>
+  <p><strong>Tư duy người mới học (Beginner's Mindset):</strong> Tiếp cận mọi tình huống như thể đây là lần đầu tiên bạn gặp nó. Đừng giả định bạn đã biết câu trả lời.</p>
+  <p><strong>Nguyên tắc Đoán Ít hơn (Guess Less):</strong> Thay vì đưa ra giả định về người dùng, hãy trực tiếp quan sát và tương tác với họ trong môi trường thực của họ.</p>
+</div>
+
+<h2>Từ Thấu Cảm Đến Định Nghĩa Vấn Đề (POV)</h2>
+
+<p>Sau khi thu thập đủ thông tin thấu cảm, nhóm thiết kế tổng hợp các phát hiện thành một <strong>POV — Point of View</strong> (Quan điểm / Tuyên bố vấn đề). Một POV tốt bao gồm ba yếu tố:</p>
+
+<ul class="principle-list">
+  <li><span class="pl-num">01</span><span><strong>Người dùng là ai</strong> — Mô tả cụ thể, chi tiết, không phải chung chung</span></li>
+  <li><span class="pl-num">02</span><span><strong>Nhu cầu sâu sắc chưa được đáp ứng</strong> — Không phải tính năng hay giải pháp, mà là nhu cầu thực sự</span></li>
+  <li><span class="pl-num">03</span><span><strong>Tại sao điều này có tính đột phá</strong> — Hiểu biết nào tạo ra không gian cho giải pháp đổi mới</span></li>
+</ul>
+
+<p>Một POV được định nghĩa tốt sẽ tái định khung vấn đề — đây là lúc những giải pháp thực sự đổi mới bắt đầu xuất hiện.</p>
+
+<h2>Ý Tưởng Hóa: Từ Vấn Đề Đến Giải Pháp</h2>
+
+<p>Với POV trong tay, nhóm bước vào giai đoạn ý tưởng hóa — tạo ra số lượng lớn các ý tưởng tiềm năng càng nhanh càng tốt. Công cụ chủ chốt là các câu hỏi <em>"How Might We...?"</em> (Làm thế nào để chúng ta...?) — biến tuyên bố vấn đề thành lời mời cho sáng tạo.</p>
+
+<p>Mục tiêu không phải là tìm ra giải pháp hoàn hảo ngay lập tức, mà là tạo ra đủ nhiều ý tưởng để có những hạt giống đa dạng cho bước tiếp theo.</p>
+
+<h2>Tạo Mẫu Thử: Học Nhanh, Học Rẻ</h2>
+
+<p>Thay vì tranh luận lý thuyết vô tận, design thinking khuyến khích nhóm nhanh chóng xây dựng mẫu thử — các phiên bản đơn giản, chi phí thấp của giải pháp — để <strong>học hỏi, giải quyết bất đồng, và kiểm tra giả thuyết</strong>. Bản mẫu thử có thể là phác thảo trên giấy, mô hình cardboard, hay một màn hình click-through đơn giản.</p>
+
+<p>Điều quan trọng là chia sẻ và đồng sáng tạo với người dùng ngay từ sớm — không chờ sản phẩm "hoàn hảo" mới cho họ xem.</p>
+
+<h2>Kiểm Thử: Bằng Chứng Thực Tế</h2>
+
+<p>Giai đoạn kiểm thử đưa mẫu thử ra thực tế — trước mặt người dùng thực, trong bối cảnh thực. Mục đích không phải để chứng minh mình đúng, mà để <em>học hỏi</em>: tinh chỉnh POV, hiểu sâu hơn về người dùng, và lặp lại.</p>
+
+<blockquote>
+  <p>"Hãy tạo mẫu thử như thể bạn biết mình đúng, nhưng kiểm thử như thể bạn biết mình sai."</p>
+  <span class="attribution">Stanford d.school</span>
+</blockquote>
+
+<h2>Tại Sao Design Thinking Quan Trọng Hơn Bao Giờ Hết</h2>
+
+<p>Trong một thế giới ngày càng phức tạp, những vấn đề đơn giản đã được giải quyết. Những vấn đề còn lại — sức khỏe cộng đồng, giáo dục, biến đổi khí hậu, tài chính toàn diện — đòi hỏi một phương pháp tiếp cận khác: một phương pháp bắt đầu với con người, không phải với công nghệ hay lợi nhuận.</p>
+
+<p>Design thinking không đảm bảo thành công. Nhưng nó cung cấp một quy trình có kỷ luật để <strong>đặt đúng câu hỏi, lắng nghe đúng người, và học hỏi nhanh chóng từ thực tế</strong> — thay vì từ giả định.</p>
+
+<div class="info-box">
+  <div class="ib-label">Lịch sử — Gốc rễ tại Stanford</div>
+  <p><strong>1958:</strong> John Arnold (Stanford) đề xuất human-centered engineering sau sự kiện Sputnik.</p>
+  <p><strong>Bob McKim + Matt Kahn:</strong> Tạo chương trình "Product Design" — hạt nhân của Stanford d.school và IDEO.</p>
+  <p><strong>Bill Burnett,</strong> Giám đốc điều hành chương trình Design tại Stanford, là một trong những người định hình thực hành design thinking ngày nay.</p>
+</div>
+
+<hr class="divider">
+
+<div class="further-reading">
+  <h2>Đọc Thêm</h2>
+  <ul class="reading-list">
+    <li>Tim Brown — Design Thinking (Harvard Business Review)</li>
+    <li>IDEO — Human-Centered Design Toolkit</li>
+    <li>Stanford d.school — Bootcamp Bootleg</li>
+    <li>Bill Burnett &amp; Dave Evans — Designing Your Life</li>
+    <li>Tom &amp; David Kelley — Creative Confidence</li>
+  </ul>
+</div>
+
+<footer>
+  DesignBetter.Co by InVision · Eli Woolery · Design Thinking Handbook<br>
+  Chương 01 / 06 — Tại Sao Chúng Ta Cần Design Thinking
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch2-dt-handbook.html"><span class="lbl">Chương sau</span>Chương 2: Thấu Cảm: Trái Tim Của Thiết Kế</a>
+</nav>
+</body>
+</html>

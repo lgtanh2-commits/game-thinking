@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 9 — Định hướng Thiết kế & Tương lai Bất định</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.72;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+
+  /* ── Typography ── */
+  h1 { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 6px; }
+  h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; margin: 52px 0 14px; border-bottom: 2px solid var(--text); padding-bottom: 6px; }
+  h3 { font-size: 1.08rem; font-weight: 700; margin: 28px 0 10px; }
+  h4 { font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-secondary); margin: 20px 0 8px; }
+  p { margin-bottom: 14px; }
+  ul, ol { padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 6px; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+  blockquote {
+    border-left: 4px solid var(--text);
+    padding: 12px 20px;
+    margin: 24px 0;
+    background: var(--surface);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+  }
+  blockquote cite { display: block; margin-top: 8px; font-size: 0.85rem; color: var(--text-muted); font-style: normal; }
+  .doi { font-family: 'Courier New', monospace; font-size: 0.8rem; color: var(--text-muted); }
+
+  /* ── Chapter Header ── */
+  .chapter-header { border-bottom: 3px solid var(--text); padding-bottom: 32px; margin-bottom: 48px; }
+  .chapter-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-muted); margin-bottom: 12px; }
+  .subtitle { font-size: 1.1rem; color: var(--text-secondary); margin-top: 10px; font-family: Georgia, serif; font-style: italic; }
+  .keyword-row { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .kw { border: 1px solid var(--border-strong); padding: 4px 12px; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* ── Pull stat ── */
+  .pull-stat {
+    border: 2px solid var(--text);
+    padding: 20px 24px;
+    margin: 28px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    background: var(--surface);
+  }
+  .pull-stat .num { font-size: 2.6rem; font-weight: 900; letter-spacing: -0.04em; flex-shrink: 0; }
+  .pull-stat .desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.45; }
+
+  /* ── Section divider ── */
+  .section-intro {
+    border-left: 4px solid var(--accent-line);
+    padding: 14px 20px;
+    background: var(--surface);
+    margin-bottom: 24px;
+    font-size: 0.97rem;
+  }
+
+  /* ── Network block ── */
+  .network-block {
+    border: 1px solid var(--border);
+    padding: 18px 22px;
+    margin: 18px 0;
+    background: var(--surface);
+  }
+  .network-block .net-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 6px; }
+  .network-block h4 { margin: 0 0 8px; font-size: 1rem; color: var(--text); text-transform: none; letter-spacing: 0; }
+
+  /* ── Framework grid ── */
+  .framework-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0; }
+  .fw-cell { border: 1px solid var(--border); padding: 14px 16px; background: var(--bg); }
+  .fw-cell.dark { background: var(--surface-dark); border-color: var(--border-strong); }
+  .fw-cell .fw-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 5px; }
+  .fw-cell p { font-size: 0.88rem; margin: 0; }
+
+  /* ── Living Lab table ── */
+  .ll-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.86rem; }
+  .ll-table th { background: var(--text); color: var(--bg); padding: 9px 12px; text-align: left; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
+  .ll-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .ll-table tr:nth-child(even) td { background: var(--surface); }
+
+  /* ── IoT elements ── */
+  .iot-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 18px 0; }
+  .iot-item { border: 1px solid var(--border); padding: 16px 18px; background: var(--bg); }
+  .iot-item .iot-num { font-size: 1.8rem; font-weight: 900; color: var(--text-muted); line-height: 1; margin-bottom: 6px; }
+  .iot-item h4 { margin: 0 0 6px; font-size: 0.9rem; color: var(--text); text-transform: none; letter-spacing: 0; }
+  .iot-item p { font-size: 0.86rem; margin: 0; color: var(--text-secondary); }
+
+  /* ── Consumer concerns ── */
+  .concern-list { list-style: none; padding: 0; margin: 16px 0; }
+  .concern-list li { border-left: 3px solid var(--border-strong); padding: 10px 14px; margin-bottom: 6px; background: var(--surface); display: flex; gap: 14px; align-items: baseline; }
+  .concern-list li .pct { font-size: 1.4rem; font-weight: 900; flex-shrink: 0; min-width: 54px; }
+  .concern-list li .detail { font-size: 0.88rem; color: var(--text-secondary); }
+
+  /* ── Marketing table ── */
+  .mkt-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.86rem; }
+  .mkt-table th { background: var(--surface-dark); color: var(--text); padding: 9px 12px; text-align: left; font-weight: 700; border-bottom: 2px solid var(--border-strong); }
+  .mkt-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .mkt-table tr:nth-child(even) td { background: var(--surface); }
+
+  /* ── Trend section ── */
+  .trend-block { border-top: 2px solid var(--text); padding: 22px 0; margin-bottom: 10px; }
+  .trend-block .trend-num { font-size: 3.5rem; font-weight: 900; color: var(--surface-dark); line-height: 1; float: left; margin-right: 18px; margin-top: -6px; }
+  .trend-block h3 { font-size: 1.2rem; font-weight: 700; margin: 0 0 10px; }
+  .trend-block::after { content: ''; display: block; clear: both; }
+
+  /* ── Chapter summary box ── */
+  .summary-box { border: 2px solid var(--text); padding: 26px 28px; margin: 44px 0; }
+  .summary-box .sum-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 14px; }
+  .summary-box blockquote { border: none; background: none; padding: 0; margin: 0 0 16px; font-size: 1.1rem; }
+
+  /* ── Q&T sections ── */
+  .qt-section { margin: 44px 0 0; }
+  .qt-section h3 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 16px; }
+  .qt-list { list-style: none; padding: 0; }
+  .qt-list li { border-left: 3px solid var(--border); padding: 10px 14px; margin-bottom: 8px; font-size: 0.92rem; }
+  .qt-list li strong { display: inline-block; min-width: 26px; color: var(--text-muted); }
+
+  /* ── References ── */
+  .ref-section { margin-top: 56px; border-top: 1px solid var(--border); padding-top: 32px; }
+  .ref-section h2 { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); border: none; margin: 0 0 20px; }
+  .ref-list { list-style: none; padding: 0; }
+  .ref-list li { font-size: 0.82rem; color: var(--text-secondary); padding: 6px 0 6px 22px; border-bottom: 1px solid var(--border); position: relative; }
+  .ref-list li::before { content: '—'; position: absolute; left: 0; color: var(--text-muted); }
+
+  /* ── Nav ── */
+  .page-nav { display: flex; justify-content: space-between; margin-bottom: 36px; font-size: 0.82rem; }
+  .page-nav a { color: var(--text-secondary); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+  .page-nav a:hover { color: var(--text); border-color: var(--text); }
+
+  @media (max-width: 600px) {
+    body { padding: 28px 16px 60px; }
+    h1 { font-size: 1.8rem; }
+    .framework-grid, .iot-grid { grid-template-columns: 1fr; }
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+
+<nav class="page-nav">
+  <a href="Chapter8_Design_Thinking_Practice.html">← Chương 8</a>
+  <a href="Chapter10_Summary.html">Chương 10 →</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     CHAPTER HEADER
+════════════════════════════════════════════ -->
+<header class="chapter-header">
+  <p class="chapter-label">Chương 9</p>
+  <h1>Định hướng Thiết kế &amp; Tương lai Bất định</h1>
+  <p class="subtitle">Design Directions and the Era of Uncertain Futures</p>
+  <p class="doi">https://doi.org/10.1007/978-3-030-94206-9_9</p>
+  <div class="keyword-row">
+    <span class="kw">Democratic Design</span>
+    <span class="kw">DESIS Network</span>
+    <span class="kw">Internet of Things</span>
+    <span class="kw">Data &amp; Design</span>
+    <span class="kw">Tương lai bất định</span>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     §9.1 INTRODUCTION
+════════════════════════════════════════════ -->
+<h2>9.1 Giới thiệu</h2>
+
+<div class="section-intro">
+  Chương này khám phá các ảnh hưởng đang định hình thiết kế trong thế kỷ XXI — từ mạng lưới thiết kế xã hội toàn cầu, dân chủ hoá thiết kế, đến cuộc cách mạng dữ liệu và các xu hướng vĩ mô chưa từng có trong lịch sử.
+</div>
+
+<p>Mạng lưới <strong>DESIS</strong> (Design for Social Innovation and Sustainability — Thiết kế vì Đổi mới Xã hội và Bền vững) ra đời năm 2009 dưới sự dẫn dắt của <strong>Ezio Manzini</strong>, gắn kết các trường thiết kế trên toàn thế giới với mục tiêu chung: thúc đẩy đổi mới xã hội bền vững.</p>
+
+<p>Cùng lúc đó, <strong>Living Labs</strong> — các phòng thí nghiệm sống — nổi lên như một phương pháp nghiên cứu mở, cho phép người dùng thực sự tham gia vào vòng lặp phát triển sản phẩm và dịch vụ ngay trong bối cảnh đời sống hằng ngày.</p>
+
+<div class="pull-stat">
+  <div class="num">30,9 tỷ</div>
+  <div class="desc">thiết bị IoT (Internet of Things) được dự báo kết nối vào năm <strong>2025</strong>, tạo ra một khối lượng dữ liệu khổng lồ chưa từng có — và đặt ra câu hỏi căn bản về vai trò của thiết kế trong việc định hình thế giới số đó.<br><small>(Statista, 2021)</small></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     §9.2 DESIGN INFLUENCES
+════════════════════════════════════════════ -->
+<h2>9.2 Những Ảnh hưởng Định hình Thiết kế</h2>
+
+<p>Người thiết kế ngày nay không chỉ cần kỹ năng tạo hình thức; họ cần một bộ năng lực <em>phi hữu hình</em> (non-tangible skills) — tư duy hệ thống, sự đồng cảm sâu sắc, khả năng điều hành cộng đồng và dẫn dắt sự thay đổi tổ chức.</p>
+
+<p><strong>UK Design Council</strong> (2021) đặt ra mục tiêu net-zero, thách thức cộng đồng thiết kế toàn quốc phải tích hợp bền vững môi trường vào từng quyết định sáng tạo — từ chọn vật liệu đến thiết kế dịch vụ.</p>
+
+<h3>Mạng lưới DESIS</h3>
+
+<div class="network-block">
+  <p class="net-label">Mạng lưới Toàn cầu</p>
+  <h4>DESIS — Design for Social Innovation and Sustainability</h4>
+  <p>Thành lập năm 2009 bởi Ezio Manzini, DESIS tập hợp các trường thiết kế và viện nghiên cứu nhằm <strong>kích hoạt (trigger), kiến tạo điều kiện (enable)</strong> và <strong>nhân rộng (scale-up)</strong> đổi mới xã hội. Không chỉ là mạng lưới học thuật, DESIS trở thành cầu nối giữa đại học, cộng đồng địa phương và chính sách công.</p>
+</div>
+
+<p>Hai ví dụ tiêu biểu:</p>
+<ul>
+  <li><strong>DSU-DESIS Lab, Busan (Hàn Quốc)</strong> — đặt thiết kế xã hội vào trung tâm phát triển đô thị cảng.</li>
+  <li><strong>UFPR, Brazil</strong> — trường đại học liên kết DESIS tại Nam Mỹ, nghiên cứu thiết kế phục vụ cộng đồng nông thôn và dân tộc thiểu số.</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════
+     §9.3 DEMOCRATIC DESIGN
+════════════════════════════════════════════ -->
+<h2>9.3 Thiết kế Dân chủ</h2>
+
+<p><strong>Thiết kế dân chủ</strong> (Democratic Design) mở rộng quyền tham gia vào quá trình sáng tạo ra ngoài giới chuyên gia, đưa người dùng từ vai trò thụ động sang vai trò đồng tác giả.</p>
+
+<h3>Phương pháp Lead User (Von Hippel)</h3>
+
+<p><strong>Eric von Hippel</strong> (MIT) giới thiệu <em>Lead User Method</em>: nhận diện những người dùng tiên phong — những người đang phải đối mặt với nhu cầu chưa được thị trường đáp ứng — và hợp tác với họ để phát triển giải pháp mới. Phương pháp này thách thức mô hình R&amp;D truyền thống "từ trên xuống" (top-down).</p>
+
+<h3>Khung Sanders et al. (2010) — Hình thức, Mục đích, Bối cảnh</h3>
+
+<div class="framework-grid">
+  <div class="fw-cell dark">
+    <p class="fw-label">Hình thức</p>
+    <p>Thiết kế <em>trông như thế nào</em> và cảm giác khi chạm vào, sử dụng — hình dạng vật lý, vật liệu, tính thẩm mỹ.</p>
+  </div>
+  <div class="fw-cell dark">
+    <p class="fw-label">Mục đích</p>
+    <p>Thiết kế <em>phục vụ điều gì</em> — chức năng, giá trị, tác động xã hội mà nó tạo ra cho người dùng.</p>
+  </div>
+  <div class="fw-cell dark">
+    <p class="fw-label">Bối cảnh</p>
+    <p>Thiết kế <em>tồn tại ở đâu</em> — không gian vật lý, văn hoá, xã hội mà nó được đặt vào và phải tương tác.</p>
+  </div>
+</div>
+
+<p>Sanders phân biệt <strong>Thiết kế Tham gia (PD — Participatory Design)</strong> với <strong>Thiết kế Lấy Người dùng làm Trung tâm (UCD)</strong>: PD mời người dùng tham gia <em>cùng thiết kế</em> ngay từ đầu; UCD nghiên cứu người dùng nhưng quyết định vẫn nằm ở nhà thiết kế.</p>
+
+<h3>Living Labs</h3>
+
+<p>Khái niệm <strong>Living Lab</strong> — phòng thí nghiệm sống — được William Mitchell (MIT) đề xuất: một môi trường nghiên cứu thực tế nơi công nghệ và dịch vụ được thử nghiệm trong đời sống hàng ngày của người dùng thực.</p>
+
+<p><strong>ENoLL</strong> (European Network of Living Labs) ra đời năm 2006 với hơn <strong>460+ phòng thí nghiệm</strong> tại các quốc gia khác nhau, trở thành mạng lưới Living Labs lớn nhất thế giới.</p>
+
+<h4>Bảng 9.1 — Ví dụ Living Labs Toàn cầu</h4>
+<table class="ll-table">
+  <thead>
+    <tr>
+      <th>Tên Living Lab</th>
+      <th>Quốc gia</th>
+      <th>Trọng tâm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>LivingLab Shanghai</strong></td>
+      <td>Trung Quốc</td>
+      <td>Đổi mới đô thị, thành phố thông minh</td>
+    </tr>
+    <tr>
+      <td><strong>Basaksehir Living Lab</strong></td>
+      <td>Thổ Nhĩ Kỳ</td>
+      <td>Phát triển khu đô thị bền vững</td>
+    </tr>
+    <tr>
+      <td><strong>TIE-LL</strong></td>
+      <td>Ý</td>
+      <td>Đổi mới giáo dục và doanh nghiệp</td>
+    </tr>
+    <tr>
+      <td><strong>Lahti Living Lab</strong></td>
+      <td>Phần Lan</td>
+      <td>Bền vững môi trường, kinh tế tuần hoàn</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Bốn loại hình Living Lab và bốn nhóm đối tác</h4>
+
+<div class="iot-grid">
+  <div class="iot-item">
+    <h4>Loại hình</h4>
+    <ul style="font-size:0.88rem; color:var(--text-secondary); margin:0;">
+      <li>Nghiên cứu (Research Lab)</li>
+      <li>Doanh nghiệp (Corporate Lab)</li>
+      <li>Tổ chức (Organisational Lab)</li>
+      <li>Trung gian (Intermediary Lab)</li>
+    </ul>
+  </div>
+  <div class="iot-item">
+    <h4>Đối tác</h4>
+    <ul style="font-size:0.88rem; color:var(--text-secondary); margin:0;">
+      <li>Nhà nghiên cứu</li>
+      <li>Tổ chức công (chính phủ, thành phố)</li>
+      <li>Doanh nghiệp tư nhân</li>
+      <li>Người dùng cuối / Cộng đồng</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     §9.4 DATA AND DESIGN
+════════════════════════════════════════════ -->
+<h2>9.4 Dữ liệu và Thiết kế</h2>
+
+<div class="section-intro">
+  Kỷ nguyên dữ liệu mở ra cơ hội thiết kế chưa từng có — nhưng cũng đặt ra những câu hỏi đạo đức, quyền riêng tư và sự tin tưởng mà thiết kế không thể né tránh.
+</div>
+
+<h3>DDI — Đổi mới dựa trên Dữ liệu</h3>
+
+<p><strong>Data Driven Innovation (DDI)</strong> là xu hướng khai thác dữ liệu lớn để tạo ra sản phẩm, dịch vụ và mô hình kinh doanh mới. DDI không chỉ là phân tích số liệu — nó đòi hỏi tư duy thiết kế để chuyển hoá dữ liệu thô thành giá trị người dùng thực sự cảm nhận được.</p>
+
+<h3>Internet of Things (IoT)</h3>
+
+<p>Thuật ngữ <strong>Internet of Things</strong> được đặt ra bởi <strong>Kevin Ashton</strong> năm 1999 trong khi làm việc tại Procter &amp; Gamble. Ông hình dung một thế giới mà các vật thể vật lý được kết nối internet và có thể giao tiếp tự động với nhau — không cần sự can thiệp của con người.</p>
+
+<div class="pull-stat">
+  <div class="num">41,6 tỷ</div>
+  <div class="desc">thiết bị IoT kết nối vào năm <strong>2025</strong> theo dự báo của IDC — bao gồm điện thoại, đồng hồ thông minh, cảm biến công nghiệp, ô tô, thiết bị y tế và hàng trăm loại vật thể kết nối khác.</div>
+</div>
+
+<h4>Bốn yếu tố cấu thành IoT</h4>
+
+<div class="iot-grid">
+  <div class="iot-item">
+    <div class="iot-num">01</div>
+    <h4>Con người (People)</h4>
+    <p>Người dùng tương tác với thiết bị — từ bệnh nhân đeo máy theo dõi sức khoẻ đến nhân viên vận hành máy móc nhà máy.</p>
+  </div>
+  <div class="iot-item">
+    <div class="iot-num">02</div>
+    <h4>Vật thể (Things)</h4>
+    <p>Thiết bị vật lý được gắn cảm biến và kết nối — từ tủ lạnh thông minh đến hệ thống chiếu sáng đô thị tự động.</p>
+  </div>
+  <div class="iot-item">
+    <div class="iot-num">03</div>
+    <h4>Dữ liệu (Data)</h4>
+    <p>Thông tin thô được thu thập liên tục — nhiệt độ, vị trí, hành vi người dùng — chờ được phân tích và chuyển hoá thành tri thức.</p>
+  </div>
+  <div class="iot-item">
+    <div class="iot-num">04</div>
+    <h4>Quy trình (Processes)</h4>
+    <p>Hệ thống tự động ra quyết định hoặc kích hoạt hành động dựa trên dữ liệu thu thập được — từ điều chỉnh nhiệt độ đến phát cảnh báo y tế.</p>
+  </div>
+</div>
+
+<p>Ngoài IoT chuẩn, còn có <strong>Internet of Everything (IoE)</strong> (kết nối mọi thứ bao gồm quy trình và dữ liệu), <strong>IIoT — Industrial IoT</strong> (IoT công nghiệp) và <strong>Enterprise IoT</strong> (IoT doanh nghiệp) — mỗi phân nhánh mang theo những yêu cầu thiết kế và thách thức bảo mật riêng biệt.</p>
+
+<h3>Lợi ích của IoT với Doanh nghiệp</h3>
+<ul>
+  <li><strong>Tăng năng suất</strong> — tự động hoá tác vụ lặp lại, giải phóng nguồn lực con người.</li>
+  <li><strong>Tự động hoá gia tăng</strong> — hệ thống tự vận hành dựa trên dữ liệu thời gian thực.</li>
+  <li><strong>Cải thiện hiệu quả</strong> — giảm lãng phí, tối ưu hoá chuỗi cung ứng và tiêu thụ năng lượng.</li>
+  <li><strong>Trải nghiệm khách hàng vượt trội</strong> — cá nhân hoá sản phẩm và dịch vụ theo dữ liệu hành vi thực tế.</li>
+</ul>
+
+<h3>Lo ngại của Người tiêu dùng về IoT</h3>
+
+<p>Báo cáo <strong>Internet Society (2019)</strong> tiết lộ mức độ lo ngại đáng kể của công chúng:</p>
+
+<ul class="concern-list">
+  <li>
+    <span class="pct">63%</span>
+    <span class="detail">người dùng cảm thấy các thiết bị kết nối <em>xâm phạm sự riêng tư</em> — "creepy" — đặc biệt khi không biết chính xác thiết bị thu thập gì.</span>
+  </li>
+  <li>
+    <span class="pct">53%</span>
+    <span class="detail">không tin tưởng rằng các thiết bị IoT đang bảo vệ quyền riêng tư của họ một cách đầy đủ.</span>
+  </li>
+  <li>
+    <span class="pct">75%</span>
+    <span class="detail">lo lắng về việc dữ liệu cá nhân của họ bị thu thập và <em>sử dụng vào mục đích không mong muốn</em> — bán cho bên thứ ba, phục vụ quảng cáo, hoặc bị chính phủ theo dõi.</span>
+  </li>
+  <li>
+    <span class="pct">28%</span>
+    <span class="detail">đã từng <em>không mua</em> một thiết bị thông minh vì lo ngại bảo mật — IoT mất khách hàng ngay từ điểm quyết định mua.</span>
+  </li>
+</ul>
+
+<h4>Bảng 9.2 — So sánh Marketing: Sản phẩm Độc lập vs. Thiết bị Kết nối</h4>
+<table class="mkt-table">
+  <thead>
+    <tr>
+      <th>Tiêu chí</th>
+      <th>Sản phẩm độc lập (Stand-alone)</th>
+      <th>Thiết bị kết nối (Connected Device)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Giá trị cốt lõi</td>
+      <td>Tính năng vật lý, độ bền, thiết kế</td>
+      <td>Trải nghiệm kết nối, dữ liệu, dịch vụ liên tục</td>
+    </tr>
+    <tr>
+      <td>Quan hệ khách hàng</td>
+      <td>Kết thúc tại điểm mua</td>
+      <td>Vòng đời quan hệ liên tục, đăng ký, cập nhật</td>
+    </tr>
+    <tr>
+      <td>Dữ liệu</td>
+      <td>Không có dữ liệu sau bán hàng</td>
+      <td>Dữ liệu hành vi liên tục — cơ sở cải tiến sản phẩm</td>
+    </tr>
+    <tr>
+      <td>Thách thức marketing</td>
+      <td>Thuyết phục về chất lượng vật lý</td>
+      <td>Thuyết phục về bảo mật, quyền riêng tư, giá trị dữ liệu</td>
+    </tr>
+    <tr>
+      <td>Mô hình doanh thu</td>
+      <td>Bán một lần</td>
+      <td>Đăng ký, dịch vụ kèm theo, dữ liệu bổ trợ</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ═══════════════════════════════════════════
+     §9.5 DESIGN DIRECTIONS
+════════════════════════════════════════════ -->
+<h2>9.5 Định hướng Thiết kế trong Kỷ nguyên Bất định</h2>
+
+<p>Ba xu hướng vĩ mô đang tái định hình bối cảnh kinh doanh và xã hội — đặt ra những thách thức thiết kế chưa có tiền lệ:</p>
+
+<!-- TREND 1: TECHNOLOGY -->
+<div class="trend-block">
+  <div class="trend-num">①</div>
+  <h3>Công nghệ (Technology)</h3>
+  <p>Khảo sát của <strong>Deloitte (2020)</strong> cho thấy <strong>64% CIO</strong> (Giám đốc Thông tin) tại các tập đoàn lớn đang chủ động đặt cược vào AI và tự động hoá như động lực tăng trưởng chính trong 5 năm tới.</p>
+  <p>Nghiên cứu của <strong>Poliquin (2020)</strong> về băng thông rộng tại Brazil cho thấy mức độ thâm nhập internet tăng cao trực tiếp tương quan với tăng lương thực tế: tăng trưởng băng thông rộng <em>1%</em> → lương tăng <em>2,3%</em>; <em>9%</em> → <em>9%</em>; <em>19%</em> → <em>19%</em>. Cơ sở hạ tầng số không còn là xa xỉ phẩm — nó là hạ tầng kinh tế.</p>
+  <p><strong>Martin Ford</strong> cảnh báo: tự động hoá không chỉ đe doạ việc làm tay chân — thuật toán đang bắt đầu thay thế cả lao động tri thức và chuyên môn. Thiết kế có nhiệm vụ tái tưởng tượng những vai trò mà con người sẽ giữ trong nền kinh tế đó.</p>
+</div>
+
+<!-- TREND 2: DEMOGRAPHICS -->
+<div class="trend-block">
+  <div class="trend-num">②</div>
+  <h3>Nhân khẩu học (Demographics)</h3>
+  <p><strong>NIC (National Intelligence Council, 2021)</strong> dự báo dân số toàn cầu chạm mốc <strong>9,2 tỷ vào năm 2040</strong> — gia tăng chủ yếu ở châu Phi và Nam Á.</p>
+  <p>Quan trọng hơn: <strong>Ấn Độ sẽ vượt Trung Quốc về dân số vào năm 2027</strong>, tái cấu trúc bản đồ thị trường và sản xuất toàn cầu. Tuổi trung vị của nhân loại tăng từ <strong>31 lên 35</strong> — một thế giới ngày càng già đi.</p>
+  <p><strong>WHO (2018)</strong> dự báo số người trên 60 tuổi sẽ tăng gấp đôi từ 2015 đến 2050, đặt ra nhu cầu khổng lồ về thiết kế dịch vụ y tế, nhà ở, giao thông và công nghệ hỗ trợ người cao tuổi — <em>silver economy</em> sẽ trở thành một trong những phân khúc thiết kế quan trọng nhất thế kỷ này.</p>
+</div>
+
+<!-- TREND 3: ENVIRONMENT -->
+<div class="trend-block">
+  <div class="trend-num">③</div>
+  <h3>Môi trường (Environment)</h3>
+  <p><strong>IPCC (2018)</strong> xác nhận nhiệt độ toàn cầu đã tăng <strong>1,04°C</strong> so với thời kỳ tiền công nghiệp — và mỗi phần mười độ C tăng thêm đều mang theo những hậu quả không tuyến tính: cực đoan thời tiết, mực nước biển dâng, mất mùa, di cư.</p>
+  <p><strong>Greta Thunberg</strong> và báo cáo <strong>UNICEF (2021)</strong> đặt tương lai trẻ em vào trung tâm của cuộc khủng hoảng khí hậu — làn sóng Youth Climate Activism đang định hình lại kỳ vọng người tiêu dùng toàn cầu, đặc biệt với Gen Z.</p>
+  <p>Chính phủ Anh ban hành lệnh <strong>cấm bán ô tô chạy xăng vào năm 2030</strong> — một quyết định chính sách đơn lẻ buộc cả ngành ô tô, hạ tầng giao thông, thiết kế đô thị và công nghiệp năng lượng phải tái thiết kế từ đầu.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPTER SUMMARY
+════════════════════════════════════════════ -->
+<div class="summary-box">
+  <p class="sum-label">Tóm tắt Chương</p>
+  <blockquote>
+    "Trí tưởng tượng quan trọng hơn tri thức. Tri thức có giới hạn. Trí tưởng tượng bao trùm cả thế giới."
+    <cite>— Albert Einstein</cite>
+  </blockquote>
+  <p>Chương 9 đặt thiết kế vào giữa ba cơn bão vĩ mô đang đổ vào cùng một lúc: cuộc cách mạng công nghệ, sự biến đổi nhân khẩu học toàn cầu và cuộc khủng hoảng khí hậu. Mạng lưới DESIS và phong trào Living Labs cho thấy thiết kế đã vượt ra khỏi phòng studio để trở thành thực hành xã hội. IoT tạo ra đại dương dữ liệu — nhưng cũng tạo ra những rủi ro riêng tư chưa có giải pháp. Câu hỏi không còn là "thiết kế có thể làm gì?" mà là "thiết kế <em>phải</em> làm gì — và với ai?"</p>
+  <blockquote style="margin-top:16px; font-size:0.95rem;">
+    "Gió thay đổi làm một số người dựng tường, còn người khác xây cối xay gió."
+    <cite>— Tục ngữ Trung Quốc</cite>
+  </blockquote>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     REVIEW QUESTIONS
+════════════════════════════════════════════ -->
+<div class="qt-section">
+  <h3>Câu hỏi Ôn tập</h3>
+  <ol class="qt-list">
+    <li><strong>1.</strong> Mạng lưới DESIS đã được thành lập như thế nào và đóng góp gì vào thiết kế xã hội bền vững?</li>
+    <li><strong>2.</strong> Phân biệt Thiết kế Tham gia (PD) và Thiết kế Lấy Người dùng làm Trung tâm (UCD). Khi nào nên dùng phương pháp nào?</li>
+    <li><strong>3.</strong> Living Labs là gì? Bốn loại hình Living Lab khác nhau như thế nào về mục tiêu và cách vận hành?</li>
+    <li><strong>4.</strong> Bốn yếu tố cốt lõi của IoT là gì và chúng tương tác với nhau như thế nào để tạo ra giá trị?</li>
+    <li><strong>5.</strong> Ba xu hướng vĩ mô (Công nghệ, Nhân khẩu học, Môi trường) đặt ra những thách thức thiết kế cụ thể nào trong thập kỷ tới?</li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PROJECT QUESTIONS
+════════════════════════════════════════════ -->
+<div class="qt-section">
+  <h3>Câu hỏi Dự án</h3>
+  <ol class="qt-list">
+    <li><strong>1.</strong> Thiết kế một Living Lab cho tổ chức hoặc cộng đồng của bạn: xác định mục tiêu, đối tác cần thiết, quy trình nghiên cứu và chỉ số đo lường thành công.</li>
+    <li><strong>2.</strong> Phân tích một sản phẩm IoT hiện có: nó thu thập dữ liệu gì, quyền riêng tư người dùng được bảo vệ như thế nào, và thiết kế nào có thể cải thiện sự tin tưởng của người dùng?</li>
+    <li><strong>3.</strong> Chọn một trong ba xu hướng vĩ mô và phác thảo ba cơ hội kinh doanh mới mà thiết kế có thể khai thác trong 10 năm tới.</li>
+    <li><strong>4.</strong> Áp dụng khung Sanders (Form/Purpose/Context) để phân tích một sản phẩm hoặc dịch vụ hiện có và đề xuất cải tiến dựa trên thiết kế tham gia.</li>
+    <li><strong>5.</strong> Nghiên cứu một trường hợp đổi mới xã hội do DESIS thúc đẩy: chiến lược kích hoạt, nhân rộng và đo lường tác động của họ là gì?</li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPTER TASKS
+════════════════════════════════════════════ -->
+<div class="qt-section">
+  <h3>Nhiệm vụ Thực hành</h3>
+  <ol class="qt-list">
+    <li><strong>1.</strong> Tham quan (hoặc nghiên cứu trực tuyến) một Living Lab trong khu vực bạn. Lập bản đồ các bên liên quan, quy trình và dự án hiện tại của họ.</li>
+    <li><strong>2.</strong> Thực hiện khảo sát nhỏ (10–15 người) về lo ngại IoT theo khung Internet Society 2019. So sánh kết quả với số liệu toàn cầu được trích dẫn trong chương.</li>
+    <li><strong>3.</strong> Sử dụng Lead User Method: xác định 3 "lead users" trong một lĩnh vực bạn quan tâm và phỏng vấn họ về nhu cầu chưa được đáp ứng.</li>
+    <li><strong>4.</strong> Xây dựng một kịch bản "design fiction": mô tả cuộc sống của một người dùng năm 2035 với ba xu hướng vĩ mô đã xảy ra. Thiết kế cần thay đổi gì?</li>
+    <li><strong>5.</strong> Đánh giá một dịch vụ số hiện tại theo góc nhìn thiết kế dân chủ: ai đang ra quyết định thiết kế? Những giọng nói nào đang bị thiếu? Làm thế nào để thêm họ vào?</li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     REFERENCES
+════════════════════════════════════════════ -->
+<div class="ref-section">
+  <h2>Tài liệu Tham khảo</h2>
+  <ul class="ref-list">
+    <li>Campbell, R. (2009). <em>Principles of marketing.</em> Pearson.</li>
+    <li>Carlgren, L. (2013). Identifying latent needs: Towards a competency perspective on design thinking. <em>International Journal of Design, 7</em>(3).</li>
+    <li>Cipolla, C., et al. (2015). <em>Design for social innovation: Case studies.</em> Routledge.</li>
+    <li>Cisco (2013). <em>The Internet of Everything: How more relevant and valuable connections will change the world.</em> Cisco.</li>
+    <li>Cross, N. (2006). <em>Designerly ways of knowing.</em> Springer.</li>
+    <li>Cross, N. (2011). <em>Design thinking.</em> Berg Publishers.</li>
+    <li>Dell'Era, C., &amp; Landoni, P. (2014). Living lab: A methodology between user-centred design and participatory design. <em>Creativity and Innovation Management, 23</em>(2), 137–154.</li>
+    <li>Deloitte (2020). <em>2020 Global technology leadership study: The new architecture of digital trust.</em> Deloitte Insights.</li>
+    <li>Design Council (2021). <em>Beyond net zero: A manifesto for sustainable design.</em> Design Council.</li>
+    <li>DESIS (2021). <em>Design for social innovation and sustainability network.</em> desis-network.org</li>
+    <li>Einstein, A. (1955). <em>Ideas and opinions.</em> Crown Publishers.</li>
+    <li>enoll.org (2021). <em>European Network of Living Labs.</em> enoll.org</li>
+    <li>Eriksson, M., et al. (2005). Involving users in the co-creation of digital innovation. <em>IADIS International Conference on e-Society.</em></li>
+    <li>Forbes (2020). <em>IoT statistics and facts.</em> Forbes Technology Council.</li>
+    <li>Ford, M. (2009). <em>The lights in the tunnel: Automation, accelerating technology, and the economy of the future.</em> Acculant Publishing.</li>
+    <li>Gov.uk (2020). <em>UK government's ban on new petrol and diesel cars by 2030.</em> Department for Transport.</li>
+    <li>Hargraves, I. (2018). <em>Design: The key to innovation.</em> MIT Press.</li>
+    <li>Internet Society (2019). <em>Policy brief: IoT privacy for policymakers.</em> ISOC.</li>
+    <li>IPCC (2018). <em>Global warming of 1.5°C: An IPCC special report.</em> IPCC.</li>
+    <li>Juniper Research (2015). <em>Internet of Things connected devices to almost triple to over 38 billion units by 2020.</em> Juniper Research.</li>
+    <li>Kimbell, L. (2011). Rethinking design thinking: Part I. <em>Design and Culture, 3</em>(3), 285–306.</li>
+    <li>NIC — National Intelligence Council (2021). <em>Global trends 2040: A more contested world.</em> NIC.</li>
+    <li>Poliquin, C. (2020). Broadband access and the labour market: Evidence from Brazilian municipalities. <em>Journal of Urban Economics, 120,</em> 103288.</li>
+    <li>Robertson, T., &amp; Simonsen, J. (2012). Challenges and opportunities in contemporary participatory design. <em>Design Issues, 28</em>(3), 3–9.</li>
+    <li>Sanders, E. B.-N., Brandt, E., &amp; Binder, T. (2010). A framework for organising the tools and techniques of participatory design. <em>PDC '10 Proceedings.</em></li>
+    <li>Statista (2021). <em>Internet of Things (IoT) connected devices installed base worldwide 2015–2025.</em> Statista.</li>
+    <li>UNICEF (2021). <em>The climate crisis is a child rights crisis: Introducing the children's climate risk index.</em> UNICEF.</li>
+    <li>Von Hippel, E. (2005). <em>Democratizing innovation.</em> MIT Press.</li>
+    <li>WHO (2018). <em>Ageing and health.</em> World Health Organisation.</li>
+    <li>WWF (2018). <em>Living planet report 2018: Aiming higher.</em> WWF.</li>
+  </ul>
+</div>
+
+<nav class="page-nav" style="margin-top:64px;">
+  <a href="Chapter8_Design_Thinking_Practice.html">← Chương 8</a>
+  <a href="Chapter10_Summary.html">Chương 10 →</a>
+</nav>
+
+
+<nav class="chapnav">
+  <a href="ch8-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 8: Tư Duy Thiết Kế Trong Thực Tiễn: Ba Nghiên Cứu Tình Huống</a>
+  <a href="ch10-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 10: Tổng hợp: Năm Chiều kích của Tư duy Thiết kế</a>
+</nav>
+</body>
+</html>

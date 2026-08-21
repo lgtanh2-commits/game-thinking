@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 5 – Tư Duy Kinh Doanh Qua Thiết Kế</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f7f7f7;
+    --border: #e0e0e0;
+    --border-strong: #999;
+    --text: #1a1a1a;
+    --text-muted: #555;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.8;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 32px 100px;
+  }
+
+  /* ── Book metadata ── */
+  .book-meta {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 40px;
+    letter-spacing: 0.02em;
+  }
+  .book-meta a { color: var(--text-muted); text-decoration: underline; }
+
+  /* ── Chapter number ── */
+  .chapter-number {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  /* ── Headings ── */
+  h1 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 2.1rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    color: var(--text);
+  }
+  h2 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-top: 52px;
+    margin-bottom: 14px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--text);
+    color: var(--text);
+  }
+  h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  h4 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-top: 22px;
+    margin-bottom: 6px;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Authors ── */
+  .author-block {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+  .author-block .contribution {
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* ── Keywords ── */
+  .keywords {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+  .keywords strong { color: var(--text); }
+
+  /* ── Learning Objectives box ── */
+  .objectives-box {
+    background: var(--surface);
+    border-left: 4px solid var(--text);
+    padding: 22px 26px;
+    margin: 28px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .objectives-box .box-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .objectives-box ol {
+    padding-left: 22px;
+  }
+  .objectives-box ol li {
+    margin-bottom: 6px;
+    font-size: 15.5px;
+  }
+
+  /* ── General info/case box ── */
+  .infobox {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 18px 22px;
+    margin: 22px 0;
+    border-radius: 4px;
+  }
+  .infobox .infobox-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .infobox p { margin-top: 6px; font-size: 15.5px; }
+
+  /* ── Summary box ── */
+  .summary-box {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    padding: 24px 28px;
+    margin: 44px 0 28px;
+    border-radius: 4px;
+  }
+  .summary-box .box-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .summary-box p { font-size: 15.5px; margin-top: 8px; }
+
+  /* ── Review / Project / Task boxes ── */
+  .review-box {
+    border: 1px solid var(--border);
+    padding: 22px 26px;
+    margin: 24px 0;
+    border-radius: 4px;
+  }
+  .review-box .box-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .review-box ol {
+    padding-left: 22px;
+  }
+  .review-box ol li {
+    margin-bottom: 10px;
+    font-size: 15.5px;
+    line-height: 1.7;
+  }
+
+  /* ── Paragraphs ── */
+  p { margin-top: 14px; }
+
+  /* ── Content lists ── */
+  ul.content-list, ol.content-list {
+    padding-left: 24px;
+    margin: 12px 0 12px 0;
+  }
+  ul.content-list li, ol.content-list li {
+    margin-bottom: 10px;
+    line-height: 1.75;
+    font-size: 16px;
+  }
+  ul.content-list li em, ol.content-list li em {
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  /* ── Italic term inline ── */
+  em.term { font-style: italic; font-weight: 600; }
+
+  /* ── Blockquote ── */
+  blockquote {
+    border-left: 3px solid var(--border-strong);
+    margin: 18px 0;
+    padding: 8px 20px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ── Figure caption ── */
+  .fig-caption {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* ── HTML Table (for business size) ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 13.5px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  .data-table caption {
+    text-align: left;
+    font-size: 12px;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+  }
+  .data-table th {
+    background: var(--text);
+    color: var(--bg);
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 700;
+  }
+  .data-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .data-table tr:nth-child(even) td { background: var(--surface); }
+  .table-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* ── 3 pillars diagram (Technology / People / Business) ── */
+  .three-pillars {
+    display: flex;
+    gap: 14px;
+    margin: 20px 0;
+  }
+  .pillar {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--text);
+    padding: 14px 12px;
+    border-radius: 0 0 4px 4px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  .pillar .pillar-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .pillar .pillar-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .pillar .pillar-desc {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── Implementation numbered boxes ── */
+  .impl-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+  .impl-list li {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+  }
+  .impl-num {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--border-strong);
+    line-height: 1;
+    min-width: 28px;
+    margin-top: 3px;
+  }
+  .impl-content { flex: 1; }
+  .impl-content strong {
+    font-style: italic;
+  }
+
+  /* ── Economic systems numbered boxes ── */
+  .econ-systems {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+  .econ-systems li {
+    border-left: 3px solid var(--border-strong);
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    background: var(--surface);
+  }
+  .econ-systems li .sys-num {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .econ-systems li .sys-name {
+    font-style: italic;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .econ-systems li p {
+    font-size: 15px;
+    margin-top: 6px;
+  }
+
+  /* ── References ── */
+  .references {
+    border-top: 2px solid var(--text);
+    margin-top: 60px;
+    padding-top: 28px;
+  }
+  .references h2 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 18px;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .ref-list {
+    list-style: none;
+    padding: 0;
+  }
+  .ref-list li {
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 10px;
+    padding-left: 28px;
+    text-indent: -28px;
+    color: var(--text-muted);
+  }
+  .ref-list li em { font-style: italic; }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+
+<!-- Book meta -->
+<div class="book-meta">
+  © The Author(s), under exclusive licence to Springer Nature Switzerland AG 2022<br>
+  Y. Huang, D. Hands, <em>Design Thinking for New Business Contexts</em><br>
+  <a href="https://doi.org/10.1007/978-3-030-94206-9_5">https://doi.org/10.1007/978-3-030-94206-9_5</a>
+</div>
+
+<!-- Chapter heading -->
+<div class="chapter-number">Chương 5</div>
+<h1>Tư Duy Kinh Doanh Qua Thiết Kế</h1>
+
+<div class="author-block">
+  Yujia Huang — Đại học Dundee, Dundee, Vương quốc Anh<br>
+  David Hands — Đại học Lancaster, Lancaster, Vương quốc Anh<br>
+  <span class="contribution">Đóng góp: TS. Beatriz Itzel Cruz Megchun, Phó Giáo sư Thiết kế &amp; Đổi mới, Trường Kinh doanh Pamplin, Đại học Portland, Hoa Kỳ.</span>
+</div>
+
+<div class="keywords">
+  <strong>Từ khóa:</strong> Hệ thống kinh tế · Môi trường kinh doanh · Loại hình tổ chức · Cấu trúc doanh nghiệp · Quy mô doanh nghiệp
+</div>
+
+<!-- Learning Objectives -->
+<div class="objectives-box">
+  <div class="box-title">Mục tiêu học tập</div>
+  <ol>
+    <li>Giới thiệu bốn hệ thống kinh tế chủ đạo và thảo luận về điểm mạnh và điểm yếu vốn có của mỗi hệ thống.</li>
+    <li>Cung cấp sự hiểu biết về kinh tế xã hội và cách thiết kế có thể hỗ trợ tăng trưởng bền vững của lĩnh vực này như một phương tiện mở rộng thịnh vượng xã hội.</li>
+    <li>Xem xét và thảo luận về ba loại hình doanh nghiệp và các hình thức tổ chức kinh doanh cơ bản.</li>
+    <li>Giới thiệu các loại cấu trúc doanh nghiệp phổ biến và các hàm ý về trách nhiệm pháp lý đối với chủ sở hữu và cổ đông.</li>
+    <li>Cung cấp cái nhìn tổng quan về các hình thức thành lập doanh nghiệp và cách tư duy thiết kế có thể hỗ trợ theo đuổi đổi mới liên tục.</li>
+  </ol>
+</div>
+
+<!-- 5.1 Introduction -->
+<h2>5.1 Giới Thiệu</h2>
+
+<p>Thế giới đang trải qua sự bất ổn đặc biệt khi nhân loại đối mặt với nhiều cuộc khủng hoảng, từ sức khỏe, kinh tế và xã hội đến môi trường tự nhiên. Các quốc gia phải đương đầu với những căng thẳng đặc thù đòi hỏi các hành động chính sách cá nhân (hoặc khu vực), điều kiện tài chính, phản hồi chính trị-xã hội và những thay đổi về môi trường. Dù những cuộc khủng hoảng này mang tính hệ thống và toàn cầu, chúng cũng được phản ánh trong một loạt môi trường kinh doanh đa dạng.</p>
+
+<p>Các tổ chức phải đối mặt với môi trường siêu cạnh tranh, thất bại kinh tế toàn cầu, sự sụp đổ của các tổ chức kinh doanh truyền thống, quy trình quản lý nhanh chóng, và khủng hoảng niềm tin trong các hoạt động thương hiệu. Sự sống còn của họ vượt ra ngoài việc lên kế hoạch cho sản phẩm, dịch vụ, mở rộng thương hiệu hay đổi mới công nghệ mới. Họ cần một cách tiếp cận được làm mới, phục hồi và trẻ hóa để giải quyết các hoàn cảnh phức tạp, mơ hồ, không ổn định trong hoạt động kinh doanh, đồng thời ứng phó với các cuộc khủng hoảng toàn cầu liên tục. Do đó, các chính phủ phải tạo ra môi trường tạo điều kiện cho sự thay đổi mang tính hệ thống, và hệ thống giáo dục cần cung cấp các công cụ giúp con người chuẩn bị tốt hơn cho những thay đổi kinh tế, công nghệ, môi trường, xã hội và chính trị phía trước.</p>
+
+<p>Trong ba thập kỷ qua, các chuyên gia hàng đầu đã kêu gọi các chính phủ (và nhà quản lý kinh doanh) áp dụng góc nhìn "thiết kế" để xem xét những thách thức này từ cấp độ hệ thống. Cộng đồng kinh doanh đã chào đón tư duy thiết kế trên tất cả các lĩnh vực của nền kinh tế (Beckman &amp; Barry, 2007; Brown, 2009; Dunne, 2018; Kolko, 2015; Liedtka et al., 2017; Liedtka, 2018, 2020; Martin, 2009; Maeda, 2020). Đây là cách tiếp cận tìm tòi, quy trình nhận thức và biểu đạt bổ sung và nâng cao các kỹ năng, phương pháp, kỹ thuật và thái độ hiện có. Tác động của nó được nhìn thấy trong: học tập tổ chức (Beckman &amp; Barry, 2007; Smulders, 2004), ra quyết định (Liedtka, 2015), định hướng khách hàng (Kumar &amp; Whitney, 2007), kết quả đổi mới (Brown, 2009; Verganti, 2009) và lợi thế cạnh tranh (Martin, 2009; Verganti, 2016).</p>
+
+<p>Tuy nhiên, giới kinh doanh và báo chí kinh tế thường rút gọn nó thành một hoạt động, quy trình hoặc bộ công cụ quá đơn giản mà ai cũng có thể dễ dàng sử dụng — thường được mô tả là quy trình từng bước với cách tiếp cận lấy con người làm trung tâm, xác định vấn đề và thử nghiệm ý tưởng thông qua tạo mẫu nhanh để giải quyết vấn đề.</p>
+
+<p>Qua các phần tiếp theo, chương này sẽ xem xét việc ứng dụng tư duy thiết kế trong bối cảnh kinh doanh. Trước tiên, chương sẽ khám phá các hệ thống kinh tế khác nhau có thể cản trở hay tạo thuận lợi cho các quốc gia và/hoặc doanh nghiệp phát triển trong bối cảnh thế kỷ 21. Sau đó, chương thảo luận cách các hệ thống kinh tế chủ đạo và các hệ thống kinh tế mới áp dụng tư duy thiết kế để cung cấp cách tiếp cận thích nghi và linh hoạt hơn. Tiếp theo, chương tập trung vào các loại hình tổ chức và cách triển khai tư duy thiết kế trong hoạt động kinh doanh hàng ngày. Cuối cùng, chương kết thúc bằng thảo luận về các căng thẳng và thách thức trong việc triển khai và áp dụng tư duy thiết kế.</p>
+
+<!-- 5.2 Economic Systems -->
+<h2>5.2 Các Hệ Thống Kinh Tế Định Hình Môi Trường Kinh Doanh</h2>
+
+<p>Hệ thống kinh tế là phương tiện mà các chính phủ hay xã hội thiết lập hệ thống sản xuất để tổ chức và phân phối các nguồn lực, dịch vụ và hàng hóa có sẵn trên một vùng địa lý hay quốc gia. Những hệ thống này điều tiết các yếu tố sản xuất, bao gồm đất đai, vốn, lao động và tài nguyên vật chất. Hầu hết các chính phủ có thể định hình hệ thống kinh tế của mình bằng các cơ chế khác nhau (thể chế, cơ quan, thực thể, quy trình ra quyết định và các mô hình tiêu dùng) để phân bổ nguồn lực sao cho nhà sản xuất và người tiêu dùng có được hàng hóa và dịch vụ họ cần.</p>
+
+<p>Các chính phủ thường lựa chọn trong số bốn hệ thống kinh tế chủ đạo: truyền thống, chỉ huy, thị trường và hỗn hợp (Grossman, 1963; Mamedov et al., 2016; Reisman, 1995). Mỗi nền kinh tế vận hành dựa trên một tập hợp điều kiện, thành phần tĩnh và động riêng biệt được đặt vào bối cảnh cụ thể.</p>
+
+<ul class="econ-systems">
+  <li>
+    <div class="sys-num">Hệ thống 01</div>
+    <div class="sys-name">Hệ thống kinh tế truyền thống</div>
+    <p>Là loại kinh tế lâu đời nhất và vẫn tồn tại ở các quốc gia nông thôn gắn liền với đất đai, dựa vào nông nghiệp, đánh cá, săn bắt hoặc hái lượm. Các xã hội này có xu hướng gắn kết chặt chẽ và hài lòng về mặt xã hội vì các thành viên đóng vai trò cụ thể và riêng biệt do phong tục, lịch sử và tín ngưỡng danh dự hướng dẫn. Nó tập trung vào gia đình hoặc bộ tộc và trao đổi bằng hàng hóa. Các ví dụ còn tồn tại ở các quốc gia như Yemen hoặc Haiti, cũng như trong các cộng đồng bản địa ở rừng nhiệt đới Amazon hay vùng Bắc Cực.</p>
+  </li>
+  <li>
+    <div class="sys-num">Hệ thống 02</div>
+    <div class="sys-name">Hệ thống kinh tế chỉ huy</div>
+    <p>Có một quyền lực tập trung (chính phủ) đóng vai trò chủ đạo trong nền kinh tế. Chính phủ tập trung vào lợi ích xã hội để tối đa hóa phúc lợi xã hội thay vì cá nhân hay thị trường. Hệ thống này lập kế hoạch kinh tế trung ương phân bổ tất cả nguồn lực, đặt ra ưu tiên sản xuất, sở hữu các ngành công nghiệp trọng yếu. Kinh tế chỉ huy là đặc điểm then chốt của bất kỳ xã hội cộng sản nào, như Cuba, Bắc Triều Tiên và Liên Xô cũ. Trung Quốc từng có kinh tế chỉ huy trong nhiều thập kỷ trước khi chuyển sang kinh tế hỗn hợp.</p>
+  </li>
+  <li>
+    <div class="sys-num">Hệ thống 03</div>
+    <div class="sys-name">Hệ thống kinh tế thị trường</div>
+    <p>Là nơi các doanh nghiệp và hộ gia đình hành động vì lợi ích cá nhân để xác định cách phân bổ nguồn lực và ai mua hàng hóa. Có sáu đặc điểm định nghĩa: tài sản tư nhân, tự do lựa chọn, động cơ tư lợi, cạnh tranh, hệ thống thị trường và giá cả, và chính phủ hạn chế. Sự tách biệt giữa chính phủ và thị trường ngăn cản chính phủ trở nên quá mạnh. Hiện không có nền kinh tế thị trường tự do thuần túy nào trên thế giới. Năm quốc gia có tự do kinh tế lớn nhất là Hồng Kông, Singapore, New Zealand, Thụy Sĩ và Hoa Kỳ (Fraser Institute, 2017).</p>
+  </li>
+  <li>
+    <div class="sys-num">Hệ thống 04</div>
+    <div class="sys-name">Hệ thống kinh tế hỗn hợp</div>
+    <p>Là sự kết hợp của kinh tế thị trường tự do và kinh tế chỉ huy. Nhìn chung, thị trường ít nhiều không chịu sự sở hữu của chính phủ ngoại trừ một vài ngành công nghiệp nhạy cảm then chốt. Hệ thống này kết hợp các chính sách xã hội và tư bản chủ nghĩa. Kết quả là, các doanh nghiệp tư nhân có thể hoạt động hiệu quả hơn và giảm chi phí. Đồng thời, chính phủ có thể khắc phục những thất bại của thị trường và sử dụng chính sách thuế để phân phối lại thu nhập. Hầu hết các quốc gia phát triển trên thế giới có yếu tố của cả ba loại kinh tế, khiến chúng trở thành các nền kinh tế hỗn hợp. Ví dụ, Hoa Kỳ để quyền sở hữu tư liệu sản xuất chủ yếu trong tay tư nhân, nhưng vẫn kết hợp quyền sở hữu nhà nước một phần hoặc toàn phần trong một số ngành như quốc phòng và bưu chính.</p>
+  </li>
+</ul>
+
+<p>Các hệ thống kinh tế chủ đạo này mô tả toàn bộ nền kinh tế chỉ bằng một hình ảnh tối giản duy nhất, củng cố câu chuyện tân tự do về nhà nước và tính gia trưởng của hộ gia đình. Trong những năm gần đây, các cơ quan nhà nước và tư nhân đã thúc đẩy thị trường, và các chính phủ đã thúc đẩy một loạt sáng kiến quy trình đổi mới do thiết kế dẫn đầu, thiết lập các phòng thí nghiệm đổi mới mở để hỗ trợ hoạt động thiết kế trên các lĩnh vực.</p>
+
+<!-- 5.3 New Economic Systems -->
+<h2>5.3 Các Hệ Thống Kinh Tế Mới Đang Định Hình Lại Môi Trường Kinh Doanh</h2>
+
+<p>Các hệ thống kinh tế chủ đạo hiện tại hoạt động khác nhau trên toàn cầu. Các quốc gia có những thực tế và xã hội riêng biệt khiến việc xác định tác động của chúng trở nên cực kỳ phức tạp. Tuy nhiên, có vẻ như ngày càng có sự đồng thuận rằng các hệ thống này có thể không phù hợp với quy mô của những thách thức mà nhân loại đang phải đối mặt — bất bình đẳng xã hội ngày càng tăng giữa người giàu và người nghèo, số lượng người di dời do biến đổi khí hậu hay xung đột ngày càng nhiều.</p>
+
+<p>Do đó, các xã hội cần cùng nhau tái tưởng tượng một thế giới nơi họ xây dựng nền tảng của điều gì đó mới. Các hệ thống kinh tế mới nổi có xu hướng áp dụng cách tiếp cận đa cấp độ giải quyết các mạng lưới và kết nối phức tạp. Bốn hệ thống nổi bật nhất bao gồm: kinh tế chia sẻ, kinh tế tuần hoàn, kinh tế bánh donut và kinh tế xã hội.</p>
+
+<ul class="content-list">
+  <li><em>Kinh tế chia sẻ</em> (WEF, 2017): là một hệ thống kinh tế-xã hội được xây dựng xung quanh việc chia sẻ (công suất dư thừa của) nguồn lực. Nó thường được sử dụng như một thuật ngữ chung cho các khái niệm mới đang hợp nhất như tiêu thụ cộng tác, kinh tế cộng tác, kinh tế ngang hàng hoặc kinh tế gig. Hoạt động ngang hàng (P2P) này sử dụng công nghệ thông tin và nền tảng để cho phép cá nhân, tập đoàn, tổ chức phi lợi nhuận và/hoặc chính phủ phân phối, chia sẻ và/hoặc tái sử dụng hàng hóa và dịch vụ. Có ba đặc điểm phân biệt: sử dụng công nghệ kỹ thuật số để kết nối người mua và người bán; khai thác công suất nhàn rỗi; và dựa vào việc xây dựng niềm tin (xác minh niềm tin). Ví dụ tại Trung Quốc: MoBike (chia sẻ xe đạp) và Molisan (chia sẻ ô). Các chỉ trích thường liên quan đến bất ổn quy định, thiếu giám sát của chính phủ, lạm dụng người mua và người bán.</li>
+
+  <li><em>Kinh tế tuần hoàn</em>: nhằm tái định nghĩa tăng trưởng bằng cách xây dựng một xã hội bền vững về vốn kinh tế, tự nhiên và xã hội. Nó đề xuất một hệ thống vòng kín dựa trên tái sử dụng, chia sẻ, sửa chữa, tân trang, tái sản xuất và tái chế để giảm thiểu đầu vào nguồn lực, lượng rác thải, ô nhiễm và phát thải carbon. Mục tiêu là dần dần tách rời hoạt động kinh tế khỏi việc tiêu thụ nguồn lực hữu hạn. Chính phủ Hà Lan đặt mục tiêu triển khai kinh tế tuần hoàn vào năm 2050 với các chương trình: Từ Rác thải đến Tài nguyên (VANG), Tăng trưởng Xanh và Kinh tế Biobased.</li>
+
+  <li><em>Kinh tế bánh donut</em> (Raworth, 2017): nhằm đáp ứng nhu cầu của tất cả mọi người trong khả năng của hành tinh. Nó đảm bảo rằng mọi người đều được tiếp cận với các nhu cầu thiết yếu của cuộc sống — nước, thực phẩm, nhà ở, chăm sóc sức khỏe, giáo dục, thu nhập, việc làm, hòa bình, công lý, tiếng nói chính trị, bình đẳng xã hội, bình đẳng giới, mạng lưới và năng lượng. Đồng thời, nó đảm bảo chúng ta không vượt quá áp lực lên các hệ thống hỗ trợ sự sống của Trái Đất (khí hậu ổn định, đất màu mỡ, tầng ozone bảo vệ, chăm sóc đại dương và đa dạng sinh học). Amsterdam là thành phố đầu tiên trên thế giới chính thức áp dụng kinh tế bánh donut, đặt mục tiêu trở thành thành phố không tác động vào năm 2050.</li>
+
+  <li><em>Kinh tế xã hội</em>: bao gồm các tổ chức, hợp tác xã, hội tương hỗ, hiệp hội, quỹ và doanh nghiệp xã hội chiếm không gian giữa nhà nước và thị trường. Các tổ chức này đặt ưu tiên vào các mục tiêu cá nhân và xã hội, tư cách thành viên tự nguyện và mở, quản trị dân chủ, lợi ích chung và tái đầu tư phần lớn lợi nhuận. Họ theo đuổi các thực hành kinh tế bền vững và toàn diện: (1) bằng cách giải quyết nhu cầu xã hội; (2) bằng cách tổ chức hoạt động kinh tế dựa trên căn cứ địa phương; và (3) bằng cách hợp tác chặt chẽ với các tác nhân kinh tế và các bên liên quan khác (OECD, 2020).</li>
+</ul>
+
+<p>Việc áp dụng tư duy thiết kế trong các hệ thống kinh tế chủ đạo và mới đã tăng lên đáng kể trong thập kỷ qua. Bason (2010, tr. 139) lập luận rằng "tư duy thiết kế đại diện cho một thái độ có cấu trúc và hệ thống, hay một cách suy luận cho phép kết nối và quản lý hai phong cách nhận thức đối lập (nhưng bổ sung cho nhau): phân tích và tổng hợp". Những con người hình chữ T làm việc trong các nhóm đa ngành cùng tạo ra để mang lại kết quả có ý nghĩa.</p>
+
+<!-- 5.4 Types of Organisations -->
+<h2>5.4 Các Loại Hình Tổ Chức</h2>
+
+<p>Sự thịnh vượng của một quốc gia được tạo ra thông qua năng lực của các ngành công nghiệp trong việc đổi mới. Họ dựa vào sự kết hợp của các loại hình và hình thức kinh doanh khác nhau để cạnh tranh. Mỗi thực thể sử dụng nguồn lực tài chính để cung cấp hàng hóa và/hoặc dịch vụ cho khách hàng (người tiêu dùng hoặc doanh nghiệp) để đổi lấy tiền hoặc các hàng hóa và dịch vụ khác.</p>
+
+<p>Theo <em>Design Thinking for Business</em> (2020, tr. 4), tư duy thiết kế đang bùng nổ trong các ngành mà quá trình chuyển đổi kỹ thuật số đòi hỏi các năng lực mới để phát triển trải nghiệm khách hàng có ý nghĩa. Cách tiếp cận này kết hợp ba yếu tố:</p>
+
+<div class="three-pillars">
+  <div class="pillar">
+    <div class="pillar-label">Yếu tố 1</div>
+    <div class="pillar-title">Công nghệ</div>
+    <div class="pillar-desc">(Tính khả thi) — Tập trung vào cách sự vật được tạo ra và hiệu suất quy trình được cải thiện như thế nào.</div>
+  </div>
+  <div class="pillar">
+    <div class="pillar-label">Yếu tố 2</div>
+    <div class="pillar-title">Con người</div>
+    <div class="pillar-desc">(Tính mong muốn) — Tập trung vào cách sự vật có giá trị đối với khách hàng (thương hiệu).</div>
+  </div>
+  <div class="pillar">
+    <div class="pillar-label">Yếu tố 3</div>
+    <div class="pillar-title">Kinh doanh</div>
+    <div class="pillar-desc">(Tính khả thi tài chính) — Nhấn mạnh cách các tổ chức có thể thu lợi từ việc cung cấp chúng.</div>
+  </div>
+</div>
+
+<h3>Ba loại hình doanh nghiệp</h3>
+
+<ul class="content-list">
+  <li><em>Doanh nghiệp dịch vụ</em>: tập trung vào sự trao đổi giữa nhà cung cấp và người dùng. Đây là thực thể lấy con người làm trung tâm, có tính xã hội, tạm thời và các tương tác không thể đoán trước. Được phân thành 3 loại: (1) dịch vụ điển hình — giao thông, nhà hàng, ngân hàng, dịch vụ điện thoại/internet, giải trí, chăm sóc sức khỏe, giáo dục; (2) dịch vụ tiện ích — nước, ống nước, khí và điện; (3) dịch vụ kỹ thuật số — nền tảng mạng xã hội, truyền thông và chia sẻ dữ liệu. Ngành này chiếm 70% GDP tại nhiều quốc gia như Hoa Kỳ, Vương quốc Anh, Hồng Kông, Luxembourg, Lebanon, Pháp, Bồ Đào Nha và Đan Mạch (The World Bank, 2021).</li>
+  <li><em>Doanh nghiệp thương mại</em>: mua sản phẩm ở giá sỉ và bán lại ở giá lẻ. Họ không thay đổi hình thức hàng hóa, chỉ dự trữ hàng tồn kho. Nguồn gốc lợi nhuận là tăng giá bán. Một số danh mục bao gồm: cửa hàng bách hóa, tạp hóa, phần cứng, quần áo và phụ kiện, điện tử tiêu dùng, nội thất gia đình, thiết bị gia dụng, nhà thuốc và nhiều hơn nữa.</li>
+  <li><em>Doanh nghiệp sản xuất</em>: mua nguyên liệu thô để biến đổi thành sản phẩm mới. Họ kết hợp nguyên liệu thô, lao động và chi phí chung trong quy trình sản xuất. Các danh mục bao gồm chế biến thực phẩm, sản xuất dệt may, gia công kim loại, nhà máy lọc dầu, đóng tàu và các lĩnh vực khác.</li>
+</ul>
+
+<p>Nhu cầu về thiết kế và việc sử dụng nó có thể thay đổi theo ngành, loại hình và quy mô tổ chức. Sự phổ biến của các công nghệ mới cấp tiến như thực tế tăng cường, tự động hóa, trí tuệ nhân tạo, blockchain, cryptocurrency, máy học và Internet vạn vật (IoT) đã trở thành phương thức chi phối trong các tương tác hàng ngày của chúng ta. Kết quả là, các tổ chức — đặc biệt là các dịch vụ dựa trên kỹ thuật số — đang đầu tư vào cách tiếp cận thiết kế lấy con người làm trung tâm.</p>
+
+<h3>Bốn cách triển khai tư duy thiết kế trong tổ chức</h3>
+
+<p><em>Design Thinking for Business</em> (2020) đề xuất bốn hình thức triển khai tư duy thiết kế chung:</p>
+
+<ul class="impl-list">
+  <li>
+    <div class="impl-num">1</div>
+    <div class="impl-content">
+      <strong>Giải quyết vấn đề sáng tạo:</strong> Tập trung vào giải quyết các vấn đề phức tạp bằng cách áp dụng cả tư duy phân tích lẫn trực giác. Đây là cách tiếp cận tư duy thiết kế được biết đến rộng rãi nhất. Các nhóm trải qua quy trình lặp đi lặp lại để hiểu nhu cầu người dùng và nhu cầu tiềm ẩn, tạo ra ý tưởng để giải quyết các vấn đề phức tạp. Quy trình bắt đầu từ bên ngoài — các nhà nghiên cứu quan sát người dùng tương tác với sản phẩm và dịch vụ. Họ sử dụng nhóm đa ngành để giải thích những quan sát này, chia sẻ thông tin chi tiết và xác định cơ hội cho giải pháp mới.
+      <div class="infobox" style="margin-top:12px;">
+        <div class="infobox-title">Nghiên cứu điển hình — NAB Quickbiz Loan</div>
+        <p>Ngân hàng Quốc gia Úc (NAB) là một trong bốn tổ chức tài chính lớn nhất tại Úc (xếp hạng 21 thế giới về vốn hóa thị trường và 52 về tổng tài sản năm 2019), phục vụ khoảng 12,7 triệu khách hàng tại Úc, New Zealand và châu Á. NAB hợp tác với Oliver Wyman để phát triển NAB Quickbiz Loan cho các doanh nghiệp vừa và nhỏ (SME). Áp dụng tư duy thiết kế qua 5 bước (đồng cảm, định nghĩa, ý tưởng, tạo mẫu và thử nghiệm), nhóm xác định 4 vấn đề chính: (1) quy trình vay quá phức tạp; (2) SME ưu tiên sản phẩm không thế chấp; (3) dịch vụ trực tuyến/di động tạo ra sự khác biệt lớn nhất; (4) quy trình mất nhiều thời gian. Giải pháp cuối cùng: ứng dụng trực tuyến 3 bước, mô hình tín dụng dòng tiền động, cung cấp các khoản vay kinh doanh không thế chấp lên đến 50.000 USD (Oliver Wyman &amp; IESE, 2017).</p>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="impl-num">2</div>
+    <div class="impl-content">
+      <strong>Thực thi theo sprint:</strong> Nhằm đẩy nhanh quá trình phát triển từ việc tạo ra đến thực thi ý tưởng, đồng thời giảm thiểu rủi ro khi tung ra giải pháp mới. Cách tiếp cận này xuất phát từ sự lai ghép của giải quyết vấn đề sáng tạo và phong trào lean-agile. Thực nghiệm trong sprint execution tận dụng đáng kể các đóng góp của sản phẩm khả dụng tối thiểu (MVP) để thu thập phản hồi cho các phát triển tương lai. MVP cho phép nhóm thu thập thông tin chi tiết từ những người dùng thử đầu tiên và khám phá tính khả thi của thị trường.
+      <div class="infobox" style="margin-top:12px;">
+        <div class="infobox-title">Nghiên cứu điển hình — Spotify</div>
+        <p>Spotify là nhà cung cấp dịch vụ phát nhạc trực tuyến và truyền thông người Thụy Điển với hơn 356 triệu người dùng tích cực và 158 triệu người đăng ký trả phí. Spotify sử dụng mô hình lấy con người làm trung tâm, cách tiếp cận tự chủ để mở rộng quy mô agile và tăng cường đổi mới và năng suất. Mô hình này thúc đẩy quyền tự chủ của nhóm, giao tiếp, trách nhiệm và chất lượng để mỗi đội (hoặc squad) lựa chọn framework của mình (Scrum, Kanban, v.v.). Các squad (nhóm tự chủ liên chức năng) được tổ chức thành tribes (lĩnh vực tính năng) và guilds (đam mê về một chủ đề) để giúp mọi người liên kết và chia sẻ kiến thức (Spotify, 2019).</p>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="impl-num">3</div>
+    <div class="impl-content">
+      <strong>Sự tự tin sáng tạo:</strong> Tập trung vào thúc đẩy tư duy đổi mới để thu hút nhân viên với một bộ cách tiếp cận, thực hành và phương pháp mới nhằm thúc đẩy đổi mới và thay đổi. Tư duy thiết kế là phương tiện định hình lại văn hóa tổ chức và kích hoạt sự chuyển đổi thông qua con người. Cách tiếp cận này sử dụng các phương pháp lấy con người làm trung tâm và dựa trên đồng cảm sâu sắc để cùng thiết kế một mục đích chung truyền cảm hứng cho nhân viên. Những cải tiến này có thể là tăng dần hoặc thậm chí là đổi mới tổ chức triệt để.
+      <div class="infobox" style="margin-top:12px;">
+        <div class="infobox-title">Nghiên cứu điển hình — Ericsson &amp; Innova</div>
+        <p>Ericsson là nhà cung cấp hàng đầu đa quốc gia người Thụy Điển về viễn thông, mạng và Công nghệ Thông tin và Truyền thông (ICT). CEO Hans Vestberg năm 2010 ra mắt sáng kiến chuyển đổi toàn công ty: Innova (cách tiếp cận tư duy thiết kế) — một chương trình nội bộ hoạt động như một cách tiếp cận có hệ thống để đổi mới. Innova bao gồm: mô hình tài trợ VC; Innova squad (nhóm tư vấn đổi mới nội bộ); quy trình ươm mầm; hệ sinh thái đổi mới với đối tác và đại học; và phương pháp Innova (dựa trên tư duy thiết kế). Sau ba năm vận hành: nền tảng có 6.000 người dùng, hơn 4.000 ý tưởng được gửi, hơn 450 ý tưởng nhận tài trợ vòng đầu.</p>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="impl-num">4</div>
+    <div class="impl-content">
+      <strong>Đổi mới ý nghĩa:</strong> Tập trung vào tạo ra tầm nhìn đổi mới hỗ trợ các định hướng chiến lược mới. Nó cho phép xác định mục đích mới (một "cách làm thế nào" và "tại sao" mới), tái định nghĩa các vấn đề đáng giải quyết và cung cấp cách diễn giải mới về ý nghĩa đối với khách hàng/người dùng. Các nhóm sử dụng cách tiếp cận thiết kế lấy con người làm trung tâm để quan sát người dùng và tìm cảm hứng cho các giải pháp mới. Họ lựa chọn ít diễn giải và đi sâu hơn với ít góc độ hơn, so sánh và kết hợp chúng để tạo ra tầm nhìn mạnh mẽ và có ý nghĩa.
+      <div class="infobox" style="margin-top:12px;">
+        <div class="infobox-title">Nghiên cứu điển hình — IKEA</div>
+        <p>IKEA là tập đoàn đa quốc gia người Thụy Điển, thiết kế và bán đồ nội thất lắp ráp tại nhà, thiết bị nhà bếp và phụ kiện gia đình. IKEA tích hợp thiết kế dân chủ vào chính sách kinh doanh: nguyên tắc mọi người đều có quyền mua sản phẩm chất lượng cao, bền vững và thiết kế tốt với giá cả phải chăng. Chiến lược bền vững nhằm tiết kiệm năng lượng, giảm lãng phí, phụ thuộc vào vật liệu tái chế và tái tạo. Tư duy thiết kế giúp IKEA xác định các mục đích mới phù hợp với các giá trị cao hơn, như hỗ trợ các mục tiêu phát triển bền vững của Liên Hợp Quốc. Họ đã làm việc trực tiếp với nhà cung cấp qua bộ quy tắc ứng xử IWAY (IKEA, 2021) để đảm bảo nguyên liệu thô bền vững, sản phẩm có thể tái tạo, tái chế và được tái chế.</p>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<!-- 5.5 Business Structures -->
+<h2>5.5 Cấu Trúc Doanh Nghiệp</h2>
+
+<p>Các nhà quản lý doanh nghiệp lãnh đạo bất kỳ tổ chức nào cũng cần hiểu các thách thức và cơ hội vốn có trong cạnh tranh ngành. Các doanh nghiệp có một khung tổ chức được pháp luật công nhận để tiến hành các hoạt động thương mại. Khung này tạo điều kiện cho một hệ thống tổ chức hỗ trợ các văn hóa, niềm tin và giá trị khác biệt.</p>
+
+<ul class="content-list">
+  <li><em>Doanh nghiệp tư nhân một chủ (Sole Proprietorship)</em>: còn được gọi là chủ kinh doanh cá thể, được sở hữu bởi một người duy nhất, hoàn toàn chịu trách nhiệm về mọi khoản nợ và nghĩa vụ. Tài sản và trách nhiệm pháp lý của doanh nghiệp không tách biệt với tài sản và trách nhiệm cá nhân của chủ sở hữu. Phù hợp với các doanh nghiệp rủi ro thấp hoặc những người muốn thử nghiệm ý tưởng kinh doanh trước khi hình thức hóa thực thể chính thức hơn. Nhược điểm: khó huy động vốn vì không thể bán cổ phiếu và ngân hàng ngần ngại cho vay.</li>
+
+  <li><em>Hợp danh (Partnership)</em>: là doanh nghiệp do hai hoặc nhiều người sở hữu. Có thể là hợp danh hữu hạn (LP) hoặc hợp danh trách nhiệm hữu hạn (LLP). LP có một đối tác chung chịu trách nhiệm vô hạn, phần còn lại có trách nhiệm hữu hạn được xác định bởi thỏa thuận. LLP bảo vệ mỗi đối tác khỏi nợ của các đối tác khác. Lợi thế: các đối tác đóng góp tiền, tài sản, lao động hoặc kỹ năng để trở thành doanh nghiệp khả thi.</li>
+
+  <li><em>Công ty trách nhiệm hữu hạn (LLC — private or public)</em>: là cấu trúc kinh doanh được pháp luật nhà nước cho phép. Nó tận dụng lợi ích của cả cấu trúc doanh nghiệp công ty và hợp danh. Bảo vệ thành viên khỏi trách nhiệm cá nhân trong hầu hết các trường hợp — tài sản cá nhân (xe, nhà, tài khoản tiết kiệm) sẽ không gặp rủi ro nếu LLC phá sản hoặc bị kiện. Đây là lựa chọn lý tưởng cho các doanh nghiệp có rủi ro trung bình hoặc cao.</li>
+
+  <li><em>Công ty (Corporation)</em>: là thực thể kinh doanh tách biệt về mặt pháp lý khỏi chủ sở hữu. Do hội đồng quản trị giám sát, thuê nhân viên quản lý để điều hành. Tài sản và trách nhiệm thuộc về công ty, không phải chủ sở hữu. Bao gồm cả <em>Tổ chức phi lợi nhuận (NPO)</em> — được miễn thuế vì phục vụ mục đích xã hội và mang lại lợi ích công cộng (tài trợ thường được khấu trừ thuế); và <em>Tổ chức phi chính phủ (NGO)</em> — nhóm hoặc tổ chức tự nguyện với sứ mệnh xã hội, hoạt động độc lập với chính phủ, khác biệt quan trọng với NPO.</li>
+
+  <li><em>Công ty B được chứng nhận (Certified B Corporation)</em> (Haigh &amp; Hoffman, 2012): là hình thức tổ chức mới làm mờ ranh giới giữa khu vực vì lợi nhuận và phi lợi nhuận bằng cách áp dụng sứ mệnh xã hội và môi trường trong khi vẫn tạo ra lợi nhuận. Họ được yêu cầu về mặt pháp lý để xem xét tác động quyết định của mình đối với người lao động, khách hàng, nhà cung cấp, cộng đồng và môi trường rộng lớn hơn. Mục tiêu bao quát: tạo ra tác động tích cực gấp ba (triple impact) đối với kinh tế, xã hội và môi trường bằng cách sử dụng sức mạnh của doanh nghiệp vì lợi nhuận.</li>
+
+  <li><em>Hợp tác xã (Cooperative)</em>: là tổ chức được sở hữu và vận hành vì lợi ích của những người sử dụng dịch vụ. Các thành viên chia sẻ quyền ra quyết định, lợi nhuận và thu nhập. Thành viên có thể gia nhập bằng cách mua một cổ phần, tuy nhiên cổ phần của họ không ảnh hưởng đến trọng số phiếu bầu. Mô hình hợp tác xã ngày càng trở nên phổ biến trên nhiều lĩnh vực.</li>
+</ul>
+
+<p>Việc triển khai tư duy thiết kế linh hoạt trên các ngành: nông nghiệp; nghệ thuật giải trí và vui chơi; ô tô; tư vấn; giáo dục; năng lượng; kỹ thuật; tài chính và bảo hiểm; thực phẩm và đồ uống; lâm nghiệp và thủy sản; chăm sóc sức khỏe; khách sạn; thông tin và truyền thông; sản xuất; khai thác mỏ; hành chính công; bất động sản; bán lẻ; vận tải và logistics. Kết quả đầu ra có thể là đổi mới thị trường, đổi mới tổ chức, đổi mới quy trình, đổi mới công nghệ, đổi mới sản phẩm/dịch vụ và đổi mới sứ mệnh kinh doanh.</p>
+
+<!-- 5.6 Business Composition -->
+<h2>5.6 Thành Phần Quy Mô Doanh Nghiệp</h2>
+
+<p>Các điều kiện lịch sử, sự phát triển kinh tế và cấu trúc công nghiệp khác nhau định hình doanh nghiệp và ngành của mỗi quốc gia. Việc định nghĩa quy mô doanh nghiệp có thể khác nhau theo ngành và quốc gia. Bảng 5.1 trình bày các định nghĩa đa dạng từ Úc, Cộng hòa Nhân dân Trung Hoa, Liên minh Châu Âu, Vương quốc Anh và Hoa Kỳ.</p>
+
+<table class="data-table">
+  <caption>Bảng 5.1 &nbsp; Định nghĩa quy mô doanh nghiệp theo quốc gia</caption>
+  <thead>
+    <tr>
+      <th>Quy mô</th>
+      <th>Úc (OZ)</th>
+      <th>Hoa Kỳ (US)</th>
+      <th>EU</th>
+      <th>Anh (UK)</th>
+      <th>Trung Quốc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Siêu nhỏ</td>
+      <td>1–4 người (a)</td>
+      <td>1–6 người (a)</td>
+      <td>&lt;10 người (a)<br>≤€2 triệu (b)<br>≤€2 triệu (c)</td>
+      <td>&lt;10 người (a)<br>£1,7 triệu (b)<br>£1,7 triệu (c)</td>
+      <td>&lt;10 người (a)<br>&lt;1 triệu ¥ (c)</td>
+    </tr>
+    <tr>
+      <td>Nhỏ</td>
+      <td>&lt;19 (a)</td>
+      <td>&lt;250 (a)</td>
+      <td>&lt;50 (a)<br>≤€10 triệu (b)</td>
+      <td>&lt;50 (a)<br>£8,2 triệu (b)<br>£8,2 triệu (c)</td>
+      <td>&lt;100 (a)<br>&lt;5 triệu ¥ (c)</td>
+    </tr>
+    <tr>
+      <td>Vừa</td>
+      <td>&lt;199 (a)</td>
+      <td>&lt;500 (a)</td>
+      <td>&lt;250 (a)<br>≤€50 triệu (b)<br>≤€43 triệu (c)</td>
+      <td>&lt;250 (a)<br>£41 triệu (b)<br>£35,2 triệu (c)</td>
+      <td>100–400 (a)<br>&lt;10 triệu ¥ (c)</td>
+    </tr>
+    <tr>
+      <td>Lớn</td>
+      <td>&gt;200 (a)</td>
+      <td>&lt;1000 (a)</td>
+      <td>&gt;250 (a)<br>≥€50 triệu (b)<br>&gt;€45 triệu (c)</td>
+      <td>&gt;250 (a)<br>&gt;£41 triệu (b)<br>&gt;£35,2 triệu (c)</td>
+      <td>&gt;400 (a)<br>&gt;10 triệu ¥ (c)</td>
+    </tr>
+  </tbody>
+</table>
+<p class="table-note">(a) số nhân viên; (b) doanh thu; (c) bảng cân đối kế toán<br>Nguồn: UCL, 2021; Australian Securities and Investments Commission Act, 2001; Australian Bureau of Statistics; U.S. Small Business Administration; Company Act 2006, Sections 382 và 465, UK; Ministry of Industry and Information Technology, Ministry of Finance, NDRC, và NBS (Trung Quốc).</p>
+
+<ul class="content-list">
+  <li><em>Doanh nghiệp siêu nhỏ</em>: có ít hơn mười nhân viên và doanh thu hàng năm hoặc bảng cân đối kế toán dưới €2 triệu. Các doanh nghiệp này có tầm quan trọng hàng đầu ở các quốc gia Mỹ Latinh và châu Phi vì chúng thúc đẩy phát triển kinh tế, việc làm và xóa đói giảm nghèo. Chúng chiếm hơn 60% tổng doanh nghiệp khu vực và tới 50% việc làm được trả lương. Theo Snodgrass &amp; Biggs (1996), hầu hết các doanh nghiệp siêu nhỏ ở các nước thu nhập thấp là nhỏ. Thực tế, có rất ít nghiên cứu khám phá tác động của thiết kế đối với các doanh nghiệp siêu nhỏ.</li>
+
+  <li><em>Doanh nghiệp nhỏ</em>: có ít hơn 50 nhân viên và doanh thu hàng năm hoặc bảng cân đối kế toán dưới €10 triệu. Tại Hoa Kỳ, tiêu chuẩn này thay đổi theo từng ngành — chế biến thường dưới 250 nhân viên; phi chế biến dưới 7,5 triệu USD doanh thu hàng năm. Cơ quan Quản lý Doanh nghiệp Nhỏ Hoa Kỳ (SBA) điều hành nhiều chương trình: nghiên cứu đổi mới doanh nghiệp nhỏ (SBIR), chuyển giao công nghệ doanh nghiệp nhỏ (STTR), khu vực doanh nghiệp lịch sử ít được sử dụng (HUBZone), Doanh nghiệp nhỏ do phụ nữ sở hữu (WOSB, EDWOSB) và Doanh nghiệp nhỏ do cựu chiến binh khuyết tật dịch vụ sở hữu (SDVOSB).</li>
+
+  <li><em>Doanh nghiệp vừa</em>: phải đáp ứng hai trong ba tiêu chí: doanh thu dưới £41 triệu, dưới 250 nhân viên hoặc tổng tài sản dưới £35,2 triệu. Phần lớn sản xuất và việc làm ở các nước thu nhập trung bình thuộc phân khúc này. Việc ứng dụng tư duy thiết kế chủ yếu được nghiên cứu ở các nước phương Tây phát triển, chủ yếm trong các doanh nghiệp công nghiệp sáng tạo (Larsen &amp; Lewis, 2007) và chế biến (Christensen &amp; Nielsen, 2019). Vai trò của thiết kế là hỗ trợ doanh nghiệp SME trong việc tạo dựng năng lực đổi mới dưới năm tiêu đề: tầm nhìn và chiến lược; thương hiệu và bản sắc; sản phẩm và dịch vụ; trải nghiệm người dùng; và văn hóa đổi mới (Ward et al., 2009).</li>
+
+  <li><em>Doanh nghiệp lớn</em>: có hơn 250 nhân viên, doanh thu hàng năm lớn hơn €50 triệu và tổng bảng cân đối kế toán hơn €45 triệu. Nhìn chung, các quốc gia có thu nhập bình quân đầu người cao có nhiều doanh nghiệp hơn. Theo Liedtka (2014), "các doanh nghiệp sử dụng tư duy thiết kế không chỉ tạo ra tăng trưởng hữu cơ trong tổ chức kinh doanh, mà còn tạo điều kiện giải quyết các thách thức tổ chức, quản lý và văn hóa nội bộ, xây dựng kỹ năng cá nhân và phát triển quản lý. Các tổ chức có thể nhúng nó như một quy trình giải quyết vấn đề và quy trình đổi mới." Design Council (2017) xác nhận rằng ở Vương quốc Anh, thiết kế đóng góp vào: thị phần lớn hơn, doanh thu tăng, phát triển thị trường mới, lợi nhuận tăng, năng lực cạnh tranh, sản phẩm/dịch vụ mới và tăng việc làm.</li>
+</ul>
+
+<!-- 5.7 Tensions and Challenges -->
+<h2>5.7 Tư Duy Thiết Kế: Căng Thẳng và Thách Thức</h2>
+
+<p>Quản lý đã phát triển theo thời gian khi các yếu tố bên ngoài và nội bộ thay đổi. Nó ảnh hưởng đến cách các nhà quản lý lãnh đạo con người, cách họ giải quyết vấn đề và đổi mới. Khoa học quản lý xuất hiện vào đầu thế kỷ XX. Tác phẩm của Taylor năm 1911, <em>The Principles of Scientific Management</em>, đặt ra hướng tập trung vào tăng năng suất và hiệu quả thông qua tiêu chuẩn hóa, phân công lao động, tập trung hóa và thứ bậc. Tiếp theo là tổ chức chức năng trong những năm 1950–1960 với phong trào nhân sự, hướng đến hiểu các yếu tố con người trong sản xuất. Giai đoạn tiếp theo tập trung vào lập kế hoạch chiến lược — ma trận tăng trưởng-thị phần, phân tích SWOT. Thập niên 1980 chứng kiến TQM, Six Sigma và Lean. Thập niên 1990 là benchmarking, BPR và các công cụ Fortune 500. Sự phát triển quản lý gần đây nhất chú ý đến dữ liệu lớn và các khái niệm như Chiến lược Đại dương Xanh và Đổi mới Giá trị.</p>
+
+<p>Tuy nhiên, nhiều nhà quản lý vẫn xem các tổ chức như cỗ máy, coi trọng lợi nhuận, duy trì quyền lực và dựa vào Six Sigma. Vấn đề của quản lý hiện đại là theo đuổi sự nhất quán và khả năng dự đoán, cố gắng loại bỏ biến thể. Tuy nhiên, họ vẫn phải đối mặt với các vấn đề thường gặp như cách tốt nhất để xử lý sự phức tạp và không chắc chắn, cách lãnh đạo con người hoặc cách đổi mới. Hai khía cạnh thường xuyên của quản lý là cách tiếp cận quản lý (phong cách quản lý cấp cao nhất kiểm soát, đặt mục tiêu hay truyền cảm hứng) và cách tiếp cận đổi mới (từ trên xuống, từ trên xuống kết hợp dữ liệu từ dưới lên, hoặc hành động tham gia).</p>
+
+<p>Tư duy thiết kế trong quản lý không phải không có những nhà phê bình. Hiện tại, các sáng kiến chiến lược phụ thuộc vào dữ liệu lớn — khối lượng thông tin, sự đa dạng thông tin và tốc độ thông tin — cùng khả năng kinh doanh để rút ra phân tích có ý nghĩa. Sự thừa thãi dữ liệu và thiếu phân tích có thể khiến các tổ chức bị "tê liệt dữ liệu". Sự xuất hiện của các công nghệ mới cũng mang lại sự liên quan cho cách tiếp cận kỹ thuật — mang tính kỹ thuật hơn, bắt nguồn từ việc phân tích vấn đề và phân tách các yếu tố thành phần — đối lập với tư duy thiết kế mang tính toàn diện và lặp đi lặp lại.</p>
+
+<p>Sự xem xét về tư duy thiết kế tập trung vào quy trình toàn diện và lặp đi lặp lại của nó với tư duy và thái độ riêng biệt, mang lại vô số khả năng. Nó cho phép mọi người cộng tác, giao tiếp, đồng cảm, dự đoán, hiểu và trao đổi ý tưởng, tạo điều kiện cho các mối quan hệ thân thiết bên trong và bên ngoài tổ chức. Nó cho phép các tổ chức tạo ra giá trị kinh tế cho tất cả cổ đông thay vì chỉ nắm bắt giá trị. Các cách tiếp cận thiết kế và đa ngành có thể bổ sung và nâng cao quản lý kinh doanh truyền thống để giải quyết các vấn đề kinh doanh, lấp đầy các khoảng trống và thiếu hụt quan trọng, đồng thời thiết lập các cơ sở tri thức toàn diện hơn.</p>
+
+<p>Là một khái niệm tương đối mới đối với thế giới kinh doanh, tư duy thiết kế cần được áp dụng và tích hợp một cách thận trọng vào các thực hành quản lý hiện tại (và truyền thống). Các nhà quản lý và nhà thiết kế cần có thái độ phân tích và phê phán trong việc áp dụng tư duy thiết kế, đồng thời tránh sử dụng nó như một bài tập PR hay liều thuốc chữa bách bệnh cho những thiếu hụt của tổ chức.</p>
+
+<!-- Chapter Summary -->
+<div class="summary-box">
+  <div class="box-title">Tóm Tắt Chương</div>
+  <p>Chương này đã giới thiệu các hệ thống kinh tế chủ đạo trên toàn cầu; mỗi hệ thống với những điểm mạnh và điểm yếu tương đối và cách chúng hỗ trợ hoặc cản trở tổ chức phát triển sản phẩm và dịch vụ đổi mới. Thiết kế đã và đang tiếp tục thích nghi với bản chất linh hoạt của các hệ thống này; do đó, nghề thiết kế cần nhận thức rõ hơn về những thay đổi này và chủ động lên kế hoạch để duy trì tính liên quan.</p>
+  <p>Với các loại hình kinh doanh mới xuất hiện hàng ngày, các hình thức tổ chức mới nảy sinh, mỗi hình thức đặt ra những thách thức riêng về nơi và cách thiết kế tồn tại trong và hoạt động qua các ranh giới tổ chức truyền thống. Lĩnh vực kinh doanh đang ngày càng nhận ra giá trị của thiết kế và đặc biệt là tư duy thiết kế như một công cụ chiến lược để duy trì khả năng cạnh tranh thương mại.</p>
+  <p>Nếu được hiểu và triển khai hiệu quả, thiết kế có thể là một lực lượng chuyển đổi mạnh mẽ của cả lợi ích thương mại và xã hội; tuy nhiên, tư duy thiết kế về cơ bản là nhiều hơn một tập hợp các công cụ "tư duy" cơ bản. Việc áp dụng cách tiếp cận thiết kế cần tôn trọng và nhận thức đầy đủ về bối cảnh trong đó nó được sử dụng; nếu không, những lợi ích tiềm năng của nó sẽ không bao giờ được khai thác và công nhận đầy đủ — điều này càng đúng hơn ngày nay trong các thị trường toàn cầu và siêu cạnh tranh.</p>
+</div>
+
+<!-- Review Questions -->
+<div class="review-box">
+  <div class="box-title">Câu Hỏi Ôn Tập</div>
+  <ol>
+    <li>Chính phủ có thể đảm bảo và lập pháp về sự công bằng trong hệ thống kinh tế hỗn hợp trong khi thúc đẩy sự thịnh vượng rộng rãi hơn cho công dân như thế nào?</li>
+    <li>Các nền tảng ngang hàng (P2P) đang ngày càng nổi bật như một phương tiện phổ biến để chia sẻ tài sản dư thừa hoặc nhàn rỗi; chúng còn mang lại những lợi ích gì khác cho người dùng?</li>
+    <li>Với sự trỗi dậy của các doanh nghiệp IoT, các mô hình kinh doanh mới được tạo ra dựa trên việc đáp ứng nhu cầu người dùng; thiết kế có thể đóng góp vào thách thức này ở đâu và như thế nào?</li>
+    <li>SME nổi tiếng là khó định nghĩa, thường dẫn đến sự không nhất quán trên toàn cầu; định nghĩa SME nào bạn cho là toàn diện nhất?</li>
+    <li>Dữ liệu lớn (Big Data) có nhiều lợi thế tiềm năng cho tổ chức, tuy nhiên nó cũng có nhiều bẫy có thể cản trở thành công thương mại nếu không được giải quyết đúng cách; một tổ chức có thể vượt qua "tê liệt dữ liệu" — một vấn đề phổ biến — như thế nào?</li>
+  </ol>
+</div>
+
+<!-- Project Questions -->
+<div class="review-box">
+  <div class="box-title">Câu Hỏi Dự Án</div>
+  <ol>
+    <li>Một hệ thống kinh tế truyền thống có thể có vẻ không liên quan ở các nước phát triển, tuy nhiên nhiều yếu tố của nó có thể đóng góp vào sự phát triển bền vững. Hãy xác định và xây dựng một khung mười điểm nơi các yếu tố chính này có thể hỗ trợ thiết kế bền vững và phát triển cộng đồng.</li>
+    <li>P2P cực kỳ phổ biến trong việc tái sử dụng quần áo không cần thiết ('Rent the Runway' là một nền tảng thương mại điện tử thành công). Hãy phát triển một đề xuất kinh doanh ngắn nơi các đồ dùng gia đình khác có thể được chia sẻ giữa các đồng nghiệp.</li>
+    <li>IoT là một ngành tăng trưởng theo cấp số nhân; tuy nhiên, phát triển sản phẩm/dịch vụ IoT về cơ bản khác với phát triển sản phẩm truyền thống. Hãy xác định và phê bình các mô hình quy trình phát triển thiết kế IoT để xác định những khác biệt này là gì.</li>
+    <li>Phát triển các sản phẩm và dịch vụ đổi mới trong các SME thường được coi là rủi ro cao; hãy liệt kê 5 rủi ro chính phổ biến với nhiều SME và các chiến lược để giảm thiểu những rủi ro này.</li>
+    <li>Các doanh nghiệp quan tâm đến ba loại dữ liệu lớn: (1) khách hàng, (2) tài chính và (3) vận hành. Hãy tạo một kế hoạch tiếp thị về nơi và cách dữ liệu lớn có thể dẫn đến sự phát triển của sản phẩm hoặc dịch vụ mới đổi mới (hoặc cả hai).</li>
+  </ol>
+</div>
+
+<!-- Chapter Tasks -->
+<div class="review-box">
+  <div class="box-title">Nhiệm Vụ Chương</div>
+  <ol>
+    <li>Thành lập một nhóm nhỏ không quá 4 người; sau đó trong hơn 60 phút, xác định điểm mạnh và điểm yếu tương đối của bốn hệ thống kinh tế chính.</li>
+    <li>Sử dụng giấy lật và bút marker, cung cấp bản đồ hành trình người dùng của một nền tảng thương mại điện tử khái niệm dựa trên việc chia sẻ quần áo dành cho người dùng nữ thuộc Thế hệ Z.</li>
+    <li>Xác định hai hệ thống sản phẩm/dịch vụ IoT hàng đầu và xác định 5 điểm chính nơi giá trị có ý nghĩa được cung cấp cho người dùng cuối.</li>
+    <li>Nhúng các thực hành và nguyên tắc tư duy thiết kế trong các SME là một nhiệm vụ đầy thách thức; hãy phác thảo 3 con đường chính để nâng cao thiết kế mà một SME có thể áp dụng và triển khai.</li>
+    <li>Phát triển một bản đồ quy trình thiết kế đề xuất xác định nơi và cách dữ liệu lớn có thể đưa vào và thông tin cho các hoạt động thiết kế tiếp theo.</li>
+  </ol>
+</div>
+
+<!-- References -->
+<div class="references">
+  <h2>Tài Liệu Tham Khảo</h2>
+  <ul class="ref-list">
+    <li>Bason, C. (2010). <em>Leading Public Sector Innovation: Co-creating for a Better Society.</em> Policy Press.</li>
+    <li>Beckman, S. L., &amp; Barry, M. (2007). Innovation as a Learning Process. <em>California Management Review, 50,</em> 25–56.</li>
+    <li>Biggs, T. (2002). <em>Is Small Beautiful and Worthy of Subsidy? Literature Review.</em> IFC.</li>
+    <li>Brown, T. (2009). <em>Change by Design: How Design Thinking Transforms Organizations and Inspires Innovation.</em> Harper Collins.</li>
+    <li>Christensen, P., &amp; Nielsen, S. (2019). The Beauty of Design Thinking—Is There a Small Beast in the Box. <em>The Design Journal, 22</em>(1), 147–161.</li>
+    <li>Design Council. (2017). The Value of Design Factfinder Report. Retrieved April 20, 2021, from https://www.designcouncil.org.uk/sites/default/files/asset/document/TheValueOfDesignFactfinder_Design_Council.pdf</li>
+    <li>Design Thinking for Business. (2020). Humanizing Digital Technologies Through Design Thinking: The Role of Design Thinking in Digital Transformation Report.</li>
+    <li>Dunne, D. (2018). Implementing Design Thinking in Organizations: An Exploratory Study. <em>Journal of Organization Design, 7</em>(16), 1–16.</li>
+    <li>Fraser Institute. (2017). Economic Freedom of the World. Retrieved May 25, 2021, from https://www.fraserinstitute.org/economic-freedom/map?geozone=world&amp;page=map&amp;year=2017</li>
+    <li>Golsby-Smith, T. (2007). The Second Road of Thought: How Design Offers Strategy a New Toolkit. <em>The Journal of Business Strategy, 28</em>(4), 22–29.</li>
+    <li>Grossman, G. (1963). Notes for a Theory of the Command Economy. <em>Soviet Studies, 15</em>(2), 101–123.</li>
+    <li>Haigh, N., &amp; Hoffman, A. J. (2012). Hybrid Organizations: The Next Chapter of Sustainable Business. <em>Organizational Dynamics, 41</em>(2), 126–134.</li>
+    <li>Holloway, M. (2009). How Tangible Is Your Strategy? How Design Thinking Can Turn Your Strategy into Reality. <em>Journal of Business Strategy, 30</em>(2/3), 50–56.</li>
+    <li>IKEA. (2021). IWAY: The IKEA Code of Conduct. [Online]. Retrieved May 31, 2021, from https://about.ikea.com/en/work-with-us/for-suppliers/iway-our-supplier-code%2D%2Dof-conduct</li>
+    <li>Kolko, J. (2015). Design Thinking Comes of Age. <em>Harvard Business Reviews, 93</em>(9), 66–69.</li>
+    <li>Kumar, V., &amp; Whitney, P. (2007). Daily Life, Not Markets: Customer-Centered Design. <em>Journal of Business Strategy, 28</em>(4), 46–58.</li>
+    <li>Larsen, P., &amp; Lewis, A. (2007). How Award-Winning SMEs Manage the Barriers of Innovation. <em>Creativity and Innovation Management, 16</em>(2), 142–151.</li>
+    <li>Lawlor, P., O'Donoghue, A., Wafer, B., &amp; Commins, E. (2015). <em>Design-Driven Innovation in Your Organization.</em> Wiley.</li>
+    <li>Liedtka, J. (2014). Innovative Ways Companies are Using Design Thinking. <em>Strategy &amp; Leadership, 42</em>(2), 40–45.</li>
+    <li>Liedtka, J. (2015). Perspective: Linking Design Thinking with Innovation Outcomes Through Cognitive Bias Reduction. <em>Journal of Product Innovation Management, 32</em>(6), 925–938.</li>
+    <li>Liedtka, J. (2018). Innovation, Strategy, and Design: Design Thinking as a Dynamic Capability. <em>Academy of Management Proceedings, 1,</em> 13004.</li>
+    <li>Liedtka, J. (2020). Putting Technology in Its Place: Design Thinking's Social Technology at Work. <em>California Management Review, 62</em>(2), 53–83.</li>
+    <li>Liedtka, J., Azer, D., &amp; Salzman, R. (2017). <em>Design Thinking for the Greater Good.</em> Columbia University Press.</li>
+    <li>Maeda, J. (2020). The CX Report. Retrieved May 31, 2021, from https://designintech.report/</li>
+    <li>Mamedov, O., Movchan, I., Ishchenko-Padukova, O., &amp; Grabowska, M. (2016). Traditional Economy: Innovation, Efficiency and Globalization. <em>Economics and Sociology, 9</em>(2), 61–72.</li>
+    <li>Martin, R. L. (2009). <em>The Design of Business: Why Design Thinking Tool Kit for Managers.</em> Columbia University Press.</li>
+    <li>Narver, J. C., &amp; Slater, S. F. (1990). The Effect of a Market Orientation on Business Profitability. <em>Journal of Marketing, 54</em>(4), 20.</li>
+    <li>OECD. (2020). Social Economy and the COVID-19 Crisis: Current and Future Roles. Retrieved May 30, 2021, from https://www.oecd.org/coronavirus/policy-responses/social-economy-and-the-covid-19-crisis-current-and-future-roles-f904b89f/</li>
+    <li>Oliver Wyman &amp; IESE. (2017). Design Thinking the New DNA of the Financial Sector: How Banks can Boost Their Growth Through Design Thinking in an Era of De-Banking. Retrieved May 31, 2021, from https://www.oliverwyman.com/content/dam/oliver-wyman/v2/publications/2017/apr/Design_Thinking.pdf</li>
+    <li>Owen, C. (2007). Design Thinking: Notes on Its Nature and Use. <em>Design Research Quarterly, 2</em>(1), 16–27.</li>
+    <li>Raworth, K. (2017). <em>Doughnut Economics: Seven Ways to Think Like a 21st Century Economist.</em> Random House Business Books.</li>
+    <li>Reisman, D. (Ed.). (1995). <em>Theories of the Mixed Economy Selected Texts 1931–1968.</em> Routledge.</li>
+    <li>Sinkula, J. M. (1994). Market Information Processing and Organizational Learning. <em>Journal of Marketing, 58</em>(1), 35.</li>
+    <li>Smulders, F. E. (2004). Co-operation in NPD: Coping with Different Learning Styles. <em>Creativity and Innovation Management, 13</em>(4), 263–273.</li>
+    <li>Snodgrass, D., &amp; Biggs, T. (1996). <em>Industrialization and the Small Firm: Patterns and Policies.</em> International Center for Economic Growth.</li>
+    <li>Spotify. (2019). How can Design Thinking Build Trust in the Age of Machine Learning. Retrieved May 31, 2021, from https://spotify.design/article/how-can-design-thinking-build-trust-in-the-age-of-machine-learning</li>
+    <li>The World Bank. (2021). Service Exports. Retrieved May 31, 2021, from https://data.worldbank.org/indicator/BX.GSR.NFSV.CD?end=2019&amp;start=2019&amp;view=map</li>
+    <li>UNDP Global Centre for Public Service Excellence. (2014). Design Thinking for Public Service Excellence. Retrieved May 31, 2021, from http://www.undp.org/content/dam/undp/library/capacity-development/English/Singapore%20Centre/GCPSE%20Design%20Thinking%20Summary.pdf</li>
+    <li>Verganti, R. (2009). <em>Design-Driven Innovation: Changing the Rules of Competition by Radically Innovating What Things Mean.</em> Harvard Business Press.</li>
+    <li>Verganti, R. (2016). <em>Overcrowded: Designing Meaningful Products in a World Awash with Ideas.</em> The MIT Press.</li>
+    <li>Ward, A., Runcie, E., &amp; Morris, L. (2009). Embedding Innovation: Design Thinking for Small Enterprises. <em>The Journal of Business Strategy, 30</em>(2/3), 78–84.</li>
+    <li>World Economic Forum. (2017). Collaboration in Cities: From Sharing to 'Sharing Economy'. White Paper.</li>
+  </ul>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch4-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 4: Organisational Complexity and Change by Design</a>
+  <a href="ch6-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 6: Tư Duy Thiết Kế Vì Tương Lai Bền Vững</a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 3 — Định Nghĩa: Tái Định Khung Vấn Đề</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --text: #111111;
+  --text-secondary: #333333;
+  --text-muted: #888888;
+  --border: #d8d8d8;
+  --border-strong: #999999;
+  --surface: #f2f2f2;
+  --surface-dark: #e0e0e0;
+  --accent-line: #111111;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.75;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+.book-meta { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); font-family: 'Courier New', monospace; margin-bottom: 8px; }
+.chapter-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+h1.chapter-title { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--text); margin-bottom: 8px; }
+.chapter-subtitle { font-size: 1rem; color: var(--text-muted); font-style: italic; font-family: Georgia, 'Times New Roman', serif; margin-bottom: 48px; padding-bottom: 32px; border-bottom: 2px solid var(--accent-line); }
+h2 { font-size: 1.45rem; font-weight: 700; color: var(--text); margin: 48px 0 16px; letter-spacing: -0.01em; }
+h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 32px 0 10px; }
+h4 { font-size: 0.88rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin: 28px 0 8px; }
+p { margin-bottom: 18px; color: var(--text-secondary); font-size: 0.97rem; }
+blockquote { border-left: 3px solid var(--accent-line); margin: 32px 0; padding: 20px 28px; background: var(--surface); }
+blockquote p { font-size: 1.08rem; font-style: italic; font-family: Georgia, 'Times New Roman', serif; color: var(--text); margin-bottom: 10px; line-height: 1.65; }
+blockquote .attribution { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-style: normal; font-family: 'Helvetica Neue', Arial, sans-serif; }
+.case-study-box { border: 1.5px solid var(--border-strong); padding: 32px; margin: 40px 0; }
+.cs-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); font-family: 'Courier New', monospace; margin-bottom: 6px; }
+.cs-title { font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.info-box { background: var(--surface-dark); border-left: 3px solid var(--text); padding: 20px 24px; margin: 28px 0; }
+.info-box .ib-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; font-family: 'Courier New', monospace; }
+.info-box p { font-size: 0.92rem; margin-bottom: 8px; }
+.info-box p:last-child { margin-bottom: 0; }
+.pov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 32px 0; }
+.pov-cell { background: var(--bg); padding: 24px; }
+.pov-cell:first-child { border-right: none; }
+.pov-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); font-family: 'Courier New', monospace; margin-bottom: 8px; display: block; }
+.pov-cell p { font-size: 0.9rem; }
+.checklist { list-style: none; margin: 16px 0 24px 0; }
+.checklist li { border-bottom: 1px solid var(--border); padding: 10px 0; font-size: 0.93rem; color: var(--text-secondary); display: flex; gap: 12px; align-items: flex-start; }
+.checklist li::before { content: "✓"; color: var(--text-muted); font-size: 0.8rem; padding-top: 2px; min-width: 18px; }
+.three-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 28px 0; }
+.col-card { border: 1px solid var(--border); padding: 18px; background: var(--surface); }
+.col-card .cc-num { font-size: 0.65rem; font-family: 'Courier New', monospace; color: var(--text-muted); margin-bottom: 8px; display: block; letter-spacing: 0.1em; text-transform: uppercase; }
+.col-card .cc-title { font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 8px; display: block; }
+.col-card p { font-size: 0.85rem; margin-bottom: 0; }
+.further-reading { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); }
+.further-reading h2 { font-size: 1.1rem; margin-top: 0; margin-bottom: 16px; }
+.reading-list { list-style: none; }
+.reading-list li { border-bottom: 1px solid var(--border); padding: 10px 0; font-size: 0.9rem; color: var(--text-secondary); }
+.reading-list li::before { content: "→ "; color: var(--text-muted); font-family: 'Courier New', monospace; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+footer { margin-top: 72px; padding-top: 24px; border-top: 2px solid var(--accent-line); font-size: 0.72rem; color: var(--text-muted); font-family: 'Courier New', monospace; letter-spacing: 0.06em; }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/design-thinking-handbook">← Về mục lục</a></p>
+
+<div class="book-meta">DesignBetter.Co by InVision · Eli Woolery</div>
+<div class="chapter-label">Chương — 03</div>
+<h1 class="chapter-title">Định Nghĩa</h1>
+<p class="chapter-subtitle">Tái định khung vấn đề</p>
+
+<p>Tháng 12 năm 1968, phi hành gia William Anders trên tàu Apollo 8 nhìn ra cửa sổ và chụp một bức ảnh. Bức ảnh đó — "Earthrise" (Trái Đất Mọc) — cho thấy hành tinh xanh của chúng ta nổi lên từ chân trời Mặt Trăng, nhỏ bé và mong manh giữa bóng tối vũ trụ bao la.</p>
+
+<p>Bức ảnh đó tái định khung hoàn toàn nhận thức của nhân loại về Trái Đất. Thay vì "hành tinh rộng lớn với nguồn tài nguyên vô tận," chúng ta đột nhiên thấy "chiếc xuồng cứu sinh nhỏ bé trong vũ trụ vô hạn." Chỉ 16 tháng sau, Ngày Trái Đất đầu tiên được tổ chức vào tháng 4/1970 — khởi đầu phong trào bảo vệ môi trường hiện đại.</p>
+
+<p>Đây là sức mạnh của việc <strong>tái định khung vấn đề</strong> — không thay đổi thực tế, mà thay đổi cách chúng ta nhìn nhận thực tế. Và đây chính xác là những gì giai đoạn Định Nghĩa trong design thinking hướng tới.</p>
+
+<h2>Giai Đoạn Định Nghĩa Là Gì?</h2>
+
+<p>Sau khi thu thập dữ liệu thấu cảm, nhóm thiết kế phải <strong>tổng hợp</strong> những phát hiện đó thành một tuyên bố vấn đề rõ ràng và truyền cảm hứng — được gọi là <strong>POV (Point of View — Quan điểm)</strong>. Giai đoạn này đòi hỏi kỹ năng phân tích và sáng tạo đồng thời: phải nhìn thấy pattern trong dữ liệu hỗn loạn, và phải dũng cảm tái định khung vấn đề theo cách mà người khác chưa nghĩ đến.</p>
+
+<h2>Ba Yếu Tố Của Một POV Tốt</h2>
+
+<div class="three-cols">
+  <div class="col-card">
+    <span class="cc-num">Yếu tố 01</span>
+    <span class="cc-title">Người dùng là ai?</span>
+    <p>Mô tả cụ thể, chi tiết. Không phải "người dùng trẻ" mà là "Caroline, 26 tuổi, mẹ đơn thân làm việc ca đêm..."</p>
+  </div>
+  <div class="col-card">
+    <span class="cc-num">Yếu tố 02</span>
+    <span class="cc-title">Nhu cầu sâu sắc chưa được đáp ứng</span>
+    <p>Không phải tính năng hay giải pháp — mà là nhu cầu thực sự, sâu xa mà người dùng chưa thể tự diễn đạt.</p>
+  </div>
+  <div class="col-card">
+    <span class="cc-num">Yếu tố 03</span>
+    <span class="cc-title">Tại sao điều này có tính đột phá</span>
+    <p>Hiểu biết nào tạo ra không gian mới cho giải pháp? Tại sao đây là cơ hội thực sự chưa được khai thác?</p>
+  </div>
+</div>
+
+<h2>Ví Dụ: Netflix và Sức Mạnh Của Tái Định Khung</h2>
+
+<p>Hãy xem hai cách định nghĩa vấn đề cho cùng một người dùng — Caroline, 26 tuổi, mẹ đơn thân yêu phim khoa học viễn tưởng:</p>
+
+<div class="pov-grid">
+  <div class="pov-cell" style="background:var(--surface);">
+    <span class="pov-label">POV Hẹp (Giới hạn)</span>
+    <p>"Caroline cần một cách thuê DVD mà không làm bận rộn thêm lịch trình đã kín của cô ấy — một dịch vụ giao và nhận DVD tận nhà."</p>
+  </div>
+  <div class="pov-cell">
+    <span class="pov-label">POV Rộng Hơn (Đột phá)</span>
+    <p>"Caroline cần một cách tiếp cận nội dung mới và hấp dẫn theo tốc độ riêng của mình, khiến cô ấy cảm thấy hào hứng khi khám phá những chương trình mới để chia sẻ với bạn bè."</p>
+  </div>
+</div>
+
+<p>Hãy phân tích sức mạnh của POV thứ hai:</p>
+
+<ul style="margin: 0 0 18px 0; list-style: none;">
+  <li style="padding: 8px 0; border-bottom: 1px solid var(--border); color: var(--text-secondary); font-size: 0.95rem;">"Tiếp cận nội dung" (thay vì "thuê DVD") → mở ra streaming và nội dung gốc</li>
+  <li style="padding: 8px 0; border-bottom: 1px solid var(--border); color: var(--text-secondary); font-size: 0.95rem;">"Theo tốc độ riêng" → dẫn đến mô hình streaming và binge-watching</li>
+  <li style="padding: 8px 0; border-bottom: 1px solid var(--border); color: var(--text-secondary); font-size: 0.95rem;">"Chia sẻ với bạn bè" → tạo ra tính năng viral growth và khám phá xã hội</li>
+</ul>
+
+<blockquote>
+  <p>"Tái định khung để mở rộng quy mô."</p>
+  <span class="attribution">Andy Law — Netflix</span>
+</blockquote>
+
+<p>Netflix không chỉ là một công ty thuê DVD. Họ là công ty giải trí toàn cầu với hàng trăm triệu thuê bao — phần lớn vì họ định nghĩa đúng vấn đề họ đang giải quyết ngay từ đầu.</p>
+
+<h2>Checklist POV: 9 Kiểm Tra</h2>
+
+<p>Stanford d.school đề xuất một POV tốt phải đạt được tất cả các tiêu chí sau:</p>
+
+<ul class="checklist">
+  <li>Cung cấp sự tập trung và đóng khung vấn đề rõ ràng</li>
+  <li>Truyền cảm hứng cho toàn đội nhóm</li>
+  <li>Cung cấp tham chiếu để đánh giá các ý tưởng cạnh tranh</li>
+  <li>Trao quyền cho đội nhóm đưa ra quyết định độc lập</li>
+  <li>Tạo nhiên liệu cho brainstorm qua câu hỏi "How Might We...?"</li>
+  <li>Thu hút cả lý trí lẫn cảm xúc của những người liên quan</li>
+  <li>Tránh bẫy "làm tất cả cho tất cả mọi người"</li>
+  <li>Cho phép tái định khung khi cần thiết</li>
+  <li>Định hướng nỗ lực đổi mới một cách nhất quán</li>
+</ul>
+
+<hr class="divider">
+
+<h2>Case Study: GE Healthcare — Biến MRI Thành Cuộc Phiêu Lưu</h2>
+
+<div class="case-study-box">
+  <div class="cs-label">Case Study — GE Healthcare, 2008</div>
+  <div class="cs-title">Doug Dietz: Khi "Trải Nghiệm Là Sản Phẩm"</div>
+
+  <p><strong>Doug Dietz</strong> đã làm việc tại GE Healthcare 25 năm với tư cách Innovation Architect. Vào năm 2008, ông đến thăm bệnh viện với chiếc máy MRI mới vừa giành giải thưởng thiết kế — một cỗ máy đẹp về mặt kỹ thuật và thẩm mỹ.</p>
+
+  <p>Tại hành lang bệnh viện, ông chứng kiến một bé gái 7 tuổi đứng khóc, run rẩy. Người cha đặt tay lên vai cô bé và thì thầm: "Con có thể dũng cảm được không?" Doug cúi thấp xuống — nhìn từ góc nhìn của đứa trẻ — và lần đầu tiên thấy thứ cỗ máy của mình thực sự trông như thế nào: một khối bê tông có lỗ hổng, với nhãn cảnh báo màu vàng-đen, băng rào an toàn, và âm thanh va đập kinh dị.</p>
+
+  <div class="info-box">
+    <div class="ib-label">Phát hiện sốc</div>
+    <p><strong>80%</strong> trẻ em từ 3 đến 8 tuổi phải được gây mê trước khi chụp MRI hoặc CT scan — vì sợ hãi.</p>
+    <p>Gây mê không chỉ đắt tiền và tốn thời gian — nó mang theo rủi ro y tế thực sự cho trẻ nhỏ.</p>
+  </div>
+
+  <p>Doug tham dự khóa học giáo dục điều hành tại Stanford d.school. Ở đó, ông học cách sử dụng format Madlib để xây dựng POV:</p>
+
+  <blockquote>
+    <p>"Chúng tôi đã gặp... / Chúng tôi ngạc nhiên khi nhận ra rằng... / Thế giới sẽ thay đổi nếu chúng tôi có thể..."</p>
+    <span class="attribution">Format POV Madlib — Stanford d.school</span>
+  </blockquote>
+
+  <p>POV cuối cùng của Doug Dietz:</p>
+
+  <blockquote>
+    <p>"Chúng tôi đã gặp những gia đình sợ hãi đang cố gắng không sụp đổ trong suốt chuyến thăm bệnh viện. Chúng tôi ngạc nhiên khi nhận ra rằng họ phải gây mê 80% trẻ em từ 3 đến 8 tuổi để có thể chụp scan. Thế giới sẽ thay đổi nếu chúng tôi có thể tận dụng trí tưởng tượng kỳ diệu của trẻ để biến trải nghiệm x-quang thành một chuyến phiêu lưu tích cực và đáng nhớ."</p>
+    <span class="attribution">Doug Dietz, GE Healthcare</span>
+  </blockquote>
+
+  <p>Sự tái định khung này tiết lộ điều quan trọng: <strong>hành trình trải nghiệm thực sự bắt đầu từ nhà</strong>, khi cha mẹ giải thích cho con cái về thủ thuật sắp đến — chứ không phải tại bệnh viện.</p>
+
+  <h3 style="margin-top: 28px;">Giải Pháp: Phiêu Lưu Cướp Biển</h3>
+
+  <p>Nhóm phát triển một prototype chi phí thấp: decal dán lên bề mặt máy MRI và tường phòng, tạo ra chủ đề "cuộc phiêu lưu cướp biển." Mở máy chụp trở thành hang cướp biển. Nhân viên vận hành được cung cấp kịch bản nói chuyện với trẻ em. Bánh lái thuyền trưởng được thêm vào bàn điều khiển — khiến lối vào trông rộng hơn và ít đáng sợ hơn.</p>
+
+  <p>Một bé gái sau khi hoàn thành quy trình MRI đã hỏi bố: <strong>"Bố ơi, ngày mai chúng ta có thể quay lại không?"</strong></p>
+
+  <p>Kết quả: tỷ lệ gây mê giảm từ 80% xuống <strong>chỉ còn một phần nhỏ của 1%</strong>.</p>
+
+  <blockquote>
+    <p>"Trải nghiệm chính là sản phẩm."</p>
+    <span class="attribution">Doug Dietz, GE Healthcare</span>
+  </blockquote>
+</div>
+
+<h2>Sức Mạnh Theo Cấp Số Nhân Của Tái Định Khung</h2>
+
+<p>Năm 1977, Charles và Ray Eames thực hiện bộ phim "Powers of Ten" cho IBM — bắt đầu từ một đôi vợ chồng đang picnic, rồi zoom ra ngân hà, rồi quay trở lại vi mô hạt nhân. Mỗi bước zoom thay đổi hoàn toàn nhận thức về điều chúng ta đang nhìn.</p>
+
+<p>Tái định khung trong design thinking hoạt động theo cách tương tự: bằng cách thay đổi góc nhìn, bạn không chỉ giải quyết vấn đề theo cách khác — bạn <em>thấy những vấn đề khác hẳn</em>, và từ đó tìm ra những giải pháp mà cách tiếp cận cũ không bao giờ có thể dẫn đến.</p>
+
+<hr class="divider">
+
+<div class="further-reading">
+  <h2>Đọc Thêm</h2>
+  <ul class="reading-list">
+    <li>How Reframing Unlocks Innovation (Harvard Business Review)</li>
+    <li>Three Ways to Reframe a Problem to Find an Innovative Solution</li>
+    <li>Udi Lederberg — Reframe: Shift the Way You Work, Innovate, and Think</li>
+    <li>Designing Features Using Job Stories</li>
+    <li>Don't Make a Journey Map: 9 Archetypes for User Research</li>
+    <li>Leah Buley — The User Experience Team of One: Synthesizing Research</li>
+  </ul>
+</div>
+
+<footer>
+  DesignBetter.Co by InVision · Eli Woolery · Design Thinking Handbook<br>
+  Chương 03 / 06 — Định Nghĩa: Tái Định Khung Vấn Đề
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch2-dt-handbook.html"><span class="lbl">Chương trước</span>Chương 2: Thấu Cảm: Trái Tim Của Thiết Kế</a>
+  <a href="ch4-dt-handbook.html"><span class="lbl">Chương sau</span>Chương 4: Ý Tưởng Hóa: Vượt Ra Ngoài Brainstorm Thông Thường</a>
+</nav>
+</body>
+</html>

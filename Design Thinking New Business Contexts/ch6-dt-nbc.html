@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 6 – Tư Duy Thiết Kế Vì Tương Lai Bền Vững</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f7f7f7;
+    --border: #e0e0e0;
+    --border-strong: #999;
+    --text: #1a1a1a;
+    --text-muted: #555;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.8;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 32px 100px;
+  }
+  /* ── Header ── */
+  .chapter-eyebrow {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 36px;
+  }
+  .chapter-number {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--border);
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 28px;
+  }
+  /* ── Meta block ── */
+  .meta-block {
+    border-top: 3px solid var(--text);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 24px;
+  }
+  .meta-label {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 3px;
+  }
+  .meta-value { font-size: 14px; line-height: 1.5; }
+  .meta-full { grid-column: 1 / -1; }
+  /* ── Keywords ── */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 40px;
+  }
+  .kw {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11.5px;
+    border: 1px solid var(--border-strong);
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+  /* ── Learning objectives ── */
+  .objectives-box {
+    background: var(--surface);
+    border-left: 4px solid var(--text);
+    padding: 20px 22px;
+    margin-bottom: 48px;
+  }
+  .objectives-box h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .objectives-box ol {
+    padding-left: 20px;
+  }
+  .objectives-box li { margin-bottom: 8px; font-size: 15.5px; }
+  /* ── Sections ── */
+  h2 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 52px;
+    margin-bottom: 16px;
+    padding-bottom: 7px;
+    border-bottom: 2px solid var(--text);
+  }
+  h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 12px;
+  }
+  p { margin-bottom: 16px; }
+  /* ── Tables ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin: 20px 0 8px;
+  }
+  .data-table th {
+    background: var(--text);
+    color: var(--bg);
+    padding: 8px 10px;
+    text-align: left;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .data-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .data-table tr:nth-child(even) td { background: var(--surface); }
+  .table-caption {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .table-note {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    margin-bottom: 24px;
+  }
+  /* ── TBL Venn diagram (CSS) ── */
+  .tbl-diagram {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 20px 18px;
+    margin: 20px 0 24px;
+  }
+  .tbl-diagram .tbl-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .tbl-pillars {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .tbl-pillar {
+    flex: 1;
+    border: 2px solid var(--border-strong);
+    border-radius: 50%;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 14px 10px;
+    font-size: 12px;
+  }
+  .tbl-pillar strong {
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .tbl-center-label {
+    text-align: center;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  /* ── Strategies list ── */
+  .strategy-list {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0;
+  }
+  .strategy-list li {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 22px;
+    align-items: flex-start;
+  }
+  .strat-num {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--border-strong);
+    min-width: 28px;
+    line-height: 1.3;
+  }
+  .strat-content { flex: 1; }
+  .strat-title {
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 4px;
+    display: block;
+  }
+  /* ── CSR stakeholders ── */
+  .csr-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+  .csr-list li {
+    border-left: 3px solid var(--border-strong);
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    background: var(--surface);
+  }
+  /* ── SE business models ── */
+  .se-models {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+    counter-reset: se-counter;
+  }
+  .se-models li {
+    counter-increment: se-counter;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .se-models li::before {
+    content: counter(se-counter);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--bg);
+    background: var(--text);
+    min-width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  /* ── Triangle model ── */
+  .triangle-model {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 18px;
+    margin: 20px 0 24px;
+  }
+  .triangle-model .fig-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .triangle-vertices {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .tri-top, .tri-bottom {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  .tri-node {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    background: var(--text);
+    color: var(--bg);
+    padding: 8px 16px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    text-align: center;
+  }
+  .tri-center {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    border: 2px solid var(--text);
+    padding: 8px 14px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+  /* ── BMB tool ── */
+  .bmb-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin: 16px 0 8px;
+  }
+  .bmb-table th {
+    background: var(--text);
+    color: var(--bg);
+    padding: 6px 8px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    text-align: center;
+    border: 1px solid var(--bg);
+  }
+  .bmb-table td {
+    padding: 7px 8px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+    font-size: 11px;
+  }
+  .bmb-table .cell-label {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  /* ── Infobox / case study ── */
+  .infobox {
+    border: 1px solid var(--border-strong);
+    border-left: 4px solid var(--text);
+    padding: 18px 20px;
+    margin: 24px 0;
+    background: var(--surface);
+  }
+  .infobox-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .infobox p { font-size: 14.5px; margin-bottom: 12px; }
+  .infobox ul { padding-left: 18px; font-size: 14px; }
+  .infobox li { margin-bottom: 7px; }
+  /* ── Chapter summary box ── */
+  .summary-box {
+    background: var(--surface);
+    border-top: 3px solid var(--text);
+    border-bottom: 1px solid var(--border);
+    padding: 22px 24px;
+    margin: 52px 0 36px;
+  }
+  .summary-box h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    margin-top: 0;
+  }
+  .summary-box p { font-size: 15px; margin-bottom: 12px; }
+  /* ── Q&A boxes ── */
+  .qa-section { margin: 36px 0; }
+  .qa-section h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 7px;
+    margin-bottom: 16px;
+    margin-top: 0;
+  }
+  .qa-section ol { padding-left: 20px; }
+  .qa-section li { margin-bottom: 12px; font-size: 15px; }
+  /* ── References ── */
+  .references { margin-top: 52px; }
+  .references h2 { font-size: 20px; }
+  .ref-list { list-style: none; padding: 0; margin-top: 16px; }
+  .ref-list li {
+    padding-left: 28px;
+    text-indent: -28px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  blockquote {
+    border-left: 3px solid var(--border-strong);
+    padding: 10px 18px;
+    margin: 16px 0;
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 15.5px;
+  }
+  em { font-style: italic; }
+  strong { font-weight: bold; }
+  .content-list { padding-left: 22px; margin: 14px 0; }
+  .content-list li { margin-bottom: 8px; }
+  .fig-note {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-style: italic;
+  }
+  .findings-list { padding-left: 22px; margin: 14px 0; }
+  .findings-list li { margin-bottom: 10px; font-size: 15px; }
+  .findings-list li em { display: block; margin-bottom: 3px; }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+
+<div class="chapter-eyebrow">Design Thinking for New Business Contexts &nbsp;·&nbsp; Huang &amp; Hands (2022)</div>
+
+<div class="chapter-number">06</div>
+<h1>Tư Duy Thiết Kế Vì Tương Lai Bền Vững</h1>
+
+<div class="meta-block">
+  <div>
+    <span class="meta-label">Tác giả</span>
+    <span class="meta-value">Yujia Huang · Đại học Dundee<br>David Hands · Đại học Lancaster</span>
+  </div>
+  <div>
+    <span class="meta-label">DOI</span>
+    <span class="meta-value" style="font-size:12px;">https://doi.org/10.1007/978-3-030-94206-9_6</span>
+  </div>
+  <div class="meta-full">
+    <span class="meta-label">Nghiên cứu sinh đóng góp</span>
+    <span class="meta-value">Dr Xinya You, R&amp;D Fellow, InGAME – Đại học Dundee, UK</span>
+  </div>
+</div>
+
+<div class="keywords">
+  <span class="kw">Tuyên ngôn sứ mệnh</span>
+  <span class="kw">Bền vững</span>
+  <span class="kw">Trách nhiệm xã hội doanh nghiệp</span>
+  <span class="kw">Doanh nghiệp xã hội</span>
+  <span class="kw">Công cụ thiết kế chiến lược</span>
+</div>
+
+<div class="objectives-box">
+  <h3>Mục tiêu học tập</h3>
+  <ol>
+    <li>Giới thiệu và đánh giá phê phán giá trị của Tuyên Ngôn Sứ Mệnh với tư cách là tài liệu tầm nhìn định hướng tham vọng chiến lược.</li>
+    <li>Khám phá các chủ đề liên quan đến phát triển bền vững và giới thiệu khung Triple Bottom Line (TBL) tập trung vào lợi nhuận, con người và hành tinh.</li>
+    <li>Xem xét sự nổi lên của Trách Nhiệm Xã Hội Doanh Nghiệp (CSR) và vai trò thiết yếu của CSR trong việc thúc đẩy thực hành kinh doanh có đạo đức.</li>
+    <li>Phát triển hiểu biết về các mô hình kinh doanh mới đặc trưng cho Doanh Nghiệp Xã Hội khi giải quyết các vấn đề xã hội vì lợi ích chung.</li>
+    <li>Hiểu sâu hơn về các chiến lược phát triển kinh doanh trong ngành công nghiệp sáng tạo.</li>
+  </ol>
+</div>
+
+<!-- 6.1 -->
+<h2>6.1 Giới Thiệu</h2>
+
+<p>Chương 6 tiếp cận khám phá một loạt các chủ đề liên kết nhau xoay quanh việc truyền thông các giá trị tổ chức và cách những giá trị đó có thể được sử dụng như một phương tiện cạnh tranh hiệu quả. Điểm khởi đầu căn bản của tầm nhìn kinh doanh được gói gọn trong Tuyên Ngôn Sứ Mệnh — một tài liệu linh hoạt nắm bắt và truyền đạt mục đích cốt lõi của doanh nghiệp đến các bên liên quan.</p>
+
+<p>Ở đây, giá trị, mục đích và tham vọng được xác định và sử dụng như lực hướng dẫn định hướng chiến lược tổng thể. Đối với nhiều công ty, đây còn là tuyên bố cam kết với chương trình nghị sự về khí hậu và phát triển bền vững — một chủ đề đang ngày càng trở nên quan trọng trong hoạch định chính sách, chiến lược doanh nghiệp và quyết định mua sắm của người tiêu dùng.</p>
+
+<p>Song song với bền vững, Trách Nhiệm Xã Hội Doanh Nghiệp (CSR) đang trở nên phổ biến hơn, thể hiện cam kết của tổ chức với thực hành có đạo đức và minh bạch. Sự xuất hiện của các doanh nghiệp xã hội cho thấy các giá trị bình đẳng mạnh mẽ từ các nhà khởi nghiệp khi họ đưa những nguyên tắc xã hội vào thị trường thương mại vì lợi ích chung. Chương kết thúc bằng nghiên cứu thực tiễn về ngành trò chơi điện tử Dundee, khảo sát cách các doanh nghiệp vừa và nhỏ tăng trưởng cao có thể đạt được tồn tại thương mại dài hạn.</p>
+
+<!-- 6.2 -->
+<h2>6.2 Sứ Mệnh Bất Khả Thi?</h2>
+
+<p>"Giá trị được hiển thị" là điều kiện tiên quyết để thành công, và thiết kế đóng vai trò cơ bản trong quá trình đó. Thiết kế mang lại ý nghĩa và sự hiện diện cho tham vọng chiến lược của công ty. Điển hình, BMW cam kết sản xuất xe hơi chế tác chính xác cao, nơi chất lượng được nhúng vào mọi khía cạnh phát triển xe; thiết kế đảm bảo sự toàn vẹn này được duy trì và truyền đạt cẩn thận đến khách hàng.</p>
+
+<p>Năm 2020, AirlineRatings.com Airline Excellence Awards xếp hạng Air New Zealand là hãng hàng đầu nhờ những đổi mới trong chuyến bay, lãnh đạo môi trường và động lực nhân viên. Sứ mệnh của họ: <em>"Làm phong phú đất nước chúng tôi bằng cách kết nối người New Zealand với nhau và kết nối New Zealand với thế giới."</em></p>
+
+<p>Điều này dẫn chúng ta đến vai trò của tuyên ngôn sứ mệnh công ty như một công cụ mạnh mẽ để truyền đạt mục đích chiến lược. Falsey (1989) lập luận "tuyên ngôn sứ mệnh cho biết hai điều về công ty: công ty là ai và công ty làm gì". Một tuyên ngôn ngắn gọn có thể nuôi dưỡng sự hài lòng và năng suất của nhân viên.</p>
+
+<p class="table-caption"><strong>Bảng 6.1</strong> Tuyên ngôn sứ mệnh từ các thương hiệu hàng đầu thế giới</p>
+<table class="data-table">
+  <thead>
+    <tr>
+      <th style="width:18%">Công ty</th>
+      <th>Tuyên ngôn sứ mệnh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>LinkedIn</strong></td><td>"Kết nối các chuyên gia trên thế giới để giúp họ làm việc hiệu quả và thành công hơn."</td></tr>
+    <tr><td><strong>Alibaba</strong></td><td>"Làm cho kinh doanh dễ dàng ở bất kỳ đâu."</td></tr>
+    <tr><td><strong>BBC</strong></td><td>"Làm phong phú cuộc sống mọi người với các chương trình và dịch vụ giáo dục, thông tin và giải trí."</td></tr>
+    <tr><td><strong>Asana</strong></td><td>"Giúp nhân loại phát triển bằng cách tạo điều kiện cho tất cả các nhóm làm việc cùng nhau một cách dễ dàng."</td></tr>
+    <tr><td><strong>Google</strong></td><td>"Sắp xếp thông tin của thế giới và làm cho nó có thể truy cập và hữu ích cho mọi người."</td></tr>
+    <tr><td><strong>3M</strong></td><td>"Cải thiện mọi cuộc sống thông qua đổi mới sáng tạo trong Giáo dục, Cộng đồng và Môi trường."</td></tr>
+    <tr><td><strong>Patagonia</strong></td><td>"Xây dựng sản phẩm tốt nhất, không gây hại không cần thiết, sử dụng kinh doanh để truyền cảm hứng và thực hiện các giải pháp cho khủng hoảng môi trường."</td></tr>
+  </tbody>
+</table>
+<p class="table-note">Nguồn: Huang &amp; Hands (2022)</p>
+
+<p>Tuyên ngôn sứ mệnh khác với tuyên ngôn tầm nhìn — hai khái niệm thường bị dùng thay thế cho nhau nhưng là hai thực thể khác nhau. Tuyên ngôn tầm nhìn là nơi công ty muốn đến trong tương lai; nó thiết lập các tham vọng và mục tiêu dài hạn, chỉ phục vụ mục đích nội bộ. Trong khi đó, tuyên ngôn sứ mệnh mô tả trạng thái "hiện tại" của tổ chức và các giá trị cốt lõi (thường trong vòng 3–5 năm), được cập nhật liên tục để duy trì tính phù hợp.</p>
+
+<p>David (2007) lập luận: <em>"tuyên ngôn sứ mệnh hiệu quả phải rộng về phạm vi, tạo ra các lựa chọn chiến lược, không quá cụ thể, hòa giải lợi ích đa dạng của các bên liên quan, khơi dậy cảm xúc tích cực và tạo ấn tượng thuận lợi về tổ chức."</em></p>
+
+<!-- 6.3 -->
+<h2>6.3 Tương Lai Bền Vững</h2>
+
+<p>Trong vài thập kỷ qua, chúng ta đang chứng kiến sự trỗi dậy của tính bền vững và xu hướng có ý thức trong việc áp dụng các nguyên tắc thân thiện với môi trường vào mọi khía cạnh cuộc sống. Một khoảnh khắc định hình là Báo cáo Brundtland (Sustainable Development, 1987) — nhấn mạnh rằng các thách thức môi trường toàn cầu tập trung vào nghèo đói và bất bình đẳng cùng các mức tiêu thụ không bền vững. Báo cáo định nghĩa: <em>"Phát triển đáp ứng nhu cầu của các thế hệ hiện tại mà không làm ảnh hưởng đến khả năng của các thế hệ tương lai đáp ứng nhu cầu của chính họ."</em></p>
+
+<h3>Khung Triple Bottom Line (TBL)</h3>
+
+<div class="tbl-diagram">
+  <div class="tbl-title">Hình 6.1 — Triple Bottom Line (TBL) (Elkington, 1997)</div>
+  <div class="tbl-pillars">
+    <div class="tbl-pillar">
+      <strong>CON NGƯỜI</strong>
+      <span>Công bằng xã hội</span>
+    </div>
+    <div class="tbl-pillar" style="border-color:var(--text);background:var(--bg);">
+      <strong>BỀN VỮNG</strong>
+      <span style="font-size:11px;">(Giao điểm 3 chiều)</span>
+    </div>
+    <div class="tbl-pillar">
+      <strong>HÀNH TINH</strong>
+      <span>Lành mạnh môi trường</span>
+    </div>
+  </div>
+  <div class="tbl-center-label" style="margin-top:8px;">LỢI NHUẬN — Khả thi về kinh tế</div>
+</div>
+
+<p>Được phát triển bởi Elkington (1997), ba chiều được đặt trọng lượng bằng nhau cũng được gọi là "lợi nhuận, con người và hành tinh":</p>
+
+<ul class="content-list">
+  <li><strong>Kinh tế (Lợi nhuận):</strong> Mục tiêu chính của bền vững kinh tế là phát triển nền kinh tế bao trùm, đổi mới vì lợi ích của xã hội rộng lớn hơn; tạo ra các loại việc làm phù hợp và nâng cao kỹ năng con người.</li>
+  <li><strong>Xã hội (Con người):</strong> Xác định cách một tổ chức nên hoạt động trong xã hội trong khi xem xét bối cảnh xã hội, đạo đức và chính trị. Gắn liền với 17 Mục tiêu Phát triển Bền vững trong "Chương trình nghị sự 2030 cho Phát triển Bền vững" (UN, 2015).</li>
+  <li><strong>Môi trường (Hành tinh):</strong> Bhamra và Lofthouse (2007) coi nguyên tắc này là "công lý môi trường" — cho phép tiếp cận bình đẳng với môi trường sạch và bảo vệ bình đẳng trước các tác hại môi trường. Hoạt động của con người chỉ nên sử dụng tài nguyên thiên nhiên ở mức có thể tái tạo tự nhiên.</li>
+</ul>
+
+<p>Thách thức lớn với TBL là đo lường tác động: doanh thu và lợi nhuận có thể đo bằng đồng tiền, nhưng làm sao đo lường sức khỏe môi trường và vốn xã hội được nâng cao? Tuân thủ TBL có thể vừa khó duy trì vừa khó truyền đạt đến các bên liên quan đa dạng.</p>
+
+<h3>Ba chiến lược thiết kế/kinh doanh hướng đến tương lai bền vững</h3>
+
+<ol class="strategy-list">
+  <li>
+    <span class="strat-num">1</span>
+    <div class="strat-content">
+      <span class="strat-title">Dự báo Tương lai (Future Forecasting)</span>
+      Phương ngôn nổi tiếng của Benjamin Franklin: "Nếu bạn thất bại trong kế hoạch, bạn đang lên kế hoạch để thất bại" càng trở nên phù hợp trong thời điểm bất ổn hiện nay. Bằng cách phát triển chiến lược dài hạn, tổ chức chuẩn bị cho khả năng phục hồi và tăng trưởng thông qua việc tạo ra giá trị bền lâu. Một cách tiếp cận thiết kế vô giá là <em>design fiction</em> (thiết kế hư cấu) — một phần của nhóm thực hành "thiết kế suy đoán". Dunne và Raby (2009) lập luận: "thay vì giải quyết các vấn đề hiện tại, những cách tiếp cận này sử dụng thiết kế để đặt câu hỏi". Thay vì tạo ra sản phẩm thực tế, họ sử dụng nguyên mẫu để khuyến khích mọi người suy nghĩ phê phán về các vấn đề mà thiết kế có thể đóng góp có ý nghĩa.
+    </div>
+  </li>
+  <li>
+    <span class="strat-num">2</span>
+    <div class="strat-content">
+      <span class="strat-title">Đổi mới Nội bộ Dựa trên Thiết kế (Internal Design-Driven Innovation)</span>
+      Về mặt áp dụng triết lý hướng đến tương lai, các tổ chức có thể lập kế hoạch dài hạn bằng cách đánh giá lại các bộ kỹ năng, kiến thức và năng lực hiện có để tận dụng chúng trong các chiến lược kinh doanh mới. Von Stamm (2004) lập luận: <em>"điều cần thiết là hiểu rằng chìa khóa thành công là đưa thiết kế và đổi mới trở thành cốt lõi của chiến lược công ty. Đây không phải là việc mang một nhà thiết kế vào mỗi vài năm; đây là việc biến thiết kế và đổi mới thành lối sống."</em>
+    </div>
+  </li>
+  <li>
+    <span class="strat-num">3</span>
+    <div class="strat-content">
+      <span class="strat-title">Liên minh Thiết kế (Design Alliances)</span>
+      Đổi mới dựa trên nhu cầu là loại đổi mới linh hoạt và phản ứng cao, không chỉ thỏa mãn mong muốn và nhu cầu của khách hàng mà còn thường vượt qua chúng. Để đạt được điều này, tổ chức cần dự đoán các xu hướng tiêu dùng thay đổi. Hai yếu tố then chốt: mối quan hệ giữa chức năng tiếp thị và thiết kế (thông tin dẫn dắt thị trường được chuyển thành yêu cầu thiết kế); và xây dựng quan hệ hợp tác chặt chẽ hơn giữa tất cả các đối tác khác nhau trong hệ sinh thái công ty.
+    </div>
+  </li>
+</ol>
+
+<!-- 6.4 -->
+<h2>6.4 Trách Nhiệm Xã Hội Doanh Nghiệp (CSR)</h2>
+
+<p>Trách Nhiệm Xã Hội Doanh Nghiệp (CSR) đặt trách nhiệm giải trình về đạo đức và thực hành tổ chức có trách nhiệm. CSR là triết lý được tổ chức áp dụng, thể hiện cam kết của mình với việc thúc đẩy thay đổi xã hội vì lợi ích của tất cả các bên liên quan và cộng đồng rộng lớn hơn. CSR có thể nhận nhiều hình thức khác nhau — từ từ thiện doanh nghiệp và tình nguyện của nhân viên đến thực hành lao động có đạo đức, nỗ lực môi trường và phát triển cộng đồng.</p>
+
+<h3>Các bên liên quan chính hưởng lợi từ CSR</h3>
+
+<ul class="csr-list">
+  <li><em>Tăng sự hài lòng của nhân viên:</em> dẫn đến giữ chân lực lượng lao động hài lòng cao, những người tự hào về công việc thông qua cơ hội phát triển kỹ năng và nguyện vọng nghề nghiệp.</li>
+  <li><em>Người tiêu dùng:</em> thông qua thực hành kinh doanh minh bạch và trung thực. Forbes (2017) xác định rằng Millennials thích kinh doanh với các tập đoàn và thương hiệu có thông điệp xã hội tích cực. Nielsen (2015) cho thấy 66% người tiêu dùng toàn cầu sẵn sàng chi nhiều hơn cho sản phẩm từ thương hiệu bền vững; tỷ lệ Millennials lên đến 73%.</li>
+  <li><em>Nhà cung cấp:</em> các tổ chức thường lựa chọn nhà cung cấp cũng thể hiện cam kết với CSR, vì điều này phản ánh lên danh tiếng của chính họ. Khách hàng ngày càng yêu cầu sự minh bạch trong chuỗi cung ứng và hệ thống sản xuất.</li>
+  <li><em>Cộng đồng:</em> cam kết cộng đồng là một trong các nguyên tắc cốt lõi của CSR. Làm việc với cộng đồng địa phương có thể mang lại nhiều lợi ích cho cả hai bên — xây dựng giá trị danh tiếng, dễ tuyển dụng và giữ chân nhân viên địa phương hơn.</li>
+</ul>
+
+<p>CSR cũng có thể dẫn đến sự sáng tạo gia tăng trong công ty: các sáng kiến CSR khuyến khích nhân viên liên tục tìm kiếm các cách thức và phương tiện hành xử và thực hành có đạo đức mới. Điều này thường liên quan đến làm việc với một số chức năng kinh doanh nội bộ và nhà cung cấp bên ngoài, do đó, phát triển sản phẩm mới (NPD) là phương tiện hiệu quả để phân tích các đặc điểm và tính năng sản phẩm có thể tạo ra các giải pháp đổi mới. Yang et al. (2016) chỉ ra: <em>"đưa yêu cầu CSR vào giai đoạn đầu của thiết kế sản phẩm có thể giảm thiểu nhu cầu thay đổi thiết kế thường xuyên. Xem xét CSR trong thiết kế sản phẩm do đó không chỉ giảm lãng phí mà còn nâng cao hình ảnh công ty."</em></p>
+
+<p>Theo Nghiên cứu CSR Toàn cầu năm 2015 của Cone Communications, các phát hiện chính bao gồm: 91% người tiêu dùng toàn cầu kỳ vọng các công ty không chỉ tạo ra lợi nhuận mà còn hoạt động có trách nhiệm để giải quyết các vấn đề xã hội và môi trường; 84% cho biết họ tìm kiếm các sản phẩm có trách nhiệm; 90% sẽ tẩy chay công ty nếu biết về thực hành kinh doanh vô trách nhiệm.</p>
+
+<p>Tính xác thực là chìa khóa trong truyền thông CSR: người tiêu dùng ngày càng nhận thức được các công ty sử dụng CSR như chiến lược tiếp thị hời hợt mà không thực sự thực hành nó. Sự chênh lệch giữa điều họ nói và điều họ thực sự làm có thể gây thiệt hại nghiêm trọng về danh tiếng.</p>
+
+<!-- 6.5 -->
+<h2>6.5 Doanh Nghiệp Xã Hội — Mô Hình Kinh Doanh Lai</h2>
+
+<p>Doanh nghiệp xã hội đặt trọng tâm lớn hơn vào "mục đích" thay vì lợi nhuận thuần túy. Thegoodtrade (2021) định nghĩa ngắn gọn: <em>"một doanh nghiệp theo hướng mục đích có lý do chính để tồn tại là cải thiện các mục tiêu xã hội và phục vụ lợi ích chung."</em> Điều khác biệt doanh nghiệp xã hội với doanh nghiệp có đạo đức là nó sử dụng sứ mệnh như phương tiện cung cấp giải pháp kinh doanh cho vấn đề xã hội. Tất cả lợi nhuận được tái đầu tư để theo đuổi tác động xã hội lớn hơn.</p>
+
+<h3>Sáu mô hình kinh doanh doanh nghiệp xã hội phổ biến</h3>
+
+<ol class="se-models">
+  <li><strong>Mô hình Hỗ trợ Kinh doanh:</strong> cung cấp các giải pháp hỗ trợ kinh doanh cho doanh nhân xã hội muốn bắt đầu doanh nghiệp — hỗ trợ tiếp thị, tài chính và đào tạo để phát triển doanh nghiệp mới.</li>
+  <li><strong>Mô hình Trung gian Bán hàng:</strong> hoạt động thay mặt cho khách hàng, ví dụ bán sản phẩm do nông dân trồng (ca cao, chuối…) cho công chúng — cung cấp khả năng tiếp cận thị trường để tạo ra doanh thu.</li>
+  <li><strong>Mô hình Việc làm:</strong> cung cấp cơ hội việc làm/đào tạo cho những người thiệt thòi vốn khó tìm được việc làm có ý nghĩa với mức lương công bằng.</li>
+  <li><strong>Mô hình Dịch vụ/Phí:</strong> tính phí trực tiếp cho khách hàng về các dịch vụ có lợi ích xã hội — áp dụng trong nhiều bối cảnh dịch vụ hướng đến khách hàng.</li>
+  <li><strong>Mô hình Hợp tác xã:</strong> tổ chức thành viên thu phí, cung cấp dịch vụ thành viên cho một nhóm hoặc cộng đồng có nhu cầu xã hội chung (ví dụ: liên minh tín dụng, doanh nghiệp thuộc sở hữu nhân viên).</li>
+  <li><strong>Mô hình Dịch vụ Được Trợ cấp:</strong> tài trợ các chương trình xã hội bằng cách bán sản phẩm hoặc cung cấp dịch vụ trên thị trường thương mại (ví dụ: phòng khám nha khoa cung cấp dịch vụ nha khoa cho những người khó tiếp cận dịch vụ y tế giá cả phải chăng).</li>
+</ol>
+
+<p class="table-caption"><strong>Bảng 6.2</strong> Các phát hiện chính từ khảo sát của Social Enterprise UK năm 2019</p>
+<table class="data-table">
+  <thead>
+    <tr>
+      <th style="width:28%">Chủ đề</th>
+      <th>Phát hiện chính</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1: Tăng trưởng về Quy mô</strong></td>
+      <td>52% doanh nghiệp xã hội tăng doanh thu trong 12 tháng qua — cao hơn năm 2017 và cao hơn nhiều so với 34% SME có tăng trưởng.</td>
+    </tr>
+    <tr>
+      <td><strong>2: Doanh nghiệp Độc lập</strong></td>
+      <td>77% doanh nghiệp xã hội kiếm hơn 75% thu nhập từ kinh doanh thương mại, cho thấy họ cạnh tranh thực sự trên thị trường.</td>
+    </tr>
+    <tr>
+      <td><strong>3: Đổi mới Sáng tạo hơn</strong></td>
+      <td>56% doanh nghiệp xã hội giới thiệu sản phẩm hoặc dịch vụ mới năm 2019 — cao hơn đáng kể so với SME (36%).</td>
+    </tr>
+    <tr>
+      <td><strong>4: Thành công về Thương mại</strong></td>
+      <td>48% doanh nghiệp xã hội có lãi trong năm qua; 27% hòa vốn. Doanh nghiệp xã hội tồn tại càng lâu càng có khả năng sinh lời cao hơn.</td>
+    </tr>
+  </tbody>
+</table>
+<p class="table-note">Nguồn: Social Enterprise UK (2019)</p>
+
+<p>Báo cáo Social Enterprise UK tiếp tục cho rằng: <em>"chúng tôi tin rằng doanh nghiệp xã hội đang dẫn đầu kinh doanh trong nhiều lĩnh vực... Phong trào khởi nghiệp doanh nghiệp xã hội tiếp tục tăng trưởng, với 42% dưới 5 tuổi. Phong trào này được dẫn dắt bởi các công ty khởi nghiệp do phụ nữ và người BAME lãnh đạo."</em></p>
+
+<p>Hai cách tư duy thiết kế đặc biệt phù hợp với doanh nghiệp xã hội: (1) tiếp cận tư duy thiết kế cho phép nhà khởi nghiệp xã hội xác định nhu cầu tiềm ẩn của khách hàng; (2) tư duy thiết kế thông qua <em>making</em> (tạo mẫu chi phí thấp) là lựa chọn thay thế hiệu quả cho việc mua thiết bị sản xuất đắt tiền — điều có ý nghĩa đặc biệt khi nguồn lực tài chính là hạn chế đáng kể.</p>
+
+<div class="infobox">
+  <div class="infobox-title">Nghiên cứu điển hình: Tạo Công cụ Thiết kế Giúp Studio Game Giải quyết Thách thức Bền vững Kinh doanh Dài hạn</div>
+  <p><em>Đóng góp bởi Dr Xinya You, R&amp;D Fellow, InGAME tại Đại học Dundee, UK</em></p>
+
+  <p><strong>Bối cảnh:</strong> Dundee (Scotland, ~150.000 dân) được Liên Hợp Quốc công nhận năm 2014 là Thành phố Thiết kế UNESCO đầu tiên ở Anh. Thành phố là nơi khai sinh ra các IP trò chơi nổi tiếng như Lemmings và Grand Theft Auto. Ngày nay, cụm trò chơi điện tử Dundee có hơn 80 công ty, nhiều trong số đó là SME. Năm 2018, dự án InGAME (Innovation for Games and Media Enterprise) được thành lập nhằm tăng giá trị và quy mô của cụm (AHRC, Grant AH/S002871/1).</p>
+
+  <p><strong>Ba thách thức bền vững cốt lõi:</strong></p>
+  <ul class="findings-list" style="list-style:disc;padding-left:20px;">
+    <li><em>Rủi ro Sáng tạo:</em> Rủi ro tài chính khi phát triển IP gốc suy đoán trên thị trường game thường gây tử vong cho các công ty khởi nghiệp và micro-SME.</li>
+    <li><em>Rủi ro Đổi mới Công nghệ:</em> Các đổi mới công nghệ trong cụm thường không được thu thập hoặc kiểm tra có hệ thống để sử dụng lại — dẫn đến bỏ lỡ cơ hội thương mại.</li>
+    <li><em>Rủi ro Thương mại hóa:</em> Các studio game nhỏ thường thiếu chuyên môn thương mại để đổi mới mô hình kinh doanh và nhận ra cơ hội thị trường mới.</li>
+  </ul>
+
+  <p><strong>7 Phát hiện từ phỏng vấn:</strong></p>
+  <ul class="findings-list" style="list-style:decimal;padding-left:20px;">
+    <li><em>Có nhiều mô hình kinh doanh phổ biến trong ngành trò chơi điện tử:</em> third-party publishing (xuất bản bên thứ ba), self-publishing (tự xuất bản), work-for-hire (làm thuê).</li>
+    <li><em>Rủi ro bền vững của mô hình tự xuất bản tương đối cao</em> — thiếu khả năng kết nối game với thị trường mục tiêu và dự trữ vốn dài hạn; nhưng đây là mô hình được mong muốn nhất vì cung cấp mức độ tự do sáng tạo cao nhất.</li>
+    <li><em>Rủi ro của mô hình xuất bản bên thứ ba ở mức trung bình</em> — ít rủi ro hơn tự xuất bản, studio được trả tiền để tạo IP gốc; thành công thương mại phụ thuộc vào năng lực nhà xuất bản.</li>
+    <li><em>Rủi ro của mô hình làm thuê tương đối thấp</em> — lý tưởng để phát triển mạng lưới ngành, nâng cao năng lực phát triển game và tạo thu nhập có thể dự đoán; nhưng giới hạn tự do sáng tạo.</li>
+    <li><em>Thiết kế mô hình kinh doanh lai giúp studio game đạt tăng trưởng bền vững</em> — hai studio áp dụng đồng thời mô hình làm thuê và xuất bản bên thứ ba.</li>
+    <li><em>Studio game có thể thay đổi mô hình kinh doanh theo nhu cầu tăng trưởng</em> — nhiều studio xem mô hình làm thuê là mô hình chuyển tiếp để đảm bảo bền vững ngắn hạn, dự kiến chuyển sang tự xuất bản.</li>
+    <li><em>Sự đồng tiến hóa của thiết kế tổ chức, mô hình kinh doanh và chiến lược sản phẩm-thị trường là quan trọng.</em></li>
+  </ul>
+
+  <p><strong>Mô hình Tam giác Bền vững Kinh doanh InGAME (Fig. 6.2):</strong></p>
+  <div class="triangle-model">
+    <div class="fig-title">Mô hình Tam giác Bền vững Sáng tạo (InGAME)</div>
+    <div class="triangle-vertices">
+      <div class="tri-top"><div class="tri-node">Mô hình Kinh doanh</div></div>
+      <div class="tri-center">Kinh doanh Sáng tạo Bền vững</div>
+      <div class="tri-bottom">
+        <div class="tri-node">Chiến lược Sản phẩm–Thị trường</div>
+        <div class="tri-node">Thiết kế Tổ chức</div>
+      </div>
+    </div>
+  </div>
+  <p class="fig-note">Hình 6.2: Mô hình Tam giác Bền vững Kinh doanh InGAME (phát triển bởi tác giả). Zott &amp; Amit (2013): "Kiểm tra động lực tiến hóa của mô hình kinh doanh... phản ánh một chương trình nghiên cứu liên ngành quan trọng sẽ củng cố đáng kể mô hình kinh doanh như một đơn vị phân tích."</p>
+
+  <p><strong>Công cụ Thiết kế 1 — Business Modelling Blueprint (BMB) (Fig. 6.3):</strong></p>
+  <p>BMB là công cụ tích hợp giúp các công ty hiểu mối quan hệ giữa mô hình kinh doanh, chiến lược sản phẩm-thị trường và thiết kế tổ chức. Lấy cảm hứng từ "Business Model Canvas" (BMC) của Osterwalder &amp; Pigneur (2010), BMB có hai chiều:</p>
+  <ul class="findings-list" style="list-style:disc;padding-left:20px;">
+    <li><em>Chiều ngang:</em> mô tả quy trình đồng tạo lập giá trị — từ phân khúc khách hàng, đề xuất giá trị, phát triển sản phẩm/dịch vụ, hành trình khách hàng đến trải nghiệm khách hàng.</li>
+    <li><em>Chiều dọc:</em> chỉ ra cách các nhà đồng tạo lập giá trị (tổ chức, đối tác chính, khách hàng) cần được xem xét trong quy trình tạo giá trị.</li>
+  </ul>
+  <p>Cách sử dụng BMB: (1) Trả lời tất cả câu hỏi trong mỗi thành phần; (2) Nếu có câu hỏi khó, nghiên cứu để thu thập dữ liệu cần thiết; (3) Nếu không chắc câu trả lời, coi chúng là giả định rồi kiểm tra và điều chỉnh.</p>
+
+  <p><strong>Công cụ Thiết kế 2 — Business Model Evolution Journey Canvas (BMEJC) (Fig. 6.4):</strong></p>
+  <p>BMEJC là công cụ phản chiếu giúp studio game tiến hóa mô hình kinh doanh và chuyển đổi thành công từ mô hình này sang mô hình khác. Công cụ được tạo ra dựa trên BMB — các khối xây dựng của BMB được sử dụng để xác định các yếu tố ra quyết định (yếu tố tổ chức, yếu tố đối tác chính và yếu tố thị trường) cho chuyển đổi mô hình kinh doanh trong BMEJC.</p>
+
+  <p><strong>Kết luận nghiên cứu InGAME:</strong> Nghiên cứu cho thấy khả thi việc tạo công cụ thiết kế giúp studio game giải quyết các thách thức bền vững kinh doanh dài hạn. Áp dụng cách tiếp cận dựa trên thách thức và hợp tác với các chuyên gia ngành là then chốt để giải quyết các thách thức đó. Hai công cụ thiết kế được tạo ra sẽ được sử dụng để tạo InGAME Business Model Design Booklet, chia sẻ với các studio game điện tử Dundee.</p>
+</div>
+
+<!-- Chapter Summary -->
+<div class="summary-box">
+  <h3>Tóm tắt Chương</h3>
+  <p>Các thương hiệu hàng đầu thế giới được công nhận rộng rãi là có lòng trung thành khách hàng mạnh mẽ, phản ánh tuổi thọ và thành công thương mại của họ. Một yếu tố đóng góp là cam kết rõ ràng của họ trong việc cung cấp trải nghiệm có ý nghĩa cho khách hàng — điều có thể được coi là "giá trị được hiển thị". Một tuyên ngôn sứ mệnh được xây dựng cẩn thận đóng gói những giá trị này và lý do tại sao công ty tồn tại.</p>
+  <p>Xác định các giá trị doanh nghiệp được liên kết với quan điểm mới về bền vững và Trách Nhiệm Xã Hội Doanh Nghiệp — nơi các giá trị đạo đức định hình và định hướng ra quyết định tổ chức và tầm nhìn chiến lược. Chương trình nghị sự về Biến đổi Khí hậu đang ngày càng có ảnh hưởng, ảnh hưởng đến cuộc sống hiện tại và các thế hệ tương lai — vì vậy các thực hành kinh doanh bền vững đang trở thành bắt buộc.</p>
+  <p>Trên toàn bộ cảnh quan thương mại, chúng ta đang chứng kiến sự trỗi dậy của các doanh nghiệp xã hội năng động đang tích cực tham gia vào các vấn đề xã hội phức tạp ảnh hưởng đến các cá nhân và cộng đồng trên toàn cầu. Dr Xinya You đã cung cấp phân tích ngắn gọn về các hoạt động nghiên cứu hiện tại của mình dựa trên ngành trò chơi điện tử Dundee, Scotland. Chương 7 chuyển sự chú ý sang tư duy thiết kế cho các hoạt động xây dựng thương hiệu bởi Dr Sotiris Lalaounis, Đại học Exeter Business School, UK.</p>
+</div>
+
+<!-- Review Questions -->
+<div class="qa-section">
+  <h3>Câu hỏi Ôn tập</h3>
+  <ol>
+    <li>Mục tiêu chính của Tuyên Ngôn Sứ Mệnh là gì và ai sẽ chịu trách nhiệm phát triển và phổ biến nó rộng rãi hơn?</li>
+    <li>Ba yếu tố liên kết nhau của khung Triple Bottom Line là gì và những yếu tố này sẽ định hướng bất kỳ chiến lược phát triển bền vững nào như thế nào?</li>
+    <li>Trách Nhiệm Xã Hội Doanh Nghiệp là triết lý tổ chức toàn diện — các bên liên quan chính trong hoạt động hiệu quả của nó sẽ là ai?</li>
+    <li>Điều gì khiến mô hình kinh doanh Doanh Nghiệp Xã Hội khác biệt độc đáo so với các đối thủ thương mại đã được thiết lập?</li>
+    <li>Các công ty game mới nổi gặp phải những thách thức đáng kể về tồn tại kinh doanh — những thách thức chính mà họ phải đối mặt hằng ngày là gì?</li>
+  </ol>
+</div>
+
+<!-- Project Questions -->
+<div class="qa-section">
+  <h3>Câu hỏi Dự án</h3>
+  <ol>
+    <li>Hãy xây dựng một Tuyên Ngôn Sứ Mệnh ngắn gọn cho một đề xuất kinh doanh có thể được một Doanh Nghiệp Xã Hội áp dụng.</li>
+    <li>Các chỉ số thành công nào khác có thể được sử dụng để định lượng tác động trong khung Triple Bottom Line?</li>
+    <li>CSR có nhiều lợi ích cho tổ chức và các bên liên quan; tuy nhiên, những bất lợi của CSR đối với danh tiếng công ty nếu không được thực hành đầy đủ là gì?</li>
+    <li>Trong bối cảnh khu vực của bạn, hãy xác định một Doanh Nghiệp Xã Hội và khám phá cách mô hình kinh doanh của nó giải quyết một nhu cầu xã hội cụ thể.</li>
+    <li>Tham khảo Business Modelling Blueprint, phát triển một chiến lược giới thiệu sản phẩm mới cho một sản phẩm tiêu dùng bền lâu thân thiện với môi trường.</li>
+  </ol>
+</div>
+
+<!-- Chapter Tasks -->
+<div class="qa-section">
+  <h3>Nhiệm vụ Chương</h3>
+  <ol>
+    <li>Lấy một Tuyên Ngôn Sứ Mệnh từ một thương hiệu quốc tế hàng đầu và cung cấp diễn giải của riêng bạn về cách nó có thể bao gồm các giá trị tổ chức cốt lõi của họ.</li>
+    <li>Xác định một Mục tiêu Phát triển Bền vững do Liên Hợp Quốc định nghĩa (2015) và liệt kê 5 điểm chính về cách thiết kế có thể đóng góp có ý nghĩa vào việc đạt được nó.</li>
+    <li>Trong vòng 60 phút, liệt kê nhiều thách thức nhất có thể, phác thảo việc giới thiệu CSR cho một công ty vận chuyển quốc tế.</li>
+    <li>Thành lập một nhóm nhỏ không quá 4 người và đề xuất mô hình kinh doanh mới cho một doanh nghiệp xã hội nhằm cung cấp hỗ trợ tài chính/khoản vay tiếp cận được cho các cộng đồng bị thiệt thòi.</li>
+    <li>Xác định cách một công ty game nhỏ có thể đa dạng hóa các sản phẩm hiện có sang một đối tượng thị trường hoàn toàn mới.</li>
+  </ol>
+</div>
+
+<!-- References -->
+<div class="references">
+  <h2>Tài liệu Tham khảo</h2>
+  <ul class="ref-list">
+    <li>3d printing industry. (2020). <em>The First Homes Have Been Built in New Story's 3d Printed Community for Low-Income Families in Mexico.</em> Retrieved April 16, 2021.</li>
+    <li>Air New Zealand. (2021). Company Profile. Retrieved April 1, 2021, from https://www.airnewzealand.co.uk/corporate-profile</li>
+    <li>Airline Ratings. (2020). Best Airlines 2020: Airline Ratings Names Air New Zealand Top Carrier. Retrieved April 1, 2021.</li>
+    <li>Bhamra, T., &amp; Lofthouse, V. (2007). <em>Design or Sustainability. A Practical Approach.</em> Gower Publishing Ltd.</li>
+    <li>Cone Communications. (2015). <em>2015 Cone Communications/Ebiquity Global CSR Study.</em> Retrieved April 15, 2021.</li>
+    <li>Cutter, S. (1995). Race, Class and Environmental Justice. <em>Progress in Human Geography, 19</em>(1), 111–122.</li>
+    <li>David, F. R. (2007). <em>Strategic Management: Cases and Practices.</em> McGraw Hill Co Inc.</li>
+    <li>Deloitte. (2012). <em>Sustainability 2.0—Using Sustainability to Drive Business Innovation and Growth.</em> Retrieved April 9, 2021.</li>
+    <li>Design Council. (2015). <em>Social Enterprise Is Good for Design.</em> Retrieved April 16, 2021.</li>
+    <li>Dunne, A., &amp; Raby, F. (2009). <em>Dunne and Raby—Projects.</em> Retrieved April 12, 2021, from http://dunneandraby.co.uk/content/projects</li>
+    <li>Edwards, A. R. (2005). <em>The Sustainability Revolution: Portrait of a Paradigm Shift.</em> New Society Publishers.</li>
+    <li>Elkington, J. (1997). <em>Cannibals with Forks: The Triple Bottom Line of 21st Century Business.</em> Capstone.</li>
+    <li>Falsey, T. A. (1989). <em>Corporate Philosophies and Mission Statements: A Survey and Guide for Corporate Communicators and Management.</em> Greenwood.</li>
+    <li>Forbes. (2017). <em>Millennials Driving Brands to Practice Socially Responsible Marketing.</em> Retrieved April 13, 2021.</li>
+    <li>Gomez, K., Mawhinney, T., &amp; Betts, K. (2021). <em>Welcome to Generation Z.</em> Network of Executive Women / Deloitte. Retrieved April 12, 2021.</li>
+    <li>Harrison, K. (2020). <em>How Your Corporate Reputation May Be Your Biggest Financial Asset.</em> Cutting Edge PR. Retrieved April 8, 2021.</li>
+    <li>HBR. (2009). <em>Why Sustainability Is Now the Key Driver of Innovation.</em> Retrieved April 9, 2021.</li>
+    <li>Jackson, A., Boswell, K., &amp; Davis, D. (2011, November). Sustainability and Triple Bottom Line Reporting. <em>International Journal of Business, Humanities and Technology, 1</em>(3), 55–59.</li>
+    <li>Jeurissen, R. (2000). The Social Function of Business Ethics. <em>Business Ethics Quarterly, 10</em>(4), 821–843.</li>
+    <li>Kerrigan, S., &amp; Kulasooriya, D. (2020). The Sustainability Transformation. <em>Deloitte Review, 27.</em> July 31, 2020.</li>
+    <li>Levering, R. (2000). <em>The 100 Best Companies to Work for in America.</em> Institute Inc.</li>
+    <li>Lewis Marketing. (2020, August 19). <em>Understanding Corporate Social Responsibility in PR.</em> Retrieved April 15, 2021.</li>
+    <li>Nielsen. (2015). <em>The Sustainability Imperative.</em> Retrieved April 13, 2021.</li>
+    <li>Osterwalder, A., &amp; Pigneur, Y. (2010). <em>Business Model Generation: A Handbook for Visionaries, Game Changers, and Challengers.</em> John Wiley &amp; Sons, Inc.</li>
+    <li>SDGS. (2015). <em>Transforming Our World: The 2030 Agenda for Sustainable Development.</em> United Nations. Retrieved April 9, 2021, from https://sdgs.un.org/2030agenda</li>
+    <li>Social Enterprise UK. (2019). <em>Survey Capitalism in Crisis—Transforming Our Economy for People and Planet.</em> Retrieved April 16, 2021.</li>
+    <li>Sufi, T., &amp; Lyons, H. (2003). Mission Statement Exposed. <em>International Journal of Contemporary Hospitality Management, 15</em>(5), 255–262.</li>
+    <li>Sustainable Development. (1987). <em>Report of the World Commission on Environment and Development: Our Common Future.</em> WCED. Retrieved April 9, 2021.</li>
+    <li>Thegoodtrade. (2021). <em>What Is a Social Enterprise? A Simple Definition &amp; 3 Examples.</em> Retrieved April 15, 2021.</li>
+    <li>Toftoy, C. N., &amp; Chatterjee, J. (2004). Mission Statements and the Small Business. <em>Business Strategy Review, 15</em>(3), 41–44.</li>
+    <li>Von Stamm, B. (2004). Innovation—What's Design Got to Do with It? <em>Design Management Review, 15</em>(1), 10–19.</li>
+    <li>Williams, L. S. (2008, April). The Mission Statement: A Corporate Reporting Tool with a Past, Present, and Future. <em>Journal of Business Communication, 45</em>(2), 94–119.</li>
+    <li>Yang, C.-L., Huang, K.-P., Huang, C.-L., &amp; Huang, R.-H. (2016). Integration of Corporate Social Responsibility into New Product Development. <em>International Journal of Management, Economics and Social Sciences, 5</em>(1), 14–34.</li>
+    <li>Zott, C., &amp; Amit, R. (2013). The Business Model: A Theoretically Anchored Robust Construct for Strategic Analysis. <em>Strategic Organization, 11</em>(4), 403–411.</li>
+  </ul>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch5-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 5: Tư Duy Kinh Doanh Qua Thiết Kế</a>
+  <a href="ch7-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 7: Tư Duy Thiết Kế cho Xây dựng Thương Hiệu</a>
+</nav>
+</body>
+</html>

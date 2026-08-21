@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 8 – Tư Duy Thiết Kế Trong Thực Tiễn: Ba Nghiên Cứu Tình Huống</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #111111;
+    --text-secondary: #444444;
+    --text-muted: #777777;
+    --border: #d0d0d0;
+    --border-strong: #888888;
+    --surface: #f5f5f5;
+    --surface-dark: #e8e8e8;
+    --accent-line: #111111;
+    --font-serif: 'Georgia', 'Times New Roman', serif;
+    --font-sans: 'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono: 'Courier New', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.75;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 8px; }
+  h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; margin: 40px 0 12px; border-bottom: 2px solid var(--text); padding-bottom: 6px; }
+  h3 { font-size: 1.1rem; font-weight: 700; margin: 28px 0 10px; }
+  h4 { font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin: 20px 0 8px; color: var(--text-secondary); }
+  p { margin-bottom: 14px; }
+  ul, ol { padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 6px; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+  blockquote {
+    border-left: 3px solid var(--border-strong);
+    padding: 10px 18px;
+    margin: 18px 0;
+    background: var(--surface);
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 0.93rem;
+  }
+
+  /* ── CHAPTER HEADER ── */
+  .chapter-header {
+    border-bottom: 3px solid var(--text);
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+  }
+  .chapter-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .doi {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    margin-top: 6px;
+  }
+  .authors {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 8px;
+  }
+  .contributors {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ── KEYWORDS ── */
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 18px 0 0;
+  }
+  .keyword {
+    font-size: 0.74rem;
+    border: 1px solid var(--border-strong);
+    padding: 3px 9px;
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+  }
+
+  /* ── LEARNING OBJECTIVES ── */
+  .objectives-box {
+    border: 1px solid var(--border-strong);
+    padding: 20px 24px;
+    margin: 28px 0;
+    background: var(--surface);
+  }
+  .objectives-box h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .objectives-box li { margin-bottom: 8px; }
+
+  /* ── BOXES (Summary, Review, Project, Tasks) ── */
+  .summary-box {
+    border: 2px solid var(--text);
+    padding: 22px 26px;
+    margin: 36px 0;
+    background: var(--surface);
+  }
+  .summary-box h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .review-box {
+    border: 1px solid var(--border-strong);
+    padding: 20px 26px;
+    margin: 28px 0;
+  }
+  .review-box h3 {
+    margin-top: 0;
+    margin-bottom: 14px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── CASE SECTION ── */
+  .case-section {
+    border-left: 4px solid var(--text);
+    padding-left: 20px;
+    margin: 28px 0;
+  }
+  .case-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .case-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  /* ── PROCESS CHARACTERISTICS ── */
+  .char-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 18px 0;
+  }
+  .char-item {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 14px 16px;
+  }
+  .char-num {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .char-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  /* ── METHODS TOOLS LIST ── */
+  .methods-list {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0;
+  }
+  .methods-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+  .methods-list li:last-child { border-bottom: none; }
+  .methods-list li::before {
+    content: '→';
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── VAN ERP MODEL ── */
+  .van-erp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 18px 0;
+  }
+  .van-erp-role {
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    background: var(--surface);
+  }
+  .van-erp-role.highlight {
+    border-color: var(--border-strong);
+    background: var(--surface-dark);
+  }
+  .role-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+  .role-desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ── ECOSYSTEM DIAGRAM (text representation) ── */
+  .ecosystem-box {
+    border: 1px solid var(--border-strong);
+    padding: 20px 22px;
+    margin: 20px 0;
+    text-align: center;
+    background: var(--surface);
+  }
+  .ecosystem-rings {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+    margin: 12px 0;
+  }
+  .eco-ring {
+    width: 100%;
+    border: 2px solid var(--text);
+    padding: 8px 16px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    text-align: center;
+  }
+  .eco-ring:nth-child(1) { background: var(--text); color: var(--bg); max-width: 200px; }
+  .eco-ring:nth-child(2) { background: var(--surface-dark); max-width: 340px; }
+  .eco-ring:nth-child(3) { background: var(--surface); max-width: 480px; }
+  .eco-ring:nth-child(4) { background: var(--bg); max-width: 620px; }
+  .ecosystem-findings {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0 0;
+    text-align: left;
+  }
+  .ecosystem-findings li {
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+    padding-left: 14px;
+    position: relative;
+  }
+  .ecosystem-findings li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+  .ecosystem-findings li:last-child { border-bottom: none; }
+
+  /* ── PERSONA ── */
+  .persona-frame {
+    border: 1px solid var(--border-strong);
+    padding: 20px 22px;
+    margin: 20px 0;
+    background: var(--surface);
+  }
+  .persona-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+  }
+  .persona-location {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .persona-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .persona-item {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    background: var(--bg);
+  }
+  .persona-item-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+  }
+  .persona-item-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ── LEARNER PERSONA BODY MAP ── */
+  .body-map {
+    border: 1px solid var(--border);
+    padding: 18px 22px;
+    margin: 18px 0;
+    background: var(--surface);
+  }
+  .body-map-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .body-parts {
+    list-style: none;
+    padding: 0;
+  }
+  .body-parts li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.87rem;
+  }
+  .body-parts li:last-child { border-bottom: none; }
+  .body-part-name {
+    font-weight: 700;
+    min-width: 70px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+  }
+  .body-part-q {
+    color: var(--text-secondary);
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+
+  /* ── WORKSHOP BENEFITS ── */
+  .benefit-list {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0;
+  }
+  .benefit-list li {
+    padding: 12px 16px;
+    border-left: 3px solid var(--border-strong);
+    margin-bottom: 10px;
+    background: var(--surface);
+    font-size: 0.9rem;
+  }
+  .benefit-list li strong {
+    display: block;
+    margin-bottom: 6px;
+  }
+  .student-quote {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: 6px;
+    padding-left: 10px;
+    border-left: 2px solid var(--border);
+  }
+
+  /* ── JOURNEY MAP KEY POINTS ── */
+  .journey-points {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0;
+  }
+  .journey-points li {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+    position: relative;
+    padding-left: 24px;
+  }
+  .journey-points li::before {
+    content: '↓';
+    position: absolute;
+    left: 6px;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+  .journey-points li:last-child { border-bottom: none; }
+
+  /* ── ZOOM PROCESS ── */
+  .zoom-process {
+    display: flex;
+    gap: 0;
+    margin: 18px 0;
+    border: 1px solid var(--border);
+  }
+  .zoom-step {
+    flex: 1;
+    padding: 14px 16px;
+    border-right: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.85rem;
+  }
+  .zoom-step:last-child { border-right: none; }
+  .zoom-step-icon {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .zoom-step.active {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  /* ── REFERENCES ── */
+  .references-section { margin-top: 48px; border-top: 2px solid var(--text); padding-top: 24px; }
+  .ref-entry {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    padding-left: 24px;
+    text-indent: -24px;
+  }
+
+  /* ── FIGURE CAPTION ── */
+  .fig-caption {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    margin-top: 4px;
+    margin-bottom: 18px;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 36px 0;
+  }
+
+  /* ── CONTRIBUTOR TAG ── */
+  .contributor-tag {
+    display: inline-block;
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: 1px solid var(--border-strong);
+    padding: 2px 8px;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 28px 20px 60px; }
+    .char-grid { grid-template-columns: 1fr; }
+    .van-erp-grid { grid-template-columns: 1fr; }
+    .persona-grid { grid-template-columns: 1fr; }
+    .zoom-process { flex-direction: column; }
+    .zoom-step { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+
+<!-- ══════════════════════════════════════════════
+     CHAPTER HEADER
+══════════════════════════════════════════════ -->
+<header class="chapter-header">
+  <div class="chapter-label">Chương 8</div>
+  <h1>Tư Duy Thiết Kế Trong Thực Tiễn: Ba Nghiên Cứu Tình Huống</h1>
+  <div class="authors">Yujia Huang và David Hands</div>
+  <div class="contributors">
+    Đóng góp: Sotiris E. Baha (Đại học Kỹ thuật Eindhoven) · Aryana (TU/e) · Dr Radka Newton (Đại học Lancaster)
+  </div>
+  <div class="doi">https://doi.org/10.1007/978-3-030-94206-9_8</div>
+  <div class="keywords">
+    <span class="keyword">Phân tích nhiệm vụ nhận thức</span>
+    <span class="keyword">Thiết kế dịch vụ</span>
+    <span class="keyword">Lập bản đồ hành trình cảm xúc</span>
+    <span class="keyword">Hệ sinh thái tổ chức</span>
+    <span class="keyword">Persona học viên</span>
+    <span class="keyword">Thiết kế B2B</span>
+    <span class="keyword">Giáo dục đại học</span>
+  </div>
+</header>
+
+<!-- ── LEARNING OBJECTIVES ── -->
+<div class="objectives-box">
+  <h4>Mục tiêu học tập</h4>
+  <ul>
+    <li>Hiểu cách các quy trình thiết kế được điều chỉnh theo bối cảnh tổ chức cụ thể trong cả môi trường B2B và B2C.</li>
+    <li>Phân tích ứng dụng thực tiễn của các phương pháp và công cụ thiết kế trong ba tình huống đa dạng.</li>
+    <li>Đánh giá vai trò của thiết kế dịch vụ trong bối cảnh giáo dục đại học.</li>
+    <li>Nhận biết cách thiết kế mở rộng từ cấp độ sản phẩm lên hệ thống, chiến lược và khởi nghiệp.</li>
+    <li>Khám phá cách lập bản đồ hệ sinh thái, persona và hành trình cảm xúc tạo ra tri thức thiết kế thực tiễn.</li>
+  </ul>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     §8.1 INTRODUCTION
+══════════════════════════════════════════════ -->
+<h2>8.1 Giới Thiệu</h2>
+
+<p>Chương này tập hợp ba học giả thực tiễn chia sẻ kinh nghiệm trực tiếp từ thực tế hành nghề. Đây là cơ hội hiếm có để tiếp cận kiến thức ngầm — loại tri thức không thể học thuần túy qua lý thuyết mà chỉ được tích lũy qua thực hành.</p>
+
+<p>Herbert Simon định nghĩa thiết kế là quá trình <em>«tạo ra các hành động nhằm chuyển đổi tình huống hiện tại thành tình huống ưu việt hơn»</em>. Tuy nhiên, để thực sự hiểu thiết kế, người học phải trải qua quá trình làm. Thiết kế không thể học được nếu không có thực hành — đây là bản chất của tri thức ngầm trong nghề thiết kế.</p>
+
+<p>Ba tình huống trong chương này được chọn lựa để thể hiện phổ ứng dụng rộng của tư duy thiết kế:</p>
+<ul>
+  <li><strong>Hitachi ABB Power Grids</strong> — hệ thống lưới điện phức tạp toàn cầu (B2B, công nghiệp nặng)</li>
+  <li><strong>MaaS Global / Whim</strong> — ứng dụng di chuyển đa phương thức (B2C, công nghệ số)</li>
+  <li><strong>Chương trình MSc Management, Đại học Lancaster</strong> — thiết kế dịch vụ trong giáo dục đại học</li>
+</ul>
+
+<!-- ══════════════════════════════════════════════
+     §8.2 DESIGN PROCESSES — BAHA & ARYANA
+══════════════════════════════════════════════ -->
+<h2>8.2 Quy Trình, Phương Pháp và Công Cụ Thiết Kế</h2>
+<div class="contributor-tag">Sotiris E. Baha &amp; Aryana</div>
+
+<p>Hai tình huống đầu tiên — Hitachi ABB Power Grids và MaaS Global — minh họa thiết kế trong bối cảnh B2B và B2C. Đây là những trường hợp thực tiễn từ môi trường doanh nghiệp, nơi quy trình thiết kế phải liên tục thích nghi với áp lực thực tế: thời hạn kinh doanh, rủi ro cao, và sự không chắc chắn về mục tiêu.</p>
+
+<hr class="section-divider">
+
+<!-- ══════════════════════════════════════════════
+     §8.3 HITACHI ABB POWER GRIDS
+══════════════════════════════════════════════ -->
+<div class="case-section">
+  <div class="case-label">Nghiên cứu tình huống 1 · B2B · Hệ thống lưới điện</div>
+  <div class="case-title">Hitachi ABB Power Grids</div>
+
+  <p>Hitachi ABB Power Grids là nhà cung cấp hệ thống lưới điện toàn cầu — một lĩnh vực đòi hỏi thiết kế phải làm việc trong môi trường có rủi ro cực cao, nơi sai lầm trong vận hành có thể gây ra hậu quả nghiêm trọng cho cơ sở hạ tầng năng lượng quốc gia.</p>
+
+  <h3>Quy Trình Thiết Kế</h3>
+  <p>Quy trình thiết kế tại Hitachi ABB mang tính <em>tiến hóa</em> và <em>không được xác định trước</em>. Thiết kế không đi theo một lộ trình cứng nhắc mà thích ứng liên tục. Phân tích nhiệm vụ nhận thức (<em>cognitive task analysis</em>) được áp dụng cho môi trường rủi ro cao, giúp hiểu sâu cách vận hành tư duy của người dùng trong các tình huống phức tạp. Thiết kế đóng vai trò khởi xướng mạng lưới cộng tác giữa các bên liên quan.</p>
+
+  <h4>Ba đặc điểm của quy trình thiết kế Hitachi ABB</h4>
+  <div class="char-grid">
+    <div class="char-item">
+      <span class="char-num">01</span>
+      <div class="char-text">Mỗi dự án là duy nhất, nhưng các giai đoạn vẫn có thể nhận diện được trong toàn bộ quá trình thiết kế.</div>
+    </div>
+    <div class="char-item">
+      <span class="char-num">02</span>
+      <div class="char-text">Thiết kế tạo ra tác động vượt ra ngoài cấp độ sản phẩm/dịch vụ, ảnh hưởng đến toàn bộ hệ thống tổ chức.</div>
+    </div>
+    <div class="char-item">
+      <span class="char-num">03</span>
+      <div class="char-text">Tài liệu hóa quy trình tạo ra các công cụ đặc thù cho ngành — tri thức được thể chế hóa thành tài sản thiết kế.</div>
+    </div>
+  </div>
+
+  <h3>Phương Pháp và Công Cụ</h3>
+  <ul class="methods-list">
+    <li><strong>Tái định khung vấn đề</strong>: Chuyển đổi góc nhìn từ sản phẩm sang dịch vụ — một bước chuyển tư duy căn bản trong tiếp cận thiết kế.</li>
+    <li><strong>Điều tra theo bối cảnh</strong> (<em>contextual inquiry</em>): Nghiên cứu người dùng trực tiếp trong môi trường làm việc thực tế, không phải trong phòng lab nhân tạo.</li>
+    <li><strong>Bản đồ dịch vụ</strong> (<em>service map</em>): Áp dụng theo phương pháp Tomczak et al. (2012) để trực quan hóa toàn bộ hệ sinh thái dịch vụ.</li>
+    <li><strong>Trực quan hóa như công cụ ý tưởng hóa</strong>: Sử dụng hình ảnh không chỉ để trình bày mà để <em>tạo ra</em> ý tưởng thiết kế mới.</li>
+    <li><strong>Trình bày pitch khái niệm</strong>: Công cụ để truyền đạt và kiểm nghiệm ý tưởng với các bên liên quan trong tổ chức.</li>
+  </ul>
+</div>
+
+<hr class="section-divider">
+
+<!-- ══════════════════════════════════════════════
+     §8.4 MAAS GLOBAL
+══════════════════════════════════════════════ -->
+<div class="case-section">
+  <div class="case-label">Nghiên cứu tình huống 2 · B2C · Di chuyển đa phương thức</div>
+  <div class="case-title">MaaS Global — Ứng Dụng Whim</div>
+
+  <p>MaaS Global là công ty phát triển Whim — ứng dụng di chuyển đa phương thức cho phép người dùng lên kế hoạch, đặt chỗ và thanh toán mọi phương tiện di chuyển (xe buýt, tàu điện, taxi, xe đạp) qua một giao diện duy nhất. Đây là bối cảnh B2C đòi hỏi thiết kế phải song hành cùng vòng phát hành phần mềm nhanh và áp lực thương mại liên tục.</p>
+
+  <h3>Quy Trình Thiết Kế</h3>
+  <p>Quy trình thiết kế tại MaaS Global được <em>điều chỉnh theo thời hạn kinh doanh và phần mềm</em>. Không giống môi trường thiết kế học thuật, các hoạt động thiết kế có thể diễn ra song song thay vì tuần tự. Đặc biệt, nhiều dự án <em>khởi đầu từ không gian giải pháp</em> — tức là bắt đầu từ ý tưởng sẵn có rồi mới định nghĩa lại vấn đề.</p>
+
+  <h4>Ba đặc điểm của quy trình thiết kế MaaS Global</h4>
+  <div class="char-grid">
+    <div class="char-item">
+      <span class="char-num">01</span>
+      <div class="char-text">Quy trình thích nghi với thời hạn kinh doanh và phần mềm — tốc độ và linh hoạt là yêu cầu cốt lõi.</div>
+    </div>
+    <div class="char-item">
+      <span class="char-num">02</span>
+      <div class="char-text">Thiết kế tạo tác động ở nhiều cấp độ, bao gồm cả chiến lược kinh doanh — không chỉ giao diện sản phẩm.</div>
+    </div>
+    <div class="char-item">
+      <span class="char-num">03</span>
+      <div class="char-text">Dự án có thể khởi đầu từ không gian giải pháp — thiết kế phải phân tích và tái định khung giải pháp sẵn có.</div>
+    </div>
+  </div>
+
+  <h3>Phương Pháp và Công Cụ</h3>
+  <ul class="methods-list">
+    <li><strong>Kế thừa và hiểu không gian giải pháp</strong>: Phân tích sâu các giải pháp hiện có trước khi đề xuất hướng mới.</li>
+    <li><strong>Lập bản đồ hành vi</strong> (<em>behavioural mapping</em>, Ng 2016): Theo dõi và ghi lại các mẫu hành vi người dùng trong không gian thực.</li>
+    <li><strong>Tái định khung vấn đề</strong>: Chuyển đổi góc nhìn từ giải pháp kỹ thuật sang nhu cầu người dùng thực sự.</li>
+    <li><strong>Field probing</strong> (Mattelmäki 2006): Sử dụng bộ công cụ thăm dò để thu thập dữ liệu ngữ cảnh phong phú từ người dùng.</li>
+    <li><strong>Thử nghiệm A/B</strong> (Marsh 2018): Kiểm chứng các quyết định thiết kế thông qua thử nghiệm song song với người dùng thực.</li>
+  </ul>
+</div>
+
+<hr class="section-divider">
+
+<!-- ══════════════════════════════════════════════
+     SYNTHESIS — VAN ERP MODEL
+══════════════════════════════════════════════ -->
+<h3>Tổng Hợp: Mô Hình Tổng Trải Nghiệm — Van Erp (2011)</h3>
+
+<p>Qua hai tình huống Hitachi ABB và MaaS Global, một điểm chung quan trọng nổi lên: <strong>mục tiêu và bối cảnh dự án thiết kế thường đan xen và không được xác định rõ ràng từ đầu</strong>. Các cuộc họp khởi đầu dự án (<em>intake meetings</em>) đóng vai trò thiết yếu trong việc xác lập mục tiêu, nhưng đây là một quá trình đàm phán thay vì áp đặt.</p>
+
+<blockquote>
+  Chấp nhận sự không chắc chắn là sức mạnh của thiết kế, không phải điểm yếu — một thế mạnh mà các tổ chức chưa luôn nhận ra đầy đủ.
+  <br><span style="font-size:0.8rem; margin-top:6px; display:block;">— Stolterman (2021); Verganti (2017)</span>
+</blockquote>
+
+<p>Thiết kế đã mở rộng từ cấp độ sản phẩm lên hệ thống, chiến lược, và khởi nghiệp. Mô hình <strong>Tổng Trải Nghiệm</strong> của Van Erp (2011) mô tả bốn vai trò bổ sung của nhà thiết kế trong tổ chức hiện đại:</p>
+
+<div class="van-erp-grid">
+  <div class="van-erp-role highlight">
+    <div class="role-title">Doanh nhân (Entrepreneur)</div>
+    <div class="role-desc">Tầng cao nhất. Mang tầm nhìn, ý nghĩa và giấc mơ đến tổ chức. Nhà thiết kế hoạt động như người kiến tạo ý nghĩa chiến lược.</div>
+  </div>
+  <div class="van-erp-role highlight">
+    <div class="role-title">Chiến lược gia (Strategist)</div>
+    <div class="role-desc">Xác định phương hướng, định vị thương hiệu và chiến lược tổ chức. Cầu nối giữa tầm nhìn và thực thi.</div>
+  </div>
+  <div class="van-erp-role">
+    <div class="role-title">Khái niệm hóa (Conceptualist)</div>
+    <div class="role-desc">Thiết kế tương tác, kết nối đa kênh và tối ưu hóa sử dụng tài nguyên. Tư duy hệ thống ở cấp độ trải nghiệm.</div>
+  </div>
+  <div class="van-erp-role">
+    <div class="role-title">Nhà thiết kế (Designer)</div>
+    <div class="role-desc">Tầng cơ bản. Thực hiện thiết kế sản phẩm, dịch vụ và danh mục — đây là nơi thiết kế trở nên hữu hình với người dùng.</div>
+  </div>
+</div>
+<p class="fig-caption">Mô hình Van Erp (2011) — Bốn vai trò của nhà thiết kế trong tổ chức (nguồn: IASDR 2011)</p>
+
+<!-- ══════════════════════════════════════════════
+     §8.5 LANCASTER UNIVERSITY
+══════════════════════════════════════════════ -->
+<h2>8.5 Thấu Hiểu Trải Nghiệm Học Tập Sinh Viên Qua Phương Pháp Thiết Kế</h2>
+<div class="contributor-tag">Dr Radka Newton · Đại học Lancaster</div>
+
+<h3>Bối Cảnh: Chương Trình MSc Management tại Lancaster</h3>
+
+<p>Chương trình Thạc sĩ Quản lý (<em>MSc Management — MiM</em>) tại Đại học Lancaster là một trường hợp nghiên cứu độc đáo về việc áp dụng thiết kế dịch vụ trong giáo dục đại học — một lĩnh vực ít được khám phá trong tài liệu thiết kế.</p>
+
+<p>Sinh viên không chỉ là <em>người tiêu dùng dịch vụ giáo dục</em> mà là <em>đồng sản xuất trải nghiệm</em> của chính họ (Prahalad &amp; Ramaswamy, 2004). Trường đại học hoạt động như một mạng lưới tạo ra trải nghiệm cá nhân hóa, không phải một nhà cung cấp dịch vụ đơn thuần.</p>
+
+<p><strong>Thông số chương trình MiM (2018):</strong></p>
+<ul>
+  <li>50 sinh viên mỗi năm</li>
+  <li>60% ngoài EU (chủ yếu Trung Quốc, Ấn Độ, Thái Lan, Đài Loan)</li>
+  <li>20% sinh viên Anh · 20% EU · Tỷ lệ nam/nữ 50/50</li>
+  <li>Yêu cầu đầu vào: Bằng 2:1 + IELTS 7.0 + tối đa 2 năm kinh nghiệm làm việc</li>
+</ul>
+
+<p><strong>Vấn đề phát sinh:</strong> Chương trình học được tái cấu trúc thành các khối một tuần dày đặc, dẫn đến tình trạng căng thẳng gia tăng, khiếu nại nhiều hơn và sinh viên ít tham gia vào các hoạt động hỗ trợ nghề nghiệp.</p>
+
+<p>Dữ liệu nghiên cứu từ năm 2018, với 114 sinh viên tham gia. Quy trình thiết kế sử dụng mô hình <em>zoom in / zoom out</em> lặp đi lặp lại — liên tục chuyển đổi giữa nhìn tổng thể và đi sâu vào chi tiết (Hình 8.2).</p>
+
+<hr class="section-divider">
+
+<h3>Lập Bản Đồ Hệ Sinh Thái Tổ Chức</h3>
+
+<p>Bước đầu tiên là lập bản đồ hệ sinh thái đại học theo ba cấp đồng tâm (Hình 8.3), sau đó thu hẹp lại thành hệ sinh thái của Trường Quản lý (Hình 8.4):</p>
+
+<div class="ecosystem-box">
+  <div class="body-map-title">Hệ Sinh Thái MSc Management — Cấu Trúc Đồng Tâm (Hình 8.4)</div>
+  <div class="ecosystem-rings">
+    <div class="eco-ring">MSc Management Students</div>
+    <div class="eco-ring">MSc Management Curriculum</div>
+    <div class="eco-ring">MSc Management Systems</div>
+    <div class="eco-ring">Management School</div>
+  </div>
+  <p style="font-size:0.8rem; color:var(--text-muted); margin-top:12px; text-align:left;">Các yếu tố trong hệ sinh thái bao gồm: đội chương trình, đội nghề nghiệp, giám đốc học thuật, các khoa cung cấp giảng viên, kiểm định EQUIS/AACSB, xếp hạng Financial Times, v.v.</p>
+</div>
+
+<p><strong>Phát hiện chính từ việc lập bản đồ hệ sinh thái Trường Quản lý:</strong></p>
+<ul class="ecosystem-findings">
+  <li>MiM không thuộc về một khoa học thuật nào — được quản lý từ văn phòng sau đại học trung tâm của Trường.</li>
+  <li>MiM có nhiều nguồn lực đặc thù và độc đáo (đội chương trình riêng, hỗ trợ nghề nghiệp riêng), đồng thời phụ thuộc vào tất cả các khoa để có giảng viên.</li>
+  <li>Sinh viên MiM không tương tác với sinh viên nào khác trong chương trình học được thiết kế riêng cho họ.</li>
+  <li>MiM chịu nhiều kiểm định và xếp hạng — danh tiếng của nó phản ánh Trường, không chỉ chương trình.</li>
+  <li>Sinh viên bị ảnh hưởng bởi quy trình visa, chỗ ở và đăng ký học; nhân viên bị ràng buộc bởi các quyết định ở cấp Đại học.</li>
+</ul>
+
+<p>Lập bản đồ hệ sinh thái giúp làm rõ các điểm tiếp xúc của người học và đồng cảm với sự khớp nối giữa lợi ích và hạn chế của hệ thống. Các yếu tố ngoài nội dung giảng dạy — địa điểm, cơ sở vật chất, ký túc xá, câu lạc bộ, tình bạn — đều ảnh hưởng đến trải nghiệm học tập tổng thể.</p>
+
+<hr class="section-divider">
+
+<h3>Persona Sinh Viên</h3>
+
+<p>Trong giáo dục, giai đoạn <em>khám phá</em> thường bị bỏ qua hoặc thực hiện qua loa. Nhưng đây là giai đoạn thiết yếu để tránh những phát triển tốn kém không đáp ứng nhu cầu thực của sinh viên.</p>
+
+<p>Sinh viên MiM tự tạo persona — làm việc theo nhóm tự chọn năm người, sử dụng thẻ A3, bút màu và vật liệu thủ công. Khung persona học viên (Hình 8.5) sử dụng ẩn dụ cơ thể người:</p>
+
+<div class="body-map">
+  <div class="body-map-title">Khung Persona Học Viên (Learner's Persona — Hình 8.5)</div>
+  <ul class="body-parts">
+    <li>
+      <span class="body-part-name">Đầu (Head)</span>
+      <span class="body-part-q">Đầu bạn nói gì về việc học? Điều gì cần thiết để thành công? Kỳ vọng là gì?</span>
+    </li>
+    <li>
+      <span class="body-part-name">Tim (Heart)</span>
+      <span class="body-part-q">Bạn yêu thích điều gì trong việc học? Điều gì làm tim bạn đập nhanh? Chủ đề nào bạn đam mê?</span>
+    </li>
+    <li>
+      <span class="body-part-name">Bụng (Stomach)</span>
+      <span class="body-part-q">Điều gì khiến bạn lo lắng? Điều gì làm bạn hơi bất an? Bụng đang mách bảo gì?</span>
+    </li>
+    <li>
+      <span class="body-part-name">Gối (Knees)</span>
+      <span class="body-part-q">Điều gì đang cản trở bạn? Rào cản nào ngăn bạn tận dụng tối đa tiềm năng?</span>
+    </li>
+    <li>
+      <span class="body-part-name">Chân (Feet)</span>
+      <span class="body-part-q">Điều gì bạn muốn bỏ lại từ kinh nghiệm giáo dục trước? Bạn sẽ thay đổi gì?</span>
+    </li>
+  </ul>
+</div>
+
+<p>Quá trình bắt đầu bằng các câu hỏi không chính thức và nhẹ nhàng: Tên bạn là gì? Bạn đến từ đâu? Bạn có nuôi thú cưng không? Bạn thích mặc áo màu gì? Bạn có thường về thăm gia đình không? Những câu hỏi này phá vỡ rào cản và tạo không gian an toàn để chia sẻ.</p>
+
+<p><strong>Hai ví dụ persona tiêu biểu:</strong></p>
+
+<div class="persona-frame">
+  <div class="persona-name">Alex Wolf</div>
+  <div class="persona-location">Munich, Đức</div>
+  <div class="persona-grid">
+    <div class="persona-item">
+      <div class="persona-item-label">Lý do chọn Lancaster</div>
+      <div class="persona-item-text">Chất lượng giáo dục, học bổng, cảm giác được chào đón, quá trình nhanh</div>
+    </div>
+    <div class="persona-item">
+      <div class="persona-item-label">Lối sống</div>
+      <div class="persona-item-text">Ý thức thương hiệu, tự xây dựng hình ảnh, hoạt động trên Instagram &amp; LinkedIn</div>
+    </div>
+    <div class="persona-item">
+      <div class="persona-item-label">Mục tiêu</div>
+      <div class="persona-item-text">Kết nối quan hệ, cải thiện ngôn ngữ, phát triển cá nhân và chuyên nghiệp</div>
+    </div>
+    <div class="persona-item">
+      <div class="persona-item-label">Thách thức</div>
+      <div class="persona-item-text">Rào cản ngôn ngữ, căng thẳng, vấn đề sức khỏe tâm thần, nhớ nhà, thời tiết</div>
+    </div>
+  </div>
+  <p style="font-size:0.82rem; color:var(--text-muted); margin-top:12px;">Alex giúp phá vỡ giả định rằng sinh viên châu Âu — thường là học sinh giỏi — luôn vượt qua chương trình dễ dàng. Persona tiết lộ những bất an về rào cản ngôn ngữ và sức khỏe tâm thần mà trước đó bị bỏ qua.</p>
+</div>
+
+<div class="persona-frame">
+  <div class="persona-name">Joy Zhang</div>
+  <div class="persona-location">Shanghai, Trung Quốc · 23 tuổi</div>
+  <div class="persona-grid">
+    <div class="persona-item">
+      <div class="persona-item-label">Lý do chọn Lancaster</div>
+      <div class="persona-item-text">Bằng thạc sĩ, kết quả học thuật xuất sắc, thách thức, kỳ thi, shock văn hóa</div>
+    </div>
+    <div class="persona-item">
+      <div class="persona-item-label">Gia đình &amp; bạn bè</div>
+      <div class="persona-item-text">Gia đình một con, cha mẹ kinh doanh, sáu bạn cùng phòng</div>
+    </div>
+    <div class="persona-item">
+      <div class="persona-item-label">Động lực học tập</div>
+      <div class="persona-item-text">Đạt thành tích xuất sắc, tương lai tốt hơn, làm giàu</div>
+    </div>
+    <div class="persona-item">
+      <div class="persona-item-label">Sở thích</div>
+      <div class="persona-item-text">Bóng chuyền, bơi lội, cầu lông — cuộc sống năng động dù lịch học bận rộn</div>
+    </div>
+  </div>
+  <p style="font-size:0.82rem; color:var(--text-muted); margin-top:12px;">Persona Joy cho thấy thông tin mới về sinh viên từ gia đình kinh doanh — không có mục tiêu nghề nghiệp rõ ràng, cũng như áp lực học thuật cao và mức độ căng thẳng liên quan đến kỳ thi đặc trưng của sinh viên châu Á.</p>
+</div>
+
+<p><strong>Lợi ích vượt mong đợi của workshop thiết kế persona:</strong></p>
+
+<ul class="benefit-list">
+  <li>
+    <strong>Sinh viên hiểu về tầm quan trọng của tiếng nói khách hàng trong kinh doanh</strong>
+    <div class="student-quote">«Bản chất của workshop rất lý tưởng. Học qua thực hành luôn là cách tốt nhất. Tôi hiểu được việc phát triển persona và sử dụng persona để xây dựng vòng đời 'khách hàng' — nơi persona là khách hàng của trường và sinh viên có những nhu cầu mà trường và chương trình cần giải quyết.»</div>
+  </li>
+  <li>
+    <strong>Sinh viên phát triển sự tự nhận thức sâu hơn và tình bạn bền chặt hơn</strong>
+    <div class="student-quote">«Dù là người hướng nội, chúng tôi đã hiểu nhau rõ hơn. Tôi thấy như ở giữa những người bạn chứ không phải người lạ... Điều an ủi là biết mọi người đều đang trải qua điều đó cùng nhau.»</div>
+  </li>
+  <li>
+    <strong>Sinh viên cảm thấy được tham gia vào thiết kế chương trình và được trao quyền như những con người</strong>
+    <div class="student-quote">«Tôi cảm thấy điều này tích cực bao gồm tất cả mọi người... Cuối cùng, chúng ta là con người, không phải robot — bạn cần nghĩ đến sức khỏe của sinh viên trước tiên. Đây là điều tôi thích nhất về trường này.»</div>
+  </li>
+</ul>
+
+<hr class="section-divider">
+
+<h3>Lập Bản Đồ Hành Trình Cảm Xúc</h3>
+
+<p>Bản đồ hành trình trực quan hóa trải nghiệm người dùng theo thời gian và ghi lại chuỗi các bước người dùng trải qua trong quá trình tương tác với dịch vụ (Stickdorn et al., 2011). Đây là phương pháp nghiên cứu dân tộc học chú trọng đến <em>cảm xúc</em> và <em>hành động</em> — những gì người dùng khó diễn đạt bằng lời trong môi trường thông thường.</p>
+
+<p>Câu hỏi ban đầu để khởi động hoạt động lập bản đồ: <em>«Tại sao sinh viên không tham gia các hoạt động hỗ trợ nghề nghiệp?»</em></p>
+
+<p>Sau khi phân tích bản đồ hành trình, đội chương trình nhận ra rằng thách thức cốt lõi là <strong>tổ chức các sự kiện học tập đúng thời điểm và đúng định dạng</strong>. Tháng Mười Một nổi bật là tháng khó khăn nhất — thời điểm bài kiểm tra đầu tiên thất bại và đơn xin việc bị từ chối xảy ra đồng thời.</p>
+
+<p><strong>Phát hiện chính từ bản đồ hành trình cảm xúc:</strong></p>
+<ul class="journey-points">
+  <li>Các buổi hỗ trợ nghề nghiệp được lên lịch vào đúng thời điểm sinh viên cảm thấy tệ nhất — thất bại trong đánh giá đầu tiên, thời tiết xấu, nhớ nhà.</li>
+  <li>Quá tải thông tin khiến sinh viên rút lui khỏi các hoạt động ngoài mô-đun học.</li>
+  <li>Trọng tâm vào nghề nghiệp cảm thấy quá đáng sợ và xa vời trong thời điểm đó.</li>
+  <li>Một số sinh viên không muốn theo đuổi sự nghiệp tốt nghiệp truyền thống như nhà trường hình dung.</li>
+  <li>Sinh viên cảm thấy bối rối về bước tiếp theo trong hành trình nghề nghiệp.</li>
+  <li>Chương trình quá bận rộn — sinh viên cảm thấy bị đánh giá quá nhiều, khó đối phó với lịch trình căng thẳng và thiếu thời gian nghỉ ngơi.</li>
+</ul>
+
+<p><strong>Ứng dụng thực tiễn từ phát hiện:</strong></p>
+<ul>
+  <li>Một điểm cao trong cảm xúc tích cực liên quan đến chuyến thăm Manchester Career Fair — sau khi University đề xuất cắt tài trợ cho hoạt động này, dữ liệu bản đồ hành trình đã hỗ trợ thành công kháng cáo duy trì tài trợ.</li>
+  <li>Mô hình cảm xúc tiêu cực liên quan đến kỳ thi dẫn đến hành động cụ thể: cung cấp đề thi cũ, sắp xếp kỳ thi vào giữa tuần để có không gian ôn tập và nghỉ ngơi ở hai bên.</li>
+  <li>Thiếu thời gian nghỉ ngơi dẫn đến nhận ra rằng chương trình không đặt chiều thứ Tư chiều như thời gian cho thể thao và câu lạc bộ (vốn là quy ước của sinh viên đại học). Điều chỉnh nhỏ này tạo ra đặc điểm độc đáo thu hút thêm sinh viên nội bộ muốn học lên thạc sĩ tại Lancaster.</li>
+</ul>
+
+<h3>Tổng Hợp §8.5</h3>
+
+<p>Giá trị của phương pháp thiết kế dịch vụ trong giáo dục nằm ở chỗ nó đã tạo ra một chiến lược cải tiến chương trình có trọng tâm — với sự hiểu biết về những đặc điểm trải nghiệm học tập nào tạo ra giá trị và cách chúng phù hợp với cuộc sống rộng lớn hơn của sinh viên và hệ sinh thái Đại học. <strong>Quá trình zoom in / zoom out liên tục, không phán xét bất kỳ hoạt động đơn lẻ nào</strong>, đã là nền tảng của thực hành này.</p>
+
+<p>Điều quan trọng: quan hệ giữa sinh viên và cơ sở giáo dục không được hiểu như quan hệ nhà cung cấp — khách hàng thuần túy, mà là một khái niệm cộng tác nơi sinh viên là <em>đồng sản xuất trải nghiệm đại học của chính họ</em>.</p>
+
+<!-- ══════════════════════════════════════════════
+     CHAPTER SUMMARY
+══════════════════════════════════════════════ -->
+<div class="summary-box">
+  <h3>Tóm Tắt Chương</h3>
+  <p>Để thể hiện chiều rộng của ứng dụng thực tiễn của tư duy thiết kế, chương này đã chọn lựa cẩn thận ba tình huống đa dạng từ thực hành ngành. Lý do lựa chọn là để minh họa các cách tiếp cận và phương pháp khác nhau đã được áp dụng, và những thách thức độc đáo mà mỗi tình huống gặp phải.</p>
+  <p>Việc sử dụng các nguyên tắc thiết kế dịch vụ được củng cố bởi phương pháp luận tư duy thiết kế trong lĩnh vực giáo dục đại học là điều hiếm được khám phá trong tài liệu thiết kế — càng ít hơn trong lĩnh vực kinh doanh và quản lý. Các tình huống do Aryana và Baha cung cấp càng khẳng định thêm tính đàn hồi và khả năng áp dụng của các cách tiếp cận thiết kế khi tìm kiếm lợi thế cạnh tranh.</p>
+  <p>Trong tương lai gần và xa hơn, lĩnh vực tư duy thiết kế sẽ nổi bật và tranh luận sâu sắc về những lợi thế riêng biệt của việc sử dụng các cách tiếp cận thiết kế cho những vấn đề thường không thể giải quyết. Thật khích lệ khi thấy những tình huống như thế này — bằng chứng cho sự tin tưởng ngày càng tăng của các tổ chức vào việc áp dụng các cách tiếp cận thay thế để giải quyết những thách thức phức tạp và khó nhằn phía trước.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     REVIEW QUESTIONS
+══════════════════════════════════════════════ -->
+<div class="review-box">
+  <h3>Câu Hỏi Ôn Tập</h3>
+  <ol>
+    <li>Tình huống thứ nhất tập trung vào việc đặt sinh viên làm trung tâm của quá trình nghiên cứu. Những công cụ và kỹ thuật nào khác bạn có thể sử dụng thêm để xác định kinh nghiệm giáo dục hiện tại và cách nâng cao chúng?</li>
+    <li>Hitachi ABB Power Grids sử dụng toàn bộ phổ thiết kế để phát triển các hệ thống tương tác phức tạp. Những cách nào khác họ có thể sử dụng thiết kế trong hoạt động của mình?</li>
+    <li>MaaS Global thường sử dụng các hiểu biết và ý tưởng được xác định từ các dự án trước đó và được «đỗ lại». Bạn sẽ đặt ra những cơ chế nào để những ý tưởng này có thể được chia sẻ rộng rãi trong nhóm thiết kế mở rộng?</li>
+  </ol>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PROJECT QUESTIONS
+══════════════════════════════════════════════ -->
+<div class="review-box">
+  <h3>Câu Hỏi Dự Án</h3>
+  <ol>
+    <li>Persona học tập là một công cụ vô cùng mạnh mẽ để có được hiểu biết sâu sắc hơn về các giá trị và sở thích của sinh viên. Dựa trên Hình 8.5, hãy tạo persona học tập của riêng bạn liên quan đến kinh nghiệm giáo dục hiện tại hoặc trước đây của bạn.</li>
+    <li>Tạo một chiến lược đánh giá có thể được sử dụng để kiểm tra các hệ thống phức tạp nơi thiết kế là yếu tố then chốt trong cách tiếp cận của bạn.</li>
+    <li>Xác định một nền tảng di chuyển đa phương thức (từ xe đạp đến giao thông công cộng) và sau đó ghi lại các khu vực quan trọng nơi người dùng giao tiếp với các điểm chạm chính của nó.</li>
+  </ol>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     CHAPTER TASKS
+══════════════════════════════════════════════ -->
+<div class="review-box">
+  <h3>Nhiệm Vụ Chương</h3>
+  <ol>
+    <li><strong>Bài tập kẹp giấy:</strong> Lập nhóm không quá sáu người, sau đó cho mỗi người một hộp kẹp giấy. Trong hoạt động này, hãy cố gắng tìm ra nhiều cách sử dụng kẹp giấy nhất có thể, ngoài việc giữ giấy. Sau 60 phút, chia sẻ ý tưởng với phần còn lại của nhóm để xem liệu có bất kỳ nguyên tắc hoặc thiết kế thống nhất nào không.</li>
+    <li><strong>Storyboarding:</strong> Storyboarding có thể là một bài tập sáng tạo đặc biệt hữu ích để phát triển các quy trình mới hoặc cải thiện các quy trình hiện có. Thay vì viết ra các bước của quy trình, hãy vẽ mỗi bước trong một loạt các hộp hình chữ nhật nhỏ. Bạn có thể khám phá ra một bước mới hữu ích trong quy trình mà bạn chưa xem xét.</li>
+    <li><strong>Bản đồ hành trình siêu thị:</strong> Dựa trên thói quen mua sắm của riêng bạn, hãy tạo một bản đồ hành trình trực quan của một chuyến đi thường xuyên đến siêu thị địa phương. Xác định các điểm chính mà bạn thấy quan trọng và các điểm đau mà bạn sẽ cải thiện để nâng cao trải nghiệm mua sắm của mình.</li>
+  </ol>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     REFERENCES
+══════════════════════════════════════════════ -->
+<div class="references-section">
+  <h2>Tài Liệu Tham Khảo</h2>
+
+  <div class="ref-entry">Altay, B. (2014). User-Centered Design Through Learner-Centered Instruction. <em>Teaching in Higher Education, 19</em>(2), 138–155.</div>
+
+  <div class="ref-entry">Aryana, B. (2020). Emerging Design: Integrating Learning, Practice and Research. <em>Journal of Design, Business &amp; Society, 6</em>(1), 71–107.</div>
+
+  <div class="ref-entry">Baha, S. E., Ghei, T., &amp; Kranzbühler, A. M. (2021). Mitigating Company Adoption Barriers of Design-Driven Innovation with Human Centered Design. In <em>The 23rd International Conference on Engineering Design—Design in Motion (ICED 21)</em> (vol. 1, pp. 2097–2106).</div>
+
+  <div class="ref-entry">Baha, S. E., Gokhle, S., Sturkenboom, N., Price, R. A., &amp; Snelders, H. M. J. J. (2021). <em>What Is the Designer in Me?</em> Manuscript submitted for publication.</div>
+
+  <div class="ref-entry">Baha, S.E., Sturkenboom, N., Lu, Y., &amp; Raijmakers, B. (2013). Using Design to Initiate Collaborative Networks. In <em>The 2nd Cambridge Academic Design Management Conference (CADMC 2013)</em> (vol. 1, pp. 1–15).</div>
+
+  <div class="ref-entry">Baranova, P., Morrison, S., &amp; Mutton, J. (2010). Service Design in Higher and Further Education. <em>JISC CETIS, 6</em>.</div>
+
+  <div class="ref-entry">Carey, P. (2013). Student as Co-producer in a Marketised Higher Education System: A Case Study of Students' Experience of Participation in Curriculum Design. <em>Innovations in Education and Teaching International, 50</em>(3), 250–260.</div>
+
+  <div class="ref-entry">Crandall, B., Klein, G., Hoffman, R. R., &amp; Senior Research Scientist. (2006). <em>Working Minds: A Practitioner's Guide to Cognitive Task Analysis</em>. MIT Press.</div>
+
+  <div class="ref-entry">Cross, N. (2011). <em>Design Thinking: Understanding How Designers Think and Work</em>. Berg.</div>
+
+  <div class="ref-entry">Dong, A., Kleinsmann, M., &amp; Snelders, D. (2021). The Design of Firms: Part 1—Theory of the Firm. <em>Design Issues, 37</em>(2), 60–76.</div>
+
+  <div class="ref-entry">Holmlid, S., &amp; Evenson, S. (2008). Bringing Service Design to Service Sciences, Management and Engineering. <em>Service Science, Management and Engineering—Education for the 21st Century</em>, 341–345.</div>
+
+  <div class="ref-entry">Kimbell, L. (2009). Insights from Service Design Practice. In <em>The 8th European Academy of Design Conference (EAD08)</em> (pp. 249–253).</div>
+
+  <div class="ref-entry">Kuzmina, K., Bhamra, T., &amp; Triminghan, R. (2012). <em>Service Design and Its Role in Changing Education</em> (pp. 27–36, S. Miettinen &amp; A. Valtonen, Eds.). Lapland University Press.</div>
+
+  <div class="ref-entry">Lilley, M., Pyper, A., &amp; Attwood, S. (2012). Understanding the Student Experience Through the Use of Personas. <em>Innovation in Teaching and Learning in Information and Computer Sciences, 11</em>(1), 4–13.</div>
+
+  <div class="ref-entry">Madden, H., &amp; Walters, A. (2016). Using an Action Research Approach to Embed Service Design in a Higher Education Institution. <em>Swedish Design Research Journal, 14</em>(1), 40–50.</div>
+
+  <div class="ref-entry">Marsh, S. (2018). <em>User Research: A Practical Guide to Designing Better Products and Services</em>. Kogan Page Publishers.</div>
+
+  <div class="ref-entry">Mattelmäki, T. (2006). <em>Design Probes</em>. PhD thesis, Aalto University.</div>
+
+  <div class="ref-entry">Ng, C. F. (2016). Behavioral Mapping and Tracking. <em>Research Methods for Environmental Psychology, 29</em>.</div>
+
+  <div class="ref-entry">Norman, D. A., &amp; Verganti, R. (2014). Incremental and Radical Innovation: Design Research vs. Technology and Meaning Change. <em>Design Issues, 30</em>(1), 78–96.</div>
+
+  <div class="ref-entry">Osborne, S. P., Radnor, Z., &amp; Strokosch, K. (2016). Co-production and the Co-creation of Value in Public Services: A Suitable Case for Treatment? <em>Public Management Review, 18</em>(5), 639–653.</div>
+
+  <div class="ref-entry">Pazell, S., &amp; Hamilton, A. (2020). A Student-Centred Approach to Undergraduate Course Design in Occupational Therapy. <em>Higher Education Research &amp; Development, 40</em>, 1–18.</div>
+
+  <div class="ref-entry">Prahalad, C. K., &amp; Ramaswamy, V. (2004). Co-creation Experiences: The Next Practice in Value Creation. <em>Journal of Interactive Marketing, 18</em>(3), 5–14.</div>
+
+  <div class="ref-entry">Sangiorgi, D., &amp; Prendiville, A. (Eds.). (2017). <em>Designing for Service: Key Issues and New Directions</em>. Bloomsbury Publishing.</div>
+
+  <div class="ref-entry">Simon, H. A. (1988). The Science of Design: Creating the Artificial. <em>Design Issues, 4</em>(1/2), 67–82.</div>
+
+  <div class="ref-entry">Simon, H. A. (1996). <em>The Sciences of the Artificial</em>. MIT Press.</div>
+
+  <div class="ref-entry">Sleeswijk Visser, F., Stappers, P. J., Van der Lugt, R., &amp; Sanders, E. B. N. (2005). Contextmapping: Experiences from Practice. <em>CoDesign, 1</em>(2), 119–149.</div>
+
+  <div class="ref-entry">Star, S. L., &amp; Griesemer, J. R. (1989). Institutional Ecology, Translations' and Boundary Objects: Amateurs and Professionals in Berkeley's Museum of Vertebrate Zoology, 1907–39. <em>Social Studies of Science, 19</em>(3), 387–420.</div>
+
+  <div class="ref-entry">Stickdorn, M., Schneider, J., Andrews, K., &amp; Lawrence, A. (2011). <em>This Is Service Design Thinking: Basics, Tools, Cases</em> (Vol. 1). Wiley.</div>
+
+  <div class="ref-entry">Stolterman, E. (2021). The Challenge of Improving Designing. <em>International Journal of Design, 15</em>(1), 65–74.</div>
+
+  <div class="ref-entry">Sturkenboom, N., Baha, S. E., Price, R. A., Kleinsmann, M., &amp; Snelders, H. M. J. J. (2019). A CHAT Approach to Understand Framing in Digital Service Innovation. <em>Proceedings of the Design Society: International Conference on Engineering Design, 1</em>(3), 3031–3040.</div>
+
+  <div class="ref-entry">Tomczak, J. M., Cieślińska, K., &amp; Pleszkun, M. (2012). Development of Service Composition by Applying ICT Service Mapping. In <em>Computer Networks</em> (pp. 45–54). Springer.</div>
+
+  <div class="ref-entry">Van Erp, J. (2011). Designing the Total Experience—A Model for the Changing Role of the Designer. In <em>The 4th World Conference on Design Research (IASDR 2011)</em> (p. 9).</div>
+
+  <div class="ref-entry">Verganti, R. (2017). Design Thinkers Think Like Managers. <em>She Ji: The Journal of Design, Economics, and Innovation, 3</em>(2), 100–102.</div>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch7-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 7: Tư Duy Thiết Kế cho Xây dựng Thương Hiệu</a>
+  <a href="ch9-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 9: Định hướng Thiết kế & Tương lai Bất định</a>
+</nav>
+</body>
+</html>

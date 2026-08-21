@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 4 — Organisational Complexity and Change by Design</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f7f7f7;
+      --border: #e0e0e0;
+      --border-strong: #999;
+      --text: #1a1a1a;
+      --text-muted: #555;
+      --accent: #1a1a1a;
+      --rule: #ccc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.8;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 32px 100px;
+    }
+
+    .book-meta {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chapter-number {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .chapter-authors {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      margin-bottom: 8px;
+    }
+
+    .keywords {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      padding: 10px 14px;
+      background: var(--surface);
+      border-left: 2px solid var(--border-strong);
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-top: 56px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--text);
+    }
+
+    h3 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 32px;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-top: 24px;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    p + p { text-indent: 1.5em; }
+    p:first-of-type { text-indent: 0; }
+
+    .objectives-box {
+      border: 1px solid var(--border-strong);
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+
+    .objectives-box .box-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      color: var(--text-muted);
+    }
+
+    .objectives-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .objectives-box ul li {
+      padding-left: 1.2em;
+      position: relative;
+      margin-bottom: 8px;
+      font-size: 15.5px;
+      line-height: 1.65;
+    }
+
+    .objectives-box ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    .infobox {
+      background: var(--surface);
+      border-left: 3px solid var(--text);
+      padding: 20px 24px;
+      margin: 28px 0;
+      font-size: 15.5px;
+      line-height: 1.7;
+    }
+
+    .infobox-title {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    ol.content-list {
+      padding-left: 1.5em;
+      margin: 16px 0 20px;
+    }
+
+    ol.content-list li {
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+    ul.content-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 20px;
+    }
+
+    ul.content-list li {
+      padding-left: 1.4em;
+      position: relative;
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    ul.content-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      font-size: 1.4em;
+      line-height: 1.2;
+      color: var(--text-muted);
+    }
+
+    blockquote {
+      border-left: 2px solid var(--border-strong);
+      margin: 20px 0;
+      padding: 12px 20px;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .fig-caption {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .diagram {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin: 20px 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .diagram-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .diagram-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .diagram-node {
+      border: 1.5px solid var(--text);
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .diagram-node.shaded {
+      background: var(--border);
+    }
+
+    .diagram-arrow {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    .diagram-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Staircase diagram for Kotter */
+    .staircase {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin: 16px 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .stair-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .stair-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      min-width: 20px;
+      text-align: right;
+    }
+    .stair-bar {
+      height: 32px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      font-size: 13px;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    /* McKinsey 7S grid */
+    .seven-s-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 16px 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .seven-s-item {
+      border: 1px solid var(--border-strong);
+      padding: 12px 10px;
+      font-size: 13px;
+      text-align: center;
+    }
+    .seven-s-item.center {
+      background: var(--surface);
+      border: 2px solid var(--text);
+      font-weight: 700;
+    }
+    .seven-s-item .s-label {
+      font-weight: 700;
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .seven-s-item .s-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Buchanan orders diagram */
+    .orders-diagram {
+      border: 1px solid var(--border);
+      padding: 20px;
+      margin: 16px 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+    }
+    .orders-axis {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-muted);
+    }
+    .orders-row {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .orders-cell {
+      flex: 1;
+      border: 1px solid var(--border-strong);
+      padding: 10px 8px;
+      text-align: center;
+    }
+    .orders-cell .order-name { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+    .orders-cell .order-ex { font-size: 11px; color: var(--text-muted); }
+    .orders-complexity {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      margin-top: 8px;
+      color: var(--text-muted);
+    }
+
+    .summary-box {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      padding: 28px 32px;
+      margin-top: 48px;
+    }
+
+    .review-box {
+      border: 1px solid var(--border);
+      padding: 24px 28px;
+      margin-top: 32px;
+    }
+
+    .review-box ol {
+      padding-left: 1.4em;
+    }
+
+    .review-box ol li {
+      margin-bottom: 12px;
+      line-height: 1.7;
+      font-size: 15.5px;
+    }
+
+    .box-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      color: var(--text-muted);
+    }
+
+    .references-list {
+      font-size: 14.5px;
+      line-height: 1.7;
+    }
+
+    .references-list p {
+      margin-bottom: 12px;
+      text-indent: -1.6em;
+      padding-left: 1.6em;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 48px 0;
+    }
+
+    em.term {
+      font-style: italic;
+      font-weight: 600;
+    }
+  
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+
+<div class="book-meta">Design Thinking for New Business Contexts &nbsp;·&nbsp; Yujia Huang &amp; David Hands &nbsp;·&nbsp; Springer Nature 2022</div>
+
+<div class="chapter-number">Chapter 4</div>
+<h1>Sự Phức Tạp Tổ Chức và Thay Đổi Qua Thiết Kế</h1>
+<p class="chapter-authors">
+  Yujia Huang<sup>1</sup> và David Hands<sup>2</sup><br>
+  (1) University of Dundee, Dundee, UK &nbsp;·&nbsp; (2) Lancaster University, Lancaster, UK<br>
+  <span style="font-size:11px;">DOI: https://doi.org/10.1007/978-3-030-94206-9_4</span>
+</p>
+
+<div class="keywords">
+  <strong>Từ khoá:</strong> Complexity · Organisational structures · Managing uncertainty · Change management · Designerly approaches
+</div>
+
+<div class="objectives-box">
+  <div class="box-label">Mục tiêu học tập</div>
+  <ul>
+    <li>Phát triển hiểu biết về bản chất phức tạp của tổ chức và các cấu trúc quản lý truyền thống.</li>
+    <li>Khám phá một loạt các vấn đề đương đại trong quản lý và quản trị các tổ chức lớn, cùng với điểm mạnh và điểm yếu của chúng.</li>
+    <li>Xem xét các lực lượng bên ngoài và những thách thức không lường trước được tác động lên tổ chức, cũng như sự nổi lên của các môi trường kinh tế–xã hội không thể đoán trước.</li>
+    <li>Giới thiệu cho người đọc về vai trò của quản lý thay đổi và các khung quản lý thay đổi thường được sử dụng.</li>
+    <li>Phát triển hiểu biết về thiết kế vượt ra ngoài ranh giới ngành truyền thống, hoạt động như một phương tiện cho sự thay đổi tổ chức.</li>
+  </ul>
+</div>
+
+<hr>
+
+<h2>4.1 Giới thiệu</h2>
+
+<p>Môi trường kinh doanh đương đại đang chứng kiến sự thay đổi và bất ổn đáng kể; do đó, bất kể quy mô và hoạt động thị trường, các tổ chức ngày càng dễ bị tổn thương trước các lực lượng bên ngoài và sự gián đoạn thị trường. Hơn nữa, đặt trong bối cảnh Covid-19 và những thách thức to lớn mà nó đặt ra cho các tổ chức và xã hội, việc tái thẩm định triệt để các mô hình kinh doanh và hệ thống tổ chức đã được thiết lập là điều cấp bách. Nhiều tổ chức, cũng như các chính phủ quốc gia, đã nhanh chóng nhận ra rằng họ chưa được chuẩn bị, buộc phải ứng phó thụ động do năng lực ứng phó khủng hoảng quá cứng nhắc và thiếu linh hoạt.</p>
+
+<p>Song song với sự kiện chưa từng có này, toàn cầu hoá, bãi bỏ quy định thương mại và thị trường toàn cầu đã san bằng môi trường cạnh tranh tổ chức về khả năng tiếp cận nguồn nhân lực, thông tin và chuyên môn kỹ thuật. Để duy trì tính cạnh tranh trong những thời điểm không thể đoán trước này, các tổ chức phải liên tục tái tạo bản thân thông qua việc tái thẩm định cấu trúc, hệ thống và mục tiêu chiến lược. Sự linh hoạt và khả năng phục hồi của tổ chức là phương châm mới ảnh hưởng đến các hoạt động ra quyết định trong phòng họp, nơi tính dự phòng và khả năng thích ứng cần được dệt vào cấu trúc của tổ chức.</p>
+
+<p>Chương này khám phá bốn chủ đề trọng tâm có liên quan với nhau:</p>
+
+<ol class="content-list">
+  <li><strong>Quản lý sự phức tạp và tổ chức</strong> — trong thị trường không thể đoán trước ngày nay, nhu cầu đổi mới liên tục và hiểu biết sâu sắc về người tiêu dùng là thiết yếu để mang lại giá trị có ý nghĩa cho các đối tượng khách hàng ngày càng đòi hỏi cao. Để đạt được mục tiêu này, các tổ chức phải tạo ra và triển khai các khung và hệ thống quản trị hiệu quả nhất để quản lý hoạt động hàng ngày.</li>
+  <li><strong>Quản lý sự không chắc chắn</strong> — nhằm chủ động và linh hoạt trong việc phản ứng với các thách thức không lường trước có thể xảy ra. Các sự kiện gần đây liên quan đến đại dịch toàn cầu và khủng hoảng môi trường đã mang lại hồi chuông cảnh báo cho các tổ chức và chính phủ để chuẩn bị và chấp nhận sự bất ổn và gián đoạn thị trường như một đặc điểm cố hữu của hoạt động hoạch định chiến lược.</li>
+  <li><strong>Quản lý thay đổi tổ chức</strong> — ba khung quản lý thay đổi được sử dụng rộng rãi được phân tích phê bình về sự phù hợp và khả năng áp dụng trong môi trường kinh doanh siêu kết nối ngày nay.</li>
+  <li><strong>Cách tiếp cận thiết kế cho thay đổi tổ chức</strong> — giới thiệu tư duy thiết kế và vô số công cụ, kỹ thuật sáng tạo mà nó đem lại cho những người thực hiện thay đổi. Mô hình 4 cấp độ thiết kế của Richard Buchanan được giới thiệu như một lăng kính thay thế so với các cách tiếp cận quản lý truyền thống thường được áp dụng trong quản lý thay đổi.</li>
+</ol>
+
+<hr>
+
+<h2>4.2 Quản lý Sự Phức Tạp và Tổ Chức</h2>
+
+<p>Khi chúng ta bước vào kỷ nguyên bất ổn, các tổ chức phức tạp đang hoạt động trong các lực lượng thị trường cực kỳ hỗn loạn và năng động — nhiều trong số đó vượt ngoài tầm kiểm soát của tổ chức. Chúng ta đang chứng kiến tốc độ phát triển công nghệ và thị trường ngày càng nhanh, kết hợp với nhu cầu và kỳ vọng ngày càng cao của khách hàng. Trong thị trường ngày càng đông đúc, các tổ chức (bất kể quy mô) không thể tự mãn trong việc cung cấp sản phẩm và dịch vụ của mình — tính cạnh tranh và linh hoạt nay là mệnh lệnh thương mại và điều kiện tiên quyết để tồn tại lâu dài.</p>
+
+<p>Trong môi trường hỗn loạn, thiết kế vẫn là cơ hội có giá trị cuối cùng để khơi dậy sự sáng tạo và khả năng phản ứng nhanh trước các thách thức thị trường tiềm ẩn. Trung tâm của vấn đề linh hoạt tổ chức là vấn đề quy mô. Ở một đầu của phổ, các SME thường có thể hoạt động với một người quản lý duy nhất, điều hướng nguồn lực và tầm nhìn theo những thay đổi thị trường. Ở đầu còn lại là các tổ chức đa quốc gia lớn, nơi các chức năng và nguồn nhân lực nằm dưới nhiều tầng lớp phân cấp và ra quyết định.</p>
+
+<p>Morgan (1988) mô tả các tổ chức quan liêu lớn này là những 'cỗ máy' chậm chạp, cồng kềnh, chống lại thay đổi. Nghiên cứu của Aronowitz et al. (2015) đưa ra cái nhìn ảm đạm: <em>chưa đến 10% các công ty S&P 500 phi tài chính năm 1983 còn tồn tại trong S&P 500 năm 2013; 82% trong số đó đã trải qua tái cơ cấu trong ba năm qua — nhưng hầu hết những nỗ lực này thất bại, chỉ 23% được triển khai thành công.</em></p>
+
+<p>Hơn nữa, các tổ chức lớn không phải là thực thể thuần nhất mà là các hệ thống phức tạp bao gồm nhiều tiểu bộ phận, mỗi bộ phận có văn hoá và bản sắc riêng. Khi một tổ chức mở rộng hoạt động, sự biến thiên giữa các nhóm con này ngày càng tăng — bao gồm sản xuất, marketing, bán hàng, nhân sự, v.v. Khi thông tin từ bên ngoài chảy vào các bộ phận liên quan, nó trở nên mờ đục và mơ hồ hơn, dẫn đến dữ liệu không chính xác ảnh hưởng tiêu cực đến quá trình phát triển thiết kế.</p>
+
+<p>Ghobadian và Gallear (1997) xác định một loạt những hạn chế vốn có của các tổ chức lớn khi so sánh với SME, phân thành ba nhóm:</p>
+
+<h3>Cấu trúc (Structure)</h3>
+<ul class="content-list">
+  <li><strong>Phân cấp với nhiều tầng quản lý</strong> — dẫn đến sự kém hiệu quả trong quá trình ra quyết định, vì sự đồng thuận và thẩm quyền phải di chuyển lên qua các cấp quản lý.</li>
+  <li><strong>Đa địa điểm và có thể đa quốc gia</strong> — đặt ra những thách thức đáng kể, đặc biệt khi muốn giới thiệu sản phẩm/dịch vụ mới tại các thị trường chưa quen. Hơn nữa, các nhà quản lý cấp cao có thể không quen với yêu cầu thị trường khi thâm nhập phân khúc mới.</li>
+  <li><strong>Thông thường phản ứng chậm với thay đổi môi trường</strong> — gợi nhớ sự tương phản 'Tàu cao tốc vs. Tàu siêu chở dầu' (Speedboats versus Supertankers), nơi các tổ chức gọn nhẹ và linh hoạt hơn có thể thích nghi nhanh chóng với các sự kiện và thách thức bất ngờ bên ngoài — ví dụ điển hình là đại dịch toàn cầu.</li>
+</ul>
+
+<h3>Quy trình (Procedures)</h3>
+<ul class="content-list">
+  <li><strong>Bị chi phối bởi hệ thống</strong> — thường cản trở các hoạt động đổi mới nếu hệ thống không thể đáp ứng khát vọng sáng tạo của tổ chức và các cá nhân sáng tạo. Google, Facebook và Squarespace là những ví dụ điển hình về các công ty thực sự đổi mới.</li>
+  <li><strong>Quy trình cứng nhắc và không thể điều chỉnh</strong> — nơi bộ máy quan liêu và các thủ tục dư thừa thường cản trở luồng thông tin hiệu quả trong và xuyên suốt tổ chức. Điều này đặc biệt nghiêm trọng khi có khoảng cách địa lý đáng kể giữa các địa điểm và khu vực hoạt động.</li>
+  <li><strong>Những người ra quyết định phân tán</strong> — thường bị cách xa điểm bán hàng hoặc điểm tiếp xúc với khách hàng. Điều này đặc biệt phổ biến trong các tổ chức phân quyền theo chiều dọc/siloed.</li>
+</ul>
+
+<h3>Hành vi (Behaviour)</h3>
+<ul class="content-list">
+  <li><strong>Hầu hết mang tính quan liêu</strong> — luồng thông tin tự do giữa các chức năng bị giảm thiểu thông qua giấy tờ và chuỗi ra quyết định. Điều này có thể bị trầm trọng thêm bởi sự kết hợp của các điểm nêu trên.</li>
+  <li><strong>Tư duy theo phòng ban/chức năng mạnh mẽ</strong> — khi một số bộ phận hoặc lĩnh vực không muốn chia sẻ thông tin với những bộ phận khác trong cùng công ty. Loại tư duy này sẽ làm giảm hiệu quả hoạt động tổng thể, làm giảm tinh thần, và có thể góp phần vào sự sụp đổ của văn hoá công ty.</li>
+  <li><strong>Quán tính văn hoá</strong> — các tổ chức đã xây dựng văn hoá và thực tiễn riêng của mình, theo thời gian có thể khiến họ ngày càng thù địch với thay đổi và miễn cưỡng chấp nhận ý tưởng mới và cơ hội thị trường. Carrillo và Gromb (2007) lưu ý: <em>"Vì sự thuần nhất khoá các tổ chức trong văn hoá hiện tại, có sự đánh đổi thú vị giữa tính linh hoạt và cờ bạc."</em></li>
+</ul>
+
+<p>Tuy nhiên, không phải mọi loại tổ chức lớn đều mang tính quan liêu. Với thị trường cạnh tranh cao và sự bất ổn ngày càng tăng, tổ chức hậu-quan liêu đang nổi lên — đặc biệt trong các ngành mới như CNTT, dịch vụ và dược phẩm. Bolin và Härenstam (2008) lập luận: <em>"Tất cả các nơi làm việc đều có cấu trúc tổ chức... Cấu trúc tổ chức cung cấp tính quy tắc giúp các tổ chức độc lập với các cá nhân cụ thể và có nghĩa là chúng hơn tổng số các cá nhân của mình."</em></p>
+
+<p>Ba yếu tố chung kết nối cả hai loại hình tổ chức:</p>
+<ul class="content-list">
+  <li><em class="term">Phân công lao động (Division of Labour)</em>: Về bản chất là việc xác định các vai trò cụ thể trong tổ chức và nơi chúng được phân công. Trong các tổ chức quan liêu, phân công lao động mang tính chuyên môn hoá cao hơn; trong các tổ chức hậu-quan liêu, nó thiên về tích hợp ngang giữa các chức năng kinh doanh.</li>
+  <li><em class="term">Thẩm quyền (Authority)</em>: Đề cập đến cấu trúc ra quyết định — tập trung với trách nhiệm giao cho quản lý cấp cao, hoặc phân cấp với quyết định được uỷ quyền cho các nhóm, cá nhân hoặc dự án cụ thể. Carrier (1996) lưu ý rằng cấu trúc phân cấp thúc đẩy quá trình kinh doanh nội bộ, vì nhân viên có thể bảo vệ ý tưởng của mình mà không bị cản trở bởi các tầng lớp phân cấp không cần thiết.</li>
+  <li><em class="term">Kiểm soát (Control)</em>: Mức độ mà các công việc và thủ tục trong tổ chức được kiểm soát bởi việc tiêu chuẩn hoá hành vi và cách thực hiện nhiệm vụ (Robbins &amp; Barnwell, 2002). Trong các tổ chức quan liêu, sự tuân thủ quy tắc là điều cốt yếu; trong các tổ chức hậu-quan liêu, quyền quyết định cá nhân là đặc trưng.</li>
+</ul>
+
+<h3>Các Loại Cấu Trúc Tổ Chức</h3>
+
+<p>Mục tiêu chính của việc phát triển cấu trúc kinh doanh là để nhân viên biết vị trí của mình trong tổ chức và ai là người quản lý trực tiếp. Các cấu trúc khác nhau được định hình bởi ngành mà chúng hoạt động, và sẽ thay đổi đáng kể vì mỗi doanh nghiệp là độc nhất về văn hoá và giá trị riêng.</p>
+
+<div class="infobox">
+  <div class="infobox-title">Tổ chức Phẳng (Flat Organisation)</div>
+  <p>Trong một tổ chức phẳng, về bản chất, tất cả mọi người bình đẳng — quan điểm và giá trị được chia sẻ dân chủ. Thường được gọi là tổ chức 'tự quản' không có phân cấp, thâm niên hay chức danh. Ưu điểm: quá trình ra quyết định được đẩy nhanh do không có chuỗi chỉ huy quản lý. Nhược điểm: cấu trúc này thường phù hợp nhất với các công ty nhỏ hơn; khi quy mô lớn hơn, các tổ chức lớn không phù hợp với loại cấu trúc này.</p>
+</div>
+
+<div class="infobox">
+  <div class="infobox-title">Tổ chức Chức năng (Functional Organisation)</div>
+  <p>Quay trở lại tổ chức quan liêu, dựa trên các chuyên ngành chức năng và lĩnh vực kiến thức. Các yếu tố chức năng phổ biến thường bao gồm Nhân sự, Sản xuất, R&amp;D, Marketing — mỗi bộ phận có bản sắc rõ ràng và cấu trúc báo cáo. Stringer (2000) lập luận: <em>"Hầu hết các công ty lớn được 'di truyền' lập trình để bảo vệ hiện trạng"</em> — không có đúng tổ chức, văn hoá, lãnh đạo hay nhân sự để thực hiện đổi mới triệt để.</p>
+</div>
+
+<div class="infobox">
+  <div class="infobox-title">Tổ chức Phân nhánh (Divisional Organisation)</div>
+  <p>Thường đề cập đến các tổ chức đa quốc gia hoạt động xuyên biên giới quốc tế, mặc dù các bộ phận cũng có thể đề cập đến các phân khúc thị trường hoặc nhóm người tiêu dùng cụ thể. Cho phép tổ chức lớn phân chia các lĩnh vực hoạt động kinh doanh quan trọng thành các nhóm khép kín, với quyền tự chủ nhất định so với công ty mẹ. Thách thức: các bộ phận có thể cạnh tranh nguồn lực từ công ty mẹ; sự trùng lặp nguồn lực (marketing, nhân sự, v.v.) làm tăng chi phí hoạt động.</p>
+</div>
+
+<div class="infobox">
+  <div class="infobox-title">Tổ chức Ma trận (Matrix Organisation)</div>
+  <p>Cấu hình tổ chức phức tạp, nơi nhân viên báo cáo cho nhiều người quản lý trực tiếp. Phù hợp nhất với việc quản lý và thực hiện các dự án lớn, nơi các chuyên môn khác nhau cùng làm việc chặt chẽ hàng ngày. Hạn chế: đội nhóm ma trận khó quản lý và sự đa dạng được biết đến là có thể góp phần vào hiệu suất kém. Oertig và Buergi (2006) lưu ý: <em>"Trong môi trường ma trận, có xu hướng để các đại diện nhóm dự án lắng nghe ban quản lý chức năng trực tuyến hơn là người dẫn đầu nhóm dự án."</em></p>
+</div>
+
+<h3>Các Thuộc tính Tổ chức</h3>
+
+<p>Một tổ chức về bản chất là một hệ thống năng động mà công ty (bất kể quy mô) có thể sử dụng để tạo ra cấu trúc thẩm quyền và giao tiếp cho nhân viên, hỗ trợ thực hiện các mục tiêu doanh nghiệp. Bên cạnh các loại cấu trúc tổ chức cơ bản, còn có các yếu tố quan trọng khác cần xem xét:</p>
+
+<ul class="content-list">
+  <li><em class="term">Các cấp Quản lý (Levels of Management)</em> — Phần lớn các tổ chức bao gồm các tầng quản lý và cấu trúc báo cáo. Các nhà quản lý cấp cao hoặc CEO giữ trách nhiệm cao nhất, chủ yếu tạo ra tầm nhìn và mục tiêu chiến lược tổng thể. Phía dưới là các nhà quản lý trung gian, báo cáo cho cấp trên và phân bổ nguồn lực. Tiếp theo là các nhà quản lý tuyến đầu, tập trung vào các hoạt động vận hành hàng ngày như giám sát nhân viên và phối hợp dự án.</li>
+  <li><em class="term">Môi trường Kinh doanh Vĩ mô (Macro Business Environment)</em> — Các tổ chức cần tự cấu hình để phù hợp nhất với điều kiện môi trường bên ngoài. Cassidy (2019) lưu ý: <em>"Nhiều phố chính đang làm việc để tái tạo bản thân... Công chúng muốn nhiều hơn một điểm đến bán lẻ; họ muốn một địa điểm để gặp gỡ, ăn uống, một nơi cho dịch vụ và trải nghiệm."</em></li>
+  <li><em class="term">Giai đoạn Tăng trưởng của Tổ chức (Growth Stage)</em> — Churchill và Lewis (1983) viết cho Harvard Business Review: <em>"Giai đoạn phát triển của một công ty xác định các yếu tố quản lý cần được giải quyết. Biết được giai đoạn phát triển và kế hoạch tương lai giúp các nhà quản lý, tư vấn và nhà đầu tư đưa ra lựa chọn sáng suốt hơn."</em></li>
+</ul>
+
+<hr>
+
+<h2>4.3 Quản lý Sự Không Chắc Chắn trong Thời Đại Bất Ổn</h2>
+
+<p>Thay đổi là điều không thể tránh khỏi và tổ chức cần phải chủ động và linh hoạt để phản ứng với những thách thức không lường trước. Trong môi trường thị trường ổn định, thay đổi là gia tăng và có thể được đáp ứng; tuy nhiên, năm 2020 chứng kiến sự thay đổi chấn động cơ bản biến đổi bối cảnh kinh doanh — đại dịch toàn cầu Covid-19. Việc đóng cửa hàng loạt các doanh nghiệp thương mại, hạn chế đi lại của người dân đã ảnh hưởng đến hầu hết mọi lĩnh vực của cuộc sống tổ chức và công nghiệp.</p>
+
+<p>Anderson et al. (2021), dựa trên Trung tâm Nghiên cứu Pew, Mỹ, đã thực hiện một nghiên cứu để dự đoán cuộc sống sau Covid-19 vào năm 2025. Khoảng 915 nhà đổi mới, nhà phát triển, lãnh đạo doanh nghiệp và chính sách đã trả lời. Quan điểm rộng rãi và gần như phổ quát của họ là mối quan hệ của con người với công nghệ sẽ sâu sắc hơn khi các phân khúc dân số lớn hơn phụ thuộc nhiều hơn vào kết nối kỹ thuật số cho công việc, giáo dục, chăm sóc sức khỏe và tương tác xã hội thiết yếu — một thế giới 'tele-everything'. Seetharaman (2020) chỉ ra: <em>"Ngành khách sạn, trên toàn thế giới, đã phải đối mặt với tác động tiêu cực đáng kể do các biện pháp phong toả, vì nó buộc người tiêu dùng phải tránh xa nhà hàng và quán cà phê."</em></p>
+
+<p>Quy mô và phạm vi của sự không chắc chắn mà các tổ chức kinh doanh đang phải đối mặt là đáng kể. 'Bình thường mới' là sự không chắc chắn và biến động liên tục. IMF dự kiến nền kinh tế Mỹ tăng trưởng 2,1% năm 2020 (dự báo tháng 10/2019); nhưng khi đại dịch bùng phát, IMF đã nhanh chóng điều chỉnh ước tính xuống -5,9% (tháng 4/2020), rồi -8,0% (tháng 6); ước tính cuối cùng (tháng 10/2020) là -4,3% — tệ nhất trong nhiều thập kỷ. Nền kinh tế thế giới thu hẹp -4,4% năm 2020 sau khi đã tăng trưởng 2,8% năm 2019 (IMF, 2020).</p>
+
+<p>Bên cạnh đại dịch toàn cầu, còn có những thay đổi tinh tế hơn đang liên tục nổi lên — đó là sự trỗi dậy của các hệ thống sản phẩm IoT đang biến đổi các thị trường đã được thiết lập. Tony Shakib, Lãnh đạo Gia tốc Kinh doanh IoT Toàn cầu tại Microsoft Azure, nhận xét: <em>"Dần dần chúng ta đang chuyển từ giai đoạn thử nghiệm sang chấp nhận đại trà... Khi bạn bắt đầu kết nối các thiết bị và sử dụng dữ liệu một cách thông minh, lượng đổi mới bạn có thể làm trở nên theo cấp số nhân."</em> (IoT Business News, 2020). IoT không phân biệt bất kỳ tổ chức nào, bất kể chuyên môn, uy tín và di sản.</p>
+
+<p>Song song với IoT, sự xuất hiện của nền kinh tế tuần hoàn không nên bị bỏ qua. Kể từ cuộc Cách mạng Công nghiệp vào thế kỷ 18, các công ty và khách hàng của họ đã theo một con đường tiêu thụ tuyến tính từ khai thác và sản xuất, qua thương mại hoá và sử dụng, đến loại bỏ bởi người dùng — mô hình 'take-make-dispose'. Vào ngày 4/3/2019, Uỷ ban Châu Âu đã thông qua Kế hoạch Hành động Kinh tế Tuần hoàn toàn diện (EU, 2019). Năm 2012, người châu Âu trung bình sử dụng 16 tấn vật liệu — và chỉ 40% được tái chế hoặc tái sử dụng; chỉ 5% giá trị vật liệu được phục hồi qua tái chế và thu hồi năng lượng dựa trên chất thải (McKinsey, 2016).</p>
+
+<p>Do tác động môi trường có hại của chất thải dư thừa và việc sử dụng quá mức các vật liệu không phân huỷ sinh học, có một tập hợp người tiêu dùng ngày càng tăng đang suy nghĩ nhiều hơn về đạo đức liên quan đến biến đổi khí hậu. Năm 2018, Quỹ Ellen MacArthur thông báo tại Diễn đàn Kinh tế Thế giới ở Davos rằng danh sách các thương hiệu, nhà bán lẻ và công ty đóng gói hàng đầu cam kết sử dụng bao bì 100% có thể tái sử dụng, tái chế hoặc phân huỷ sinh học vào năm 2025 hoặc sớm hơn đã tăng lên 11 — bao gồm Amcor, Ecover, Evian, L'Oréal, Mars, M&amp;S, PepsiCo, Coca-Cola, Unilever, Walmart và Werner &amp; Mertz (Ellen MacArthur Foundation, 2018). Trong kỷ nguyên bất ổn, nhu cầu thay đổi là một mệnh lệnh tổ chức.</p>
+
+<hr>
+
+<h2>4.4 Quản lý Thay đổi Tổ chức</h2>
+
+<p>Đã thừa nhận sự cần thiết của thay đổi, có nhiều chiến lược mà tổ chức có thể áp dụng để thực hiện thay đổi có ý nghĩa trong công ty. Balogun và Hope Hailey (2004) báo cáo tỷ lệ thất bại khoảng 70% đối với tất cả các chương trình thay đổi được khởi động. Về bản chất, quản lý thay đổi là việc triển khai hiệu quả một kế hoạch hoạt động và các công cụ liên quan được phác thảo rõ ràng để dẫn dắt khía cạnh con người của thay đổi trong việc theo đuổi các mục tiêu doanh nghiệp. Ba mô hình quản lý thay đổi phổ biến và được sử dụng rộng rãi bao gồm:</p>
+
+<ul class="content-list">
+  <li>Mô hình Quản lý Thay đổi của Kurt Lewin</li>
+  <li>Mô hình Thay đổi 8 Bước của Kotter</li>
+  <li>Mô hình McKinsey 7-S</li>
+</ul>
+
+<h3>Mô hình Quản lý Thay đổi của Kurt Lewin</h3>
+
+<p>Kurt Lewin là nhà tâm lý học người Mỹ gốc Đức, người đầu tiên giới thiệu mô hình 'Thay đổi Ba Bước' vào năm 1947, gồm ba lĩnh vực hoạt động riêng biệt: (1) Giải đông, (2) Thay đổi, (3) Tái đông (Lewin, 1947). Mặc dù đơn giản về bản chất, nó vẫn phù hợp như khi được đề xuất lần đầu. Ba giai đoạn đơn giản có thể được phát triển chi tiết hơn dựa trên bối cảnh tổ chức cụ thể.</p>
+
+<ul class="content-list">
+  <li><em class="term">Giải đông (Unfreezing)</em>: Giai đoạn đầu tiên và có lẽ quan trọng nhất. Ở đây, việc chuẩn bị cho thay đổi được giới thiệu đến bộ phận/tổ chức và — quan trọng nhất — đến những nhân viên sẽ tham gia tích cực vào quá trình này. Lewin thừa nhận rằng sự kháng cự thay đổi là không thể tránh khỏi, vì vậy để thay đổi có hiệu quả cần thay thế các hành vi và thái độ tổ chức — đây là 'phân tích trường lực' (force field analysis). Các hành động trong giai đoạn giải đông có thể bao gồm: xác định những gì cần thay đổi; đảm bảo sự đồng thuận từ ban quản lý cấp cao/hội đồng quản trị; và tạo ra nhu cầu thay đổi.</li>
+  <li><em class="term">Thay đổi (Changing)</em>: Đây là nơi quá trình chuyển đổi xảy ra và việc triển khai thay đổi tế nhị bắt đầu. Trong quá trình chuyển đổi, nhân viên có thể kháng cự thay đổi, vì vậy giao tiếp rõ ràng và khả năng lãnh đạo là các yếu tố quan trọng. Hơn nữa, việc khuyến khích nhân viên tham gia vào quá trình thực hiện thay đổi là điều sống còn.</li>
+  <li><em class="term">Tái đông (Re-freezing)</em>: Giai đoạn thứ ba và cuối cùng là thiết lập và nhúng trật tự mới đạt được thông qua quá trình thay đổi. Điều quan trọng ở đây là tạo ra một văn hoá mới nuôi dưỡng và hỗ trợ các quy trình và hệ thống mới. Ngoài ra, cần có các cơ chế để hỗ trợ thay đổi lâu dài; nếu không, các thực tiễn và tư duy cũ rất dễ quay trở lại văn hoá trước thay đổi.</li>
+</ul>
+
+<div class="diagram">
+  <div class="diagram-title">Hình 4.1 — Mô hình Quản lý Thay đổi của Kurt Lewin</div>
+  <div class="diagram-row" style="justify-content: center; margin-top:8px;">
+    <div style="text-align:center;">
+      <div class="diagram-node" style="min-width:120px; padding:14px 16px;">
+        <div style="font-size:15px; font-weight:700;">Giải đông</div>
+        <div style="font-size:11px; color:var(--text-muted); margin-top:4px; font-weight:400;">Đảm bảo nhân viên<br>sẵn sàng cho thay đổi</div>
+      </div>
+    </div>
+    <div class="diagram-arrow" style="font-size:24px;">→</div>
+    <div style="text-align:center;">
+      <div class="diagram-node" style="min-width:120px; padding:14px 16px; background:var(--surface);">
+        <div style="font-size:15px; font-weight:700;">Thay đổi</div>
+        <div style="font-size:11px; color:var(--text-muted); margin-top:4px; font-weight:400;">Thực hiện<br>thay đổi dự định</div>
+      </div>
+    </div>
+    <div class="diagram-arrow" style="font-size:24px;">→</div>
+    <div style="text-align:center;">
+      <div class="diagram-node" style="min-width:120px; padding:14px 16px;">
+        <div style="font-size:15px; font-weight:700;">Tái đông</div>
+        <div style="font-size:11px; color:var(--text-muted); margin-top:4px; font-weight:400;">Đảm bảo thay đổi<br>trở nên lâu dài</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="fig-caption">Fig. 4.1 — Mô hình quản lý thay đổi của Kurt Lewin (adapted by authors)</p>
+
+<h3>Mô hình Thay đổi 8 Bước của Kotter (1995)</h3>
+
+<p>Kotter là Giáo sư Danh dự Konosuke Matsushita về Lãnh đạo tại Trường Kinh doanh Harvard, Mỹ. Điều phân biệt mô hình của ông với các mô hình thay đổi khác là nhấn mạnh vào ban quản lý cấp cao chỉ đạo thay đổi (thay vì góc độ nhân viên), và đặt trọng tâm lớn vào tốc độ triển khai. Tám thành phần của mô hình bao gồm:</p>
+
+<div class="staircase">
+  <div class="stair-step">
+    <span class="stair-num">1</span>
+    <div class="stair-bar" style="width: 30%;"><strong>Tạo Sự Cấp Bách</strong> — Xác định mạnh mẽ nhu cầu thay đổi (thị trường, cạnh tranh, công nghệ)</div>
+  </div>
+  <div class="stair-step">
+    <span class="stair-num">2</span>
+    <div class="stair-bar" style="width: 40%;"><strong>Hình thành Liên minh Mạnh mẽ</strong> — Các nhà quản lý/lãnh đạo cấp cao kết hợp để thúc đẩy động lực thay đổi</div>
+  </div>
+  <div class="stair-step">
+    <span class="stair-num">3</span>
+    <div class="stair-bar" style="width: 50%;"><strong>Tạo Tầm nhìn Thay đổi</strong> — Xây dựng tầm nhìn thuyết phục cho tổ chức sau thay đổi</div>
+  </div>
+  <div class="stair-step">
+    <span class="stair-num">4</span>
+    <div class="stair-bar" style="width: 60%;"><strong>Truyền đạt Tầm nhìn</strong> — Tích hợp tầm nhìn mới vào hoạt động của mọi cá nhân (lặp lại, giải thích, nhiều diễn đàn, lãnh đạo bằng gương mẫu)</div>
+  </div>
+  <div class="stair-step">
+    <span class="stair-num">5</span>
+    <div class="stair-bar" style="width: 70%;"><strong>Loại bỏ Rào cản</strong> — Xác định những người kháng cự và làm việc để giải quyết lo ngại của họ</div>
+  </div>
+  <div class="stair-step">
+    <span class="stair-num">6</span>
+    <div class="stair-bar" style="width: 80%;"><strong>Tạo Thắng lợi Ngắn hạn</strong> — Các mục tiêu đạt được trong ngắn hạn duy trì động lực và xây dựng tinh thần</div>
+  </div>
+  <div class="stair-step">
+    <span class="stair-num">7</span>
+    <div class="stair-bar" style="width: 90%;"><strong>Củng cố Thay đổi</strong> — Vượt ra ngoài những thành công ban đầu, đặt ra mục tiêu tham vọng hơn</div>
+  </div>
+  <div class="stair-step">
+    <span class="stair-num">8</span>
+    <div class="stair-bar" style="width: 100%;"><strong>Neo giữ Thay đổi trong Văn hoá Doanh nghiệp</strong> — Thể chế hoá hành vi, quy trình và thói quen mới phản ánh thay đổi</div>
+  </div>
+</div>
+<p class="fig-caption">Fig. 4.2 — Mô hình thay đổi 8 bước của Kotter (adapted by authors)</p>
+
+<h3>Mô hình McKinsey 7-S</h3>
+
+<p>Được thiết kế vào những năm 1970 bởi Tom Peters và Robert H. Waterman — các cựu tư vấn tại McKinsey and Company. Về bản chất, khung này cung cấp sự hiểu biết toàn diện về cách các tổ chức hoạt động và cho phép các yếu tố khác nhau liên kết để thúc đẩy chuyển đổi chiến lược — tóm lại là 'Thay đổi'. Mặc dù đã hơn 30 năm kể từ khi mô hình được phát triển, nó vẫn phù hợp như khi ra đời vào cuối những năm 1970. Tất cả bảy yếu tố của mô hình phải được giải quyết đồng đều, vì sự thanh lịch của mô hình là nó cần được hiểu và áp dụng trên cả bảy lĩnh vực liên quan ['cứng' hoặc 'mềm'].</p>
+
+<div class="seven-s-grid">
+  <div class="seven-s-item">
+    <span class="s-label">Strategy</span>
+    <span class="s-desc">Chiến lược đối phó với lực lượng thị trường bên ngoài</span>
+  </div>
+  <div class="seven-s-item">
+    <span class="s-label">Structure</span>
+    <span class="s-desc">Cấu trúc quản lý (phân cấp/phẳng), tuyến báo cáo, thẩm quyền</span>
+  </div>
+  <div class="seven-s-item">
+    <span class="s-label">Systems</span>
+    <span class="s-desc">Các yếu tố vận hành; thủ tục và quy trình</span>
+  </div>
+  <div class="seven-s-item">
+    <span class="s-label">Skills</span>
+    <span class="s-desc">Kỹ năng, thiếu hụt kỹ năng và năng lực để đạt chiến lược</span>
+  </div>
+  <div class="seven-s-item center">
+    <span class="s-label">Shared Values</span>
+    <span class="s-desc">Trọng tâm trung tâm — sứ mệnh, niềm tin, giá trị cốt lõi</span>
+  </div>
+  <div class="seven-s-item">
+    <span class="s-label">Staff</span>
+    <span class="s-desc">Nhân viên, năng lực, số lượng và sự đa dạng cần thiết</span>
+  </div>
+  <div class="seven-s-item" style="grid-column: 1 / -1; max-width: 33%; margin: 0 auto;">
+    <span class="s-label">Style</span>
+    <span class="s-desc">Phong cách lãnh đạo; định hình thái độ, hành vi và giá trị</span>
+  </div>
+</div>
+<p class="fig-caption">Fig. 4.3 — Mô hình McKinsey 7-S (adapted by authors). Các Giá trị Chung (Shared Values) là trọng tâm ảnh hưởng đến cả sáu yếu tố còn lại.</p>
+
+<p>Ba mô hình quản lý thay đổi đa dạng này đều có điểm mạnh và điểm yếu riêng tuỳ thuộc vào nơi và cách chúng được sử dụng. Đây là những mô hình được sử dụng và hiểu phổ biến nhất, nhưng còn nhiều mô hình khác tồn tại. Chuyển sang hướng thiết kế, chúng ta sẽ tập trung vào cách thiết kế có thể cung cấp một góc nhìn thay thế khi thúc đẩy thay đổi tổ chức.</p>
+
+<hr>
+
+<h2>4.5 Cách Tiếp Cận Thiết Kế cho Thay đổi Tổ chức</h2>
+
+<p>Như đã thảo luận trước đó, các mô hình quản lý thay đổi cổ điển cung cấp một khung cấp cao cho sự thay đổi biến đổi. Tuy nhiên, tư duy thiết kế có thể là một cách tiếp cận vô giá để thúc đẩy thay đổi hành vi và tổ chức. Các lợi ích khác của cách tiếp cận tư duy thiết kế còn bao gồm — phát triển định hướng khách hàng mạnh mẽ và bền vững hơn, ra quyết định tốt hơn và lợi thế cạnh tranh.</p>
+
+<p>Olson et al. (1998) lập luận rằng thiết kế có thể được chuyển đổi thành lợi thế cạnh tranh thông qua việc tạo ra giá trị khách hàng. Dunne (2011) bổ sung: <em>"Các nhà thiết kế tìm cách đồng cảm với người dùng và hiểu cách trải nghiệm sử dụng xuất hiện từ quan điểm của họ."</em> Kumar và Whitney (2007) đồng ý rằng <em>"trong khi làm như vậy, họ hy vọng tạo ra những đổi mới thu hút các nhu cầu chưa được nói đến và có thể trở thành nguồn lợi thế cạnh tranh."</em></p>
+
+<p>Khi thiếu dữ liệu hiện có hoặc không đủ, cách tiếp cận tư duy thiết kế đối với các cơ hội thị trường mới có thể mang lại kết quả đáng kể. Với sự chú trọng mạnh mẽ vào việc nắm bắt thông tin chi tiết về người dùng, tư duy thiết kế cho các bối cảnh kinh doanh mới có thể cung cấp các tiêu chí phong phú hơn cho đổi mới lấy con người làm trung tâm. Đặc biệt, vô số công cụ dân tộc học của thiết kế có thể được áp dụng vào quá trình phát triển ý tưởng.</p>
+
+<p>Nhà lý luận thiết kế Kees Dorst (2015) lập luận: <em>"Đặt khung vấn đề là một trong những thực hành thiết kế chính làm cho phương pháp [tái khung vấn đề] có nhiều khả năng mang lại giải pháp tốt hơn các cách tiếp cận thông thường để giải quyết vấn đề."</em> Liedtka (2018, tr. 16) chỉ ra giá trị của các nhóm không đồng nhất: <em>"Sự đa dạng mang lại dữ liệu và quan điểm mới, cho dù từ khách hàng, đồng nghiệp nội bộ hay mạng lưới bên ngoài, vào quy trình có khả năng tạo ra những hiểu biết và giải pháp mới, thường bằng cách gây ra việc tái lập vấn đề ban đầu."</em></p>
+
+<p>Đáng chú ý, Viện Quản lý Thiết kế (DMI, 2014) đã xác định rằng các công ty 'được dẫn dắt bởi thiết kế' vượt trội hơn các công ty khác 228% trên chỉ số Standard and Poor's 500. Phương châm thường được trích dẫn "thất bại nhanh hơn, thành công sớm hơn" của nhà sáng lập IDEO David Kelley nhắc nhở rằng để thực sự đổi mới, ở một thời điểm nào đó sẽ không thể tránh khỏi những thất bại. Richard Buchanan (2015), một trong những tiếng nói có thẩm quyền nhất ủng hộ thiết kế cho thay đổi tổ chức, đã phát biểu:</p>
+
+<blockquote>
+  Nguyên tắc thiết kế đứng sau phong trào cải cách văn hoá tổ chức, trong đó tư duy thiết kế là trung tâm, được dựa trên chất lượng trải nghiệm cho tất cả những người được phục vụ bởi tổ chức. Điều này bao gồm những cá nhân trực tiếp sử dụng sản phẩm và dịch vụ của tổ chức, nhưng cũng bao gồm những người bị ảnh hưởng bởi các hoạt động nội bộ và bên ngoài của tổ chức và bởi những người trong xã hội rộng lớn hơn, những người cuối cùng bị ảnh hưởng bởi tầm nhìn và chiến lược của tổ chức.
+</blockquote>
+
+<h3>Mô hình 4 Cấp độ Thiết kế của Buchanan</h3>
+
+<p>Buchanan (2001) đề xuất mô hình '4 Cấp độ Thiết kế' định vị loại sản phẩm và lĩnh vực ảnh hưởng và độ phức tạp của chúng. Các ngành thiết kế truyền thống 'lỏng lẻo' nằm trong mỗi cấp độ trong bốn cấp độ, chứng minh sự phát triển ngày càng tăng của thiết kế như một lĩnh vực hoạt động mới nổi.</p>
+
+<div class="orders-diagram">
+  <div class="orders-axis">
+    <span>← Artifact</span>
+    <span>Experiences</span>
+    <span>Transformations →</span>
+  </div>
+  <div class="orders-row">
+    <div class="orders-cell">
+      <div class="order-name">Cấp 1<br>Ký hiệu &amp; Biểu tượng</div>
+      <div class="order-ex">Thiết kế 2D: logo, ký hiệu, in ấn, nhiếp ảnh, đồ hoạ</div>
+    </div>
+    <div class="orders-cell">
+      <div class="order-name">Cấp 2<br>Đồ vật &amp; Tạo tác</div>
+      <div class="order-ex">Thiết kế 3D: sản phẩm, kỹ thuật, kiến trúc</div>
+    </div>
+    <div class="orders-cell">
+      <div class="order-name">Cấp 3<br>Tương tác &amp; Trải nghiệm</div>
+      <div class="order-ex">Thiết kế 4D: dịch vụ, trải nghiệm (định hướng thời gian &amp; chuyển động)</div>
+    </div>
+    <div class="orders-cell" style="border: 2px solid var(--text); background: var(--surface);">
+      <div class="order-name">Cấp 4<br>Môi trường &amp; Hệ thống</div>
+      <div class="order-ex">Phức tạp nhất: kiến trúc đô thị, thiết kế tổ chức, kiến trúc hệ thống</div>
+    </div>
+  </div>
+  <div class="orders-complexity">
+    <span>◄ Độ phức tạp thấp · vấn đề rời rạc</span>
+    <span>Độ phức tạp cao · vấn đề toàn diện/kết nối mạng ►</span>
+  </div>
+</div>
+<p class="fig-caption">Fig. 4.4 — Mô hình 4 cấp độ thiết kế của Richard Buchanan (adapted by authors)</p>
+
+<p>Chú ý đến cấp độ thiết kế thứ tư — đây là diễn ngôn về thiết kế để thực hiện thay đổi trong văn hoá, hệ thống và năng lực, với thiết kế tổ chức/kinh doanh là trung tâm của quá trình này. Chúng ta hiện đang chứng kiến nhiều tổ chức đa quốc gia hàng đầu (IBM là một ví dụ điển hình) đang triển khai triệt để thay đổi văn hoá với thiết kế làm cốt lõi. Sự lãnh đạo và hỗ trợ mạnh mẽ từ cấp cao nhất của tổ chức đang dịch chuyển tư duy tổ chức khỏi phương pháp quản lý và kiểm soát truyền thống, giờ đây giới thiệu năng lực thiết kế vào môi trường tổ chức rộng lớn hơn.</p>
+
+<p>Jenkins (2008) lập luận: <em>"Trên thực tế, người lãnh đạo thiết kế phải sẵn sàng coi chính tổ chức là đối tượng của thiết kế, không chỉ là một sản phẩm hoặc quy trình cụ thể. Điều này có nghĩa là cả hai: tích cực làm việc để định hình lại các giá trị văn hoá nền tảng mà tổ chức dựa vào, và sẵn sàng thách thức và xây dựng lại một số hệ thống tổ chức và quy trình doanh nghiệp lớn."</em></p>
+
+<p>Dựa trên kinh nghiệm tư vấn ngành sâu rộng của mình, Jenkins (ibid.) đề xuất một kế hoạch bảy điểm trong việc triển khai phương pháp thiết kế để thúc đẩy thay đổi văn hoá trong tổ chức:</p>
+
+<ol class="content-list">
+  <li><strong>Chọn lọc trong việc lựa chọn tổ chức để hợp tác</strong> — đặt ra kỳ vọng thực tế về cách thiết kế có thể phù hợp trong văn hoá tổ chức tổng thể. Xác định với nhóm quản lý cấp cao nơi có thể xảy ra trở ngại trong các quy trình và hệ thống hiện có, và xác định cách thiết kế có thể thay đổi các phần của hệ sinh thái rộng lớn hơn. Thách thức cốt lõi ở đây là 'sự liên kết văn hoá'.</li>
+  <li><strong>Làm việc với các lãnh đạo cấp cao để xây dựng ý định mạnh mẽ và văn hoá thiết kế nhúng sâu</strong> — chuyển đổi văn hoá đòi hỏi cam kết vững chắc từ chính đỉnh cao của tổ chức để thực sự hiệu quả. Jenkins bổ sung: <em>"Họ phải thể hiện được nhận thức mạnh mẽ về nơi và cách sử dụng thiết kế, sử dụng ngôn ngữ chung về các quy trình thiết kế, và đặt những câu hỏi hay phản ánh sự quen thuộc của họ với tư duy thiết kế."</em></li>
+  <li><strong>Là người tư duy hệ thống</strong> — phân tách tổ chức thành một loạt các tiểu hệ thống, sau đó xác định những cách hiệu quả nhất để thay đổi các bộ phận thành phần liên quan đó. Mỗi yếu tố có thể đặt ra thách thức riêng, và do đó, các chiến lược và phương pháp luận khác nhau có thể cần được rút ra từ kho lưu trữ công cụ tư duy thiết kế.</li>
+  <li><strong>Tập trung vào các tương tác của con người và các quy trình xã hội</strong> — để tạo ra một môi trường làm việc nuôi dưỡng và khuyến khích các tương tác có ý nghĩa giữa người với người trong cả các cài đặt chính thức và không chính thức. Hơn nữa, với việc loại bỏ các rào cản quan liêu, có thể phân bổ nhiều thời gian hơn cho các hoạt động sáng tạo dẫn đến ý tưởng đổi mới.</li>
+  <li><strong>Thực hiện kỷ luật có định hướng tốt khi triển khai các quy trình mới</strong> — đảm bảo cam kết với thay đổi được duy trì và các quy trình, hành vi cũ bị ngăn chặn. Một cách tiếp cận là triển khai chiến lược tham gia tôn vinh lợi ích của quá trình quản lý thay đổi và nơi thiết kế là một phần cơ bản của sự thành công tổng thể của nó.</li>
+  <li><strong>Loại bỏ các 'con bò linh thiêng'</strong> — thực hiện việc xem xét cơ bản các khía cạnh then chốt của công ty, dù là các quy trình đã được thiết lập, hệ thống và quan điểm chính thống, và đặt câu hỏi về sự phù hợp của chúng trong văn hoá tổ chức mới. Điều này thể hiện cam kết thay đổi và sẽ cần hỗ trợ có thẩm quyền để thể hiện ý định chiến lược.</li>
+  <li><strong>Giúp tổ chức học hỏi nhiều hơn về chính mình từ kinh nghiệm</strong> — cuối cùng, để khuyến khích sự phản ánh và tự học xem xét những gì đã hiệu quả và nơi gặp phải sự kháng cự. Quá trình phản ánh này nên được coi là một quy trình học hỏi và tinh chỉnh liên tục, nền tảng cho văn hoá tổ chức mới.</li>
+</ol>
+
+<div class="summary-box">
+  <div class="box-label">Tóm tắt Chương</div>
+  <p>Với sự gia tăng của bất ổn và những thách thức mới liên tục, các tổ chức bắt đầu nhận ra rằng các giải pháp cũ được đưa ra bởi các nhà tư vấn quản lý không còn đủ để duy trì tính cạnh tranh. Trong nền kinh tế thị trường mới, nơi người tiêu dùng nắm giữ sức mua đáng kể, việc tạo ra giá trị có ý nghĩa là tiền đề của các hoạt động kinh doanh, và các doanh nghiệp đang hướng đến nghề thiết kế với các kỹ năng tư duy thiết kế để thúc đẩy thay đổi biến đổi.</p>
+  <p>Chương này đã giới thiệu các lực lượng đa dạng tác động lên tổ chức — đặc biệt là Covid-19 và sự tàn phá tài chính trong hậu quả của nó; không chỉ đối với tổ chức mà còn đối với cá nhân và xã hội nói chung. Những thời điểm hỗn loạn và bất ổn đang đặt ra những yêu cầu thách thức mới về cách chúng ta hành động, suy nghĩ và tổ chức cuộc sống hàng ngày — điều này không khác gì đối với tổ chức, bất kể quy mô và lĩnh vực hoạt động.</p>
+  <p>Chương tiếp theo sau đó cung cấp một loạt hiểu biết về các loại cấu trúc tổ chức đa dạng mà chúng ta thấy ngày nay. Mỗi loại cấu trúc được thông báo bởi ngành mà công ty hoạt động, thể hiện những cách phong phú và đa dạng mà doanh nghiệp định hình bản thân để duy trì tính cạnh tranh. Những cấu trúc này có điểm mạnh và điểm yếu vốn có, định hình văn hoá và giá trị của chúng.</p>
+  <p>Trong hành trình tìm kiếm lợi nhuận và tồn tại lâu dài, thường cần thiết phải bắt đầu thay đổi biến đổi. Ba mô hình quản lý thay đổi phổ biến (Lewin, Kotter, McKinsey) đã được phân tích phê bình về hiệu quả và khả năng áp dụng của chúng. Cuối cùng, chương kết thúc bằng việc giới thiệu thiết kế như một công cụ mạnh mẽ để thực hiện thay đổi biến đổi — hay như Buchanan lập luận, cấp độ thiết kế thứ tư như một phương tiện mới và thay thế để thúc đẩy thay đổi văn hoá có ý nghĩa trong tổ chức. Chương tiếp theo sẽ tập trung chi tiết hơn về cách các công ty riêng lẻ đã đạt được lợi thế cạnh tranh đáng kể được cung cấp bởi thiết kế.</p>
+</div>
+
+<div class="review-box">
+  <div class="box-label">Câu hỏi Ôn tập</div>
+  <ol>
+    <li>Các thảm hoạ toàn cầu và khủng hoảng môi trường đặt ra nhiều thách thức cho tổ chức. Bạn có thể xác định một ví dụ đáng chú ý và mô tả cách nó ảnh hưởng đến tổ chức không?</li>
+    <li>Xác định và tranh luận phê bình về một chủ đề mới nổi đặt ra những thách thức đáng kể cho sự tồn tại lâu dài của các tổ chức lớn và phức tạp.</li>
+    <li>Chọn một cấu trúc tổ chức mà bạn cho là phù hợp nhất với lĩnh vực công nghiệp của nó; những yếu tố nào làm cho nó độc đáo với bối cảnh ngành cụ thể đó?</li>
+    <li>Những mô hình quản lý thay đổi nào khác bạn có thể xác định sẽ đặc biệt phù hợp với các tổ chức phi lợi nhuận trái ngược với các doanh nghiệp định hướng thương mại?</li>
+    <li>Julian Jenkins (2008) phác thảo một kế hoạch bảy điểm để thúc đẩy thay đổi bằng thiết kế trong tổ chức; bạn sẽ thêm những điểm nào khác có thể củng cố thêm thay đổi văn hoá?</li>
+  </ol>
+</div>
+
+<div class="review-box" style="margin-top:16px;">
+  <div class="box-label">Câu hỏi Dự án</div>
+  <ol>
+    <li>Các thách thức toàn cầu bao gồm rất nhiều chủ đề; xác định và phân tích phê bình một thách thức như vậy nơi thiết kế có thể đóng vai trò quan trọng.</li>
+    <li>Liệt kê năm tổ chức hàng đầu đã thất bại trong việc theo kịp bối cảnh người tiêu dùng thay đổi. Những yếu tố nào đã góp phần vào sự sụp đổ không thể tránh khỏi của họ?</li>
+    <li>Với sự trỗi dậy của làm việc tại nhà, xác định hai thách thức đáng kể cho tổ chức liên quan đến các hoạt động nhóm mà sáng tạo là nền tảng.</li>
+    <li>Nhiều tổ chức ngần ngại đầu tư vào thiết kế (theo nghĩa rộng nhất của nó); tạo một kế hoạch tổng hợp mười điểm giả định nêu bật lợi ích của thiết kế để thuyết phục CEO.</li>
+    <li>Xác định một ví dụ được công nhận rộng rãi về một tổ chức lớn áp dụng cách tiếp cận tư duy thiết kế để thúc đẩy thay đổi biến đổi; phác thảo những khía cạnh then chốt của cách tiếp cận này là cơ bản cho sự thành công của nó.</li>
+  </ol>
+</div>
+
+<div class="review-box" style="margin-top:16px;">
+  <div class="box-label">Nhiệm vụ Chương</div>
+  <ol>
+    <li>Ngành hàng không đã đặc biệt bị ảnh hưởng bởi đại dịch Covid-19 toàn cầu; xác định 3 lĩnh vực hoạt động đã bị gián đoạn đáng kể; bạn sẽ đưa ra những khuyến nghị nào để giảm thiểu những rủi ro này trong tương lai?</li>
+    <li>Trong 60 phút, liệt kê càng nhiều lợi thế của một doanh nghiệp khởi nghiệp kỹ thuật số có khả năng thách thức sự thống trị của một tổ chức hàng đầu trong lĩnh vực thị trường đã được thiết lập của nó.</li>
+    <li>Bạn có cơ hội trình bày với CEO công ty bạn về lợi ích của thiết kế; hãy chuẩn bị bài phát biểu 5 phút nêu rõ nơi thiết kế cụ thể có thể thêm giá trị cho khách hàng.</li>
+    <li>Xác định một tổ chức hàng đầu và sau đó tạo ra một phân tích SWOT đơn giản về lý do tại sao họ nên thực hiện một dự án quản lý thay đổi.</li>
+    <li>Trong một môi trường nhóm, bạn có mười phút để xếp hạng các kỹ thuật tư duy thiết kế được sử dụng phổ biến nhất trong kinh doanh; xếp hạng chúng theo tầm quan trọng trên một tờ giấy A4 để thảo luận trong nhóm của bạn.</li>
+  </ol>
+</div>
+
+<hr>
+
+<h2>Tài liệu Tham khảo</h2>
+
+<div class="references-list">
+  <p>Anderson, J., Rainie, L., &amp; Vogels, E. (2021). <em>Experts Say the 'New Normal' in 2025 Will Be Far More Tech-Driven, Presenting More Big Challenges</em>. [Online]. Pew Research Center. Retrieved March 05, 2021, from https://www.pewresearch.org/internet/2021/02/18/experts-say-the-new-normal-in-2025-will-be-far-more-tech-driven-presenting-more-big-challenges/</p>
+  <p>Aronowitz, S., Smet De, A., &amp; McGinty, D. (2015, June). Getting Reorganisation Redesign Right. <em>McKinsey Quarterly</em>. McKinsey.com</p>
+  <p>Balogun, J., &amp; Hope Hailey, V. (2004). <em>Exploring Strategic Change</em>. Prentice Hall.</p>
+  <p>Bolin, M., &amp; Härenstam, A. (2008). An Empirical Study of Bureaucratic and Post-Bureaucratic Characteristics in 90 Workplaces. <em>Economic and Industrial Democracy</em>, <em>29</em>(4), 541–564.</p>
+  <p>Buchanan, R. (2001, Autumn). Design Research and the New Learning. <em>Design Issues</em>, <em>17</em>(4), 3–23.</p>
+  <p>Buchanan, R. (2015, Autumn). Worlds in the Making: Design, Management, and the Reform of Organizational Culture. <em>She Ji: The Journal of Design, Economics, and Innovation</em>, <em>1</em>(1), 5–21.</p>
+  <p>Burnes, B. (2004). <em>Managing Change: A Strategic Approach to Organisational Dynamics</em>. Prentice Hall.</p>
+  <p>Carrier, C. (1996). Intrapreneurship in Small Businesses: An Exploratory Study. <em>Entrepreneurship: Theory &amp; Practice</em>, <em>21</em>(1), 5–21.</p>
+  <p>Carrillo, J. D., &amp; Gromb, D. (October 2007). Cultural Inertia and Uniformity in Organizations. <em>Journal of Law, Economics, &amp; Organization</em>, <em>23</em>(3), 743–771.</p>
+  <p>Cassidy, F. (2019). The Big Challenges Facing UK Retailers in 2019. [Online]. <em>Raconteur</em>. Retrieved March 4, 2021.</p>
+  <p>Churchill, N., &amp; Lewis, V. (1983). The Five Stages of Small Business Growth. <em>Harvard Business Review</em>. Retrieved March 4, 2021.</p>
+  <p>DMI. (2014). Design-Driven Companies Outperform S&amp;P By 228% Over Ten Years. <em>The 'DMI Design Value Index'</em>. Retrieved March 23, 2021.</p>
+  <p>Dorst, K. (2015). <em>Frame Innovation: Create New Thinking by Design</em>. MIT Press.</p>
+  <p>Dunne, D. (2011). User-Centred Design and Design-Centred Business Schools. In R. Cooper, S. Junginger, &amp; T. Lockwood (Eds.), <em>The Handbook of Design Management</em>. Berg.</p>
+  <p>Ellen MacArthur Foundation. (2018). <em>Eleven Companies Take Major Step Towards a New Plastics Economy</em>. [Online]. Retrieved March 9, 2021.</p>
+  <p>European Union. (2019). <em>First Circular Economy Action Plan</em>. [Online]. Retrieved March 8, 2021.</p>
+  <p>Ghobadian, A., &amp; Gallear, D. (1997). TQM and Organisation Size. <em>International Journal of Operations and Production Management</em>, <em>17</em>(2), 121–163.</p>
+  <p>IMF. (2020). A Long and Difficult Ascent. In <em>World Economic Outlook</em> (pp. 141–142). International Monetary Fund, October. Imf.org.</p>
+  <p>IoT Business News. (2020). Limitless Possibilities: Delivering Disruption with IoT. [Online]. Retrieved March 8, 2021.</p>
+  <p>Jenkins, J. (2008). Creating the Right Environment for Design. <em>Design Management Review</em>, <em>19</em>(3), 16–22.</p>
+  <p>Kotter, J. (1996). <em>Leading Change</em>. Harvard Business School Press.</p>
+  <p>Kumar, V., &amp; Whitney, P. (2007). Daily Life, Not Markets: Customer-Centred Design. <em>Journal of Business Strategy</em>, <em>28</em>(4), 46–58.</p>
+  <p>Lewin, K. (1947). Frontiers in Group Dynamics: Concept, Method and Reality in Social Science. <em>Human Relations</em>, <em>1</em>(1), 5–41.</p>
+  <p>Liedtka, J. (2018). <em>Exploring the Impact of Design Thinking in Action</em>. Darden Working Paper Series, University of Virginia.</p>
+  <p>McKinsey. (2016). <em>The Circular Economy: Moving from Theory to Practice</em>. McKinsey Center for Business and Environment — Special edition, October.</p>
+  <p>Morgan, G. (1988). <em>Images of Organisation</em>. Sage Publications.</p>
+  <p>Oertig, M., &amp; Buergi, T. (2006). The Challenges of Managing Cross-cultural Virtual Project Teams. <em>Team Performance Management</em>, <em>12</em>(1/2), 23–30.</p>
+  <p>Olson, E. M., Cooper, R., &amp; Slater, S. F. (1998). Design Strategy and Competitive Advantage. <em>Business Horizons</em>, <em>41</em>(2), 55–61.</p>
+  <p>Robbins, S. P., &amp; Barnwell, N. (2002). <em>Organisation Theory: Concepts and Cases</em>. Pearson Education Australia.</p>
+  <p>Seetharaman, P. (2020). 'Business Models Shifts: Impact of Covid-19'. Opinion Paper. <em>International Journal of Information Management</em>, <em>54</em>, 102173.</p>
+  <p>Stringer, R. (2000). How to Manage Radical Innovation. <em>California Management Review</em>, <em>42</em>(4), 70–88.</p>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch3-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 3: Crossing Boundaries: Design into Business and Management</a>
+  <a href="ch5-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 5: Tư Duy Kinh Doanh Qua Thiết Kế</a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 2 — Evolution of the Relationship Between Design and Business Activities</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f7f7f7;
+      --border: #e0e0e0;
+      --border-strong: #999;
+      --text: #1a1a1a;
+      --text-muted: #555;
+      --accent: #1a1a1a;
+      --rule: #ccc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.8;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 32px 100px;
+    }
+
+    /* ── HEADER ── */
+    .book-meta {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chapter-number {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .chapter-authors {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      margin-bottom: 40px;
+    }
+
+    /* ── SECTION HEADINGS ── */
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-top: 56px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--text);
+    }
+
+    h3 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 32px;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    /* ── BODY TEXT ── */
+    p {
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    p + p { text-indent: 1.5em; }
+    p:first-of-type { text-indent: 0; }
+
+    /* ── INFOBOX (sidebar boxes in original) ── */
+    .infobox {
+      background: var(--surface);
+      border-left: 3px solid var(--text);
+      padding: 20px 24px;
+      margin: 28px 0;
+      font-size: 15.5px;
+      line-height: 1.7;
+    }
+
+    .infobox-title {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    /* ── LEARNING OBJECTIVES ── */
+    .objectives-box {
+      border: 1px solid var(--border-strong);
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+
+    .objectives-box .box-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      color: var(--text-muted);
+    }
+
+    .objectives-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .objectives-box ul li {
+      padding-left: 1.2em;
+      position: relative;
+      margin-bottom: 8px;
+      font-size: 15.5px;
+      line-height: 1.65;
+    }
+
+    .objectives-box ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    /* ── NUMBERED LIST ── */
+    ol.content-list {
+      padding-left: 1.5em;
+      margin: 16px 0 20px;
+    }
+
+    ol.content-list li {
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+    /* ── BULLET LIST ── */
+    ul.content-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 20px;
+    }
+
+    ul.content-list li {
+      padding-left: 1.4em;
+      position: relative;
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    ul.content-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      font-size: 1.4em;
+      line-height: 1.2;
+      color: var(--text-muted);
+    }
+
+    /* ── BLOCKQUOTE ── */
+    blockquote {
+      border-left: 2px solid var(--border-strong);
+      margin: 20px 0;
+      padding: 12px 20px;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── FIGURE CAPTION ── */
+    .fig-caption {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    /* ── DIAGRAM (text-based) ── */
+    .diagram {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin: 20px 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .diagram-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .diagram-node {
+      border: 1.5px solid var(--text);
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .diagram-arrow {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    /* ── CHAPTER SUMMARY ── */
+    .summary-box {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      padding: 28px 32px;
+      margin-top: 48px;
+    }
+
+    /* ── REVIEW QUESTIONS ── */
+    .review-box {
+      border: 1px solid var(--border);
+      padding: 24px 28px;
+      margin-top: 32px;
+    }
+
+    .review-box ol {
+      padding-left: 1.4em;
+    }
+
+    .review-box ol li {
+      margin-bottom: 12px;
+      line-height: 1.7;
+      font-size: 15.5px;
+    }
+
+    /* ── CITE ── */
+    cite {
+      font-style: normal;
+      color: var(--text-muted);
+    }
+
+    /* ── DIVIDER ── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 48px 0;
+    }
+
+    /* ── LADDER DIAGRAM ── */
+    .ladder {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 16px 0 20px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    .ladder-step {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .ladder-stage {
+      min-width: 64px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .ladder-label {
+      font-weight: 700;
+    }
+
+    .ladder-desc {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* ── SCROLL TOP ── */
+    @media (max-width: 600px) {
+      body { font-size: 15px; padding: 32px 20px 80px; }
+      h1 { font-size: 1.6rem; }
+      h2 { font-size: 1.2rem; }
+    }
+  
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+  <p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+
+<!-- BOOK META -->
+  <div class="book-meta">
+    Design Thinking for New Business Contexts — Yujia Huang &amp; David Hands &nbsp;·&nbsp; Palgrave Macmillan, 2022
+  </div>
+
+  <!-- CHAPTER HEADER -->
+  <div class="chapter-number">Chapter 2</div>
+  <h1>Evolution of the Relationship Between Design and Business Activities</h1>
+  <div class="chapter-authors">Yujia Huang · David Hands</div>
+
+  <!-- LEARNING OBJECTIVES -->
+  <div class="objectives-box">
+    <div class="box-label">Learning Objectives</div>
+    <ul>
+      <li>Hiểu được sự tiến hoá của khái niệm design thinking từ những nguồn gốc học thuật ban đầu đến các ứng dụng kinh doanh đương đại.</li>
+      <li>Nhận biết những nhân vật tiên phong và những framework đã định hình sự phát triển của design thinking trong bối cảnh kinh doanh.</li>
+      <li>Phân tích vai trò của design thinking như một nguồn lực chiến lược trong các tổ chức lớn và vừa-nhỏ (SMEs).</li>
+      <li>Xem xét vai trò của design như một công cụ kinh doanh mang tính can thiệp và đề xuất thông qua các mô hình quy trình thiết kế đã được thiết lập.</li>
+    </ul>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <h2>2.1 Introduction</h2>
+
+  <p>Một câu hỏi phổ biến mà các nhà thiết kế thường xuyên phải đối mặt là: <em>"design thinking là gì?"</em> — câu hỏi trông có vẻ đơn giản, nhưng thực chất quá rộng và khái quát để có thể đóng gọn trong một câu trả lời ngắn gọn. Design thinking là một thuật ngữ tổng hợp quá rộng lớn, đòi hỏi mức độ xem xét sâu hơn về giá trị và mức độ liên quan của nó trong các bối cảnh ứng dụng khác nhau — dù là trong môi trường thương mại hay khu vực phi lợi nhuận. Thay vì hỏi <em>"design thinking là gì"</em>, các tác giả đề xuất tái định khung câu hỏi thành: <strong>"design thinking hoạt động như thế nào?"</strong> — một cách tiếp cận cho phép một cuộc thảo luận khác biệt và giàu ý nghĩa hơn về giá trị vốn có của nó.</p>
+
+  <p>Nhà lý thuyết thiết kế hàng đầu Richard Buchanan lập luận rằng: <em>"nói chung, design là một lĩnh vực không ngừng tiến hoá và phạm vi sản phẩm hoặc lĩnh vực mà design thinking có thể được áp dụng tiếp tục mở rộng"</em> <cite>(Buchanan, 1995, tr. 25)</cite>. Kể từ cuối những năm 1990, văn liệu về quản lý và thiết kế đã trình bày khái niệm 'design thinking' như một con đường dẫn đến đổi mới và tăng trưởng. Các tổ chức thiết kế và chính sách đổi mới của châu Âu đưa design vào như một cách thức để cải thiện doanh nghiệp, gia tăng giá trị và đạt được lợi thế cạnh tranh.</p>
+
+  <p>Design thinking được định nghĩa rộng rãi là một phương pháp phát triển chiến lược kinh doanh lấy con người làm trung tâm, tập trung vào giải quyết vấn đề, mang tính cộng tác — được định hình bởi cách các nhà thiết kế suy nghĩ và làm việc — bao gồm sự kết hợp giữa tư duy phân kỳ và hội tụ, tạo mẫu nhanh, kiểm tra và lặp lại, kỹ thuật trực quan hoá, và chấp nhận những ràng buộc để khám phá nhu cầu, tìm ra cơ hội mới và tạo ra các giải pháp hiệu quả <cite>(Martin, 2007; Brown, 2009; Lockwood, 2009; Norman, 2013)</cite>.</p>
+
+  <p>Hệ quả là design thinking đã được công nhận như một nguồn lực chiến lược chủ yếu trong các tập đoàn lớn, toàn cầu — phát triển các tổ chức định hướng design như Apple, Google, IBM, Barclays, Samsung và Pepsi. Tuy nhiên, trong các doanh nghiệp vừa và nhỏ (SMEs), khái niệm này vẫn chưa được biết đến rộng rãi và còn tồn tại nhiều rào cản. Mục tiêu của chương này là xác định những khía cạnh cần được xem xét cho việc tích hợp design thinking như một nguồn lực chiến lược trong tổ chức — bao gồm các đặc điểm cụ thể của bối cảnh, cơ hội, thách thức và trở ngại.</p>
+
+  <!-- INFOBOX: Historical Origins -->
+  <div class="infobox">
+    <div class="infobox-title">Nguồn gốc lịch sử của Design Thinking</div>
+    <p>Người ta có thể lập luận rằng nguồn gốc của design thinking có thể được truy nguyên từ nhà kinh tế học và khoa học chính trị người Mỹ <strong>Herbert Simon</strong> và cuốn sách kinh điển <em>The Science of the Artificial</em> (1996), trong đó ông lập luận: <em>"everyone designs who devises courses of action aimed at changing existing situations into preferred ones"</em> (Simon, 1996, tr. 55). Luận điểm này đã tạo ra sự chuyển đổi căn bản trong cách hiểu về design như một hoạt động chuyên nghiệp.</p>
+    <p>Một đương thời đáng chú ý là <strong>Giáo sư Bruce Archer</strong> — người đứng đầu Khoa Nghiên cứu Thiết kế (DDR) tại Royal College of Art cho đến năm 1978 — nhân vật quan trọng trong việc phát triển các nghiên cứu phê phán về thiết kế và mối quan hệ của nó với khoa học.</p>
+    <p><strong>John Christopher Jones</strong> đã thách thức phương pháp thiết kế truyền thống của Archer và vào năm 1970 xuất bản cuốn <em>Design Methods</em> — chuyển trọng tâm từ sản phẩm sang các quy trình và phương pháp dẫn đến sản phẩm.</p>
+    <p>Các tạp chí học thuật nổi bật ra đời trong giai đoạn này: <em>Design Studies</em> (1979), <em>Design Issues</em> (1984), và <em>Journal of Design Management</em> (1990) bởi Design Management Institute tại Bắc Mỹ.</p>
+  </div>
+
+  <!-- INFOBOX: Wicked Problems -->
+  <div class="infobox">
+    <div class="infobox-title">Wicked Problems — Rittel &amp; Webber (1972 / 1973)</div>
+    <p>Năm 1972, Rittel và Webber đưa ra tham luận <em>Dilemmas in a General Theory of Planning</em>, xác định 10 'wicked problems' (vấn đề hóc búa) trong quy hoạch đô thị và thiết kế. Bốn đặc điểm cốt lõi của wicked problems:</p>
+    <ol class="content-list">
+      <li>Không có công thức xác định nào cho một wicked problem.</li>
+      <li>Wicked problems không có quy tắc dừng (no stopping rule).</li>
+      <li>Không có bài kiểm tra tức thì hay cuối cùng cho một giải pháp.</li>
+      <li>Mỗi wicked problem về bản chất là độc nhất.</li>
+    </ol>
+    <p>Richard Buchanan (1992, tr. 5) ghi nhận thêm: <em>"design eludes reduction and remains a surprisingly flexible activity. No single definition of design, or branches of professionalized practice such as industrial or graphic design, adequately covers the diversity of ideas and methods gathered together under the label."</em></p>
+  </div>
+
+  <!-- INFOBOX: Timeline of Design Thinking -->
+  <div class="infobox">
+    <div class="infobox-title">Tiến trình phát triển của thuật ngữ Design Thinking</div>
+    <p>Các công bố trong thập niên 1980 từ các nhà nghiên cứu thiết kế (Rowe, 1987; Schön, 1983) đặt nền tảng học thuật. Design thinking thu hút sự chú ý rộng rãi hơn vào năm 2009 — một phần lớn do những khẳng định của <strong>Tim Brown</strong> (2008) về cách tư duy như một nhà thiết kế có thể chuyển đổi tổ chức và dẫn đến đổi mới. Johansson-Sköldberg et al. (2013) chỉ ra rằng có nhiều định nghĩa khác nhau về 'design thinking' tuỳ theo bối cảnh sử dụng — phân biệt giữa lĩnh vực quản lý và lĩnh vực thiết kế. Kimbell (2011) trình bày nguồn gốc của thuật ngữ trong nghiên cứu thiết kế và sự chấp nhận của nó trong diễn ngôn quản lý ở các trường kinh doanh.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <h2>2.2 Design Thinking và Design[ing]</h2>
+
+  <p>Mặc dù Simon không bao giờ trực tiếp sử dụng thuật ngữ 'design thinking', định nghĩa của ông về design như là việc tạo ra "các quá trình hành động nhằm thay đổi các tình huống hiện tại thành các tình huống ưa thích" <cite>(Simon, 1996, tr. 111)</cite> — thông qua việc tạo ra các hiện vật — là một trong những đóng góp đầu tiên hướng tới một cách tiếp cận nhận thức luận về thiết kế. Điểm mấu chốt khác là khái niệm 'generator test cycle' — một chuỗi các giải pháp thay thế được tạo ra và kiểm tra, thông báo về tác động của từng chu kỳ.</p>
+
+  <p><strong>Rowe (1987)</strong> mô tả quá trình thiết kế trong kiến trúc như một sự kết hợp giữa lý trí phân tích và những 'xung lực' trực quan — trong đó bản chất của quá trình giải quyết vấn đề định hình giải pháp. Ông giới thiệu một phiên bản đơn giản hoá của mô hình Archer về thiết kế.</p>
+
+  <p><strong>Schön (1983)</strong> trình bày design như một quá trình <em>reflection-in-action</em> — liên tục cải thiện thực hành chuyên nghiệp và các giải pháp. Cả vấn đề lẫn giải pháp có thể không rõ ràng ngay từ đầu, nhưng chúng được xác định và tái định nghĩa trong suốt quá trình.</p>
+
+  <p><strong>Lawson (1997)</strong> thu hút sự chú ý đến quá trình thiết kế như sự kết hợp giữa tư duy hội tụ và phân kỳ. Tư duy hội tụ là phương pháp lý trí và logic, trong khi tư duy phân kỳ là trực giác, sáng tạo và tập trung tìm kiếm các phương án thay thế. Các nhà thiết kế cần phát triển sự cân bằng hoàn hảo giữa hai kỹ năng này.</p>
+
+  <div class="fig-caption">Hình 2.1 — Lawson's Design Process: Analysis → Synthesis → Evaluation (tư duy hội tụ kết hợp phân kỳ trong một chu trình phi tuyến)</div>
+
+  <p><strong>Cross (2006, 2011)</strong> sử dụng thuật ngữ <em>"designerly ways of knowing"</em> và đề xuất mô hình 3 bước dựa trên nghiên cứu thực tế: (1) làm rõ nhiệm vụ, (2) tìm kiếm khái niệm, (3) cố định khái niệm.</p>
+
+  <p><strong>Norman (2013)</strong> định nghĩa design thinking là quá trình trong đó câu phát biểu vấn đề ban đầu chỉ là một gợi ý để suy nghĩ về những vấn đề thực sự đằng sau. Đây là quá trình tìm kiếm vấn đề thực sự, và một khi tìm được, mới phát triển một loạt các giải pháp tiềm năng. Norman lập luận rằng <strong>Human Centred Design (HCD)</strong> và <strong>Double-Diamond Model</strong> của UK Design Council là hai trong số những công cụ mạnh mẽ nhất của design thinking.</p>
+
+  <p>HCD vận hành theo hai giai đoạn: (1) khám phá đúng vấn đề và (2) tìm ra đúng giải pháp — thông qua bốn hoạt động: quan sát, tạo ý tưởng, tạo mẫu và kiểm tra. Norman cũng thừa nhận rằng trong thực tế kinh doanh, lý tưởng HCD thường bị thỏa hiệp vì các ràng buộc về thời gian và ngân sách.</p>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <h2>2.3 Design Thinking và Hoạt động Lập kế hoạch Kinh doanh</h2>
+
+  <p><strong>Martin (2007)</strong> phản ánh về sự căng thẳng giữa kinh doanh và thiết kế để đi đến kết luận rằng chính sự tích hợp của cả hai loại tư duy — phân tích và trực giác — là định nghĩa của design thinking. Sự cân bằng này là cần thiết cho hiệu suất kinh doanh tối ưu và để đạt được lợi thế cạnh tranh.</p>
+
+  <p>Dunne &amp; Martin (2006) tổng hợp ba khía cạnh của design thinking:</p>
+
+  <ol class="content-list">
+    <li><strong>Nhận thức (Cognitive):</strong> Design thinking là một chu kỳ liên tục của việc tạo ra ý tưởng (abduction — suy diễn), dự đoán hệ quả (deduction — diễn dịch), kiểm tra, và khái quát hoá (induction — quy nạp).</li>
+    <li><strong>Thái độ (Attitudinal):</strong> Thay vì coi các ràng buộc là rào cản, hãy coi chúng như những kích hoạt để tìm ra giải pháp sáng tạo.</li>
+    <li><strong>Tương tác cá nhân (Interpersonal):</strong> Khuyến khích các kỹ năng cộng tác để học cách hiểu người khác và lý luận của họ.</li>
+  </ol>
+
+  <div class="diagram">
+    <div style="font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#555;margin-bottom:16px;">Hình 2.2 — Chu trình Design Thinking (Martin / Dunne)</div>
+    <div class="diagram-row">
+      <div class="diagram-node">Generate Ideas<br/><span style="font-size:11px;font-weight:400;">(Abduction)</span></div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-node">Predict Consequences<br/><span style="font-size:11px;font-weight:400;">(Deduction)</span></div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-node">Test</div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-node">Generalise<br/><span style="font-size:11px;font-weight:400;">(Induction)</span></div>
+      <div class="diagram-arrow">↩</div>
+    </div>
+  </div>
+
+  <p><strong>Brown (2008, 2009)</strong> — dựa trên thực tiễn của IDEO — trình bày framework của design thinking như một kỷ luật áp dụng các kỹ năng và phương pháp của nhà thiết kế nhằm đáp ứng nhu cầu con người, xem xét tính khả thi, đáng mong muốn và khả năng tồn tại để thu về giá trị khách hàng và cơ hội thị trường. Năm khía cạnh then chốt:</p>
+
+  <ol class="content-list">
+    <li>Sự kết hợp giữa tư duy phân kỳ và hội tụ — pha hội tụ hướng đến giải pháp, tư duy phân kỳ nhân lên các lựa chọn.</li>
+    <li>'Building to think' hay 'power of prototyping' — tạo mẫu nhanh để thấy rõ giới hạn và hướng đi khả thi.</li>
+    <li>Sự đồng cảm và tiếp cận lấy con người làm trung tâm — hiểu nhu cầu người dùng qua quan sát thực địa, tạo mẫu và kể chuyện bằng hình ảnh.</li>
+    <li>Chấp nhận các ràng buộc như cơ hội để đổi mới.</li>
+    <li>Làm việc cộng tác, chú trọng vai trò của các nhóm đa ngành và liên ngành.</li>
+  </ol>
+
+  <blockquote>"Design thinking can be practiced by everybody." — Brown (2009, tr. 149)</blockquote>
+
+  <p>Brown nhấn mạnh hai điểm quan trọng: thứ nhất, làm cho các kỹ năng nhà thiết kế trở nên tiếp cận được với các chuyên gia không có nền tảng thiết kế; thứ hai, design thinking cần mở rộng vào tổ chức, khu vực dịch vụ và lĩnh vực công vì nó có tiềm năng và công cụ để giải quyết các vấn đề toàn cầu.</p>
+
+  <p><strong>Hasso Plattner Institute of Design tại Stanford (d.school)</strong> — do David Kelley của IDEO sáng lập — phát triển mô hình 5 giai đoạn (Hình 2.3). Mô hình này lấy định nghĩa vấn đề làm trước, sau đó thực hiện giải pháp với nhu cầu người dùng ở trung tâm của quá trình phát triển khái niệm:</p>
+
+  <div class="diagram">
+    <div style="font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#555;margin-bottom:16px;">Hình 2.3 — IDEO Design Thinking Process (d.school)</div>
+    <div class="diagram-row">
+      <div class="diagram-node">Empathise</div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-node">Define</div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-node">Ideate</div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-node">Prototype</div>
+      <div class="diagram-arrow">→</div>
+      <div class="diagram-node">Test</div>
+    </div>
+  </div>
+
+  <p>Quá trình có tính chu kỳ và lặp lại vì kiểm tra liên tục là chìa khoá để cải thiện các ý tưởng ban đầu.</p>
+
+  <p><strong>Lockwood (2009)</strong> định nghĩa design thinking như một quá trình đổi mới lấy con người làm trung tâm, nhấn mạnh quan sát, cộng tác, học nhanh, trực quan hoá ý tưởng, tạo mẫu nhanh và phân tích kinh doanh hiện tại. Năm thuộc tính chính:</p>
+
+  <ol class="content-list">
+    <li>Hiểu sâu về người dùng bằng các phương pháp dân tộc học (ethnographic methods).</li>
+    <li>Cộng tác với người dùng và sự tham gia của các nhóm đa ngành.</li>
+    <li>Đẩy nhanh học tập thông qua trực quan hoá, thực nghiệm thực tế và tạo mẫu.</li>
+    <li>Trực quan hoá — làm cho cái vô hình trở nên hữu hình.</li>
+    <li>Phân tích kinh doanh được tích hợp trong suốt quá trình.</li>
+  </ol>
+
+  <p>Lockwood phân biệt quan trọng giữa <strong>design thinking</strong> (quy trình đổi mới để khám phá nhu cầu, cơ hội và tạo ra giải pháp mới) và <strong>design management</strong> (tích hợp và cải tiến design vào kinh doanh). Design thinking là phương pháp chiến lược vì nó giúp tái định khung vấn đề và kết nối con người với kinh doanh.</p>
+
+  <!-- INFOBOX: Double Diamond -->
+  <div class="infobox">
+    <div class="infobox-title">Hình 2.4 — Design Council Double Diamond Process Model</div>
+    <p><em>"The double diamond diagram was developed through in-house research at the Design Council in 2018 as a simple graphical way of describing the design process."</em> (Design Council, 2019). Mô hình này được kiểm tra với 11 công ty hàng đầu thế giới để hiểu quy trình thiết kế của họ, các yếu tố chính và cách quy trình đưa sản phẩm/dịch vụ từ ý tưởng đến triển khai.</p>
+    <div style="margin:16px 0;">
+      <div class="diagram-row" style="margin-bottom:12px;">
+        <span style="font-size:12px;font-weight:700;width:70px;flex-shrink:0;">DISCOVER</span>
+        <span style="font-size:14px;">Pha phân kỳ: khám phá vấn đề, thu thập insight, xác định nhu cầu người dùng. Đặt câu hỏi, lập giả thuyết, phân tích dữ liệu thị trường.</span>
+      </div>
+      <div class="diagram-row" style="margin-bottom:12px;">
+        <span style="font-size:12px;font-weight:700;width:70px;flex-shrink:0;">DEFINE</span>
+        <span style="font-size:14px;">Pha hội tụ: lọc tất cả khả năng từ pha 1 để xác định vấn đề cần giải quyết. Ở cấp chiến lược: diễn giải và căn chỉnh nhu cầu với mục tiêu kinh doanh.</span>
+      </div>
+      <div class="diagram-row" style="margin-bottom:12px;">
+        <span style="font-size:12px;font-weight:700;width:70px;flex-shrink:0;">DEVELOP</span>
+        <span style="font-size:14px;">Pha phân kỳ thứ hai: phát triển, lặp lại và kiểm tra các giải pháp. Phản hồi từ mỗi vòng phát triển thông báo cho các cải tiến tiếp theo.</span>
+      </div>
+      <div class="diagram-row">
+        <span style="font-size:12px;font-weight:700;width:70px;flex-shrink:0;">DELIVER</span>
+        <span style="font-size:14px;">Pha hội tụ cuối: kết quả được hoàn thiện, sản xuất và ra mắt. Bao gồm kiểm tra cuối và đánh giá tác động.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <h2>2.4 Design Thinking và Chiến lược Kinh doanh</h2>
+
+  <p><strong>Gianfranco Zaccai</strong>, Chủ tịch kiêm Chief Design Officer của Continuum, giải thích rằng 'hiện tượng' design thinking xuất hiện trong kinh doanh vì các giám đốc điều hành bắt đầu tìm kiếm cách tiếp cận khác khi họ nhận ra rằng phương pháp thực dụng, tuyến tính, phân tích và định lượng không mang lại kết quả như kỳ vọng <cite>(Lockwood, 2010)</cite>. Zaccai định nghĩa design như: <em>"a way of thinking that creates insights that inform what and how you execute, as well as how you communicate, market, support, and service once the product is introduced"</em> <cite>(Lockwood, 2010, tr. 18)</cite>. Theo đó, design định hướng toàn bộ chiến lược kinh doanh.</p>
+
+  <p>Zaccai đề xuất rằng việc triển khai từng bước các cách tiếp cận định hướng design là bước khởi đầu tốt nhất: áp dụng đầu tiên ở một bộ phận kinh doanh, học hỏi từ sai lầm, sau đó chuyển giao sang toàn bộ tổ chức.</p>
+
+  <p><strong>Fraser (2009)</strong> giới thiệu framework chính thức — <em>"The Three Gears of Business Design"</em> (Hình 2.5) — với design như con đường để hiểu nhu cầu stakeholder, công cụ để trực quan hoá giải pháp mới, và quy trình để chuyển đổi ý tưởng thành chiến lược hiệu quả:</p>
+
+  <ul class="content-list">
+    <li><strong>Gear One — Empathy &amp; Deep Human Understanding:</strong> Hiểu sâu người dùng, khám phá cơ hội mới. Tái định khung thách thức kinh doanh qua con mắt người dùng cuối và thiết lập bối cảnh nhân văn cho đổi mới và giá trị.</li>
+    <li><strong>Gear Two — Concept Visualization:</strong> Pha phát triển với khám phá rộng các khả năng để đáp ứng nhu cầu ở Gear One. Tạo ra và trực quan hoá các giải pháp mới thông qua tạo mẫu.</li>
+    <li><strong>Gear Three — Strategic Business Design:</strong> Pha căn chỉnh ý tưởng mới với tương lai được đề xuất bằng cách thiết kế bản thân doanh nghiệp. Khám phá những gì cần thiết để đưa ý tưởng ra thị trường, xác định chiến lược thúc đẩy thành công và ưu tiên hoá các hoạt động.</li>
+  </ul>
+
+  <p>Fraser cũng đề xuất một mindset cho các cá nhân trong tổ chức bao gồm: (1) mindfulness, (2) cộng tác cởi mở, (3) tư duy abductive, (4) cho phép thất bại sớm có rủi ro, (5) sự không hoàn hảo và lặp lại sớm trong quá trình, (6) giải quyết sáng tạo các trade-offs và ràng buộc. Sự kết hợp của cả hai là điều thúc đẩy các chiến lược đột phá cho thành công doanh nghiệp.</p>
+
+  <p><strong>Drews (2009)</strong> trình bày bản chất của design thinking như một mindset với ba điểm then chốt: (1) lấy người tiêu dùng làm trung tâm, (2) định hướng về tương lai, và (3) thách thức hình thức hiện tại.</p>
+
+  <blockquote>"Design thinkers are good not only at finding the answers but also at asking the right questions." — Drews (2009, tr. 41)</blockquote>
+
+  <p>Một trong những đóng góp quan trọng của Drews là chỉ ra rằng trực quan hoá và tạo mẫu sớm thu hút các stakeholder — khi có điều gì đó cụ thể để nhìn vào, thảo luận trở nên dễ dàng hơn và ý tưởng có thể tiến hoá. Điều này cũng giúp giảm yếu tố rủi ro cao của các ý tưởng triệt để.</p>
+
+  <p><strong>Clark và Smith (2010)</strong> đưa ra thuật ngữ <em>'innovation intelligence'</em> để mô tả design thinking trước đối tượng điều hành cấp cao — loại trí tuệ hỗ trợ đổi mới và cung cấp cho tổ chức nhiều cách giải quyết vấn đề, thúc đẩy design thinking. Cuối cùng, nó cho phép khám phá khả năng tốt nhất mang lại lợi thế cạnh tranh.</p>
+
+  <p>Số đặc biệt tháng 9 năm 2015 của Harvard Business Review dành toàn bộ số cho design thinking. <strong>Brown và Martin (2015)</strong> giải thích cách design thinking có thể giúp các nhà đổi mới chiến lược và hệ thống xây dựng tương lai mới — chiến lược tốt nhất được xây dựng bằng tương tác lặp lại với người ra quyết định, xây dựng trên sự đồng cảm với họ.</p>
+
+  <p><strong>Kolko (2015)</strong> lập luận rằng các tổ chức lớn đang phát triển các văn hoá định hướng design. Năm khía cạnh then chốt:</p>
+
+  <ol class="content-list">
+    <li>Tập trung vào trải nghiệm của người dùng, đặc biệt là các trải nghiệm cảm xúc.</li>
+    <li>Tạo ra các mô hình để kiểm tra các vấn đề phức tạp.</li>
+    <li>Sử dụng nguyên mẫu để khám phá các giải pháp tiềm năng.</li>
+    <li>Chấp nhận thất bại.</li>
+    <li>Thể hiện sự kiềm chế có suy nghĩ (thoughtful restraints).</li>
+  </ol>
+
+  <p>Số báo này cũng đề cập đến Samsung và Pepsi như các tổ chức đã biến design thinking thành chiến lược công ty. Trường hợp Samsung: thiết lập trung tâm design doanh nghiệp để trực quan hoá tương lai xa và phát triển các khái niệm kinh doanh mới <cite>(Yoo &amp; Kim, 2015)</cite>. Trường hợp Pepsi: bốn điều kiện để design phát triển — (1) lãnh đạo có cách tiếp cận toàn diện về design, (2) bảo trợ từ cấp cao nhất, (3) chứng thực bên ngoài từ các lãnh đạo kinh doanh và tạp chí, (4) các chiến thắng nhanh <cite>(Ignatius, 2015)</cite>.</p>
+
+  <p>Drews (2009) lập luận rằng một trong những lý do design thinking chưa đạt được tiềm năng đầy đủ là khoảng cách được biết đến rộng rãi giữa những người kinh doanh định lượng và những người sáng tạo định tính. Khoảng cách này bắt nguồn từ hệ thống giáo dục tập trung vào câu trả lời 'đúng' và 'sai', đối lập sinh viên khoa học với sinh viên nghệ thuật. Design thinking không phải là câu trả lời cho mọi thách thức kinh doanh, nhưng là một cách tiếp cận xuất sắc cho các vấn đề liên quan đến thiết lập thị trường, bền vững và tái định hình hệ thống kinh tế.</p>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <h2>2.5 Design Thinking trong SMEs</h2>
+
+  <p>Nhiều nghiên cứu điển hình cho thấy bằng chứng rằng design thinking đã được triển khai như một lực lượng chiến lược, chuyển đổi tầm nhìn của các tổ chức lớn và toàn cầu (Google, IBM, Samsung, Pepsi). Brown (2015) phản ánh rằng design thinking là lợi thế cạnh tranh khi mọi người đều làm nó — một luận điểm có thể đúng với các tập đoàn lớn nhưng với các chủ doanh nghiệp nhỏ, việc tích hợp design thinking lại có một bối cảnh hoàn toàn khác.</p>
+
+  <h3>Định nghĩa SME</h3>
+  <p>Theo Điều 2 Phụ lục Khuyến nghị 2003/361/EC của Uỷ ban Châu Âu (2015): SMEs là các doanh nghiệp có ít hơn 250 nhân viên và doanh thu hàng năm không vượt quá 50 triệu EUR và/hoặc tổng bảng cân đối không vượt quá 43 triệu EUR. SMEs chiếm hơn 99% tất cả các doanh nghiệp ở Anh và châu Âu, là nguồn việc làm, tăng trưởng kinh tế, kỹ năng khởi nghiệp quan trọng, và đóng vai trò chủ chốt trong đổi mới. Các chính sách đổi mới của EU nhận ra và khuyến khích giá trị của design như một động lực tăng trưởng và cạnh tranh. Uỷ ban Châu Âu (2009) nhấn mạnh rằng các công ty đầu tư vào design có xu hướng đổi mới hơn, lợi nhuận hơn và tăng trưởng nhanh hơn.</p>
+
+  <h3>Rào cản của SMEs trong việc áp dụng Design</h3>
+  <ol class="content-list">
+    <li>SMEs thường có ít kinh nghiệm về design, không biết cách tìm sự hỗ trợ chuyên nghiệp hoặc tích hợp design vào quy trình đổi mới.</li>
+    <li>SMEs ở các thành phố nhỏ có thể không có quyền truy cập vào tư vấn design chất lượng cao vì các hãng tư vấn design lớn tập trung ở thành phố lớn.</li>
+    <li>SMEs thường thiếu nguồn lực, chuyên môn và phương pháp để đánh giá rủi ro và tỷ suất hoàn vốn của đầu tư design.</li>
+  </ol>
+
+  <h3>Rào cản của Các Hãng Design</h3>
+  <ol class="content-list">
+    <li>Quy mô nhỏ trung bình của các công ty design làm yếu đi sức ảnh hưởng đối với chính phủ và khả năng tiếp cận các thị trường mới trong một vòng rộng hơn.</li>
+    <li>Nhiều nhà thiết kế thiếu kiến thức và kỹ năng kinh doanh cần thiết để tích hợp tốt hơn vào cộng đồng kinh doanh và đổi mới — như thiết kế chiến lược, quản lý design và design-driven innovation.</li>
+    <li>Các nhà thiết kế chưa tổ chức mình như một nghề nghiệp, dẫn đến mức độ kết nối, phối hợp và ảnh hưởng thấp.</li>
+  </ol>
+
+  <p><strong>N&amp;WRA và CIRCA Group (2015)</strong> nhấn mạnh tầm quan trọng của design-driven innovation đối với khả năng cạnh tranh của SME và đề xuất thay đổi thái độ hướng tới tiếp cận định hướng design. Nghiên cứu cho thấy các rào cản tương tự với báo cáo của Uỷ ban EU: (1) SMEs không hiểu giá trị của design; (2) ít sinh viên tốt nghiệp khởi nghiệp tham gia các khoá học cơ bản về quy trình design; (3) ngành design bị phân mảnh và không quảng bá tốt cho chính mình.</p>
+
+  <p><strong>Acklin (2013)</strong> kết luận rằng việc sử dụng design như một nguồn lực chiến lược đòi hỏi một quá trình học tập của SMEs về cách quản lý kiến thức mới đó.</p>
+
+  <p><strong>Gulari và Fremantle (2015)</strong> chỉ ra rằng nhu cầu design và năng lực design của SMEs khác với các doanh nghiệp lớn. SMEs thường tránh rủi ro — có thể do thiếu vốn, nguồn nhân lực không đủ và thời gian hạn chế. Trong bối cảnh này, cách tiếp cận design thinking thông qua thực nghiệm, lặp lại và tạo mẫu rẻ là phù hợp và có thể giúp họ xây dựng năng lực đổi mới. Tuy nhiên, kiến thức được sử dụng cho đổi mới thường là kiến thức ngầm (tacit) và được chia sẻ bởi một số ít người — do đó, các phương pháp đổi mới cần hỗ trợ SMEs để ngoại hoá kiến thức đó.</p>
+
+  <p>Văn hoá định hướng design đòi hỏi các tổ chức phải ra khỏi vùng an toàn của mình, áp dụng các cách tư duy mới, cam kết hành động dài hạn và lãnh đạo truyền cảm hứng.</p>
+
+  <!-- INFOBOX: Danish Design Ladder -->
+  <div class="infobox">
+    <div class="infobox-title">Hình 2.6 — Danish Design Ladder (Danish Design Centre, 2001)</div>
+    <p>Công cụ để đo lường mức độ hoạt động design trong các công ty Đan Mạch, dựa trên tiền đề rằng có mối liên kết tích cực giữa việc đặt design vào vị trí chiến lược và thu nhập cao hơn <cite>(Melander, 2015)</cite>:</p>
+    <div class="ladder" style="margin-top:16px;">
+      <div class="ladder-step">
+        <span class="ladder-stage">Stage 4</span>
+        <span><span class="ladder-label">Design as Strategy</span> <span class="ladder-desc">— Design là phương tiện chiến lược then chốt để khuyến khích đổi mới.</span></span>
+      </div>
+      <div class="ladder-step">
+        <span class="ladder-stage">Stage 3</span>
+        <span><span class="ladder-label">Design as Process</span> <span class="ladder-desc">— Design là thành phần không thể thiếu của quá trình phát triển.</span></span>
+      </div>
+      <div class="ladder-step">
+        <span class="ladder-stage">Stage 2</span>
+        <span><span class="ladder-label">Design as Styling</span> <span class="ladder-desc">— Design chỉ liên quan đến khía cạnh tạo kiểu dáng.</span></span>
+      </div>
+      <div class="ladder-step">
+        <span class="ladder-stage">Stage 1</span>
+        <span><span class="ladder-label">No Design</span> <span class="ladder-desc">— Design không đóng vai trò gì trong phát triển sản phẩm/dịch vụ.</span></span>
+      </div>
+    </div>
+    <p style="margin-top:14px;">Giai đoạn cao nhất đại diện cho design được sử dụng như một phương tiện chiến lược để thực hiện các mục tiêu kinh doanh — điều này có thể được hiểu khi 'design thinking' được áp dụng toàn diện. Danish Design Ladder trở thành tài liệu tham khảo để trình bày sự tiến triển của việc tích hợp và sử dụng design trong một tổ chức <cite>(McNabola, 2014)</cite>.</p>
+  </div>
+
+  <!-- CASE STUDY -->
+  <div class="infobox">
+    <div class="infobox-title">Case Study — Chương trình Hỗ trợ Design cho SMEs tại Anh</div>
+    <p>Các tổ chức tại Anh đã tạo ra cầu nối giữa các nhà thiết kế và SMEs thông qua các chương trình hỗ trợ thiết kế. <strong>Design Council</strong> — tổ chức chiến lược quốc gia của Anh về thiết kế — đã nghiên cứu rộng rãi về vai trò của design trong các doanh nghiệp Anh.</p>
+
+    <p>Ward et al. (2009) đánh giá kết quả chương trình <strong>'Designing Demand'</strong> (2006–2010): kết nối các nhà thiết kế giàu kinh nghiệm với SMEs để hướng dẫn họ trong quá trình đầu tư vào design và đổi mới một cách chiến lược. Chương trình đưa design thinking vào công ty và nhân viên thông qua trò chơi, hội thảo và nhiệm vụ nhóm.</p>
+
+    <p>Kết luận chính: 'tầm nhìn và chiến lược' là lĩnh vực then chốt mà design tạo ra giá trị. <em>"If design thinking can help companies put the strategy into their vision, it can also help them put the vision, or more explicitly, the visual, into their strategy"</em> <cite>(Ward et al., 2009, tr. 80)</cite>.</p>
+
+    <p>Chương trình tiếp tục dưới tên <strong>Design Leadership Programme</strong> <cite>(Design Council, 2012b)</cite>. Kết quả báo cáo:</p>
+    <ol class="content-list">
+      <li>Doanh nghiệp phát triển: mỗi £1 đầu tư vào design, doanh nghiệp có thể kỳ vọng hơn £20 tăng doanh thu, hơn £4 tăng lợi nhuận hoạt động ròng và hoàn vốn hơn £5 từ xuất khẩu tăng thêm.</li>
+      <li>Design giúp doanh nghiệp xác định những thách thức chiến lược lớn nhất và tạo ra cơ hội mới để vượt qua chúng.</li>
+      <li>Design thay đổi cách doanh nghiệp làm việc, dẫn đến cải thiện văn hoá tổ chức và hiệu suất.</li>
+      <li>Doanh nghiệp trở nên rõ ràng hơn về vai trò không thể thiếu của design.</li>
+      <li>Sau khi tiếp xúc với các công cụ design và thực hành quản lý design tốt, doanh nghiệp được trang bị để tự thực hiện lại.</li>
+    </ol>
+
+    <p><strong>Design for Europe (2021)</strong>: sáng kiến 3 năm hỗ trợ design-driven innovation trên toàn châu Âu. Tổng hợp thông tin về design thinking lấy người dùng làm trung tâm và ứng dụng các công cụ &amp; phương pháp thiết kế trong dịch vụ, hệ thống và tổ chức.</p>
+
+    <p>Các sáng kiến đáng chú ý trong quá khứ tại Anh:</p>
+    <ul class="content-list">
+      <li><strong>Design Service Programme</strong> tại Bắc Ireland (Invest Northern Ireland, 2008–2015): 4 yếu tố dịch vụ — nhận thức, tư vấn, năng lực và hỗ trợ.</li>
+      <li><strong>Service Design Programme</strong> tại Wales (PDR, 2010–2013): làm việc ở cấp chiến lược với 90 công ty trong ngành sản xuất.</li>
+    </ul>
+
+    <blockquote>"Smaller companies do not respond well to generalised awareness programmes.... SMEs need to be reached on a local basis, with active support and a practical demonstration of the benefits on offer." — Cox (2005)</blockquote>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <hr />
+
+  <!-- CHAPTER SUMMARY -->
+  <div class="summary-box">
+    <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;">Chapter Summary</div>
+
+    <p>Chương này đã xác lập vị thế của design thinking như một công cụ thiết yếu (hoặc một cách tiếp cận triết học) để các tổ chức dựa vào trong những thời điểm bất định. Đây không phải là tài khoản cuối cùng về chủ đề này — sự phức tạp ngày càng tăng của nó là bằng chứng cho bản chất sống động như một tác nhân thay đổi hàng đầu, dù là bên trong hay bên ngoài tổ chức, hay như một phương tiện tinh tế để thay đổi nhận thức và hành vi của con người.</p>
+
+    <p>Các tác giả đã giới thiệu một loạt framework và mô hình design thinking được áp dụng rộng rãi khi phát triển các chiến lược kinh doanh. Ba mô hình nổi bật được so sánh:</p>
+
+    <ul class="content-list">
+      <li><strong>Design Council Double Diamond</strong>: dựa trên 4 giai đoạn phát triển ý tưởng khác nhau (Discover → Define → Develop → Deliver) cộng với các chế độ tư duy phân kỳ và hội tụ. So sánh với Fraser's 'Three Gears of Business Design' — Double Diamond nhấn mạnh hơn vào người dùng cuối, còn Fraser nhấn mạnh vào phát triển chiến lược kinh doanh. Dù tương tự nhau, có sự khác biệt tinh tế rõ ràng giữa hai mô hình quy trình này.</li>
+      <li><strong>Danish Design Ladder</strong>: mục đích khác — giúp tổ chức xác định 'cách và nơi' họ hiện đang sử dụng design (dù là hoạt động tạo kiểu bề mặt hay được ứng dụng ở mức chiến lược). Sau khi xác định vị trí trên Thang, họ có thể thực hiện các chiến lược để tiếp tục 'tăng cường' design trong tổ chức.</li>
+      <li><strong>Tất cả các mô hình</strong>: đều có tính linh hoạt cao trong bản chất, có thể được áp dụng trong các bối cảnh rộng lớn và đa dạng. Nếu một mô hình quy trình được điều chỉnh cho một ngành hoặc thiết lập tổ chức cụ thể, khả năng ứng dụng rộng hơn của nó sẽ bị giảm đáng kể — do đó, bản chất chung của các mô hình trong phần này.</li>
+    </ul>
+
+    <p>Đặt trong bối cảnh những thách thức toàn cầu và sự không chắc chắn vĩ mô, việc tranh luận và khám phá phê phán về vai trò và giá trị của design thinking như một tác nhân thay đổi có ý nghĩa là điều đáng làm. Hành trình tiến tới sự trưởng thành của nó là không ngừng nghỉ và được sắp xếp cẩn thận — với thực tiễn ngành thông báo cho lý thuyết học thuật hiện tại và ngược lại. Chương này đặt ra những câu hỏi liên quan đến nhau: <em>'ai đang dẫn dắt sự thay đổi này? Ai là những người hưởng lợi từ sự thay đổi?'</em> và <em>'design thinking có thể đóng vai trò gì trong việc dẫn dắt sự thay đổi này?'</em></p>
+  </div>
+
+  <!-- REVIEW QUESTIONS -->
+  <div class="review-box" style="margin-top:40px;">
+    <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;">Review Questions</div>
+    <ol class="content-list">
+      <li>Vai trò của Design Thinking có nhiều định nghĩa khác nhau về giá trị và ứng dụng trong thực tiễn ngành hiện đại; bạn sẽ định nghĩa giá trị độc đáo của Design 'Thinking' như thế nào?</li>
+      <li>Bạn sẽ coi những thuộc tính chính nào của Design Thinking làm cho nó khác biệt so với các kỹ thuật giải quyết vấn đề đã được thiết lập khác?</li>
+      <li>Mô hình Double Diamond của Design Council được ca ngợi rộng rãi là mô hình quy trình design thinking hàng đầu — bạn sẽ coi những hạn chế của nó về mặt ứng dụng rộng hơn là gì?</li>
+      <li>Fraser đề xuất phương pháp luận gọi là The Three Gears of Business Design — bạn có đề xuất thêm một gear thứ tư không và nếu có, trọng tâm của gear thứ tư sẽ là gì?</li>
+      <li>Những rào cản phổ biến cho việc áp dụng design trong tổ chức, đặc biệt là SMEs, là gì?</li>
+    </ol>
+  </div>
+
+  <!-- FOOTER -->
+  <hr />
+  <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:#999;text-align:center;margin-top:40px;">
+    Huang, Y. &amp; Hands, D. (2022). <em>Design Thinking for New Business Contexts.</em> Palgrave Macmillan.
+    <br/>Chapter 2 — Content reproduced for study purposes only.
+  </div>
+
+
+<nav class="chapnav">
+  <a href="ch3-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 3: Crossing Boundaries: Design into Business and Management</a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 5 — Tạo Mẫu Thử: Học Thông Minh Hơn, Nhanh Hơn</title>
+<style>
+:root {
+  --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+  --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+  --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.75; max-width: 780px; margin: 0 auto; padding: 60px 40px 100px; }
+.book-meta { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); font-family: 'Courier New', monospace; margin-bottom: 8px; }
+.chapter-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+h1.chapter-title { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--text); margin-bottom: 8px; }
+.chapter-subtitle { font-size: 1rem; color: var(--text-muted); font-style: italic; font-family: Georgia, 'Times New Roman', serif; margin-bottom: 48px; padding-bottom: 32px; border-bottom: 2px solid var(--accent-line); }
+h2 { font-size: 1.45rem; font-weight: 700; color: var(--text); margin: 48px 0 16px; letter-spacing: -0.01em; }
+h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 32px 0 10px; }
+h4 { font-size: 0.88rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin: 28px 0 8px; }
+p { margin-bottom: 18px; color: var(--text-secondary); font-size: 0.97rem; }
+blockquote { border-left: 3px solid var(--accent-line); margin: 32px 0; padding: 20px 28px; background: var(--surface); }
+blockquote p { font-size: 1.08rem; font-style: italic; font-family: Georgia, 'Times New Roman', serif; color: var(--text); margin-bottom: 10px; line-height: 1.65; }
+blockquote .attribution { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-style: normal; font-family: 'Helvetica Neue', Arial, sans-serif; }
+.case-study-box { border: 1.5px solid var(--border-strong); padding: 32px; margin: 40px 0; }
+.cs-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); font-family: 'Courier New', monospace; margin-bottom: 6px; }
+.cs-title { font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.info-box { background: var(--surface-dark); border-left: 3px solid var(--text); padding: 20px 24px; margin: 28px 0; }
+.info-box .ib-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; font-family: 'Courier New', monospace; }
+.info-box p { font-size: 0.92rem; margin-bottom: 8px; }
+.info-box p:last-child { margin-bottom: 0; }
+.technique-grid { display: grid; grid-template-columns: 1fr; gap: 0; border: 1px solid var(--border); margin: 32px 0; }
+.technique-row { display: grid; grid-template-columns: 180px 1fr; border-bottom: 1px solid var(--border); }
+.technique-row:last-child { border-bottom: none; }
+.tech-label { background: var(--surface); padding: 18px 20px; border-right: 1px solid var(--border); }
+.tech-label .tl-name { font-size: 0.85rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 4px; }
+.tech-label .tl-tag { font-size: 0.65rem; font-family: 'Courier New', monospace; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.tech-desc { padding: 18px 20px; }
+.tech-desc p { font-size: 0.9rem; margin-bottom: 0; }
+.further-reading { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); }
+.further-reading h2 { font-size: 1.1rem; margin-top: 0; margin-bottom: 16px; }
+.reading-list { list-style: none; }
+.reading-list li { border-bottom: 1px solid var(--border); padding: 10px 0; font-size: 0.9rem; color: var(--text-secondary); }
+.reading-list li::before { content: "→ "; color: var(--text-muted); font-family: 'Courier New', monospace; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+.fidelity-bar { margin: 28px 0; }
+.fb-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); font-family: 'Courier New', monospace; margin-bottom: 12px; }
+.fb-track { display: flex; gap: 2px; height: 36px; }
+.fb-low { flex: 1; background: var(--surface-dark); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: var(--text-muted); font-weight: 600; letter-spacing: 0.06em; }
+.fb-med { flex: 1.5; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: var(--text-secondary); font-weight: 600; letter-spacing: 0.06em; }
+.fb-high { flex: 1; background: var(--text); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: var(--bg); font-weight: 700; letter-spacing: 0.06em; }
+footer { margin-top: 72px; padding-top: 24px; border-top: 2px solid var(--accent-line); font-size: 0.72rem; color: var(--text-muted); font-family: 'Courier New', monospace; letter-spacing: 0.06em; }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/design-thinking-handbook">← Về mục lục</a></p>
+
+<div class="book-meta">DesignBetter.Co by InVision · Eli Woolery</div>
+<div class="chapter-label">Chương — 05</div>
+<h1 class="chapter-title">Tạo Mẫu Thử</h1>
+<p class="chapter-subtitle">Học thông minh hơn, nhanh hơn</p>
+
+<blockquote>
+  <p>"Bạn không được tự lừa dối bản thân — và bạn là người dễ lừa nhất."</p>
+  <span class="attribution">Richard Feynman — Nhà vật lý, Nobel Prize 1965</span>
+</blockquote>
+
+<p>Đầu những năm 1980, nhà khoa học máy tính <strong>Danny Hillis</strong> đang ăn trưa với nhà vật lý đoạt giải Nobel Richard Feynman. Hillis chia sẻ ý tưởng về một startup: xây dựng máy tính song song với một triệu bộ xử lý. Feynman ngay lập tức phản ứng: "Đó là ý tưởng ngớ ngẩn nhất tôi từng nghe." Nhưng ông bị kích thích, và đến cuối bữa trưa đã đồng ý làm việc cho công ty trong mùa hè.</p>
+
+<p>Tại Thinking Machines — tên công ty sau này — Feynman làm việc trên mạch bộ định tuyến (router circuits). Những mạch này phải tìm đường qua ùn tắc giao thông 20 chiều giữa các bộ xử lý. Câu hỏi quan trọng: thiết kế có đủ bộ đệm để hoạt động hiệu quả không?</p>
+
+<p>Feynman không ngồi tranh luận lý thuyết. Ông bắt đầu với câu hỏi đơn giản nhất: "Ví dụ đơn giản nhất là gì?" Rồi tiếp tục đặt câu hỏi cho đến khi ông thu gọn vấn đề xuống thứ ông có thể giải bằng bút chì và giấy — và tạo ra một chương trình mô phỏng bằng ngôn ngữ Basic tự chế.</p>
+
+<p>Đóng góp của Feynman đã giúp công ty trở thành dẫn đầu trong lĩnh vực điện toán song song, tạo ra hàng chục triệu đô doanh thu. Và khi Hillis nhìn lại, ông nhận ra: trong gần như mọi thứ họ cộng tác, họ đều là người nghiệp dư. Nhưng chính vì vậy, họ đã tạo ra những đột phá mà ngay cả họ không nghĩ là có thể.</p>
+
+<h2>Tạo Mẫu Thử Như Một Nhà Vật Lý</h2>
+
+<p>Feynman là nhà vật lý, không phải nhà thiết kế sản phẩm — nhưng ông hiểu theo bản năng sức mạnh của tạo mẫu thử. Ông bắt đầu với phác thảo để hiểu vấn đề. Ông tạo prototype để giải quyết tranh luận. Và ông làm điều đó nhanh chóng, với công cụ quen thuộc nhất trong tay.</p>
+
+<div class="info-box">
+  <div class="ib-label">Ba lý do tạo mẫu thử</div>
+  <p><strong>Để học:</strong> Xây dựng prototype buộc bạn phải làm rõ những gì bạn thực sự biết và không biết.</p>
+  <p><strong>Để giải quyết tranh luận:</strong> Thay vì tranh luận lý thuyết, build prototype và để thực tế quyết định.</p>
+  <p><strong>Để kiểm tra giả thuyết nhanh, rẻ:</strong> Thất bại ở giai đoạn prototype tốn ngày hoặc tuần — không phải tháng hoặc năm.</p>
+</div>
+
+<p>Nếu Feynman không tạo prototype chương trình Basic, ông và đồng nghiệp có thể đã ngồi trước bảng đen vô tận, ném phương trình vào nhau và trích dẫn bài báo nghiên cứu. Tệ hơn, họ có thể đã thuyết phục nhau bằng lý thuyết — và phát hiện ra vấn đề chỉ sau khi đã đầu tư hàng tháng.</p>
+
+<p>Đây chính là lý do các công ty thiết kế dẫn đầu prototype sớm và thường xuyên, xuyên suốt quy trình thiết kế.</p>
+
+<hr class="divider">
+
+<h2>Case Study: Uber Quốc Tế Hóa</h2>
+
+<div class="case-study-box">
+  <div class="cs-label">Case Study — Uber, 2015</div>
+  <div class="cs-title">Thiết Kế Ứng Dụng Cho 70 Quốc Gia</div>
+
+  <blockquote>
+    <p>"Lý do những prototype này thực sự hữu ích là khi chúng tôi chưa có sản phẩm thực, nhưng cần phản hồi, chúng tôi có thể gửi chúng đến các nhà nghiên cứu tại địa phương... điều đó cho phép chúng tôi nhận phản hồi không chỉ từ tài xế ở San Francisco mà từ khắp nơi trên thế giới."</p>
+    <span class="attribution">Molly Nix — Uber</span>
+  </blockquote>
+
+  <p>Vào thời điểm viết bài này, Uber có hơn 1 triệu tài xế, hơn 2 tỷ chuyến đi, hơn 8 triệu người dùng tại hơn 400 thành phố ở 70 quốc gia. Thiết kế ứng dụng hoạt động liền mạch cho tài xế ở tất cả các thị trường này là một thách thức thiết kế đặc biệt: ngôn ngữ khác nhau, ký hiệu khác nhau, tốc độ mạng khác nhau.</p>
+
+  <p>Năm 2015, nhóm Uber tiến hành thiết kế lại toàn bộ ứng dụng dành cho tài xế từ đầu. Họ bắt đầu với <strong>prototype độ phân giải thấp</strong> bằng Sketch và InVision, bằng tiếng Anh — sau đó cập nhật file Sketch sang tiếng Hindi và tiếng Trung để kiểm thử với tài xế tại Ấn Độ và Trung Quốc qua InVision.</p>
+
+  <p>Có trong tay prototype, nhóm có thể kiểm thử với người dùng ở từng quốc gia và trả lời các câu hỏi quan trọng: cấu trúc điều hướng có hợp lý không? Các tính năng quan trọng có dễ tìm không? Các thuật ngữ như "Earnings" và "Ratings" có dịch sang ngôn ngữ địa phương đúng nghĩa không?</p>
+
+  <h3 style="margin-top: 28px;">Phát Hiện 1: Biểu Tượng Thu Nhập</h3>
+  <p>Biểu tượng "Earnings" (Thu nhập) ban đầu là biểu đồ cột — vì nó phản ánh màn hình Thu nhập khi bấm vào. Nhưng khi kiểm thử tại Ấn Độ, các tài xế nghĩ biểu tượng sẽ dẫn đến cài đặt mạng — vì tốc độ mạng chậm và không ổn định khiến "thanh tín hiệu" luôn nằm trong đầu họ, và biểu đồ cột trông giống hệt biểu tượng thanh tín hiệu.</p>
+  <p>Phát hiện này cho phép nhóm thay đổi hướng: tạo biểu tượng thể hiện tiền mặt — giải quyết vấn đề trước khi nó xuất hiện trong sản phẩm thực.</p>
+
+  <h3 style="margin-top: 28px;">Phát Hiện 2: Nút "GO ONLINE"</h3>
+  <p>Khi tài xế bắt đầu ca làm việc và bấm nút "GO ONLINE," ứng dụng cần gọi lên server để xác nhận tài xế có thể nhận chuyến trong khu vực của mình. Trong build chức năng sơ khai, không có phản hồi nào sau khi bấm — chỉ là delay trong khi ứng dụng xử lý. Với tài xế, ứng dụng trông như bị đóng băng.</p>
+  <p>Giải pháp: thêm <strong>animation chuyển tiếp</strong> — thường được xem là "đánh bóng" không cần thiết — nhưng trong trường hợp này lại là chức năng cốt lõi. Animation cho tài xế biết ứng dụng đang xử lý, không phải bị lỗi.</p>
+
+  <blockquote>
+    <p>"Một prototype tốt là một prototype giúp trả lời những câu hỏi bạn đang có."</p>
+    <span class="attribution">Molly Nix — Uber</span>
+  </blockquote>
+
+  <p>Bài học từ Uber: <strong>khớp độ phân giải của prototype với câu hỏi bạn cần trả lời.</strong> Sớm trong quy trình, prototype thấp dùng để hiểu cách sản phẩm dịch sang ngôn ngữ khác. Khi hướng đi ổn định hơn, prototype độ phân giải cao hơn để giải quyết các vấn đề UX tinh tế.</p>
+</div>
+
+<blockquote>
+  <p>"Giới hạn thời gian [cho một prototype] buộc bạn tập trung vào những điều đúng đắn."</p>
+  <span class="attribution">Daniel Burka — Google Ventures</span>
+</blockquote>
+
+<h2>Bắt Đầu Tạo Mẫu Thử Sớm Hơn: Các Kỹ Thuật</h2>
+
+<p>Dưới đây là các kỹ thuật tạo mẫu thử để đưa vào quy trình thiết kế của bạn sớm hơn và hiệu quả hơn. Một số có thể tìm thấy tại Stanford d.school Bootcamp Bootleg.</p>
+
+<div class="fidelity-bar">
+  <div class="fb-label">Thang độ phân giải prototype</div>
+  <div class="fb-track">
+    <div class="fb-low">THẤP</div>
+    <div class="fb-med">TRUNG BÌNH</div>
+    <div class="fb-high">CAO</div>
+  </div>
+</div>
+
+<div class="technique-grid">
+  <div class="technique-row">
+    <div class="tech-label">
+      <span class="tl-name">Prototype Timeboxed</span>
+      <span class="tl-tag">Kỹ thuật 01</span>
+    </div>
+    <div class="tech-desc">
+      <p>Dành 1 giờ để tạo 2-3 biến thể của một tính năng trước khi đầu tư thời gian build phiên bản độ phân giải cao hơn. Phác thảo bằng tay, chụp ảnh bằng smartphone, đưa vào InVision hoặc dùng POP app. Buộc bạn tập trung vào những gì thực sự quan trọng.</p>
+    </div>
+  </div>
+  <div class="technique-row">
+    <div class="tech-label">
+      <span class="tl-name">Prototype Để Quyết Định</span>
+      <span class="tl-tag">Kỹ thuật 02</span>
+    </div>
+    <div class="tech-desc">
+      <p>Giải quyết tranh luận trong nhóm về hướng đi của sản phẩm. Xây dựng prototype cho các giải pháp cạnh tranh nhau. Nếu người dùng sẽ đánh giá, cần đạt độ phân giải đủ để tạo ra phản ứng quan sát được — nhưng không tốn thêm thời gian. Andy Law (Netflix): "Thông thường chúng tôi sẽ đi đến độ phân giải cao hơn sớm hơn trong quy trình..."</p>
+    </div>
+  </div>
+  <div class="technique-row">
+    <div class="tech-label">
+      <span class="tl-name">Wizard of Oz</span>
+      <span class="tl-tag">Kỹ thuật 03</span>
+    </div>
+    <div class="tech-desc">
+      <p>Build prototype nhanh hơn bằng cách dùng con người ở phía back-end. Pandora dùng cách này: thuật toán Music Genome Project có vẻ tự động, nhưng thực ra có con người phân loại và mô tả từng bài nhạc. Ví dụ: chatbot với con người trả lời; dịch vụ đưa thú cưng dạo bộ — bạn tự đi dắt chó trước khi xây hạ tầng. IFTTT và Zapier giúp kết nối các dịch vụ để tạo prototype kiểu này.</p>
+    </div>
+  </div>
+  <div class="technique-row">
+    <div class="tech-label">
+      <span class="tl-name">Prototype Để Dạy</span>
+      <span class="tl-tag">Kỹ thuật 04</span>
+    </div>
+    <div class="tech-desc">
+      <p>1986: Tàu con thoi Challenger vỡ tan 73 giây sau khi phóng. Feynman tham gia điều tra Quốc hội. Ông ngồi trước ban điều tra, nhúng một O-ring kẹp vào cốc nước lạnh và cho thấy O-ring trở nên giòn và cứng khi lạnh — đơn giản hơn hàng đống biểu đồ phức tạp mà các kỹ sư đã dùng trước đó. "Chúng ta tạo mẫu thử để học — nhưng cũng để dạy."</p>
+    </div>
+  </div>
+</div>
+
+<h2>Tạo Mẫu Thử Là Nơi Thú Vị Bắt Đầu</h2>
+
+<p>Với nhiều nhà thiết kế, tạo mẫu thử là giai đoạn thú vị nhất của quy trình. Và mặc dù đây là bước thứ 4 trong khung design thinking, nó hoàn toàn có thể là điểm khởi đầu — hãy nhớ, quy trình không tuyến tính. Đôi khi, cách tốt nhất để <strong>Thấu cảm</strong> là chia sẻ hoặc cùng tạo mẫu thử với người dùng và thu thập phản hồi.</p>
+
+<p>Trong chương tiếp theo, chúng ta sẽ bàn về cách sử dụng những prototype này để kiểm thử giả thuyết — và học cách "chạm bên trong Feynman" để vượt qua vấn đề đang đối mặt.</p>
+
+<hr class="divider">
+
+<div class="further-reading">
+  <h2>Đọc Thêm</h2>
+  <ul class="reading-list">
+    <li>Prototyping Lessons from a BMX Backflip</li>
+    <li>Dan Olsen — The Lean Product Playbook</li>
+    <li>The Skeptic's Guide to Low-Fidelity Prototyping</li>
+    <li>10 Tips on Prototyping UIs with Sketch</li>
+    <li>How I Built This (NPR): Instagram</li>
+    <li>Daniel Burka — A Guide to Prototype Fidelity</li>
+    <li>Stanford d.school — Bootcamp Bootleg</li>
+  </ul>
+</div>
+
+<footer>
+  DesignBetter.Co by InVision · Eli Woolery · Design Thinking Handbook<br>
+  Chương 05 / 06 — Tạo Mẫu Thử: Học Thông Minh Hơn, Nhanh Hơn
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch4-dt-handbook.html"><span class="lbl">Chương trước</span>Chương 4: Ý Tưởng Hóa: Vượt Ra Ngoài Brainstorm Thông Thường</a>
+  <a href="ch6-dt-handbook.html"><span class="lbl">Chương sau</span>Chương 6: Kiểm Thử: Sớm Và Thường Xuyên</a>
+</nav>
+</body>
+</html>

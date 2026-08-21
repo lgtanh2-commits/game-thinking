@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 10 — Tổng hợp: Năm Chiều kích của Tư duy Thiết kế</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.72;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+
+  /* ── Typography ── */
+  h1 { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 6px; }
+  h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; margin: 52px 0 14px; border-bottom: 2px solid var(--text); padding-bottom: 6px; }
+  h3 { font-size: 1.08rem; font-weight: 700; margin: 28px 0 10px; }
+  h4 { font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-secondary); margin: 20px 0 8px; }
+  p { margin-bottom: 14px; }
+  ul, ol { padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 6px; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+  blockquote {
+    border-left: 4px solid var(--text);
+    padding: 12px 20px;
+    margin: 24px 0;
+    background: var(--surface);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+  }
+  blockquote cite { display: block; margin-top: 8px; font-size: 0.85rem; color: var(--text-muted); font-style: normal; }
+  .doi { font-family: 'Courier New', monospace; font-size: 0.8rem; color: var(--text-muted); }
+
+  /* ── Chapter Header ── */
+  .chapter-header { border-bottom: 3px solid var(--text); padding-bottom: 32px; margin-bottom: 48px; }
+  .chapter-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-muted); margin-bottom: 12px; }
+  .subtitle { font-size: 1.1rem; color: var(--text-secondary); margin-top: 10px; font-family: Georgia, serif; font-style: italic; }
+  .synthesis-badge {
+    display: inline-block;
+    background: var(--text);
+    color: var(--bg);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 5px 14px;
+    margin-top: 18px;
+  }
+
+  /* ── Section intro ── */
+  .section-intro {
+    border-left: 4px solid var(--accent-line);
+    padding: 14px 20px;
+    background: var(--surface);
+    margin-bottom: 24px;
+    font-size: 0.97rem;
+  }
+
+  /* ── Five Dimensions diagram ── */
+  .five-dims {
+    margin: 32px 0;
+    border: 2px solid var(--text);
+    padding: 32px 24px 24px;
+    position: relative;
+  }
+  .five-dims .fig-label {
+    position: absolute;
+    top: -1px;
+    left: 20px;
+    background: var(--text);
+    color: var(--bg);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+  }
+  .dims-layout {
+    display: flex;
+    gap: 0;
+    margin-top: 8px;
+  }
+  .dims-levels {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 110px;
+    flex-shrink: 0;
+  }
+  .level-tag {
+    background: var(--surface-dark);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 8px 10px;
+    text-align: center;
+    border: 1px solid var(--border-strong);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .level-tag.top { background: var(--text); color: var(--bg); }
+  .dims-radial {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    padding-left: 12px;
+  }
+  .dim-segment {
+    border: 1px solid var(--border-strong);
+    padding: 14px 8px;
+    text-align: center;
+    background: var(--bg);
+    position: relative;
+  }
+  .dim-segment:nth-child(3) { background: var(--surface-dark); border-color: var(--text); border-width: 2px; }
+  .dim-segment .dim-name {
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    display: block;
+    margin: 0 auto;
+    height: 90px;
+    line-height: 1.2;
+  }
+  .dim-segment .dim-vi {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    display: block;
+    text-align: center;
+  }
+  .dims-caption {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 12px;
+    font-style: italic;
+  }
+
+  /* ── Dimension detail blocks ── */
+  .dim-detail {
+    border-top: 3px solid var(--text);
+    padding: 28px 0 0;
+    margin: 36px 0 0;
+  }
+  .dim-detail .dim-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .dim-detail .dim-num {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--surface-dark);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .dim-detail .dim-title {
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+  .dim-detail .dim-title-vi {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-family: Georgia, serif;
+    font-style: italic;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ── Chapter cross-ref tags ── */
+  .xref-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0; }
+  .xref-tag {
+    border: 1px solid var(--border-strong);
+    padding: 4px 11px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+  }
+  .xref-tag strong { color: var(--text); }
+
+  /* ── Case highlight ── */
+  .case-box {
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    margin: 14px 0;
+    background: var(--surface);
+  }
+  .case-box .case-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 5px; }
+  .case-box h4 { margin: 0 0 6px; font-size: 0.96rem; color: var(--text); text-transform: none; letter-spacing: 0; }
+  .case-box p { font-size: 0.88rem; margin: 0; color: var(--text-secondary); }
+
+  /* ── Three-stage flow ── */
+  .flow-stages {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 18px 0;
+  }
+  .flow-stage {
+    flex: 1;
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    background: var(--bg);
+    position: relative;
+  }
+  .flow-stage + .flow-stage { border-left: none; }
+  .flow-stage::after {
+    content: '→';
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: var(--text-muted);
+    z-index: 1;
+    background: var(--bg);
+    padding: 0 2px;
+  }
+  .flow-stage:last-child::after { display: none; }
+  .flow-stage .stage-num { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px; }
+  .flow-stage .stage-name { font-size: 0.9rem; font-weight: 700; }
+  .flow-stage .stage-desc { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
+
+  /* ── Final quote ── */
+  .final-quote {
+    margin: 56px 0 0;
+    padding: 36px 32px;
+    background: var(--text);
+    color: var(--bg);
+  }
+  .final-quote blockquote {
+    border: none;
+    background: none;
+    padding: 0;
+    color: var(--bg);
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  .final-quote blockquote cite { color: rgba(255,255,255,0.55); font-size: 0.88rem; margin-top: 14px; }
+
+  /* ── Synthesis matrix ── */
+  .synth-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.85rem; }
+  .synth-table th { background: var(--text); color: var(--bg); padding: 9px 12px; text-align: left; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
+  .synth-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .synth-table tr:nth-child(even) td { background: var(--surface); }
+  .synth-table td:first-child { font-weight: 700; white-space: nowrap; }
+
+  /* ── Nav ── */
+  .page-nav { display: flex; justify-content: space-between; margin-bottom: 36px; font-size: 0.82rem; }
+  .page-nav a { color: var(--text-secondary); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+  .page-nav a:hover { color: var(--text); border-color: var(--text); }
+  .page-nav .center { color: var(--text-muted); font-size: 0.76rem; }
+
+  @media (max-width: 600px) {
+    body { padding: 28px 16px 60px; }
+    h1 { font-size: 1.8rem; }
+    .dims-layout { flex-direction: column; }
+    .dims-levels { width: 100%; flex-direction: row; }
+    .dims-radial { grid-template-columns: repeat(3, 1fr); }
+    .flow-stages { flex-direction: column; }
+    .flow-stage::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -14px; }
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+
+<nav class="page-nav">
+  <a href="Chapter9_Design_Directions_Futures.html">← Chương 9</a>
+  <span class="center">Chương kết thúc</span>
+  <span style="opacity:0;">→</span>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     CHAPTER HEADER
+════════════════════════════════════════════ -->
+<header class="chapter-header">
+  <p class="chapter-label">Chương 10 — Chương Cuối</p>
+  <h1>Tổng hợp</h1>
+  <p class="subtitle">Summary: Five Dimensions of Design Thinking</p>
+  <p class="doi">https://doi.org/10.1007/978-3-030-94206-9_10</p>
+  <div class="synthesis-badge">Chương Tổng hợp — Không có Review Questions hay References riêng</div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     §10.1 THE DESIGN NEXUS
+════════════════════════════════════════════ -->
+<h2>10.1 Điểm giao thoa Thiết kế: Suy ngẫm và Tái cấu trúc</h2>
+
+<div class="section-intro">
+  Sau chín chương khảo sát lý thuyết và thực tiễn, chương cuối này không tổng kết theo kiểu liệt kê — mà đề xuất một <strong>khung tổng hợp mới</strong> để tái nhìn nhận tư duy thiết kế như một thực hành sống động, phức tạp và đầy tiềm năng biến đổi.
+</div>
+
+<p>Tư duy thiết kế đã được tôn vinh rộng rãi — đôi khi quá mức. Nhiều tổ chức áp dụng nó như một quy trình tuyến tính, kỳ vọng đầu ra sáng tạo có thể đặt hàng theo lịch. Nhưng Huang &amp; Hands lập luận rằng tư duy thiết kế thực sự cần phải <em>"messy"</em> hơn — không ngại mâu thuẫn, không vội kết thúc, sẵn sàng với sự mơ hồ.</p>
+
+<p>Khung <strong>Bốn Trật tự của Richard Buchanan</strong> — Ký hiệu học, Vật thể vật lý, Hành động &amp; Dịch vụ, Hệ thống &amp; Môi trường — cung cấp cấu trúc lý thuyết. Tư duy thiết kế <em>cắt ngang</em> cả bốn trật tự này, không bị giam trong bất kỳ một trật tự nào, và chính khả năng di chuyển linh hoạt đó tạo ra tiềm năng biến đổi (transformational change).</p>
+
+<p>Từ đó, các tác giả đề xuất <strong>năm chiều kích liên đan</strong> — không phải giai đoạn tuần tự mà là các chiều không gian đồng thời mà tư duy thiết kế vận hành:</p>
+
+<!-- ═══════════════════════════════════════════
+     FIGURE 10.1
+════════════════════════════════════════════ -->
+<div class="five-dims">
+  <span class="fig-label">Hình 10.1 — Năm Chiều kích Liên đan của Tư duy Thiết kế</span>
+  <div class="dims-layout">
+    <div class="dims-levels">
+      <div class="level-tag top">Xã hội<br><small style="font-size:0.6rem; font-weight:400;">Society</small></div>
+      <div class="level-tag">Tổ chức<br><small style="font-size:0.6rem; font-weight:400;">Organisation</small></div>
+      <div class="level-tag">Cá nhân<br><small style="font-size:0.6rem; font-weight:400;">Individual</small></div>
+    </div>
+    <div class="dims-radial">
+      <div class="dim-segment">
+        <span class="dim-name">VALUES</span>
+        <span class="dim-vi">Giá trị</span>
+      </div>
+      <div class="dim-segment">
+        <span class="dim-name">COMMONWEALTH</span>
+        <span class="dim-vi">Lợi ích chung</span>
+      </div>
+      <div class="dim-segment">
+        <span class="dim-name">PERSPECTIVES</span>
+        <span class="dim-vi">Góc nhìn</span>
+      </div>
+      <div class="dim-segment">
+        <span class="dim-name">TRANSFORMATIONS</span>
+        <span class="dim-vi">Biến đổi</span>
+      </div>
+      <div class="dim-segment">
+        <span class="dim-name">FUTURES</span>
+        <span class="dim-vi">Tương lai</span>
+      </div>
+    </div>
+  </div>
+  <p class="dims-caption">Năm chiều kích vận hành đồng thời ở cả ba cấp độ: Cá nhân · Tổ chức · Xã hội</p>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SYNTHESIS TABLE
+════════════════════════════════════════════ -->
+<h4>Ma trận Tổng hợp — Năm Chiều kích &amp; Kết nối với các Chương</h4>
+<table class="synth-table">
+  <thead>
+    <tr>
+      <th>Chiều kích</th>
+      <th>Câu hỏi cốt lõi</th>
+      <th>Chương liên quan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Values — Giá trị</td>
+      <td>Thiết kế phục vụ giá trị nào? Của ai?</td>
+      <td>Ch.2, Ch.6, Ch.8</td>
+    </tr>
+    <tr>
+      <td>Commonwealth — Lợi ích chung</td>
+      <td>Thiết kế tạo ra lợi ích cho cộng đồng rộng lớn hơn như thế nào?</td>
+      <td>Ch.4, Ch.5, Ch.9</td>
+    </tr>
+    <tr>
+      <td>Perspectives — Góc nhìn</td>
+      <td>Ai đang nhìn? Những giọng nói nào còn thiếu?</td>
+      <td>Ch.3, Ch.4</td>
+    </tr>
+    <tr>
+      <td>Transformations — Biến đổi</td>
+      <td>Thiết kế thay đổi gì — sản phẩm, hệ thống, văn hoá?</td>
+      <td>Ch.2, Ch.8, Ch.9</td>
+    </tr>
+    <tr>
+      <td>Futures — Tương lai</td>
+      <td>Thiết kế đang xây dựng tương lai nào? Cho ai?</td>
+      <td>Ch.6, Ch.7, Ch.9</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ═══════════════════════════════════════════
+     §10.2 DESIGN VALUES
+════════════════════════════════════════════ -->
+<div class="dim-detail">
+  <div class="dim-header">
+    <div class="dim-num">①</div>
+    <div>
+      <div class="dim-title">Design Values — Giá trị Thiết kế</div>
+      <span class="dim-title-vi">Thiết kế phục vụ giá trị gì — và của ai?</span>
+    </div>
+  </div>
+
+  <p><strong>Design Research Society</strong> được thành lập năm 1966 đánh dấu sự trưởng thành của nghiên cứu thiết kế như một ngành học thuật độc lập — với nhiều tiểu ngành: thiết kế sản phẩm, thiết kế dịch vụ, thiết kế trải nghiệm, thiết kế chiến lược.</p>
+
+  <p>Chiều kích <em>Values</em> đặt câu hỏi: giá trị nào hướng dẫn từng quyết định thiết kế? Giá trị người dùng? Giá trị kinh doanh? Giá trị xã hội? Và khi chúng xung đột, ai được ưu tiên?</p>
+
+  <div class="xref-row">
+    <span class="xref-tag"><strong>Ch.2</strong> Fraser's Three Gears · Danish Design Ladder · SMEs</span>
+    <span class="xref-tag"><strong>Ch.6</strong> Gaming start-ups Dundee · InGAME Business Model Booklet</span>
+    <span class="xref-tag"><strong>Ch.8</strong> Design thinking tools &amp; methods · User value</span>
+  </div>
+
+  <div class="case-box">
+    <p class="case-label">Ví dụ minh hoạ — Chương 6</p>
+    <h4>InGAME Business Model Booklet, Dundee</h4>
+    <p>Các start-up game tại Dundee được hỗ trợ phát triển mô hình kinh doanh thông qua công cụ thiết kế tư duy. Giá trị không chỉ là lợi nhuận — mà là sức sống sáng tạo của hệ sinh thái công nghiệp địa phương. Đây là thiết kế phục vụ <em>giá trị kinh tế lẫn văn hoá</em> cùng lúc.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     §10.3 DESIGN COMMONWEALTH
+════════════════════════════════════════════ -->
+<div class="dim-detail">
+  <div class="dim-header">
+    <div class="dim-num">②</div>
+    <div>
+      <div class="dim-title">Design Commonwealth — Lợi ích Chung</div>
+      <span class="dim-title-vi">Thiết kế tạo ra lợi ích cho cộng đồng rộng lớn hơn như thế nào?</span>
+    </div>
+  </div>
+
+  <p><em>Commonwealth</em> — lợi ích chung — đẩy thiết kế vượt ra khỏi lợi ích cá nhân và lợi nhuận tổ chức, hướng đến tác động tích cực cho cộng đồng, xã hội và hành tinh. Đây là nơi thiết kế gặp gỡ đạo đức.</p>
+
+  <div class="xref-row">
+    <span class="xref-tag"><strong>Ch.4</strong> Buchanan 4 Orders · IBM cultural change programme</span>
+    <span class="xref-tag"><strong>Ch.5</strong> Dr Beatriz Itzel Cruz Megchun · Creative confidence · Economic systems</span>
+    <span class="xref-tag"><strong>Ch.9</strong> Democratisation · Lead User Method · Living Labs · DESIS</span>
+  </div>
+
+  <p>Ba hệ thống kinh tế được khảo sát ở Chương 5 — <strong>chỉ huy (command), hợp tác (cooperative), hỗn hợp (hybrid)</strong> — mỗi loại đặt ra những ràng buộc và cơ hội khác nhau cho thiết kế phục vụ lợi ích chung.</p>
+
+  <div class="case-box">
+    <p class="case-label">Ví dụ minh hoạ — Chương 4</p>
+    <h4>IBM Enterprise Design Thinking</h4>
+    <p>IBM triển khai chương trình thay đổi văn hoá toàn tập đoàn dựa trên tư duy thiết kế — không chỉ để tạo sản phẩm tốt hơn, mà để xây dựng văn hoá đồng cảm và cộng tác. Lợi ích lan toả đến khách hàng, nhân viên và đối tác — đó là <em>Commonwealth</em> trong thực tế doanh nghiệp.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     §10.4 DESIGN PERSPECTIVES
+════════════════════════════════════════════ -->
+<div class="dim-detail">
+  <div class="dim-header">
+    <div class="dim-num">③</div>
+    <div>
+      <div class="dim-title">Design Perspectives — Góc nhìn Thiết kế</div>
+      <span class="dim-title-vi">Ai đang nhìn? Những giọng nói nào còn thiếu trong phòng thiết kế?</span>
+    </div>
+  </div>
+
+  <p>Covid-19 là bài kiểm tra khắc nghiệt nhất cho <em>Perspectives</em>: đại dịch phơi bày những khoảng trống trong thiết kế khi chỉ có một góc nhìn — những ai không được tính đến, những nhu cầu bị bỏ qua, những hệ thống thiếu khả năng thích ứng.</p>
+
+  <div class="xref-row">
+    <span class="xref-tag"><strong>Ch.3</strong> T-shaped skills · Design thinking in business schools · Short courses</span>
+    <span class="xref-tag"><strong>Ch.4</strong> Agile businesses · Business uncertainty planning</span>
+  </div>
+
+  <p>Kỹ năng <strong>T-shaped</strong> (Chương 3) — chiều sâu chuyên môn kết hợp với chiều rộng liên ngành — là nền tảng để nhà thiết kế thu thập và tổng hợp nhiều góc nhìn mà không bị mất đi bản sắc chuyên môn. Đây là lý do các trường kinh doanh tích hợp tư duy thiết kế vào chương trình — không phải để đào tạo nhà thiết kế, mà để tạo ra những nhà lãnh đạo có khả năng nhìn từ nhiều phía.</p>
+
+  <div class="case-box">
+    <p class="case-label">Ví dụ minh hoạ — Chương 4</p>
+    <h4>Lập kế hoạch trong Bất định</h4>
+    <p>Doanh nghiệp linh hoạt (agile) không lập kế hoạch để loại bỏ bất định — họ xây dựng năng lực thích nghi với nó. Điều đó đòi hỏi nhiều góc nhìn: kỹ thuật, thị trường, người dùng, pháp lý và xã hội — tất cả phải được lắng nghe trước khi quyết định được đưa ra.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     §10.5 DESIGN TRANSFORMATIONS
+════════════════════════════════════════════ -->
+<div class="dim-detail">
+  <div class="dim-header">
+    <div class="dim-num">④</div>
+    <div>
+      <div class="dim-title">Design Transformations — Biến đổi qua Thiết kế</div>
+      <span class="dim-title-vi">Thiết kế thay đổi điều gì — sản phẩm, hệ thống, hay cả văn hoá?</span>
+    </div>
+  </div>
+
+  <p>IoT và các mô hình kinh doanh đột phá đang định nghĩa lại <em>Transformations</em> ở quy mô chưa từng có. Hai trường hợp điển hình:</p>
+
+  <div class="case-box">
+    <p class="case-label">Trường hợp 1</p>
+    <h4>Airbiquity — Kết nối Xe hơi Thời gian Thực</h4>
+    <p>Airbiquity thiết kế hệ thống kết nối xe hơi thu thập dữ liệu vận hành theo thời gian thực — mở ra mô hình kinh doanh hoàn toàn mới cho ngành ô tô: từ bán xe một lần sang dịch vụ liên tục, bảo trì dự đoán và cá nhân hoá trải nghiệm lái.</p>
+  </div>
+
+  <div class="case-box">
+    <p class="case-label">Trường hợp 2</p>
+    <h4>JOSH.AI — Tự động hoá Gia đình bằng Giọng nói</h4>
+    <p>JOSH.AI thiết kế hệ thống điều khiển nhà thông minh bằng giọng nói tự nhiên — biến đổi không gian sống, đặc biệt cho người khuyết tật và người cao tuổi. Đây là <em>Transformations</em> ở cấp độ cá nhân: thay đổi cách một người tương tác với không gian họ sống mỗi ngày.</p>
+  </div>
+
+  <p>Ở cấp độ đô thị, <strong>thành phố thông minh (smart cities)</strong> là ví dụ về <em>Transformations</em> hệ thống: thiết kế hạ tầng, giao thông, năng lượng và dịch vụ công được tích hợp qua dữ liệu, thay đổi căn bản cách đô thị vận hành.</p>
+
+  <div class="xref-row">
+    <span class="xref-tag"><strong>Ch.2</strong> Design Leadership Programme · SMEs transformation</span>
+    <span class="xref-tag"><strong>Ch.8</strong> Dr Radka Newton · Lancaster University · Service design</span>
+    <span class="xref-tag"><strong>Ch.9</strong> IoT · DDI · Disruptive business models</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     §10.6 DESIGN FUTURES
+════════════════════════════════════════════ -->
+<div class="dim-detail">
+  <div class="dim-header">
+    <div class="dim-num">⑤</div>
+    <div>
+      <div class="dim-title">Design Futures — Tương lai Thiết kế</div>
+      <span class="dim-title-vi">Thiết kế đang xây dựng tương lai nào — và cho ai?</span>
+    </div>
+  </div>
+
+  <p><em>Futures</em> là chiều kích thách thức nhất: nó đòi hỏi nhà thiết kế không chỉ giải quyết vấn đề hiện tại mà phải <em>tưởng tượng và kiến tạo</em> những tương lai chưa tồn tại — với đầy đủ ý thức về hậu quả dài hạn.</p>
+
+  <p>Hợp tác <strong>liên ngành và liên lĩnh vực</strong> không còn là lựa chọn — nó là điều kiện tiên quyết. Không có tổ chức đơn lẻ nào đủ khả năng thiết kế tương lai một mình: y tế, giáo dục, đô thị, năng lượng, thực phẩm — tất cả đan xen và cần nhau.</p>
+
+  <h3>Mô hình Ba giai đoạn Ambidexterity Thương hiệu (Chương 7)</h3>
+
+  <div class="flow-stages">
+    <div class="flow-stage">
+      <div class="stage-num">Giai đoạn 1</div>
+      <div class="stage-name">Mất ổn định</div>
+      <div class="stage-desc">Destabilisation — Bối cảnh thay đổi phá vỡ vị thế thương hiệu hiện tại</div>
+    </div>
+    <div class="flow-stage">
+      <div class="stage-num">Giai đoạn 2</div>
+      <div class="stage-name">Định nghĩa &amp; Phát triển</div>
+      <div class="stage-desc">Define/Develop — Tái định nghĩa danh tính, thử nghiệm định vị mới</div>
+    </div>
+    <div class="flow-stage">
+      <div class="stage-num">Giai đoạn 3</div>
+      <div class="stage-name">Biến đổi</div>
+      <div class="stage-desc">Transformation — Thương hiệu mới ra đời, tích hợp khai thác lẫn khám phá</div>
+    </div>
+  </div>
+
+  <div class="xref-row">
+    <span class="xref-tag"><strong>Ch.6</strong> Triple Bottom Line · Sustainable futures · Climate change</span>
+    <span class="xref-tag"><strong>Ch.7</strong> Brand ambidexterity · 3-stage model</span>
+    <span class="xref-tag"><strong>Ch.9</strong> Three macro trends: Technology · Demographics · Environment</span>
+  </div>
+
+  <p><strong>Triple Bottom Line</strong> (Chương 6) — Lợi nhuận, Con người, Hành tinh — là khung đạo đức cho <em>Futures</em>: tương lai mà thiết kế hướng đến phải đồng thời bền vững về kinh tế, công bằng về xã hội và lành mạnh về môi trường. Không thể đánh đổi một chiều lấy chiều khác.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     §10.7 FINAL REFLECTIONS
+════════════════════════════════════════════ -->
+<h2>10.7 Phản tư Cuối cùng</h2>
+
+<p>Năm chiều kích — <strong>Values, Commonwealth, Perspectives, Transformations, Futures</strong> — không phải là một mô hình mới để thay thế các công cụ tư duy thiết kế hiện có. Chúng là một <em>lăng kính tổng hợp</em>: giúp những người thực hành, nhà nghiên cứu và lãnh đạo tổ chức nhìn thấy tư duy thiết kế trong tổng thể phức tạp và đầy tiềm năng của nó.</p>
+
+<p>Điều quan trọng là năm chiều kích này trao <strong>agency</strong> — khả năng hành động có chủ đích — cho những ai sử dụng thiết kế như phương tiện tạo ra thay đổi có ý nghĩa: cho con người và cho hành tinh.</p>
+
+<p>Thiết kế không giải quyết mọi vấn đề. Nhưng thiết kế — khi được thực hành với sự đồng cảm, tư duy phê phán và trách nhiệm đạo đức — là một trong những công cụ mạnh nhất mà nhân loại có để xây dựng những tương lai xứng đáng sống trong đó.</p>
+
+<!-- ═══════════════════════════════════════════
+     FINAL QUOTE
+════════════════════════════════════════════ -->
+<div class="final-quote">
+  <blockquote>
+    "Hãy dành tám mươi phần trăm thời gian của bạn để tập trung vào các cơ hội của ngày mai, thay vì các vấn đề của ngày hôm qua."
+    <cite>— Brian Tracy</cite>
+  </blockquote>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CLOSING NOTE
+════════════════════════════════════════════ -->
+<div style="margin-top: 56px; border-top: 1px solid var(--border); padding-top: 32px;">
+  <p style="font-size: 0.82rem; color: var(--text-muted); text-align: center; font-family: Georgia, serif; font-style: italic;">
+    Kết thúc · <em>Design Thinking for New Business Contexts: A Critical Analysis through Theory and Practice</em><br>
+    Yujia Huang &amp; David Hands · Springer, 2022
+  </p>
+  <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 8px; font-family: 'Courier New', monospace;">
+    https://doi.org/10.1007/978-3-030-94206-9
+  </p>
+</div>
+
+<nav class="page-nav" style="margin-top: 56px;">
+  <a href="Chapter9_Design_Directions_Futures.html">← Chương 9</a>
+  <span style="color: var(--text-muted); font-size: 0.76rem;">Hết</span>
+  <span style="opacity:0;">→</span>
+</nav>
+
+
+<nav class="chapnav">
+  <a href="ch9-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 9: Định hướng Thiết kế & Tương lai Bất định</a>
+</nav>
+</body>
+</html>

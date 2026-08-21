@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 7 – Tư Duy Thiết Kế cho Xây dựng Thương Hiệu</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f7f7f7;
+    --border: #e0e0e0;
+    --border-strong: #999;
+    --text: #1a1a1a;
+    --text-muted: #555;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.8;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 32px 100px;
+  }
+  /* ── TYPOGRAPHY ── */
+  h1, h2, h3, h4, .label {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  h1 { font-size: 28px; font-weight: 800; letter-spacing: -.5px; margin-bottom: 6px; line-height: 1.25; }
+  h2 { font-size: 21px; font-weight: 700; margin: 48px 0 14px; border-bottom: 2px solid var(--text); padding-bottom: 6px; }
+  h3 { font-size: 17px; font-weight: 700; margin: 32px 0 10px; }
+  h4 { font-size: 15px; font-weight: 700; margin: 22px 0 8px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted); }
+  p { margin-bottom: 16px; }
+  blockquote {
+    border-left: 3px solid var(--border-strong);
+    margin: 20px 0;
+    padding: 10px 20px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  /* ── HEADER META ── */
+  .chapter-label {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+  }
+  .doi { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  .doi a { color: var(--text-muted); }
+  .authors { font-size: 15px; margin-bottom: 4px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  .affiliation { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  .keywords {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    margin: 20px 0 40px;
+  }
+  .keywords strong { color: var(--text); }
+  hr.section-rule { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+  /* ── LEARNING OBJECTIVES ── */
+  .objectives {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px 26px;
+    margin: 32px 0;
+  }
+  .objectives h3 { margin-top: 0; font-size: 15px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; }
+  .objectives ol { padding-left: 22px; }
+  .objectives ol li { margin-bottom: 8px; font-size: 15.5px; }
+  /* ── ETHNOGRAPHY TYPES ── */
+  .ethno-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 18px 0;
+  }
+  .ethno-item {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 12px 14px;
+  }
+  .ethno-item .etitle {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin-bottom: 4px;
+  }
+  .ethno-item p { font-size: 14px; margin: 0; color: var(--text-muted); }
+  /* ── EMPATHY LEVELS ── */
+  .empathy-levels {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0;
+  }
+  .empathy-levels li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--border-strong);
+    padding: 10px 14px;
+    background: var(--surface);
+  }
+  .emp-num {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--border-strong);
+    min-width: 26px;
+    line-height: 1;
+    padding-top: 2px;
+  }
+  /* ── CBBE PYRAMID ── */
+  .cbbe-pyramid {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 24px 20px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .cbbe-pyramid .fig-label {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+  }
+  .pyr-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4px;
+  }
+  .pyr-cell {
+    background: var(--text);
+    color: var(--bg);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 14px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin: 2px;
+  }
+  .pyr-cell.light {
+    background: var(--border-strong);
+  }
+  .pyr-cell.lighter {
+    background: var(--border);
+    color: var(--text);
+  }
+  /* ── BRAND RESONANCE LIST ── */
+  .resonance-list {
+    list-style: none;
+    padding: 0;
+    counter-reset: res-counter;
+    margin: 16px 0;
+  }
+  .resonance-list li {
+    counter-increment: res-counter;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+  .resonance-list li::before {
+    content: counter(res-counter);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--bg);
+    background: var(--text);
+    min-width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  /* ── BRAND AMBIDEXTERITY PROCESS ── */
+  .ambidex-process {
+    display: flex;
+    gap: 0;
+    margin: 20px 0;
+    border: 1px solid var(--border);
+  }
+  .ambidex-stage {
+    flex: 1;
+    padding: 16px 14px;
+    border-right: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .ambidex-stage:last-child { border-right: none; }
+  .ambidex-stage .stage-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    background: var(--text);
+    color: var(--bg);
+    padding: 5px 8px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .ambidex-stage ul {
+    list-style: none;
+    padding: 0;
+  }
+  .ambidex-stage ul li {
+    font-size: 13px;
+    padding: 3px 0;
+    color: var(--text-muted);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    border-bottom: 1px dotted var(--border);
+  }
+  .ambidex-stage ul li:last-child { border-bottom: none; }
+  .ambidex-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    font-size: 18px;
+    color: var(--border-strong);
+    flex-shrink: 0;
+  }
+  /* ── FRAMEWORK FIGURE ── */
+  .framework-fig {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 20px;
+    margin: 20px 0;
+  }
+  .framework-fig .fig-label {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .fw-row {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+    margin-bottom: 8px;
+    justify-content: center;
+  }
+  .fw-box {
+    flex: 1;
+    border: 2px solid var(--border-strong);
+    padding: 10px 12px;
+    text-align: center;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .fw-box.dark {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+  }
+  .fw-arrow {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    color: var(--border-strong);
+    padding: 0 4px;
+  }
+  /* ── CHAPTER SUMMARY ── */
+  .summary-box {
+    background: var(--surface);
+    border: 2px solid var(--border-strong);
+    padding: 26px 28px;
+    margin: 40px 0;
+  }
+  .summary-box h3 { margin-top: 0; font-size: 15px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; }
+  /* ── QA BOXES ── */
+  .qa-box {
+    border: 1px solid var(--border);
+    padding: 22px 26px;
+    margin: 28px 0;
+    background: var(--surface);
+  }
+  .qa-box h3 { margin-top: 0; font-size: 14px; text-transform: uppercase; letter-spacing: .07em; color: var(--text-muted); margin-bottom: 16px; }
+  .qa-box ol { padding-left: 22px; }
+  .qa-box ol li { margin-bottom: 10px; font-size: 15.5px; }
+  /* ── PROJECT STEPS ── */
+  .project-box {
+    border: 1px solid var(--border);
+    padding: 22px 26px;
+    margin: 28px 0;
+  }
+  .project-box h3 { margin-top: 0; font-size: 14px; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .project-box .main-task {
+    border-left: 3px solid var(--border-strong);
+    padding: 10px 14px;
+    margin-bottom: 18px;
+    font-size: 15.5px;
+    background: var(--surface);
+  }
+  .project-box ol { padding-left: 22px; }
+  .project-box ol li { margin-bottom: 10px; font-size: 15px; }
+  /* ── CHAPTER TASKS ── */
+  .tasks-box {
+    border: 1px solid var(--border-strong);
+    padding: 22px 26px;
+    margin: 28px 0;
+  }
+  .tasks-box h3 { margin-top: 0; font-size: 14px; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+  .tasks-box ol { padding-left: 22px; }
+  .tasks-box ol li { margin-bottom: 8px; font-size: 15px; }
+  .tasks-box ol ol { list-style: lower-alpha; margin-top: 6px; }
+  /* ── REFERENCES ── */
+  .references h2 { font-size: 19px; }
+  .ref-list { list-style: none; padding: 0; }
+  .ref-list li {
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+  .ref-list li:last-child { border-bottom: none; }
+  .rec-reading { margin-top: 36px; }
+  .rec-reading h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+
+<div class="chapter-label">Chương 7</div>
+<h1>Tư Duy Thiết Kế cho Xây dựng Thương Hiệu</h1>
+<div class="doi">https://doi.org/10.1007/978-3-030-94206-9_7</div>
+<div class="authors">Yujia Huang và David Hands</div>
+<div class="affiliation">
+  (1) Đại học Dundee, Dundee, Vương quốc Anh &nbsp;·&nbsp;
+  (2) Đại học Lancaster, Lancaster, Vương quốc Anh
+</div>
+<div class="affiliation">
+  <strong>Đóng góp:</strong> Dr Sotiris T. Lalaounis, Giảng viên cao cấp về Marketing và Quản lý Thiết kế, Trường Kinh doanh Đại học Exeter, Vương quốc Anh
+</div>
+<div class="keywords">
+  <strong>Từ khóa:</strong> Kiểm toán thương hiệu · Tài sản thương hiệu · Dân tộc học · Sự đồng cảm · Tư duy thiết kế · Tính lưỡng nghề thương hiệu
+</div>
+
+<!-- LEARNING OBJECTIVES -->
+<div class="objectives">
+  <h3>Mục tiêu học tập</h3>
+  <ol>
+    <li>Hiểu và có khả năng thực hiện kiểm toán thương hiệu.</li>
+    <li>Hiểu cách áp dụng dân tộc học người tiêu dùng vào việc kiểm toán thương hiệu.</li>
+    <li>Hiểu cách xác định các vấn đề và/hoặc cơ hội thương hiệu thông qua mô hình kim tự tháp CBBE.</li>
+    <li>Hiểu cách áp dụng giai đoạn lên ý tưởng và triển khai của tư duy thiết kế để phát triển chiến lược thương hiệu.</li>
+    <li>Hiểu khái niệm tính lưỡng nghề thương hiệu (brand ambidexterity) do tư duy thiết kế thúc đẩy.</li>
+  </ol>
+</div>
+
+<!-- §7.1 -->
+<h2>7.1 Giới thiệu</h2>
+<p>
+  Thương hiệu là một trong những tài sản vô hình quan trọng nhất của bất kỳ tổ chức nào. Thương hiệu không đơn giản là tên, logo hay biểu tượng — đó là tổng thể ấn tượng, liên tưởng và cảm xúc mà người tiêu dùng dành cho sản phẩm hoặc dịch vụ. Theo Hiệp hội Marketing Hoa Kỳ (AMA, 2015), thương hiệu là "tên, thuật ngữ, dấu hiệu, biểu tượng hoặc thiết kế, hoặc sự kết hợp của chúng, nhằm nhận dạng hàng hóa hay dịch vụ của một người bán hoặc nhóm người bán và phân biệt chúng với đối thủ cạnh tranh."
+</p>
+<p>
+  Tuy nhiên, định nghĩa này chưa thể hiện đầy đủ bản chất phức tạp và có tính đối thoại của thương hiệu. Thương hiệu không chỉ do tổ chức tạo ra mà còn được đồng kiến tạo bởi người tiêu dùng trong quá trình tương tác với sản phẩm, dịch vụ và các hoạt động truyền thông. Nhận thức thương hiệu (brand identity) — những yếu tố nhận diện được tổ chức xây dựng — và hình ảnh thương hiệu (brand image) — nhận thức của người tiêu dùng về thương hiệu — có thể khác nhau đáng kể. Quản lý khoảng cách giữa identity và image là một trong những thách thức trung tâm của quản trị thương hiệu.
+</p>
+<p>
+  Tài sản thương hiệu (brand equity) phản ánh giá trị gia tăng mà thương hiệu mang lại cho sản phẩm hoặc dịch vụ. Keller (1993) đề xuất khái niệm tài sản thương hiệu dựa trên khách hàng (Customer-Based Brand Equity — CBBE): tài sản thương hiệu xuất phát từ nhận thức và phản ứng của khách hàng đối với thương hiệu, so với phản ứng của họ với cùng sản phẩm hoặc dịch vụ nhưng không mang thương hiệu đó. Chương này lập luận rằng tư duy thiết kế — với tính lấy con người làm trung tâm và phương pháp dân tộc học người tiêu dùng — là công cụ mạnh mẽ để xây dựng và bảo vệ tài sản thương hiệu.
+</p>
+
+<!-- §7.2 -->
+<h2>7.2 Kiểm toán thương hiệu, Dân tộc học người tiêu dùng và Tư duy thiết kế</h2>
+<p>
+  Kiểm toán thương hiệu (brand audit) là quy trình đánh giá toàn diện sức khỏe của thương hiệu. Keller (1993, 2001) chỉ ra hai bộ phận cấu thành của kiểm toán thương hiệu:
+</p>
+<p>
+  <strong>Kiểm kê thương hiệu (Brand Inventory)</strong> là bước khảo sát hồ sơ thương hiệu hiện tại từ góc độ tổ chức — nhận dạng tất cả các yếu tố nhận diện thương hiệu (tên, logo, màu sắc, thông điệp, bao bì, thiết kế sản phẩm) đang được triển khai, cũng như cách thương hiệu được định vị và truyền thông đến thị trường.
+</p>
+<p>
+  <strong>Khám phá thương hiệu (Brand Exploratory)</strong> là bước nghiên cứu nhận thức của người tiêu dùng — tìm hiểu liên tưởng, cảm xúc và hành vi của họ đối với thương hiệu. Đây là lúc dân tộc học người tiêu dùng đóng vai trò quan trọng, kết nối với giai đoạn <em>truyền cảm hứng</em> của quy trình tư duy thiết kế.
+</p>
+
+<h3>Dân tộc học người tiêu dùng (Consumer Ethnography)</h3>
+<p>
+  Dân tộc học là phương pháp nghiên cứu định tính có nguồn gốc từ nhân học, trong đó nhà nghiên cứu quan sát và tham gia vào cuộc sống thực tế của đối tượng nghiên cứu để hiểu sâu hành vi, giá trị và văn hóa của họ. Có sáu loại hình dân tộc học được vận dụng trong nghiên cứu thương hiệu:
+</p>
+
+<div class="ethno-grid">
+  <div class="ethno-item">
+    <div class="etitle">1. Dân tộc học thực địa</div>
+    <p>Quan sát trực tiếp trong môi trường tự nhiên — cửa hàng, gia đình, không gian sử dụng sản phẩm.</p>
+  </div>
+  <div class="ethno-item">
+    <div class="etitle">2. Dân tộc học kỹ thuật số</div>
+    <p>Quan sát hành vi trực tuyến — mạng xã hội, diễn đàn, bình luận — còn gọi là netnography (Kozinets, 2002).</p>
+  </div>
+  <div class="ethno-item">
+    <div class="etitle">3. Dân tộc học nhiếp ảnh</div>
+    <p>Người tiêu dùng tự ghi lại trải nghiệm của họ qua hình ảnh để nhà nghiên cứu phân tích.</p>
+  </div>
+  <div class="ethno-item">
+    <div class="etitle">4. Dân tộc học thực tế</div>
+    <p>Quan sát hành vi mua sắm và tiêu dùng trong các bối cảnh thực như siêu thị, quán cà phê.</p>
+  </div>
+  <div class="ethno-item">
+    <div class="etitle">5. Nhân vật (Personas)</div>
+    <p>Xây dựng hồ sơ người dùng đại diện từ dữ liệu dân tộc học để hướng dẫn thiết kế.</p>
+  </div>
+  <div class="ethno-item">
+    <div class="etitle">6. Dân tộc học tương lai</div>
+    <p>Khám phá xu hướng tương lai — hành vi, giá trị và kỳ vọng của người tiêu dùng trong bối cảnh đang thay đổi.</p>
+  </div>
+</div>
+
+<p>
+  <em>Netnography</em> (Kozinets, 2002) là hình thức dân tộc học kỹ thuật số được phát triển đặc biệt cho nghiên cứu cộng đồng trực tuyến — phân tích nội dung người dùng tạo ra trên các nền tảng mạng xã hội và diễn đàn để hiểu liên tưởng và cảm xúc với thương hiệu.
+</p>
+
+<h3>Ba cấp độ đồng cảm trong kiểm toán thương hiệu</h3>
+<p>
+  Mục tiêu cốt lõi của dân tộc học người tiêu dùng là đạt được sự đồng cảm với người tiêu dùng ở ba cấp độ:
+</p>
+<ul class="empathy-levels">
+  <li>
+    <span class="emp-num">1</span>
+    <div>
+      <strong>Đồng cảm vật lý (Physical Empathy):</strong> Hiểu hành vi và tương tác vật lý của người tiêu dùng với thương hiệu — cách họ cầm, sử dụng, trải nghiệm sản phẩm hay dịch vụ trong thực tế.
+    </div>
+  </li>
+  <li>
+    <span class="emp-num">2</span>
+    <div>
+      <strong>Đồng cảm nhận thức (Cognitive Empathy):</strong> Hiểu suy nghĩ, quan điểm và cách tư duy của người tiêu dùng về thương hiệu — những liên tưởng và niềm tin họ hình thành.
+    </div>
+  </li>
+  <li>
+    <span class="emp-num">3</span>
+    <div>
+      <strong>Đồng cảm cảm xúc (Emotional Empathy):</strong> Cảm nhận và chia sẻ cảm xúc của người tiêu dùng — tình yêu, sự trung thành, thất vọng hay lo ngại với thương hiệu.
+    </div>
+  </li>
+</ul>
+
+<div class="framework-fig">
+  <div class="fig-label">Hình 7.1 — Khung kết nối Tư duy thiết kế và Quản trị thương hiệu</div>
+  <div class="fw-row">
+    <div class="fw-box dark">Kiểm toán thương hiệu<br><small style="font-weight:400">(Brand Inventory + Brand Exploratory)</small></div>
+  </div>
+  <div class="fw-row">
+    <span class="fw-arrow">↕</span>
+  </div>
+  <div class="fw-row">
+    <div class="fw-box">Truyền cảm hứng<br><small>Dân tộc học người tiêu dùng → Đồng cảm</small></div>
+    <span class="fw-arrow">→</span>
+    <div class="fw-box">Lên ý tưởng<br><small>Xác định vấn đề/cơ hội → Brainstorm</small></div>
+    <span class="fw-arrow">→</span>
+    <div class="fw-box">Triển khai<br><small>Prototype → Kiểm thử → Chiến lược</small></div>
+  </div>
+  <div class="fw-row">
+    <span class="fw-arrow">↕</span>
+  </div>
+  <div class="fw-row">
+    <div class="fw-box dark">Tài sản thương hiệu<br><small style="font-weight:400">(Brand Equity — CBBE)</small></div>
+  </div>
+</div>
+
+<!-- §7.3 -->
+<h2>7.3 Xác định vấn đề và/hoặc cơ hội thương hiệu</h2>
+<p>
+  Kết quả của kiểm toán thương hiệu — đặc biệt là từ nghiên cứu dân tộc học người tiêu dùng — cho phép nhà quản lý thương hiệu và nhà thiết kế xác định các vấn đề hoặc cơ hội thương hiệu và định vị chúng trong mô hình kim tự tháp CBBE.
+</p>
+
+<h3>Mô hình kim tự tháp CBBE (Keller, 1993, 2001)</h3>
+<p>
+  Mô hình kim tự tháp CBBE của Keller mô tả bốn tầng xây dựng thương hiệu, từ nền tảng đến đỉnh:
+</p>
+
+<div class="cbbe-pyramid">
+  <div class="fig-label">Hình 7.3 — Kim tự tháp CBBE (Customer-Based Brand Equity)</div>
+  <!-- Tier 4 - top -->
+  <div class="pyr-row">
+    <div class="pyr-cell" style="min-width:160px">Cộng hưởng thương hiệu<br><small style="font-weight:400;font-size:10px">Brand Resonance</small></div>
+  </div>
+  <!-- Tier 3 -->
+  <div class="pyr-row">
+    <div class="pyr-cell light" style="min-width:120px">Đánh giá<br><small style="font-weight:400;font-size:10px">Judgements</small></div>
+    <div class="pyr-cell light" style="min-width:120px">Cảm xúc<br><small style="font-weight:400;font-size:10px">Feelings</small></div>
+  </div>
+  <!-- Tier 2 -->
+  <div class="pyr-row">
+    <div class="pyr-cell lighter" style="min-width:100px">Hiệu năng<br><small style="font-size:10px;color:var(--text-muted)">Performance</small></div>
+    <div class="pyr-cell lighter" style="min-width:100px">Hình ảnh<br><small style="font-size:10px;color:var(--text-muted)">Imagery</small></div>
+  </div>
+  <!-- Tier 1 - base -->
+  <div class="pyr-row">
+    <div class="pyr-cell" style="min-width:260px;background:var(--border);color:var(--text)">Nổi bật thương hiệu · Brand Salience</div>
+  </div>
+  <p style="font-size:12px;color:var(--text-muted);margin-top:10px;font-family:'Helvetica Neue',sans-serif">
+    Tầng 1: Nhận thức · Tầng 2: Ý nghĩa · Tầng 3: Phản ứng · Tầng 4: Quan hệ
+  </p>
+</div>
+
+<p>
+  <strong>Tầng 1 — Nổi bật thương hiệu (Brand Salience):</strong> Nền tảng của tài sản thương hiệu là nhận thức thương hiệu (brand awareness). Để một thương hiệu trở nên nổi bật, người tiêu dùng phải có khả năng nhớ lại (brand recall) và nhận ra (brand recognition) thương hiệu một cách dễ dàng. Độ sâu của nhận thức liên quan đến sự dễ dàng nhớ lại; độ rộng liên quan đến phạm vi bối cảnh tiêu dùng mà thương hiệu hiện diện trong tâm trí (Keller, 1993; Keller &amp; Swaminathan, 2020).
+</p>
+
+<p>
+  <strong>Tầng 2 — Ý nghĩa thương hiệu (Brand Meaning):</strong> Giai đoạn tiếp theo là liên kết thương hiệu với các liên tưởng mạnh mẽ, thuận lợi và độc đáo trong tâm trí người tiêu dùng. Hai loại liên tưởng chính: liên tưởng hiệu năng (performance associations) — thuộc tính nội tại, chức năng, độ tin cậy, giá cả; và liên tưởng hình ảnh (imagery associations) — thuộc tính ngoại tại, đáp ứng nhu cầu xã hội và biểu tượng của người tiêu dùng. Ý nghĩa thương hiệu có tính đối thoại và được kiến tạo xã hội — không thể hoàn toàn kiểm soát bởi tổ chức.
+</p>
+
+<blockquote>
+  "Thay vì xây dựng thương hiệu <em>cho</em> người tiêu dùng, [nhà quản lý và nhà thiết kế] phải đồng phát triển thương hiệu <em>cùng</em> con người và tiếp tục tích hợp khả năng tạo nghĩa vào quy trình xây dựng thương hiệu... [Họ] phải thừa nhận rằng hành động tạo nghĩa xảy ra bên trong cá nhân và không phải là điều [họ] có thể kiểm soát. Tốt nhất là [họ] có thể dùng thiết kế để tạo ra cơ hội, bối cảnh và công cụ cho việc tạo nghĩa và đặt chúng vào tay của con người." (Jacobs &amp; Wintrob, 2016, tr. 54–55)
+</blockquote>
+
+<p>
+  <strong>Tầng 3 — Phản ứng thương hiệu (Brand Responses):</strong> Tổ chức cần tạo ra các phản ứng tích cực cả lý trí lẫn cảm xúc từ người tiêu dùng. <em>Đánh giá của người tiêu dùng (Consumer Judgements)</em> bao gồm: (1) chất lượng cảm nhận — chủ quan như cái đẹp; (2) độ tín nhiệm thương hiệu — chuyên môn, đáng tin và đáng yêu; (3) sự cân nhắc thương hiệu — mức độ phù hợp và có nghĩa với người tiêu dùng mục tiêu; và (4) tính vượt trội thương hiệu — khác biệt và tốt hơn các thương hiệu cạnh tranh. <em>Cảm xúc của người tiêu dùng (Consumer Feelings)</em> bao gồm cả cảm xúc tích cực (tình yêu, sự thỏa mãn, hứng khởi, niềm vui) và tiêu cực (buồn, sợ, xấu hổ, tức giận) (Richins, 1997; Gobé, 2009).
+</p>
+
+<p>
+  <strong>Tầng 4 — Cộng hưởng thương hiệu (Brand Resonance):</strong> Đỉnh cao của tài sản thương hiệu là mối quan hệ trung thành bền vững giữa người tiêu dùng và thương hiệu. Keller (2001, tr. 15) định nghĩa: "Cộng hưởng thương hiệu đề cập đến bản chất của mối quan hệ mà khách hàng có với thương hiệu và mức độ họ cảm thấy đang 'đồng điệu' với thương hiệu." Có bốn loại hình cộng hưởng thương hiệu:
+</p>
+
+<ol class="resonance-list">
+  <li>
+    <div><strong>Trung thành hành vi (Behavioural Loyalty):</strong> Số lượng người tiêu dùng mua thương hiệu, tần suất và mức chi tiêu.</div>
+  </li>
+  <li>
+    <div><strong>Gắn kết thái độ (Attitudinal Attachment):</strong> Kết nối cảm xúc mạnh mẽ — người tiêu dùng coi thương hiệu là đặc biệt và không thể thay thế.</div>
+  </li>
+  <li>
+    <div><strong>Ý thức cộng đồng (Sense of Community):</strong> Thương hiệu trở thành trung tâm của một nhóm xã hội (cộng đồng thương hiệu) hình thành trên cơ sở mối quan hệ giữa những người hâm mộ thương hiệu (Muñiz Jr. &amp; O'Guinn, 2001).</div>
+  </li>
+  <li>
+    <div><strong>Gắn kết chủ động (Active Engagement):</strong> Người tiêu dùng trung thành tích cực truyền bá thương hiệu và sẵn sàng đầu tư thời gian, năng lượng và tiền bạc vào thương hiệu vượt ra ngoài hành vi mua sắm (Keller, 2001, tr. 15).</div>
+  </li>
+</ol>
+
+<!-- §7.4 -->
+<h2>7.4 Tư duy thiết kế và Phát triển chiến lược thương hiệu</h2>
+<p>
+  Sau khi xác định vấn đề và/hoặc cơ hội thương hiệu qua kiểm toán thương hiệu, nhà quản lý thương hiệu và nhà thiết kế chuyển sang giai đoạn lên ý tưởng và triển khai của quy trình tư duy thiết kế để phát triển chiến lược thương hiệu (Brown, 2009; Liedtka, 2015). Giải pháp tối ưu cần đáp ứng ba tiêu chí: tính khả thi (feasibility), tính khả kiến (viability) và tính đáng mong muốn (desirability) — cân bằng hài hòa giữa những gì có thể thực hiện về kỹ thuật, những gì bền vững về kinh doanh và những gì có ý nghĩa với con người (Lalaounis, 2017).
+</p>
+
+<h3>Nhất quán thương hiệu và Sự liên quan thương hiệu</h3>
+<p>
+  Beverland và cộng sự (2015) lập luận rằng nhà quản lý thương hiệu phải duy trì <em>nhất quán thương hiệu</em> (brand consistency) — tiêu chuẩn hóa và bảo tồn hình ảnh thương hiệu qua các yếu tố nhận diện nhất quán — đồng thời duy trì <em>sự liên quan thương hiệu</em> (brand relevance) — thích nghi với thay đổi của thị trường và đổi mới để không bị lỗi thời. Hai mục tiêu này tạo ra sức căng vì chúng đòi hỏi các năng lực đối lập: nhất quán thương hiệu tương ứng với <em>khai thác</em> (exploitation) — tinh chỉnh và mở rộng những năng lực hiện có; còn sự liên quan thương hiệu tương ứng với <em>khám phá</em> (exploration) — theo đuổi cơ hội mới và đổi mới triệt để (March, 1991; Tushman &amp; O'Reilly, 1996).
+</p>
+
+<h3>Tính lưỡng nghề thương hiệu do thiết kế thúc đẩy (Design-Driven Brand Ambidexterity)</h3>
+<p>
+  Tư duy thiết kế có thể thách thức logic thống trị trong quản trị thương hiệu đương đại — vốn ưu tiên nhất quán hơn liên quan — thông qua khái niệm <em>tính lưỡng nghề thương hiệu do thiết kế thúc đẩy</em>. Beverland và cộng sự (2015, tr. 592) định nghĩa tính lưỡng nghề thương hiệu là "năng lực marketing trong đó thương hiệu được quản lý chiến lược để tạo ra giá trị thông qua việc theo đuổi đồng thời cả nhất quán và liên quan."
+</p>
+<p>
+  Tư duy thiết kế — dựa trên suy luận loại suy và thử nghiệm — khuyến khích nhà quản lý thương hiệu đặt câu hỏi "điều gì có thể xảy ra" và "điều gì nếu như" (Martin, 2009; Liedtka, 2015), từ đó tạo ra những hiểu biết mới và tri thức mới. Tính lấy con người làm trung tâm của tư duy thiết kế vượt qua định hướng khách hàng truyền thống: nó giúp nhà quản lý thương hiệu phát hiện các nhu cầu và mong muốn chưa được diễn đạt, định nghĩa lại hoặc phát triển thị trường, sản phẩm, dịch vụ và trải nghiệm mới (Beverland et al., 2015; Michlewski, 2008).
+</p>
+
+<h3>Quy trình kích hoạt tính lưỡng nghề thương hiệu qua tư duy thiết kế</h3>
+<p>
+  Beverland và cộng sự (2015) đề xuất quy trình ba giai đoạn để quản lý sức căng giữa nhất quán và liên quan thương hiệu thông qua tư duy thiết kế:
+</p>
+
+<div class="ambidex-process">
+  <div class="ambidex-stage">
+    <div class="stage-title">1. Mất ổn định</div>
+    <ul>
+      <li>Đặt câu hỏi ngây thơ</li>
+      <li>Thẩm vấn vấn đề</li>
+      <li>Ngâm mình bối cảnh</li>
+    </ul>
+  </div>
+  <div class="ambidex-stage">
+    <div class="stage-title">2. Định nghĩa &amp; Phát triển</div>
+    <ul>
+      <li>Khớp năng lực</li>
+      <li>Định phạm vi vấn đề</li>
+      <li>Phát triển giải pháp</li>
+    </ul>
+  </div>
+  <div class="ambidex-stage">
+    <div class="stage-title">3. Chuyển hóa</div>
+    <ul>
+      <li>Gắn đổi mới vào thương hiệu</li>
+      <li>Tái ổn định hóa</li>
+    </ul>
+  </div>
+</div>
+
+<p>
+  <strong>Giai đoạn 1 — Mất ổn định (Destabilisation):</strong> Các nhà thiết kế thách thức các danh mục mà nhà quản lý thương hiệu dùng để đóng khung lựa chọn đổi mới (Beverland et al., 2015, tr. 599). Ba thực hành con: (a) <em>Đặt câu hỏi ngây thơ</em> — hỏi "điều gì nếu như" để thách thức trạng thái hiện tại và chuẩn mực hiện hành; (b) <em>Thẩm vấn vấn đề</em> — xem xét bối cảnh văn hóa xã hội và lịch sử rộng lớn nơi sức căng giữa nhất quán và liên quan phát triển; (c) <em>Ngâm mình bối cảnh</em> — đắm mình vào thế giới của người tiêu dùng mục tiêu (kết nối trực tiếp với dân tộc học người tiêu dùng) để thúc đẩy thảo luận về các giả định hiện tại.
+</p>
+<p>
+  <strong>Giai đoạn 2 — Định nghĩa &amp; Phát triển (Define and Develop):</strong> Các nhà thiết kế tương tác với nhà quản lý thương hiệu để kết hợp nghiên cứu người tiêu dùng với tầm nhìn thương hiệu, đảm bảo đổi mới phù hợp và mở rộng narrative thương hiệu. Ba thực hành con: (a) <em>Khớp năng lực</em> — xác định đầu vào chức năng và biểu tượng cho thiết kế; (b) <em>Định phạm vi vấn đề</em> — hiểu bản chất của vấn đề cần giải quyết trong bối cảnh đổi mới thương hiệu rộng hơn; (c) <em>Phát triển giải pháp</em> — tạo ra giải pháp cung cấp sự liên quan mà không hy sinh nhất quán.
+</p>
+<p>
+  <strong>Giai đoạn 3 — Chuyển hóa (Transformation):</strong> Chuyển đổi thương hiệu qua hai thực hành con: (a) <em>Gắn đổi mới vào thương hiệu</em> — đặt giải pháp phát triển chính thức trong narrative thương hiệu, "tinh chỉnh câu chuyện thương hiệu bằng cách nhấn mạnh hoặc tiết lộ các liên tưởng mà thương hiệu [cho đến nay] đã bỏ qua, nhưng có thể tuyên bố một cách đáng tin cậy" (Beverland et al., 2015, tr. 604); (b) <em>Tái ổn định hóa</em> — sử dụng kết quả và hiểu biết từ các giai đoạn trước để xác định nhất quán thương hiệu trong tương lai.
+</p>
+<p>
+  Quy trình này ôm trọn bản chất của các giai đoạn truyền cảm hứng, lên ý tưởng và triển khai của tư duy thiết kế (Brown, 2009; Liedtka, 2015). Nghiên cứu thực nghiệm của Meinel và cộng sự (2020), so sánh 53 nhóm NPD, xác nhận rằng tư duy thiết kế giúp phát triển các khái niệm sản phẩm và dịch vụ sáng tạo hơn so với phương pháp đổi mới truyền thống — đặc biệt về tính khả thi, sự liên quan và tính đặc thù của các khái niệm được tạo ra.
+</p>
+
+<!-- CHAPTER SUMMARY -->
+<div class="summary-box">
+  <h3>Tóm tắt chương</h3>
+  <p>
+    Mục đích chính của chương này là thảo luận về đóng góp của tư duy thiết kế vào quản trị thương hiệu. Chương trình bày một khung khái niệm giải thích mối liên hệ giữa quy trình tư duy thiết kế với tài sản thương hiệu và việc quản lý nó, thông qua sức mạnh và phạm vi của dân tộc học người tiêu dùng và sự đồng cảm.
+  </p>
+  <p>
+    Trong thế giới hậu hiện đại, nhà quản lý thương hiệu và nhà thiết kế phải liên tục đánh giá hiệu quả thương hiệu bằng cách thực hiện kiểm toán thương hiệu. Tổ chức phải duy trì, bảo vệ và khai thác thêm tài sản thương hiệu trong môi trường thị trường không ngừng tiến hóa.
+  </p>
+  <p>
+    Tư duy thiết kế — đặc biệt giai đoạn truyền cảm hứng — có thể giúp nhà quản lý thương hiệu thực hiện kiểm toán thương hiệu thành công. Dân tộc học người tiêu dùng giúp phát hiện suy nghĩ, cảm xúc và hành vi của người tiêu dùng đối với thương hiệu, từ đó xác định các vấn đề và/hoặc cơ hội thương hiệu cần giải quyết. Các giai đoạn lên ý tưởng và triển khai của quy trình tư duy thiết kế trang bị cho nhà quản lý thương hiệu và nhà thiết kế những công cụ cần thiết để phát triển chiến lược tối ưu. Cuối cùng, tư duy thiết kế cung cấp sức mạnh to lớn để cân bằng nhất quán thương hiệu và liên quan thương hiệu, liên tục quản lý và nâng cao tài sản thương hiệu — với cách tiếp cận lấy con người làm trung tâm, đặt người tiêu dùng mục tiêu vào trái tim của quy trình.
+  </p>
+</div>
+
+<!-- REVIEW QUESTIONS -->
+<div class="qa-box">
+  <h3>Câu hỏi ôn tập</h3>
+  <ol>
+    <li>Giải thích hai bộ phận của kiểm toán thương hiệu và đóng góp của chúng vào đánh giá hiệu quả thương hiệu.</li>
+    <li>Thảo luận cách nhà quản lý thương hiệu và nhà thiết kế có thể áp dụng dân tộc học người tiêu dùng để thực hiện kiểm toán thương hiệu thành công.</li>
+    <li>Ba cấp độ đồng cảm mà nhà quản lý thương hiệu và nhà thiết kế cần đạt được là gì?</li>
+    <li>Thảo luận về bốn tầng của mô hình kim tự tháp Tài sản thương hiệu dựa trên khách hàng (CBBE).</li>
+    <li>Những vấn đề và/hoặc cơ hội tiềm năng (liên quan đến mô hình kim tự tháp CBBE) mà nhà quản lý thương hiệu và nhà thiết kế có thể xác định qua dân tộc học người tiêu dùng là gì?</li>
+    <li>Làm thế nào các giai đoạn lên ý tưởng và triển khai của quy trình tư duy thiết kế có thể giúp phát triển chiến lược thương hiệu?</li>
+    <li>Tại sao nhất quán thương hiệu và liên quan thương hiệu đều quan trọng với chiến lược thương hiệu?</li>
+    <li>Làm thế nào tư duy thiết kế có thể giúp nhà quản lý thương hiệu và nhà thiết kế cân bằng nhất quán và liên quan thương hiệu thông qua tính lưỡng nghề thương hiệu?</li>
+  </ol>
+</div>
+
+<!-- PROJECT TASK -->
+<div class="project-box">
+  <h3>Nhiệm vụ dự án chính</h3>
+  <div class="main-task">
+    Chọn một thương hiệu và đánh giá phê phán các chiến lược thương hiệu hiện tại của nó. Áp dụng các khái niệm và lý thuyết thương hiệu phù hợp, thảo luận về sự phát triển tương lai của thương hiệu đó.
+  </div>
+  <p><strong>Các bước thực hiện:</strong></p>
+  <ol>
+    <li>Giới thiệu ngắn gọn về thương hiệu và bối cảnh thị trường của nó (danh mục sản phẩm/dịch vụ, đối tượng mục tiêu và đối thủ cạnh tranh).</li>
+    <li>Đánh giá phê phán thương hiệu và các chiến lược thương hiệu hiện tại bằng cách thực hiện cả hai bộ phận kiểm toán thương hiệu: kiểm kê thương hiệu và khám phá thương hiệu. Kiểm kê cần lập hồ sơ thương hiệu bằng văn bản và hình ảnh; khám phá cần dựa trên dữ liệu thứ cấp từ các nguồn công khai và dữ liệu sơ cấp từ nghiên cứu dân tộc học (quan sát tham dự và phỏng vấn mẫu nhỏ). Giai đoạn này kết nối với giai đoạn truyền cảm hứng của tư duy thiết kế.</li>
+    <li>Xác định rõ ràng vấn đề mà thương hiệu đang đối mặt và/hoặc cơ hội cần nắm bắt (dựa trên bước 2). Đặt vấn đề và/hoặc cơ hội này vào mô hình kim tự tháp CBBE để tạo nền tảng cho bước tiếp theo.</li>
+    <li>Phát triển chiến lược để giải quyết vấn đề đã xác định và/hoặc khai thác cơ hội (sử dụng các giai đoạn lên ý tưởng và triển khai). Chiến lược có thể bao gồm sản phẩm/dịch vụ mới, chiến dịch truyền thông mới, thiết kế nhận diện thương hiệu cập nhật, v.v.</li>
+    <li>Xác định các chỉ số đo lường hiệu quả chiến lược phát triển thương hiệu được đề xuất trong tương lai — tức là cách bạn đánh giá xem chiến lược có đạt được mục tiêu phát triển thương hiệu hay không.</li>
+  </ol>
+</div>
+
+<!-- CHAPTER TASKS -->
+<div class="tasks-box">
+  <h3>Nhiệm vụ chương — Đánh giá tài sản thương hiệu</h3>
+  <p style="margin-bottom:14px;font-size:15px;">Thực hiện các nhiệm vụ sau để đánh giá tài sản thương hiệu và hiệu quả của nó trong danh mục sản phẩm hoặc dịch vụ:</p>
+  <ol>
+    <li>Kể tên năm thương hiệu từ một danh mục sản phẩm hoặc dịch vụ cụ thể (ví dụ: năm thương hiệu mỹ phẩm hoặc năm thương hiệu hàng không).</li>
+    <li>Chọn một trong các thương hiệu bạn đã liệt kê.</li>
+    <li>Điều gì hiện lên trong tâm trí bạn khi nghĩ về thương hiệu này? (Lập danh sách liên tưởng thương hiệu của chính bạn).</li>
+    <li>Bạn thích và không thích điều gì về thương hiệu này?</li>
+    <li>Theo bạn, thương hiệu này đáng tin cậy ở mức nào (về chuyên môn, độ đáng tin và sức thu hút)?</li>
+    <li>Đây có phải thương hiệu bạn sẽ cân nhắc mua trong tương lai? Tại sao/tại sao không?</li>
+    <li>Thương hiệu này giống và khác gì so với các thương hiệu khác trong cùng danh mục?</li>
+    <li>Thương hiệu này khiến bạn cảm thấy như thế nào? Nó có gợi lên cảm xúc gì về bản thân bạn hoặc về các mối quan hệ của bạn không?</li>
+    <li>Bạn đã từng mua thương hiệu này chưa? Nếu có, bao nhiêu lần? Nếu không, hãy chuyển sang câu 11.</li>
+    <li>Nếu thương hiệu không có sẵn vào lần tiếp theo bạn định mua, bạn sẽ làm gì?
+      <ol>
+        <li>Chờ cho đến khi có hàng.</li>
+        <li>Tìm đến cửa hàng hoặc website khác để tìm và mua.</li>
+        <li>Thay thế bằng một thương hiệu khác.</li>
+      </ol>
+    </li>
+    <li>Bạn có giới thiệu thương hiệu này cho người khác không? Tại sao/tại sao không?</li>
+  </ol>
+</div>
+
+<!-- REFERENCES -->
+<hr class="section-rule">
+<div class="references">
+  <h2>Tài liệu tham khảo</h2>
+  <ul class="ref-list">
+    <li>Aaker, D. A. (2010). <em>Building Strong Brands.</em> Simon and Schuster.</li>
+    <li>Aaker, D. A. (2012). Win the Brand Relevance Battle and Then Build Competitor Barriers. <em>California Management Review, 54</em>(2), 43–57.</li>
+    <li>American Marketing Association. (2015), cited in Dall'Olmo Riley, F. (2016). Brand Definitions and Conceptualizations. In F. Dall'Olmo Riley, J. Singh, &amp; C. Blankson (Eds.), <em>The Routledge Companion to Contemporary Brand Management</em> (pp. 3–12). Routledge.</li>
+    <li>Baron, S., &amp; Harris, K. (2008). Consumers as Resource Integrators. <em>Journal of Marketing Management, 24</em>(1–2), 113–130.</li>
+    <li>Belk, R. W. (1988). Possessions and the Extended Self. <em>Journal of Consumer Research, 15</em>(2), 139–168.</li>
+    <li>Belk, R. W. (2013). Extended Self in a Digital World. <em>Journal of Consumer Research, 40</em>(3), 477–500.</li>
+    <li>Beverland, M. B., Wilner, S. J., &amp; Micheli, P. (2015). Reconciling the Tension Between Consistency and Relevance: Design Thinking as a Mechanism for Brand Ambidexterity. <em>Journal of the Academy of Marketing Science, 43</em>(5), 589–609.</li>
+    <li>Brown, S., Kozinets, R. V., &amp; Sherry, J. F., Jr. (2003). Teaching Old Brands New Tricks: Retro Branding and the Revival of Brand Meaning. <em>Journal of Marketing, 67</em>(3), 19–33.</li>
+    <li>Brown, T. (2008). Design Thinking. <em>Harvard Business Review, 86</em>(6), 84.</li>
+    <li>Brown, T. (2009). <em>Change by Design: How Design Thinking Transforms Organisations and Inspires Innovation.</em> HarperCollins.</li>
+    <li>Chaplin, L. N., &amp; Lowrey, T. M. (2009). The Development of Consumer-Based Consumption Constellations in Children. <em>Journal of Consumer Research, 36</em>(5), 757–777.</li>
+    <li>Chen, S., &amp; Venkatesh, A. (2013). An Investigation of How Design-Oriented Organisations Implement Design Thinking. <em>Journal of Marketing Management, 29</em>(15–16), 1680–1700.</li>
+    <li>Cooper, R., &amp; Evans, M. (2006). Breaking from Tradition: Market Research, Consumer Needs, and Design Futures. <em>Design Management Review, 17</em>(1), 68–74.</li>
+    <li>Dall'Olmo Riley, F. (2016). Brand Definitions and Conceptualizations. In F. Dall'Olmo Riley, J. Singh, &amp; C. Blankson (Eds.), <em>The Routledge Companion to Contemporary Brand Management</em> (pp. 3–12). Routledge.</li>
+    <li>de Chernatony, L., &amp; Dall'Olmo Riley, F. (1998). Defining a "Brand": Beyond the Literature with Experts' Interpretations. <em>Journal of Marketing Management, 14</em>(5), 417–443.</li>
+    <li>Delgado-Ballester, E., &amp; Munuera-Alemán, J. L. (2001). Brand Trust in the Context of Consumer Loyalty. <em>European Journal of Marketing, 35</em>(11/12), 1238–1258.</li>
+    <li>Elliott, R., &amp; Jankel-Elliott, N. (2003). Using Ethnography in Strategic Consumer Research. <em>Qualitative Market Research: An International Journal, 6</em>(4), 215–223.</li>
+    <li>Farquhar, P. H. (1989). Managing Brand Equity. <em>Marketing Research, 1</em>(3), 24–33.</li>
+    <li>Fellman, M. (1999). Breaking Tradition. <em>Marketing Research, 11</em>(3), 20–25.</li>
+    <li>Fuchs, C., &amp; Diamantopoulos, A. (2010). Evaluating the Effectiveness of Brand-Positioning Strategies from a Consumer Perspective. <em>European Journal of Marketing, 44</em>(11/12), 1763–1786.</li>
+    <li>Giesler, M. (2012). How Doppelgänger Brand Images Influence the Market Creation Process: Longitudinal Insights from the Rise of Botox Cosmetic. <em>Journal of Marketing, 76</em>(6), 55–68.</li>
+    <li>Gobé, M. (2009). <em>Emotional Branding: The New Paradigm for Connecting Brands to People.</em> Allworth Press.</li>
+    <li>Hales, G. (2011). Branding. In J. J. Kourdi (Ed.), <em>The Marketing Century: How Marketing Drives Business and Shapes Society</em> (pp. 139–167). John Wiley &amp; Sons.</li>
+    <li>Högström, C., Gustafsson, A., &amp; Tronvoll, B. (2015). Strategic Brand Management: Archetypes for Managing Brands Through Paradoxes. <em>Journal of Business Research, 68</em>(2), 391–404.</li>
+    <li>Holt, D. B. (2004). <em>How Brands Become Icons: The Principles of Cultural Branding.</em> Harvard Business Press.</li>
+    <li>Holt, D. B. (2006). Jack Daniel's America: Iconic Brands as Ideological Parasites and Proselytizers. <em>Journal of Consumer Culture, 6</em>(3), 355–377.</li>
+    <li>Ireland, C. (2003). Qualitative Methods: From Boring to Brilliant. In B. Laurel (Ed.), <em>Design Research: Methods and Perspectives.</em> MIT Press.</li>
+    <li>Jacobs, V., &amp; Wintrob, M. (2016). Manifestations of Design: Brand, Rhetoric, and Trends. In N. W. Nixon (Ed.), <em>Strategic Design Thinking: Innovation in Products, Services, Experiences, and Beyond</em> (pp. 43–61). Fairchild Books.</li>
+    <li>Johansson, U., &amp; Svengren Holm, L. (2006). Brand Management and Design Management: A Nice Couple or False Friends? In J. E. Schroeder &amp; M. Salzer-Mörling (Eds.), <em>Brand Culture</em> (pp. 136–152). Routledge.</li>
+    <li>Keller, K. L. (1993). Conceptualizing, Measuring, and Managing Customer-Based Brand Equity. <em>Journal of Marketing, 57</em>(1), 1–22.</li>
+    <li>Keller, K. L. (1999). Managing Brands for the Long Run: Brand Reinforcement and Revitalization Strategies. <em>California Management Review, 41</em>(3), 102–124.</li>
+    <li>Keller, K. L. (2001). <em>Building Customer-Based Brand Equity: A Blueprint for Creating Strong Brands</em> (pp. 3–27). Marketing Science Institute.</li>
+    <li>Keller, K. L., &amp; Lehmann, D. R. (2003). How Do Brands Create Value? <em>Marketing Management, 12</em>(3), 26–32.</li>
+    <li>Keller, K. L., &amp; Lehmann, D. R. (2006). Brands and Branding: Research Findings and Future Priorities. <em>Marketing Science, 25</em>(6), 740–759.</li>
+    <li>Keller, K. L., &amp; Swaminathan, V. (2020). <em>Strategic Brand Management: Building, Measuring, and Managing Brand Equity</em> (5th ed.). Pearson Education.</li>
+    <li>Kotler, P., Armstrong, G., Wong, V., &amp; Saunders, J. (2008). <em>Principles of Marketing: Fifth European Edition.</em> Pearson.</li>
+    <li>Kozinets, R. V. (2002). The Field Behind the Screen: Using Netnography for Marketing Research in Online Communities. <em>Journal of Marketing Research, 39</em>(1), 61–72.</li>
+    <li>Lalaounis, S. T. (2017). <em>Design Management: Organisation and Marketing Perspectives.</em> Routledge.</li>
+    <li>Lalaounis, S. T. (2020). <em>Strategic Brand Management and Development: Creating and Marketing Successful Brands.</em> Routledge.</li>
+    <li>Liedtka, J. (2004). Design Thinking: The Role of Hypothesis Generation and Testing. In R. J. Boland &amp; F. Collopy (Eds.), <em>Managing as Designing</em> (pp. 193–197). Stanford Business Books.</li>
+    <li>Liedtka, J. (2015). Perspective: Linking Design Thinking with Innovation Outcomes Through Cognitive Bias Reduction. <em>Journal of Product Innovation Management, 32</em>(6), 925–938.</li>
+    <li>Llamas, R., &amp; Belk, R. W. (2013). Living in a Digital World. In R. W. Belk &amp; R. Llamas (Eds.), <em>The Routledge Companion to Digital Consumption</em> (pp. 3–12). Routledge.</li>
+    <li>Maier, J. (2015). <em>The Ambidextrous Organization.</em> Palgrave Macmillan.</li>
+    <li>Malinowski, B. (1922). <em>Argonauts of the Western Pacific.</em> E.P. Dutton.</li>
+    <li>March, J. G. (1991). Exploration and Exploitation in Organizational Learning. <em>Organization Science, 2</em>(1), 71–87.</li>
+    <li>Margulies, W. P. (1977). Make Most of Your Corporate Identity. <em>Harvard Business Review, 55</em>(4), 66–74.</li>
+    <li>Martin, R. L. (2009). <em>The Design of Business: Why Design Thinking Is the Next Competitive Advantage.</em> Harvard Business Press.</li>
+    <li>McCracken, G. (1986). Culture and Consumption: A Theoretical Account of the Structure and Movement of the Cultural Meaning of Consumer Goods. <em>Journal of Consumer Research, 13,</em> 71–84.</li>
+    <li>Meinel, M., Eismann, T. T., Baccarella, C. V., Fixson, S. K., &amp; Voigt, K. I. (2020). Does Applying Design Thinking Result in Better New Product Concepts Than a Traditional Innovation Approach? An Experimental Comparison Study. <em>European Management Journal, 38</em>(4), 661–671.</li>
+    <li>Michlewski, K. (2008). Uncovering Design Attitude: Inside the Culture of Designers. <em>Organization Studies, 29</em>(3), 373–392.</li>
+    <li>Moisander, J., &amp; Valtonen, A. (2012). Interpretive Marketing Research: Using Ethnography in Strategic Market Development. In L. Peñaloza, N. Toulouse, &amp; L. M. Visconti (Eds.), <em>Marketing Management: A Cultural Perspective</em> (pp. 246–260). Routledge.</li>
+    <li>Morris, P. (2003). <em>The Bakhtin Reader: Selected Writings of Bakhtin, Medvedev, Voloshinov.</em> Arnold.</li>
+    <li>Muñiz, A. M., Jr., &amp; O'Guinn, T. C. (2001). Brand Community. <em>Journal of Consumer Research, 27</em>(4), 412–432.</li>
+    <li>Nagaraj, V., Berente, N., Lyytinen, K., &amp; Gaskin, J. (2020). Team Design Thinking, Product Innovativeness, and the Moderating Role of Problem Unfamiliarity. <em>Journal of Product Innovation Management, 37</em>(4), 297–323.</li>
+    <li>Peñaloza, L. (1998). Just Doing It: A Visual Ethnographic Study of Spectacular Consumption Behavior at Nike Town. <em>Consumption, Markets and Culture, 2</em>(4), 337–400.</li>
+    <li>Percy, L., Rossiter, J., &amp; Elliott, R. (2001). <em>Strategic Advertising Management.</em> Oxford University Press.</li>
+    <li>Plowman, T. (2003). Ethnography and Critical Design Practice. In B. Laurel (Ed.), <em>Design Research: Methods and Perspectives.</em> MIT Press.</li>
+    <li>Richins, M. L. (1997). Measuring Emotions in the Consumption Experience. <em>Journal of Consumer Research, 24</em>(2), 127–146.</li>
+    <li>Rosenbaum-Elliott, R., Percy, L., &amp; Pervan, S. (2011). <em>Strategic Brand Management.</em> Oxford University Press.</li>
+    <li>Schmitt, B. H., &amp; Simonson, A. (1997). <em>Marketing Aesthetics: The Strategic Management of Brands, Identity, and Image.</em> Simon and Schuster.</li>
+    <li>Schmitt, B. H., Simonson, A., &amp; Marcus, J. (1995). Managing Corporate Image and Identity. <em>Long Range Planning, 28</em>(5), 82–92.</li>
+    <li>Schroeder, J. E. (2009). The Cultural Codes of Branding. <em>Marketing Theory, 9</em>(1), 123–126.</li>
+    <li>Shepherd, S., Chartrand, T. L., &amp; Fitzsimons, G. J. (2015). When Brands Reflect Our Ideal World: The Values and Brand Preferences of Consumers Who Support Versus Reject Society's Dominant Ideology. <em>Journal of Consumer Research, 42</em>(1), 76–92.</li>
+    <li>Smith, W. K., &amp; Tushman, M. L. (2005). Managing Strategic Contradictions: A Top Management Model for Managing Innovation Streams. <em>Organization Science, 16</em>(5), 522–536.</li>
+    <li>Solomon, M. R. (1988). Mapping Product Constellations: A Social Categorization Approach to Consumption Symbolism. <em>Psychology &amp; Marketing, 5</em>(3), 233.</li>
+    <li>Thompson, C. J., Rindfleisch, A., &amp; Arsel, Z. (2006). Emotional branding and the strategic value of the doppelgänger brand image. <em>Journal of Marketing, 70</em>(1), 50–64.</li>
+    <li>Tushman, M. L., &amp; O'Reilly, C. A., III. (1996). Ambidextrous Organisations: Managing Evolutionary and Revolutionary Change. <em>California Management Review, 38</em>(4), 8–30.</li>
+    <li>Tynan, C., &amp; McKechnie, S. (2009). Experience Marketing: A Review and Reassessment. <em>Journal of Marketing Management, 25</em>(5–6), 501–517.</li>
+    <li>Van Rekom, J., Jacobs, G., &amp; Verlegh, P. W. (2006). Measuring and Managing the Essence of a Brand Personality. <em>Marketing Letters, 17</em>(3), 181–192.</li>
+    <li>Vargo, S. L., &amp; Lusch, R. F. (2004). Evolving to a New Dominant Logic for Marketing. <em>Journal of Marketing, 68</em>(1), 1–17.</li>
+    <li>Vargo, S. L., &amp; Lusch, R. F. (2008). Service-Dominant Logic: Continuing the Evolution. <em>Journal of the Academy of Marketing Science, 36</em>(1), 1–10.</li>
+    <li>Wasson, C. (2000). Ethnography in the Field of Design. <em>Human Organization, 59</em>(4), 377–388.</li>
+    <li>Wattanasupachoke, T. (2012). Design Thinking, Innovativeness and Performance: An Empirical Examination. <em>International Journal of Management &amp; Innovation, 4</em>(1), 1–14.</li>
+  </ul>
+
+  <div class="rec-reading">
+    <h3>Đọc thêm được đề nghị</h3>
+    <ul class="ref-list">
+      <li>Belk, R. W. (1988). Possessions and the Extended Self. <em>Journal of Consumer Research, 15</em>(2), 139–168.</li>
+      <li>Beverland, M. B., Wilner, S. J., &amp; Micheli, P. (2015). Reconciling the Tension Between Consistency and Relevance: Design Thinking as a Mechanism for Brand Ambidexterity. <em>Journal of the Academy of Marketing Science, 43</em>(5), 589–609.</li>
+      <li>Keller, K. L. (2001). <em>Building Customer-Based Brand Equity: A Blueprint for Creating Strong Brands</em> (pp. 3–27). Marketing Science Institute.</li>
+      <li>Moisander, J., &amp; Valtonen, A. (2012). Interpretive Marketing Research: Using Ethnography in Strategic Market Development. In L. Peñaloza, N. Toulouse, &amp; L. M. Visconti (Eds.), <em>Marketing Management: A Cultural Perspective</em> (pp. 246–260). Routledge.</li>
+      <li>Wasson, C. (2000). Ethnography in the Field of Design. <em>Human Organization, 59</em>(4), 377–388.</li>
+    </ul>
+  </div>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch6-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 6: Tư Duy Thiết Kế Vì Tương Lai Bền Vững</a>
+  <a href="ch8-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 8: Tư Duy Thiết Kế Trong Thực Tiễn: Ba Nghiên Cứu Tình Huống</a>
+</nav>
+</body>
+</html>
