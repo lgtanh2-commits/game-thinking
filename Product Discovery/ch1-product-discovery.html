@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 1 — Nền Tảng Của Product Discovery</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── Header ── */
+  .book-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .chapter-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .chapter-subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 48px;
+    max-width: 620px;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    border: none;
+    border-top: 2px solid var(--accent-line);
+    margin: 48px 0;
+  }
+
+  .divider-light {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 36px 0;
+  }
+
+  /* ── Section headings ── */
+  h2 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 16px;
+    margin-top: 48px;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    margin-top: 32px;
+  }
+
+  h4 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    margin-top: 28px;
+  }
+
+  /* ── Body text ── */
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+  }
+
+  strong { color: var(--text); font-weight: 700; }
+  em { font-style: italic; }
+
+  /* ── Blockquote ── */
+  blockquote {
+    border-left: 3px solid var(--accent-line);
+    padding: 16px 24px;
+    margin: 32px 0;
+    background: transparent;
+  }
+
+  blockquote p {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 20px;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  blockquote .attribution {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-style: normal;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* ── Definition box ── */
+  .definition-box {
+    border: 2px solid var(--accent-line);
+    padding: 28px 32px;
+    margin: 32px 0;
+  }
+
+  .definition-box .def-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .definition-box .def-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .definition-box p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+  }
+
+  /* ── Info / callout box ── */
+  .callout {
+    background: var(--surface);
+    border-left: 4px solid var(--accent-line);
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+
+  .callout p {
+    margin-bottom: 0;
+    color: var(--text-secondary);
+  }
+
+  .callout strong { color: var(--text); }
+
+  /* ── Stat highlight ── */
+  .stat-box {
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    padding: 24px 28px;
+    margin: 28px 0;
+  }
+
+  .stat-box p {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0;
+    line-height: 1.4;
+  }
+
+  /* ── 3-column role grid ── */
+  .role-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border-strong);
+    margin: 28px 0;
+  }
+
+  .role-col {
+    padding: 20px 20px;
+    border-right: 1px solid var(--border-strong);
+  }
+
+  .role-col:last-child { border-right: none; }
+
+  .role-col .role-type {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .role-col .role-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .role-col p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+    line-height: 1.55;
+  }
+
+  /* ── Factor box ── */
+  .factor-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  .factor-item {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .factor-item:last-child { border-bottom: none; }
+
+  .factor-item .fi-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .factor-item p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+  }
+
+  /* ── Numbered list ── */
+  ol.numbered {
+    padding-left: 0;
+    list-style: none;
+    counter-reset: num;
+    margin: 16px 0 24px;
+  }
+
+  ol.numbered li {
+    counter-increment: num;
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+    color: var(--text-secondary);
+    font-size: 15px;
+    align-items: flex-start;
+  }
+
+  ol.numbered li::before {
+    content: counter(num);
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text);
+    background: var(--surface-dark);
+    min-width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── Bullet list ── */
+  ul.bullets {
+    padding-left: 0;
+    list-style: none;
+    margin: 12px 0 20px;
+  }
+
+  ul.bullets li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  ul.bullets li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 9px;
+    color: var(--text);
+    line-height: 1.9;
+  }
+
+  /* ── Cycle diagram ── */
+  .cycle-diagram {
+    border: 1px solid var(--border-strong);
+    padding: 32px;
+    margin: 32px 0;
+    text-align: center;
+  }
+
+  .cycle-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  .cycle-nodes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .cycle-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 110px;
+  }
+
+  .node-icon {
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--accent-line);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .node-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text);
+    letter-spacing: 0.04em;
+  }
+
+  .cycle-arrow {
+    font-size: 20px;
+    color: var(--text-muted);
+    margin: 0 4px;
+    padding-bottom: 20px;
+  }
+
+  .cycle-arrow-dashed {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding-bottom: 20px;
+    letter-spacing: -2px;
+  }
+
+  /* ── Page footer ── */
+  .page-footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    body { padding: 40px 20px 80px; }
+    h1 { font-size: 30px; }
+    .role-grid { grid-template-columns: 1fr; }
+    .role-col { border-right: none; border-bottom: 1px solid var(--border-strong); }
+    .role-col:last-child { border-bottom: none; }
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-discovery-playbook">← Về mục lục</a></p>
+
+<!-- ── Book label ── -->
+<div class="book-label">The Product Discovery Playbook · Productboard</div>
+<div class="chapter-label">Chương 1</div>
+
+<h1>Nền Tảng Của Product Discovery</h1>
+<p class="chapter-subtitle">Tại sao lại phải chấp nhận rủi ro xây dựng sản phẩm hoặc tính năng sai? Với product discovery, bạn có thể đảm bảo mình đang đi đúng hướng.</p>
+
+<hr class="divider">
+
+<!-- ── Opening quote ── -->
+<blockquote>
+  <p>"Không có gì vô dụng hơn việc thực hiện thật hiệu quả một điều không nên làm ngay từ đầu."</p>
+  <span class="attribution">Peter Drucker</span>
+</blockquote>
+
+<hr class="divider-light">
+
+<!-- ── Section 1: What is PD ── -->
+<h2>Product Discovery là gì?</h2>
+
+<p>Khi nói đến "product discovery", chúng ta thường đề cập đến quá trình <strong>hiểu sâu điểm đau của khách hàng</strong>, xác định các cách tiềm năng để giải quyết những vấn đề đó, và xác thực liệu sản phẩm sắp xây dựng có thực sự giải quyết được những vấn đề ấy hay không.</p>
+
+<p>Hiểu vấn đề và cơ hội một cách thấu đáo trước khi bắt tay vào giải quyết giúp <strong>giảm thiểu rủi ro và sự bất định</strong> khi đầu tư thời gian và tiền bạc. Đồng thời, nó cũng tạo ra nền tảng vững chắc để ra mắt và phát triển sản phẩm cũng như doanh nghiệp khi bạn đã sẵn sàng.</p>
+
+<div class="definition-box">
+  <div class="def-label">Định nghĩa</div>
+  <div class="def-title">Product Discovery</div>
+  <p>Một quy trình giúp các đội nhóm sản phẩm tinh chỉnh ý tưởng bằng cách <strong>hiểu thấu đáo các vấn đề thực tế của người dùng</strong> rồi tìm ra cách tốt nhất để giải quyết chúng.</p>
+</div>
+
+<!-- ── Section 2: Why ── -->
+<h2>Tại sao bạn cần thực hiện Product Discovery?</h2>
+
+<p>Hãy xem xét trách nhiệm thông thường của một Product Manager:</p>
+
+<ul class="bullets">
+  <li>Xử lý các đầu vào như phản hồi và yêu cầu tính năng</li>
+  <li>Tạo ra ý tưởng tính năng dựa trên nhu cầu người dùng và các cân nhắc chiến lược</li>
+  <li>Ưu tiên các ý tưởng có giá trị cao nhất, đưa vào backlog của đội dev</li>
+  <li>Loại bỏ các ý tưởng giá trị thấp hoặc không khả thi</li>
+</ul>
+
+<p>Khi thực hiện bài kiểm tra này, hãy lưu ý những công cụ hoặc nền tảng nào được sử dụng để thu thập thông tin. Bạn sẽ thường thấy một bức tranh hỗn độn gồm email, Google Docs, các công cụ giao tiếp nội bộ, ứng dụng ghi chú, và các công cụ chuyên biệt của từng bộ phận như Salesforce hay Intercom.</p>
+
+<p>Một khi bạn có cái nhìn tổng thể về bức tranh insights, hãy đánh giá chúng theo các vấn đề bạn đang cố giải quyết cho khách hàng. Liệu bạn có thể xác định được xu hướng và mẫu hình giúp hiểu rõ hơn điều gì đang hoạt động và điều gì không? Liệu bạn có thể xác định nhu cầu của một loại khách hàng cụ thể không? Liệu bạn có thể nhanh chóng tìm thấy tất cả insights liên quan đến một ý tưởng tính năng hoặc nhu cầu người dùng cụ thể không?</p>
+
+<p>Đây đều là những câu hỏi quan trọng bạn cần phải trả lời được.</p>
+
+<hr class="divider-light">
+
+<!-- ── Vấn đề ── -->
+<h2>Nhưng có một vấn đề</h2>
+
+<p>Hầu hết các startup dành nhiều thời gian tập trung vào giải pháp hơn là vào vấn đề — nhưng việc phát triển giải pháp đầy đủ trước khi chia sẻ với người dùng thì rất rủi ro và tốn kém.</p>
+
+<p><strong>Người dùng có những nhu cầu phức tạp</strong> với nhiều sắc thái tinh tế mà ngay bản thân họ có thể chưa nắm rõ hoàn toàn. Những đội nhóm không dành thời gian để hiểu vấn đề họ đang giải quyết thường bị lệch hướng sang quan điểm nội bộ thay vì nhu cầu thực sự của khách hàng, hoặc thiên về những giải pháp đã quen thuộc mà vẫn có thể không hữu ích hay khả dụng.</p>
+
+<div class="stat-box">
+  <p>Dữ liệu từ CB Insights cho thấy <strong>42% startup thất bại trích dẫn việc thiếu nhu cầu thị trường</strong> là nguyên nhân hàng đầu dẫn đến thất bại của họ.</p>
+</div>
+
+<p>Dù thế nào đi nữa, <strong>xây dựng sai thứ thì rất tốn kém</strong> — tuy nhiên nhiều đội nhóm chỉ phát hiện ra mình đã có giả định sai lầm về những gì người dùng thực sự cần sau khi đã ra mắt sản phẩm hoặc tính năng mới.</p>
+
+<!-- ── That's where PD comes in ── -->
+<h2>Đó là lúc Product Discovery phát huy vai trò</h2>
+
+<p>Product discovery không thay thế product delivery — nó bổ trợ và đi trước delivery.</p>
+
+<p>Đây là cách Marty Cagan, bậc thầy trong lĩnh vực sản phẩm, mô tả về discovery:</p>
+
+<blockquote>
+  <p>"Đầu tiên, bạn cần khám phá xem liệu có những người dùng thực sự ngoài kia muốn sản phẩm này hay không… Thứ hai, bạn cần khám phá một giải pháp sản phẩm cho vấn đề đó — một giải pháp có thể dùng được, hữu ích và khả thi."</p>
+  <span class="attribution">Marty Cagan</span>
+</blockquote>
+
+<!-- ── Cycle diagram ── -->
+<div class="cycle-diagram">
+  <div class="cycle-title">Vòng lặp Discovery → Delivery</div>
+  <div class="cycle-nodes">
+    <div class="cycle-node">
+      <div class="node-icon">🎯</div>
+      <div class="node-label">Tầm nhìn<br>Chiến lược</div>
+    </div>
+    <div class="cycle-arrow">→</div>
+    <div class="cycle-node">
+      <div class="node-icon">💡</div>
+      <div class="node-label">Ý tưởng</div>
+    </div>
+    <div class="cycle-arrow">→</div>
+    <div class="cycle-node">
+      <div class="node-icon">👥</div>
+      <div class="node-label">Discovery<br>Team</div>
+    </div>
+    <div class="cycle-arrow cycle-arrow-dashed">···→</div>
+    <div class="cycle-node">
+      <div class="node-icon">🧪</div>
+      <div class="node-label">Xác thực<br>với Users</div>
+    </div>
+    <div class="cycle-arrow">→</div>
+    <div class="cycle-node">
+      <div class="node-icon">🚀</div>
+      <div class="node-label">Delivery<br>Team</div>
+    </div>
+    <div class="cycle-arrow">→</div>
+    <div class="cycle-node">
+      <div class="node-icon">✨</div>
+      <div class="node-label">Giá trị<br>Được Tạo Ra</div>
+    </div>
+  </div>
+  <p style="font-size:12px; color: var(--text-muted); margin-top: 16px; margin-bottom:0;">Adapted from Kevin on Code</p>
+</div>
+
+<!-- ── Các triệu chứng cần PD ── -->
+<h3>Bạn có nhận ra những tình huống này không?</h3>
+
+<ul class="bullets">
+  <li>Những tính năng bạn đã dành rất nhiều thời gian xây dựng nhưng cuối cùng có lượng sử dụng rất thấp trong tệp khách hàng mục tiêu</li>
+  <li>Những lúc người dùng nói với bạn: "Này, anh xây tính năng B nhưng thứ chúng tôi thực sự cần lại là tính năng A…"</li>
+  <li>Những sản phẩm hoàn chỉnh bị thất bại khi ra mắt thị trường</li>
+</ul>
+
+<p>Product discovery giúp bạn không lặp lại những sai lầm của quá khứ. Bằng cách đầu tư nhiều hơn vào việc nghiên cứu và xác thực ý tưởng ngay từ đầu trước khi chuyển sang delivery, bạn tránh được việc lãng phí thời gian và tiền bạc xây dựng những sản phẩm khách hàng không muốn hoặc không cần.</p>
+
+<hr class="divider-light">
+
+<!-- ── Who should be involved ── -->
+<h2>Ai nên tham gia vào Product Discovery?</h2>
+
+<p>Product discovery tốt nhất không xảy ra trong chân không. Bạn nên cố gắng thu hút toàn bộ đội nhóm sản phẩm và các bên liên quan chính trong tổ chức vào các nỗ lực product discovery ngay từ đầu.</p>
+
+<p>Tim Herbig — chuyên gia product management — khuyến nghị chia đội discovery của bạn thành ba nhóm:</p>
+
+<div class="role-grid">
+  <div class="role-col">
+    <div class="role-type">Nhóm 1</div>
+    <div class="role-title">Cộng tác viên thường trực</div>
+    <p>Product managers, UX designers, user researchers, và engineering leads — những người dẫn dắt nỗ lực discovery liên tục</p>
+  </div>
+  <div class="role-col">
+    <div class="role-type">Nhóm 2</div>
+    <div class="role-title">Cộng tác viên tạm thời</div>
+    <p>Developers, product leadership, customer support staff, sales — tham gia vào các bước cụ thể khi cần thiết</p>
+  </div>
+  <div class="role-col">
+    <div class="role-type">Nhóm 3</div>
+    <div class="role-title">Người ủng hộ</div>
+    <p>Executives, các đội sản phẩm khác, infrastructure teams — có thể tham dự các cuộc họp kickoff nhưng ít tham gia vào quá trình prototyping</p>
+  </div>
+</div>
+
+<p>Trong khi các cộng tác viên thường trực dẫn dắt các nỗ lực discovery liên tục, các cộng tác viên tạm thời và người ủng hộ có thể tham gia nhiều hơn vào các bước cụ thể. Ví dụ, các executives chủ chốt có thể dự buổi họp kickoff nhưng sẽ không tham gia vào các phiên prototyping.</p>
+
+<p>Việc thu hút đúng người từ khắp tổ chức vào product discovery giúp <strong>khai thác những insights có thể bị bỏ lỡ</strong> và trao quyền cho core product team để tiếp cận khách hàng cũng như các nguồn lực cần thiết để xác thực ý tưởng.</p>
+
+<hr class="divider-light">
+
+<!-- ── When ── -->
+<h2>Khi nào nên thực hiện Product Discovery?</h2>
+
+<p>Câu trả lời ngắn gọn: <strong>liên tục</strong>.</p>
+
+<p>Productboard là người ủng hộ mạnh mẽ của việc sử dụng continuous product discovery để giảm thiểu rủi ro xung quanh mọi sản phẩm và tính năng mà chúng ta sắp xây dựng. Thay vì coi product discovery như một nhiệm vụ làm một lần rồi xong, hoặc chuyển đổi qua lại giữa discovery và delivery, chúng tôi khuyến khích các đội nhóm áp dụng một cấu trúc mà hai quy trình này có thể chồng chéo và đan xen với nhau.</p>
+
+<p><strong>Nếu bạn chưa thực hiện product discovery, bạn nên bắt đầu.</strong> Nếu bạn đã làm, hãy tiếp tục đọc để khám phá cách bạn có thể làm nhanh hơn, hiệu quả hơn và xây dựng đúng sản phẩm trong ít thời gian hơn.</p>
+
+<div class="callout">
+  <p><strong>Product discovery không chỉ là về công cụ và framework</strong></p>
+  <p style="margin-top: 10px;">Trong khi các công cụ và framework phổ biến như Lean Startup và Jobs to Be Done có thể hữu ích trong việc tạo cấu trúc cho một quy trình đôi khi lộn xộn, chúng chỉ là một phần nhỏ của product discovery thành công. Các yếu tố quan trọng khác bao gồm:</p>
+</div>
+
+<div class="factor-grid">
+  <div class="factor-item">
+    <div class="fi-label">An toàn tâm lý</div>
+    <p>Các thành viên trong nhóm phải cảm thấy được trao quyền để chia sẻ suy nghĩ, ý tưởng và quan điểm — bất kể gây tranh cãi đến đâu — mà không sợ bị mất việc.</p>
+  </div>
+  <div class="factor-item">
+    <div class="fi-label">Cấu trúc đội nhóm</div>
+    <p>Leadership phải trao quyền cho các đội nhóm cả về công cụ lẫn cơ sở hạ tầng tổ chức cho phép discovery mở và delivery tập trung xảy ra song song.</p>
+  </div>
+  <div class="factor-item">
+    <div class="fi-label">Kết quả rõ ràng</div>
+    <p>Product discovery thành công bắt đầu bằng việc xác định các kết quả bạn muốn đạt được. Đây là nền tảng cho toàn bộ quá trình đo lường hiệu quả về sau.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ── Key takeaway ── -->
+<div class="definition-box">
+  <div class="def-label">Điểm cốt lõi</div>
+  <div class="def-title">Discovery bổ trợ cho Delivery</div>
+  <p>Product discovery không thay thế quá trình xây dựng sản phẩm. Nó đi trước và bổ trợ delivery bằng cách giảm thiểu rủi ro, giúp đội nhóm tập trung vào giải quyết vấn đề thực sự của người dùng trước khi đầu tư nguồn lực kỹ thuật đáng kể. Kết quả: ít lãng phí hơn, sản phẩm tốt hơn, và người dùng hài lòng hơn.</p>
+</div>
+
+<!-- ── Footer ── -->
+<div class="page-footer">
+  <span>The Product Discovery Playbook · Productboard · 2020</span>
+  <span>Chương 1 / 5</span>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch2-product-discovery.html"><span class="lbl">Chương sau</span>Chương 2: Hướng Dẫn Từng Bước Thực Hiện Product Discovery</a>
+</nav>
+</body>
+</html>

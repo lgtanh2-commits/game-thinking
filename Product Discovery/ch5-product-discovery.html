@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 5 — Xây Dựng Sản Phẩm Tốt Hơn Qua Continuous Product Discovery</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  .book-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;
+  }
+  .chapter-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 36px; font-weight: 900; line-height: 1.1;
+    letter-spacing: -0.02em; color: var(--text); margin-bottom: 12px;
+  }
+  .chapter-subtitle {
+    font-size: 17px; color: var(--text-secondary); line-height: 1.6;
+    margin-bottom: 48px; max-width: 620px; font-weight: 600;
+  }
+  .divider {
+    border: none; border-top: 2px solid var(--accent-line); margin: 48px 0;
+  }
+  .divider-light {
+    border: none; border-top: 1px solid var(--border); margin: 36px 0;
+  }
+  h2 {
+    font-size: 26px; font-weight: 800; letter-spacing: -0.01em;
+    color: var(--text); margin-bottom: 16px; margin-top: 48px;
+  }
+  h3 {
+    font-size: 18px; font-weight: 700; color: var(--text);
+    margin-bottom: 10px; margin-top: 32px;
+  }
+  h4 {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-muted);
+    margin-bottom: 8px; margin-top: 24px;
+  }
+  p { color: var(--text-secondary); margin-bottom: 18px; }
+  strong { color: var(--text); font-weight: 700; }
+  em { font-style: italic; }
+
+  blockquote {
+    border-left: 3px solid var(--accent-line);
+    padding: 16px 24px; margin: 32px 0;
+  }
+  blockquote p {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 19px; font-style: italic; line-height: 1.6;
+    color: var(--text); margin-bottom: 12px;
+  }
+  blockquote .attribution {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-muted);
+    font-style: normal; font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* ── Definition box ── */
+  .definition-box {
+    border: 2px solid var(--accent-line);
+    padding: 28px 32px; margin: 32px 0;
+  }
+  .def-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px;
+  }
+  .def-title {
+    font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 12px;
+  }
+  .definition-box p {
+    font-size: 16px; color: var(--text-secondary); margin-bottom: 0;
+  }
+
+  /* ── Wedge diagram ── */
+  .wedge-diagram {
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    padding: 32px; margin: 32px 0;
+  }
+  .wedge-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 24px; text-align: center;
+  }
+  .wedge-visual {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 20px;
+  }
+  .wedge-wide {
+    flex: 3;
+    border: 1px solid var(--border-strong);
+    background: white;
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .wedge-arrow {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 16px; font-size: 24px; color: var(--text-muted);
+  }
+  .wedge-narrow {
+    flex: 1;
+    border: 2px solid var(--accent-line);
+    background: var(--surface-dark);
+    padding: 20px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  .ww-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
+  }
+  .ww-title {
+    font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px;
+  }
+  .wedge-wide p, .wedge-narrow p {
+    font-size: 12px; color: var(--text-secondary); margin-bottom: 0; line-height: 1.45;
+  }
+  .wedge-questions {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--border-strong); border: 1px solid var(--border-strong);
+  }
+  .wq-cell {
+    background: white; padding: 14px 16px;
+  }
+  .wq-cell p {
+    font-size: 13px; color: var(--text-secondary); margin-bottom: 0; line-height: 1.45;
+  }
+  .wq-cell strong { color: var(--text); }
+
+  /* ── Remote callout ── */
+  .callout {
+    background: var(--surface);
+    border-left: 4px solid var(--accent-line);
+    padding: 20px 24px; margin: 28px 0;
+  }
+  .callout p { margin-bottom: 0; color: var(--text-secondary); }
+  .callout strong { color: var(--text); }
+  .callout p + p { margin-top: 10px; }
+
+  /* ── Ratio visual ── */
+  .ratio-visual {
+    border: 1px solid var(--border-strong);
+    padding: 28px 32px; margin: 28px 0; text-align: center;
+  }
+  .ratio-number {
+    font-size: 64px; font-weight: 900; color: var(--text); line-height: 1;
+    letter-spacing: -0.03em; margin-bottom: 4px;
+  }
+  .ratio-label {
+    font-size: 14px; color: var(--text-secondary);
+  }
+
+  /* ── 3 reasons ── */
+  .reasons-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; border: 1px solid var(--border-strong); margin: 24px 0;
+  }
+  .reason-card {
+    padding: 20px 18px;
+    border-right: 1px solid var(--border-strong);
+  }
+  .reason-card:last-child { border-right: none; }
+  .rc-num {
+    font-size: 28px; font-weight: 900; color: var(--surface-dark);
+    line-height: 1; margin-bottom: 10px;
+  }
+  .rc-title {
+    font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px;
+  }
+  .reason-card p {
+    font-size: 13px; color: var(--text-secondary); margin-bottom: 0; line-height: 1.5;
+  }
+
+  /* ── Weekly questions ── */
+  .weekly-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; border: 1px solid var(--border-strong); margin: 24px 0;
+  }
+  .weekly-card {
+    padding: 18px 20px;
+    border-right: 1px solid var(--border-strong);
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .weekly-card:nth-child(even) { border-right: none; }
+  .weekly-card:nth-last-child(-n+2) { border-bottom: none; }
+  .wc-icon { font-size: 20px; margin-bottom: 8px; }
+  .wc-title {
+    font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px;
+  }
+  .weekly-card p {
+    font-size: 13px; color: var(--text-secondary); margin-bottom: 0; line-height: 1.45;
+  }
+
+  /* ── Further reading ── */
+  .reading-list {
+    border: 1px solid var(--border);
+    margin: 24px 0;
+  }
+  .reading-item {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .reading-item:last-child { border-bottom: none; }
+  .ri-num {
+    font-size: 11px; font-weight: 800; color: var(--text);
+    background: var(--surface-dark);
+    min-width: 24px; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ri-content { flex: 1; }
+  .ri-author {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px;
+  }
+  .ri-title {
+    font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px;
+  }
+  .reading-item p {
+    font-size: 13px; color: var(--text-secondary); margin-bottom: 0; line-height: 1.5;
+  }
+
+  /* ── Bullets ── */
+  ul.bullets { padding-left: 0; list-style: none; margin: 12px 0 20px; }
+  ul.bullets li {
+    position: relative; padding-left: 18px; margin-bottom: 10px;
+    color: var(--text-secondary); font-size: 15px; line-height: 1.6;
+  }
+  ul.bullets li::before {
+    content: '◆'; position: absolute; left: 0;
+    font-size: 9px; color: var(--text); line-height: 1.9;
+  }
+  ul.bullets li strong { color: var(--text); }
+
+  /* ── Final cta ── */
+  .final-box {
+    background: var(--text); color: white;
+    padding: 36px 40px; margin: 48px 0;
+    text-align: center;
+  }
+  .final-box h3 {
+    font-size: 22px; font-weight: 800; color: white; margin-bottom: 12px; margin-top: 0;
+  }
+  .final-box p {
+    font-size: 15px; color: rgba(255,255,255,0.8); margin-bottom: 0; line-height: 1.6;
+  }
+
+  .page-footer {
+    margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--text-muted);
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 40px 20px 80px; }
+    h1 { font-size: 26px; }
+    .wedge-visual { flex-direction: column; }
+    .wedge-arrow { transform: rotate(90deg); padding: 8px 0; }
+    .reasons-grid { grid-template-columns: 1fr; }
+    .reason-card { border-right: none; border-bottom: 1px solid var(--border-strong); }
+    .reason-card:last-child { border-bottom: none; }
+    .weekly-grid { grid-template-columns: 1fr; }
+    .weekly-card { border-right: none; }
+    .wedge-questions { grid-template-columns: 1fr; }
+    .wq-cell { border-bottom: 1px solid var(--border-strong); }
+    .final-box { padding: 28px 20px; }
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-discovery-playbook">← Về mục lục</a></p>
+
+<div class="book-label">The Product Discovery Playbook · Productboard</div>
+<div class="chapter-label">Chương 5</div>
+
+<h1>Xây Dựng Sản Phẩm Tốt Hơn Qua Continuous Product Discovery</h1>
+<p class="chapter-subtitle">Các đội nhóm sản phẩm hiệu quả nhất không ngừng xác định, kiểm thử và xác thực ý tưởng mới trong suốt vòng đời sản phẩm — mà không hy sinh việc bàn giao sản phẩm. Đây là cách bạn có thể xây dựng một thực hành continuous product discovery trong tổ chức của mình.</p>
+
+<hr class="divider">
+
+<p>Discovery không phải là một ô bạn có thể tick — các đội nhóm sản phẩm có thể khai thác giá trị lớn hơn trong công việc của họ bằng cách khám phá ý tưởng mới và kiểm thử giá trị của chúng trong một quy trình liên tục.</p>
+
+<!-- ── Definition ── -->
+<div class="definition-box">
+  <div class="def-label">Định nghĩa</div>
+  <div class="def-title">Continuous Product Discovery</div>
+  <p>Là <strong>quy trình bền vững của việc xác định, kiểm thử và xác thực ý tưởng</strong> như một phần của công việc hàng ngày của đội nhóm sản phẩm.</p>
+</div>
+
+<p>Thay vì cố gắng khám phá các ý tưởng sản phẩm có giá trị trước khi xây dựng một giải pháp, các đội nhóm nên tạo ra một thực hành thử nghiệm và discovery liên tục. Bằng cách thực hiện những thay đổi gia tăng theo thời gian, các đội nhóm có thể bỏ qua các chu kỳ delivery phần mềm dài và giải quyết các vấn đề người dùng thực sự trong ít thời gian hơn.</p>
+
+<hr class="divider-light">
+
+<!-- ── Why ── -->
+<h2>Tại sao bạn cần thực hiện Continuous Discovery?</h2>
+
+<p>Được thực hành đúng cách, continuous product discovery làm cho đội nhóm sản phẩm của bạn <strong>hiệu quả hơn và tạo ra tác động lớn hơn</strong>. Dễ dàng hơn để giữ toàn bộ tổ chức được điều chỉnh xung quanh tầm nhìn và chiến lược sản phẩm của bạn, bàn giao các tính năng và sản phẩm mới với sự tự tin rằng chúng sẽ được khách hàng đón nhận tốt, và đạt được Product Excellence.</p>
+
+<div class="callout">
+  <p><strong>Các đội nhóm từ xa có thể thực hiện continuous discovery không?</strong></p>
+  <p>Câu trả lời ngắn: hoàn toàn có thể.</p>
+  <p>Có một quan niệm sai lầm phổ biến trong số các product managers rằng các đội nhóm cần được đặt tại cùng một địa điểm để hoạt động hiệu quả. Nhưng với môi trường làm việc từ xa phù hợp và bộ công cụ đúng, các đội nhóm discovery có thể phát triển mạnh — ngay cả khi họ phân tán trên các quốc gia và múi giờ khác nhau.</p>
+</div>
+
+<!-- ── How we do it ── -->
+<h2>Cách Productboard thực hiện Continuous Discovery</h2>
+
+<p>Tại Productboard, chúng tôi nghĩ về continuous discovery như một <strong>mô hình nêm (wedge)</strong>. Các đội nhóm bắt đầu ở đầu rộng của nêm, với một loạt rộng rãi các ý tưởng có thể giải quyết và hướng đi có thể đi theo.</p>
+
+<p>Ở đầu kia của nêm, bạn có mục tiêu kinh doanh hoặc sản phẩm đang cố gắng đạt được. Ví dụ, một trong những mục tiêu nội bộ của chúng tôi có thể là tăng tỷ lệ retention của khách hàng cho các small businesses đang dùng Productboard, với mục tiêu tăng tỷ lệ retention lên 10%.</p>
+
+<div class="wedge-diagram">
+  <div class="wedge-title">Mô hình Nêm — Continuous Discovery</div>
+  <div class="wedge-visual">
+    <div class="wedge-wide">
+      <div class="ww-label">Đầu rộng · Khởi đầu</div>
+      <div class="ww-title">Không gian khám phá rộng</div>
+      <p>Nhiều ý tưởng, nhiều hướng đi có thể. Đội nhóm bắt đầu từ đây với tư duy phân kỳ.</p>
+    </div>
+    <div class="wedge-arrow">→</div>
+    <div class="wedge-narrow">
+      <div class="ww-label">Đầu hẹp · Kết quả</div>
+      <div class="ww-title">Mục tiêu rõ ràng</div>
+      <p>VD: +10% retention cho SMB</p>
+    </div>
+  </div>
+  <div class="wedge-questions">
+    <div class="wq-cell">
+      <p><strong>Câu hỏi 1:</strong> Chúng ta có đang đạt được kết quả này không?</p>
+    </div>
+    <div class="wq-cell">
+      <p><strong>Câu hỏi 2:</strong> Nếu không, làm thế nào chúng ta có thể lặp lại để đạt được kết quả đó?</p>
+    </div>
+  </div>
+</div>
+
+<p>Đối với mỗi ý tưởng hoặc hoạt động discovery mà chúng tôi thực hiện khi di chuyển xuống nêm, chúng tôi liên tục đặt ra hai câu hỏi trên. Theo thời gian, câu trả lời cho những câu hỏi đó tạo ra một framework để thực hiện các hoạt động discovery, thu thập insights và phân phối việc học hỏi đó trên toàn tổ chức theo thời gian thực.</p>
+
+<hr class="divider-light">
+
+<!-- ── Make insights org-wide ── -->
+<h2>Biến việc thu thập và chia sẻ insights thành nỗ lực toàn tổ chức</h2>
+
+<div class="ratio-visual">
+  <div class="ratio-number">20:1</div>
+  <div class="ratio-label">Số người tiếp xúc trực tiếp với khách hàng so với mỗi Product Manager — họ tất cả đều có những insights có giá trị cần được chia sẻ</div>
+</div>
+
+<p>Trong một tổ chức điển hình, những người tiếp xúc trực tiếp với khách hàng nhiều hơn product managers 20 lần hoặc hơn — và tất cả họ đều có những đóng góp có giá trị để chia sẻ.</p>
+
+<p>Vấn đề? <strong>Nhiều tổ chức đấu tranh để mở rộng vòng lặp thu thập phản hồi đó ra ngoài các bức tường của đội nhóm sản phẩm</strong> — đặc biệt khi nói đến product discovery.</p>
+
+<p>Để đối phó với điều này, Productboard sử dụng hệ thống quản lý sản phẩm của chính mình để <strong>tập trung hóa ý tưởng, yêu cầu và phản hồi sản phẩm</strong> từ nhiều nguồn, ghi lại chúng trong một repository có thể tìm kiếm duy nhất và giúp xác định xu hướng xung quanh những gì người dùng thực sự cần. Điều này tránh việc đội nhóm sản phẩm trở thành nút thắt cổ chai cho các nỗ lực discovery.</p>
+
+<p>Một khi insights về product discovery được thu thập ở một địa điểm trung tâm, product leadership làm việc để chia sẻ những insights đó trên từng đội nhóm sản phẩm. Hãy nói bạn có nhiều đội nhóm sử dụng continuous discovery để tìm hiểu về cùng một nhóm khách hàng, nhưng những đội nhóm đó đang thực thi trên các tính năng hoặc sản phẩm khác nhau. Bằng cách thu thập tất cả việc học hỏi của bạn ở một địa điểm trung tâm, tất cả các đội nhóm có thể hưởng lợi từ công việc discovery được thực hiện bởi các đội nhóm khác.</p>
+
+<!-- ── 3 reasons ── -->
+<h3>Ba lý do để chia sẻ insights product discovery trên toàn tổ chức</h3>
+
+<div class="reasons-grid">
+  <div class="reason-card">
+    <div class="rc-num">01</div>
+    <div class="rc-title">Động lực cải thiện sản phẩm</div>
+    <p>Khi mọi thành viên biết những phát hiện từ discovery, họ có động lực mạnh hơn để cùng nhau cải thiện sản phẩm.</p>
+  </div>
+  <div class="reason-card">
+    <div class="rc-num">02</div>
+    <div class="rc-title">Bán tầm nhìn và roadmap</div>
+    <p>Dễ dàng hơn để bán tầm nhìn và roadmap của bạn cho stakeholders khi bạn có dữ liệu discovery cụ thể làm bằng chứng.</p>
+  </div>
+  <div class="reason-card">
+    <div class="rc-num">03</div>
+    <div class="rc-title">Duy trì lịch sử discovery</div>
+    <p>Tránh mất lịch sử của các nỗ lực discovery khi dự án thay đổi, đội nhóm được tái cơ cấu hoặc nhân viên rời công ty.</p>
+  </div>
+</div>
+
+<hr class="divider-light">
+
+<!-- ── Small activities ── -->
+<h2>Thực hiện các hoạt động nhỏ thường xuyên để học nhanh hơn</h2>
+
+<p>Việc biến các hoạt động discovery cỡ vừa thành thói quen có thể giúp các early-stage startups thiếu nguồn lực product discovery chuyên dụng tiếp tục học hỏi theo thời gian.</p>
+
+<p>Teresa Torres thảo luận về sức mạnh của co-creation và các tương tác thường xuyên trong bài nói chuyện năm 2017 của bà về continuous discovery:</p>
+
+<blockquote>
+  <p>"Chúng ta đưa ra quyết định sản phẩm mỗi ngày. Chúng ta không muốn chúng là những phỏng đoán… Khi bạn có thể nhận được câu trả lời nhanh, bạn ngừng phỏng đoán và bắt đầu học hỏi. Đây là cách chúng ta có được những sản phẩm tuyệt vời."</p>
+  <span class="attribution">Teresa Torres</span>
+</blockquote>
+
+<p>Lời khuyên của chúng tôi cho các tổ chức sản phẩm đang tăng trưởng nhanh: <strong>Đừng nghĩ phức tạp quá về các nỗ lực discovery của bạn.</strong> Đây là nơi để bắt đầu:</p>
+
+<div class="weekly-grid">
+  <div class="weekly-card">
+    <div class="wc-icon">🗣️</div>
+    <div class="wc-title">Nói chuyện với khách hàng tiềm năng</div>
+    <p>Mỗi tuần có ít nhất một cuộc trò chuyện với prospects để hiểu vấn đề họ chưa được giải quyết.</p>
+  </div>
+  <div class="weekly-card">
+    <div class="wc-icon">💬</div>
+    <div class="wc-title">Nói chuyện với khách hàng hiện tại</div>
+    <p>Mỗi tuần có cuộc trò chuyện với khách hàng đang dùng sản phẩm để hiểu điểm đau và cơ hội cải thiện.</p>
+  </div>
+  <div class="weekly-card">
+    <div class="wc-icon">📱</div>
+    <div class="wc-title">Demo prototype mới</div>
+    <p>Mỗi tuần có thể demo một prototype mới — dù ở bất kỳ độ fidelity nào — để nhận phản hồi sớm và học hỏi nhanh.</p>
+  </div>
+  <div class="weekly-card">
+    <div class="wc-icon">🔬</div>
+    <div class="wc-title">Chạy một discovery experiment</div>
+    <p>Mỗi tuần có thể chạy một thí nghiệm discovery — một A/B test nhỏ, một cuộc khảo sát, hay một session quan sát người dùng.</p>
+  </div>
+</div>
+
+<p>Bốn câu hỏi này là điểm khởi đầu. Khi bạn xây dựng muscle memory cho discovery, bạn sẽ tự nhiên mở rộng và đa dạng hóa các hoạt động của mình theo những cách phù hợp với tổ chức và khách hàng của bạn.</p>
+
+<hr class="divider">
+
+<!-- ── Further reading ── -->
+<h2>Đọc thêm</h2>
+
+<div class="reading-list">
+  <div class="reading-item">
+    <div class="ri-num">1</div>
+    <div class="ri-content">
+      <div class="ri-author">C. Todd Lombardo & Aras Bilgen</div>
+      <div class="ri-title">Product Research Rules</div>
+      <p>Đề cập đến một số cạm bẫy phổ biến và tầm quan trọng của tư duy tạo ra insights — cuốn sách lý tưởng cho những ai muốn xây dựng cơ sở nghiên cứu sản phẩm vững chắc.</p>
+    </div>
+  </div>
+  <div class="reading-item">
+    <div class="ri-num">2</div>
+    <div class="ri-content">
+      <div class="ri-author">Marty Cagan — Silicon Valley Product Group</div>
+      <div class="ri-title">Discovery vs. Delivery, The Four Big Risks, Learning Fast vs. Failing Fast</div>
+      <p>Founder của SVPG đã viết rộng rãi về discovery so với delivery, bốn rủi ro lớn và học nhanh so với thất bại nhanh trên blog SVPG — tài nguyên không thể thiếu cho bất kỳ PM nào.</p>
+    </div>
+  </div>
+  <div class="reading-item">
+    <div class="ri-num">3</div>
+    <div class="ri-content">
+      <div class="ri-author">Alexander Cowan — Serial Entrepreneur</div>
+      <div class="ri-title">Customer Discovery Handbook</div>
+      <p>Viết một cuốn sổ tay ngắn về customer discovery — nửa đầu của product discovery, với các mẫu hữu ích cho phỏng vấn và xây dựng personas.</p>
+    </div>
+  </div>
+  <div class="reading-item">
+    <div class="ri-num">4</div>
+    <div class="ri-content">
+      <div class="ri-author">Tim Herbig — Amplitude Blog</div>
+      <div class="ri-title">No One "Right" Approach to Product Discovery</div>
+      <p>Chia sẻ quan điểm rằng không có một cách tiếp cận "đúng" duy nhất cho product discovery — discovery phải được điều chỉnh theo bối cảnh và giai đoạn của mỗi tổ chức.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ── Final CTA ── -->
+<div class="final-box">
+  <h3>Bắt Đầu Hành Trình Discovery Của Bạn</h3>
+  <p>Product discovery không phải là một dự án có điểm kết thúc — đó là một <strong>tư duy và thực hành liên tục</strong>. Bắt đầu với các bước nhỏ: một cuộc phỏng vấn khách hàng mỗi tuần, một prototype mỗi sprint. Theo thời gian, những thói quen nhỏ này sẽ xây dựng nền tảng cho các sản phẩm thực sự tuyệt vời.</p>
+</div>
+
+<!-- ── About ── -->
+<div style="border: 1px solid var(--border); padding: 24px 28px; margin: 32px 0;">
+  <h4>Về Productboard</h4>
+  <p style="margin-top: 12px;">Productboard là một hệ thống quản lý sản phẩm hướng khách hàng trao quyền cho các đội nhóm đưa sản phẩm phù hợp ra thị trường nhanh hơn. Nó cung cấp một giải pháp hoàn chỉnh cho các đội nhóm sản phẩm để hiểu nhu cầu người dùng, ưu tiên những gì cần xây dựng tiếp theo, điều chỉnh mọi người trên roadmap và tương tác với khách hàng. Hơn 3.000 tổ chức trên toàn thế giới sử dụng Productboard để xây dựng những sản phẩm xuất sắc.</p>
+  <p style="font-weight: 700; color: var(--text); margin-bottom: 0;">productboard.com</p>
+</div>
+
+<div class="page-footer">
+  <span>The Product Discovery Playbook · Productboard · 2020</span>
+  <span>Chương 5 / 5</span>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch4-product-discovery.html"><span class="lbl">Chương trước</span>Chương 4: Điều Chỉnh Product Discovery Cho Tổ Chức Của Bạn</a>
+</nav>
+</body>
+</html>

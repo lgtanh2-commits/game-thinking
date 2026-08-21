@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 2 — Hướng Dẫn Từng Bước Thực Hiện Product Discovery</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  .book-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .chapter-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .chapter-subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 48px;
+    max-width: 620px;
+    font-weight: 600;
+  }
+
+  .divider {
+    border: none;
+    border-top: 2px solid var(--accent-line);
+    margin: 48px 0;
+  }
+
+  .divider-light {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 36px 0;
+  }
+
+  h2 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 16px;
+    margin-top: 48px;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    margin-top: 32px;
+  }
+
+  h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    margin-top: 24px;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+  }
+
+  strong { color: var(--text); font-weight: 700; }
+  em { font-style: italic; }
+
+  blockquote {
+    border-left: 3px solid var(--accent-line);
+    padding: 16px 24px;
+    margin: 32px 0;
+  }
+
+  blockquote p {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 19px;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  blockquote .attribution {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-style: normal;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* ── Double Diamond diagram ── */
+  .diamond-diagram {
+    border: 1px solid var(--border-strong);
+    padding: 32px;
+    margin: 32px 0;
+    background: var(--surface);
+  }
+
+  .diamond-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .diamond-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 2px;
+  }
+
+  .diamond-half {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 20px 20px;
+  }
+
+  .diamond-half .dh-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .diamond-half .dh-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .diamond-half p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+  }
+
+  .diamond-footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 16px;
+  }
+
+  .diamond-footer-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Step blocks ── */
+  .step-block {
+    border-left: 4px solid var(--accent-line);
+    padding: 24px 28px;
+    margin: 36px 0;
+    background: white;
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .step-number {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .step-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  /* ── Tool cards grid ── */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border-strong);
+    margin: 20px 0;
+  }
+
+  .tool-card {
+    padding: 16px 18px;
+    border-right: 1px solid var(--border-strong);
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .tool-card:nth-child(even) { border-right: none; }
+  .tool-card:nth-last-child(-n+2) { border-bottom: none; }
+
+  .tc-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+
+  .tool-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+  /* ── Risk grid ── */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border-strong);
+    margin: 20px 0;
+  }
+
+  .risk-card {
+    padding: 20px 20px;
+    border-right: 1px solid var(--border-strong);
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .risk-card:nth-child(even) { border-right: none; }
+  .risk-card:nth-last-child(-n+2) { border-bottom: none; }
+
+  .rc-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+  }
+
+  .rc-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .risk-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+  /* ── Callout ── */
+  .callout {
+    background: var(--surface);
+    border-left: 4px solid var(--accent-line);
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+
+  .callout p { margin-bottom: 0; color: var(--text-secondary); }
+  .callout strong { color: var(--text); }
+
+  .callout-bold {
+    background: var(--surface-dark);
+    padding: 24px 28px;
+    margin: 28px 0;
+    border: 1px solid var(--border-strong);
+  }
+
+  .callout-bold p {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0;
+    line-height: 1.45;
+  }
+
+  /* ── Bullet list ── */
+  ul.bullets {
+    padding-left: 0;
+    list-style: none;
+    margin: 12px 0 20px;
+  }
+
+  ul.bullets li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  ul.bullets li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    font-size: 9px;
+    color: var(--text);
+    line-height: 1.9;
+  }
+
+  ul.bullets li strong { color: var(--text); }
+
+  /* ── Numbered list ── */
+  ol.numbered {
+    padding-left: 0;
+    list-style: none;
+    counter-reset: num;
+    margin: 16px 0 24px;
+  }
+
+  ol.numbered li {
+    counter-increment: num;
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+    font-size: 15px;
+    align-items: flex-start;
+  }
+
+  ol.numbered li::before {
+    content: counter(num);
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text);
+    background: var(--surface-dark);
+    min-width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── Phase table ── */
+  .phase-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 14px;
+  }
+
+  .phase-table th {
+    background: var(--text);
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+  }
+
+  .phase-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .phase-table td:first-child {
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    width: 28%;
+  }
+
+  .phase-table tr:last-child td { border-bottom: none; }
+  .phase-table tr:nth-child(even) td { background: var(--surface); }
+
+  .page-footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 40px 20px 80px; }
+    h1 { font-size: 28px; }
+    .tool-grid, .risk-grid { grid-template-columns: 1fr; }
+    .tool-card, .risk-card { border-right: none; }
+    .diamond-row { grid-template-columns: 1fr; }
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-discovery-playbook">← Về mục lục</a></p>
+
+<div class="book-label">The Product Discovery Playbook · Productboard</div>
+<div class="chapter-label">Chương 2</div>
+
+<h1>Hướng Dẫn Từng Bước Thực Hiện Product Discovery</h1>
+<p class="chapter-subtitle">Product discovery là về việc tạo ra môi trường học hỏi để bạn có thể cải thiện sản phẩm một cách gia tăng và nhất quán.</p>
+
+<hr class="divider">
+
+<p>Đối với các đội nhóm sản phẩm mới, quy trình product discovery có thể cảm thấy như một bí ẩn. Không có một bảng tính nào bạn có thể điền vào hay một ô nào bạn có thể tick.</p>
+
+<p>Trong khi có yếu tố nghệ thuật nhất định trong product discovery thành công, bản thân quy trình khá cụ thể. Product discovery là về việc tìm ra những cách thông minh để <strong>giảm thiểu rủi ro</strong>, biến những kỹ thuật đó thành thói quen, và xây dựng một quy trình phù hợp với đội nhóm và công ty của bạn.</p>
+
+<!-- ── Double Diamond ── -->
+<h2>Cách Productboard thực hiện Product Discovery</h2>
+
+<p>Tại Productboard, chúng tôi sử dụng phương pháp <strong>Double Diamond</strong> nổi tiếng để hiểu nhu cầu của khách hàng và khám phá những cách sáng tạo để giải quyết vấn đề của họ.</p>
+
+<p>Các đội nhóm bắt đầu bằng cách khám phá không gian vấn đề — nói chuyện với khách hàng và prospects, tìm hiểu nhu cầu người dùng trước khi xác định chính xác vấn đề họ đang gặp phải. Khi đội nhóm hiểu cảm xúc của khách hàng và cách họ đang xử lý vấn đề hiện tại, họ đề xuất các giải pháp tiềm năng và xác thực ý tưởng trước khi tìm ra giải pháp có giá trị.</p>
+
+<div class="diamond-diagram">
+  <div class="diamond-title">Mô hình Double Diamond — Khám phá & Giải quyết vấn đề</div>
+  <div class="diamond-row">
+    <div class="diamond-half">
+      <div class="dh-label">Kim cương 1 · Vấn đề</div>
+      <div class="dh-title">Khám phá → Định nghĩa</div>
+      <p>Diverge: Thu thập dữ liệu, phỏng vấn khách hàng, quan sát<br>→ Converge: Xác định vấn đề cốt lõi cần giải quyết</p>
+    </div>
+    <div class="diamond-half">
+      <div class="dh-label">Kim cương 2 · Giải pháp</div>
+      <div class="dh-title">Phát triển → Bàn giao</div>
+      <p>Diverge: Ideate, prototype, test nhiều giải pháp<br>→ Converge: Xác nhận giải pháp tốt nhất để delivery</p>
+    </div>
+  </div>
+  <div class="diamond-footer">
+    <span class="diamond-footer-label">Thách thức (Challenge)</span>
+    <span class="diamond-footer-label">→</span>
+    <span class="diamond-footer-label">Định nghĩa (Definition)</span>
+    <span class="diamond-footer-label">→</span>
+    <span class="diamond-footer-label">Giải pháp (Solution)</span>
+  </div>
+</div>
+
+<h3>Bốn giai đoạn của Product Discovery</h3>
+
+<ol class="numbered">
+  <li>Khám phá các thách thức cơ bản (Uncover the underlying challenges)</li>
+  <li>Diễn giải phát hiện và tái định khung vấn đề (Interpret findings and re-frame the problem)</li>
+  <li>Xác định các giải pháp sáng tạo (Identify creative solutions)</li>
+  <li>Thu thập phản hồi và xác thực giải pháp (Collect feedback and validate solutions)</li>
+</ol>
+
+<div class="callout">
+  <p><strong>Chúng ta có cần thực hiện product discovery cho mọi sản phẩm hoặc tính năng không?</strong></p>
+  <p style="margin-top:10px;">Không nhất thiết. Mục tiêu của product discovery là giảm thiểu sự bất định — vì vậy lượng thời gian bạn dành để nghiên cứu vấn đề và giải pháp nên phụ thuộc vào mức độ bất định xung quanh vấn đề được chọn. Như Philipp Krehl (Senior PM) đúc kết: <em>"Nếu sự bất định bạn đối mặt quá cao, hãy bắt đầu với product discovery thay vì product delivery."</em></p>
+</div>
+
+<hr class="divider-light">
+
+<!-- ── Step 1 ── -->
+<div class="step-block">
+  <div class="step-number">Bước 1 / 4</div>
+  <div class="step-title">Khám phá các thách thức cơ bản</div>
+
+  <p>Product discovery bắt đầu không phải với câu hỏi <em>làm thế nào</em>, mà là <em>tại sao</em>. Sản phẩm chỉ có thể thành công khi nó giải quyết được một vấn đề cấp bách của người dùng, vì vậy bạn nên bắt đầu bằng cách hiểu rõ những thách thức và khó khăn mà khách hàng tiềm năng đang đối mặt. Chỉ khi đó bạn mới có thể xác định rõ ràng vấn đề mình đang giải quyết.</p>
+
+  <p>Giai đoạn đầu này là về việc lùi lại một bước, đặt câu hỏi về những giả định của bạn, và tìm hiểu xem nhu cầu thực sự là gì. Đôi khi điều đó có nghĩa là bắt đầu với một vấn đề hoặc cơ hội, nhưng thường xuyên hơn bạn đang bắt đầu với một yêu cầu tính năng phổ biến hay một ý tưởng giải pháp cụ thể.</p>
+
+  <p><strong>Ví dụ thực tế từ Productboard:</strong> Giả sử Productboard đang tìm cách giúp các công ty mid-market hiểu rõ hơn điểm đau của khách hàng họ. Giả thuyết vấn đề ban đầu có thể như sau:</p>
+
+  <blockquote>
+    <p>"Các công ty mid-market thường gặp khó khăn khi cố gắng giao tiếp với nhiều đối tượng cùng một lúc."</p>
+  </blockquote>
+
+  <h4>Các công cụ discovery định tính để bắt đầu</h4>
+
+  <div class="tool-grid">
+    <div class="tool-card">
+      <div class="tc-name">Đầu vào định tính hiện có</div>
+      <p>Support tickets, transcripts từ sales calls, nghiên cứu người dùng trước đây, diễn đàn yêu cầu tính năng, và email khách hàng — tất cả đầy những insights có giá trị.</p>
+    </div>
+    <div class="tool-card">
+      <div class="tc-name">Phỏng vấn khách hàng</div>
+      <p>Nói chuyện với khách hàng hiện tại về những thách thức hàng ngày của họ xung quanh vấn đề đang nghiên cứu.</p>
+    </div>
+    <div class="tool-card">
+      <div class="tc-name">Nghiên cứu cạnh tranh</div>
+      <p>Tiếp cận người dùng của các sản phẩm cạnh tranh để hỏi về cách những sản phẩm đó chưa đáp ứng nhu cầu của họ, hoặc cách đối thủ đang giải quyết vấn đề tương tự.</p>
+    </div>
+    <div class="tool-card">
+      <div class="tc-name">Quan sát (Observation)</div>
+      <p>Dùng công cụ screen-sharing để quan sát người dùng khi họ thực hiện các tác vụ, tìm kiếm những điểm mà họ gặp khó khăn.</p>
+    </div>
+    <div class="tool-card">
+      <div class="tc-name">Tiếp cận trực tiếp</div>
+      <p>Giao tiếp với khách hàng trực tiếp, qua điện thoại, hoặc dùng công cụ giao tiếp khách hàng để hỏi tại sao họ thực hiện những hành động nhất định trong hệ thống.</p>
+    </div>
+    <div class="tool-card">
+      <div class="tc-name">Journey Mapping</div>
+      <p>Minh họa các bước mà người dùng hiện đang thực hiện để giải quyết vấn đề của họ, kết hợp với cảm xúc của họ tại các điểm khác nhau trên hành trình.</p>
+    </div>
+    <div class="tool-card">
+      <div class="tc-name">Focus Groups</div>
+      <p>Tổ chức các cuộc trò chuyện với khách hàng hiện tại hoặc tiềm năng để hiểu thái độ của họ về vấn đề đang nghiên cứu.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── Step 2 ── -->
+<div class="step-block">
+  <div class="step-number">Bước 2 / 4</div>
+  <div class="step-title">Diễn giải phát hiện và tái định khung vấn đề</div>
+
+  <p>Khi tiến qua mỗi hoạt động discovery, chúng ta sẽ khám phá thêm thông tin về các vấn đề người dùng đang gặp. Khi chúng ta cô lập được các vấn đề cụ thể, mục tiêu là chắt lọc những học hỏi đó thành <strong>một câu duy nhất</strong> bao trùm toàn bộ vấn đề có thể giải quyết được.</p>
+
+  <p>Quay lại ví dụ mid-market, thách thức rộng có thể được tái định khung và thu hẹp xuống như sau:</p>
+
+  <blockquote>
+    <p>"Các công ty mid-market gặp giới hạn với Productboard's public Portal khi cố gắng giao tiếp với nhiều đối tượng cùng một lúc."</p>
+  </blockquote>
+
+  <p>Ở đây, chúng ta có thể bắt đầu hiểu quy mô của vấn đề và thu hẹp lại những vấn đề nào đáng giải quyết:</p>
+
+  <ul class="bullets">
+    <li>Mức độ đau của người dùng lớn đến đâu?</li>
+    <li>Giải quyết vấn đề này tạo ra bao nhiêu giá trị cho họ?</li>
+    <li>Giá trị này so sánh với các vấn đề khác chúng ta có thể giải quyết thế nào?</li>
+    <li>Vấn đề nào nên ưu tiên, vấn đề nào nên gác lại?</li>
+  </ul>
+
+  <p>Chắt lọc problem statement xuống thành một câu duy nhất giúp bạn truyền đạt rõ ràng những thách thức mà người dùng đang đối mặt với đội nhóm của mình, giúp giữ mọi người tập trung vào một mục tiêu chung. Nếu bạn đặt vấn đề một cách mơ hồ, sẽ rất khó để giữ mọi người cùng hướng.</p>
+</div>
+
+<!-- ── Step 3 ── -->
+<div class="step-block">
+  <div class="step-number">Bước 3 / 4</div>
+  <div class="step-title">Xác định các giải pháp sáng tạo</div>
+
+  <p>Bây giờ bạn đã có hiểu biết rõ ràng về nhu cầu của người dùng và vấn đề bạn đang cố giải quyết, đã đến lúc sáng tạo. Một lần nữa, đây là lúc quay lại tư duy phân kỳ (divergent thinking), liệt kê tất cả ý tưởng và các cách tiềm năng bạn có thể giải quyết vấn đề cấp bách của khách hàng.</p>
+
+  <p>Đôi khi điều này có thể liên quan đến việc brainstorm những sản phẩm hoặc tính năng hoàn toàn mới, nhưng thường thì chúng ta chỉ đang kiểm tra lại các giả định về một tính năng chỉ có thể có một vài hình thức khác nhau.</p>
+
+  <h4>Các kỹ thuật tạo ý tưởng phổ biến</h4>
+
+  <ul class="bullets">
+    <li><strong>Team brainstorming</strong> — Động não tập thể với các quy tắc rõ ràng</li>
+    <li><strong>Mind mapping</strong> — Lập bản đồ tư duy để khai thác ý tưởng liên kết</li>
+    <li><strong>Storyboarding</strong> — Kể câu chuyện bằng hình ảnh về giải pháp đề xuất</li>
+    <li><strong>Crazy 8's</strong> — Phác thảo 8 ý tưởng trong 8 phút để tư duy nhanh</li>
+    <li><strong>"How might we" questions</strong> — Câu hỏi "Làm thế nào để chúng ta..." để mở rộng tư duy</li>
+  </ul>
+
+  <p>Sau khi các ý tưởng được đề xuất, đội nhóm của bạn có thể đánh giá tác động tiềm năng và giá trị của chúng, đánh giá các rủi ro về tính khả thi, sau đó ưu tiên những ý tưởng nào sẽ prototype và trình bày với khách hàng.</p>
+
+  <p><strong>Marty Cagan xác định bốn rủi ro lớn trong quản lý sản phẩm:</strong></p>
+
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="rc-label">Rủi ro 1</div>
+      <div class="rc-title">Rủi ro giá trị (Value risk)</div>
+      <p>Khách hàng của chúng ta có mua giải pháp này không? Người dùng có thực sự sử dụng nó không?</p>
+    </div>
+    <div class="risk-card">
+      <div class="rc-label">Rủi ro 2</div>
+      <div class="rc-title">Rủi ro khả dụng (Usability risk)</div>
+      <p>Người dùng của chúng ta có thể tìm ra cách sử dụng giải pháp được đề xuất không?</p>
+    </div>
+    <div class="risk-card">
+      <div class="rc-label">Rủi ro 3</div>
+      <div class="rc-title">Rủi ro tính khả thi (Feasibility risk)</div>
+      <p>Kỹ sư của chúng ta có thể xây dựng những gì cần thiết với thời gian, kỹ năng và công nghệ hiện có không?</p>
+    </div>
+    <div class="risk-card">
+      <div class="rc-label">Rủi ro 4</div>
+      <div class="rc-title">Rủi ro khả thi kinh doanh (Business viability risk)</div>
+      <p>Giải pháp này có phù hợp với các khía cạnh khác nhau của doanh nghiệp không? Legal, marketing, sales, tài chính?</p>
+    </div>
+  </div>
+
+  <p>Nếu còn tồn tại những điều chưa rõ ràng xung quanh các câu hỏi này, bạn nên ghi lại chúng như các giả thuyết hoặc câu hỏi mở cần được giải quyết trong suốt phần còn lại của quá trình discovery. Câu hỏi về giá trị sẽ được trả lời ở giai đoạn discovery tiếp theo bằng cách nói chuyện với khách hàng. Các câu hỏi khác cần được giải quyết bằng cách làm việc với các đội nhóm nội bộ.</p>
+
+  <p><strong>Giải pháp được đề xuất cho ví dụ mid-market:</strong></p>
+
+  <blockquote>
+    <p>"Hãy cho phép khách hàng tạo nhiều Portal để họ có thể chia sẻ/xác thực ý tưởng với từng đối tượng của họ theo cách khác nhau."</p>
+  </blockquote>
+</div>
+
+<!-- ── Step 4 ── -->
+<div class="step-block">
+  <div class="step-number">Bước 4 / 4</div>
+  <div class="step-title">Thu thập phản hồi và xác thực giải pháp</div>
+
+  <p>Giờ chúng ta đã sẵn sàng để trình bày giải pháp đề xuất với khách hàng và các bên liên quan. Mục tiêu là <strong>xây dựng và trình diễn thứ nhỏ nhất có thể</strong> giúp bạn hiểu liệu người dùng có sử dụng một giải pháp cụ thể để giải quyết vấn đề của họ không.</p>
+
+  <p>Tại Productboard, chúng tôi rất ưa thích việc sử dụng prototype để nhanh chóng hiện thực hóa ý tưởng. Prototype có nhiều hình thức khác nhau, từ bản phác thảo trên whiteboard đến các mockup tương tác có độ chân thực cao. Loại prototype mà đội nhóm chọn để xây dựng phụ thuộc vào những gì họ đang cố học hỏi, những gì cần được kiểm thử, và những câu hỏi mở còn tồn đọng.</p>
+
+  <p>Chúng tôi có thể xây dựng một prototype tương tác low-fidelity của công cụ cho phép khách hàng tạo nhiều Portal để họ có thể tùy chỉnh giao tiếp với từng đối tượng khác nhau. Chúng tôi trình bày giải pháp này với cả khách hàng và các bên liên quan nội bộ để thu thập phản hồi và xác định xem giải pháp có khả thi, viable và có giá trị không.</p>
+
+  <p>Nếu phản hồi tích cực, bản prototype tự nó có thể phục vụ như một feature spec khi tính năng được chuyển đến đội delivery, giúp tiết kiệm thêm công sức về sau.</p>
+
+  <p><em>Lưu ý: Chúng tôi đã thực sự ra mắt tính năng tạo nhiều Portal trên Productboard như một tính năng thực tế!</em></p>
+</div>
+
+<hr class="divider-light">
+
+<!-- ── Goal: Mitigating risk ── -->
+<h2>Mục tiêu của Product Discovery: Giảm thiểu rủi ro</h2>
+
+<p>Mục tiêu của product discovery không nhất thiết là <em>ship tính năng</em>. Thay vào đó, đó là <strong>tạo ra môi trường học hỏi</strong> giúp bạn ưu tiên nhiều học hỏi nhất với ít nỗ lực nhất, giúp bạn nhất quán và gia tăng cải thiện sản phẩm và tính năng.</p>
+
+<div class="callout-bold">
+  <p>Hãy tự hỏi bản thân: <strong>Điều nhỏ nhất chúng ta có thể làm hôm nay để học được điều gì đó mới sẽ hướng dẫn chúng ta đưa ra quyết định là gì?</strong></p>
+</div>
+
+<p>Bằng cách sử dụng framework này và tuân theo các bước của nó, các đội nhóm sản phẩm có thể tạo ra một môi trường học hỏi liên tục dẫn đến những sản phẩm thực sự xuất sắc.</p>
+
+<p>Hãy nhớ: quá trình discovery không phải lúc nào cũng suôn sẻ. Product discovery không phải là một quy trình tuyến tính đi qua hai viên kim cương trước khi đến được giải pháp — đó là một quy trình lặp đi lặp lại thay đổi khi bạn tìm hiểu thêm về nhu cầu người dùng và giảm sự bất định.</p>
+
+<p>Tại Productboard, chúng tôi thường có các đội nhóm cùng lúc khám phá không gian vấn đề và giải pháp, hoặc các đội nhóm quay trở lại từ đầu khi họ tìm hiểu thêm về các vấn đề cơ bản mà người dùng đang đối mặt. Xét cho cùng, đội nhóm sản phẩm muốn chắc chắn rằng họ đang bàn giao đúng thứ cho người dùng.</p>
+
+<hr class="divider">
+
+<!-- ── Summary table ── -->
+<h3>Tóm tắt 4 bước</h3>
+
+<table class="phase-table">
+  <tr>
+    <th>Bước</th>
+    <th>Hoạt động chính</th>
+    <th>Kết quả đầu ra</th>
+  </tr>
+  <tr>
+    <td>1 · Khám phá</td>
+    <td>Phỏng vấn khách hàng, nghiên cứu cạnh tranh, quan sát, focus groups, journey mapping</td>
+    <td>Giả thuyết vấn đề ban đầu</td>
+  </tr>
+  <tr>
+    <td>2 · Định nghĩa</td>
+    <td>Tổng hợp insights, đánh giá quy mô vấn đề, ưu tiên</td>
+    <td>Problem statement một câu rõ ràng</td>
+  </tr>
+  <tr>
+    <td>3 · Ideate</td>
+    <td>Brainstorming, mind mapping, Crazy 8's, đánh giá 4 rủi ro của Marty Cagan</td>
+    <td>Danh sách giải pháp được ưu tiên để prototype</td>
+  </tr>
+  <tr>
+    <td>4 · Xác thực</td>
+    <td>Prototype (low đến high fidelity), demo với khách hàng & stakeholders</td>
+    <td>Quyết định build / không build / học thêm</td>
+  </tr>
+</table>
+
+<div class="page-footer">
+  <span>The Product Discovery Playbook · Productboard · 2020</span>
+  <span>Chương 2 / 5</span>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch1-product-discovery.html"><span class="lbl">Chương trước</span>Chương 1: Nền Tảng Của Product Discovery</a>
+  <a href="ch3-product-discovery.html"><span class="lbl">Chương sau</span>Chương 3: Làm Sao Biết Product Discovery Đang Hiệu Quả?</a>
+</nav>
+</body>
+</html>
