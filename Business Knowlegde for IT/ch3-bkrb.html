@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 3: Môi Trường Kinh Doanh Trong Ngân Hàng Bán Lẻ</title>
+<style>
+:root {
+  --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+  --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+  --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px; line-height: 1.75; color: var(--text);
+  background: var(--bg); max-width: 820px; margin: 0 auto; padding: 60px 40px 100px;
+}
+h1 { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 8px; }
+h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin-top: 56px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--accent-line); }
+h3 { font-size: 1.15rem; font-weight: 700; margin-top: 32px; margin-bottom: 10px; }
+h4 { font-size: 1rem; font-weight: 700; margin-top: 20px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-secondary); }
+p { margin-bottom: 14px; }
+ul, ol { margin-left: 24px; margin-bottom: 14px; }
+li { margin-bottom: 4px; }
+strong { font-weight: 700; }
+em { font-style: italic; color: var(--text-secondary); }
+.book-header { border-bottom: 3px solid var(--accent-line); padding-bottom: 32px; margin-bottom: 48px; }
+.book-series { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.chapter-label { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+.chapter-subtitle { font-size: 1.05rem; color: var(--text-secondary); margin-top: 6px; font-style: italic; }
+.meta-row { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+.meta-pill { font-size: 0.8rem; padding: 4px 12px; border: 1px solid var(--border-strong); border-radius: 2px; color: var(--text-secondary); font-weight: 600; letter-spacing: 0.04em; }
+table { width: 100%; border-collapse: collapse; margin: 20px 0 28px; font-size: 0.93rem; }
+th { background: var(--text); color: #fff; padding: 10px 14px; text-align: left; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:nth-child(even) td { background: var(--surface); }
+tr:last-child td { border-bottom: none; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin: 20px 0 28px; }
+.card { border: 1px solid var(--border); padding: 18px 16px; background: #fff; }
+.card-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 8px; }
+.card-value { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 4px; }
+.card-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; }
+.info-box { border-left: 3px solid var(--accent-line); padding: 16px 20px; background: var(--surface); margin: 20px 0 24px; font-size: 0.95rem; }
+.info-box .label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 8px; }
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0 28px; }
+.stat-cell { border: 1px solid var(--border); padding: 14px 12px; text-align: center; }
+.stat-num { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+.stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-top: 4px; }
+.org-card { border: 1px solid var(--border); padding: 20px 20px; margin: 16px 0; background: #fff; }
+.org-name { font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+.org-tagline { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; font-style: italic; }
+.org-body { font-size: 0.92rem; line-height: 1.6; }
+.org-stats { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
+.org-stat { font-size: 0.82rem; color: var(--text-secondary); }
+.org-stat strong { font-weight: 700; color: var(--text); }
+.toc { border: 1px solid var(--border); padding: 20px 24px; margin: 32px 0 48px; background: #fff; }
+.toc-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 12px; }
+.toc ol { margin-left: 0; padding-left: 18px; }
+.toc li { font-size: 0.9rem; margin-bottom: 4px; color: var(--text-secondary); }
+hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+code { font-family: 'Courier New', monospace; font-size: 0.88em; background: var(--surface-dark); padding: 2px 6px; border-radius: 2px; }
+.callout { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; margin: 16px 0 24px; font-size: 0.92rem; }
+.callout strong { display: block; margin-bottom: 4px; }
+.impact-box { border: 2px solid var(--accent-line); padding: 16px 20px; margin: 16px 0; }
+.impact-box .impact-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.factor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 16px 0 24px; }
+.factor-cell { background: #fff; padding: 14px 16px; }
+.factor-cell.header-cell { background: var(--surface-dark); font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.factor-title { font-weight: 700; font-size: 0.92rem; margin-bottom: 4px; }
+.factor-text { font-size: 0.87rem; color: var(--text-secondary); line-height: 1.5; }
+.page-footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 600px) {
+  body { padding: 36px 20px 60px; }
+  h1 { font-size: 1.8rem; }
+  .card-grid { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr 1fr; }
+  .factor-grid { grid-template-columns: 1fr; }
+}
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/business-knowledge-it-retail-banking">← Về mục lục</a></p>
+
+<div class="book-header">
+  <div class="book-series">Business Knowledge for IT in Retail Banking · Essvale Corporation</div>
+  <div class="chapter-label">Chương 3</div>
+  <h1>Môi Trường Kinh Doanh Trong Ngân Hàng Bán Lẻ</h1>
+  <div class="chapter-subtitle">Yếu tố kinh tế, đối thủ cạnh tranh, cơ quan quản lý, tổ chức thẻ, hiệp hội ngành và tổ chức thanh toán bù trừ</div>
+  <div class="meta-row">
+    <span class="meta-pill">Trang 35 – 51</span>
+    <span class="meta-pill">Môi Trường Kinh Doanh</span>
+    <span class="meta-pill">Allied Organisations</span>
+  </div>
+</div>
+
+<div class="toc">
+  <div class="toc-title">Nội dung chương</div>
+  <ol>
+    <li>Các yếu tố kinh tế tác động đến ngân hàng bán lẻ</li>
+    <li>Các bên tham gia thị trường</li>
+    <li>Đối thủ cạnh tranh: Hồ sơ ngân hàng lớn</li>
+    <li>Tổ chức liên minh: Cơ quan quản lý (FSA, BoE, ECB, EMVCo)</li>
+    <li>Tổ chức liên minh: Công ty thẻ (Visa, MasterCard, AmEx, Diners, JCB)</li>
+    <li>Tổ chức liên minh: Cơ quan tham chiếu tín dụng</li>
+    <li>Cơ quan tin tức và hiệp hội ngành</li>
+    <li>Tổ chức thanh toán bù trừ (Clearing Organisations)</li>
+  </ol>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>1. Các Yếu Tố Kinh Tế Tác Động</h2>
+
+<p>Môi trường kinh doanh ngân hàng bán lẻ chịu tác động từ nhiều yếu tố kinh tế vĩ mô. Hiểu rõ các yếu tố này giúp đội IT dự đoán nhu cầu sản phẩm mới, thay đổi hành vi khách hàng, và yêu cầu tuân thủ quy định trong tương lai.</p>
+
+<div class="factor-grid">
+  <div class="factor-cell header-cell">Yếu tố</div>
+  <div class="factor-cell header-cell">Tác động đến ngân hàng bán lẻ</div>
+
+  <div class="factor-cell">
+    <div class="factor-title">Vay nợ chính phủ (Government Borrowing)</div>
+  </div>
+  <div class="factor-cell">
+    <div class="factor-text">Khi chính phủ vay nhiều, lãi suất thị trường tăng → chi phí vốn của ngân hàng tăng, ảnh hưởng đến biên lợi nhuận cho vay và định giá sản phẩm thế chấp</div>
+  </div>
+
+  <div class="factor-cell">
+    <div class="factor-title">Nguồn vốn nước ngoài (Overseas Funds)</div>
+  </div>
+  <div class="factor-cell">
+    <div class="factor-text">Dòng vốn quốc tế ảnh hưởng đến thanh khoản, tỷ giá hối đoái và khả năng tài trợ của ngân hàng. Các ngân hàng đa quốc gia có lợi thế tiếp cận vốn toàn cầu</div>
+  </div>
+
+  <div class="factor-cell">
+    <div class="factor-title">Lãi suất (Interest Rates)</div>
+  </div>
+  <div class="factor-cell">
+    <div class="factor-text">Lãi suất cơ bản của Ngân hàng Anh (BoE Base Rate) tác động trực tiếp đến lãi suất tiết kiệm, thẻ tín dụng, thế chấp Tracker và mọi sản phẩm lãi suất biến đổi</div>
+  </div>
+
+  <div class="factor-cell">
+    <div class="factor-title">Tỷ giá hối đoái (Exchange Rates)</div>
+  </div>
+  <div class="factor-cell">
+    <div class="factor-text">Biến động tỷ giá ảnh hưởng đến dịch vụ ngoại tệ, thẻ tín dụng quốc tế và thu nhập từ hoạt động ngân hàng tại nước ngoài</div>
+  </div>
+
+  <div class="factor-cell">
+    <div class="factor-title">Lạm phát (Inflation)</div>
+  </div>
+  <div class="factor-cell">
+    <div class="factor-text">Lạm phát cao xói mòn giá trị tiền gửi thực tế; khách hàng chuyển sang sản phẩm bảo toàn vốn hoặc tài sản thực (bất động sản, vàng)</div>
+  </div>
+
+  <div class="factor-cell">
+    <div class="factor-title">Chính sách tài khóa (Fiscal Policy)</div>
+  </div>
+  <div class="factor-cell">
+    <div class="factor-text">Chính sách thuế và chi tiêu công ảnh hưởng đến thu nhập khả dụng của khách hàng, nhu cầu vay và quy mô tiết kiệm. ISA là ví dụ điển hình của chính sách tài khóa hỗ trợ tiết kiệm</div>
+  </div>
+
+  <div class="factor-cell">
+    <div class="factor-title">Nhân khẩu học thay đổi (Changing Demographics)</div>
+  </div>
+  <div class="factor-cell">
+    <div class="factor-text">Nhập cư và già hóa dân số ảnh hưởng đến cầu tài khoản; thái độ thay đổi về giáo dục, tín ngưỡng và chuẩn mực đạo đức dẫn đến sản phẩm mới như tài khoản Hồi giáo</div>
+  </div>
+
+  <div class="factor-cell">
+    <div class="factor-title">Công nghệ (Technology)</div>
+  </div>
+  <div class="factor-cell">
+    <div class="factor-text">Công nghệ hạ thấp rào cản gia nhập thị trường, tạo điều kiện cho ngân hàng mới, Internet banking và phương thức thanh toán điện tử; đồng thời giúp ngân hàng truyền thống thu nhỏ mạng lưới chi nhánh và giảm chi phí vận hành</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>2. Các Bên Tham Gia Thị Trường</h2>
+
+<p>Môi trường kinh doanh ngân hàng bán lẻ được cấu thành bởi hai nhóm tham gia chính: các đối thủ cạnh tranh (ngân hàng khác) và các tổ chức liên minh (cơ quan quản lý, tổ chức thẻ, cơ quan tham chiếu tín dụng, và tổ chức thanh toán bù trừ).</p>
+
+<div class="callout">
+  <strong>Tính chất cạnh tranh của thị trường</strong>
+  Ngân hàng bán lẻ là lĩnh vực cạnh tranh quyết liệt trong ngành dịch vụ tài chính. Các ngân hàng truyền thống không chỉ cạnh tranh với nhau về dịch vụ ngày càng thương mại hóa, mà còn cạnh tranh với các tổ chức phi ngân hàng như nhà bán lẻ và công ty bảo hiểm. Các tập đoàn ngân hàng toàn năng (universal banking groups) chiếm ưu thế nhờ lợi thế quy mô và khả năng trợ cấp chéo giữa các mảng kinh doanh.
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>3. Hồ Sơ Các Ngân Hàng Lớn</h2>
+
+<div class="org-card">
+  <div class="org-name">Royal Bank of Scotland Group (RBSG)</div>
+  <div class="org-tagline">Một trong những ngân hàng lâu đời nhất UK, thành lập tại Edinburgh năm 1727</div>
+  <div class="org-body">
+    <p>Năm 2000, RBS thực hiện thương vụ tiếp quản lớn nhất lịch sử ngân hàng Anh khi mua lại National Westminster Bank plc (NatWest), tạo ra tập đoàn khổng lồ với danh mục dịch vụ đa dạng cho khách hàng cá nhân, doanh nghiệp và tổ chức. NatWest được thành lập thông qua sáp nhập National Provincial Bank và Westminster Bank năm 1968.</p>
+    <p>Tháng 8/2004, RBS mở rộng sang Trung Quốc, mua 10% cổ phần Ngân hàng Trung Quốc (Bank of China) với giá £1.7 tỷ.</p>
+  </div>
+  <div class="org-stats">
+    <div class="org-stat"><strong>£28,002M</strong> Doanh thu (2006)</div>
+    <div class="org-stat"><strong>£9,186M</strong> Thu nhập hoạt động (2006)</div>
+    <div class="org-stat"><strong>£6,497M</strong> Lợi nhuận ròng (2006)</div>
+    <div class="org-stat"><strong>137,000</strong> Nhân viên (2006)</div>
+  </div>
+</div>
+
+<div class="org-card">
+  <div class="org-name">Citigroup Inc.</div>
+  <div class="org-tagline">Tập đoàn tài chính lớn nhất thế giới (theo Forbes Global 2000, tháng 3/2007)</div>
+  <div class="org-body">
+    <p>Được thành lập ngày 7/4/1998 thông qua sáp nhập Citicorp và Travelers Group. Tổng tài sản đạt US$2.02 nghìn tỷ; phục vụ hơn 200 triệu tài khoản khách hàng tại hơn 100 quốc gia. Lịch sử: Citibank (1812), Bank Handlowy (1870), Smith Barney (1873), Banamex (1884), Salomon Brothers (1910).</p>
+  </div>
+  <div class="org-stats">
+    <div class="org-stat"><strong>US$155.6B</strong> Doanh thu (2006)</div>
+    <div class="org-stat"><strong>US$21.5B</strong> Lợi nhuận ròng (2006)</div>
+    <div class="org-stat"><strong>327,000</strong> Nhân viên (2006)</div>
+    <div class="org-stat"><strong>100+</strong> Quốc gia</div>
+  </div>
+</div>
+
+<div class="org-card">
+  <div class="org-name">Barclays PLC</div>
+  <div class="org-tagline">Tổ chức tài chính toàn cầu — 1685 London, tên "Barclays" từ năm 1736</div>
+  <div class="org-body">
+    <p>Phục vụ hơn 27 triệu khách hàng và đối tác trên toàn thế giới. Các mua lại nổi bật: Woolwich plc (2000) và tập đoàn Absa Group Limited (Nam Phi, 2005) với 54% cổ phần giá £2.6 tỷ — ngân hàng bán lẻ lớn nhất Nam Phi. Hoạt động bao gồm: UK retail &amp; business banking, Barclaycard, và international retail &amp; commercial banking.</p>
+  </div>
+  <div class="org-stats">
+    <div class="org-stat"><strong>£22,170M</strong> Doanh thu (2006)</div>
+    <div class="org-stat"><strong>£7,136M</strong> Thu nhập hoạt động (2006)</div>
+    <div class="org-stat"><strong>£4,571M</strong> Lợi nhuận ròng (2006)</div>
+    <div class="org-stat"><strong>118,000</strong> Nhân viên (2006)</div>
+  </div>
+</div>
+
+<div class="org-card">
+  <div class="org-name">HSBC Holdings plc</div>
+  <div class="org-tagline">"The World's Local Bank" — mạng lưới tài chính toàn cầu từ 1865</div>
+  <div class="org-body">
+    <p>Tên viết tắt từ Hong Kong and Shanghai Banking Corporation Limited (thành lập 1865 để tài trợ thương mại Trung Quốc – châu Âu). Từ 2002, định vị thương hiệu "ngân hàng địa phương của thế giới". Mạng lưới khoảng 10,000 văn phòng tại 82 quốc gia và vùng lãnh thổ ở châu Âu, châu Á – Thái Bình Dương, châu Mỹ, Trung Đông và châu Phi.</p>
+  </div>
+  <div class="org-stats">
+    <div class="org-stat"><strong>US$70.1B</strong> Doanh thu (2006)</div>
+    <div class="org-stat"><strong>312,000</strong> Nhân viên</div>
+    <div class="org-stat"><strong>82</strong> Quốc gia</div>
+    <div class="org-stat"><strong>10,000+</strong> Văn phòng</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>4. Tổ Chức Liên Minh: Cơ Quan Quản Lý</h2>
+
+<h3>4.1 Financial Services Authority (FSA)</h3>
+<p>FSA (Cơ quan Dịch vụ Tài chính) là cơ quan quản lý độc lập, phi bộ ngành, có tư cách bán tư pháp (quasi-judicial), giám sát toàn bộ ngành dịch vụ tài chính tại Vương quốc Anh. Trụ sở chính tại Canary Wharf, London; văn phòng phụ tại Edinburgh.</p>
+
+<div class="callout">
+  Khi đóng vai trò cơ quan có thẩm quyền cho việc niêm yết cổ phiếu trên sàn chứng khoán, FSA được gọi là <strong>UKLA (UK Listing Authority)</strong> và duy trì Danh sách Chính thức (Official List). Vai trò chính trong ngân hàng bán lẻ: quản lý ngân hàng và giảm tội phạm tài chính. Tất cả ngân hàng đầu tư phải tuân theo các quy định và báo cáo hoạt động cho FSA.
+</div>
+
+<h3>4.2 Bank of England (Ngân hàng Anh)</h3>
+<p>Ngân hàng trung ương của Vương quốc Anh, thành lập năm 1694 như ngân hàng của chính phủ. Từ cuối thế kỷ 18, trở thành ngân hàng của hệ thống ngân hàng. Đặt tại Phố Threadneedle, trung tâm London — đôi khi được gọi là "Old Lady of Threadneedle Street" (Bà lão phố Threadneedle).</p>
+
+<div class="factor-grid">
+  <div class="factor-cell header-cell">Hai mục tiêu cốt lõi</div>
+  <div class="factor-cell header-cell">Nội dung</div>
+  <div class="factor-cell"><div class="factor-title">Ổn định tiền tệ (Monetary Stability)</div></div>
+  <div class="factor-cell"><div class="factor-text">Ủy ban Chính sách Tiền tệ (MPC) thiết lập lãi suất chính thức UK; phát hành tiền giấy (banknotes)</div></div>
+  <div class="factor-cell"><div class="factor-title">Ổn định tài chính (Financial Stability)</div></div>
+  <div class="factor-cell"><div class="factor-text">Phối hợp chặt chẽ với thị trường tài chính và các tổ chức; thu thập và công bố thống kê tiền tệ và ngân hàng</div></div>
+</div>
+
+<h3>4.3 European Central Bank (ECB — Ngân hàng Trung Ương Châu Âu)</h3>
+<p>ECB là ngân hàng trung ương cho đồng tiền chung euro, chịu trách nhiệm duy trì sức mua của đồng euro và ổn định giá trong khu vực euro (13 quốc gia EU kể từ 1999). Ngày 1/1/1999, ECB tiếp nhận trách nhiệm chính sách tiền tệ từ các ngân hàng trung ương quốc gia của 11 thành viên. Hy Lạp gia nhập 2001; Slovenia (thành viên thứ 13) gia nhập 2007. Trụ sở: Frankfurt am Main, Đức.</p>
+
+<h3>4.4 EMVCo</h3>
+<p>Tháng 2/1999, Europay International, MasterCard International và Visa International thành lập EMVCo LLC để quản lý, duy trì và phát triển EMV™ Integrated Circuit Card Specifications (tiêu chuẩn thẻ chip IC). MasterCard mua lại Europay năm 2002; JCB International gia nhập năm 2005. Vai trò: đảm bảo khả năng tương tác và chấp nhận thẻ chip trên toàn cầu.</p>
+
+<div class="callout">
+  <strong>Tiêu chuẩn EMV</strong>
+  EMV (Europay, MasterCard, Visa) là tiêu chuẩn kỹ thuật cho thẻ chip (IC card/"Chip card") và thiết bị POS (IC-capable point-of-sale terminals). Hai triển khai phổ biến nhất: <strong>VSDC</strong> (Visa Smart Debit/Credit) và <strong>MChip</strong> (MasterCard Chip). MasterCard còn có <strong>EMV-CAP</strong> (Chip Authentication Program) cho e-commerce an toàn. Tiêu chuẩn này đang được triển khai toàn cầu dưới tên "IC Credit" và "Chip and PIN".
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>5. Tổ Chức Liên Minh: Công Ty Thẻ</h2>
+
+<h3>5.1 Visa International</h3>
+<p>Visa là hiệp hội tư nhân, sở hữu bởi hơn 20,000 tổ chức tài chính thành viên trên toàn thế giới — được tổ chức nhằm phục vụ các thành viên, chủ thẻ và đơn vị chấp nhận thẻ. Lịch sử: Năm 1968, Dee Hock (lãnh đạo nhóm ngân hàng BankAmericard) đề xuất thành lập liên minh — một liên doanh cho phép các thành viên hưởng lợi từ hệ thống thanh toán tập trung. Năm 1976, BankAmericard đổi tên thành Visa — tên đơn giản, dễ nhớ và phát âm giống nhau ở mọi ngôn ngữ.</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><div class="stat-num">1.55B</div><div class="stat-label">Thẻ lưu hành</div></div>
+  <div class="stat-cell"><div class="stat-num">$4.6T</div><div class="stat-label">Doanh số toàn cầu</div></div>
+  <div class="stat-cell"><div class="stat-num">170+</div><div class="stat-label">Quốc gia chấp nhận</div></div>
+  <div class="stat-cell"><div class="stat-num">1968</div><div class="stat-label">Năm thành lập</div></div>
+</div>
+
+<h3>5.2 MasterCard Worldwide</h3>
+<p>MasterCard được thành lập năm 1966 tại Mỹ bởi nhóm ngân hàng muốn xây dựng hiệp hội sở hữu tập thể. Năm 1968, mở rộng sang Mexico, Nhật Bản và châu Âu. Trong thập niên 1980, khai thác nhu cầu thanh toán điện tử tại các khu vực mới — là nhà phát hành thẻ thanh toán đầu tiên tại Cộng hòa Nhân dân Trung Hoa. Ra mắt <strong>Maestro®</strong> — chương trình ghi nợ trực tuyến toàn cầu, hợp tác với Europay International. Năm 2006, đổi tên thành <strong>MasterCard Worldwide</strong> với slogan <em>"The Heart of Commerce™"</em>.</p>
+
+<h3>5.3 American Express (AmEx)</h3>
+<p>American Express là công ty dịch vụ tài chính đa dạng, thành lập năm 1850 tại Buffalo, New York. Phát hành thẻ charge đầu tiên năm 1958 — trong 5 năm, hơn 1 triệu thẻ được sử dụng tại khoảng 85,000 cơ sở. Cột mốc lịch sử: Gold Card (1966), Platinum (1984), Optima — sản phẩm thẻ tín dụng đầu tiên (1987), Centurion (1999). Năm 2006, bộ phận UK cấp phép thương hiệu <strong>Product Red</strong> — mỗi giao dịch đóng góp cho The Global Fund (hỗ trợ bệnh nhân HIV/AIDS, sốt rét tại châu Phi).</p>
+<div class="org-stats" style="margin-top:10px;">
+  <div class="org-stat"><strong>130+</strong> Quốc gia hoạt động</div>
+  <div class="org-stat"><strong>65,800</strong> Nhân viên (2005)</div>
+  <div class="org-stat"><strong>1850</strong> Thành lập</div>
+</div>
+
+<h3>5.4 Diners Club International</h3>
+<p>Diners Club International được Frank McNamara thành lập năm 1950 — trở thành công ty thẻ tín dụng độc lập đầu tiên và thẻ charge đầu tiên trên thế giới. Năm 2002: 8 triệu chủ thẻ tại hơn 200 quốc gia, được chấp nhận tại 6 triệu cơ sở. Năm 2004, ký thỏa thuận với MasterCard: thẻ Diners Club phát hành tại Mỹ và Canada có logo MasterCard + số tài khoản 16 chữ số; thẻ từ các quốc gia khác giữ 14 chữ số với logo MasterCard.</p>
+
+<h3>5.5 Japan Credit Bureau (JCB)</h3>
+<p>JCB thành lập năm 1961 tại Tokyo, là công ty thẻ tín dụng lớn của Nhật Bản. Năm 1985, phát hành thẻ lần đầu bên ngoài Nhật (Hồng Kông). Slogan 2007: <em>"Good times start here"</em> — chiến lược thương hiệu toàn cầu mới.</p>
+<div class="org-stats" style="margin-top:10px;">
+  <div class="org-stat"><strong>57.7M</strong> Thành viên (tháng 3/2006)</div>
+  <div class="org-stat"><strong>13.83M</strong> Đơn vị chấp nhận</div>
+  <div class="org-stat"><strong>190</strong> Quốc gia &amp; vùng lãnh thổ</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>6. Tổ Chức Liên Minh: Cơ Quan Tham Chiếu Tín Dụng</h2>
+
+<p>Cơ quan tham chiếu tín dụng (Credit Reference Agency) cung cấp thông tin tín dụng về người vay cá nhân, giúp các tổ chức cho vay đánh giá khả năng trả nợ và xác định lãi suất dựa trên mức độ rủi ro (<em>risk-based pricing</em>). Dữ liệu được thu thập từ các tổ chức tài chính và tổng hợp thành điểm tín dụng (credit score) thông qua thuật toán toán học.</p>
+
+<div class="info-box">
+  <div class="label">Khung pháp lý tại UK</div>
+  Cơ quan tham chiếu tín dụng chịu sự điều chỉnh của <strong>Consumer Credit Act 1974</strong> và <strong>Data Protection Act</strong>. Dữ liệu phải chính xác, phù hợp, được lưu giữ với mục đích chính đáng và không lỗi thời. Cá nhân có quyền pháp lý truy cập dữ liệu về mình. Các tổ chức đăng ký sử dụng dịch vụ phải cung cấp dữ liệu ngược lại để duy trì pool dữ liệu chung.
+</div>
+
+<table>
+  <thead>
+    <tr><th>Cơ quan</th><th>Thành lập</th><th>Đặc điểm nổi bật</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Equifax</strong></td>
+      <td>1899, Atlanta GA (USA)</td>
+      <td>"Big Three" với Experian và TransUnion. Dữ liệu 400M+ chủ thẻ toàn cầu. Doanh thu $1.5B+; 5,000 nhân viên; hiện diện tại 14 quốc gia</td>
+    </tr>
+    <tr>
+      <td><strong>Experian</strong></td>
+      <td>USA/UK</td>
+      <td>Hoạt động tại 30+ quốc gia (USA, UK, EU, Argentina, Brazil, Nam Phi, Trung Quốc, Nhật Bản, Úc). Experian North America = "big three" cùng Equifax, TransUnion</td>
+    </tr>
+    <tr>
+      <td><strong>Callcredit Limited</strong></td>
+      <td>2001, UK</td>
+      <td>Được tạo ra bởi Skipton Building Society; liên kết với TransUnion (Mỹ). Phục vụ: ngân hàng, công ty pháp lý, viễn thông, tiện ích. Consumer website: MyCallcredit. Chuyên về phát hiện gian lận, truy vết con nợ</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>7. Cơ Quan Tin Tức và Hiệp Hội Ngành</h2>
+
+<h3>7.1 Financial Times (FT)</h3>
+<p>Tờ báo kinh doanh quốc tế với giấy in màu hồng salmon đặc trưng. In tại 22 thành phố trên thế giới (London, Paris, Frankfurt, New York, Tokyo, Hong Kong, Singapore, v.v.). Mạng lưới 400 nhà báo tại 50 ban biên tập toàn cầu. Định hướng: trung-hữu/tự do; ủng hộ thị trường tự do và toàn cầu hóa.</p>
+
+<h3>7.2 APACS</h3>
+<p>APACS (Association for Payment Clearing Services — nay là UK Payments Administration) là tổ chức thương mại ngành thanh toán UK cho các tổ chức tài chính. Thúc đẩy tiêu chuẩn và khả năng tương tác cho: Bacs, CHAPS, SWIFT. APACS phát hành tất cả mã Sort Code của chi nhánh ngân hàng UK hàng năm trong danh bạ. Tiêu chuẩn APACS định nghĩa quy trình và thực hành kỹ thuật cho: ghi nợ (séc), lệnh thanh toán thường xuyên, đóng gói tiền xu, trao đổi dữ liệu từ tính, định dạng dữ liệu trao đổi.</p>
+
+<h3>7.3 SWIFT</h3>
+<p>SWIFT (Society for Worldwide Interbank Financial Telecommunication) là tổ chức sở hữu bởi ngành, đặt trụ sở tại La Hulpe, Bỉ (gần Brussels). Cung cấp dịch vụ nhắn tin an toàn, chuẩn hóa cho gần 8,100 tổ chức tài chính tại 207 quốc gia và vùng lãnh thổ — bao gồm ngân hàng, môi giới chứng khoán, nhà quản lý đầu tư, công ty và hạ tầng thị trường trong lĩnh vực thanh toán, chứng khoán, kho bạc và thương mại.</p>
+
+<div class="callout">
+  <strong>Tiến hóa hạ tầng SWIFT</strong>
+  2001: SWIFTNet đi vào hoạt động (Bundesbank RTGSPlus + Bank of England Enquiry Link). 15/8/2002: SWIFTNet Release 4.0 + tin nhắn FIN đầu tiên. 2003: SWIFT chuyển hoàn toàn sang SWIFTNet, thay thế hạ tầng X.25. Giao thức truyền thông: <strong>InterAct</strong>, <strong>FileAct</strong>, <strong>Browse</strong>. XML cung cấp lớp bọc cho mọi thông điệp, kế thừa và đương đại.
+</div>
+
+<h3>7.4 Fair Isaac Corporation (FICO)</h3>
+<p>Thành lập năm 1956 bởi kỹ sư Bill Fair và nhà toán học Earl Isaac. Phát triển <strong>điểm FICO (FICO scores)</strong> — thước đo rủi ro tín dụng phổ biến nhất thế giới, có mặt tại tất cả ba cơ quan tham chiếu tín dụng lớn: Equifax, Experian, TransUnion. Trụ sở: Minneapolis, Minnesota, USA. Cung cấp: phân tích dự đoán, mô hình tín dụng, tối ưu hóa chiến lược quyết định. Consumer portal: <em>www.myfico.com</em>.</p>
+
+<h3>7.5 Council of Mortgage Lenders (CML)</h3>
+<p>Hiệp hội thương mại cho ngành cho vay thế chấp, thành viên chiếm khoảng 98% cho vay thế chấp nhà ở UK. Đến tháng 6/2007: 162 thành viên và 98 thành viên liên kết, bao gồm Abbey, Lloyds TSB, Nationwide Building Society, Chelsea Building Society và nhiều ngân hàng lớn khác.</p>
+
+<h3>7.6 CIFAS (Credit Industry Fraud Avoidance Scheme)</h3>
+<p>Tổ chức tài trợ ngành, thành lập năm 1988, chuyên phòng chống gian lận tài chính. Cung cấp hệ thống tránh gian lận được sử dụng bởi các công ty dịch vụ tài chính UK, cơ quan công quyền và tổ chức khác. Hệ thống hỗ trợ trao đổi thông tin về: trường hợp nghi ngờ gian lận khi thông tin đăng ký không qua kiểm tra, tài khoản/dịch vụ đang bị lạm dụng gian lận, nạn nhân vô tội của gian lận để bảo vệ họ. Dữ liệu chia sẻ phải tuân thủ Data Protection Act và được ghi trong điều khoản ứng dụng.</p>
+
+<h3>7.7 Building Societies Association (BSA)</h3>
+<p>Hiệp hội thương mại cho hội tiết kiệm nhà ở UK, thành lập năm 1869. Đại diện trung ương cho các hội tiết kiệm; cung cấp thông tin cho chính phủ, quốc hội, cơ quan quản lý, báo chí và các tổ chức liên quan. Hiện có 60 hội tiết kiệm tại UK với tổng tài sản trên £305 tỷ; khoảng 15 triệu người lớn có tài khoản tiết kiệm; hơn 2.5 triệu người mua nhà với vay từ hội tiết kiệm.</p>
+
+<h3>7.8 British Bankers' Association (BBA)</h3>
+<p>Hiệp hội thương mại ngân hàng và dịch vụ tài chính UK. Ban đầu làm việc với Committee of London Clearing Bankers (CLCB). Năm 1972, mở rộng sang ngân hàng nước ngoài và ngân hàng thương mại Anh. Hiện có <strong>253 thành viên</strong> từ 60 quốc gia; quản lý khoảng 130 triệu tài khoản cá nhân; đóng góp £35 tỷ cho nền kinh tế; cấu thành trung tâm ngân hàng quốc tế lớn nhất thế giới.</p>
+
+<p>Phạm vi vấn đề BBA giải quyết: dữ liệu tiền gửi/cho vay/thẻ tín dụng/tổn thất hoạt động; hướng dẫn chống rửa tiền; ảnh hưởng đến luật pháp châu Âu; hướng dẫn thực hành kế toán; định giá chuẩn thị trường bao gồm <strong>lãi suất LIBOR</strong>. BBA làm việc với Chính phủ, FSA, Bank of England và các tổ chức EU.</p>
+
+<h3>7.9 LINK</h3>
+<p>LINK cung cấp hạ tầng xử lý giao dịch tài chính điện tử thời gian thực cho ngân hàng, nhà bán lẻ và nhà khai thác di động. Quản lý mạng lưới ATM cho hệ thống thẻ LINK; cung cấp dịch vụ thanh toán bù trừ tạo điều kiện chia sẻ ATM.</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><div class="stat-num">2.5B</div><div class="stat-label">Giao dịch năm 2005</div></div>
+  <div class="stat-cell"><div class="stat-num">55,000+</div><div class="stat-label">Máy ATM tại UK</div></div>
+  <div class="stat-cell"><div class="stat-num">101M+</div><div class="stat-cell-desc stat-label">Thẻ hỗ trợ LINK</div></div>
+  <div class="stat-cell"><div class="stat-num">Post Office</div><div class="stat-label">Dịch vụ ngân hàng cơ bản</div></div>
+</div>
+
+<p>LINK cũng quản lý các giao dịch thuộc chương trình dịch vụ ngân hàng cơ bản của Bưu điện và triển khai dịch vụ nạp tiền ATM trả trước cho nhà khai thác di động. Đang phát triển thêm dịch vụ quản lý giao dịch và giải pháp thanh toán sáng tạo.</p>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>8. Tổ Chức Thanh Toán Bù Trừ (Clearing Organisations)</h2>
+
+<h3>8.0 Thanh Toán Bù Trừ Là Gì?</h3>
+<p>Thanh toán bù trừ trong ngân hàng bán lẻ là quá trình xử lý các khoản thanh toán bằng séc, ghi nợ trực tiếp, ghi có trực tiếp hoặc lệnh thanh toán thường xuyên. Tại UK, tất cả ngân hàng thương mại cao đường phố lớn (high-street commercial banks) đều là <strong>ngân hàng thanh toán bù trừ (clearing banks)</strong>. Hệ thống thanh toán bù trừ hoạt động sao cho khi séc được nộp vào hệ thống, tiền sẽ được chuyển từ ngân hàng này sang ngân hàng khác.</p>
+
+<h3>8.1 CHAPS (Clearing House Automated Payment System)</h3>
+<p>CHAPS Clearing Company Limited xử lý và thanh toán các khoản thanh toán phụ thuộc thời gian. Hệ thống CHAPS Sterling bắt đầu hoạt động ngày <strong>9/2/1984</strong>.</p>
+
+<table>
+  <thead>
+    <tr><th>Chỉ số</th><th>Năm 1984 (khai trương)</th><th>Năm 2004</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Khối lượng thanh toán/ngày</td><td>~7,000 khoản</td><td>130,000 khoản</td></tr>
+    <tr><td>Tổng giá trị hàng ngày</td><td>~£5 tỷ</td><td>~£300 tỷ</td></tr>
+  </tbody>
+</table>
+
+<p>CHAPS được sử dụng bởi 14 ngân hàng thanh toán (bao gồm Bank of England) và hơn 400 tổ chức tài chính thành viên phụ — là một trong những hệ thống thanh toán tổng giá trị thời gian thực (RTGS — Real-time Gross Settlement) lớn nhất thế giới. Thành viên Sterling: Barclays Bank Plc, Citibank N.A. Thành viên Euro: ABN Amro N.V., Deutsche Bank AG.</p>
+
+<h3>8.2 Cheque and Credit Clearing (Thanh Toán Bù Trừ Séc và Tín Dụng)</h3>
+<p>The Cheque and Clearing Company chịu trách nhiệm thanh toán bù trừ séc và giấy tín dụng trên toàn nước Anh (Great Britain); Bắc Ireland xử lý riêng. Mỗi ngày làm việc, hệ thống xử lý <strong>6.5 triệu séc và ghi có</strong>, theo chu kỳ bù trừ 3 ngày làm việc.</p>
+
+<p><strong>Thành viên tính đến tháng 1/2006:</strong> Abbey, Alliance and Leicester, Bank of England, HBOS, Barclays, Clydesdale, The Co-operative Bank, HSBC, Lloyds TSB, Nationwide, Royal Bank of Scotland Group.</p>
+
+<h3>8.3 Bacs (Bankers Automated Clearing Services)</h3>
+<p>Bacs là chương trình hội viên UK, chịu trách nhiệm xử lý thanh toán tự động. Sở hữu bởi 15 ngân hàng và hội tiết kiệm hàng đầu UK và châu Âu — bảo vệ các quy tắc và cấu trúc pháp lý của thanh toán tự động tại UK.</p>
+
+<div class="stat-row">
+  <div class="stat-cell"><div class="stat-num">5.5B</div><div class="stat-label">Khoản thanh toán/năm</div></div>
+  <div class="stat-cell"><div class="stat-num">80M</div><div class="stat-label">Thanh toán ngày cao điểm</div></div>
+  <div class="stat-cell"><div class="stat-num">35M</div><div class="stat-label">Người UK có ít nhất 1 direct debit</div></div>
+  <div class="stat-cell"><div class="stat-num">115,000</div><div class="stat-label">Doanh nghiệp dùng Bacs</div></div>
+</div>
+
+<p>Sản phẩm chính: ghi nợ trực tiếp (direct debits), ghi có trực tiếp (direct credits) và lệnh thường xuyên (standing orders). Khoảng 75% người lớn Anh có ít nhất một direct debit commitment.</p>
+
+<h3>8.4 Voca</h3>
+<p>Voca là nhà cung cấp dịch vụ thanh toán, chịu trách nhiệm về công nghệ cho các thanh toán tự động của UK. Đã xử lý 55 tỷ giao dịch trong 37 năm; năm 2005 xử lý hơn 5 tỷ giao dịch tài chính — chiếm 20% tổng thanh toán liên ngân hàng châu Âu. Hơn 100,000 doanh nghiệp (bao gồm tất cả FTSE 100) kết nối qua kênh nộp IP Bacstel-IP.</p>
+
+<div class="callout">
+  <strong>Vai trò cốt lõi của Voca trong nền kinh tế UK</strong>
+  Voca xử lý hơn 90% tiền lương UK, 70% hóa đơn hộ gia đình và đa số phúc lợi xã hội và lương hưu nhà nước. Hai liên doanh chiến lược: <strong>OneVu</strong> (với CheckFree, Mỹ — cách mạng hóa thanh toán hóa đơn qua Internet banking) và <strong>Digital Payments</strong> (với Retail Decisions và Mi-Pay — thanh toán qua điện thoại di động, Internet và TV tương tác).
+</div>
+
+<hr/>
+
+<h2>Tóm Tắt Chương 3</h2>
+
+<p>Chương 3 phác thảo bức tranh toàn diện về môi trường kinh doanh mà ngân hàng bán lẻ hoạt động. Tám yếu tố kinh tế vĩ mô liên tục định hình chiến lược sản phẩm và yêu cầu hệ thống IT. Bốn tập đoàn ngân hàng lớn (RBSG, Citigroup, Barclays, HSBC) thống trị thị trường nhờ lợi thế quy mô và đa dạng hóa toàn cầu.</p>
+
+<p>Hệ sinh thái tổ chức liên minh — gồm cơ quan quản lý (FSA, BoE, ECB), tổ chức tiêu chuẩn (EMVCo), công ty thẻ (Visa, MasterCard, AmEx, Diners, JCB), cơ quan tín dụng (Equifax, Experian, Callcredit), và hiệp hội ngành (APACS, SWIFT, BBA, BSA, CML, CIFAS, LINK) — tạo ra môi trường quy định và kỹ thuật mà mỗi dự án IT ngân hàng phải điều hướng. Các tổ chức thanh toán bù trừ (CHAPS, Cheque &amp; Credit, Bacs, Voca) là hạ tầng xử lý hàng nghìn tỷ bảng Anh mỗi ngày.</p>
+
+<table>
+  <thead><tr><th>Nhóm tổ chức</th><th>Vai trò đối với IT ngân hàng</th></tr></thead>
+  <tbody>
+    <tr><td>FSA, BoE, ECB</td><td>Đặt ra quy định tuân thủ; yêu cầu báo cáo và kiểm soát nội bộ</td></tr>
+    <tr><td>EMVCo</td><td>Tiêu chuẩn thẻ chip; yêu cầu POS và hệ thống phát hành thẻ</td></tr>
+    <tr><td>Visa, MasterCard, AmEx</td><td>Quy tắc mạng lưới; phí MDR; giao thức xử lý giao dịch</td></tr>
+    <tr><td>Equifax, Experian, Callcredit</td><td>API tra cứu tín dụng; tuân thủ Data Protection Act và CCA 1974</td></tr>
+    <tr><td>APACS, SWIFT</td><td>Tiêu chuẩn kỹ thuật thanh toán; Sort Code; MT message formats</td></tr>
+    <tr><td>BBA, BSA, CML</td><td>Hướng dẫn thực hành; vận động chính sách; LIBOR và chuẩn thị trường</td></tr>
+    <tr><td>CHAPS, Bacs, Voca, LINK</td><td>Hạ tầng xử lý thanh toán; kết nối hệ thống core banking</td></tr>
+  </tbody>
+</table>
+
+<div class="page-footer">
+  <span>Business Knowledge for IT in Retail Banking · Essvale Corporation Limited</span>
+  <span>Chương 3 · Trang 35–51</span>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch2-bkrb.html"><span class="lbl">Chương trước</span>Chương 2: Các Loại Sản Phẩm Ngân Hàng Bán Lẻ</a>
+  <a href="ch4-bkrb.html"><span class="lbl">Chương sau</span>Chương 4: Xu Hướng Ngân Hàng Bán Lẻ</a>
+</nav>
+</body>
+</html>

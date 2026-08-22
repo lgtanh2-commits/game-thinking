@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phụ Lục — Business Knowledge for IT in Retail Banking</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── Header ── */
+  .book-header {
+    border-bottom: 2px solid var(--accent-line);
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+  .book-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .book-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .book-subtitle {
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 56px;
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--text);
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--border-strong);
+    margin-bottom: 24px;
+  }
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  /* ── Prose ── */
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  /* ── Credit Card Summary Box ── */
+  .card-box {
+    border: 2px solid var(--accent-line);
+    background: var(--surface);
+    padding: 0;
+    margin-bottom: 24px;
+  }
+  .card-box-header {
+    background: var(--accent-line);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    text-align: center;
+  }
+  .card-box-product {
+    padding: 14px 20px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-box-product .product-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .card-box-product .product-type {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .card-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .card-table th {
+    background: var(--surface-dark);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    padding: 8px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .card-table td:first-child {
+    color: var(--text-secondary);
+    font-weight: 500;
+    width: 55%;
+  }
+  .card-table td:last-child {
+    font-weight: 600;
+    color: var(--text);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .card-table tr:last-child td {
+    border-bottom: none;
+  }
+  .card-table .section-row td {
+    background: var(--surface-dark);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    padding: 6px 14px;
+  }
+  .card-table .highlight td {
+    background: #f8f8f8;
+  }
+  .apr-badge {
+    display: inline-block;
+    background: var(--text);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  /* ── Formula ── */
+  .formula-block {
+    background: var(--surface);
+    border-left: 3px solid var(--accent-line);
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-family: 'Courier New', monospace;
+  }
+  .formula-block .formula-main {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .formula-block .formula-legend {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .formula-block .formula-legend span {
+    display: block;
+  }
+  .example-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    padding: 18px 22px;
+    margin-top: 16px;
+    margin-bottom: 24px;
+  }
+  .example-box .ex-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .example-box p {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+  }
+  .example-box .calc {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: var(--text);
+    margin-top: 6px;
+  }
+  .formula-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 28px;
+    margin-bottom: 4px;
+  }
+
+  /* ── Resource Lists ── */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .resource-item {
+    background: var(--bg);
+    padding: 11px 16px;
+    font-size: 14px;
+  }
+  .resource-item .ri-name {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .resource-item .ri-url {
+    font-size: 12px;
+    color: var(--text-muted);
+    word-break: break-all;
+  }
+  .resource-item .ri-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    margin-right: 6px;
+  }
+  .resource-count {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  /* Single-col list for agencies */
+  .agency-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .agency-item {
+    background: var(--bg);
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+  .agency-item .ag-num {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-right: 4px;
+  }
+  .agency-item .ag-name {
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* ── Bibliography ── */
+  .bib-list {
+    list-style: none;
+    padding: 0;
+  }
+  .bib-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .bib-list li:last-child { border-bottom: none; }
+  .bib-list li .bib-type {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-right: 8px;
+    display: inline-block;
+    min-width: 36px;
+  }
+  .bib-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 24px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── EU Note ── */
+  .info-strip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 16px;
+  }
+  .info-strip strong {
+    color: var(--text);
+  }
+
+  /* ── Footer ── */
+  .page-footer {
+    margin-top: 72px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/business-knowledge-it-retail-banking">← Về mục lục</a></p>
+
+<!-- ══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════ -->
+<header class="book-header">
+  <div class="book-label">Business Knowledge for IT in Retail Banking — Essvale Corporation Limited</div>
+  <div class="book-title">Phụ Lục</div>
+  <div class="book-subtitle">Appendix — Tài Liệu Tham Khảo &amp; Nguồn Lực Hữu Ích</div>
+</header>
+
+
+<!-- ══════════════════════════════════════════
+     PHỤ LỤC A: BIZLE CREDIT CARD
+══════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Phụ Lục A</div>
+  <h2 class="section-title">Ô Tóm Tắt Thẻ Tín Dụng Bizle</h2>
+
+  <p>Phần này mô phỏng một "Summary Box" (Ô Tóm Tắt) tiêu chuẩn theo quy định của Anh, dùng cho thẻ tín dụng doanh nghiệp <strong>Bizle Business Credit Card</strong>. Đây là định dạng bắt buộc các nhà phát hành thẻ phải cung cấp cho khách hàng để so sánh các sản phẩm tín dụng một cách minh bạch.</p>
+
+  <div class="card-box">
+    <div class="card-box-header">Ô Tóm Tắt (Summary Box)</div>
+    <div class="card-box-product">
+      <div class="product-type">Thẻ tín dụng doanh nghiệp</div>
+      <div class="product-name">Bizle Business Credit Card</div>
+    </div>
+    <table class="card-table">
+      <tr class="section-row">
+        <td colspan="2">Lãi Suất &amp; APR</td>
+      </tr>
+      <tr class="highlight">
+        <td>APR Điển Hình (Variable)</td>
+        <td><span class="apr-badge">18,20%</span></td>
+      </tr>
+      <tr>
+        <td>Lãi suất mua hàng (hàng năm)</td>
+        <td>13,30%</td>
+      </tr>
+      <tr>
+        <td>Lãi suất mua hàng (hàng tháng)</td>
+        <td>1,109%</td>
+      </tr>
+      <tr>
+        <td>Lãi suất ứng tiền mặt (hàng năm)</td>
+        <td>13,30%</td>
+      </tr>
+      <tr>
+        <td>Lãi suất ứng tiền mặt (hàng tháng)</td>
+        <td>1,109%</td>
+      </tr>
+
+      <tr class="section-row">
+        <td colspan="2">Điều Khoản Tín Dụng</td>
+      </tr>
+      <tr>
+        <td>Thời gian miễn lãi (tối đa)</td>
+        <td>Đến 45 ngày</td>
+      </tr>
+      <tr>
+        <td>Thanh toán tối thiểu hàng tháng</td>
+        <td>5% số dư (tối thiểu £5)</td>
+      </tr>
+      <tr>
+        <td>Hạn mức tín dụng</td>
+        <td>£500 – £10.000</td>
+      </tr>
+
+      <tr class="section-row">
+        <td colspan="2">Phí &amp; Chi Phí</td>
+      </tr>
+      <tr>
+        <td>Phí thường niên</td>
+        <td>£28</td>
+      </tr>
+      <tr>
+        <td>Phí rút tiền mặt trong nước</td>
+        <td>2% hoặc tối thiểu £2</td>
+      </tr>
+      <tr>
+        <td>Phí rút tiền mặt ở nước ngoài</td>
+        <td>2% + 2,75% (tỷ giá ngoại tệ)</td>
+      </tr>
+      <tr>
+        <td>Phí giao dịch ngoại tệ</td>
+        <td>2,75%</td>
+      </tr>
+      <tr>
+        <td>Sao chép sao kê (bản sao)</td>
+        <td>£6</td>
+      </tr>
+      <tr>
+        <td>Sao chép chứng từ bán hàng</td>
+        <td>£5</td>
+      </tr>
+      <tr>
+        <td>Sao chép báo cáo</td>
+        <td>£15</td>
+      </tr>
+
+      <tr class="section-row">
+        <td colspan="2">Phí Vi Phạm (Default Charges)</td>
+      </tr>
+      <tr>
+        <td>Thanh toán trễ hạn</td>
+        <td>£12</td>
+      </tr>
+      <tr>
+        <td>Vượt hạn mức tín dụng</td>
+        <td>£12</td>
+      </tr>
+      <tr>
+        <td>Thanh toán bị từ chối / hoàn trả</td>
+        <td>£12</td>
+      </tr>
+      <tr>
+        <td>Thư nhắc nợ quá hạn</td>
+        <td>£12</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="info-strip">
+    <strong>Lưu ý về APR:</strong> APR (Annual Percentage Rate — Lãi suất phần trăm hàng năm) được tính theo <strong>Chỉ thị EU 98/7/EC</strong>, áp dụng thống nhất cho tất cả các quốc gia thành viên EU. APR bao gồm lãi suất và các phí bắt buộc liên quan, giúp người tiêu dùng so sánh chi phí vay thực sự giữa các sản phẩm tín dụng khác nhau.
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     PHỤ LỤC B: LÃI SUẤT
+══════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Phụ Lục B</div>
+  <h2 class="section-title">Công Thức Tính Lãi</h2>
+
+  <p>Hiểu về các công thức lãi suất là kiến thức nền tảng thiết yếu cho bất kỳ chuyên gia IT nào làm việc trong lĩnh vực ngân hàng. Phần này trình bày hai loại lãi cơ bản: lãi đơn và lãi kép.</p>
+
+  <!-- Lãi đơn -->
+  <div class="formula-title">1. Lãi Đơn (Simple Interest)</div>
+  <p>Lãi đơn được tính chỉ trên số tiền gốc ban đầu, không cộng dồn trên phần lãi đã phát sinh.</p>
+
+  <div class="formula-block">
+    <div class="formula-main">I = S × r × t</div>
+    <div class="formula-legend">
+      <span><strong>I</strong> = Tiền lãi (Interest)</span>
+      <span><strong>S</strong> = Số tiền gốc ban đầu (Principal / Sum)</span>
+      <span><strong>r</strong> = Lãi suất theo kỳ (Rate per period — ví dụ: 0,055 = 5,5%/năm)</span>
+      <span><strong>t</strong> = Số kỳ (Time / Number of periods — ví dụ: số năm)</span>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="ex-label">Ví dụ minh họa</div>
+    <p>Bob Bixby vay <strong>£23.000</strong> với lãi suất <strong>5,5%/năm</strong> trong <strong>5 năm</strong>.</p>
+    <div class="calc">I = £23.000 × 0,055 × 5 = <strong>£6.325</strong></div>
+    <div class="calc">Tổng hoàn trả = £23.000 + £6.325 = <strong>£29.325</strong></div>
+  </div>
+
+  <!-- Lãi kép -->
+  <div class="formula-title">2. Lãi Kép (Compound Interest)</div>
+  <p>Lãi kép được tính trên số tiền gốc cộng với phần lãi đã tích lũy từ các kỳ trước. Đây là cơ chế phổ biến nhất trong các sản phẩm tiết kiệm và vay vốn ngân hàng.</p>
+
+  <div class="formula-block">
+    <div class="formula-main">A = P × (1 + r)<sup style="font-size:14px;">t</sup></div>
+    <div class="formula-legend">
+      <span><strong>A</strong> = Tổng số tiền cuối kỳ (Amount — gốc + lãi)</span>
+      <span><strong>P</strong> = Số tiền gốc ban đầu (Principal)</span>
+      <span><strong>r</strong> = Lãi suất theo kỳ (Rate per period)</span>
+      <span><strong>t</strong> = Số kỳ ghép lãi (Number of compounding periods)</span>
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-main">C = P × (r)<sup style="font-size:14px;">t</sup></div>
+    <div class="formula-legend">
+      <span><strong>C</strong> = Tiền lãi kép tích lũy (Compound interest earned)</span>
+      <span><strong>P</strong> = Số tiền gốc ban đầu</span>
+      <span><strong>r</strong> = Lãi suất theo kỳ</span>
+      <span><strong>t</strong> = Số kỳ ghép lãi</span>
+    </div>
+  </div>
+
+  <p style="font-size:14px; color: var(--text-muted);">Ưu điểm của lãi kép: tiền lãi sinh ra trong mỗi kỳ được cộng vào vốn gốc và trở thành cơ sở tính lãi cho kỳ tiếp theo. Hiệu ứng này còn được gọi là "<em>lãi sinh lãi</em>", có thể tạo ra tăng trưởng đáng kể theo thời gian — đặc biệt quan trọng trong thiết kế sản phẩm tiết kiệm và đầu tư dài hạn.</p>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     PHỤ LỤC C: WEBSITE HỮU ÍCH
+══════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Phụ Lục C</div>
+  <h2 class="section-title">Các Website Hữu Ích</h2>
+
+  <p>Danh sách các tổ chức, cơ quan quản lý, và nguồn thông tin trực tuyến hữu ích cho các chuyên gia IT và nghiệp vụ trong lĩnh vực ngân hàng và dịch vụ tài chính.</p>
+
+  <div class="resource-grid">
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">01</span>ABA — American Bankers Association</div>
+      <div class="ri-url">www.aba.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">02</span>Australian Bankers' Association</div>
+      <div class="ri-url">www.bankers.asn.au</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">03</span>ACFE — Association of Certified Fraud Examiners</div>
+      <div class="ri-url">www.acfe.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">04</span>APACS — UK Payments Association</div>
+      <div class="ri-url">www.apacs.org.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">05</span>Bacs — Automated Clearing House (UK)</div>
+      <div class="ri-url">www.bacs.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">06</span>BIS — Bank for International Settlements</div>
+      <div class="ri-url">www.bis.org</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">07</span>BBA — British Bankers' Association</div>
+      <div class="ri-url">www.bba.org.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">08</span>Business Money</div>
+      <div class="ri-url">www.businessmoney.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">09</span>Callcredit — Credit Reference Agency</div>
+      <div class="ri-url">www.callcredit.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">10</span>CBA — Canadian Bankers Association</div>
+      <div class="ri-url">www.cba.ca</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">11</span>CIFAS — UK Fraud Prevention Service</div>
+      <div class="ri-url">www.cifas.org.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">12</span>CML — Council of Mortgage Lenders</div>
+      <div class="ri-url">www.cml.org.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">13</span>Credit Action</div>
+      <div class="ri-url">www.creditaction.org.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">14</span>D&amp;B — Dun &amp; Bradstreet</div>
+      <div class="ri-url">www.dnb.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">15</span>Equifax</div>
+      <div class="ri-url">www.equifax.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">16</span>Experian</div>
+      <div class="ri-url">www.experian.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">17</span>Euromoney</div>
+      <div class="ri-url">www.euromoney.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">18</span>EBRD — European Bank for Reconstruction &amp; Development</div>
+      <div class="ri-url">www.ebrd.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">19</span>ECB — European Central Bank</div>
+      <div class="ri-url">www.ecb.int</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">20</span>Financial Ombudsman Service</div>
+      <div class="ri-url">www.financial-ombudsman.org.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">21</span>FSA — Financial Services Authority</div>
+      <div class="ri-url">www.fsa.gov.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">22</span>FS-PP — Financial Services Privacy Partnership</div>
+      <div class="ri-url">www.fs-pp.org.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">23</span>Financial Times</div>
+      <div class="ri-url">www.ft.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">24</span>HM Treasury — Her Majesty's Treasury</div>
+      <div class="ri-url">www.hm-treasury.gov.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">25</span>MasterCard</div>
+      <div class="ri-url">www.mastercard.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">26</span>Intelligence in Finance</div>
+      <div class="ri-url">www.intelligenceinfinance.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">27</span>IBF — Irish Banking Federation</div>
+      <div class="ri-url">www.ibf.ie</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">28</span>IMF — International Monetary Fund</div>
+      <div class="ri-url">www.imf.org</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">29</span>JMLSG — Joint Money Laundering Steering Group</div>
+      <div class="ri-url">www.jmlsg.org.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">30</span>LINK — UK ATM Network</div>
+      <div class="ri-url">www.link.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">31</span>London Stock Exchange</div>
+      <div class="ri-url">www.londonstockexchange.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">32</span>Money Advice Trust</div>
+      <div class="ri-url">www.moneyadvicetrust.org</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">33</span>Royal Mail</div>
+      <div class="ri-url">www.royalmail.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">34</span>SWIFT</div>
+      <div class="ri-url">www.swift.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">35</span>TransUnion</div>
+      <div class="ri-url">www.transunion.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">36</span>Bank of England</div>
+      <div class="ri-url">www.bankofengland.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">37</span>Guild of International Bankers</div>
+      <div class="ri-url">www.guildofinterntionalbankers.org.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">38</span>The Economist</div>
+      <div class="ri-url">www.economist.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">39</span>VISA</div>
+      <div class="ri-url">www.visa.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">40</span>Voca — UK Payment Clearing</div>
+      <div class="ri-url">www.voca.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">41</span>Windows in Financial Services</div>
+      <div class="ri-url">www.wifs.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">42</span>World Bank</div>
+      <div class="ri-url">www.worldbank.org</div>
+    </div>
+  </div>
+  <div class="resource-count">42 tổ chức &amp; nguồn tài nguyên</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     PHỤ LỤC D: JOB BOARDS
+══════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Phụ Lục D</div>
+  <h2 class="section-title">Các Trang Tuyển Dụng Hữu Ích</h2>
+
+  <p>Các nền tảng tuyển dụng trực tuyến chuyên biệt và tổng hợp, đặc biệt phù hợp cho các chuyên gia tìm kiếm cơ hội việc làm trong lĩnh vực IT ngân hàng và dịch vụ tài chính.</p>
+
+  <div class="resource-grid">
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">01</span>Banking Technology Jobs</div>
+      <div class="ri-url">www.bankingtechnology.com/jobs</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">02</span>Career Center (Finextra)</div>
+      <div class="ri-url">www.finextra.com/careers</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">03</span>Computer Weekly Jobs</div>
+      <div class="ri-url">www.computerweeklyjobs.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">04</span>CV Library</div>
+      <div class="ri-url">www.cv-library.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">05</span>eFinancialCareers</div>
+      <div class="ri-url">www.efinancialcareers.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">06</span>IT Job Feed</div>
+      <div class="ri-url">www.itjobfeed.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">07</span>Job Databases</div>
+      <div class="ri-url">www.jobdatabases.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">08</span>Job Crawler</div>
+      <div class="ri-url">www.jobcrawler.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">09</span>Jobserve</div>
+      <div class="ri-url">www.jobserve.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">10</span>Jobsite</div>
+      <div class="ri-url">www.jobsite.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">11</span>Monster</div>
+      <div class="ri-url">www.monster.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">12</span>Online Job Match</div>
+      <div class="ri-url">www.onlinejobmatch.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">13</span>Planet Recruit</div>
+      <div class="ri-url">www.planetrecruit.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">14</span>The IT Job Board</div>
+      <div class="ri-url">www.theitjobboard.co.uk</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">15</span>Total Jobs</div>
+      <div class="ri-url">www.totaljobs.com</div>
+    </div>
+    <div class="resource-item">
+      <div class="ri-name"><span class="ri-num">16</span>Reed</div>
+      <div class="ri-url">www.reed.co.uk</div>
+    </div>
+  </div>
+  <div class="resource-count">16 nền tảng tuyển dụng</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     PHỤ LỤC E: CÔNG TY TUYỂN DỤNG
+══════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Phụ Lục E</div>
+  <h2 class="section-title">Các Công Ty Tuyển Dụng Chuyên Biệt</h2>
+
+  <p>Các đơn vị tuyển dụng chuyên về nhân sự IT và dịch vụ tài chính tại thị trường Vương quốc Anh và quốc tế. Đây là những đối tác quan trọng cho cả nhà tuyển dụng lẫn ứng viên đang tìm kiếm vai trò chuyên biệt trong ngân hàng.</p>
+
+  <div class="agency-grid">
+    <div class="agency-item">
+      <span class="ag-num">01</span><span class="ag-name">Abraxas</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">02</span><span class="ag-name">Alexander Mann Solutions</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">03</span><span class="ag-name">Allegis Group</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">04</span><span class="ag-name">Astbury Marsden</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">05</span><span class="ag-name">Aston Carter</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">06</span><span class="ag-name">Anson McCade</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">07</span><span class="ag-name">Badenoch and Clark</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">08</span><span class="ag-name">Cititec</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">09</span><span class="ag-name">Computer People</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">10</span><span class="ag-name">Elan</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">11</span><span class="ag-name">E-Synergy Solutions</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">12</span><span class="ag-name">Hudson</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">13</span><span class="ag-name">Huxley Associates</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">14</span><span class="ag-name">iKas International</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">15</span><span class="ag-name">James Harvard Financial</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">16</span><span class="ag-name">JM Contracts</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">17</span><span class="ag-name">Lorien</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">18</span><span class="ag-name">Madison Black</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">19</span><span class="ag-name">Madison Maclean Technology</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">20</span><span class="ag-name">McGregor Boyall</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">21</span><span class="ag-name">Michael Page</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">22</span><span class="ag-name">Modis</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">23</span><span class="ag-name">Morgan Hutchins Associates</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">24</span><span class="ag-name">Mortimer Spinks</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">25</span><span class="ag-name">OTC</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">26</span><span class="ag-name">Parity Resourcing Solutions</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">27</span><span class="ag-name">Penta Consulting</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">28</span><span class="ag-name">Project Partners</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">29</span><span class="ag-name">Real Resourcing</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">30</span><span class="ag-name">Robert Half</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">31</span><span class="ag-name">Robert Walters</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">32</span><span class="ag-name">Rullion Computer Personnel</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">33</span><span class="ag-name">Templeton and Partners</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">34</span><span class="ag-name">The Kaizen Partnership</span>
+    </div>
+    <div class="agency-item">
+      <span class="ag-num">35</span><span class="ag-name">Xchanging</span>
+    </div>
+  </div>
+  <div class="resource-count">35 công ty tuyển dụng chuyên biệt</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     PHỤ LỤC F: THƯ MỤC TÀI LIỆU
+══════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Phụ Lục F</div>
+  <h2 class="section-title">Thư Mục Tài Liệu Tham Khảo</h2>
+
+  <p>Tổng hợp các nguồn tài liệu — sách, báo cáo nghiên cứu, bài viết, và trang web — được trích dẫn và tham khảo xuyên suốt cuốn sách này.</p>
+
+  <div class="bib-section-label">Sách &amp; Ấn Phẩm</div>
+  <ul class="bib-list">
+    <li><span class="bib-type">Sách</span>Essvale Corporation Limited — <em>Business Knowledge for IT in Retail Banking: A Complete Handbook for IT Professionals</em>. Essvale Corporation Limited, 2007.</li>
+    <li><span class="bib-type">Sách</span>Hull, J. C. — <em>Options, Futures, and Other Derivatives</em>. Prentice Hall, 6th Edition.</li>
+    <li><span class="bib-type">Sách</span>Kolb, R. W. — <em>Futures, Options and Swaps</em>. Blackwell Publishers, 3rd Edition.</li>
+    <li><span class="bib-type">Sách</span>Fabozzi, F. J. &amp; Modigliani, F. — <em>Capital Markets: Institutions and Instruments</em>. Prentice Hall.</li>
+    <li><span class="bib-type">Sách</span>Mishkin, F. S. — <em>The Economics of Money, Banking and Financial Markets</em>. Addison-Wesley, 8th Edition.</li>
+    <li><span class="bib-type">Sách</span>Rose, P. S. &amp; Hudgins, S. C. — <em>Bank Management and Financial Services</em>. McGraw-Hill, 7th Edition.</li>
+    <li><span class="bib-type">Sách</span>Chorafas, D. N. — <em>The Management of Equity Investments</em>. Butterworth-Heinemann.</li>
+    <li><span class="bib-type">Sách</span>Cornett, M. M. &amp; Saunders, A. — <em>Fundamentals of Financial Institutions Management</em>. Irwin/McGraw-Hill.</li>
+    <li><span class="bib-type">Sách</span>Lewis, M. — <em>Liar's Poker</em>. W.W. Norton &amp; Company.</li>
+    <li><span class="bib-type">Sách</span>Saunders, A. &amp; Cornett, M. M. — <em>Financial Institutions Management: A Risk Management Approach</em>. McGraw-Hill.</li>
+    <li><span class="bib-type">Sách</span>Brigham, E. F. &amp; Ehrhardt, M. C. — <em>Financial Management: Theory and Practice</em>. Thomson South-Western.</li>
+    <li><span class="bib-type">Sách</span>Madura, J. — <em>Financial Institutions and Markets</em>. Thomson South-Western, 7th Edition.</li>
+  </ul>
+
+  <div class="bib-section-label">Báo Cáo &amp; Nghiên Cứu</div>
+  <ul class="bib-list">
+    <li><span class="bib-type">Báo cáo</span>IBM &amp; Economist Intelligence Unit — <em>CEO Survey: Globalisation and the Rise of New Markets</em>. IBM Global Business Services, 2006.</li>
+    <li><span class="bib-type">Báo cáo</span>Cap Gemini, ING &amp; EFMA — <em>World Retail Banking Report 2007</em>. Cap Gemini, 2007.</li>
+    <li><span class="bib-type">Báo cáo</span>APACS — <em>UK Card Fraud Losses 2005</em>. APACS, 2006.</li>
+    <li><span class="bib-type">Báo cáo</span>Basel Committee on Banking Supervision — <em>International Convergence of Capital Measurement and Capital Standards (Basel II)</em>. Bank for International Settlements, 2004.</li>
+    <li><span class="bib-type">Báo cáo</span>FSA — <em>Financial Risk Outlook 2007</em>. Financial Services Authority, 2007.</li>
+    <li><span class="bib-type">Báo cáo</span>ATOS Origin — <em>The Future of Retail Banking</em>. ATOS Origin, 2006.</li>
+    <li><span class="bib-type">Báo cáo</span>Gartner — <em>Predicts 2007: Financial Services IT Spending and Strategy</em>. Gartner Research, 2006.</li>
+    <li><span class="bib-type">Báo cáo</span>Forrester Research — <em>Global Online Banking and Bill Payment Forecast: 2006 to 2011</em>. Forrester Research, 2006.</li>
+    <li><span class="bib-type">Báo cáo</span>McKinsey &amp; Company — <em>The McKinsey Global Survey of Business Executives: Business and Society</em>. McKinsey Quarterly, 2006.</li>
+    <li><span class="bib-type">Tổ chức</span>ITIL — <em>IT Infrastructure Library</em>. Office of Government Commerce (OGC). www.itil.co.uk</li>
+    <li><span class="bib-type">Tổ chức</span>SEI — <em>Capability Maturity Model Integration (CMMI)</em>. Software Engineering Institute, Carnegie Mellon University. www.sei.cmu.edu</li>
+    <li><span class="bib-type">Tổ chức</span>OGC — <em>PRINCE2: Projects in Controlled Environments</em>. Office of Government Commerce. www.ogc.gov.uk</li>
+  </ul>
+
+  <div class="bib-section-label">Trang Web &amp; Nguồn Trực Tuyến</div>
+  <ul class="bib-list">
+    <li><span class="bib-type">Web</span>Bank of England — Monetary Policy, Financial Stability &amp; Publications. <em>www.bankofengland.co.uk</em></li>
+    <li><span class="bib-type">Web</span>FSA — Financial Services Authority, Regulation and Supervision. <em>www.fsa.gov.uk</em></li>
+    <li><span class="bib-type">Web</span>BIS — Bank for International Settlements, Basel Committee. <em>www.bis.org</em></li>
+    <li><span class="bib-type">Web</span>APACS — Payment Statistics and Fraud Reports. <em>www.apacs.org.uk</em></li>
+    <li><span class="bib-type">Web</span>British Bankers' Association — Industry Data and Research. <em>www.bba.org.uk</em></li>
+    <li><span class="bib-type">Web</span>SWIFT — Society for Worldwide Interbank Financial Telecommunication. <em>www.swift.com</em></li>
+    <li><span class="bib-type">Web</span>The Economist — Global Financial News &amp; Analysis. <em>www.economist.com</em></li>
+    <li><span class="bib-type">Web</span>Financial Times — Banking &amp; Capital Markets Coverage. <em>www.ft.com</em></li>
+    <li><span class="bib-type">Web</span>Euromoney — International Banking Magazine. <em>www.euromoney.com</em></li>
+    <li><span class="bib-type">Web</span>World Bank — Financial Sector Development. <em>www.worldbank.org</em></li>
+    <li><span class="bib-type">Web</span>IMF — International Monetary Fund, Financial System Stability. <em>www.imf.org</em></li>
+    <li><span class="bib-type">Web</span>JMLSG — Joint Money Laundering Steering Group Guidance. <em>www.jmlsg.org.uk</em></li>
+    <li><span class="bib-type">Web</span>HM Treasury — Financial Services Legislation &amp; Policy. <em>www.hm-treasury.gov.uk</em></li>
+    <li><span class="bib-type">Web</span>IBM — Grid Computing, On Demand Business. <em>www.ibm.com</em></li>
+    <li><span class="bib-type">Web</span>W3C — Semantic Web Initiative. <em>www.w3.org/2001/sw</em></li>
+    <li><span class="bib-type">Web</span>VISA International — Payment Network Data. <em>www.visa.com</em></li>
+    <li><span class="bib-type">Web</span>MasterCard Worldwide — Payment Network. <em>www.mastercard.com</em></li>
+    <li><span class="bib-type">Web</span>LINK — UK ATM Network Statistics. <em>www.link.co.uk</em></li>
+    <li><span class="bib-type">Web</span>London Stock Exchange — Market Data. <em>www.londonstockexchange.com</em></li>
+    <li><span class="bib-type">Web</span>ECB — European Central Bank, Monetary Policy. <em>www.ecb.int</em></li>
+  </ul>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="page-footer">
+  <span>Business Knowledge for IT in Retail Banking — Essvale Corporation Limited</span>
+  <span>Phụ Lục</span>
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch12-bkrb.html"><span class="lbl">Chương trước</span>Chương 12: Tương Lai của Ngân Hàng Bán Lẻ</a>
+</nav>
+</body>
+</html>

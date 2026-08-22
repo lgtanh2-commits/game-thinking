@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 8: Các Hệ Thống Phổ Biến Trong Ngân Hàng Bán Lẻ</title>
+<style>
+:root {
+  --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+  --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+  --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px; line-height: 1.75; color: var(--text);
+  background: var(--bg); max-width: 820px;
+  margin: 0 auto; padding: 60px 40px 100px;
+}
+/* Chapter header */
+.chapter-header {
+  border-top: 3px solid var(--accent-line);
+  border-bottom: 1px solid var(--border);
+  padding: 40px 0 32px;
+  margin-bottom: 48px;
+}
+.chapter-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.chapter-number {
+  font-size: 72px; font-weight: 900; line-height: 1;
+  color: var(--surface-dark); letter-spacing: -2px;
+  margin-bottom: 16px;
+}
+.chapter-title {
+  font-size: 28px; font-weight: 700; line-height: 1.25;
+  color: var(--text); margin-bottom: 16px;
+}
+.chapter-subtitle {
+  font-size: 15px; color: var(--text-secondary);
+  font-style: italic; line-height: 1.6;
+  border-left: 3px solid var(--border-strong);
+  padding-left: 16px;
+}
+/* Table of contents */
+.toc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 24px 28px;
+  margin-bottom: 52px;
+}
+.toc-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.toc a {
+  display: block; color: var(--text-secondary);
+  text-decoration: none; font-size: 14px;
+  padding: 3px 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s;
+}
+.toc a:hover { color: var(--text); }
+.toc-num {
+  color: var(--text-muted); margin-right: 8px; font-variant-numeric: tabular-nums;
+}
+/* Sections */
+h2 {
+  font-size: 20px; font-weight: 700;
+  margin: 52px 0 18px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-line);
+}
+h3 {
+  font-size: 16px; font-weight: 700;
+  margin: 28px 0 12px;
+  color: var(--text);
+}
+h4 {
+  font-size: 14px; font-weight: 700;
+  margin: 20px 0 8px;
+  color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+p { margin-bottom: 14px; color: var(--text-secondary); }
+strong { color: var(--text); font-weight: 700; }
+/* Vendor cards */
+.vendor-grid {
+  display: grid;
+  gap: 0;
+  margin: 28px 0;
+  border: 1px solid var(--border);
+}
+.vendor-card {
+  border-bottom: 1px solid var(--border);
+  padding: 24px 28px;
+}
+.vendor-card:last-child { border-bottom: none; }
+.vendor-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.vendor-name {
+  font-size: 17px; font-weight: 700; color: var(--text);
+}
+.vendor-tag {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+.vendor-clients {
+  font-size: 12px; color: var(--text-muted);
+  margin-top: 10px;
+  font-style: italic;
+}
+/* Module list */
+.module-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 20px;
+  margin: 12px 0;
+}
+.module-item {
+  font-size: 14px; color: var(--text-secondary);
+  padding: 6px 10px;
+  background: var(--surface);
+  border-left: 2px solid var(--border-strong);
+}
+.module-item strong { color: var(--text); font-size: 13px; }
+/* Feature list */
+.feature-list {
+  margin: 10px 0;
+  padding-left: 0;
+  list-style: none;
+}
+.feature-list li {
+  padding: 5px 0 5px 16px;
+  position: relative;
+  font-size: 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+}
+.feature-list li:last-child { border-bottom: none; }
+.feature-list li::before {
+  content: '→';
+  position: absolute; left: 0;
+  color: var(--text-muted); font-size: 12px;
+}
+/* IT Spend bar chart */
+.spend-chart {
+  border: 1px solid var(--border);
+  padding: 24px 28px;
+  margin: 24px 0;
+  background: var(--surface);
+}
+.spend-chart-title {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  margin-bottom: 6px;
+}
+.spend-chart-sub {
+  font-size: 11px; color: var(--text-muted); margin-bottom: 20px;
+}
+.bar-group {
+  margin-bottom: 16px;
+}
+.bar-label {
+  font-size: 12px; color: var(--text-secondary); margin-bottom: 6px;
+}
+.bar-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+}
+.bar-year {
+  font-size: 10px; color: var(--text-muted); width: 30px; text-align: right;
+  flex-shrink: 0;
+}
+.bar-track {
+  flex: 1; height: 14px; background: var(--border);
+  position: relative; overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  background: var(--text-muted);
+}
+.bar-fill.dark { background: var(--text); }
+.bar-value {
+  font-size: 11px; color: var(--text-muted); width: 50px; flex-shrink: 0;
+}
+/* Stats strip */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border);
+  margin: 24px 0;
+}
+.stat-cell {
+  padding: 16px 20px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-value {
+  font-size: 20px; font-weight: 800; color: var(--text);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 11px; color: var(--text-muted); margin-top: 4px;
+}
+/* Other systems table */
+.systems-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 13px;
+}
+.systems-table th {
+  background: var(--text);
+  color: white;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.systems-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+.systems-table tr:nth-child(even) td { background: var(--surface); }
+.cat-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--surface-dark);
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+/* Architecture diagram */
+.arch-diagram {
+  border: 1px solid var(--border);
+  padding: 20px;
+  margin: 24px 0;
+  background: var(--surface);
+}
+.arch-title {
+  font-size: 12px; font-weight: 700; text-align: center;
+  color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.arch-layer {
+  border: 1px solid var(--border-strong);
+  background: white;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+}
+.arch-layer-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
+}
+.arch-modules {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.arch-mod {
+  font-size: 11px; color: var(--text-secondary);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  background: var(--surface);
+}
+/* Callout box */
+.callout {
+  border-left: 3px solid var(--accent-line);
+  background: var(--surface);
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.callout p { margin-bottom: 0; font-size: 15px; }
+/* Conclusion */
+.conclusion-box {
+  border: 1px solid var(--border);
+  background: var(--text);
+  color: white;
+  padding: 28px 32px;
+  margin-top: 48px;
+}
+.conclusion-box h3 { color: white; margin-top: 0; }
+.conclusion-box p { color: rgba(255,255,255,0.82); margin-bottom: 0; }
+/* Footer */
+.doc-footer {
+  margin-top: 64px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex; justify-content: space-between;
+}
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/business-knowledge-it-retail-banking">← Về mục lục</a></p>
+
+<div class="chapter-header">
+  <div class="chapter-label">Chương 8</div>
+  <div class="chapter-number">08</div>
+  <h1 class="chapter-title">Các Hệ Thống Phổ Biến Trong Ngân Hàng Bán Lẻ</h1>
+  <p class="chapter-subtitle">Tổng quan về thị trường công nghệ ngân hàng bán lẻ và mô tả các hệ thống từ những nhà cung cấp nổi bật được sử dụng trong ngân hàng bán lẻ.</p>
+</div>
+
+<div class="toc">
+  <div class="toc-title">Nội dung chương</div>
+  <a href="#intro"><span class="toc-num">8.1</span>Giới thiệu</a>
+  <a href="#dynamics"><span class="toc-num">8.2</span>Động lực ngành & Chi tiêu Công nghệ Toàn cầu</a>
+  <a href="#platforms"><span class="toc-num">8.3</span>Tầm quan trọng ngày càng tăng của Nền tảng Ngân hàng</a>
+  <a href="#vendors"><span class="toc-num">8.4</span>Các Hệ thống Ngân hàng Bán lẻ Nổi bật</a>
+  <a href="#other"><span class="toc-num">8.5</span>Các Hệ thống Khác</a>
+  <a href="#conclusion"><span class="toc-num">8.6</span>Kết luận</a>
+</div>
+
+<!-- 8.1 Introduction -->
+<h2 id="intro">8.1 Giới thiệu</h2>
+
+<p>Nhu cầu của khách hàng ngân hàng bán lẻ ngày càng trở nên phức tạp và cạnh tranh trong ngành ngày càng gay gắt. Những ràng buộc từ các hệ thống cũ và công nghệ lỗi thời đặt ra cho doanh nghiệp những vấn đề cấp thiết nhất mà các nhà ra quyết định tại ngân hàng phải đối mặt. Thực tế, các chuyên gia ngành cho rằng những vấn đề này đã trở thành <strong>vấn đề then chốt</strong> có thể làm suy yếu lợi thế cạnh tranh của ngân hàng.</p>
+
+<p>Các ngân hàng bán lẻ từ lâu đã là những nhà đầu tư lớn nhất vào công nghệ, và danh sách các hệ thống IT được cài đặt tại một ngân hàng lớn ngày nay lên đến hàng trăm, thậm chí hàng nghìn mục. Tuy nhiên, một vấn đề lớn đối với các ngân hàng về công nghệ được cài đặt là <strong>danh mục các hệ thống kế thừa (legacy systems)</strong>, thường được cài đặt từ những năm 1960 và 1970. Chúng đã được chứng minh là cực kỳ kém hiệu quả, tốn kém để duy trì, và không còn đủ linh hoạt để xử lý các thay đổi hệ thống và ứng dụng mới cần thiết để đáp ứng nhu cầu và yêu cầu ngày càng tăng của thị trường.</p>
+
+<!-- IT Spend Chart -->
+<div class="spend-chart">
+  <div class="spend-chart-title">Chi tiêu Công nghệ Toàn cầu của các Công ty Dịch vụ Tài chính</div>
+  <div class="spend-chart-sub">Nguồn: Celent — So sánh năm 2006 và 2008 (tỷ USD)</div>
+
+  <div class="bar-group">
+    <div class="bar-label">Bắc Mỹ (North America)</div>
+    <div class="bar-row">
+      <span class="bar-year">2006</span>
+      <div class="bar-track"><div class="bar-fill" style="width:80%"></div></div>
+      <span class="bar-value">~$100 tỷ</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-year">2008</span>
+      <div class="bar-track"><div class="bar-fill dark" style="width:100%"></div></div>
+      <span class="bar-value">~$125 tỷ</span>
+    </div>
+  </div>
+
+  <div class="bar-group">
+    <div class="bar-label">Châu Âu (Europe)</div>
+    <div class="bar-row">
+      <span class="bar-year">2006</span>
+      <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
+      <span class="bar-value">~$97 tỷ</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-year">2008</span>
+      <div class="bar-track"><div class="bar-fill dark" style="width:97%"></div></div>
+      <span class="bar-value">~$120 tỷ</span>
+    </div>
+  </div>
+
+  <div class="bar-group">
+    <div class="bar-label">Châu Á Thái Bình Dương (Asia Pacific)</div>
+    <div class="bar-row">
+      <span class="bar-year">2006</span>
+      <div class="bar-track"><div class="bar-fill" style="width:50%"></div></div>
+      <span class="bar-value">~$65 tỷ</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-year">2008</span>
+      <div class="bar-track"><div class="bar-fill dark" style="width:65%"></div></div>
+      <span class="bar-value">~$82 tỷ</span>
+    </div>
+  </div>
+
+  <div class="bar-group">
+    <div class="bar-label">Phần còn lại của Thế giới (Rest of World)</div>
+    <div class="bar-row">
+      <span class="bar-year">2006</span>
+      <div class="bar-track"><div class="bar-fill" style="width:12%"></div></div>
+      <span class="bar-value">~$15 tỷ</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-year">2008</span>
+      <div class="bar-track"><div class="bar-fill dark" style="width:16%"></div></div>
+      <span class="bar-value">~$20 tỷ</span>
+    </div>
+  </div>
+</div>
+
+<!-- 8.2 Industry Dynamics -->
+<h2 id="dynamics">8.2 Động lực Ngành & Chi tiêu Công nghệ Toàn cầu</h2>
+
+<p>Việc bãi bỏ <strong>Bản vị Vàng (Gold Standard)</strong> ở hầu hết các quốc gia giữa thế kỷ trước là một cột mốc quan trọng, đánh dấu sự chuyển đổi của tiền giấy từ công cụ đại diện cho vàng sang việc tự mang giá trị. Kể từ đó, ngân hàng luôn gắn với việc theo dõi thông tin về tiền thông qua một mạng lưới giao dịch phức tạp, với tiền giấy chỉ là một trong những bằng chứng về giao dịch đã hoàn thành.</p>
+
+<div class="callout">
+  <p>Là một ngành được xây dựng hoàn toàn trên nền tảng luồng thông tin, không có gì ngạc nhiên khi ngành ngân hàng chi tiêu cho công nghệ nhiều hơn bất kỳ ngành nào khác của nền kinh tế toàn cầu.</p>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-cell">
+    <div class="stat-value">74.5%</div>
+    <div class="stat-label">Chi tiêu IT dành cho bảo trì</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-value">25.5%</div>
+    <div class="stat-label">Dành cho dự án mới</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-value">~30 năm</div>
+    <div class="stat-label">Tuổi trung bình hệ thống lõi cũ</div>
+  </div>
+</div>
+
+<p style="font-size:12px; color: var(--text-muted); margin-top:-10px;">Nguồn: Celent (2006)</p>
+
+<p>Ban đầu, công nghệ được sử dụng để xử lý thông tin theo cách tương tự như các quy trình thủ công trước đây — chỉ nhanh hơn và hiệu quả hơn. Sau sự kiện 9/11 và bong bóng dot.com, sự nhiệt tình đối với công nghệ như một cơ hội tăng trưởng kinh doanh đã được thay thế bằng quan điểm thận trọng hơn, với con mắt sắc bén hơn về những gì các ngân hàng thực sự có thể kỳ vọng từ các khoản đầu tư của họ.</p>
+
+<p>Áp lực cạnh tranh ngày càng tăng khi các đối thủ toàn cầu đã bắt đầu thâm nhập vào hầu hết mọi thị trường, với ngân sách marketing lớn và danh mục dịch vụ đa dạng. Các ngân hàng đang đối mặt với bài toán khó: phải giải quyết những hạn chế sâu sắc của cơ sở hạ tầng trong bối cảnh cạnh tranh đáng kể, đồng thời phải tìm cách thoát khỏi vòng xoáy lãng phí của đầu tư IT.</p>
+
+<!-- 8.3 Banking Platforms -->
+<h2 id="platforms">8.3 Tầm quan trọng ngày càng tăng của Nền tảng Ngân hàng</h2>
+
+<p>Các chuyên gia ngành đồng ý rằng ngành ngân hàng ngày nay đang có một môi trường năng động cao — với việc mua bán sáp nhập, thoái vốn, các sáng kiến thuê ngoài, và việc mở/đóng chi nhánh — được đặc trưng bởi một bộ yêu cầu kinh doanh, quy định và IT thay đổi nhanh chóng.</p>
+
+<div class="callout">
+  <p><strong>Nghiên cứu Forrester</strong> so sánh các nền tảng ngân hàng hiện tại với những lâu đài baroque cổ đại. Những công trình cổ đại này không đáp ứng được các yêu cầu về chất lượng, chi phí và thời gian cung cấp của các ngân hàng hiện đại.</p>
+</div>
+
+<p>Trọng tâm tại các ngân hàng ở hầu hết các khu vực trên thế giới hiện nay là <strong>thay thế các hệ thống ngân hàng lõi</strong> dù rủi ro và chi phí cao. Chậm nhưng chắc, nhiều ngân hàng bán lẻ — thường phụ thuộc vào các công nghệ gần 30 năm tuổi — đang nhận ra lợi thế cạnh tranh của việc hiện đại hóa các hệ thống lõi lỗi thời, và họ đang chọn các hệ thống từ nhiều nhà cung cấp phần mềm lớn.</p>
+
+<!-- Figure 8.1 Architecture -->
+<div class="arch-diagram">
+  <div class="arch-title">Hình 8.1 — Kiến trúc Chức năng Ngân hàng Lõi Điển hình (FLEXCUBE của i-Flex)</div>
+
+  <div class="arch-layer">
+    <div class="arch-layer-title">Kênh Phân phối (Delivery Channels)</div>
+    <div class="arch-modules">
+      <span class="arch-mod">Internet</span>
+      <span class="arch-mod">Chi nhánh (Branch)</span>
+      <span class="arch-mod">ATM</span>
+      <span class="arch-mod">POS</span>
+      <span class="arch-mod">IVR / Call Centre</span>
+      <span class="arch-mod">Mobile Phone</span>
+      <span class="arch-mod">PDA</span>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:8px; margin-bottom:8px;">
+    <div class="arch-layer">
+      <div class="arch-layer-title">Sản phẩm Bán lẻ</div>
+      <div style="font-size:11px; color: var(--text-muted); line-height:1.7;">Tiền gửi không kỳ hạn · Tiết kiệm · Tài khoản hiện tại · Hưu trí · Tiền gửi kỳ hạn · Tín dụng · Thẻ tín dụng</div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-layer-title">Quản lý Khách hàng</div>
+      <div style="font-size:11px; color: var(--text-muted); line-height:1.7;">Thông tin khách hàng · Customer Control View · Cảnh báo khách hàng</div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-layer-title">Dịch vụ Bán lẻ</div>
+      <div style="font-size:11px; color: var(--text-muted); line-height:1.7;">Sweeps · Lệnh thường trực · Direct Debits · Thanh toán · Tiện ích</div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-layer-title">Quản lý Rủi ro</div>
+      <div style="font-size:11px; color: var(--text-muted); line-height:1.7;">Decisioning Engine · Scoring · Tài sản bảo đảm · Hạn mức · NPL</div>
+    </div>
+  </div>
+
+  <div class="arch-layer">
+    <div class="arch-layer-title">Dịch vụ Kinh doanh / Vận hành / Kỹ thuật</div>
+    <div class="arch-modules">
+      <span class="arch-mod">Phí dịch vụ</span>
+      <span class="arch-mod">Relationship Pricing</span>
+      <span class="arch-mod">Lãi suất</span>
+      <span class="arch-mod">Kiểm soát thuế</span>
+      <span class="arch-mod">Thanh toán bù trừ</span>
+      <span class="arch-mod">Bảo mật &amp; Audit</span>
+    </div>
+  </div>
+
+  <div class="arch-layer" style="margin-bottom:0;">
+    <div class="arch-layer-title">Hệ thống Bên ngoài (External Systems)</div>
+    <div class="arch-modules">
+      <span class="arch-mod">Quản lý Tài liệu</span>
+      <span class="arch-mod">Hệ thống Thẻ Tín dụng</span>
+      <span class="arch-mod">Cục Tín dụng</span>
+      <span class="arch-mod">Hệ thống CRM</span>
+      <span class="arch-mod">SWIFT · RTGS</span>
+    </div>
+  </div>
+</div>
+
+<!-- 8.4 Vendor Systems -->
+<h2 id="vendors">8.4 Các Hệ thống Ngân hàng Bán lẻ Nổi bật</h2>
+
+<p>Sau đây là một số hệ thống ngân hàng bán lẻ từ các nhà cung cấp nổi bật trong thị trường công nghệ ngân hàng bán lẻ.</p>
+
+<div class="vendor-grid">
+
+  <!-- Misys Equation -->
+  <div class="vendor-card">
+    <div class="vendor-header">
+      <div class="vendor-name">Misys Equation</div>
+      <span class="vendor-tag">Core Banking</span>
+    </div>
+    <p>Equation™ là hệ thống ngân hàng bán lẻ <strong>tích hợp, thời gian thực, đa tiền tệ</strong> giúp các tổ chức cung cấp sản phẩm và dịch vụ cho khách hàng. Hệ thống hỗ trợ ngân hàng tiêu dùng, doanh nghiệp và hoạt động kho quỹ trên một nền tảng duy nhất. Equation lấy <strong>khách hàng làm trung tâm</strong> thay vì tài khoản làm trung tâm, đảm bảo giao dịch viên có tổng thể toàn diện để cung cấp dịch vụ.</p>
+
+    <div class="module-list">
+      <div class="module-item"><strong>Core Management</strong><br>Tính lãi, thuế, phí dịch vụ, thư từ</div>
+      <div class="module-item"><strong>Retail Services</strong><br>Lệnh thường trực, séc, thanh toán bù trừ, lãi suất thả nổi</div>
+      <div class="module-item"><strong>Notice Account Savings</strong><br>Tài khoản tiết kiệm, thời gian thông báo, rút trước hạn</div>
+      <div class="module-item"><strong>Lending</strong><strong></strong><br>Toàn bộ quy trình cho vay từ đăng ký đến thu nợ</div>
+      <div class="module-item"><strong>Relationship Manager</strong><br>Quản lý quan hệ khách hàng, quy trình làm việc</div>
+      <div class="module-item"><strong>Co Sign</strong><br>Lưu trữ và truy xuất chữ ký, hình ảnh, quét tập trung/chi nhánh</div>
+      <div class="module-item"><strong>Cashier System</strong><br>Hỗ trợ giao dịch viên: mở tài khoản, đăng ký, ngoại hối, hoa hồng</div>
+    </div>
+    <div class="vendor-clients">Hơn 200 ngân hàng trên toàn thế giới, bao gồm Alfa Bank, sử dụng Misys Equation.</div>
+  </div>
+
+  <!-- Chordiant -->
+  <div class="vendor-card">
+    <div class="vendor-header">
+      <div class="vendor-name">Chordiant® Retail Channel</div>
+      <span class="vendor-tag">Branch &amp; CRM</span>
+    </div>
+    <p>Chordiant® Retail Channel biến đổi các chi nhánh và đại lý thành <strong>trung tâm bán hàng qua dịch vụ hướng đến khách hàng</strong>. Các tương tác được thúc đẩy bởi dữ liệu khách hàng thời gian thực và các quy trình kinh doanh độc đáo để tối ưu hóa hiệu quả dịch vụ và hợp lý hóa quy trình mở tài khoản.</p>
+
+    <h4>Tính năng chính</h4>
+    <ul class="feature-list">
+      <li><strong>Universal, role-based desktop</strong> — Tích hợp ứng dụng Chordiant và không phải Chordiant cho xử lý hợp lý hóa</li>
+      <li><strong>Process-driven desktop applications</strong> — Tối ưu hóa dịch vụ và mở tài khoản, tự động hướng dẫn nhân viên qua các giao dịch chéo</li>
+      <li><strong>Pre-built components</strong> — Cho các tác vụ phục vụ khách hàng chính, tư vấn sản phẩm — giảm effort phát triển, tăng ROI</li>
+      <li><strong>Direct integration with back-end</strong> — Cho phép xem khách hàng hợp nhất thời gian thực, bao gồm lịch sử tương tác MultiChannel</li>
+      <li><strong>Intelligent work management</strong> — Theo dõi công việc tự động qua các hệ thống back-office để tăng tốc độ xử lý</li>
+    </ul>
+
+    <h4>Người dùng tại ngân hàng</h4>
+    <div class="arch-modules" style="margin-top:6px;">
+      <span class="arch-mod">Relationship Managers</span>
+      <span class="arch-mod">Front desk managers</span>
+      <span class="arch-mod">Branch managers</span>
+      <span class="arch-mod">Financial advisors</span>
+    </div>
+    <div class="vendor-clients">HSBC, Barclays và CIBC sử dụng Chordiant Retail Channel.</div>
+  </div>
+
+  <!-- FLEXCUBE -->
+  <div class="vendor-card">
+    <div class="vendor-header">
+      <div class="vendor-name">iflex FLEXCUBE®</div>
+      <span class="vendor-tag">Core Banking Suite</span>
+    </div>
+    <p>FLEXCUBE® là <strong>bộ sản phẩm ngân hàng hoàn chỉnh</strong> cho ngân hàng bán lẻ, tiêu dùng, doanh nghiệp và internet. Là giải pháp ngân hàng lõi tích hợp nhưng mô-đun hóa, nó có thể đáp ứng tất cả nhu cầu của một tổ chức tài chính hiện đại và các phân khúc kinh doanh của nó.</p>
+
+    <h4>Tính năng độc đáo</h4>
+    <ul class="feature-list">
+      <li><strong>Customer-centric banking</strong> — Cung cấp góc nhìn duy nhất về khách hàng; phân tích nhu cầu; hồ sơ khách hàng chính xác, cập nhật</li>
+      <li><strong>Compliance</strong> — Quản lý dữ liệu bảo mật cao để tuân thủ Basel 2 và Chống Rửa tiền (AML)</li>
+      <li><strong>Flexibility through parameterisation</strong> — Các tham số kinh doanh có thể được định nghĩa và tái sử dụng toàn cầu</li>
+      <li><strong>Relationship-based pricing</strong> — Cho phép ngân hàng cung cấp phúc lợi đặc biệt về lãi suất, phí dịch vụ dựa trên giá trị quan hệ tổng thể của khách hàng</li>
+      <li><strong>Other features</strong> — Hỗ trợ nhiều kênh phân phối, đa tiền tệ, đa ngôn ngữ, xác nhận trực tuyến và xử lý ngoại lệ tự động</li>
+    </ul>
+
+    <h4>Mô-đun & Dịch vụ</h4>
+    <div class="module-list">
+      <div class="module-item"><strong>CASA</strong><br>Tài khoản tiết kiệm và hiện tại</div>
+      <div class="module-item"><strong>Deposits</strong><br>Xử lý hoàn chỉnh tiền gửi kỳ hạn</div>
+      <div class="module-item"><strong>Credit</strong><br>Cho vay hoặc hạn mức thấu chi trên CASA</div>
+      <div class="module-item"><strong>Collections</strong><br>Hỗ trợ toàn diện thu nợ và thu hồi</div>
+      <div class="module-item"><strong>Sweeps</strong><br>Liên kết tài khoản khách hàng để quản lý quỹ</div>
+      <div class="module-item"><strong>Payments</strong><br>Chuyển quỹ đa bên, đa tiền tệ bao gồm mail, Telex và SWIFT</div>
+    </div>
+    <div class="vendor-clients">CitiGroup và nhiều ngân hàng trên toàn thế giới sử dụng FLEXCUBE.</div>
+  </div>
+
+  <!-- Siebel -->
+  <div class="vendor-card">
+    <div class="vendor-header">
+      <div class="vendor-name">Siebel Banking Contact Center</div>
+      <span class="vendor-tag">CRM / Call Centre</span>
+    </div>
+    <p>Oracle's Siebel Banking Contact Center biến đổi trung tâm cuộc gọi của ngân hàng thành một <strong>phần tích hợp của chiến lược bán hàng, marketing và cung cấp dịch vụ</strong> tổng thể. Ứng dụng cho phép các nhân viên xử lý dịch vụ, hỗ trợ và giao dịch bán hàng liền mạch qua tất cả các kênh truyền thông.</p>
+
+    <h4>Tính năng chính</h4>
+    <ul class="feature-list">
+      <li><strong>Complete View of the Customer</strong> — Cung cấp cho ngân hàng góc nhìn duy nhất về từng mối quan hệ khách hàng, bất kể kênh nào được sử dụng; nhân viên có thể xem liên tục thông tin khách hàng, hoạt động, tài sản, giao dịch và lịch sử thanh toán</li>
+      <li><strong>Intelligent Call and Service Request Routing</strong> — Định tuyến thông minh các yêu cầu từ nhiều kênh truyền thông, bao gồm điện thoại, email và web; dựa trên kỹ năng, giá trị khách hàng, logic kinh doanh hoặc sẵn sàng phục vụ</li>
+      <li><strong>Computer Telephony Interaction (CTI)</strong> — Cải thiện năng suất cuộc gọi bằng cách xác định cuộc hội thoại trước khi bắt đầu và "screen-popping" hồ sơ khách hàng từ cơ sở dữ liệu Siebel</li>
+      <li><strong>Integrated eMail Management</strong> — Tự động phản hồi các yêu cầu khách hàng đã chọn mà không cần can thiệp của nhân viên; định tuyến và queuing theo quy tắc có thể cấu hình</li>
+    </ul>
+    <div class="vendor-clients">Bank of Ireland và Oversea-Chinese Banking Corporation (OCBC) sử dụng Siebel Banking Contact Center.</div>
+  </div>
+
+  <!-- Temenos T24 -->
+  <div class="vendor-card">
+    <div class="vendor-header">
+      <div class="vendor-name">Temenos T24</div>
+      <span class="vendor-tag">Core Banking</span>
+    </div>
+    <p>Temenos T24 (trước đây là Globus) là một <strong>gói ngân hàng tích hợp tự động hóa toàn bộ công việc ngân hàng</strong>. Đây là gói mô-đun bao gồm Hệ thống Lõi (Core System) cung cấp tất cả các hoạt động ngân hàng phổ biến giữa các hoạt động ngân hàng khác nhau, và một loạt các mô-đun bao gồm các yêu cầu hoạt động khác nhau của người dùng.</p>
+
+    <h4>Chức năng ngân hàng bán lẻ T24</h4>
+    <div class="module-list">
+      <div class="module-item">Ứng dụng giao dịch viên (Teller)</div>
+      <div class="module-item">Tài khoản tiết kiệm</div>
+      <div class="module-item">Xử lý thế chấp với nghĩa vụ quá hạn</div>
+      <div class="module-item">Chuyển tiền & Lệnh thường trực</div>
+      <div class="module-item">Quản lý séc và thẻ</div>
+      <div class="module-item">Xử lý máy chủ chi nhánh ATM</div>
+    </div>
+
+    <p>T24 được xây dựng trên <strong>kiến trúc mở</strong> và sử dụng các tiêu chuẩn HTTP, XML và J2EE. Thiết kế hỗ trợ nhiều máy chủ ứng dụng, cung cấp khả năng mở rộng ngang và hỗ trợ số lượng lớn người dùng với khả năng phục hồi không dừng. T24 được thiết kế để loại bỏ nhu cầu xử lý cuối ngày (end-of-day processing).</p>
+
+    <h4>Chạy trên nền tảng</h4>
+    <div class="arch-modules" style="margin-top:6px;">
+      <span class="arch-mod">Open hardware</span>
+      <span class="arch-mod">Open database</span>
+      <span class="arch-mod">Open J2EE App Server</span>
+      <span class="arch-mod">Browser UI (HTML/XSLT)</span>
+      <span class="arch-mod">XML &amp; Web Services</span>
+      <span class="arch-mod">Open C language</span>
+      <span class="arch-mod">Java Development</span>
+    </div>
+    <div class="vendor-clients">Temenos T24 hoạt động tại 500 ngân hàng và tổ chức tài chính, bao gồm Fortis và HSBC.</div>
+  </div>
+
+  <!-- Aurius -->
+  <div class="vendor-card">
+    <div class="vendor-header">
+      <div class="vendor-name">Aurius</div>
+      <span class="vendor-tag">APAK Group</span>
+    </div>
+    <p>Aurius là hệ thống ngân hàng bán lẻ từ nhóm APAK. Với chức năng back-office và front-office đầy đủ, Aurius có thể giúp các ngân hàng và hội tương hỗ xây dựng tăng lợi nhuận. Đa tiền tệ, với CRM khách hàng tinh vi, hệ thống tuân thủ đầy đủ Bacs, CCA, euro, đa tiền tệ và các quy định Bảo vệ Dữ liệu.</p>
+
+    <h4>Sản phẩm được hỗ trợ</h4>
+    <div class="arch-modules" style="margin-top:6px;">
+      <span class="arch-mod">Tiền gửi kỳ hạn</span>
+      <span class="arch-mod">Cho vay có/không có đảm bảo</span>
+      <span class="arch-mod">Vay cá nhân/thương mại</span>
+      <span class="arch-mod">Thẻ thanh toán</span>
+    </div>
+
+    <h4>Chức năng được hỗ trợ</h4>
+    <ul class="feature-list">
+      <li>Full back-office system với front-end tích hợp</li>
+      <li>Customer Relationship Management (CRM)</li>
+      <li>Workflow management</li>
+      <li>Online, real-time general ledger</li>
+      <li>Xử lý 24×7</li>
+      <li>Tuân thủ chống rửa tiền N2</li>
+      <li>Online product designer; Internet/intranet deployable</li>
+    </ul>
+    <p>Aurius sử dụng kiến trúc Microsoft .NET và SOA (Service-Oriented Architecture), cho phép tích hợp dễ dàng với các ứng dụng ngân hàng và tổ chức tài chính khác nhau.</p>
+    <div class="vendor-clients">Unity Trust Bank sử dụng Aurius của APAK Group.</div>
+  </div>
+
+  <!-- Infosys Finacle -->
+  <div class="vendor-card">
+    <div class="vendor-header">
+      <div class="vendor-name">Infosys Finacle</div>
+      <span class="vendor-tag">Universal Banking</span>
+    </div>
+    <p>Finacle, giải pháp ngân hàng toàn diện từ Infosys, giúp các ngân hàng chuyển đổi hoạt động kinh doanh với các công nghệ thế hệ mới linh hoạt. Giải pháp mô-đun này đáp ứng <strong>ngân hàng lõi, CRM, kho quỹ, ngân hàng di động và quản lý tiền mặt dựa trên web</strong> của các ngân hàng bán lẻ.</p>
+
+    <div class="module-list">
+      <div class="module-item">
+        <strong>Future-proof infrastructure</strong><br>
+        Tiêu chuẩn mở, SOA, 24/7, single sign-on bảo mật
+      </div>
+      <div class="module-item">
+        <strong>Customer-centricity</strong><br>
+        Thông tin khách hàng doanh nghiệp từ prospecting đến suốt vòng đời quan hệ
+      </div>
+      <div class="module-item">
+        <strong>Innovative product offerings</strong><br>
+        Top-up loans, off-set products, sản phẩm Shari'a, tiền gửi tăng dần, tiền gửi cấu trúc, thế chấp
+      </div>
+      <div class="module-item">
+        <strong>Automation capabilities</strong><br>
+        Module workflow tuân thủ BPEL/BPML với giao diện đồ họa; hạ tầng referral
+      </div>
+      <div class="module-item">
+        <strong>Regulation &amp; Compliance</strong><br>
+        Basel 2, Sarbanes-Oxley, AML, IBAN, KYC, IAS 39, Patriot Act
+      </div>
+      <div class="module-item">
+        <strong>Efficient payment systems</strong><br>
+        SWIFT, ACH, GIRO, Bacs, CHIPS, CHAPS
+      </div>
+      <div class="module-item">
+        <strong>Treasury solution</strong><br>
+        Thị trường tiền tệ, thị trường FX, chứng khoán và phái sinh
+      </div>
+      <div class="module-item">
+        <strong>Corporate &amp; consumer e-banking</strong><br>
+        Từ tra cứu tài khoản đơn giản đến chuyển nợ đa tiền tệ phức tạp; thanh toán hóa đơn, tổng hợp tài khoản, quỹ tương hỗ
+      </div>
+      <div class="module-item">
+        <strong>Integrated alerts</strong><br>
+        Thiết bị cầm tay, SMS, email, fax, giọng nói; cảnh báo đẩy/kéo đa ngôn ngữ, hai chiều
+      </div>
+    </div>
+
+    <h4>Phòng ban sử dụng Finacle</h4>
+    <div class="arch-modules" style="margin-top:6px;">
+      <span class="arch-mod">Tài khoản Tiết kiệm &amp; Hiện tại</span>
+      <span class="arch-mod">Vay &amp; Tiền gửi bán lẻ</span>
+      <span class="arch-mod">Front End Chi nhánh — Giao dịch viên</span>
+      <span class="arch-mod">Thanh toán (Remittances)</span>
+      <span class="arch-mod">Thanh toán bù trừ (Clearing)</span>
+    </div>
+    <div class="vendor-clients">ABN AMRO, Credit Suisse, DBS Bank, Emirates Bank, ICICI Bank và ANZ sử dụng Infosys Finacle.</div>
+  </div>
+
+</div>
+
+<!-- 8.5 Other Systems -->
+<h2 id="other">8.5 Các Hệ thống Khác</h2>
+
+<p>Ngoài các hệ thống nổi bật trên, còn có nhiều hệ thống khác từ các nhà cung cấp đa dạng phục vụ thị trường ngân hàng bán lẻ:</p>
+
+<table class="systems-table">
+  <thead>
+    <tr>
+      <th>Tên Hệ thống</th>
+      <th>Nhà Cung cấp</th>
+      <th>Danh mục</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>System Access Card Pro</td>
+      <td>Sungard Corporate</td>
+      <td><span class="cat-badge">Payment Cards</span></td>
+    </tr>
+    <tr>
+      <td>Forpost Cards</td>
+      <td>FORBIS Ltd</td>
+      <td><span class="cat-badge">Payment Cards</span></td>
+    </tr>
+    <tr>
+      <td>CBK Chargeback &amp; Dispute Management</td>
+      <td>Clear2Pay</td>
+      <td><span class="cat-badge">Payment Cards</span></td>
+    </tr>
+    <tr>
+      <td>Corebank</td>
+      <td>Fidelity National Information Service</td>
+      <td><span class="cat-badge">Core Banking</span></td>
+    </tr>
+    <tr>
+      <td>ATM Manager Pro</td>
+      <td>Profit Stars</td>
+      <td><span class="cat-badge">ATM Technology</span></td>
+    </tr>
+    <tr>
+      <td>Check 21 Solutions</td>
+      <td>Profit Stars</td>
+      <td><span class="cat-badge">Cheque Processing</span></td>
+    </tr>
+    <tr>
+      <td>Bancs Core Banking</td>
+      <td>TCS Financial Solutions</td>
+      <td><span class="cat-badge">Core Banking</span></td>
+    </tr>
+    <tr>
+      <td>iMetaBank</td>
+      <td>iMeta Technologies Limited</td>
+      <td><span class="cat-badge">Internet Banking</span></td>
+    </tr>
+    <tr>
+      <td>SMART</td>
+      <td>TCS Financial Solutions</td>
+      <td><span class="cat-badge">Core Banking</span></td>
+    </tr>
+    <tr>
+      <td>Olympic Banking Systems</td>
+      <td>ERI Bancaire S.A.</td>
+      <td><span class="cat-badge">Core Banking</span></td>
+    </tr>
+    <tr>
+      <td>Simple Image</td>
+      <td>Maverick International</td>
+      <td><span class="cat-badge">Cheque Processing</span></td>
+    </tr>
+    <tr>
+      <td>Spectrum</td>
+      <td>Profile Systems and Software</td>
+      <td><span class="cat-badge">Core Banking</span></td>
+    </tr>
+    <tr>
+      <td>Intercept Payments</td>
+      <td>Aqua Global</td>
+      <td><span class="cat-badge">Payments Processing</span></td>
+    </tr>
+    <tr>
+      <td>Kyoudo Web Branch Management</td>
+      <td>Callataÿ &amp; Wouters</td>
+      <td><span class="cat-badge">Branch Management</span></td>
+    </tr>
+    <tr>
+      <td>AFS Business Banking Origination</td>
+      <td>Automated Financial Systems, Inc.</td>
+      <td><span class="cat-badge">Commercial Lending</span></td>
+    </tr>
+    <tr>
+      <td>Tallyman</td>
+      <td>Experian Decisions Analytics</td>
+      <td><span class="cat-badge">Revenue &amp; Collections</span></td>
+    </tr>
+    <tr>
+      <td>KASTLE Core Banking</td>
+      <td>3i Infotech</td>
+      <td><span class="cat-badge">Core Banking</span></td>
+    </tr>
+    <tr>
+      <td>iMAL</td>
+      <td>Path solutions</td>
+      <td><span class="cat-badge">Islamic Core Banking</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 8.6 Conclusion -->
+<h2 id="conclusion">8.6 Kết luận</h2>
+
+<div class="conclusion-box">
+  <h3>Định hình Cảnh quan Hệ thống Tương lai</h3>
+  <p>Đối mặt với mảng hệ thống đa dạng như đã trình bày ở trên, các ngân hàng ở tất cả các khu vực trên thế giới đang quyết định về hình dạng tương lai của cảnh quan hệ thống của họ. Được trang bị hiểu biết về các thành phần cơ bản cũng như tổng quan toàn diện về các hệ thống ứng dụng — bản đồ chức năng và cảnh quan ứng dụng — các nhà ra quyết định đang tập trung vào <strong>đổi mới và mở rộng ứng dụng</strong>. Điều này cũng sẽ hỗ trợ lập kế hoạch chiến lược ứng dụng và tạo đầu vào thiết yếu cho thiết kế kiến trúc.</p>
+</div>
+
+<div class="doc-footer">
+  <span>Business Knowledge for IT in Retail Banking — Essvale Corporation Limited</span>
+  <span>Chương 8 / Trang 136–148</span>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch7-bkrb.html"><span class="lbl">Chương trước</span>Chương 7: Thanh Toán Trong Ngân Hàng Bán Lẻ</a>
+  <a href="ch9-bkrb.html"><span class="lbl">Chương sau</span>Chương 9: Các Dự Án CNTT Trong Ngân Hàng Bán Lẻ</a>
+</nav>
+</body>
+</html>

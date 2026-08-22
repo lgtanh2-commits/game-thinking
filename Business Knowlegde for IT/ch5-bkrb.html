@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 5 – Mở Tài Khoản Trong Ngân Hàng Bán Lẻ</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── Header ── */
+  .book-header {
+    border-bottom: 2px solid var(--accent-line);
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+  .book-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .book-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .chapter-number {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .chapter-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ── Nav ── */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    margin-bottom: 56px;
+  }
+  .toc-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .toc ol {
+    padding-left: 20px;
+  }
+  .toc li {
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+  .toc a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .toc a:hover {
+    border-bottom-color: var(--border-strong);
+  }
+
+  /* ── Sections ── */
+  section { margin-bottom: 56px; }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--border);
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 28px;
+    margin-bottom: 12px;
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+
+  p { margin-bottom: 14px; color: var(--text-secondary); }
+
+  /* ── Lists ── */
+  ul, ol {
+    padding-left: 22px;
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+  }
+  li { margin-bottom: 6px; }
+  li strong { color: var(--text); }
+
+  /* ── Callout / highlight box ── */
+  .callout {
+    border-left: 3px solid var(--accent-line);
+    background: var(--surface);
+    padding: 18px 22px;
+    margin: 24px 0;
+  }
+  .callout-label {
+    font-size: 10px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .callout p { margin-bottom: 0; }
+
+  /* ── Definition list ── */
+  dl { margin-bottom: 20px; }
+  dt {
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 14px;
+  }
+  dd {
+    color: var(--text-secondary);
+    padding-left: 18px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  /* ── Table ── */
+  .table-wrap { overflow-x: auto; margin: 24px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th {
+    background: var(--surface-dark);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  td {
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    vertical-align: top;
+    color: var(--text-secondary);
+  }
+  tr:nth-child(even) td { background: var(--surface); }
+
+  /* ── Flow diagram ── */
+  .flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 24px 0;
+  }
+  .flow-step {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    text-align: center;
+    min-width: 110px;
+  }
+  .flow-arrow {
+    font-size: 18px;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  /* ── Tier badges ── */
+  .tier-box {
+    border: 1px solid var(--border);
+    margin: 16px 0;
+    padding: 16px 20px;
+  }
+  .tier-title {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── Sub-process card ── */
+  .process-card {
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .process-card-header {
+    background: var(--surface-dark);
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .process-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+  .process-card-body {
+    padding: 14px 18px;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  /* ── Money laundering stages ── */
+  .ml-stages {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 24px 0;
+  }
+  .ml-stage {
+    border: 1px solid var(--border);
+    border-bottom: none;
+    padding: 16px 20px;
+  }
+  .ml-stage:last-child { border-bottom: 1px solid var(--border); }
+  .ml-stage-name {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  /* ── Page reference ── */
+  .page-ref {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: 8px;
+  }
+
+  /* ── Footer ── */
+  .chapter-footer {
+    margin-top: 72px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/business-knowledge-it-retail-banking">← Về mục lục</a></p>
+
+<header class="book-header">
+  <div class="book-label">Business Knowledge for IT in Retail Banking · Essvale Corporation Limited</div>
+  <div class="book-title">A Complete Handbook for IT Professionals</div>
+  <div class="chapter-number">Chương 5</div>
+  <h1>Mở Tài Khoản Trong Ngân Hàng Bán Lẻ</h1>
+  <div class="chapter-meta">Trang sách 78–94 &nbsp;·&nbsp; Ngôn ngữ: Tiếng Việt</div>
+</header>
+
+<nav class="toc">
+  <div class="toc-label">Nội dung chương</div>
+  <ol>
+    <li><a href="#gioi-thieu">Giới thiệu</a></li>
+    <li><a href="#boi-canh">Bối cảnh – Hệ thống mở tài khoản điện tử</a></li>
+    <li><a href="#tham-dinh-khach-hang">Thẩm định khách hàng (CDD)</a></li>
+    <li><a href="#rua-tien">Rửa tiền (Money Laundering)</a></li>
+    <li><a href="#yeu-cau">Yêu cầu mở tài khoản tại BizEast</a></li>
+    <li><a href="#giay-to">Chứng từ nhận dạng chấp nhận được</a></li>
+    <li><a href="#eidv">Xác minh nhận dạng điện tử (EID&amp;V)</a></li>
+    <li><a href="#pep">Nhân vật chính trị nhạy cảm (PEPs)</a></li>
+    <li><a href="#khung-bo">Khủng bố &amp; Chế tài (Sanctions)</a></li>
+    <li><a href="#quy-trinh">Quy trình mở tài khoản (6 bước)</a></li>
+    <li><a href="#ngan-hang-ca-nhan">Quy trình ngân hàng cá nhân</a></li>
+    <li><a href="#su-kien">Sự kiện trong vòng đời khách hàng</a></li>
+    <li><a href="#quan-ly-tk">Quản lý tài khoản</a></li>
+  </ol>
+</nav>
+
+<!-- 1. Giới thiệu -->
+<section id="gioi-thieu">
+  <h2>1. Giới thiệu</h2>
+  <p>Mở tài khoản là <strong>quy trình quan trọng nhất</strong> trong ngân hàng bán lẻ. Đây là điểm khởi đầu của mọi mối quan hệ giữa ngân hàng và khách hàng, và là nền tảng cho mọi sản phẩm tài chính tiếp theo.</p>
+  <p>Ngày nay, quy trình mở tài khoản đã chuyển dịch mạnh sang môi trường <strong>điện tử thông qua internet và web</strong>, thay thế cho quy trình giấy tờ truyền thống. Sự dịch chuyển này tạo ra nhiều lợi ích to lớn nhưng cũng đặt ra những yêu cầu nghiêm ngặt hơn về tuân thủ pháp lý và phòng chống gian lận.</p>
+</section>
+
+<!-- 2. Bối cảnh -->
+<section id="boi-canh">
+  <h2>2. Bối cảnh – Hệ thống Mở Tài Khoản Điện Tử</h2>
+  <p><strong>Hệ thống Originations</strong> (hệ thống tạo lập tài khoản) là hệ thống nền tảng hỗ trợ tất cả các dòng sản phẩm của ngân hàng bán lẻ – từ tài khoản vãng lai, tiết kiệm, cho đến thẻ tín dụng và khoản vay cá nhân.</p>
+
+  <h3>Những thách thức của hệ thống truyền thống</h3>
+  <p>Các hệ thống mở tài khoản cũ thường phức tạp do được xây dựng theo kiểu <strong>silo tổ chức</strong> – mỗi bộ phận có ứng dụng riêng, dẫn đến:</p>
+  <ul>
+    <li>Màn hình CSR (Đại diện Dịch vụ Khách hàng) lộn xộn, khó sử dụng</li>
+    <li>Dữ liệu trùng lặp và không nhất quán giữa các hệ thống</li>
+    <li>Khó bảo trì và nâng cấp</li>
+    <li>Không hỗ trợ cross-sell hiệu quả</li>
+  </ul>
+
+  <h3>Sáu lợi ích của hệ thống điện tử hiện đại</h3>
+  <ol>
+    <li><strong>Tốc độ:</strong> Xử lý đơn trong thời gian thực, giảm thời gian chờ của khách hàng</li>
+    <li><strong>Nhất quán:</strong> Áp dụng chính sách đồng bộ trên mọi kênh phân phối</li>
+    <li><strong>Chính xác:</strong> Giảm lỗi nhập liệu thủ công; dữ liệu được kiểm tra tự động</li>
+    <li><strong>Tuân thủ:</strong> Nhúng các kiểm tra KYC/AML vào luồng quy trình</li>
+    <li><strong>Cross-sell:</strong> Nhận diện cơ hội bán chéo ngay tại điểm mở tài khoản</li>
+    <li><strong>Chi phí thấp hơn:</strong> Giảm tốn kém giấy tờ và công sức xử lý thủ công</li>
+  </ol>
+
+  <div class="callout">
+    <div class="callout-label">Hình 5.1 – Luồng mở tài khoản cơ bản</div>
+    <div class="flow">
+      <div class="flow-step">Đơn xin<br>mở TK</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Xác minh<br>Danh tính</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Tra cứu<br>Sổ cử tri</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Địa chỉ<br>trước đây?</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Tra cứu<br>CRA</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Chấp nhận<br>/ Từ chối</div>
+    </div>
+    <p style="font-size:13px; color:var(--text-muted); margin-top:8px; margin-bottom:0;">CRA = Credit Reference Agency (Tổ chức thông tin tín dụng)</p>
+  </div>
+</section>
+
+<!-- 3. CDD -->
+<section id="tham-dinh-khach-hang">
+  <h2>3. Thẩm định Khách hàng (Customer Due Diligence – CDD)</h2>
+  <p>CDD là tập hợp các thủ tục mà ngân hàng phải thực hiện để <strong>xác minh danh tính khách hàng</strong> và đánh giá rủi ro liên quan. Tháng 10/2001, BIS/Basel đã ban hành tài liệu hướng dẫn CDD có ảnh hưởng rộng rãi.</p>
+
+  <p>Thực hành KYC (Know Your Customer – Biết rõ Khách hàng) giúp ngân hàng kiểm soát bốn loại rủi ro:</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Loại rủi ro</th>
+          <th>Mô tả</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Rủi ro danh tiếng</strong></td>
+          <td>Uy tín ngân hàng bị tổn hại nếu bị phát hiện phục vụ khách hàng phạm tội</td>
+        </tr>
+        <tr>
+          <td><strong>Rủi ro hoạt động</strong></td>
+          <td>Thất thoát tài chính trực tiếp do gian lận hoặc không tuân thủ</td>
+        </tr>
+        <tr>
+          <td><strong>Rủi ro pháp lý</strong></td>
+          <td>Vi phạm luật AML, bị phạt nặng và truy tố hình sự</td>
+        </tr>
+        <tr>
+          <td><strong>Rủi ro tập trung</strong></td>
+          <td>Tập trung quá nhiều vào một nhóm khách hàng hoặc ngành nhất định</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Nguyên tắc cốt lõi KYC</div>
+    <p>Ngân hàng phải thiết lập danh tính của khách hàng tại thời điểm mở tài khoản và liên tục giám sát hoạt động tài khoản trong suốt vòng đời quan hệ. Mọi giao dịch đáng ngờ đều phải được báo cáo cho cơ quan có thẩm quyền.</p>
+  </div>
+</section>
+
+<!-- 4. Rửa tiền -->
+<section id="rua-tien">
+  <h2>4. Rửa Tiền (Money Laundering)</h2>
+  <p>Rửa tiền là hành vi ngụy trang nguồn gốc bất hợp pháp của tiền để cho nó xuất hiện như có nguồn gốc hợp pháp. Theo ước tính, giá trị tiền rửa trên toàn cầu đạt <strong>500 tỷ USD mỗi năm</strong>.</p>
+
+  <h3>Khung pháp lý</h3>
+  <ul>
+    <li><strong>POCA 2002</strong> (Proceeds of Crime Act – Luật Thu lợi từ Tội phạm): Định nghĩa tội rửa tiền và quy định nghĩa vụ báo cáo</li>
+    <li><strong>PEPs</strong> (Politically Exposed Persons – Nhân vật Chính trị Nhạy cảm): Đòi hỏi thẩm định nâng cao</li>
+    <li><strong>Chống Tài trợ Khủng bố:</strong> Gia tăng đáng kể sau vụ 11/9/2001 và Luật Chống Khủng bố, Tội phạm &amp; An ninh 2001</li>
+  </ul>
+
+  <h3>Ba giai đoạn của quy trình rửa tiền</h3>
+  <div class="ml-stages">
+    <div class="ml-stage">
+      <div class="ml-stage-name">Giai đoạn 1 – Đặt tiền (Placement)</div>
+      <p style="margin-bottom:0;">Tiền mặt bất hợp pháp được đưa vào hệ thống tài chính hợp pháp. Phương thức phổ biến: mua <strong>séc du lịch (traveller's cheques)</strong>, nộp tiền vào tài khoản ngân hàng nhiều lần với số tiền nhỏ (<em>smurfing</em>), hoặc mua tài sản (bất động sản, xe hơi, đồ trang sức) bằng tiền mặt.</p>
+    </div>
+    <div class="ml-stage">
+      <div class="ml-stage-name">Giai đoạn 2 – Phân lớp (Layering)</div>
+      <p style="margin-bottom:0;">Tạo ra một loạt giao dịch phức tạp để che giấu nguồn gốc và tạo ra nhiều lớp giấy tờ. Phương thức: mua cổ phiếu qua nhiều sàn, chuyển tiền qua nhiều tài khoản ở các quốc gia khác nhau, sử dụng công ty ma ở nước ngoài để tạo vỏ bọc hợp pháp.</p>
+    </div>
+    <div class="ml-stage">
+      <div class="ml-stage-name">Giai đoạn 3 – Hội nhập (Integration)</div>
+      <p style="margin-bottom:0;">Tiền đã được "rửa sạch" được tái nhập vào nền kinh tế hợp pháp dưới dạng tài sản trông có vẻ hợp lệ. Phương thức: đầu tư vào doanh nghiệp thực, mua bất động sản cao cấp, hoặc thông qua các chính sách đầu tư hợp pháp.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Yêu cầu mở TK tại BizEast -->
+<section id="yeu-cau">
+  <h2>5. Yêu cầu Mở Tài Khoản tại BizEast</h2>
+  <p>Ngân hàng BizEast (ngân hàng giả định dùng làm ví dụ minh họa trong sách) yêu cầu ba điều kiện cơ bản khi mở tài khoản:</p>
+
+  <ol>
+    <li><strong>Đơn xin mở tài khoản</strong> đã được điền đầy đủ và ký tên</li>
+    <li><strong>Khoản tiền gửi ban đầu</strong> (opening deposit) để kích hoạt tài khoản</li>
+    <li><strong>Xác minh danh tính</strong> qua điểm số EID&amp;V của Experian (xem mục 7)</li>
+  </ol>
+
+  <h3>Xác nhận bổ sung</h3>
+  <p>Nếu hệ thống EID&amp;V không đủ để xác minh, có thể sử dụng một trong hai phương thức:</p>
+  <ul>
+    <li><strong>Séc đứng tên chính chủ (first-party cheque):</strong> Séc do khách hàng ký với tài khoản ngân hàng khác – chứng minh có tài khoản đang hoạt động hợp lệ</li>
+    <li><strong>Xác minh qua điện thoại:</strong> Số điện thoại được xác nhận qua Directory Enquiries (dịch vụ tra cứu số điện thoại) – chứng minh địa chỉ cư trú hợp lệ</li>
+  </ul>
+</section>
+
+<!-- 6. Giấy tờ nhận dạng -->
+<section id="giay-to">
+  <h2>6. Chứng từ Nhận dạng Chấp nhận được</h2>
+  <p>Các giấy tờ chứng minh danh tính được phân thành hai cấp bậc dựa trên mức độ tin cậy:</p>
+
+  <div class="tier-box">
+    <div class="tier-title">Cấp 1 – Chứng từ mạnh (Primary ID)</div>
+    <ul>
+      <li>Hộ chiếu (passport)</li>
+      <li>Giấy phép cư trú (residence permit)</li>
+      <li>Bằng lái xe của Vương quốc Anh (UK driving licence)</li>
+      <li>Chứng chỉ vũ khí (firearms certificate)</li>
+      <li>Thư/chứng từ từ Inland Revenue (cơ quan thuế Anh)</li>
+      <li>Thư/chứng từ từ Benefits Agency (cơ quan trợ cấp xã hội)</li>
+      <li>Thẻ miễn giảm cho người khuyết tật (disabled driver pass)</li>
+      <li>Thẻ căn cước EU (EU ID card)</li>
+    </ul>
+  </div>
+
+  <div class="tier-box">
+    <div class="tier-title">Cấp 2 – Chứng từ hỗ trợ (Secondary ID)</div>
+    <ul>
+      <li>Thẻ ghi nợ/tín dụng không phải từ ngân hàng đang xin mở tài khoản</li>
+      <li>Thẻ nhân viên do người sử dụng lao động cấp</li>
+      <li>Giấy khai sinh (dành cho người dưới 18 tuổi)</li>
+      <li>Thẻ bảo lãnh séc (cheque guarantee card)</li>
+      <li>Thẻ NUS có ảnh (National Union of Students photo card)</li>
+      <li>Giấy đăng ký tị nạn (asylum registration card)</li>
+      <li>Xác nhận trong sổ cử tri (positive voters' roll match)</li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Lưu ý thực tế</div>
+    <p>Thông thường, ngân hàng yêu cầu ít nhất <strong>một chứng từ Cấp 1</strong> kết hợp với một chứng từ Cấp 2, hoặc hai chứng từ Cấp 1. Các giấy tờ phải còn hiệu lực và bản gốc (không chấp nhận bản sao thông thường).</p>
+  </div>
+</section>
+
+<!-- 7. EID&V -->
+<section id="eidv">
+  <h2>7. Xác minh Nhận dạng Điện tử (EID&amp;V)</h2>
+  <p>EID&amp;V (Electronic Identity &amp; Verification) là hệ thống xác minh danh tính tự động được cung cấp bởi Experian và các tổ chức tương tự. Hệ thống đối chiếu thông tin của khách hàng với <strong>nhiều cơ sở dữ liệu</strong> khác nhau:</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Dữ liệu đối chiếu</th>
+          <th>Nguồn</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Họ tên</td>
+          <td>Sổ cử tri, DVLA, hồ sơ tín dụng</td>
+        </tr>
+        <tr>
+          <td>Địa chỉ hiện tại và trước đây</td>
+          <td>Royal Mail PAF, sổ cử tri, hồ sơ tín dụng</td>
+        </tr>
+        <tr>
+          <td>Mã số bảo hiểm xã hội (NI Number)</td>
+          <td>DWP (Department for Work and Pensions)</td>
+        </tr>
+        <tr>
+          <td>Hộ chiếu</td>
+          <td>UK Identity &amp; Passport Service</td>
+        </tr>
+        <tr>
+          <td>Hoá đơn tiện ích (điện, nước, gas)</td>
+          <td>Nhà cung cấp dịch vụ tiện ích</td>
+        </tr>
+        <tr>
+          <td>Bằng lái xe</td>
+          <td>DVLA (Driver &amp; Vehicle Licensing Agency)</td>
+        </tr>
+        <tr>
+          <td>Sổ cử tri (Electoral Roll)</td>
+          <td>Hội đồng địa phương</td>
+        </tr>
+        <tr>
+          <td>Số điện thoại</td>
+          <td>Directory Enquiries, BT</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Cơ chế hoạt động</h3>
+  <p>Hệ thống áp dụng <strong>thuật toán chấm điểm</strong> – mỗi điểm đối chiếu thành công đóng góp vào điểm EID&amp;V tổng thể. Điểm đạt ngưỡng chấp nhận thì việc xác minh thành công, không cần yêu cầu thêm giấy tờ vật lý.</p>
+  <p>Các phương tiện sinh trắc học (<strong>biometric means</strong>) – như nhận dạng vân tay hoặc khuôn mặt – đang được xem xét để tăng cường độ chính xác trong tương lai.</p>
+
+  <div class="callout">
+    <div class="callout-label">Lợi ích của EID&V điện tử</div>
+    <p>Khách hàng <em>không cần phải mang giấy tờ vật lý đến ngân hàng</em> nếu điểm EID&amp;V đủ cao. Điều này rút ngắn đáng kể thời gian mở tài khoản và cải thiện trải nghiệm khách hàng, đặc biệt trong bối cảnh ngân hàng trực tuyến.</p>
+  </div>
+</section>
+
+<!-- 8. PEPs -->
+<section id="pep">
+  <h2>8. Nhân vật Chính trị Nhạy cảm (PEPs)</h2>
+  <p>PEPs (Politically Exposed Persons) là những cá nhân đang giữ hoặc từng giữ <strong>chức vụ công quyền cấp cao</strong>, khiến họ có nguy cơ tiếp xúc với hối lộ và tham nhũng cao hơn. Các ngân hàng bắt buộc phải áp dụng thẩm định nâng cao (Enhanced Due Diligence) đối với nhóm này.</p>
+
+  <h3>Đối tượng được xác định là PEP</h3>
+  <ul>
+    <li>Quan chức chính phủ cấp địa phương hoặc quốc gia (mayors, MP, bộ trưởng)</li>
+    <li>Thẩm phán cấp cao (senior judges)</li>
+    <li>Sĩ quan lực lượng vũ trang cấp cao (senior armed forces)</li>
+    <li>Quan chức công ty do nhà nước kiểm soát (government corporation officials)</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-label">Nghĩa vụ pháp lý</div>
+    <p>Nếu có nghi ngờ liên quan đến giao dịch của PEP, ngân hàng <strong>bắt buộc phải lập Báo cáo Giao dịch Đáng ngờ</strong> (Suspicious Transaction Report – STR) và nộp cho SOCA (Serious Organised Crime Agency) hoặc cơ quan tương đương.</p>
+  </div>
+
+  <p>Lưu ý quan trọng: PEP không có nghĩa là tội phạm – đây chỉ là <em>chỉ dẫn rủi ro tiềm năng</em> đòi hỏi giám sát cẩn thận hơn.</p>
+</section>
+
+<!-- 9. Khủng bố & Chế tài -->
+<section id="khung-bo">
+  <h2>9. Khủng bố &amp; Chế tài (Sanctions)</h2>
+
+  <h3>Dấu hiệu tài khoản có liên quan đến tài trợ khủng bố</h3>
+  <p>Các hành vi sau đây có thể là dấu hiệu đáng ngờ trong bối cảnh chống tài trợ khủng bố:</p>
+  <ul>
+    <li><strong>Hoạt động tài khoản bất thường cao</strong> – số lượng giao dịch vượt mức bình thường</li>
+    <li><strong>Không nhất quán giữa tiền gửi và thu nhập/nghề nghiệp</strong> – số tiền nộp vào không phù hợp với hồ sơ kinh tế của khách hàng</li>
+    <li><strong>Nhiều lần nộp tiền mặt trong cùng ngày tại các chi nhánh khác nhau</strong> – điển hình của hành vi cấu trúc giao dịch (structuring) để tránh ngưỡng báo cáo</li>
+  </ul>
+
+  <h3>Chế tài (Sanctions)</h3>
+  <p>Ngân hàng phải rà soát danh sách chế tài quốc tế tại <strong>hai thời điểm</strong> then chốt:</p>
+  <ul>
+    <li>Khi mở tài khoản lần đầu (account opening)</li>
+    <li>Khi khách hàng được nâng cấp sản phẩm/dịch vụ (on upgrade)</li>
+  </ul>
+  <p>Danh sách chế tài bao gồm các cá nhân, tổ chức, và quốc gia bị cấm giao dịch, do OFAC (Hoa Kỳ), HM Treasury (Anh), và Hội đồng Bảo an LHQ ban hành.</p>
+</section>
+
+<!-- 10. Quy trình mở TK -->
+<section id="quy-trinh">
+  <h2>10. Quy trình Mở Tài Khoản (6 Bước)</h2>
+  <p>Quy trình mở tài khoản tại BizEast được phân chia thành <strong>sáu quy trình con</strong> có trình tự rõ ràng:</p>
+
+  <div class="process-card">
+    <div class="process-card-header">
+      <span class="process-num">01</span>
+      <span>Nhập dữ liệu khách hàng (Customer Data Entry)</span>
+    </div>
+    <div class="process-card-body">
+      <p>CSR hoặc khách hàng trực tuyến nhập thông tin cá nhân vào hệ thống. Điều kiện tiên quyết được kiểm tra tự động (tuổi, quốc tịch, v.v.).</p>
+      <p>Có <strong>bốn luồng xử lý thay thế</strong> tuỳ theo loại sản phẩm và hồ sơ khách hàng:</p>
+      <ul>
+        <li>Luồng chuẩn cho tài khoản vãng lai (current account)</li>
+        <li>Luồng dành cho tài khoản tiết kiệm có kèm kiểm tra PEP bổ sung</li>
+        <li>Luồng dành cho khách hàng đã có quan hệ với ngân hàng</li>
+        <li>Luồng dành cho tài khoản doanh nghiệp nhỏ (sole trader)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="process-card">
+    <div class="process-card-header">
+      <span class="process-num">02</span>
+      <span>Kiểm tra địa chỉ (Address Checking)</span>
+    </div>
+    <div class="process-card-body">
+      <p>Địa chỉ được đối chiếu với hai nguồn:</p>
+      <ul>
+        <li><strong>Royal Mail PAF</strong> (Postcode Address File): cơ sở dữ liệu bưu điện toàn quốc</li>
+        <li><strong>Sổ cử tri</strong> (electoral register): danh sách cử tri đăng ký hợp lệ</li>
+      </ul>
+      <p>Nếu địa chỉ <em>không tìm thấy (no trace)</em> trong cả hai nguồn → hệ thống tự động <strong>từ chối đơn</strong>.</p>
+    </div>
+  </div>
+
+  <div class="process-card">
+    <div class="process-card-header">
+      <span class="process-num">03</span>
+      <span>Kiểm tra tín dụng (Credit Checking)</span>
+    </div>
+    <div class="process-card-body">
+      <p>Hệ thống kiểm tra ba loại hồ sơ bất lợi tại các cơ quan tín dụng:</p>
+      <ul>
+        <li><strong>CIFAS:</strong> Hệ thống phòng chống gian lận tín dụng – cảnh báo về gian lận đã biết</li>
+        <li><strong>Phá sản (Bankruptcy):</strong> Lệnh tòa án tuyên bố mất khả năng thanh toán</li>
+        <li><strong>CCJ</strong> (County Court Judgment): Phán quyết tòa án dân sự về nợ chưa thanh toán</li>
+      </ul>
+      <p>Nếu phát hiện bất kỳ dấu hiệu nào → hệ thống tạo <strong>mã tham chiếu chuyển tiếp (referral code)</strong> để nhân viên chuyên môn xử lý thủ công.</p>
+    </div>
+  </div>
+
+  <div class="process-card">
+    <div class="process-card-header">
+      <span class="process-num">04</span>
+      <span>Đề xuất sản phẩm (Product Offering)</span>
+    </div>
+    <div class="process-card-body">
+      <p>Đây là <strong>thời điểm vàng để bán chéo (cross-sell)</strong>. Dựa trên hồ sơ khách hàng vừa nhập, hệ thống đề xuất các sản phẩm bổ sung phù hợp như thẻ tín dụng, bảo hiểm, khoản vay dự phòng, hoặc tài khoản tiết kiệm đi kèm.</p>
+    </div>
+  </div>
+
+  <div class="process-card">
+    <div class="process-card-header">
+      <span class="process-num">05</span>
+      <span>Xác minh danh tính (Identity Verification)</span>
+    </div>
+    <div class="process-card-body">
+      <p>Hệ thống EID&amp;V của Experian được sử dụng tự động. Các kết quả có thể xảy ra:</p>
+      <ul>
+        <li><strong>Điểm đủ cao:</strong> Xác minh tự động thành công – quy trình tiếp tục ngay</li>
+        <li><strong>Điểm không đủ:</strong> Yêu cầu khách hàng nộp giấy tờ vật lý (Cấp 1/Cấp 2)</li>
+        <li><strong>Không nhất quán:</strong> Điều tra sâu hơn – nghi ngờ gian lận hoặc sai sót</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="process-card">
+    <div class="process-card-header">
+      <span class="process-num">06</span>
+      <span>Hoàn tất mở tài khoản (Account Opening Fulfilment)</span>
+    </div>
+    <div class="process-card-body">
+      <p>Khi tất cả các bước trước đều thành công:</p>
+      <ul>
+        <li><strong>Số tài khoản và mã sort code</strong> được hệ thống gán tự động</li>
+        <li>Điều khoản &amp; Điều kiện (T&amp;Cs) được gửi đến khách hàng</li>
+        <li><strong>CIN</strong> (Customer Identification Number – Mã nhận dạng khách hàng) được cấp để sử dụng các kênh điện tử</li>
+        <li>Thẻ và PIN được gửi qua bưu điện (separate mailings)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 11. Quy trình ngân hàng cá nhân -->
+<section id="ngan-hang-ca-nhan">
+  <h2>11. Quy trình Ngân hàng Cá nhân</h2>
+  <p>Hệ thống xử lý quy trình ngân hàng cá nhân thường sử dụng phần mềm từ các nhà cung cấp như <strong>Chordiant</strong> và <strong>Infosys</strong>. Các bên tham gia quy trình bao gồm:</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Bên tham gia</th>
+          <th>Vai trò</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CSR (Customer Service Representative)</strong></td>
+          <td>Tiếp nhận và xử lý yêu cầu mở tài khoản tại quầy hoặc qua điện thoại</td>
+        </tr>
+        <tr>
+          <td><strong>Nhân viên trung tâm cuộc gọi</strong></td>
+          <td>Hỗ trợ từ xa qua điện thoại; xác minh danh tính bằng thông tin bảo mật</td>
+        </tr>
+        <tr>
+          <td><strong>Helpdesk chế tài</strong></td>
+          <td>Chuyên xử lý các trường hợp tra cứu danh sách chế tài</td>
+        </tr>
+        <tr>
+          <td><strong>Phòng cho vay cá nhân</strong></td>
+          <td>Phê duyệt các sản phẩm tín dụng đề xuất trong quy trình mở tài khoản</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Ngân hàng phân biệt rõ hai loại tài khoản:</p>
+  <ul>
+    <li><strong>Tài khoản cá nhân đơn (Sole):</strong> Chỉ một người có quyền truy cập và chữ ký</li>
+    <li><strong>Tài khoản đồng sở hữu (Joint):</strong> Hai hay nhiều người – cần xác minh danh tính tất cả chủ tài khoản; phải thỏa thuận về quyền ký (và/hoặc)</li>
+  </ul>
+</section>
+
+<!-- 12. Sự kiện trong vòng đời -->
+<section id="su-kien">
+  <h2>12. Sự kiện trong Vòng đời Khách hàng</h2>
+  <p>Sau khi tài khoản được mở, nhiều sự kiện có thể xảy ra trong vòng đời của khách hàng, đòi hỏi ngân hàng phải có quy trình xử lý cụ thể:</p>
+
+  <dl>
+    <dt>Mất năng lực (Mental Incapacity)</dt>
+    <dd>Khi khách hàng không còn khả năng tự quản lý tài chính (do bệnh tâm thần, tai nạn, v.v.), tòa án chỉ định <em>người quản lý tài chính (receiver)</em>. Ngân hàng cần ghi nhận trạng thái này trong sổ đăng ký quản lý (probate register) và chỉ thực hiện giao dịch với người được chỉ định hợp pháp.</dd>
+
+    <dt>Qua đời (Death)</dt>
+    <dd>Khi người ký séc đã mất, ngân hàng cần được thông báo ngay. Các bước thực hiện:
+      <ul>
+        <li>Yêu cầu giấy chứng tử (death certificate)</li>
+        <li><strong>Tài khoản cá nhân đơn:</strong> Chuyển quyền cho người đại diện pháp lý (personal representatives) theo di chúc hoặc quyết định toà</li>
+        <li><strong>Tài khoản đồng sở hữu:</strong> Quyền sở hữu toàn bộ chuyển sang người còn sống (survivor)</li>
+      </ul>
+    </dd>
+
+    <dt>Phá sản (Bankruptcy)</dt>
+    <dd>Theo Insolvency Acts (Luật Mất khả năng Thanh toán), tài sản của khách hàng bị đóng băng và chuyển cho người được chỉ định (trustee in bankruptcy). Ngân hàng phải ngừng các giao dịch thông thường và tuân thủ chỉ đạo của tòa.</dd>
+
+    <dt>Kết hôn / Đổi tên (Marriage / Name Change)</dt>
+    <dd>Khách hàng phải cung cấp <strong>giấy đăng ký kết hôn</strong> hoặc <strong>deed poll</strong> (văn bản đổi tên chính thức). Ngân hàng cập nhật hồ sơ và phát hành thẻ mới theo tên mới.</dd>
+
+    <dt>Đóng tài khoản (Closing Account)</dt>
+    <dd>Thông thường yêu cầu <strong>thông báo trước 1 tháng</strong>. Thời gian này có thể rút ngắn trong trường hợp vi phạm nghiêm trọng (misconduct) hoặc theo thoả thuận đặc biệt. Số dư còn lại được hoàn trả theo phương thức khách hàng chọn.</dd>
+  </dl>
+</section>
+
+<!-- 13. Quản lý tài khoản -->
+<section id="quan-ly-tk">
+  <h2>13. Quản lý Tài khoản</h2>
+  <p>Sau khi mở thành công, vòng đời tài khoản được quản lý bởi hệ thống Account Management – một kiến trúc nhiều lớp kết hợp con người và công nghệ.</p>
+
+  <div class="callout">
+    <div class="callout-label">Hình 5.2 – Kiến trúc quản lý tài khoản</div>
+    <div class="flow" style="flex-direction:column; align-items:flex-start; gap:12px;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="flow-step" style="min-width:130px;">Khách hàng</div>
+        <div class="flow-arrow">→</div>
+        <div style="border:1px solid var(--border); padding:10px 16px; font-size:13px;">
+          <strong>Vận hành (Operations)</strong><br>
+          <span style="color:var(--text-muted); font-size:12px;">
+            Liên hệ/Chi nhánh · Phê duyệt · Thu hồi nợ · Phòng chống gian lận
+          </span>
+        </div>
+      </div>
+      <div style="padding-left:140px; color:var(--text-muted); font-size:20px;">↓</div>
+      <div style="display:flex; align-items:center; gap:8px; padding-left:20px;">
+        <div style="border:1px solid var(--border); padding:10px 16px; font-size:13px;">
+          <strong>Hệ thống Quản lý TK</strong><br>
+          <span style="color:var(--text-muted); font-size:12px;">
+            Decision Engine (Công cụ Quyết định) · Data Management (Quản lý Dữ liệu)
+          </span>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div style="border:1px solid var(--border); padding:10px 16px; font-size:13px;">
+          <strong>Cơ sở dữ liệu</strong><br>
+          <span style="color:var(--text-muted); font-size:12px;">
+            TK khách hàng · Giao dịch · CRA · Báo cáo/Thư
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Chu kỳ xử lý ban đêm (Overnight Batch)</h3>
+  <p>Phần lớn các xử lý nặng được thực hiện trong <strong>batch ban đêm</strong> – khi lưu lượng giao dịch thấp nhất. Bao gồm: tính lãi, tạo bảng sao kê, phân loại tài khoản theo rủi ro, và trích xuất dữ liệu phân tích.</p>
+
+  <h3>Chu kỳ tài khoản (Account Cycling)</h3>
+  <p>Mỗi tài khoản có một chu kỳ định kỳ (thường là hàng tháng) để:
+  </p>
+  <ul>
+    <li>Tính số dư còn lại (statement balance)</li>
+    <li>Xác định khoản thanh toán tối thiểu (cho thẻ tín dụng)</li>
+    <li>Áp dụng phí và lãi suất</li>
+  </ul>
+
+  <h3>Tín dụng quay vòng &amp; Công cụ Quyết định</h3>
+  <p>Với <strong>tín dụng quay vòng (revolving credit)</strong> như thẻ tín dụng hay hạn mức thấu chi, Decision Engine được gọi định kỳ để:</p>
+  <ul>
+    <li>Đánh giá lại hạn mức tín dụng dựa trên hành vi thanh toán gần đây</li>
+    <li>Phát hiện dấu hiệu suy giảm khả năng trả nợ</li>
+    <li>Đề xuất điều chỉnh hạn mức tự động</li>
+  </ul>
+
+  <h3>Phát hiện gian lận qua hành vi</h3>
+  <p>Hệ thống giám sát liên tục xây dựng <strong>hồ sơ hành vi</strong> của mỗi tài khoản. Giao dịch bất thường so với mẫu hành vi đã thiết lập sẽ kích hoạt cảnh báo. Ví dụ: mua hàng đột ngột ở nước ngoài, rút tiền lớn bất thường, hoặc nhiều giao dịch nhỏ liên tiếp trong thời gian ngắn.</p>
+</section>
+
+<!-- Footer -->
+<footer class="chapter-footer">
+  <span>Chương 5 · Mở Tài Khoản Trong Ngân Hàng Bán Lẻ</span>
+  <span>Business Knowledge for IT in Retail Banking · Essvale Corporation</span>
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch4-bkrb.html"><span class="lbl">Chương trước</span>Chương 4: Xu Hướng Ngân Hàng Bán Lẻ</a>
+  <a href="ch6-bkrb.html"><span class="lbl">Chương sau</span>Chương 6: Cho Vay Trong Ngân Hàng Bán Lẻ</a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 7 – Thanh Toán Trong Ngân Hàng Bán Lẻ</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  .book-header {
+    border-bottom: 2px solid var(--accent-line);
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+  .book-label {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 10px;
+  }
+  .book-title {
+    font-size: 13px; font-weight: 600; color: var(--text-secondary);
+    margin-bottom: 24px; line-height: 1.5;
+  }
+  .chapter-number {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 32px; font-weight: 700; line-height: 1.2;
+    letter-spacing: -0.02em; color: var(--text); margin-bottom: 16px;
+  }
+  .chapter-meta { font-size: 13px; color: var(--text-muted); }
+
+  .toc {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 28px 32px; margin-bottom: 56px;
+  }
+  .toc-label {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 14px;
+  }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin-bottom: 5px; font-size: 14px; }
+  .toc a { color: var(--text-secondary); text-decoration: none; border-bottom: 1px solid transparent; }
+  .toc a:hover { border-bottom-color: var(--border-strong); }
+
+  section { margin-bottom: 56px; }
+
+  h2 {
+    font-size: 22px; font-weight: 700; letter-spacing: -0.01em;
+    color: var(--text); margin-bottom: 20px; padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--border);
+  }
+  h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-top: 28px; margin-bottom: 12px; }
+  h4 { font-size: 15px; font-weight: 700; color: var(--text-secondary); margin-top: 20px; margin-bottom: 8px; }
+
+  p { margin-bottom: 14px; color: var(--text-secondary); }
+  ul, ol { padding-left: 22px; margin-bottom: 16px; color: var(--text-secondary); }
+  li { margin-bottom: 6px; }
+  li strong { color: var(--text); }
+
+  .callout {
+    border-left: 3px solid var(--accent-line); background: var(--surface);
+    padding: 18px 22px; margin: 24px 0;
+  }
+  .callout-label {
+    font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 8px;
+  }
+  .callout p { margin-bottom: 0; }
+
+  .table-wrap { overflow-x: auto; margin: 24px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    background: var(--surface-dark); border: 1px solid var(--border);
+    padding: 10px 14px; text-align: left;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text);
+  }
+  td { border: 1px solid var(--border); padding: 10px 14px; vertical-align: top; color: var(--text-secondary); }
+  tr:nth-child(even) td { background: var(--surface); }
+
+  .flow {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 20px 0;
+  }
+  .flow-step {
+    background: var(--surface); border: 1px solid var(--border-strong);
+    padding: 10px 16px; font-size: 13px; font-weight: 600; color: var(--text);
+    text-align: center; min-width: 90px;
+  }
+  .flow-arrow { font-size: 18px; color: var(--text-muted); font-weight: 700; }
+
+  /* Card type badges */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin: 24px 0;
+  }
+  .card-cell {
+    background: var(--bg);
+    padding: 16px 20px;
+  }
+  .card-name {
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 700; color: var(--text); margin-bottom: 4px;
+  }
+  .card-timing {
+    font-size: 11px; font-weight: 600; color: var(--text-muted);
+    margin-bottom: 8px; letter-spacing: 0.05em;
+  }
+  .card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* Cheque clearing cycle boxes */
+  .clearing-step {
+    border: 1px solid var(--border);
+    border-bottom: none;
+    padding: 14px 18px;
+    display: flex;
+    gap: 16px;
+  }
+  .clearing-step:last-child { border-bottom: 1px solid var(--border); }
+  .clearing-day {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted); min-width: 60px; flex-shrink: 0; padding-top: 2px;
+  }
+  .clearing-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* Bacs 3-day cycle */
+  .bacs-cycle {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin: 24px 0;
+  }
+  .bacs-phase {
+    background: var(--bg);
+    padding: 16px;
+  }
+  .bacs-phase-label {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+    color: var(--text); margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 6px;
+  }
+  .bacs-phase-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* Payment type section dividers */
+  .payment-section {
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .payment-section-header {
+    background: var(--surface-dark);
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .payment-badge {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted); font-weight: 400;
+  }
+  .payment-section-body {
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  /* Stats row */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 24px 0;
+  }
+  .stat-cell { background: var(--bg); padding: 18px 20px; }
+  .stat-value { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; line-height: 1.1; }
+  .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+  /* FX example box */
+  .code-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-line);
+    padding: 16px 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--text);
+    margin: 16px 0;
+  }
+
+  .chapter-footer {
+    margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--text-muted);
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/business-knowledge-it-retail-banking">← Về mục lục</a></p>
+
+<header class="book-header">
+  <div class="book-label">Business Knowledge for IT in Retail Banking · Essvale Corporation Limited</div>
+  <div class="book-title">A Complete Handbook for IT Professionals</div>
+  <div class="chapter-number">Chương 7</div>
+  <h1>Thanh Toán Trong Ngân Hàng Bán Lẻ</h1>
+  <div class="chapter-meta">Trang sách 114–135 &nbsp;·&nbsp; Ngôn ngữ: Tiếng Việt</div>
+</header>
+
+<nav class="toc">
+  <div class="toc-label">Nội dung chương</div>
+  <ol>
+    <li><a href="#gioi-thieu">Giới thiệu</a></li>
+    <li><a href="#tien-mat">Tiền mặt (Cash)</a></li>
+    <li><a href="#sec">Séc (Cheques) &amp; Hối phiếu</a></li>
+    <li><a href="#sec-du-lich">Séc du lịch (Traveller's Cheques)</a></li>
+    <li><a href="#phuong-thuc-dien-tu">Phương thức thanh toán điện tử</a></li>
+    <li><a href="#the-thanh-toan">Thẻ thanh toán (Payment Cards)</a></li>
+    <li><a href="#standing-order">Lệnh thường trực (Standing Orders)</a></li>
+    <li><a href="#direct-debit">Ghi nợ tự động (Direct Debits)</a></li>
+    <li><a href="#direct-credit">Ghi có tự động (Direct Credits)</a></li>
+    <li><a href="#bacs">Hệ thống Bacs</a></li>
+    <li><a href="#quoc-te">Chuyển tiền Quốc tế</a></li>
+  </ol>
+</nav>
+
+<!-- 1. Giới thiệu -->
+<section id="gioi-thieu">
+  <h2>1. Giới thiệu</h2>
+  <p>Thanh toán là hoạt động trung tâm của ngân hàng bán lẻ. Chương này trình bày các phương thức thanh toán chủ yếu – từ những phương thức truyền thống lâu đời đến các phương thức điện tử hiện đại đang nổi lên và dần thay thế các phương thức cũ.</p>
+  <p>Hệ thống thanh toán trong ngân hàng bán lẻ có thể chia thành hai nhóm lớn: <strong>phương thức thủ công</strong> (tiền mặt, séc, hối phiếu) và <strong>phương thức điện tử</strong> (thẻ thanh toán, lệnh thường trực, ghi nợ tự động, chuyển khoản điện tử, v.v.).</p>
+</section>
+
+<!-- 2. Tiền mặt -->
+<section id="tien-mat">
+  <h2>2. Tiền mặt (Cash)</h2>
+  <p>Tiền mặt là phương thức thanh toán lâu đời nhất. Tại Vương quốc Anh, lịch sử tiền mặt trải dài:</p>
+  <ul>
+    <li><strong>2.500 năm trước:</strong> Sử dụng token (vật thể thay thế) làm phương tiện thanh toán</li>
+    <li><strong>300 năm trước:</strong> Giấy bạc (banknotes) bắt đầu lưu hành</li>
+    <li><strong>APACS 2007:</strong> Dự báo tiền mặt vẫn chiếm <strong>52% tổng số thanh toán</strong> vào năm 2017</li>
+  </ul>
+
+  <h3>Ưu và nhược điểm của tiền mặt</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Ưu điểm</th><th>Nhược điểm</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Không để lại dấu vết (anonymous) – bảo mật cao</td>
+          <td>Cồng kềnh, khó mang số lượng lớn</td>
+        </tr>
+        <tr>
+          <td>Được chấp nhận phổ biến nhất</td>
+          <td>Dễ mất, dễ bị đánh cắp; không thể thu hồi</td>
+        </tr>
+        <tr>
+          <td>Không cần tài khoản ngân hàng</td>
+          <td>Chi phí vận hành hạ tầng tiền mặt rất cao</td>
+        </tr>
+        <tr>
+          <td>Thanh toán ngay tức thì</td>
+          <td>Rủi ro giả mạo (tiền giả)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Chu trình tiền mặt (Cash Cycle)</h3>
+  <div class="flow">
+    <div class="flow-step">In/Đúc tiền<br>(Printing/Minting)</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">Cung ứng<br>(Supply)</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">Nộp vào<br>tài khoản</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">Phân loại<br>&amp; Tái phát hành</div>
+  </div>
+
+  <h3>Các bên tham gia hạ tầng tiền mặt</h3>
+  <ul>
+    <li><strong>Trung tâm xử lý tiền mặt</strong> (cash processing centres): kiểm đếm, phân loại, xác thực</li>
+    <li><strong>Đơn vị vận chuyển an ninh</strong> (secure carriers) và đội xe bọc thép</li>
+    <li><strong>Chi nhánh ngân hàng</strong>: điểm phân phối và thu nhận tiền mặt</li>
+    <li><strong>Bán lẻ và bán tự động</strong>: máy bán hàng, cửa hàng, phương tiện giao thông</li>
+    <li><strong>IADs</strong> (Independent ATM Deployers – Đơn vị triển khai ATM độc lập): lắp đặt ATM tại trạm xăng, quán bar, hộp đêm; thu phí cố định mỗi lần rút tiền</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-label">Mạng lưới LINK</div>
+    <p>LINK là mạng lưới ATM chia sẻ tại Anh. Ví dụ: khách hàng của Barclays có thể rút tiền miễn phí tại ATM Lloyds TSB thông qua kết nối LINK. Mạng lưới này cho phép khả năng tiếp cận tiền mặt rộng rãi hơn nhiều so với chỉ dựa vào mạng lưới ATM của từng ngân hàng riêng lẻ.</p>
+  </div>
+</section>
+
+<!-- 3. Séc -->
+<section id="sec">
+  <h2>3. Séc (Cheques) &amp; Hối phiếu Ngân hàng</h2>
+
+  <h3>Khung pháp lý</h3>
+  <ul>
+    <li><strong>Bills of Exchange Act 1882:</strong> Luật nền tảng về hối phiếu thương mại</li>
+    <li><strong>Cheque Acts 1957 &amp; 1992:</strong> Bổ sung và hiện đại hóa quy định về séc</li>
+    <li>Séc <strong>không phải là tiền pháp định</strong> (not legal tender) – bên nhận có thể từ chối</li>
+  </ul>
+
+  <h3>Nhược điểm của séc</h3>
+  <ul>
+    <li><strong>Không đủ tiền:</strong> Tài khoản người phát séc không đủ số dư</li>
+    <li><strong>Tranh chấp quyền sở hữu:</strong> Không rõ ràng về tài khoản phát séc</li>
+    <li><strong>Ký sai:</strong> Séc ký không đúng quy định sẽ bị từ chối</li>
+  </ul>
+
+  <p>Séc vẫn được ưa dùng trong giao dịch doanh nghiệp-với-doanh nghiệp (B2B) vì tạo ra bằng chứng giao dịch rõ ràng.</p>
+
+  <h3>Chu trình thanh toán séc (Hình 7.1)</h3>
+  <p>Thanh toán séc diễn ra trong <strong>3 ngày làm việc</strong> (chỉ Thứ Hai đến Thứ Sáu):</p>
+
+  <div class="clearing-step">
+    <div class="clearing-day">Ngày 1<br>Sáng</div>
+    <div class="clearing-desc">Khách hàng nộp séc tại chi nhánh. Nếu nộp tại chính chi nhánh giữ tài khoản, số tiền có thể xuất hiện ngay lập tức (hoặc trong ngày). Nếu nộp tại chi nhánh hoặc ngân hàng khác, số tiền có thể chưa xuất hiện đến ngày 3.</div>
+  </div>
+  <div class="clearing-step">
+    <div class="clearing-day">Ngày 1<br>Chiều</div>
+    <div class="clearing-desc">Ngân hàng thu tiền (collecting bank) gửi tất cả séc nhận được trong ngày đến trung tâm thanh toán bù trừ (clearing centres) của mình.</div>
+  </div>
+  <div class="clearing-step">
+    <div class="clearing-day">Ngày 1<br>Tối</div>
+    <div class="clearing-desc">Tại trung tâm bù trừ, séc được đọc và phân loại tự động. Mã code-line và số tiền của mỗi séc được gửi điện tử cho ngân hàng thanh toán (paying bank) qua mạng IBDE (Inter-Bank Data Exchange) trước 11h đêm.</div>
+  </div>
+  <div class="clearing-step">
+    <div class="clearing-day">Ngày 2</div>
+    <div class="clearing-desc">Séc vật lý được chuyển đến trung tâm trao đổi tại Milton Keynes và Edinburgh, rồi giao cho ngân hàng thanh toán. Các kiểm tra điện tử được thực hiện trong ngày 2 trước khi hạch toán vào tài khoản ngày 3.</div>
+  </div>
+  <div class="clearing-step">
+    <div class="clearing-day">Ngày 2–3<br>Qua đêm</div>
+    <div class="clearing-desc">Ngân hàng thanh toán cập nhật tài khoản khách hàng qua đêm và thanh toán bù trừ số tiền ròng với nhau qua tài khoản tại Ngân hàng Anh (Bank of England).</div>
+  </div>
+  <div class="clearing-step">
+    <div class="clearing-day">Ngày 3</div>
+    <div class="clearing-desc"><strong>"Thanh toán về giá trị"</strong> (Clearing for value): Đây là ngày tiền được coi là có giá trị với ngân hàng thu tiền. Nếu ngân hàng quyết định không thanh toán séc, phải gửi trả qua bưu điện hạng nhất trước cuối ngày 3 (hoặc đặc biệt chậm nhất trước trưa ngày 4).</div>
+  </div>
+  <div class="clearing-step">
+    <div class="clearing-day">Ngày 4–5</div>
+    <div class="clearing-desc"><strong>"Tiền có thể rút"</strong> (Cleared for withdrawal): Ngân hàng thu tiền nhận séc bị hoàn trả (nếu có) vào ngày 4 hoặc 5. Gian lận phải được phát hiện trước khi séc vào hệ thống bù trừ.</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Ba loại hành động trong chu trình séc</div>
+    <p><strong>Fixed Action</strong> – Hành động cố định: Áp dụng tiêu chuẩn cho mọi séc qua bù trừ.<br>
+    <strong>Complex Action</strong> – Hành động phức tạp: Chỉ áp dụng với séc bị hoàn trả không được thanh toán.<br>
+    <strong>Competitive Action</strong> – Hành động cạnh tranh: Phụ thuộc chính sách của từng ngân hàng riêng.</p>
+  </div>
+
+  <h3>Hối phiếu Ngân hàng (Banker's Draft)</h3>
+  <p>Hối phiếu ngân hàng được phát hành bằng tài khoản của chính ngân hàng (không phải tài khoản khách hàng), do đó <strong>gần như được bảo đảm thanh toán</strong>. Được dùng cho các giao dịch lớn yêu cầu đảm bảo thanh toán cao (mua xe, bất động sản). Nhược điểm: có rủi ro gian lận nếu bị mất hoặc đánh cắp.</p>
+</section>
+
+<!-- 4. Séc du lịch -->
+<section id="sec-du-lich">
+  <h2>4. Séc Du lịch (Traveller's Cheques)</h2>
+  <p>Séc du lịch được thảo luận chi tiết trong Chương 2, nhưng vẫn là phương thức thanh toán phổ biến cho khách hàng ngân hàng đi nước ngoài vì phù hợp với nhu cầu du lịch quốc tế.</p>
+  <p>Từ góc độ ngân hàng, séc du lịch mang lại lợi thế quan trọng: <strong>tiền của người mua bị giữ lại cho đến khi séc được đổi và xuất trình</strong>. Điều này có nghĩa là ngân hàng được sử dụng miễn phí số tiền này trong nhiều tuần hoặc thậm chí nhiều tháng – nguồn lợi tức ẩn đáng kể.</p>
+</section>
+
+<!-- 5. Phương thức điện tử - tổng quan -->
+<section id="phuong-thuc-dien-tu">
+  <h2>5. Phương thức Thanh toán Điện tử – Tổng quan</h2>
+  <p>Phương thức điện tử đang thay thế dần thanh toán giấy tờ nhờ tốc độ, tiện lợi và chi phí xử lý thấp hơn. Chúng bao gồm thẻ thanh toán, lệnh thường trực, ghi nợ tự động, chuyển khoản điện tử và chuyển tiền quốc tế.</p>
+</section>
+
+<!-- 6. Thẻ thanh toán -->
+<section id="the-thanh-toan">
+  <h2>6. Thẻ Thanh toán (Payment Cards)</h2>
+  <p>Thẻ thanh toán có hồ sơ theo dõi xuất sắc như cơ chế thanh toán hiệu quả cao cho các giao dịch giá trị thấp, khối lượng lớn. Mỗi giao dịch thẻ tạo ra <strong>hai luồng song song</strong>:</p>
+  <ul>
+    <li><strong>Luồng thông tin:</strong> Thông tin về thẻ và giao dịch truyền từ chủ thẻ đến tổ chức phát hành thẻ</li>
+    <li><strong>Luồng vốn:</strong> Giá trị giao dịch được chuyển từ tài khoản của chủ thẻ</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-label">Hình 7.2 – Các bên trong giao dịch thẻ thanh toán</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;">
+      <div style="border:1px solid var(--border); padding:12px; font-size:13px;">
+        <strong style="color:var(--text);">Chủ thẻ (Cardholder)</strong><br>
+        <span style="color:var(--text-muted);">Khởi tạo giao dịch</span>
+      </div>
+      <div style="border:1px solid var(--border); padding:12px; font-size:13px;">
+        <strong style="color:var(--text);">Đại lý (Merchant)</strong><br>
+        <span style="color:var(--text-muted);">Truyền thông tin giao dịch đến acquirer; khấu trừ MSC (Merchant Service Charge)</span>
+      </div>
+      <div style="border:1px solid var(--border); padding:12px; font-size:13px;">
+        <strong style="color:var(--text);">Tổ chức phát hành (Card Issuer)</strong><br>
+        <span style="color:var(--text-muted);">Marketing và phân phối thẻ; kế toán chủ thẻ; dịch vụ khách hàng; quản lý tín dụng; trả phí mạng</span>
+      </div>
+      <div style="border:1px solid var(--border); padding:12px; font-size:13px;">
+        <strong style="color:var(--text);">Acquirer (Đơn vị chấp nhận thẻ)</strong><br>
+        <span style="color:var(--text-muted);">Thiết lập tài khoản đại lý; hỗ trợ; phê duyệt giao dịch; kiểm soát gian lận; đặt MSC</span>
+      </div>
+      <div style="border:1px solid var(--border); padding:12px; font-size:13px;">
+        <strong style="color:var(--text);">Tổ chức thẻ (Card Scheme)</strong><br>
+        <span style="color:var(--text-muted);">Cung cấp mạng lưới; cấp phép; brand marketing; phát triển sản phẩm mới; xử lý giao dịch quốc tế; đặt quy tắc</span>
+      </div>
+      <div style="border:1px solid var(--border); padding:12px; font-size:13px;">
+        <strong style="color:var(--text);">Bộ xử lý giao dịch (Transaction Processor)</strong><br>
+        <span style="color:var(--text-muted);">Chịu trách nhiệm thanh toán bù trừ; khấu trừ phí liên ngân hàng (interchange fee)</span>
+      </div>
+    </div>
+    <p style="font-size:12px; color:var(--text-muted); margin-top:10px; margin-bottom:0;">Nguồn: Business Insights, HSBC · PDQ machine = thuật ngữ chung cho thiết bị đọc thẻ (card swipe machine)</p>
+  </div>
+
+  <h3>Các loại thẻ thanh toán</h3>
+
+  <div class="card-grid">
+    <div class="card-cell">
+      <div class="card-name">Thẻ ghi nợ (Debit Card)</div>
+      <div class="card-timing">● Trả ngay (Pay Now)</div>
+      <div class="card-desc">Trừ tiền trực tiếp từ tài khoản ngân hàng của chủ thẻ. Phát hành theo sơ đồ Visa, Maestro tại Anh. Giao dịch qua PDQ: chèn thẻ → PIN hoặc ký tên. Đa chức năng: rút tiền ATM, bảo lãnh séc. Có thể hỗ trợ cashback tại điểm bán hàng.</div>
+    </div>
+    <div class="card-cell">
+      <div class="card-name">Thẻ tín dụng (Credit Card)</div>
+      <div class="card-timing">● Trả sau (Pay Later)</div>
+      <div class="card-desc">Thanh toán bằng tiền vay đến hạn mức tín dụng được phê duyệt trước. Xác minh qua PDQ + liên kết truyền thông đến ngân hàng acquirer. Chip and PIN (= EMV card) tại Anh. CNP (Card Not Present) cho giao dịch trực tuyến – yêu cầu CVS (mã bảo mật sau thẻ) và địa chỉ thanh toán.</div>
+    </div>
+    <div class="card-cell">
+      <div class="card-name">Thẻ thanh toán toàn phần (Charge Card)</div>
+      <div class="card-timing">● Trả sau (Pay Later)</div>
+      <div class="card-desc">Tương tự thẻ tín dụng nhưng <strong>toàn bộ số dư phải trả mỗi tháng</strong> hoặc phát sinh phí. Không có hạn mức tín dụng. Hệ thống điểm thưởng, cashback, ưu đãi du lịch. Có phí thường niên. American Express và Diners Club International là hai công ty lớn nhất tại Anh.</div>
+    </div>
+    <div class="card-cell">
+      <div class="card-name">Thẻ trả trước (Prepaid Card)</div>
+      <div class="card-timing">● Trả trước (Prepaid)</div>
+      <div class="card-desc">Thẻ giá trị tích trữ (stored-value), tương tự thẻ ghi nợ nhưng <strong>thường ẩn danh</strong> (không ghi tên chủ thẻ). Nạp tiền trước khi dùng. Loại Prepaid Credit Card (MasterCard/Maestro/Visa Electron/Amex) được dùng rộng rãi để chuyển tiền quốc tế.</div>
+    </div>
+    <div class="card-cell">
+      <div class="card-name">Thẻ cửa hàng (Store Card)</div>
+      <div class="card-timing">● Trả sau (Pay Later)</div>
+      <div class="card-desc">Biến thể thẻ tín dụng do cửa hàng bán lẻ phát hành (không phải ngân hàng). Ưu đãi giảm giá tại cửa hàng phát hành. Nhược điểm: <strong>lãi suất cao hơn</strong> Visa/MasterCard do không có phí hoa hồng đại lý thông thường.</div>
+    </div>
+    <div class="card-cell">
+      <div class="card-name">Thẻ tín dụng trả trước (Prepaid Credit Card)</div>
+      <div class="card-timing">● Trả trước (Prepaid)</div>
+      <div class="card-desc">Nạp tiền từ tiền của chính chủ thẻ vào tài khoản được liên kết với mạng lưới thẻ quốc tế. Sử dụng được toàn cầu, kể cả trên internet và khi đi nước ngoài. Hiệu quả cho chuyển tiền quốc tế: nạp tại nước gửi, người nhận rút tại nước nhận bằng đồng tiền địa phương.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Standing Orders -->
+<section id="standing-order">
+  <h2>7. Lệnh Thường trực (Standing Orders)</h2>
+  <p>Lệnh thường trực là chỉ thị của khách hàng cho ngân hàng hoặc tổ chức tài chính để <strong>thanh toán định kỳ một số tiền cố định</strong> đến tài khoản bên thứ ba cụ thể.</p>
+
+  <h3>Đặc điểm</h3>
+  <ul>
+    <li>Dịch vụ dành cho bất kỳ ai có tài khoản vãng lai tại Anh</li>
+    <li>Khách hàng ký văn bản ủy quyền ngân hàng trả số tiền đã định vào ngày đã định (ví dụ: ngày 1 mỗi tháng, ngày 2 tháng 1)</li>
+    <li>Ngân hàng trích nợ tài khoản khách hàng và chuyển qua hệ thống Bacs đến tài khoản đích</li>
+    <li>Tiền đến trong <strong>vòng 3 ngày làm việc</strong> (ví dụ: lệnh Thứ Ba → sớm nhất là Thứ Năm)</li>
+    <li>Các sáng kiến mới đang được triển khai để rút ngắn thời gian xử lý đáng kể</li>
+  </ul>
+
+  <h3>Ứng dụng phổ biến</h3>
+  <ul>
+    <li>Trả tiền thuê nhà, trả góp thế chấp hàng tháng</li>
+    <li>Phí thành viên phòng gym hàng tháng</li>
+    <li>Đăng ký mua tạp chí, dịch vụ streaming định kỳ</li>
+    <li>Bất kỳ khoản thanh toán định kỳ có giá trị cố định nào</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-label">Khác biệt cốt lõi: Standing Order vs Direct Debit</div>
+    <p><strong>Lệnh thường trực:</strong> Số tiền cố định, do khách hàng kiểm soát và khởi tạo tại ngân hàng.<br>
+    <strong>Ghi nợ tự động:</strong> Số tiền biến đổi, do tổ chức thu tiền khởi tạo; khách hàng chỉ cho phép một lần.</p>
+  </div>
+</section>
+
+<!-- 8. Direct Debits -->
+<section id="direct-debit">
+  <h2>8. Ghi Nợ Tự động (Direct Debits)</h2>
+  <p>Ghi nợ tự động cho phép <strong>tổ chức (không phải khách hàng) chỉ thị ngân hàng</strong> để thu các khoản tiền biến đổi trực tiếp từ tài khoản khách hàng.</p>
+
+  <h3>Hai phương thức thiết lập Direct Debit</h3>
+  <ol>
+    <li><strong>Phương thức truyền thống:</strong> Khách hàng chỉ thị ngân hàng chấp nhận ghi nợ từ tổ chức thu tiền</li>
+    <li><strong>Phương thức hiện đại:</strong> Khách hàng chỉ cần ủy quyền trực tiếp với tổ chức thu tiền (phổ biến hơn)</li>
+  </ol>
+
+  <h3>Cơ chế bảo vệ tại Anh</h3>
+  <p>Tại Anh, trước khi công ty có thể thu ghi nợ tự động từ khách hàng, công ty phải được ngân hàng xét duyệt (vetted). Ngoài ra, các ngân hàng cung cấp <strong>Bảo đảm Ghi nợ Tự động (Direct Debit Guarantee)</strong>:</p>
+  <ul>
+    <li>Nếu có thay đổi về số tiền hoặc ngày thanh toán, người nhận tiền (originator) <strong>phải thông báo trước</strong></li>
+    <li>Nếu originator hoặc ngân hàng mắc lỗi, khách hàng được <strong>hoàn trả ngay lập tức và đầy đủ</strong></li>
+    <li>Khách hàng có thể <strong>huỷ bất kỳ lúc nào</strong> bằng cách thông báo bằng văn bản cho ngân hàng hoặc tổ chức tài chính</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-label">Lưu ý pháp lý quan trọng</div>
+    <p>Ghi nợ tự động không thể thu từ cá nhân (chỉ từ tổ chức). Một số loại tài khoản ngân hàng không hỗ trợ ghi nợ tự động. Ghi nợ tự động có thể được thu qua tài khoản thẻ tín dụng.</p>
+  </div>
+</section>
+
+<!-- 9. Direct Credits -->
+<section id="direct-credit">
+  <h2>9. Ghi Có Tự động (Direct Credits)</h2>
+  <p>Ghi có tự động là dịch vụ đơn giản và an toàn cho phép tổ chức <strong>thanh toán điện tử trực tiếp vào tài khoản ngân hàng hoặc tổ chức tài chính</strong> của người thụ hưởng.</p>
+  <p>Sử dụng chủ yếu để trả <strong>lương và tiền công</strong>. Tại Anh, hơn <strong>150.000 tổ chức</strong> sử dụng ghi có tự động cho: thanh toán nhà cung cấp, lương hưu, hoàn trả chi phí nhân viên, giải quyết bảo hiểm, chi cổ tức, và hoàn tiền.</p>
+</section>
+
+<!-- 10. Bacs -->
+<section id="bacs">
+  <h2>10. Hệ thống Bacs</h2>
+  <p>Bacs (Bankers' Automated Clearing Services) là dịch vụ thanh toán cho phép công ty đăng ký thực hiện và thu thanh toán điện tử đến/từ tài khoản khách hàng. Ngân hàng và tổ chức xây dựng xã hội thành viên của sơ đồ thanh toán như Bacs bảo trợ (sponsor) cho các công ty sử dụng dịch vụ.</p>
+
+  <div class="stat-strip">
+    <div class="stat-cell">
+      <div class="stat-value">5,5 tỷ</div>
+      <div class="stat-label">Số thanh toán qua Bacs mỗi năm</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-value">£3,4 nghìn tỷ</div>
+      <div class="stat-label">Tổng giá trị (tương đương) năm 2006</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-value">35 triệu</div>
+      <div class="stat-label">Người trưởng thành Anh có ít nhất 1 cam kết ghi nợ tự động</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-value">115.000</div>
+      <div class="stat-label">Doanh nghiệp sử dụng dịch vụ Bacs</div>
+    </div>
+  </div>
+
+  <h3>Ví dụ minh họa: Biz Energy (công ty điện/gas hư cấu)</h3>
+  <p>Biz Energy tạo các hướng dẫn thanh toán (DDIs – Direct Debit Instructions) và gửi file thanh toán đến dịch vụ Bacs qua <strong>Bacstel-IP</strong> sử dụng phần mềm tuân thủ APACS Standard 18.</p>
+
+  <h4>Thông tin trong một lệnh thanh toán Bacs:</h4>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Trường</th><th>Mô tả</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Tài khoản nguồn</td><td>Tài khoản công ty – tài khoản tiền xuất phát (credit) hoặc đích đến (debit)</td></tr>
+        <tr><td>Tài khoản đích</td><td>Tài khoản nhận thanh toán – cần: sort code (field 1), số tài khoản (field 2), loại TK (field 3), tên TK (field 11)</td></tr>
+        <tr><td>Mã giao dịch</td><td>Mã 2 ký tự xác định loại giao dịch (xem bảng bên dưới)</td></tr>
+        <tr><td>Giá trị thanh toán</td><td>Tính bằng pence (sterling) hoặc cents (euro); DDIs có giá trị bằng 0</td></tr>
+        <tr><td>Thông tin tham chiếu</td><td>Các trường tham chiếu bổ sung, ví dụ mã ghi nợ tự động</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Các loại giao dịch Bacs:</h4>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Loại giao dịch</th><th>Loại</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Ghi có trực tiếp (Direct credit)</td><td>Credit</td></tr>
+        <tr><td>Ghi nợ tự động – thu lần đầu (First collection)</td><td>Debit</td></tr>
+        <tr><td>Ghi nợ tự động – thu định kỳ (Regular collection)</td><td>Debit</td></tr>
+        <tr><td>Ghi nợ tự động – tái trình (Re-presentation)</td><td>Debit</td></tr>
+        <tr><td>Ghi nợ tự động – thu lần cuối (Final collection)</td><td>Debit</td></tr>
+        <tr><td>Hướng dẫn DDI – mới / hủy / chuyển đổi</td><td>Không có giá trị</td></tr>
+        <tr><td>Thanh toán lãi suất / Cổ tức</td><td>Credit</td></tr>
+        <tr><td>Ghi nợ thẻ tín dụng / Hoàn tiền thẻ</td><td>Debit / Credit</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Chu trình xử lý Bacs 3 ngày</h3>
+  <div class="bacs-cycle">
+    <div class="bacs-phase">
+      <div class="bacs-phase-label">Đến (Arrival)</div>
+      <div class="bacs-phase-desc">Nhận submission; chia thành day sections; kiểm tra cấu trúc; cùng ngày với Input Day 1</div>
+    </div>
+    <div class="bacs-phase">
+      <div class="bacs-phase-label">Input: Ngày 1</div>
+      <div class="bacs-phase-desc">Xác nhận đầy đủ; input report phát hành; ghi nhận từ chối/hoàn trả/chỉnh sửa; AUDDIS file acceptance/rejection report</div>
+    </div>
+    <div class="bacs-phase">
+      <div class="bacs-phase-label">Xử lý: Ngày 2</div>
+      <div class="bacs-phase-desc">Thông tin thanh toán xử lý bởi các tổ chức tài chính liên quan</div>
+    </div>
+    <div class="bacs-phase">
+      <div class="bacs-phase-label">Hạch toán: Ngày 3</div>
+      <div class="bacs-phase-desc">Lệnh thanh toán hợp lệ (kể cả contras) được áp dụng vào tài khoản vào hoặc sau ngày 3</div>
+    </div>
+  </div>
+
+  <p style="font-size:13px; color:var(--text-muted);">Ngày không xử lý: Thứ Bảy, Chủ Nhật, ngày lễ ngân hàng Anh. Ngày theo lịch Julian (JDN – số ngày kể từ kỷ nguyên gốc) được dùng trong submissions.</p>
+
+  <h3>Dịch vụ thông điệp (Messaging Services) của Bacs</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Tên dịch vụ</th><th>Viết tắt từ</th><th>Mục đích</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>AUDDIS</strong></td><td>Automated Direct Debit Instruction Service</td><td>Gửi DDI điện tử đến ngân hàng của khách hàng</td></tr>
+        <tr><td><strong>ADDACS</strong></td><td>Automated Direct Debit Amendment &amp; Cancellation Service</td><td>Thông báo thay đổi/hủy DDI cho công ty originator</td></tr>
+        <tr><td><strong>AWACS</strong></td><td>Advice of Wrong Account for Automated Credit Service</td><td>Thông báo chi tiết tài khoản đúng khi credit payment bị lỗi</td></tr>
+        <tr><td><strong>ARUCS</strong></td><td>Automated Return of Credits Service (UAC)</td><td>Ngân hàng hoàn trả ghi có không thể áp dụng</td></tr>
+        <tr><td><strong>ARUDD</strong></td><td>Automated Return of Direct Debit (UDD)</td><td>Ngân hàng hoàn trả ghi nợ không thể áp dụng</td></tr>
+        <tr><td><strong>Bank returned AUDDIS</strong></td><td>–</td><td>Ngân hàng thông báo DDI không được áp dụng hoặc áp dụng vào TK khác</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 11. Chuyển tiền quốc tế -->
+<section id="quoc-te">
+  <h2>11. Chuyển tiền Quốc tế</h2>
+  <p>Chuyển tiền quốc tế phục vụ cộng đồng doanh nghiệp quốc tế, khách du lịch nước ngoài, và nhu cầu chuyển tiền giữa các thành viên gia đình. Đây là một trong những sản phẩm ngân hàng quốc tế được sử dụng rộng rãi nhất.</p>
+
+  <h3>Thị trường ngoại hối – Bức tranh toàn cầu</h3>
+  <p>Trên thế giới có khoảng <strong>194 quốc gia</strong> với đồng tiền riêng. Tuy nhiên, chỉ có <strong>6 đồng tiền chính</strong> (major currencies) được giao dịch rộng rãi:</p>
+  <ul>
+    <li>USD (Đô la Mỹ)</li>
+    <li>EUR (Euro)</li>
+    <li>CAD (Đô la Canada)</li>
+    <li>CHF (Franc Thụy Sĩ)</li>
+    <li>JPY (Yên Nhật)</li>
+    <li>GBP (Bảng Anh/Sterling)</li>
+  </ul>
+  <p>Các đồng tiền phụ (minor) bao gồm SEK (Krona Thụy Điển), DKK (Krone Đan Mạch), AUD (Đô la Úc). Đồng tiền nhỏ hơn được gọi là <strong>exotics</strong> – thuộc các nước nhỏ hoặc áp dụng kiểm soát đổi ngoại tệ.</p>
+
+  <h3>Tỷ giá ngoại hối</h3>
+  <p>Tỷ giá cơ bản không phải là giá trị tuyệt đối mà là <strong>giá trị so sánh</strong> của một đồng tiền so với đồng tiền khác. Tại Anh, tỷ giá thường biểu thị giá trị đồng ngoại tệ so với bảng Anh:</p>
+
+  <div class="code-block">
+£1 = $2,02 (ví dụ minh họa)
+→ $1.000 ÷ 2,02 = £495,05 (giá trị £ của $1.000)
+→ £1.000 × 2,02 = $2.020 (giá trị $ của £1.000)
+
+Nếu EUR được định giá 1,680:
+→ €1 = $1,68 (giá trị tính theo % của USD)
+  </div>
+
+  <h3>Cơ chế chuyển tiền quốc tế</h3>
+  <p>Không tồn tại hệ thống thanh toán quốc tế toàn cầu duy nhất (ngoại trừ hệ thống euro clearing trong khu vực tiền tệ châu Âu). Các ngân hàng phụ thuộc vào <strong>ngân hàng đại lý (correspondent banks)</strong>.</p>
+  <p>Mọi yêu cầu thanh toán quốc tế gồm hai phần:</p>
+  <ul>
+    <li><strong>Hướng dẫn thanh toán (Payment instructions):</strong> Tên và địa chỉ người thụ hưởng; tên ngân hàng đích; các thông tin cần thiết để áp dụng vốn</li>
+    <li><strong>Thông tin thanh toán bù trừ (Settlement information):</strong> Xác định tài khoản sẽ bị trích nợ hoặc được ghi có để trang trải giá trị chuyển và phí</li>
+  </ul>
+
+  <h3>Hình thức chuyển tiền quốc tế</h3>
+
+  <div class="payment-section">
+    <div class="payment-section-header">
+      Séc và Hối phiếu (Cheques &amp; Drafts)
+      <span class="payment-badge">Phương thức cổ điển</span>
+    </div>
+    <div class="payment-section-body">
+      <p>Phương thức lâu đời nhất và đơn giản nhất – tồn tại dạng giấy. Hạn chế: tính xác thực khó xác minh do có bên thứ ba trong giao dịch.</p>
+      <p><strong>Lệnh thanh toán bưu điện (mail payment order):</strong> Đáng tin cậy hơn vì do ngân hàng phát hành và gửi thẳng đến ngân hàng khác; có chữ ký có thể xác minh. Nhưng chậm (bưu điện quốc tế) và ngày càng ít dùng.</p>
+      <p>Hối phiếu vẫn được dùng và thường ghi bằng đồng tiền nước phát hành.</p>
+    </div>
+  </div>
+
+  <div class="payment-section">
+    <div class="payment-section-header">
+      Chuyển khoản điện quốc tế (International Wire Transfer)
+      <span class="payment-badge">Phương thức hiện đại nhất</span>
+    </div>
+    <div class="payment-section-body">
+      <p>Phương thức tiện lợi nhất để chuyển tiền giữa các tài khoản ngân hàng ở các quốc gia khác nhau. Sử dụng tin nhắn bảo mật qua hệ thống như <strong>SWIFT</strong> để yêu cầu ngân hàng nhận thực hiện thanh toán theo hướng dẫn đã cho.</p>
+      <p>Tin nhắn cũng bao gồm thông tin thanh toán bù trừ. Bản thân việc chuyển tiền <strong>gần như tức thì</strong> – không lâu hơn một cuộc gọi điện thoại. Hầu hết các giao dịch quốc tế quốc gia-với-quốc gia đều được thực hiện qua tin nhắn SWIFT.</p>
+    </div>
+  </div>
+
+  <h3>Hướng dẫn nhận tiền chuyển khoản – Ví dụ BizEast</h3>
+  <p>Để nhận chuyển khoản quốc tế, người thụ hưởng phải cung cấp thông tin đầy đủ cho người gửi:</p>
+
+  <div class="code-block">
+Tên tài khoản:  John Bigfoot
+Số tài khoản:   00123456
+Tên ngân hàng:  BizEast Bank
+Địa chỉ:        1 Ess Street, London S1 5XX, UK
+SWIFT Code:     BZETGB2L555
+IBAN:           GB77 BZET 2222 2200 1234 56
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">SWIFT và IBAN</div>
+    <p><strong>SWIFT Code</strong> (BIC – Bank Identifier Code): Mã định danh ngân hàng quốc tế; xác định ngân hàng cụ thể trên mạng lưới SWIFT toàn cầu.<br><br>
+    <strong>IBAN</strong> (International Bank Account Number): Mã tài khoản ngân hàng quốc tế chuẩn hóa; bao gồm mã quốc gia (GB), check digits, sort code, và số tài khoản; giảm lỗi định tuyến trong chuyển tiền quốc tế.</p>
+  </div>
+
+  <h3>Ngân hàng đại lý (Correspondent Banks)</h3>
+  <p>Ngân hàng đại lý không cần tài khoản đối ứng để xử lý yêu cầu chuyển tiền, nhưng mỗi tin nhắn thanh toán phải chứa thông tin về cách ngân hàng nhận được bồi hoàn. Các ngân hàng thường xuyên trao đổi <strong>hướng dẫn thanh toán bù trừ tiêu chuẩn (standard settlement instructions)</strong> khi thiết lập quan hệ đại lý.</p>
+  <p>Thanh toán bù trừ thường diễn ra tại quốc gia của đồng tiền được ghi trong lệnh. Ví dụ: nếu BizEast New York gửi chuyển khoản bằng bảng Anh đến Banklaze Bank London, thanh toán bù trừ sẽ bao gồm ủy quyền trích nợ tài khoản của BizEast.</p>
+</section>
+
+<footer class="chapter-footer">
+  <span>Chương 7 · Thanh Toán Trong Ngân Hàng Bán Lẻ</span>
+  <span>Business Knowledge for IT in Retail Banking · Essvale Corporation</span>
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch6-bkrb.html"><span class="lbl">Chương trước</span>Chương 6: Cho Vay Trong Ngân Hàng Bán Lẻ</a>
+  <a href="ch8-bkrb.html"><span class="lbl">Chương sau</span>Chương 8: Các Hệ Thống Phổ Biến Trong Ngân Hàng Bán Lẻ</a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 10 – Thuật Ngữ Thông Dụng Trong Ngân Hàng Bán Lẻ</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --text: #111111;
+  --text-secondary: #333333;
+  --text-muted: #888888;
+  --border: #d8d8d8;
+  --border-strong: #999999;
+  --surface: #f2f2f2;
+  --surface-dark: #e0e0e0;
+  --accent-line: #111111;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text);
+  background: var(--bg);
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+
+.chapter-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 56px;
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.chapter-header { margin-bottom: 56px; }
+.chapter-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px;
+}
+.chapter-title {
+  font-size: 38px; font-weight: 800; line-height: 1.15;
+  color: var(--text); margin-bottom: 10px; letter-spacing: -0.02em;
+}
+.chapter-subtitle {
+  font-size: 18px; color: var(--text-secondary);
+  font-weight: 400; margin-bottom: 24px;
+}
+.chapter-rule { width: 48px; height: 3px; background: var(--accent-line); margin-bottom: 24px; }
+.chapter-meta { display: flex; gap: 32px; font-size: 13px; color: var(--text-muted); }
+
+/* INTRO */
+.intro-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--border-strong);
+  padding: 22px 28px;
+  margin-bottom: 48px;
+}
+.intro-box p {
+  font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 10px;
+}
+.intro-box p:last-child { margin-bottom: 0; }
+
+/* ALPHA INDEX */
+.alpha-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 48px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.alpha-index-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-muted);
+  width: 100%; margin-bottom: 8px;
+}
+.alpha-btn {
+  display: inline-block;
+  width: 28px; height: 28px;
+  line-height: 28px; text-align: center;
+  font-size: 13px; font-weight: 700;
+  color: var(--text-secondary);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  cursor: pointer;
+}
+.alpha-btn:hover { background: var(--surface-dark); }
+
+/* GLOSSARY SECTIONS */
+.glossary-letter {
+  margin-bottom: 40px;
+}
+.letter-header {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text);
+  border-bottom: 2px solid var(--accent-line);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+.term-list {
+  list-style: none;
+  padding: 0;
+}
+.term-item {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.term-item:last-child { border-bottom: none; }
+.term-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.term-name {
+  font-size: 15.5px;
+  font-weight: 800;
+  color: var(--text);
+}
+.term-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  background: var(--surface);
+  white-space: nowrap;
+}
+.term-def {
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+.term-vi {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 3px;
+}
+
+/* SOURCES */
+.source-note {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  margin-top: 48px;
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+.source-note strong { color: var(--text-secondary); }
+
+/* COUNT STRIP */
+.count-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: 0 0 48px;
+}
+.count-cell {
+  background: var(--bg); padding: 20px; text-align: center;
+}
+.count-val { font-size: 32px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+.count-lbl { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+
+/* FOOTER */
+.chapter-footer {
+  margin-top: 80px; padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  body { padding: 32px 20px 60px; }
+  .chapter-title { font-size: 28px; }
+  .count-strip { grid-template-columns: 1fr; }
+}
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/business-knowledge-it-retail-banking">← Về mục lục</a></p>
+
+<nav class="chapter-nav">
+  <span>Business Knowledge for IT in Retail Banking</span>
+  <span>Essvale Corporation Limited</span>
+</nav>
+
+<header class="chapter-header">
+  <div class="chapter-eyebrow">Chương 10</div>
+  <h1 class="chapter-title">Thuật Ngữ Thông Dụng<br>Trong Ngân Hàng Bán Lẻ</h1>
+  <p class="chapter-subtitle">Common Terminology used in Retail Banking</p>
+  <div class="chapter-rule"></div>
+  <div class="chapter-meta">
+    <span>📄 Trang nguồn 170–178</span>
+    <span>📚 Danh mục thuật ngữ đầy đủ</span>
+    <span>🏦 Dành cho chuyên gia CNTT ngân hàng</span>
+  </div>
+</header>
+
+<div class="intro-box">
+  <p>Khi CNTT ngày càng gắn kết với hoạt động kinh doanh, khoảng cách kiến thức giữa bộ phận CNTT và nghiệp vụ không còn có thể bị bỏ qua. Trong các nhóm dự án đa chức năng ngày càng phổ biến trong môi trường ngân hàng, sự thiếu giao tiếp có thể là ranh giới giữa thành công và thất bại của dự án, đồng thời ảnh hưởng nghiêm trọng đến lợi nhuận và uy tín của ngân hàng.</p>
+  <p>Chương này tổng hợp các thuật ngữ thường gặp trong ngành ngân hàng bán lẻ mà các chuyên gia CNTT sẽ tiếp xúc trong quá trình làm việc thực tế. Danh sách này không toàn diện – có thể tra cứu thêm tại <strong>www.Bizle.biz</strong> hoặc trong các sách giáo trình tài chính chuyên ngành.</p>
+</div>
+
+<div class="count-strip">
+  <div class="count-cell">
+    <div class="count-val">70+</div>
+    <div class="count-lbl">Thuật ngữ được định nghĩa</div>
+  </div>
+  <div class="count-cell">
+    <div class="count-val">2</div>
+    <div class="count-lbl">Nguồn tham chiếu chính thức</div>
+  </div>
+  <div class="count-cell">
+    <div class="count-val">A→W</div>
+    <div class="count-lbl">Phạm vi bảng chữ cái</div>
+  </div>
+</div>
+
+<div class="alpha-index">
+  <div class="alpha-index-label">Chỉ mục theo chữ cái</div>
+  <span class="alpha-btn">A</span>
+  <span class="alpha-btn">B</span>
+  <span class="alpha-btn">C</span>
+  <span class="alpha-btn">D</span>
+  <span class="alpha-btn">E</span>
+  <span class="alpha-btn">F</span>
+  <span class="alpha-btn">G</span>
+  <span class="alpha-btn">I</span>
+  <span class="alpha-btn">L</span>
+  <span class="alpha-btn">M</span>
+  <span class="alpha-btn">N</span>
+  <span class="alpha-btn">O</span>
+  <span class="alpha-btn">P</span>
+  <span class="alpha-btn">R</span>
+  <span class="alpha-btn">S</span>
+  <span class="alpha-btn">T</span>
+  <span class="alpha-btn">U</span>
+  <span class="alpha-btn">V</span>
+  <span class="alpha-btn">W</span>
+</div>
+
+<!-- ======= A ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">A</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Acquirer</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Ngân hàng có quan hệ kinh doanh với các nhà bán lẻ, nhà cung cấp dịch vụ để xử lý giao dịch thẻ thanh toán. Acquirer thu về khoản thanh toán tài chính từ các tổ chức phát hành thẻ thông qua các sơ đồ thẻ (card schemes), đồng thời duy trì hệ thống thanh toán bù trừ và thanh toán cho nhà bán lẻ, đổi lại thu phí dịch vụ.</div>
+      <div class="term-vi">Ngân hàng thanh toán / Ngân hàng tiếp nhận</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Agency arrangement</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Một cơ sở do Thành viên Thanh toán (Settlement Member) cung cấp cho một tổ chức không phải thành viên thanh toán, cho phép tổ chức đó thu thập và thanh toán các khoản mục thay mặt cho chính họ và khách hàng của họ.</div>
+      <div class="term-vi">Thỏa thuận đại lý</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Assets</span>
+      </div>
+      <div class="term-def">Tài sản hữu hình hoặc vô hình như tòa nhà (tài sản hữu hình) hoặc các khoản vay ngân hàng (tài sản vô hình của ngân hàng).</div>
+      <div class="term-vi">Tài sản</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">ATM (Automated Teller Machine)</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Còn được gọi là máy rút tiền (cash machine) hoặc máy phân phối tiền (cash dispenser). Thiết bị điện tử tự động cho phép chủ tài khoản thực hiện các giao dịch ngân hàng cơ bản mà không cần sự hỗ trợ của giao dịch viên.</div>
+      <div class="term-vi">Máy rút tiền tự động</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= B ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">B</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Barter</span></div>
+      <div class="term-def">Trao đổi hàng hóa trực tiếp, không thông qua tiền tệ.</div>
+      <div class="term-vi">Trao đổi hàng hóa (hàng đổi hàng)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Base rate</span>
+        <span class="term-badge">UK Specific</span>
+        <span class="term-badge">Finance</span>
+      </div>
+      <div class="term-def">Mức lãi suất thấp nhất mà ngân hàng sẽ tính tiền vay. Các ngân hàng thường tính lãi theo công thức "trên lãi suất cơ bản một lượng nhất định", và con số này phụ thuộc vào nhiều yếu tố liên quan đến khoản vay và người vay.</div>
+      <div class="term-vi">Lãi suất cơ bản</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Bill of exchange</span>
+        <span class="term-badge">Finance</span>
+      </div>
+      <div class="term-def">Lệnh viết của một người gửi đến một người khác, yêu cầu thanh toán một khoản tiền xác định cho một người hoặc người cầm phiếu vào một ngày cụ thể.</div>
+      <div class="term-vi">Hối phiếu / Lệnh thanh toán</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Branch ATM</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Chỉ vị trí của ATM tại cơ sở của ngân hàng hoặc tổ chức xây dựng; bao gồm tất cả ATM, dù bên trong hoặc lắp đặt ở tường ngoài.</div>
+      <div class="term-vi">ATM tại chi nhánh</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Broad money</span></div>
+      <div class="term-def">Tổng lượng tiền trong nền kinh tế tại một thời điểm nhất định.</div>
+      <div class="term-vi">Tiền rộng / Cung tiền rộng (M2/M3)</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= C ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">C</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Card-not-present (CNP)</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Giao dịch trong đó nhà bán lẻ, nhà bán lẻ trực tuyến hoặc nhà cung cấp dịch vụ không có quyền truy cập vật lý vào thẻ thanh toán; ví dụ các giao dịch qua điện thoại, đặt hàng qua thư hoặc internet.</div>
+      <div class="term-vi">Giao dịch không có thẻ (thương mại điện tử, MOTO)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Capital</span>
+        <span class="term-badge">Finance</span>
+      </div>
+      <div class="term-def">Tổng tài sản của một cá nhân trừ đi nợ phải trả (liabilities).</div>
+      <div class="term-vi">Vốn / Vốn chủ sở hữu thuần</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">CBT – Collecting Bank Truncation</span></div>
+      <div class="term-def">Quy trình cắt bớt séc tại ngân hàng thu hộ; thay vì chuyển séc vật lý, ngân hàng truyền thông tin điện tử về séc đến ngân hàng thanh toán.</div>
+      <div class="term-vi">Cắt bớt séc tại ngân hàng thu hộ</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Cheque clearing</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Quá trình thanh toán bù trừ hoạt động để xuất trình và trao đổi séc giữa các Thành viên Thanh toán và các chi nhánh của họ nhằm chuyển tiền đến các tài khoản đích.</div>
+      <div class="term-vi">Thanh toán bù trừ séc</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Conversion</span></div>
+      <div class="term-def">Một hành vi vi phạm pháp lý (tort) trong đó chủ sở hữu hợp pháp bị từ chối quyền sở hữu tài sản của mình. Đối với séc, điều này có nghĩa là thanh toán séc cho người không có quyền hợp pháp thay vì chủ sở hữu đúng.</div>
+      <div class="term-vi">Chuyển đổi trái phép (vi phạm quyền sở hữu)</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= D ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">D</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Deposit account</span></div>
+      <div class="term-def">Tài khoản tiết kiệm tại ngân hàng, thường yêu cầu thông báo 7 ngày trước khi rút tiền. Hưởng lãi suất thường ngang bằng hoặc thấp hơn lãi suất cơ bản hiện hành. Thời gian thông báo cũng ảnh hưởng đến lãi suất. Không phát hành séc cho tài khoản tiền gửi.</div>
+      <div class="term-vi">Tài khoản tiền gửi có kỳ hạn / Tài khoản tiết kiệm</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Direct credit</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Giao dịch ghi có điện tử vào tài khoản khách hàng được khởi xướng trực tiếp bởi người thanh toán. Ghi có trực tiếp chủ yếu bao gồm các khoản thanh toán từ doanh nghiệp đến cá nhân: tiền lương, lương hưu, phúc lợi nhà nước, hoàn thuế, và các khoản thanh toán từ doanh nghiệp cho đối tác thương mại hoặc cá nhân thanh toán hóa đơn.</div>
+      <div class="term-vi">Chuyển khoản trực tiếp / Ghi có trực tiếp</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Direct debit</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Lệnh ghi nợ được uỷ quyền trước trên tài khoản của người thanh toán, được khởi xướng bởi người thụ hưởng (còn gọi là originator). Thường dùng để thanh toán định kỳ các khoản nợ như hóa đơn điện nước, bảo hiểm, và các khoản thanh toán có thể thay đổi theo thời gian.</div>
+      <div class="term-vi">Ghi nợ trực tiếp (BACS Direct Debit)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Direct payment</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Thanh toán phúc lợi nhà nước và lương hưu bằng hình thức ghi có trực tiếp vào tài khoản do người nhận chỉ định. Tài khoản có thể là tài khoản thanh toán thông thường tại ngân hàng/tổ chức tín dụng hoặc tài khoản thẻ bưu điện cơ bản.</div>
+      <div class="term-vi">Thanh toán trực tiếp (phúc lợi nhà nước)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Domestic Cheque Guarantee Card Scheme</span>
+        <span class="term-badge">UK Specific</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Chương trình của Vương quốc Anh mà các thành viên phát hành thẻ bảo lãnh séc (cheque guarantee cards) cho khách hàng cá nhân để bảo đảm séc đến một giá trị nhất định, đồng thời cung cấp các tính năng thiết kế thống nhất, dễ nhận biết để đơn giản hóa thủ tục chấp nhận tại điểm bán hàng.</div>
+      <div class="term-vi">Chương trình bảo lãnh séc nội địa</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Dynamic currency conversion (DCC)</span></div>
+      <div class="term-def">Dịch vụ mà một số nhà bán lẻ cung cấp cho chủ thẻ nước ngoài, theo đó việc chuyển đổi tiền tệ sang tiền tệ quê hương của chủ thẻ được thực hiện ngay tại điểm bán hàng.</div>
+      <div class="term-vi">Chuyển đổi tiền tệ động (tại điểm bán)</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= E ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">E</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Electronic banking</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Dịch vụ cho phép người dùng truy cập các tiện ích ngân hàng qua internet hoặc mạng máy tính khác.</div>
+      <div class="term-vi">Ngân hàng điện tử / Internet Banking</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Equitable mortgage</span></div>
+      <div class="term-def">Được tạo ra bằng cách ký gửi giấy tờ quyền sở hữu với ý định rằng chúng sẽ được coi là tài sản bảo đảm. Yếu hơn thế chấp pháp lý đầy đủ; nhà cung cấp bảo đảm cũng đồng ý tạo ra thế chấp pháp lý nếu ngân hàng yêu cầu.</div>
+      <div class="term-vi">Thế chấp công bằng (thế chấp bằng giấy tờ)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Equity</span></div>
+      <div class="term-def">Có hai nghĩa liên quan: (1) Cổ phiếu phổ thông trong một công ty; (2) Phần chênh lệch giữa giá trị bất động sản và khoản vay còn lại trên đó.</div>
+      <div class="term-vi">Vốn cổ phần / Giá trị thực của bất động sản</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Equity release scheme</span>
+        <span class="term-badge">Finance</span>
+      </div>
+      <div class="term-def">Chương trình được thiết kế để cho phép chủ nhà "giải phóng" tiền mặt từ giá trị bất động sản của họ.</div>
+      <div class="term-vi">Chương trình giải phóng vốn bất động sản (Equity Release)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Euro-denominated bulk debit clearing (euro debit clearing)</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Hệ thống bù trừ hoạt động để xuất trình và trao đổi các séc tính bằng đồng Euro được rút từ tài khoản Vương quốc Anh giữa các Thành viên Thanh toán và chi nhánh của họ, để chuyển tiền đến các tài khoản đích.</div>
+      <div class="term-vi">Thanh toán bù trừ séc số lượng lớn tính bằng Euro</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Euro</span>
+        <span class="term-badge">Finance</span>
+      </div>
+      <div class="term-def">Đồng tiền kế tiếp của Đơn vị tiền tệ châu Âu (ECU) là đồng tiền chung châu Âu. Đồng Euro được áp dụng tại 11 quốc gia thành viên vào ngày 1 tháng 1 năm 1999: Áo, Bỉ, Phần Lan, Pháp, Đức, Ireland, Ý, Luxembourg, Hà Lan, Bồ Đào Nha và Tây Ban Nha.</div>
+      <div class="term-vi">Đồng Euro</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Eurocheque</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Chương trình của Europay, bị rút khỏi vào ngày 1 tháng 1 năm 2002, cho phép rút tiền mặt bằng thẻ nhựa và thanh toán bán lẻ bằng séc thống nhất (eurocheques) rút từ tài khoản thanh toán thông thường của khách hàng bằng tiền tệ của quốc gia nơi giao dịch diễn ra.</div>
+      <div class="term-vi">Séc châu Âu (đã bị bãi bỏ năm 2002)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Exchange rate</span></div>
+      <div class="term-def">Giá của tiền tệ của một quốc gia tính bằng tiền tệ của một quốc gia khác.</div>
+      <div class="term-vi">Tỷ giá hối đoái</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Exchange rate mechanism</span></div>
+      <div class="term-def">Cơ chế theo đó các thành viên của EC (Cộng đồng châu Âu) trước đây duy trì tỷ giá hối đoái trong giới hạn trên và dưới nhất định. Vào tháng 1 năm 1999, một số thành viên EC đã chấp nhận đồng Euro làm tiền tệ quốc gia.</div>
+      <div class="term-vi">Cơ chế tỷ giá hối đoái (ERM)</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= F ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">F</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Financial intermediary</span></div>
+      <div class="term-def">Tổ chức hoặc cá nhân (thường là nhân viên bán hàng) làm trung gian giữa người cho vay cuối cùng và người vay cuối cùng.</div>
+      <div class="term-vi">Trung gian tài chính</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Fiscal policy</span>
+        <span class="term-badge">Finance</span>
+      </div>
+      <div class="term-def">Việc sử dụng chi tiêu và thuế của chính phủ để đạt được các mục tiêu kinh tế. Đơn giản mà nói, thuế cao hơn làm giảm thu nhập khả dụng của người dân và kìm hãm chi tiêu, từ đó giảm áp lực lạm phát.</div>
+      <div class="term-vi">Chính sách tài khóa</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Floor limit</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Giới hạn giá trị của mỗi giao dịch được thỏa thuận giữa nhà bán lẻ và ngân hàng thanh toán, vượt quá mức này nhà bán lẻ phải xin ủy quyền từ tổ chức phát hành thẻ.</div>
+      <div class="term-vi">Hạn mức sàn (ngưỡng ủy quyền)</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= G ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">G</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">General lien</span></div>
+      <div class="term-def">Quyền pháp lý của chủ nợ để tịch thu tài sản của con nợ nhằm thanh toán khoản nợ đang tồn đọng.</div>
+      <div class="term-vi">Quyền cầm giữ tài sản (bảo đảm nói chung)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Giro</span></div>
+      <div class="term-def">Hệ thống thanh toán tập trung, sử dụng rộng rãi ở châu Âu và được vận hành bởi các ngân hàng bù trừ, trong đó phiếu giấy/chứng từ hướng dẫn chi nhánh ngân hàng ghi có một khoản tiền vào một tài khoản cụ thể tại chi nhánh đó.</div>
+      <div class="term-vi">Hệ thống Giro (chuyển khoản qua bưu điện/ngân hàng)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Guarantee</span></div>
+      <div class="term-def">Thỏa thuận bằng văn bản của một người (người bảo lãnh) chịu trách nhiệm về các khoản nợ hoặc nghĩa vụ của người khác.</div>
+      <div class="term-vi">Bảo lãnh</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= I ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">I</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">IBDE – Inter Bank Data Exchange</span></div>
+      <div class="term-def">Hệ thống trao đổi dữ liệu liên ngân hàng của Vương quốc Anh.</div>
+      <div class="term-vi">Trao đổi dữ liệu liên ngân hàng (hệ thống UK)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Inflation</span>
+        <span class="term-badge">Finance</span>
+      </div>
+      <div class="term-def">Sự tăng giá trong nền kinh tế theo thời gian; thường được tính hàng năm để so sánh.</div>
+      <div class="term-vi">Lạm phát</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">In-house payment</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Khoản thanh toán giữa các tài khoản khác nhau được lưu giữ tại cùng một chi nhánh của một tổ chức tài chính.</div>
+      <div class="term-vi">Thanh toán nội bộ (cùng chi nhánh)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Interchange</span></div>
+      <div class="term-def">Phí có thể được thanh toán giữa hai ngân hàng mỗi lần một thẻ được sử dụng.</div>
+      <div class="term-vi">Phí trao đổi liên ngân hàng (Interchange fee)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Insolvency</span></div>
+      <div class="term-def">Tình trạng một cá nhân hoặc công ty không có khả năng thanh toán các khoản nợ khi đến hạn.</div>
+      <div class="term-vi">Mất khả năng thanh toán / Phá sản</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Inter-bank clearing</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Quá trình thanh toán bù trừ giữa hai Thành viên Thanh toán.</div>
+      <div class="term-vi">Thanh toán bù trừ liên ngân hàng</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Inter-branch clearing</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Còn gọi là bù trừ nội bộ ngân hàng (intra-bank clearing). Quá trình thanh toán bù trừ giữa các chi nhánh hoặc đại lý của cùng một Thành viên Thanh toán.</div>
+      <div class="term-vi">Thanh toán bù trừ liên chi nhánh</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Inter-bank routing and switching</span></div>
+      <div class="term-def">Thuật ngữ dùng trong xử lý giao dịch thẻ. Sử dụng thông tin trong số tài khoản thẻ, hệ thống xử lý của công ty thẻ (như Visa) sẽ tự động gửi yêu cầu ủy quyền và thông điệp bù trừ/thanh toán đến ngân hàng phát hành thẻ của chủ thẻ.</div>
+      <div class="term-vi">Định tuyến và chuyển mạch liên ngân hàng</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= L ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">L</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Law</span>
+      </div>
+      <div class="term-def">Hệ thống giải quyết tranh chấp giữa xã hội và cá nhân (luật hình sự) và giữa các cá nhân với nhau (luật dân sự).</div>
+      <div class="term-vi">Pháp luật</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Laundering</span>
+        <span class="term-badge">Finance</span>
+      </div>
+      <div class="term-def">Thao túng tiền thu được từ hành vi sai trái (như trộm cắp) sao cho có vẻ xuất phát từ nguồn hợp pháp. Ví dụ điển hình là nạp tiền bất hợp pháp vào ngân hàng nước ngoài và sau đó chuyển ngược về nước.</div>
+      <div class="term-vi">Rửa tiền (Money Laundering)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Legacy currency</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Đồng tiền quốc gia cũ của các quốc gia trong Liên minh Kinh tế và Tiền tệ (EMU). Các quốc gia này hiện đã chuyển sang sử dụng đồng Euro làm tiền tệ quốc gia.</div>
+      <div class="term-vi">Đồng tiền kế thừa (tiền tệ cũ trước Euro)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Legal charge / mortgage</span>
+      </div>
+      <div class="term-def">Hợp đồng giữa bên cho vay và bên đi vay (hoặc nhà cung cấp bảo đảm), trao cho bên cho vay các quyền pháp lý (bao gồm quyền bán) đối với tài sản sau khi bên đi vay vi phạm nghĩa vụ.</div>
+      <div class="term-vi">Thế chấp pháp lý</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Leisure ATM</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Chỉ vị trí của ATM tại các trung tâm thể thao và giải trí, khách sạn, khu cắm trại, sòng bạc, rạp chiếu phim, sân vận động, vườn thú, v.v.</div>
+      <div class="term-vi">ATM tại khu vực giải trí</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">LINK</span>
+        <span class="term-badge">UK Specific</span>
+      </div>
+      <div class="term-def">LINK Interchange Network Ltd là công ty trách nhiệm hữu hạn thuộc sở hữu của 22 ngân hàng và tổ chức xây dựng lớn nhất Vương quốc Anh. LINK có hai bộ phận: Công ty Vận hành cung cấp dịch vụ (kể cả thanh toán) để chia sẻ ATM trên toàn Vương quốc Anh; Chương trình Thẻ xác định các quy tắc vận hành và điều khoản giao dịch giữa các thành viên. Thẻ được kích hoạt LINK do tất cả tổ chức phát hành thẻ Anh cấp phát, có thể sử dụng hầu hết ATM tại Anh.</div>
+      <div class="term-vi">Mạng lưới ATM LINK (UK)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Loyalty card</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Thẻ thường do nhà bán lẻ hoặc nhóm nhà bán lẻ phát hành, mang lại phần thưởng hoặc chiết khấu cho chủ thẻ.</div>
+      <div class="term-vi">Thẻ tích điểm khách hàng thân thiết</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= M ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">M</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Merchant</span></div>
+      <div class="term-def">Nhà bán lẻ hoặc nhà cung cấp dịch vụ chấp nhận thanh toán bằng thẻ.</div>
+      <div class="term-vi">Nhà bán lẻ / Đơn vị chấp nhận thẻ</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Merger</span>
+        <span class="term-badge">Finance</span>
+      </div>
+      <div class="term-def">Quá trình hai công ty hợp nhất thành một. Nếu các công ty được niêm yết, việc sáp nhập có thể bằng thỏa thuận hoặc thù địch. Một đề nghị thù địch là đề nghị mà ban giám đốc của công ty mục tiêu từ chối phương án này, nhưng công ty mua vẫn có thể giành quyền kiểm soát nếu đủ số cổ đông của công ty mục tiêu chấp nhận đề nghị.</div>
+      <div class="term-vi">Sáp nhập (M&A)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Mobile ATM</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Chỉ vị trí của ATM thường xuyên di chuyển giữa các địa điểm, ví dụ tại các triển lãm, show diễn, rạp xiếc.</div>
+      <div class="term-vi">ATM di động</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Mobile payment</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Khoản thanh toán liên quan đến việc sử dụng điện thoại di động. Mạng điện thoại có thể được sử dụng để xác thực khách hàng, hoặc khoản thanh toán có thể bao gồm khoản ghi nợ vào tài khoản của khách hàng giữ với nhà khai thác mạng di động hoặc nhà cung cấp dịch vụ khác.</div>
+      <div class="term-vi">Thanh toán di động (Mobile Payment)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">MO/TO</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Từ viết tắt cho Mail Order/Telephone Order (đặt hàng qua thư/điện thoại), dùng để chỉ các giao dịch không có thẻ vật lý.</div>
+      <div class="term-vi">Đặt hàng qua thư/điện thoại (không có thẻ)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Monetary policy</span>
+        <span class="term-badge">Finance</span>
+      </div>
+      <div class="term-def">Kiểm soát cung tiền và lãi suất bởi chính phủ để đạt các mục tiêu kinh tế, đặc biệt là kiểm soát lạm phát.</div>
+      <div class="term-vi">Chính sách tiền tệ</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Money mule</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">"Lừa tiền" hay "đại lý chuyển tiền" là người được các đối tượng gian lận tuyển dụng để rửa số tiền thu được từ lừa đảo phishing và Trojan.</div>
+      <div class="term-vi">Người chuyển tiền cho tội phạm (money mule)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Mortgage</span>
+        <span class="term-badge">Finance</span>
+      </div>
+      <div class="term-def">Khoản vay trong đó người vay (bên thế chấp) đưa ra bất động sản và đất đai làm tài sản đảm bảo cho bên cho vay (bên nhận thế chấp) cho đến khi khoản vay được thanh toán. Các khoản trả nợ thường được thực hiện hàng tháng trong thời gian dài, thông thường là 25 năm. Tại Vương quốc Anh, các hình thức thế chấp phổ biến nhất là thế chấp trả cả gốc và lãi, và thế chấp chỉ trả lãi.</div>
+      <div class="term-vi">Thế chấp bất động sản / Vay mua nhà</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Multifunction card</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Thẻ thanh toán thực hiện hai hoặc nhiều chức năng, thường là thẻ ghi nợ đồng thời cung cấp chức năng ATM và/hoặc bảo lãnh séc.</div>
+      <div class="term-vi">Thẻ đa chức năng</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= N ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">N</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Narrow money</span></div>
+      <div class="term-def">Tổng lượng tiền được sử dụng trong một quốc gia làm phương tiện thanh toán. Thông thường chỉ bao gồm tiền giấy và tiền xu nhưng đôi khi bao gồm cả tài khoản thanh toán hiện tại.</div>
+      <div class="term-vi">Tiền hẹp / Cung tiền hẹp (M1)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">National Savings</span>
+        <span class="term-badge">UK Specific</span>
+      </div>
+      <div class="term-def">Nhiều chương trình tiết kiệm khác nhau, được Chính phủ hậu thuẫn, trong đó công chúng có thể tham gia.</div>
+      <div class="term-vi">Tiết kiệm quốc gia (UK)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Non-bank financial intermediary (NBFI)</span></div>
+      <div class="term-def">Tập hợp đa dạng các tổ chức, từ cho thuê tài chính đến factoring. Đặc điểm chung là các tổ chức này huy động tiết kiệm và tài trợ cho các hoạt động khác nhau, nhưng không nhận tiền gửi từ công chúng. NBFI đóng vai trò kép quan trọng trong hệ thống tài chính, bổ sung cho vai trò của ngân hàng thương mại bằng cách lấp đầy khoảng trống trong phạm vi dịch vụ.</div>
+      <div class="term-vi">Tổ chức tài chính phi ngân hàng (NBFI)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Not-on-us transaction</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Giao dịch trong đó thẻ được sử dụng tại ATM do một tổ chức khác (không phải tổ chức phát hành thẻ) sở hữu.</div>
+      <div class="term-vi">Giao dịch tại ATM của ngân hàng khác</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= O ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">O</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Other financial intermediary (OFI)</span></div>
+      <div class="term-def">Thuật ngữ của Liên minh châu Âu cho công ty bảo hiểm hoặc quỹ hưu trí.</div>
+      <div class="term-vi">Trung gian tài chính khác (bảo hiểm, quỹ hưu trí)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Overdraft</span></div>
+      <div class="term-def">Hạn mức tín dụng thông thường tại ngân hàng, cho phép chủ tài khoản vay đến một số tiền đã thỏa thuận và thường theo lãi suất đã thỏa thuận.</div>
+      <div class="term-vi">Thấu chi (Overdraft)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">On-site / Off-site ATM</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">"On-site" chỉ ATM được đặt tại cơ sở của ngân hàng hoặc tổ chức xây dựng. "Off-site" chỉ ATM đặt bên ngoài cơ sở này.</div>
+      <div class="term-vi">ATM tại cơ sở / ATM ngoài cơ sở</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">On-us transaction</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Giao dịch trong đó thẻ được sử dụng tại ATM do tổ chức phát hành thẻ sở hữu.</div>
+      <div class="term-vi">Giao dịch tại ATM của ngân hàng phát hành thẻ</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Other retail ATM</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Chỉ vị trí của ATM tại các cửa hàng bách hóa, chuỗi bán lẻ quốc gia, trung tâm mua sắm, công viên bán lẻ, v.v.</div>
+      <div class="term-vi">ATM tại khu vực bán lẻ (ngoài ngân hàng)</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= P ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">P</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">PIN (Personal Identification Number)</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Tập hợp các ký tự, thường là chuỗi 4 chữ số, được chủ thẻ sử dụng để xác minh danh tính tại điểm bán hàng hoặc thiết bị tự kích hoạt như ATM.</div>
+      <div class="term-vi">Mã số nhận dạng cá nhân (PIN)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Phishing</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Hoạt động gửi email hàng loạt giả mạo xuất phát từ một công ty nổi tiếng trên internet, nhằm đánh lừa khách hàng của công ty đó tiết lộ thông tin tại một trang web giả mạo do kẻ gian lận vận hành.</div>
+      <div class="term-vi">Tấn công lừa đảo trực tuyến (Phishing)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Plus</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Thương hiệu của Visa biểu thị chấp nhận ATM toàn cầu.</div>
+      <div class="term-vi">Thương hiệu Plus (Visa ATM toàn cầu)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">POS (Point-of-sale)</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Địa điểm vật lý nơi khách hàng thực hiện giao dịch mua hàng.</div>
+      <div class="term-vi">Điểm bán hàng (POS)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">POS terminal</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Thiết bị điện tử dùng để xử lý thanh toán bằng thẻ tại điểm bán hàng.</div>
+      <div class="term-vi">Máy POS / Thiết bị đầu cuối tại điểm bán</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">POS transaction</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Giao dịch thực hiện tại điểm bán hàng.</div>
+      <div class="term-vi">Giao dịch tại điểm bán hàng</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Post Office card account</span>
+        <span class="term-badge">UK Specific</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Dịch vụ tại Vương quốc Anh từ tháng 4 năm 2003. Tài khoản này chỉ có thể nhận thanh toán phúc lợi nhà nước, lương hưu và tín dụng thuế.</div>
+      <div class="term-vi">Tài khoản thẻ Bưu điện (UK)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Prepayment card</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Còn gọi là ví điện tử. Thẻ thanh toán lưu trữ giá trị dùng để trả tiền hàng hóa và dịch vụ. Đây là sự thay thế cho tiền mặt.</div>
+      <div class="term-vi">Thẻ trả trước (Prepaid Card)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Principal</span></div>
+      <div class="term-def">Số tiền gốc (vốn) của một khoản vay, sau đó giảm đi theo các khoản trả nợ gốc hoặc tăng lên do không trả lãi. Thuật ngữ này cũng chỉ một người hoặc công ty mà đại lý hành động thay mặt.</div>
+      <div class="term-vi">Nợ gốc / Người ủy quyền</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= R ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">R</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Recurring transaction</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Ủy quyền tính phí giao dịch vào thẻ tín dụng hoặc thẻ tính phí theo định kỳ thường xuyên (thường là hàng tháng), được cấp bởi chủ thẻ cho nhà bán lẻ, nhà bán lẻ hoặc nhà cung cấp dịch vụ khác.</div>
+      <div class="term-vi">Giao dịch định kỳ lặp lại</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Reference</span></div>
+      <div class="term-def">Thư tham chiếu do một ngân hàng cung cấp theo yêu cầu của công ty hoặc cá nhân liên quan đến mức độ tín nhiệm của một công ty hoặc cá nhân khác, để đánh giá có nên cung cấp điều kiện thanh toán tín dụng hay không. Còn được gọi là thẩm định trạng thái.</div>
+      <div class="term-vi">Thư tham chiếu tín dụng / Thẩm định tín nhiệm</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Risk</span></div>
+      <div class="term-def">Xác suất thống kê của một giao dịch không được hoàn thành hoặc một khoản vay không được hoàn trả.</div>
+      <div class="term-vi">Rủi ro tín dụng</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Retail prices index (RPI)</span></div>
+      <div class="term-def">Chỉ số giá của một rổ hàng hóa và dịch vụ tiêu dùng dùng để đo lường tốc độ lạm phát. Còn gọi là lạm phát tiêu đề.</div>
+      <div class="term-vi">Chỉ số giá bán lẻ (RPI)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">RPIX</span></div>
+      <div class="term-def">Chỉ số giá bán lẻ không bao gồm lãi suất thế chấp. Còn gọi là lạm phát cơ bản (underlying inflation).</div>
+      <div class="term-vi">RPIX – Chỉ số giá bán lẻ loại trừ lãi suất thế chấp</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= S ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">S</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Secrecy</span></div>
+      <div class="term-def">Một trong những yếu tố chính đặc trưng cho mối quan hệ khách hàng – ngân hàng. Ngân hàng có nghĩa vụ duy trì bí mật về các giao dịch của khách hàng với ngân hàng.</div>
+      <div class="term-vi">Bảo mật thông tin khách hàng</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Security</span></div>
+      <div class="term-def">Tài sản được người vay đưa ra cho người cho vay để bảo đảm khoản vay. Còn được gọi là "tài sản thế chấp" (collateral).</div>
+      <div class="term-vi">Tài sản bảo đảm / Thế chấp</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Settlement Member</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Thành viên của hệ thống thanh toán bù trừ có khả năng thực hiện và nhận thanh toán giá trị bù trừ qua tài khoản tại Ngân hàng Trung ương Anh.</div>
+      <div class="term-vi">Thành viên thanh toán / Thành viên quyết toán</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Set off</span></div>
+      <div class="term-def">Quá trình ngân hàng bù trừ hoặc kết hợp các tài khoản được lưu giữ cùng tên và năng lực, miễn là các khoản tiền trong mỗi tài khoản là chắc chắn (không có nợ tiềm tàng).</div>
+      <div class="term-vi">Bù trừ tài khoản (Set-off)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Solo</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Thẻ ghi nợ. Tất cả các giao dịch mua bằng thẻ Solo đều phải qua ủy quyền điện tử.</div>
+      <div class="term-vi">Solo – Thẻ ghi nợ (UK)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Stand-alone card</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Thẻ nhựa có chức năng duy nhất. Thuật ngữ thường được sử dụng trong bối cảnh thẻ chỉ ATM để chỉ thẻ do ngân hàng và tổ chức xây dựng phát hành (thẻ liên quan đến sản phẩm tiết kiệm) để rút tiền mặt tại ATM nhưng không thể dùng để mua hàng.</div>
+      <div class="term-vi">Thẻ đơn chức năng (chỉ ATM)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Standing order</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Lệnh từ khách hàng đến ngân hàng hoặc tổ chức tín dụng để thực hiện thanh toán tự động định kỳ với số tiền xác định cho một chủ nợ được chỉ định. Thuật ngữ này cũng được dùng để chỉ các khoản thanh toán riêng lẻ phát sinh từ lệnh đó.</div>
+      <div class="term-vi">Lệnh chuyển khoản thường xuyên (Standing Order)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">SWIFT – Society for Worldwide Interbank Financial Telecommunications</span></div>
+      <div class="term-def">Hệ thống thông điệp quốc tế dùng cho thanh toán giữa các quốc gia, được vận hành bởi Hiệp hội Viễn thông Tài chính Liên ngân hàng Toàn cầu.</div>
+      <div class="term-vi">Mạng lưới thanh toán quốc tế SWIFT</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Switch</span>
+        <span class="term-badge">UK Specific</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Chương trình thẻ ghi nợ của Vương quốc Anh, được đổi tên thành Maestro kể từ ngày 1 tháng 7 năm 2004.</div>
+      <div class="term-vi">Switch – Thẻ ghi nợ UK (nay là Maestro)</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= T ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">T</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">TARGET – Trans-European Automated Real-time Gross Settlement Express Transfer System</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Hệ thống kết nối các hệ thống thanh toán tổng thời gian thực quốc gia của các Quốc gia Thành viên EU thông qua một bộ chuyển mạch thông điệp trung tâm.</div>
+      <div class="term-vi">Hệ thống thanh toán tổng thời gian thực xuyên châu Âu (TARGET)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Town clearing</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Hệ thống bù trừ thủ công, khối lượng thấp, giá trị lớn cùng ngày dành cho séc và các khoản ghi nợ khác, hoạt động giữa các chi nhánh trong khu vực được chỉ định tương đương với Thành phố London. Hệ thống Town clearing đã ngừng hoạt động vào ngày 24 tháng 2 năm 1995.</div>
+      <div class="term-vi">Bù trừ nội thành (UK – đã ngừng 1995)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">Trojans</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Lấy tên từ "Ngựa Thành Troy", Trojans là loại virus máy tính có thể được cài đặt vào máy tính mà người dùng không nhận ra. Trojans đôi khi có khả năng cài đặt "keystroke logger" ghi lại tất cả các phím gõ vào bàn phím máy tính.</div>
+      <div class="term-vi">Phần mềm độc hại Trojan</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Truncation</span></div>
+      <div class="term-def">Rút gọn quá trình bù trừ séc trước khi chu kỳ bù trừ hoàn thành. Truncation cho phép các thông điệp giao dịch điện tử thay thế việc xuất trình séc vật lý.</div>
+      <div class="term-vi">Cắt bớt séc / Xử lý điện tử séc (Cheque Truncation)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Telegraphic transfer (TT)</span></div>
+      <div class="term-def">Phương thức chuyển tiền ra nước ngoài từ ngân hàng này sang ngân hàng khác.</div>
+      <div class="term-vi">Chuyển tiền điện tín / Chuyển tiền quốc tế (TT/Wire Transfer)</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= U ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">U</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row">
+        <span class="term-name">US dollar clearing</span>
+        <span class="term-badge">UK Specific</span>
+        <span class="term-badge">APACS</span>
+      </div>
+      <div class="term-def">Hệ thống bù trừ tiền tệ hoạt động duy nhất còn lại dưới sự bảo trợ của Ủy ban Bù trừ Tiền tệ. Hệ thống xử lý các chứng từ giấy rút từ hoặc thanh toán tại các chi nhánh tại Anh của các thành viên và các thành viên có thỏa thuận đại lý.</div>
+      <div class="term-vi">Bù trừ đồng đô la Mỹ (UK)</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= V ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">V</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">VADD – Variable Amount Direct Debit</span></div>
+      <div class="term-def">Ủy quyền ghi nợ trực tiếp không có số tiền cố định. Điều này cho phép người dùng gốc, chẳng hạn như người cho vay thế chấp, thay đổi mức thanh toán mà không cần con nợ phải thực hiện bất kỳ hành động nào.</div>
+      <div class="term-vi">Ghi nợ trực tiếp số tiền thay đổi (VADD)</div>
+    </li>
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Visa Intelligent Scoring Of Risk (VISOR)</span></div>
+      <div class="term-def">Hệ thống phát hiện gian lận tinh vi được Visa Europe phát triển và cung cấp cho các ngân hàng thành viên.</div>
+      <div class="term-vi">Hệ thống chấm điểm rủi ro thông minh VISOR (Visa)</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ======= W ======= -->
+<div class="glossary-letter">
+  <div class="letter-header">W</div>
+  <ul class="term-list">
+    <li class="term-item">
+      <div class="term-row"><span class="term-name">Web-based payment terminal</span></div>
+      <div class="term-def">Thiết bị đầu cuối thanh toán trên nền web là giao diện an toàn, dựa trên trình duyệt cho phép doanh nghiệp xử lý các giao dịch thẻ tín dụng.</div>
+      <div class="term-vi">Thiết bị đầu cuối thanh toán web (cổng thanh toán trực tuyến)</div>
+    </li>
+  </ul>
+</div>
+
+<div class="source-note">
+  <strong>Nguồn tham chiếu:</strong><br>
+  * Các thuật ngữ có dấu (*) được trích dẫn từ <strong>Association of Payment Clearing Services (APACS)</strong> — Hiệp hội Dịch vụ Bù trừ Thanh toán (Vương quốc Anh).<br>
+  † Các thuật ngữ có dấu (†) được trích dẫn từ <strong>Finance Glossary</strong> tại www.finance-glossary.com/pages/glossary.htm.<br>
+  Các thuật ngữ không có dấu là định nghĩa của tác giả.
+</div>
+
+<footer class="chapter-footer">
+  <span>Business Knowledge for IT in Retail Banking · Essvale Corporation Limited</span>
+  <span>Chương 10 / Trang 170–178</span>
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch9-bkrb.html"><span class="lbl">Chương trước</span>Chương 9: Các Dự Án CNTT Trong Ngân Hàng Bán Lẻ</a>
+  <a href="ch11-bkrb.html"><span class="lbl">Chương sau</span>Chương 11: Phương Pháp Luận, Kỹ Năng và Công Cụ</a>
+</nav>
+</body>
+</html>

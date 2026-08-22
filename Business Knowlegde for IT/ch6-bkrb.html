@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 6 – Cho Vay Trong Ngân Hàng Bán Lẻ</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── Header ── */
+  .book-header {
+    border-bottom: 2px solid var(--accent-line);
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+  .book-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .book-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .chapter-number {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .chapter-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ── Nav ── */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    margin-bottom: 56px;
+  }
+  .toc-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .toc ol {
+    padding-left: 20px;
+  }
+  .toc li {
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+  .toc a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .toc a:hover {
+    border-bottom-color: var(--border-strong);
+  }
+
+  /* ── Sections ── */
+  section { margin-bottom: 56px; }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--border);
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 28px;
+    margin-bottom: 12px;
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+
+  p { margin-bottom: 14px; color: var(--text-secondary); }
+
+  /* ── Lists ── */
+  ul, ol {
+    padding-left: 22px;
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+  }
+  li { margin-bottom: 6px; }
+  li strong { color: var(--text); }
+
+  /* ── Callout ── */
+  .callout {
+    border-left: 3px solid var(--accent-line);
+    background: var(--surface);
+    padding: 18px 22px;
+    margin: 24px 0;
+  }
+  .callout-label {
+    font-size: 10px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .callout p { margin-bottom: 0; }
+
+  /* ── Table ── */
+  .table-wrap { overflow-x: auto; margin: 24px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th {
+    background: var(--surface-dark);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  td {
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    vertical-align: top;
+    color: var(--text-secondary);
+  }
+  tr:nth-child(even) td { background: var(--surface); }
+
+  /* ── Acronym boxes ── */
+  .acronym-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .acronym-card {
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+  }
+  .acronym-letter {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .acronym-word {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .acronym-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ── Stat strip ── */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin: 24px 0;
+  }
+  .stat-cell {
+    background: var(--bg);
+    padding: 18px 20px;
+  }
+  .stat-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ── Flow ── */
+  .flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 20px 0;
+  }
+  .flow-step {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    text-align: center;
+    min-width: 100px;
+  }
+  .flow-arrow {
+    font-size: 18px;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  /* ── Scorecard visual ── */
+  .score-bar {
+    margin: 20px 0;
+  }
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .score-label {
+    width: 70px;
+    font-weight: 600;
+    color: var(--text);
+    flex-shrink: 0;
+  }
+  .score-track {
+    flex: 1;
+    height: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .score-fill {
+    height: 100%;
+    background: var(--text);
+    opacity: 0.15;
+  }
+  .score-fill.active {
+    opacity: 0.8;
+  }
+  .score-meta {
+    width: 100px;
+    color: var(--text-muted);
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  /* ── Credit lifecycle ── */
+  .lifecycle {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 24px 0;
+  }
+  .lifecycle-stage {
+    border: 1px solid var(--border);
+    border-bottom: none;
+    padding: 16px 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .lifecycle-stage:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+  .lifecycle-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
+  }
+  .lifecycle-name {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .lifecycle-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ── Comparison table highlight ── */
+  .comparison th:nth-child(2) { background: var(--surface-dark); }
+  .comparison td:nth-child(2) { background: var(--surface); font-weight: 500; color: var(--text); }
+
+  /* ── Credit category section ── */
+  .cra-category {
+    border: 1px solid var(--border);
+    margin: 16px 0;
+    overflow: hidden;
+  }
+  .cra-category-header {
+    background: var(--surface-dark);
+    padding: 10px 16px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .cra-category-body {
+    padding: 16px 20px;
+  }
+
+  /* ── Footer ── */
+  .chapter-footer {
+    margin-top: 72px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/business-knowledge-it-retail-banking">← Về mục lục</a></p>
+
+<header class="book-header">
+  <div class="book-label">Business Knowledge for IT in Retail Banking · Essvale Corporation Limited</div>
+  <div class="book-title">A Complete Handbook for IT Professionals</div>
+  <div class="chapter-number">Chương 6</div>
+  <h1>Cho Vay Trong Ngân Hàng Bán Lẻ</h1>
+  <div class="chapter-meta">Trang sách 95–113 &nbsp;·&nbsp; Ngôn ngữ: Tiếng Việt</div>
+</header>
+
+<nav class="toc">
+  <div class="toc-label">Nội dung chương</div>
+  <ol>
+    <li><a href="#campari-ice">Nguyên tắc CAMPARI &amp; ICE</a></li>
+    <li><a href="#so-lieu">Số liệu thống kê về cho vay tại Anh</a></li>
+    <li><a href="#tai-san-dam-bao">Tài sản đảm bảo &amp; Nguyên tắc MAST</a></li>
+    <li><a href="#chi-phi-tin-dung">Chi phí tín dụng &amp; APR</a></li>
+    <li><a href="#5cs">Kinh tế học tín dụng – 5 Chữ C</a></li>
+    <li><a href="#kha-nang-tin-dung">Khả năng tín dụng &amp; Tỷ lệ Tốt:Xấu</a></li>
+    <li><a href="#don-vay">Phương thức xét duyệt đơn vay</a></li>
+    <li><a href="#scorecard">Thẻ điểm tín dụng (Credit Scorecards)</a></li>
+    <li><a href="#cai-dat-ky-thuat">Triển khai kỹ thuật mô hình chấm điểm</a></li>
+    <li><a href="#tham-chieu">Tra cứu thông tin tín dụng (Credit Referencing)</a></li>
+    <li><a href="#vong-doi">Vòng đời quản lý tín dụng (Credit Life Cycle)</a></li>
+  </ol>
+</nav>
+
+<!-- 1. CAMPARI & ICE -->
+<section id="campari-ice">
+  <h2>1. Nguyên tắc CAMPARI &amp; ICE</h2>
+  <p>Khi xem xét một khoản vay, các ngân hàng bán lẻ truyền thống áp dụng hai khung đánh giá bổ sung cho nhau: <strong>CAMPARI</strong> (đánh giá khả năng trả nợ) và <strong>ICE</strong> (đánh giá lợi ích kinh tế cho ngân hàng).</p>
+
+  <h3>Khung CAMPARI</h3>
+  <div class="acronym-grid">
+    <div class="acronym-card">
+      <div class="acronym-letter">C</div>
+      <div class="acronym-word">Character – Tư cách</div>
+      <div class="acronym-desc">Lịch sử uy tín và đạo đức trả nợ của người vay. Đây là yếu tố chủ quan nhưng quan trọng nhất – một người có thu nhập cao nhưng có lịch sử trốn nợ sẽ bị từ chối.</div>
+    </div>
+    <div class="acronym-card">
+      <div class="acronym-letter">A</div>
+      <div class="acronym-word">Ability – Năng lực</div>
+      <div class="acronym-desc">Khả năng thực tế để trả nợ dựa trên thu nhập và chi tiêu hiện tại. Thường được đo bằng tỷ lệ nợ/thu nhập (Debt-to-Income ratio).</div>
+    </div>
+    <div class="acronym-card">
+      <div class="acronym-letter">M</div>
+      <div class="acronym-word">Means/Margin – Phương tiện</div>
+      <div class="acronym-desc">Tổng tài sản ròng và biên độ an toàn tài chính của người vay – tức là còn "dư địa" tài chính sau khi trả khoản vay mới hay không.</div>
+    </div>
+    <div class="acronym-card">
+      <div class="acronym-letter">P</div>
+      <div class="acronym-word">Purpose – Mục đích</div>
+      <div class="acronym-desc">Mục đích sử dụng khoản vay phải hợp pháp và phù hợp với sản phẩm vay. Mục đích rõ ràng giúp đánh giá rủi ro tốt hơn.</div>
+    </div>
+    <div class="acronym-card">
+      <div class="acronym-letter">A</div>
+      <div class="acronym-word">Amount – Số tiền</div>
+      <div class="acronym-desc">Số tiền vay có phù hợp với mục đích và tương xứng với thu nhập/tài sản của người vay không. Quá cao hoặc quá thấp đều đáng ngờ.</div>
+    </div>
+    <div class="acronym-card">
+      <div class="acronym-letter">R</div>
+      <div class="acronym-word">Repayment/Term – Hoàn trả</div>
+      <div class="acronym-desc">Kế hoạch hoàn trả cụ thể: thời hạn vay, phương thức trả (đều hàng tháng, trả một lần cuối, v.v.) và tính thực tế của kế hoạch này.</div>
+    </div>
+    <div class="acronym-card">
+      <div class="acronym-letter">I</div>
+      <div class="acronym-word">Insurance – Bảo hiểm</div>
+      <div class="acronym-desc">Tài sản đảm bảo hoặc bảo hiểm tín dụng để bảo vệ ngân hàng nếu người vay mất khả năng trả nợ (bệnh tật, mất việc, tử vong).</div>
+    </div>
+  </div>
+
+  <h3>Khung ICE – Lợi ích cho ngân hàng</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Chữ</th>
+          <th>Tiếng Anh</th>
+          <th>Ý nghĩa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>I</strong></td>
+          <td>Interest</td>
+          <td>Lãi suất thu được từ khoản vay – nguồn doanh thu chính</td>
+        </tr>
+        <tr>
+          <td><strong>C</strong></td>
+          <td>Commission (Arrangement Fee)</td>
+          <td>Phí thu xếp vay – khoản thu một lần khi phát vay, thường là 1–3% giá trị khoản vay</td>
+        </tr>
+        <tr>
+          <td><strong>E</strong></td>
+          <td>Extras (Cross-sell)</td>
+          <td>Doanh thu từ sản phẩm kèm theo như bảo hiểm tín dụng, bảo hiểm nhân thọ gắn với khoản vay</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Cho vay có đảm bảo vs. không có đảm bảo</div>
+    <p><strong>Có đảm bảo (Secured):</strong> Khoản vay gắn với tài sản thế chấp (nhà, xe). Lãi suất thấp hơn do rủi ro thấp hơn – ngân hàng có quyền tịch thu tài sản nếu vỡ nợ.<br><br>
+    <strong>Không có đảm bảo (Unsecured):</strong> Không có tài sản thế chấp. Lãi suất cao hơn do rủi ro cao hơn – ngân hàng phụ thuộc hoàn toàn vào khả năng trả nợ của người vay.</p>
+  </div>
+</section>
+
+<!-- 2. Số liệu thống kê -->
+<section id="so-lieu">
+  <h2>2. Số liệu Thống kê về Cho vay tại Anh</h2>
+  <p>Nguồn: <em>Credit Action, tháng 4 năm 2007</em></p>
+
+  <div class="stat-strip">
+    <div class="stat-cell">
+      <div class="stat-value">£1,325 tỷ</div>
+      <div class="stat-label">Tổng nợ cá nhân tại Anh</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-value">+10,4%</div>
+      <div class="stat-label">Tăng trưởng nợ năm (tương đương +£114 tỷ)</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-value">£1,112 tỷ</div>
+      <div class="stat-label">Nợ bảo đảm bằng bất động sản (+11,4%)</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-value">£9,4 tỷ</div>
+      <div class="stat-label">Tổng cho vay mới tháng 4/2007</div>
+    </div>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-cell">
+      <div class="stat-value">74,4 triệu</div>
+      <div class="stat-label">Thẻ tín dụng/phí lưu hành (so với 60 triệu dân)</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-value">£511 tỷ</div>
+      <div class="stat-label">Tổng giao dịch thẻ năm 2006</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-value">17,1%</div>
+      <div class="stat-label">Lãi suất thẻ tín dụng trung bình (11,5% trên lãi suất cơ bản)</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-value">£8,9 tỷ</div>
+      <div class="stat-label">Cho vay có bảo đảm mới (tháng 4/2007)</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Tài sản đảm bảo & MAST -->
+<section id="tai-san-dam-bao">
+  <h2>3. Tài sản Đảm bảo &amp; Nguyên tắc MAST</h2>
+  <p>Khi cho vay có đảm bảo, ngân hàng nhận tài sản thế chấp để giảm thiểu tổn thất nếu người vay mất khả năng trả nợ. Các loại tài sản đảm bảo phổ biến:</p>
+  <ul>
+    <li><strong>Bất động sản</strong> (real estate) – phổ biến nhất với khoản vay thế chấp nhà ở</li>
+    <li><strong>Cổ phiếu &amp; trái phiếu</strong> (stocks and shares)</li>
+    <li><strong>Hợp đồng bảo hiểm nhân thọ</strong> (life assurance policies)</li>
+  </ul>
+
+  <h3>Nguyên tắc MAST – Tiêu chí đánh giá tài sản đảm bảo</h3>
+  <div class="acronym-grid">
+    <div class="acronym-card">
+      <div class="acronym-letter">M</div>
+      <div class="acronym-word">Marketability – Tính thanh khoản</div>
+      <div class="acronym-desc">Tài sản có thể bán được nhanh chóng trên thị trường công khai không? Bất động sản ở vị trí đắc địa có tính thanh khoản cao hơn nhà ở vùng xa.</div>
+    </div>
+    <div class="acronym-card">
+      <div class="acronym-letter">A</div>
+      <div class="acronym-word">Ascertainability of Value – Định giá được</div>
+      <div class="acronym-desc">Có thể xác định giá trị tài sản một cách khách quan không? Bất động sản và cổ phiếu niêm yết dễ định giá hơn tác phẩm nghệ thuật hay hàng hiếm.</div>
+    </div>
+    <div class="acronym-card">
+      <div class="acronym-letter">S</div>
+      <div class="acronym-word">Simplicity of Title – Danh nghĩa rõ ràng</div>
+      <div class="acronym-desc">Quyền sở hữu tài sản có rõ ràng, không tranh chấp không? Tài sản đang trong tranh tụng pháp lý không thể dùng làm đảm bảo.</div>
+    </div>
+    <div class="acronym-card">
+      <div class="acronym-letter">T</div>
+      <div class="acronym-word">Transferability of Title – Chuyển nhượng được</div>
+      <div class="acronym-desc">Quyền sở hữu có thể chuyển sang cho ngân hàng khi cần thiết không? Một số tài sản bị hạn chế chuyển nhượng theo luật hoặc hợp đồng.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Hình 6.1 – Quy trình thẩm định tài sản đảm bảo</div>
+    <div class="flow">
+      <div class="flow-step">Đặt cọc<br>(Deposit)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Kiểm tra<br>thực địa</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Định giá<br>(Valuation)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Phê duyệt<br>(Authorise)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Thông báo<br>(Notify)</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Chi phí tín dụng & APR -->
+<section id="chi-phi-tin-dung">
+  <h2>4. Chi phí Tín dụng &amp; APR</h2>
+  <p>Chi phí tín dụng là tổng số tiền mà người vay phải trả thêm ngoài khoản gốc, bao gồm lãi suất và phí.</p>
+
+  <h3>Lãi suất</h3>
+  <p>Ví dụ đơn giản: <strong>£10.000 vay trong 6 năm với lãi suất 6%/năm</strong></p>
+  <ul>
+    <li>Tổng lãi phải trả: £10.000 × 6% × 6 = <strong>£3.600</strong></li>
+    <li>Tổng số tiền hoàn trả: £13.600</li>
+  </ul>
+  <p>(Đây là phép tính lãi đơn giản. Thực tế, lãi thường được tính theo dư nợ giảm dần, dẫn đến tổng lãi thấp hơn.)</p>
+
+  <h3>APR (Annual Percentage Rate – Lãi suất Thực tế Hàng năm)</h3>
+  <p>APR là chỉ số pháp lý quan trọng phản ánh <strong>toàn bộ chi phí thực tế</strong> của khoản vay, bao gồm cả phí. Ví dụ từ BizEast:</p>
+
+  <div class="callout">
+    <div class="callout-label">Ví dụ tính APR thực tế – BizEast</div>
+    <p>
+      Khoản vay: <strong>£6.000</strong> tại lãi suất <strong>5,5%/năm</strong><br>
+      Phí thu xếp (arrangement fee): <strong>£90</strong><br>
+      ─────────────────────────────────<br>
+      Tổng chi phí tín dụng hàng năm: £6.000 × 5,5% + £90 = <strong>£420</strong><br>
+      APR thực tế = £420 / £6.000 = <strong>7%</strong> (không phải 5,5% như quảng cáo)<br>
+      ─────────────────────────────────<br>
+      Phí thu xếp đẩy APR từ 5,5% lên 7% — chênh lệch 1,5 điểm phần trăm.
+    </p>
+  </div>
+
+  <h3>Các biến thể lãi suất</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Loại lãi suất</th>
+          <th>Đặc điểm</th>
+          <th>Rủi ro cho người vay</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Cố định (Fixed)</strong></td>
+          <td>Không đổi suốt thời hạn vay</td>
+          <td>Thấp – có thể lập kế hoạch tài chính chính xác</td>
+        </tr>
+        <tr>
+          <td><strong>Thả nổi (Variable)</strong></td>
+          <td>Thay đổi theo lãi suất cơ bản (BoE Base Rate)</td>
+          <td>Trung bình – phụ thuộc vào chính sách tiền tệ</td>
+        </tr>
+        <tr>
+          <td><strong>Ưu đãi (Introductory/Teaser)</strong></td>
+          <td>Lãi thấp hoặc 0% trong giai đoạn đầu (6–18 tháng)</td>
+          <td>Cao – lãi tăng mạnh sau giai đoạn ưu đãi</td>
+        </tr>
+        <tr>
+          <td><strong>Khác nhau theo loại giao dịch</strong></td>
+          <td>Mua hàng vs. rút tiền mặt có lãi suất khác nhau</td>
+          <td>Cao với rút tiền mặt – không có thời gian ân hạn</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 5. 5 Chữ C -->
+<section id="5cs">
+  <h2>5. Kinh tế học Tín dụng – 5 Chữ C</h2>
+  <p>Mô hình 5 Chữ C (Five Cs of Credit) là khung phân tích cổ điển đánh giá khả năng tín dụng của người vay từ năm góc độ bổ sung cho nhau:</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Chữ C</th>
+          <th>Tiếng Anh</th>
+          <th>Định nghĩa &amp; ý nghĩa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>C1</strong></td>
+          <td>Character (Tư cách)</td>
+          <td>Thiện chí và quyết tâm trả nợ của người vay. Được đánh giá qua lịch sử tín dụng, tham chiếu và phỏng vấn.</td>
+        </tr>
+        <tr>
+          <td><strong>C2</strong></td>
+          <td>Capacity (Năng lực)</td>
+          <td>Khả năng tạo ra đủ dòng tiền để trả nợ. Được đánh giá qua thu nhập, chi tiêu, và tỷ lệ nợ hiện tại.</td>
+        </tr>
+        <tr>
+          <td><strong>C3</strong></td>
+          <td>Capital (Vốn)</td>
+          <td>Tổng tài sản ròng của người vay. Người có vốn tự có cao thể hiện cam kết mạnh hơn với khoản vay.</td>
+        </tr>
+        <tr>
+          <td><strong>C4</strong></td>
+          <td>Collateral (Tài sản đảm bảo)</td>
+          <td>Tài sản có thể dùng để bảo đảm cho khoản vay. Giảm thiểu tổn thất cho ngân hàng trong trường hợp vỡ nợ.</td>
+        </tr>
+        <tr>
+          <td><strong>C5</strong></td>
+          <td>Conditions (Điều kiện)</td>
+          <td>Bối cảnh kinh tế vĩ mô và ngành nghề của người vay. Suy thoái kinh tế ảnh hưởng đến khả năng trả nợ ngay cả của người có hồ sơ tốt.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 6. Khả năng tín dụng & Tỷ lệ odds -->
+<section id="kha-nang-tin-dung">
+  <h2>6. Khả năng Tín dụng &amp; Tỷ lệ Tốt:Xấu</h2>
+  <p>Mục tiêu cốt lõi của thẩm định tín dụng là xác định <strong>mức rủi ro chấp nhận được</strong> – không phải tránh hoàn toàn rủi ro mà là đảm bảo danh mục cho vay tổng thể có lợi nhuận.</p>
+
+  <h3>Ví dụ minh họa tỷ lệ Tốt:Xấu (Good:Bad Odds)</h3>
+  <div class="callout">
+    <div class="callout-label">Ví dụ tính toán kinh tế của danh mục cho vay</div>
+    <p>
+      Giả sử ngân hàng cho vay theo tỷ lệ <strong>15:1</strong> (15 khách hàng tốt : 1 khách hàng xấu):<br><br>
+      ✓ <strong>15 người trả đúng hạn:</strong> Mỗi khoản vay £2.000 × 15 = <strong>doanh thu £30.000</strong><br>
+      ✗ <strong>1 người vỡ nợ:</strong> Tổn thất <strong>£20.000</strong> (gốc + chi phí thu hồi)<br>
+      ──────────────────────────────────────────<br>
+      Lợi nhuận ròng: £30.000 − £20.000 = <strong>£10.000</strong><br>
+      Lợi nhuận bình quân mỗi khoản vay: £10.000 / 16 ≈ <strong>£625/khoản</strong>
+    </p>
+  </div>
+
+  <h3>Điểm hoà vốn (Break-even Odds)</h3>
+  <p>Tỷ lệ tối thiểu để ngân hàng không thua lỗ:</p>
+  <ul>
+    <li>Break-even odds = Tổn thất khi vỡ nợ / Doanh thu mỗi khoản vay tốt</li>
+    <li>Ví dụ: £20.000 / £2.000 = <strong>10:1</strong></li>
+    <li>Tức là cứ 10 khoản vay tốt mới đủ bù cho 1 khoản vay xấu</li>
+  </ul>
+
+  <h3>Phân khúc theo tỷ lệ odds</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Phân khúc</th>
+          <th>Tỷ lệ Tốt:Xấu</th>
+          <th>Đặc điểm</th>
+          <th>Lãi suất</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Subprime</strong></td>
+          <td>&lt; 2:1</td>
+          <td>Rủi ro rất cao; lịch sử tín dụng xấu</td>
+          <td>Rất cao (15–30%+)</td>
+        </tr>
+        <tr>
+          <td><strong>Near-prime</strong></td>
+          <td>2:1 – 10:1</td>
+          <td>Rủi ro cao; hồ sơ không đủ tiêu chuẩn chính</td>
+          <td>Cao (10–20%)</td>
+        </tr>
+        <tr>
+          <td><strong>Mainstream</strong></td>
+          <td>&gt; 20:1</td>
+          <td>Rủi ro thấp; hồ sơ tín dụng tốt</td>
+          <td>Thấp (5–12%)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 7. Phương thức xét duyệt -->
+<section id="don-vay">
+  <h2>7. Phương thức Xét duyệt Đơn vay</h2>
+  <p>Có hai phương pháp chính để đánh giá đơn vay, mỗi phương pháp có ưu và nhược điểm riêng:</p>
+
+  <h3>Phương pháp Phán đoán (Judgemental Lending)</h3>
+  <ul>
+    <li>Nhân viên thẩm định có kinh nghiệm (<em>credit underwriter</em>) đưa ra quyết định dựa trên kinh nghiệm cá nhân</li>
+    <li>Sử dụng báo cáo tín dụng từ Equifax hoặc tổ chức tương đương</li>
+    <li>Áp dụng các chính sách cho vay của ngân hàng như hướng dẫn</li>
+    <li><strong>Nhược điểm:</strong> Không nhất quán giữa các nhân viên; dễ bị ảnh hưởng bởi thiên kiến cá nhân; tốn thời gian; khó mở rộng quy mô</li>
+  </ul>
+
+  <h3>Phương pháp Chấm điểm tín dụng (Credit Scoring)</h3>
+  <ul>
+    <li>Sử dụng mô hình toán học để tính điểm rủi ro trên thang <strong>300–900</strong></li>
+    <li><strong>FICO</strong> (Fair, Isaac and Company) là hệ thống chấm điểm được sử dụng rộng rãi nhất trên thế giới</li>
+    <li>Cho phép <strong>định giá theo rủi ro (risk-based pricing)</strong> – lãi suất cao hơn cho điểm số thấp hơn</li>
+  </ul>
+
+  <div class="table-wrap">
+    <table class="comparison">
+      <thead>
+        <tr>
+          <th>Tiêu chí</th>
+          <th>Chấm điểm tín dụng</th>
+          <th>Phán đoán</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Quy trình</td>
+          <td>Tự động, hệ thống</td>
+          <td>Thủ công, con người</td>
+        </tr>
+        <tr>
+          <td>Tính nhất quán</td>
+          <td>Nhất quán cao</td>
+          <td>Không nhất quán</td>
+        </tr>
+        <tr>
+          <td>Tính linh hoạt</td>
+          <td>Cứng nhắc theo mô hình</td>
+          <td>Linh hoạt theo tình huống</td>
+        </tr>
+        <tr>
+          <td>Thiên kiến</td>
+          <td>Không thiên kiến</td>
+          <td>Có thể thiên kiến</td>
+        </tr>
+        <tr>
+          <td>Tốc độ</td>
+          <td>Thời gian thực</td>
+          <td>Ngày đến tuần</td>
+        </tr>
+        <tr>
+          <td>Khả năng mở rộng</td>
+          <td>Dễ mở rộng</td>
+          <td>Hạn chế theo nhân lực</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 8. Credit Scorecards -->
+<section id="scorecard">
+  <h2>8. Thẻ điểm Tín dụng (Credit Scorecards)</h2>
+  <p>Scorecard là <strong>mô hình toán học</strong> được xây dựng từ dữ liệu lịch sử để dự đoán xác suất khách hàng sẽ trở thành "nợ xấu" trong tương lai.</p>
+
+  <h3>Dữ liệu đầu vào xây dựng scorecard</h3>
+  <ul>
+    <li><strong>Dữ liệu đơn vay:</strong> Tuổi, thu nhập, nghề nghiệp, thâm niên làm việc, trạng thái hôn nhân, v.v.</li>
+    <li><strong>Dữ liệu CRA:</strong> Lịch sử thanh toán, CCJ, số lần tra cứu tín dụng gần đây</li>
+    <li><strong>Dữ liệu sản phẩm hiện có:</strong> Hành vi sử dụng tài khoản, lịch sử thanh toán nội bộ</li>
+  </ul>
+
+  <h3>Kỳ kết quả (Outcome Period)</h3>
+  <p>Mô hình cần xác định kỳ quan sát – ví dụ 12 hoặc 24 tháng – sau khi phát vay để gán nhãn "tốt" hay "xấu" cho từng khoản vay trong tập dữ liệu huấn luyện.</p>
+  <ul>
+    <li><strong>Tài khoản tốt (Good):</strong> Không bao giờ quá hạn quá 90 ngày trong kỳ quan sát</li>
+    <li><strong>Tài khoản xấu (Bad):</strong> Quá hạn từ 90 ngày trở lên, chuyển thu hồi nợ, hoặc xoá nợ</li>
+  </ul>
+
+  <h3>Mối quan hệ Điểm số – Tỷ lệ Tốt:Xấu</h3>
+  <div class="score-bar">
+    <div class="score-row">
+      <div class="score-label">Điểm 300</div>
+      <div class="score-track"><div class="score-fill" style="width:5%;"></div></div>
+      <div class="score-meta">Tỷ lệ &lt; 1:1</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Điểm 500</div>
+      <div class="score-track"><div class="score-fill" style="width:35%;"></div></div>
+      <div class="score-meta">Tỷ lệ 2:1</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Điểm 650</div>
+      <div class="score-track"><div class="score-fill" style="width:60%;"></div></div>
+      <div class="score-meta">Tỷ lệ 5:1</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Điểm 800</div>
+      <div class="score-track"><div class="score-fill active" style="width:85%;"></div></div>
+      <div class="score-meta">Tỷ lệ 10:1</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Điểm 900</div>
+      <div class="score-track"><div class="score-fill active" style="width:100%;"></div></div>
+      <div class="score-meta">Tỷ lệ &gt;20:1</div>
+    </div>
+  </div>
+  <p style="font-size:13px; color:var(--text-muted);">Người vay có điểm dưới ngưỡng chấp nhận của ngân hàng → tự động bị từ chối. Ngưỡng này được điều chỉnh tùy theo khẩu vị rủi ro của ngân hàng.</p>
+</section>
+
+<!-- 9. Triển khai kỹ thuật -->
+<section id="cai-dat-ky-thuat">
+  <h2>9. Triển khai Kỹ thuật Mô hình Chấm điểm</h2>
+  <p>Về mặt kỹ thuật, quá trình xây dựng và vận hành mô hình chấm điểm tín dụng bao gồm các bước:</p>
+
+  <div class="callout">
+    <div class="callout-label">Luồng kỹ thuật xây dựng mô hình</div>
+    <div class="flow">
+      <div class="flow-step">Dữ liệu KH<br>từ DB trung tâm</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">SAS / S+ / SPSS<br>(Phân tích thống kê)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Hồi quy tuyến tính /<br>logistic</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Mô hình chấm điểm<br>(Scorecard)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Xác suất<br>vỡ nợ / rời bỏ</div>
+    </div>
+  </div>
+
+  <h3>Yêu cầu để triển khai thành công</h3>
+  <ul>
+    <li><strong>Cơ sở dữ liệu tập trung:</strong> Mọi dữ liệu khách hàng phải nhất quán và truy cập được từ một nguồn duy nhất</li>
+    <li><strong>DB chấm điểm riêng:</strong> Lưu trữ mô hình, điểm số và kết quả đánh giá theo thời gian</li>
+    <li><strong>Cam kết quản lý:</strong> Lãnh đạo cấp cao phải ủng hộ văn hóa quyết định dựa trên dữ liệu</li>
+    <li><strong>Nguồn lực kỹ thuật và tín dụng:</strong> Đội ngũ chuyên gia thống kê kết hợp với chuyên gia tín dụng có kinh nghiệm</li>
+  </ul>
+
+  <h3>Lợi ích của hệ thống chấm điểm tự động</h3>
+  <ul>
+    <li><strong>Hiệu quả:</strong> Xử lý hàng ngàn đơn vay mỗi ngày, quyết định trong giây</li>
+    <li><strong>Định giá biến đổi (Variable Pricing):</strong> Lãi suất phản ánh đúng mức rủi ro thực tế của từng khách hàng</li>
+    <li><strong>Quản lý rủi ro nâng cao:</strong> Phân tích danh mục toàn bộ, phát hiện xu hướng sớm</li>
+    <li><strong>Kiểm toán được:</strong> Mọi quyết định đều có bằng chứng số lượng rõ ràng</li>
+  </ul>
+</section>
+
+<!-- 10. Credit Referencing -->
+<section id="tham-chieu">
+  <h2>10. Tra cứu Thông tin Tín dụng (Credit Referencing)</h2>
+  <p>Tại Anh, ba tổ chức thông tin tín dụng lớn nhất là <strong>Experian</strong>, <strong>Callcredit</strong>, và <strong>Equifax</strong>. Thông tin tín dụng được phân thành ba danh mục chính:</p>
+
+  <div class="cra-category">
+    <div class="cra-category-header">Danh mục 1 – Thông tin công khai (Public Information)</div>
+    <div class="cra-category-body">
+      <h4>Phán quyết Toà án Dân sự (County Court Judgment – CCJ)</h4>
+      <p>Ghi nhận khoản nợ chưa được thanh toán theo lệnh của toà. Thông tin được lưu giữ <strong>6 năm</strong> và bao gồm: giá trị phán quyết, ngày phán quyết, và trạng thái thanh toán.</p>
+
+      <h4>Phá sản (Bankruptcy)</h4>
+      <p>Ghi nhận các lệnh phá sản, kế hoạch trả nợ tự nguyện (IVA), và các hình thức mất khả năng thanh toán. Lưu giữ 6 năm kể từ ngày giải quyết.</p>
+
+      <h4>Sổ cử tri (Electoral Roll)</h4>
+      <p>Ba phiên bản phục vụ mục đích khác nhau:</p>
+      <ul>
+        <li><strong>Đầy đủ (Full):</strong> Dùng cho cả mục đích tín dụng và xác minh danh tính</li>
+        <li><strong>Biên tập (Edited):</strong> Chỉ dùng cho mục đích thương mại (marketing)</li>
+        <li><strong>Lịch sử (Historical):</strong> Dùng để truy vết địa chỉ cũ</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cra-category">
+    <div class="cra-category-header">Danh mục 2 – Thông tin riêng tư (Private Information)</div>
+    <div class="cra-category-body">
+      <h4>Thông tin tài khoản được chia sẻ (Shared Customer Account Information)</h4>
+      <p>Ngân hàng chia sẻ thông tin tài khoản hàng tháng với CRA, bao gồm:</p>
+      <ul>
+        <li>Thông tin cá nhân và loại sản phẩm</li>
+        <li>Ngày mở, số dư hiện tại</li>
+        <li>Trạng thái trả nợ: 1 lần trễ (1 late), 2 lần trễ (2 late), 3 lần trễ (3 late)</li>
+        <li>Các trường hợp đặc biệt (nợ đang xử lý pháp lý, v.v.)</li>
+      </ul>
+
+      <h4>Tra cứu tín dụng (Credit Searches)</h4>
+      <p>Mỗi lần ngân hàng tra cứu CRA được ghi nhận với: ngày tra cứu, loại sản phẩm, và tổ chức tra cứu. Dữ liệu lưu giữ <strong>12 tháng</strong>. Quan trọng: <strong>kết quả tra cứu KHÔNG được ghi nhận</strong> – chỉ ghi nhận việc có tra cứu.</p>
+
+      <h4>CIFAS (Credit Industry Fraud Avoidance Scheme)</h4>
+      <p>Hệ thống cảnh báo gian lận do ngành tín dụng xây dựng và chia sẻ. Cảnh báo CIFAS là <strong>chỉ dẫn, không phải bằng chứng</strong> về gian lận – người nhận vẫn phải điều tra thêm trước khi ra quyết định.</p>
+
+      <h4>GAIN (Gone Away Information Network)</h4>
+      <p>Mạng lưới do CIFAS, Experian, và Equifax phối hợp vận hành. Theo dõi khách hàng <em>rời bỏ địa chỉ đã đăng ký mà không thông báo</em> sau khi vỡ nợ – giúp ngân hàng truy tìm nợ xấu.</p>
+
+      <h4>Thông báo Chỉnh sửa (Notice of Correction)</h4>
+      <p>Theo <strong>Consumer Credit Act 1974</strong> và <strong>Data Protection Act 1998</strong>, cá nhân có quyền thêm giải thích (tối đa 200 từ) vào hồ sơ tín dụng của mình để giải thích lý do có thông tin bất lợi. Khi có Notice of Correction, ngân hàng <strong>bắt buộc phải</strong> xét duyệt thủ công thay vì tự động từ chối.</p>
+    </div>
+  </div>
+
+  <div class="cra-category">
+    <div class="cra-category-header">Danh mục 3 – Thông tin phái sinh (Derived Information)</div>
+    <div class="cra-category-body">
+      <h4>Dữ liệu địa lý-nhân khẩu học (Geo-demographic Data)</h4>
+      <p>Dữ liệu về khu vực cư trú liên kết với đặc điểm kinh tế-xã hội. Ví dụ: người sống ở khu vực có thu nhập trung bình cao có xu hướng có hồ sơ tín dụng tốt hơn.</p>
+
+      <h4>Điểm cục (Bureau Scores)</h4>
+      <p>Điểm do CRA tính toán từ toàn bộ hồ sơ tín dụng của khách hàng. Bureau scores thường <strong>chính xác hơn</strong> mô hình nội bộ của ngân hàng vì có nhiều dữ liệu lịch sử hơn. Nhiều ngân hàng kết hợp điểm nội bộ với bureau score để tăng độ chính xác.</p>
+
+      <h4>Đối chiếu dữ liệu người vay (Credit Reference Data Matching)</h4>
+      <p>Quá trình khớp thông tin người vay với hồ sơ CRA sử dụng thuật toán phức tạp. Các tình huống đặc biệt:</p>
+      <ul>
+        <li><strong>"No trace"</strong> (Không tìm thấy): Không có hồ sơ tín dụng → người vay có hồ sơ tín dụng mỏng (thin credit file); không nhất thiết là xấu, nhưng khó đánh giá</li>
+        <li><strong>Địa chỉ cũ/liên kết:</strong> Hệ thống tra cứu cả địa chỉ cũ và địa chỉ liên kết để tìm hồ sơ toàn diện hơn</li>
+        <li><strong>Dữ liệu bên thứ ba:</strong> Từ 2004, có thêm nguồn dữ liệu bên thứ ba nhưng còn hạn chế</li>
+        <li><strong>Opt-in/Opt-out:</strong> Một số loại dữ liệu yêu cầu sự đồng ý của khách hàng trước khi chia sẻ</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 11. Vòng đời tín dụng -->
+<section id="vong-doi">
+  <h2>11. Vòng đời Quản lý Tín dụng (Credit Life Cycle)</h2>
+  <p>Mỗi khoản tín dụng trải qua một vòng đời có thể kết thúc theo hai hướng: hoàn thành đúng hạn hoặc vỡ nợ. Hình 6.3 mô tả các giai đoạn chính:</p>
+
+  <div class="lifecycle">
+    <div class="lifecycle-stage">
+      <div class="lifecycle-icon">🌱</div>
+      <div>
+        <div class="lifecycle-name">Giai đoạn 1 – Tiếp thị &amp; Phát vay (Recruitment)</div>
+        <div class="lifecycle-desc">Khoản vay mới được phát hành sau khi qua thẩm định tín dụng. Đây là "ngày sinh" của khoản vay. Hồ sơ rủi ro ban đầu được thiết lập dựa trên điểm tín dụng và thông tin đơn vay.</div>
+      </div>
+    </div>
+
+    <div class="lifecycle-stage">
+      <div class="lifecycle-icon">📋</div>
+      <div>
+        <div class="lifecycle-name">Giai đoạn 2 – Quản lý tài khoản (Account Management)</div>
+        <div class="lifecycle-desc">Hoạt động hàng ngày của tài khoản: xử lý thanh toán, điều chỉnh hạn mức, giao tiếp khách hàng, và giám sát hành vi liên tục. Giai đoạn này kéo dài và bình thường nhất trong vòng đời.</div>
+      </div>
+    </div>
+
+    <div class="lifecycle-stage">
+      <div class="lifecycle-icon">⚠️</div>
+      <div>
+        <div class="lifecycle-name">Giai đoạn 3 – Thu hồi nợ ban đầu (Collections)</div>
+        <div class="lifecycle-desc">Khi tài khoản <em>quá hạn không quá 90 ngày</em>, bộ phận thu hồi nợ tiếp xúc khách hàng để khôi phục tài khoản về trạng thái bình thường. Phương tiện: nhắc nhở qua SMS, email, thư, và cuộc gọi điện thoại. Mục tiêu là "chữa lành" tài khoản càng sớm càng tốt.</div>
+      </div>
+    </div>
+
+    <div class="lifecycle-stage">
+      <div class="lifecycle-icon">🔴</div>
+      <div>
+        <div class="lifecycle-name">Giai đoạn 4 – Thu hồi nợ chuyên sâu (Debt Recovery)</div>
+        <div class="lifecycle-desc">Khi cố gắng thu hồi ban đầu thất bại, tài khoản chuyển sang đội thu hồi chuyên nghiệp. Quy trình: <strong>3–4 chu kỳ liên lạc</strong> với cường độ tăng dần; đe dọa hành động pháp lý; tài khoản bị đóng băng (frozen); chuyển cho các công ty chuyên thu hồi nợ (debt specialists).</div>
+      </div>
+    </div>
+
+    <div class="lifecycle-stage" style="border-bottom:1px solid var(--border);">
+      <div class="lifecycle-icon">💀</div>
+      <div>
+        <div class="lifecycle-name">Giai đoạn 5 – Xử lý nợ xấu cuối cùng (Write-off)</div>
+        <div class="lifecycle-desc">Khi mọi biện pháp thu hồi thất bại, ngân hàng có các lựa chọn:
+          <ul style="margin-top:8px;">
+            <li><strong>Xoá nợ (Write off):</strong> Ghi nhận tổn thất vào sổ sách kế toán</li>
+            <li><strong>Bán nợ:</strong> Bán danh mục nợ xấu cho công ty mua nợ với giá chiết khấu</li>
+            <li><strong>Kiện ra toà:</strong> Khởi kiện để lấy CCJ nhằm thu hồi sau này</li>
+            <li><strong>Yêu cầu phá sản:</strong> Đề nghị toà tuyên bố phá sản người vay</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Kết thúc bình thường của vòng đời</div>
+    <p>Không phải mọi khoản vay đều kết thúc bằng nợ xấu. Trường hợp lý tưởng: <strong>Hoàn thành thoả thuận (Completed Agreement)</strong> – người vay thanh toán đủ toàn bộ gốc và lãi theo đúng kỳ hạn. Hồ sơ tín dụng được cập nhật với trạng thái "Settled – Đã thanh toán đầy đủ" – điều này tích cực đáng kể cho điểm tín dụng.</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="chapter-footer">
+  <span>Chương 6 · Cho Vay Trong Ngân Hàng Bán Lẻ</span>
+  <span>Business Knowledge for IT in Retail Banking · Essvale Corporation</span>
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch5-bkrb.html"><span class="lbl">Chương trước</span>Chương 5: Mở Tài Khoản Trong Ngân Hàng Bán Lẻ</a>
+  <a href="ch7-bkrb.html"><span class="lbl">Chương sau</span>Chương 7: Thanh Toán Trong Ngân Hàng Bán Lẻ</a>
+</nav>
+</body>
+</html>

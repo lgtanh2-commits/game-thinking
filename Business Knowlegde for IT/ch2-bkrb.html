@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 2: Các Loại Sản Phẩm Ngân Hàng Bán Lẻ</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --text: #111111;
+  --text-secondary: #333333;
+  --text-muted: #888888;
+  --border: #d8d8d8;
+  --border-strong: #999999;
+  --surface: #f2f2f2;
+  --surface-dark: #e0e0e0;
+  --accent-line: #111111;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text);
+  background: var(--bg);
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+
+/* ── Typography ── */
+h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 56px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--accent-line);
+}
+h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 32px;
+  margin-bottom: 10px;
+}
+h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 22px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+}
+p { margin-bottom: 14px; }
+ul, ol { margin-left: 24px; margin-bottom: 14px; }
+li { margin-bottom: 4px; }
+strong { font-weight: 700; }
+em { font-style: italic; color: var(--text-secondary); }
+
+/* ── Book Header ── */
+.book-header {
+  border-bottom: 3px solid var(--accent-line);
+  padding-bottom: 32px;
+  margin-bottom: 48px;
+}
+.book-series {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.chapter-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.chapter-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  font-style: italic;
+}
+.meta-row {
+  display: flex;
+  gap: 24px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.meta-pill {
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* ── Tables ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0 28px;
+  font-size: 0.93rem;
+}
+th {
+  background: var(--text);
+  color: #fff;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+tr:nth-child(even) td { background: var(--surface); }
+tr:last-child td { border-bottom: none; }
+
+/* ── Card Grid ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 20px 0 28px;
+}
+.card {
+  border: 1px solid var(--border);
+  padding: 18px 16px;
+  background: #fff;
+}
+.card-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.card-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.card-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ── Info Box ── */
+.info-box {
+  border-left: 3px solid var(--accent-line);
+  padding: 16px 20px;
+  background: var(--surface);
+  margin: 20px 0 24px;
+  font-size: 0.95rem;
+}
+.info-box .label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+/* ── Definition Grid ── */
+.def-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: 20px 0 28px;
+}
+.def-cell {
+  background: #fff;
+  padding: 14px 16px;
+}
+.def-cell.header {
+  background: var(--surface-dark);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.def-term {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+.def-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Anatomy Block (BIC/IBAN) ── */
+.anatomy-block {
+  font-family: 'Courier New', monospace;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-align: center;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  margin: 12px 0 8px;
+}
+.anatomy-labels {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.anatomy-seg {
+  text-align: center;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+.anatomy-seg span {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Product Card (BizEast) ── */
+.product-card {
+  border: 2px solid var(--accent-line);
+  padding: 24px 28px;
+  margin: 24px 0;
+  position: relative;
+}
+.product-card .badge {
+  position: absolute;
+  top: -1px;
+  right: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--text);
+  color: #fff;
+  padding: 4px 10px;
+}
+.product-card h4 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.product-card .tagline {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  font-style: italic;
+}
+.feature-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+.feature-chip {
+  font-size: 0.8rem;
+  padding: 5px 12px;
+  border: 1px solid var(--border-strong);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ── Section nav ── */
+.toc {
+  border: 1px solid var(--border);
+  padding: 20px 24px;
+  margin: 32px 0 48px;
+  background: #fff;
+}
+.toc-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.toc ol {
+  margin-left: 0;
+  padding-left: 18px;
+}
+.toc li {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: var(--text-secondary);
+}
+
+/* ── Horizontal rule ── */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 40px 0;
+}
+
+/* ── Code span ── */
+code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88em;
+  background: var(--surface-dark);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+/* ── Callout ── */
+.callout {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 16px 20px;
+  margin: 16px 0 24px;
+  font-size: 0.92rem;
+}
+.callout strong { display: block; margin-bottom: 4px; }
+
+/* ── Process steps ── */
+.steps {
+  counter-reset: step;
+  margin: 16px 0 24px;
+  padding-left: 0;
+  list-style: none;
+}
+.steps li {
+  counter-increment: step;
+  display: flex;
+  gap: 14px;
+  margin-bottom: 12px;
+  align-items: flex-start;
+}
+.steps li::before {
+  content: counter(step);
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  background: var(--text);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Page footer ── */
+.page-footer {
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 600px) {
+  body { padding: 36px 20px 60px; }
+  h1 { font-size: 1.8rem; }
+  .card-grid { grid-template-columns: 1fr; }
+  .def-grid { grid-template-columns: 1fr; }
+  .anatomy-labels { flex-direction: column; align-items: center; }
+}
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/business-knowledge-it-retail-banking">← Về mục lục</a></p>
+
+<!-- Header -->
+<div class="book-header">
+  <div class="book-series">Business Knowledge for IT in Retail Banking · Essvale Corporation</div>
+  <div class="chapter-label">Chương 2</div>
+  <h1>Các Loại Sản Phẩm Ngân Hàng Bán Lẻ</h1>
+  <div class="chapter-subtitle">Tài khoản, Tiết kiệm, Đầu tư, Thẻ, Vay, Thế chấp, Bảo hiểm, Dịch vụ du lịch, Mã ngân hàng &amp; Lãi suất tham chiếu</div>
+  <div class="meta-row">
+    <span class="meta-pill">Trang 15 – 34</span>
+    <span class="meta-pill">Ngân Hàng Bán Lẻ</span>
+    <span class="meta-pill">Sản Phẩm &amp; Dịch Vụ</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">Nội dung chương</div>
+  <ol>
+    <li>Tài khoản (Accounts)</li>
+    <li>Tài khoản tiết kiệm (Savings Accounts)</li>
+    <li>Sản phẩm đầu tư (Investment Products)</li>
+    <li>Thẻ (Cards)</li>
+    <li>Vay vốn (Loans)</li>
+    <li>Thế chấp (Mortgages)</li>
+    <li>Bảo hiểm (Insurance)</li>
+    <li>Dịch vụ du lịch (Travel Services)</li>
+    <li>Mã ngân hàng (Bank Codes)</li>
+    <li>Lãi suất (Rates)</li>
+  </ol>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>1. Tài Khoản (Accounts)</h2>
+
+<p>Tài khoản ngân hàng là nền tảng của mọi quan hệ khách hàng – ngân hàng. Chương này sử dụng ngân hàng bán lẻ hư cấu <strong>BizEast</strong> để minh họa cách các sản phẩm thực tế được đặc tả và triển khai. Mỗi sản phẩm đều có tên thị trường riêng, tập tính năng cụ thể, và điều kiện ràng buộc rõ ràng.</p>
+
+<h3>1.1 Tài Khoản Thanh Toán (Current Accounts)</h3>
+
+<p>Tài khoản thanh toán là loại tài khoản phổ biến nhất, dùng cho các giao dịch hàng ngày: nhận lương, chi trả hóa đơn, rút tiền ATM. Ngân hàng cung cấp nhiều phiên bản với mức phí và tính năng khác nhau.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tên sản phẩm (BizEast)</th>
+      <th>Phân khúc</th>
+      <th>Lãi suất thấu chi</th>
+      <th>Đặc điểm nổi bật</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>BizEast Classic Account</strong></td>
+      <td>Phổ thông</td>
+      <td>Thỏa thuận: 13.9% EAR / Không thỏa thuận: 25.9% EAR</td>
+      <td>Thẻ Maestro/Solo, Mobile banking, Internet banking, hạn mức thấu chi £500</td>
+    </tr>
+    <tr>
+      <td><strong>BizEast Premium Account</strong></td>
+      <td>Khách hàng VIP</td>
+      <td>0% trong 3 tháng đầu, sau đó 13.9% EAR</td>
+      <td>Thẻ Visa Debit vàng, dịch vụ quản lý tài sản, ưu đãi bảo hiểm, hỗ trợ 24/7</td>
+    </tr>
+    <tr>
+      <td><strong>BizEast Student Account</strong></td>
+      <td>Sinh viên đại học</td>
+      <td>0% EAR trong kỳ học (hạn mức £1,500)</td>
+      <td>Thẻ Visa Debit, thấu chi 0% lãi suất, quà tặng nhập học, tư vấn tài chính</td>
+    </tr>
+    <tr>
+      <td><strong>BizEast Graduate Account</strong></td>
+      <td>Tốt nghiệp ≤ 2 năm</td>
+      <td>0% EAR năm 1 (£2,000), giảm dần các năm sau</td>
+      <td>Hạn mức thấu chi giảm dần, hỗ trợ chuyển sang tài khoản thông thường</td>
+    </tr>
+    <tr>
+      <td><strong>BizEast Young Person's Account</strong></td>
+      <td>11–17 tuổi</td>
+      <td>Không áp dụng thấu chi</td>
+      <td>Thẻ Maestro, bố mẹ đồng ký, lãi suất tiết kiệm, tiếp cận Internet banking</td>
+    </tr>
+    <tr>
+      <td><strong>BizEast Cash Account</strong></td>
+      <td>Khách hàng điểm tín dụng thấp</td>
+      <td>Không thấu chi</td>
+      <td>Chỉ chi tiêu trong số dư hiện có, không séc, không thấu chi — phù hợp tái hòa nhập tài chính</td>
+    </tr>
+    <tr>
+      <td><strong>BizEast International Account</strong></td>
+      <td>Người nước ngoài / expat</td>
+      <td>Thỏa thuận cá nhân</td>
+      <td>Hỗ trợ đa tiền tệ, chuyển khoản quốc tế ưu đãi, tỷ giá cạnh tranh</td>
+    </tr>
+    <tr>
+      <td><strong>BizEast Islamic Account</strong></td>
+      <td>Khách hàng Hồi giáo</td>
+      <td>Không áp dụng lãi suất (Riba)</td>
+      <td>Tuân thủ Sharia: không lãi suất, ngân hàng chia sẻ lợi nhuận theo cơ chế Mudarabah</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="info-box">
+  <div class="label">Lưu ý kỹ thuật cho IT</div>
+  Mỗi loại tài khoản yêu cầu cấu hình riêng trong hệ thống core banking: mã sản phẩm, bảng lãi suất, quy tắc thấu chi, nhóm phân khúc khách hàng, và các luật kiểm soát (compliance rules). Hệ thống phải hỗ trợ chuyển đổi tự động (ví dụ: Student → Graduate sau khi tốt nghiệp) dựa trên sự kiện vòng đời.
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>2. Tài Khoản Tiết Kiệm (Savings Accounts)</h2>
+
+<p>Tài khoản tiết kiệm giúp khách hàng gửi tiền nhàn rỗi để nhận lãi suất cao hơn tài khoản thanh toán, đổi lại thường có hạn chế về rút tiền hoặc yêu cầu số dư tối thiểu.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sản phẩm</th>
+      <th>Lãi suất</th>
+      <th>Điều kiện rút tiền</th>
+      <th>Đặc điểm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>BizEast Online Saver</strong></td>
+      <td>AER thả nổi, cao hơn tài khoản thanh toán</td>
+      <td>Không giới hạn, rút bất kỳ lúc nào</td>
+      <td>Quản lý hoàn toàn qua Internet; không chi nhánh; lãi tính hàng ngày, ghi có hàng tháng</td>
+    </tr>
+    <tr>
+      <td><strong>BizEast Guaranteed Tracker</strong></td>
+      <td>BoE Base Rate + spread cố định (ví dụ: base + 0.5%)</td>
+      <td>Báo trước 30 ngày hoặc mất 30 ngày lãi</td>
+      <td>Lãi suất tự động điều chỉnh theo lãi suất Ngân hàng Anh; tối thiểu £1</td>
+    </tr>
+    <tr>
+      <td><strong>BizEast Children's Saver</strong></td>
+      <td>AER cao ưu đãi (tặng lãi trẻ em)</td>
+      <td>Bố mẹ/người giám hộ đứng tên, trẻ rút khi đủ 18 tuổi</td>
+      <td>Xây dựng thói quen tiết kiệm; giáo dục tài chính; quà tặng sinh nhật, ngày khai trương tài khoản</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="info-box">
+  <div class="label">AER — Annual Equivalent Rate</div>
+  AER (Lãi suất tương đương hàng năm) là chỉ số chuẩn hóa cho phép so sánh sản phẩm tiết kiệm giữa các ngân hàng, tính đến tần suất ghép lãi. Theo quy định của FSA, mọi sản phẩm tiết kiệm tại UK phải công bố AER.
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>3. Sản Phẩm Đầu Tư (Investment Products)</h2>
+
+<h3>3.1 Tài Khoản Đầu Tư Có Bảo Đảm (Guaranteed Investment Accounts)</h3>
+<p>Tài khoản đầu tư bảo đảm (Guaranteed Investment Account – GIA) cam kết hoàn trả toàn bộ vốn gốc khi đáo hạn, đồng thời cung cấp lợi nhuận liên kết với chỉ số thị trường chứng khoán (ví dụ: FTSE 100). Phù hợp cho khách hàng muốn tiềm năng tăng trưởng nhưng không chịu rủi ro mất vốn.</p>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title">Bảo vệ vốn</div>
+    <div class="card-value">100%</div>
+    <div class="card-desc">Vốn gốc được bảo đảm hoàn trả khi đáo hạn, bất kể thị trường biến động</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Kỳ hạn điển hình</div>
+    <div class="card-value">3–5 năm</div>
+    <div class="card-desc">Không linh hoạt rút trước hạn; phù hợp với tiền nhàn rỗi dài hạn</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Lợi nhuận</div>
+    <div class="card-value">Liên kết FTSE</div>
+    <div class="card-desc">Tỷ lệ tham gia vào mức tăng của FTSE 100 (thường 80–100% mức tăng chỉ số)</div>
+  </div>
+</div>
+
+<h3>3.2 Tài Khoản Tiết Kiệm Cá Nhân (ISA – Individual Savings Accounts)</h3>
+
+<p>ISA là tài khoản tiết kiệm/đầu tư được chính phủ Anh miễn thuế thu nhập và thuế lãi vốn. Đây là một trong những công cụ tiết kiệm được khuyến khích nhất tại UK.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Loại ISA</th>
+      <th>Đối tượng</th>
+      <th>Giới hạn năm tài chính</th>
+      <th>Đặc điểm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Maxi ISA</strong></td>
+      <td>Mọi cư dân UK từ 18 tuổi</td>
+      <td>£7,000/năm (toàn bộ hoặc chia tiền mặt + cổ phần)</td>
+      <td>Chỉ mở với một nhà cung cấp; tích hợp tiền mặt và đầu tư cổ phiếu; linh hoạt phân bổ</td>
+    </tr>
+    <tr>
+      <td><strong>Mini ISA – Tiền mặt</strong></td>
+      <td>Mọi cư dân UK từ 16 tuổi</td>
+      <td>£3,000/năm (phần tiền mặt)</td>
+      <td>Chỉ tiền gửi, không đầu tư; lãi suất tương đương tiết kiệm thông thường nhưng miễn thuế</td>
+    </tr>
+    <tr>
+      <td><strong>Mini ISA – Cổ phần</strong></td>
+      <td>Mọi cư dân UK từ 18 tuổi</td>
+      <td>£4,000/năm (phần đầu tư)</td>
+      <td>Đầu tư vào quỹ, trái phiếu, cổ phiếu; lợi nhuận miễn thuế; rủi ro thị trường</td>
+    </tr>
+    <tr>
+      <td><strong>Cash ISA</strong></td>
+      <td>Cư dân UK từ 16 tuổi</td>
+      <td>£3,000/năm</td>
+      <td>Đơn giản nhất; tiền gửi tiết kiệm 100% miễn thuế; phổ biến nhất trong các loại ISA</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>Lưu ý tuân thủ (Compliance Note)</strong>
+  Mỗi cá nhân chỉ được mở <em>một</em> Maxi ISA hoặc tối đa <em>một</em> Mini Cash ISA và <em>một</em> Mini Stocks &amp; Shares ISA mỗi năm tài chính (6/4 – 5/4). Hệ thống core banking cần kiểm tra ràng buộc này theo thời gian thực khi mở tài khoản.
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>4. Thẻ (Cards)</h2>
+
+<h3>4.1 Thẻ Tín Dụng (Credit Cards)</h3>
+<p>Thẻ tín dụng cấp hạn mức chi tiêu cho khách hàng trước, thanh toán sau. Lãi suất được tính nếu khách hàng không thanh toán toàn bộ dư nợ vào ngày đến hạn. Để minh họa, BizEast cung cấp thẻ <strong>Ruby Credit Card</strong>.</p>
+
+<div class="product-card">
+  <div class="badge">Minh họa sản phẩm</div>
+  <h4>BizEast Ruby Credit Card</h4>
+  <div class="tagline">Thẻ tín dụng phổ thông dành cho khách hàng cá nhân BizEast</div>
+  <table>
+    <thead>
+      <tr><th>Thông số</th><th>Chi tiết</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>APR tiêu chuẩn</td><td>16.9% APR (biến đổi)</td></tr>
+      <tr><td>Lãi suất tháng</td><td>1.31% / tháng trên dư nợ chưa thanh toán</td></tr>
+      <tr><td>Hạn mức tín dụng</td><td>£500 – £10,000 (tùy điểm tín dụng)</td></tr>
+      <tr><td>Kỳ miễn lãi</td><td>Đến 56 ngày (nếu thanh toán đủ cuối kỳ)</td></tr>
+      <tr><td>Phí thường niên</td><td>Miễn phí</td></tr>
+      <tr><td>Phí rút tiền mặt</td><td>2.5% (tối thiểu £2.50); lãi tính ngay, không có kỳ miễn lãi</td></tr>
+      <tr><td>Phí chuyển đổi ngoại tệ</td><td>2.75% trên mỗi giao dịch nước ngoài</td></tr>
+      <tr><td>Thanh toán tối thiểu</td><td>2% dư nợ hoặc £5 (lấy giá trị cao hơn)</td></tr>
+      <tr><td>Mạng lưới</td><td>Visa International</td></tr>
+      <tr><td>Bảo vệ mua sắm</td><td>Section 75 CCA 1974 (giao dịch £100–£30,000)</td></tr>
+      <tr><td>Tính năng bổ sung</td><td>Visa PayWave contactless, Internet banking, SMS alerts</td></tr>
+    </tbody>
+  </table>
+  <div class="feature-row">
+    <span class="feature-chip">Visa Network</span>
+    <span class="feature-chip">Section 75 Protection</span>
+    <span class="feature-chip">Online Management</span>
+    <span class="feature-chip">Contactless</span>
+    <span class="feature-chip">SMS Alerts</span>
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="label">APR — Annual Percentage Rate</div>
+  APR (Lãi suất phần trăm hàng năm) là chỉ số tiêu chuẩn bắt buộc theo luật UK, phản ánh tổng chi phí tín dụng hàng năm bao gồm lãi suất và mọi loại phí. Điều này cho phép khách hàng so sánh sản phẩm tín dụng giữa các nhà cung cấp.
+</div>
+
+<h3>4.2 Thẻ Ghi Nợ (Debit Cards)</h3>
+<p>Thẻ ghi nợ liên kết trực tiếp với tài khoản thanh toán. Mỗi giao dịch trừ ngay từ số dư hiện có. BizEast phát hành thẻ ghi nợ theo mạng lưới <strong>Maestro</strong> (tài khoản phổ thông) và <strong>Visa Debit</strong> (tài khoản cao cấp). Thẻ ghi nợ Maestro không hỗ trợ thanh toán offline — hệ thống phải kiểm tra online từng giao dịch.</p>
+
+<h3>4.3 Thẻ Trả Trước (Prepaid Cards)</h3>
+<p>Thẻ trả trước (Prepaid Card) không liên kết với tài khoản ngân hàng. Khách hàng nạp tiền vào thẻ trước và chi tiêu trong giới hạn số dư đó. Phổ biến cho:</p>
+<ul>
+  <li>Người không đủ điều kiện mở tài khoản ngân hàng thông thường</li>
+  <li>Kiểm soát ngân sách (budgeting tool) cho phụ huynh, doanh nghiệp</li>
+  <li>Du lịch nước ngoài — giới hạn rủi ro mất cắp</li>
+  <li>Thanh toán trực tuyến — không tiết lộ thông tin tài khoản chính</li>
+</ul>
+
+<h3>4.4 Dịch Vụ Thẻ Thương Nhân (Merchant Services)</h3>
+<p>Ngân hàng bán lẻ không chỉ phục vụ cá nhân mà còn cung cấp dịch vụ thanh toán cho doanh nghiệp (người bán – merchant). Luồng giao dịch thẻ tín dụng đi qua các thực thể sau:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Thực thể</th>
+      <th>Vai trò</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Ngân hàng phát hành (Issuing Bank)</strong></td>
+      <td>Ngân hàng cấp thẻ cho chủ thẻ; chịu rủi ro tín dụng của chủ thẻ</td>
+    </tr>
+    <tr>
+      <td><strong>Ngân hàng thanh toán (Acquiring Bank)</strong></td>
+      <td>Ngân hàng của người bán; tiếp nhận giao dịch từ POS/terminal</td>
+    </tr>
+    <tr>
+      <td><strong>Mạng lưới thanh toán (Card Scheme)</strong></td>
+      <td>Visa, MasterCard, Amex — kết nối và thanh toán bù trừ giữa hai ngân hàng</td>
+    </tr>
+    <tr>
+      <td><strong>Bộ xử lý giao dịch (Payment Processor)</strong></td>
+      <td>Công ty kỹ thuật định tuyến, xác thực và thanh toán bù trừ</td>
+    </tr>
+    <tr>
+      <td><strong>Người bán (Merchant)</strong></td>
+      <td>Nhận thanh toán; trả phí MDR (Merchant Discount Rate) cho acquiring bank</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>4.5 Cổng Thanh Toán (Payment Gateways)</h3>
+<p>Cổng thanh toán là lớp phần mềm trung gian cho phép thương mại điện tử xử lý thẻ thanh toán qua Internet. Cổng thanh toán mã hóa thông tin thẻ (SSL/TLS), gửi đến bộ xử lý, nhận kết quả và trả về cho website bán hàng. Ví dụ: WorldPay, Sage Pay, PayPal.</p>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>5. Vay Vốn (Loans)</h2>
+
+<h3>5.1 Vay Cá Nhân (Personal Loans)</h3>
+<p>Vay cá nhân là hình thức tín dụng không có tài sản bảo đảm (unsecured). Ngân hàng cho khách hàng vay một khoản tiền cố định, thanh toán theo lịch trả góp đều đặn hàng tháng với lãi suất cố định hoặc biến đổi.</p>
+
+<div class="product-card">
+  <div class="badge">Minh họa sản phẩm</div>
+  <h4>BizEast Personal Loan</h4>
+  <div class="tagline">Vay không tài sản bảo đảm, tối đa £25,000</div>
+  <table>
+    <thead>
+      <tr><th>Thông số</th><th>Chi tiết</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Hạn mức vay</td><td>£1,000 – £25,000</td></tr>
+      <tr><td>Kỳ hạn</td><td>1 – 7 năm</td></tr>
+      <tr><td>APR điển hình</td><td>7.9% APR (biến đổi theo mức vay và điểm tín dụng)</td></tr>
+      <tr><td>Lãi suất trên £15,000</td><td>6.9% APR (ưu đãi vay lớn)</td></tr>
+      <tr><td>Thanh toán sớm</td><td>Được phép; có thể chịu phí thanh toán sớm (ERC)</td></tr>
+      <tr><td>Bảo hiểm khoản vay</td><td>PPI tùy chọn (Payment Protection Insurance)</td></tr>
+      <tr><td>Giải ngân</td><td>Trong 24 giờ sau khi phê duyệt</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="info-box">
+  <div class="label">APR trong vay vốn</div>
+  Đối với vay vốn, APR thể hiện tổng chi phí vay hàng năm, bao gồm lãi suất và các loại phí. <strong>Lãi suất càng thấp thì APR càng thấp</strong>, nhưng phí thu xếp vay (arrangement fee) cao có thể đẩy APR lên đáng kể dù lãi suất danh nghĩa hấp dẫn.
+</div>
+
+<h3>5.2 Vay Bắc Cầu (Bridging Loans)</h3>
+<p>Vay bắc cầu là loại vay ngắn hạn dùng để "bắc cầu" khoảng cách tài chính tạm thời, phổ biến trong bất động sản khi người mua cần tiền để hoàn tất mua nhà mới trước khi bán được nhà cũ.</p>
+
+<div class="def-grid">
+  <div class="def-cell header">Loại vay bắc cầu</div>
+  <div class="def-cell header">Đặc điểm</div>
+  <div class="def-cell">
+    <div class="def-term">Vay Bắc Cầu Đóng (Closed Bridging Loan)</div>
+    <div class="def-desc">Có ngày hoàn trả xác định; thường khi hợp đồng bán nhà cũ đã ký nhưng chưa hoàn tất. Lãi suất thấp hơn do rủi ro thấp hơn.</div>
+  </div>
+  <div class="def-cell">
+    <div class="def-desc">Khoản vay được đảm bảo bởi ngày đóng giao dịch cụ thể. Ngân hàng có thể xác định chính xác thời điểm thu hồi vốn.</div>
+  </div>
+  <div class="def-cell">
+    <div class="def-term">Vay Bắc Cầu Mở (Open Bridging Loan)</div>
+    <div class="def-desc">Không có ngày hoàn trả cố định; khi người vay chưa chắc chắn về thời điểm bán được tài sản. Lãi suất cao hơn do rủi ro lớn hơn.</div>
+  </div>
+  <div class="def-cell">
+    <div class="def-desc">Kỳ hạn tối đa thường 6–12 tháng. Ngân hàng giám sát chặt chẽ và có thể yêu cầu cập nhật tiến độ bán tài sản.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>6. Thế Chấp (Mortgages)</h2>
+
+<p>Thế chấp (Mortgage) là khoản vay có tài sản bảo đảm (secured loan) dùng để mua bất động sản. Tài sản được thế chấp là bảo đảm cho khoản vay — ngân hàng có quyền tịch biên tài sản nếu người vay không trả được nợ (repossession).</p>
+
+<h3>6.1 Thế Chấp Lãi Suất Cố Định (Fixed-Rate Mortgage)</h3>
+
+<div class="product-card">
+  <div class="badge">Minh họa sản phẩm</div>
+  <h4>BizEast 2-Year Fixed Rate Mortgage</h4>
+  <div class="tagline">Lãi suất cố định 2 năm, bảo vệ khỏi biến động thị trường</div>
+  <table>
+    <thead>
+      <tr><th>Thông số</th><th>Chi tiết</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Lãi suất cố định</td><td>5.39% p.a. (trong 2 năm đầu)</td></tr>
+      <tr><td>Lãi suất sau kỳ cố định</td><td>Chuyển sang BizEast SVR (Standard Variable Rate)</td></tr>
+      <tr><td>APR điển hình</td><td>6.5% APR (tính cả phí)</td></tr>
+      <tr><td>Phí thu xếp (Arrangement Fee)</td><td>£999</td></tr>
+      <tr><td>LTV tối đa</td><td>90% (cần đặt cọc tối thiểu 10%)</td></tr>
+      <tr><td>Kỳ hạn vay</td><td>5 – 25 năm</td></tr>
+      <tr><td>Phí thanh toán sớm (ERC)</td><td>Năm 1: 3% dư nợ; Năm 2: 2% dư nợ; Sau đó: 0%</td></tr>
+      <tr><td>Quá hạn thanh toán sớm</td><td>Không giới hạn sau kỳ cố định 2 năm</td></tr>
+      <tr><td>Phí thẩm định (Valuation Fee)</td><td>Miễn phí cho khoản vay đủ điều kiện</td></tr>
+      <tr><td>Portability</td><td>Có thể chuyển sang bất động sản mới (portable)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="info-box">
+  <div class="label">ERC — Early Repayment Charge</div>
+  Phí thanh toán sớm (ERC) là chi phí bị tính khi người vay hoàn trả khoản thế chấp trước kỳ hạn cố định kết thúc. ERC được thiết kế để bảo vệ ngân hàng khỏi rủi ro lãi suất. Hệ thống core banking phải tính toán ERC chính xác khi khách hàng yêu cầu tất toán sớm.
+</div>
+
+<h3>6.2 Thế Chấp Lãi Suất Theo Dõi (Tracker Mortgage)</h3>
+
+<div class="product-card">
+  <div class="badge">Minh họa sản phẩm</div>
+  <h4>BizEast Tracker Mortgage</h4>
+  <div class="tagline">Lãi suất gắn với LIBOR — biến động theo thị trường tiền tệ liên ngân hàng</div>
+  <table>
+    <thead>
+      <tr><th>Thông số</th><th>Chi tiết</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Công thức lãi suất</td><td>LIBOR 3 tháng + 0.75% (điều chỉnh theo quý)</td></tr>
+      <tr><td>Ví dụ: LIBOR = 5.25%</td><td>Lãi suất thế chấp = 6.00% p.a.</td></tr>
+      <tr><td>LTV tối đa</td><td>85%</td></tr>
+      <tr><td>Không có ERC</td><td>Có thể tất toán bất kỳ lúc nào không mất phí</td></tr>
+      <tr><td>Tần suất điều chỉnh</td><td>Hàng quý theo LIBOR BBA công bố</td></tr>
+      <tr><td>Phí thu xếp</td><td>£599</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="info-box">
+  <div class="label">LIBOR — London Interbank Offered Rate</div>
+  LIBOR là lãi suất tham chiếu mà các ngân hàng lớn tại London cho nhau vay trên thị trường tiền tệ. BBA (British Bankers' Association) tổng hợp và công bố LIBOR hàng ngày theo nhiều kỳ hạn (qua đêm, 1 tháng, 3 tháng, 6 tháng, 12 tháng) và nhiều loại tiền tệ. Thế chấp tracker và nhiều hợp đồng tài chính doanh nghiệp được gắn với LIBOR.
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>7. Bảo Hiểm (Insurance)</h2>
+
+<p>Ngân hàng bán lẻ thường cung cấp hoặc phân phối sản phẩm bảo hiểm như một phần của danh mục sản phẩm mở rộng (bancassurance). Đây vừa là dịch vụ cho khách hàng vừa là nguồn phí dịch vụ quan trọng.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Loại bảo hiểm</th>
+      <th>Đối tượng</th>
+      <th>Phạm vi bảo hiểm điển hình</th>
+      <th>Lưu ý đặc biệt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bảo hiểm nhà (Home Insurance)</strong></td>
+      <td>Chủ nhà và người thuê</td>
+      <td>Hỏa hoạn, lũ lụt, trộm cắp, thiệt hại ngẫu nhiên; bảo hiểm nội thất và kiến trúc</td>
+      <td>Bắt buộc với chủ thế chấp; thường đi kèm khi mở thế chấp tại ngân hàng</td>
+    </tr>
+    <tr>
+      <td><strong>Bảo hiểm ô tô (Car Insurance)</strong></td>
+      <td>Chủ xe cơ giới</td>
+      <td>Bảo hiểm bên thứ ba (Third Party) / Bảo hiểm toàn diện (Comprehensive); thiệt hại thân xe, trách nhiệm dân sự</td>
+      <td>Bắt buộc theo luật UK; ngân hàng cạnh tranh với công ty bảo hiểm chuyên biệt</td>
+    </tr>
+    <tr>
+      <td><strong>Bảo hiểm thanh toán khoản vay (PPI)</strong></td>
+      <td>Người vay</td>
+      <td>Tiếp tục trả góp khi mất việc, ốm đau, tai nạn; thường 12 tháng tối đa</td>
+      <td>Lịch sử bị lạm dụng tại UK (PPI mis-selling scandal); FSA quy định chặt chẽ từ 2008</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>8. Dịch Vụ Du Lịch (Travel Services)</h2>
+
+<p>Dịch vụ du lịch là phần mở rộng tự nhiên của ngân hàng bán lẻ, tận dụng lòng tin và mạng lưới phân phối để cung cấp các sản phẩm phục vụ nhu cầu đi lại quốc tế.</p>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title">Ngoại tệ (Travel Money)</div>
+    <div class="card-value">140+ ngoại tệ</div>
+    <div class="card-desc">Đổi tiền mặt tại chi nhánh hoặc đặt trước qua Internet với tỷ giá tốt hơn. BizEast cam kết tỷ giá Best Buy cho khách hàng tài khoản Premium.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Séc Du Lịch (Traveller's Cheques)</div>
+    <div class="card-value">Bảo đảm 100%</div>
+    <div class="card-desc">Được đổi lại nếu mất cắp hoặc mất mát. An toàn hơn tiền mặt cho chuyến đi dài ngày. Được chấp nhận toàn cầu qua mạng lưới Visa/Amex.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Bảo Hiểm Du Lịch (Travel Insurance)</div>
+    <div class="card-value">Toàn diện</div>
+    <div class="card-desc">Bao gồm hủy chuyến, mất hành lý, y tế khẩn cấp, hồi hương. Thường đi kèm tài khoản Premium hoặc bán riêng theo chuyến/năm.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>9. Mã Ngân Hàng (Bank Codes)</h2>
+
+<p>Để thực hiện giao dịch quốc tế và trong nước, các thực thể ngân hàng sử dụng nhiều hệ thống mã định danh chuẩn hóa. Hiểu biết về các mã này là thiết yếu cho đội IT xây dựng hệ thống thanh toán.</p>
+
+<h3>9.1 BIC / SWIFT Code</h3>
+<p>BIC (Bank Identifier Code), còn gọi là SWIFT Code, là mã định danh ngân hàng quốc tế theo tiêu chuẩn ISO 9362. Dùng trong các giao dịch chuyển khoản quốc tế (SWIFT network).</p>
+
+<p><strong>Cấu trúc BIC — Ví dụ: <code>BARCGB2107K</code></strong></p>
+
+<div class="anatomy-block">BARCGB2107K</div>
+<div class="anatomy-labels">
+  <div class="anatomy-seg">BARC<span>Mã Ngân Hàng<br/>(4 ký tự)</span></div>
+  <div class="anatomy-seg">GB<span>Mã Quốc Gia<br/>(2 ký tự ISO 3166)</span></div>
+  <div class="anatomy-seg">21<span>Mã Địa Điểm<br/>(2 ký tự)</span></div>
+  <div class="anatomy-seg">07K<span>Mã Chi Nhánh<br/>(3 ký tự, tùy chọn)</span></div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Thành phần</th>
+      <th>Ký tự</th>
+      <th>Mô tả</th>
+      <th>Ví dụ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Bank Code</td>
+      <td>4</td>
+      <td>Mã định danh ngân hàng (viết tắt tên ngân hàng)</td>
+      <td>BARC = Barclays; NWBK = NatWest</td>
+    </tr>
+    <tr>
+      <td>Country Code</td>
+      <td>2</td>
+      <td>Mã quốc gia ISO 3166-1 alpha-2</td>
+      <td>GB = United Kingdom; DE = Germany</td>
+    </tr>
+    <tr>
+      <td>Location Code</td>
+      <td>2</td>
+      <td>Mã địa điểm (thành phố, múi giờ)</td>
+      <td>2L = London</td>
+    </tr>
+    <tr>
+      <td>Branch Code</td>
+      <td>3</td>
+      <td>Tùy chọn; "XXX" = chi nhánh chính</td>
+      <td>07K = chi nhánh cụ thể</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>9.2 IBAN — International Bank Account Number</h3>
+<p>IBAN là số tài khoản ngân hàng quốc tế theo tiêu chuẩn ISO 13616, dùng để định danh tài khoản ngân hàng xuyên quốc gia. Bắt buộc trong giao dịch SEPA (Khu vực thanh toán euro thống nhất).</p>
+
+<p><strong>Cấu trúc IBAN:</strong> <code>CC NN YYYY AABB BBBB BB</code></p>
+
+<div class="anatomy-block">GB29 NWBK 6016 1331 9268 19</div>
+<div class="anatomy-labels">
+  <div class="anatomy-seg">GB<span>Country Code<br/>Mã quốc gia (2)</span></div>
+  <div class="anatomy-seg">29<span>Check Digits<br/>Số kiểm tra (2)</span></div>
+  <div class="anatomy-seg">NWBK<span>Bank Code<br/>Mã ngân hàng (4)</span></div>
+  <div class="anatomy-seg">601613<span>Sort Code<br/>Mã chi nhánh (6)</span></div>
+  <div class="anatomy-seg">31926819<span>Account Number<br/>Số tài khoản (8)</span></div>
+</div>
+
+<div class="callout">
+  <strong>IBAN Validation</strong>
+  Số kiểm tra IBAN (check digits) được tính bằng thuật toán Modulo 97. Hệ thống thanh toán phải xác thực IBAN trước khi gửi giao dịch để tránh lỗi và phí sai địa chỉ (return fees). Độ dài IBAN tối đa 34 ký tự, thay đổi theo từng quốc gia (UK: 22 ký tự).
+</div>
+
+<h3>9.3 Sort Code</h3>
+<p>Sort Code là mã 6 chữ số (3 cặp 2 chữ số) dùng tại UK để định danh ngân hàng và chi nhánh cụ thể trong hệ thống thanh toán nội địa (BACS, CHAPS, Faster Payments). Ví dụ: <code>60-16-13</code> = NatWest, King's Cross, London.</p>
+
+<div class="anatomy-block">60-16-13</div>
+<div class="anatomy-labels">
+  <div class="anatomy-seg">60<span>Mã Ngân Hàng<br/>(Clearing Bank)</span></div>
+  <div class="anatomy-seg">16<span>Khu Vực<br/>(Region/Area)</span></div>
+  <div class="anatomy-seg">13<span>Chi Nhánh<br/>(Branch)</span></div>
+</div>
+
+<h3>9.4 IIN và PAN (Số Thẻ Thanh Toán)</h3>
+<p>Mỗi thẻ thanh toán có một số duy nhất gọi là <strong>PAN (Primary Account Number)</strong>, thường dài 13–19 chữ số. Cấu trúc PAN tuân thủ tiêu chuẩn ISO/IEC 7812.</p>
+
+<div class="anatomy-block">4532 0157 8745 6321</div>
+<div class="anatomy-labels">
+  <div class="anatomy-seg">4<span>MII<br/>Major Industry<br/>Identifier</span></div>
+  <div class="anatomy-seg">453201<span>IIN<br/>Issuer ID Number<br/>(6 chữ số đầu)</span></div>
+  <div class="anatomy-seg">578745632<span>Account Number<br/>Số tài khoản<br/>cá nhân</span></div>
+  <div class="anatomy-seg">1<span>Check Digit<br/>Luhn Algorithm<br/>Kiểm tra</span></div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>MII (Chữ số đầu)</th>
+      <th>Ngành</th>
+      <th>Ví dụ mạng lưới</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>3</strong></td>
+      <td>Du lịch và giải trí</td>
+      <td>American Express (34/37), Diners Club (36/38)</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td>Ngân hàng và tài chính</td>
+      <td>Visa (bắt đầu bằng 4)</td>
+    </tr>
+    <tr>
+      <td><strong>5</strong></td>
+      <td>Ngân hàng và tài chính</td>
+      <td>MasterCard (51–55), Maestro</td>
+    </tr>
+    <tr>
+      <td><strong>6</strong></td>
+      <td>Thương mại và ngân hàng</td>
+      <td>Discover Card (US); Maestro (UK)</td>
+    </tr>
+    <tr>
+      <td><strong>9</strong></td>
+      <td>Chính phủ và viễn thông</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="info-box">
+  <div class="label">IIN (Issuer Identification Number)</div>
+  IIN (trước đây gọi là BIN – Bank Identification Number) là 6 chữ số đầu của PAN, xác định ngân hàng phát hành thẻ. Hệ thống POS và cổng thanh toán tra cứu IIN để định tuyến giao dịch đến đúng mạng lưới xử lý. Cơ sở dữ liệu IIN được duy trì bởi ISO và các mạng lưới thẻ.
+</div>
+
+<h3>9.5 EMV — Tiêu Chuẩn Chip Thẻ</h3>
+<p>EMV (Europay, MasterCard, Visa) là tiêu chuẩn kỹ thuật quốc tế cho thẻ chip (smart card) nhằm giảm gian lận thẻ tại điểm bán. Hai ứng dụng chính:</p>
+
+<div class="def-grid">
+  <div class="def-cell header">Ứng dụng EMV</div>
+  <div class="def-cell header">Mô tả</div>
+  <div class="def-cell">
+    <div class="def-term">VSDC (Visa Smart Debit/Credit)</div>
+    <div class="def-desc">Ứng dụng EMV của Visa cho thẻ debit và credit chip. Xác thực giao dịch trực tuyến (online) hoặc ngoại tuyến (offline) với mã hóa mạnh.</div>
+  </div>
+  <div class="def-cell">
+    <div class="def-desc">Yêu cầu PIN thay vì chữ ký; giảm thiểu gian lận thẻ vật lý. Triển khai tại UK từ 2004 (Chip and PIN mandate).</div>
+  </div>
+  <div class="def-cell">
+    <div class="def-term">MChip (MasterCard Chip)</div>
+    <div class="def-desc">Ứng dụng EMV của MasterCard cho thẻ chip. Tương tự VSDC nhưng theo đặc tả riêng của MasterCard.</div>
+  </div>
+  <div class="def-cell">
+    <div class="def-desc">EMVCo (liên doanh Europay/MasterCard/Visa) quản lý tiêu chuẩn EMV toàn cầu và cấp phép cho nhà phát hành thẻ.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<h2>10. Lãi Suất Tham Chiếu (Rates)</h2>
+
+<h3>10.1 BBA LIBOR</h3>
+<p>BBA LIBOR (British Bankers' Association London Interbank Offered Rate) là lãi suất trọng tâm của thị trường tiền tệ toàn cầu. Được sử dụng làm lãi suất tham chiếu cho hàng nghìn tỷ USD hợp đồng tài chính trên toàn thế giới.</p>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title">Đơn vị quản lý</div>
+    <div class="card-value">BBA</div>
+    <div class="card-desc">British Bankers' Association — Hiệp hội Ngân hàng Anh, tổng hợp và công bố LIBOR hàng ngày</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Tần suất công bố</div>
+    <div class="card-value">Hàng ngày</div>
+    <div class="card-desc">Công bố lúc 11:00 GMT mỗi ngày làm việc; tính trung bình từ dữ liệu các ngân hàng panel</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Loại tiền tệ</div>
+    <div class="card-value">10 ngoại tệ</div>
+    <div class="card-desc">USD, GBP, EUR, JPY, CHF, CAD, AUD, DKK, SEK, NZD — mỗi loại có kỳ hạn riêng</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Kỳ hạn</div>
+    <div class="card-value">15 kỳ hạn</div>
+    <div class="card-desc">Qua đêm, 1 tuần, 2 tuần, 1 tháng, 2 tháng, 3 tháng, 6 tháng, 12 tháng và các kỳ hạn trung gian</div>
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="label">Quy trình tính LIBOR</div>
+  Mỗi ngày, BBA thu thập báo giá từ một nhóm ngân hàng panel (thường 16 ngân hàng lớn nhất). Loại bỏ 25% cao nhất và 25% thấp nhất. Tính trung bình số học của các báo giá còn lại. Kết quả là LIBOR ngày hôm đó cho từng kỳ hạn và loại tiền tệ.
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ứng dụng LIBOR trong ngân hàng bán lẻ</th>
+      <th>Ví dụ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Thế chấp lãi suất theo dõi (Tracker Mortgage)</td>
+      <td>LIBOR 3 tháng + spread (ví dụ: LIBOR + 0.75%)</td>
+    </tr>
+    <tr>
+      <td>Vay cá nhân lãi suất biến đổi</td>
+      <td>Điều chỉnh theo LIBOR định kỳ</td>
+    </tr>
+    <tr>
+      <td>Tài khoản tiết kiệm Guaranteed Tracker</td>
+      <td>BoE Base Rate (liên quan đến LIBOR ngắn hạn)</td>
+    </tr>
+    <tr>
+      <td>Hợp đồng phái sinh lãi suất (IRS)</td>
+      <td>Phổ biến nhất trong quản lý rủi ro lãi suất ngân hàng</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr/>
+
+<!-- Summary -->
+<h2>Tóm Tắt Chương 2</h2>
+
+<p>Chương 2 trình bày bức tranh toàn diện về danh mục sản phẩm và dịch vụ của ngân hàng bán lẻ hiện đại. Từ tài khoản thanh toán phân khúc (Classic, Premium, Student, Islamic) đến tài khoản tiết kiệm và ISA miễn thuế; từ thẻ tín dụng với cấu trúc APR đến mã hóa thẻ chip EMV; từ thế chấp với ERC đến lãi suất tham chiếu LIBOR — mỗi sản phẩm đều có đặc tả kỹ thuật riêng biệt mà hệ thống IT cần hiểu và triển khai chính xác.</p>
+
+<p>Sử dụng ngân hàng hư cấu BizEast như một "ngân hàng mẫu" xuyên suốt chương cho phép minh họa cách sản phẩm thực sự được thiết kế và đặc tả — không chỉ về tính năng thị trường mà còn về yêu cầu hệ thống backend như quản lý lãi suất, kiểm tra ràng buộc mở tài khoản, tính toán ERC, và định tuyến giao dịch qua BIC/IBAN/Sort Code.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nhóm sản phẩm</th>
+      <th>Khái niệm kỹ thuật trọng tâm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tài khoản</td>
+      <td>EAR, phân khúc khách hàng, vòng đời tài khoản, Sharia compliance</td>
+    </tr>
+    <tr>
+      <td>Tiết kiệm &amp; ISA</td>
+      <td>AER, giới hạn ISA hàng năm, tuân thủ FSA, ràng buộc mở tài khoản</td>
+    </tr>
+    <tr>
+      <td>Thẻ</td>
+      <td>APR, PAN/IIN/MII, EMV (VSDC/MChip), luồng giao dịch 4 bên</td>
+    </tr>
+    <tr>
+      <td>Vay &amp; Thế chấp</td>
+      <td>APR, ERC, LTV, LIBOR, vay đóng/mở, SVR</td>
+    </tr>
+    <tr>
+      <td>Mã ngân hàng</td>
+      <td>BIC/SWIFT, IBAN, Sort Code, IIN/PAN, Luhn algorithm</td>
+    </tr>
+    <tr>
+      <td>Lãi suất tham chiếu</td>
+      <td>BBA LIBOR, BoE Base Rate, kỳ hạn, loại tiền tệ</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="page-footer">
+  <span>Business Knowledge for IT in Retail Banking · Essvale Corporation Limited</span>
+  <span>Chương 2 · Trang 15–34</span>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch3-bkrb.html"><span class="lbl">Chương sau</span>Chương 3: Môi Trường Kinh Doanh Trong Ngân Hàng Bán Lẻ</a>
+</nav>
+</body>
+</html>
