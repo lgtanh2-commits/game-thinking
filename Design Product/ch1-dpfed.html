@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 1 — Tiến Hóa Kỹ Thuật Số | Designing Products for Evolving Digital Users</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+  /* Book header */
+  .book-header {
+    border-bottom: 2px solid var(--accent-line);
+    padding-bottom: 24px;
+    margin-bottom: 48px;
+  }
+  .book-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .book-title {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .book-author {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* Chapter heading */
+  .chapter-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    margin-top: 8px;
+  }
+  h1.chapter-title {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .chapter-subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--surface);
+    border-left: 3px solid var(--accent-line);
+    padding: 24px 28px;
+    margin-bottom: 56px;
+  }
+  .toc-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .toc ol {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .toc li {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+
+  /* Sections */
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-top: 60px;
+    margin-bottom: 20px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 36px;
+    margin-bottom: 14px;
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-top: 28px;
+    margin-bottom: 10px;
+  }
+  p {
+    margin-bottom: 18px;
+    color: var(--text);
+  }
+
+  /* Blockquote */
+  blockquote {
+    border-left: 3px solid var(--accent-line);
+    margin: 32px 0;
+    padding: 20px 28px;
+    background: var(--surface);
+  }
+  blockquote p {
+    font-size: 17px;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  blockquote cite {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: normal;
+  }
+
+  /* Key concept boxes */
+  .concept-box {
+    background: var(--surface-dark);
+    border: 1px solid var(--border-strong);
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+  .concept-box .concept-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .concept-box p {
+    margin-bottom: 0;
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+  .concept-box strong {
+    color: var(--text);
+  }
+
+  /* Highlight / definition box */
+  .definition {
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent-line);
+    padding: 16px 20px;
+    margin: 24px 0;
+    background: var(--bg);
+  }
+  .definition p {
+    margin-bottom: 0;
+    font-size: 15px;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+  .definition strong {
+    font-style: normal;
+    color: var(--text);
+  }
+
+  /* Info grid */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin: 28px 0;
+  }
+  .info-cell {
+    background: var(--bg);
+    padding: 18px 20px;
+  }
+  .info-cell .cell-head {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .info-cell p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+    line-height: 1.6;
+  }
+
+  /* Numbered process list */
+  .process-list {
+    margin: 24px 0;
+    padding-left: 0;
+    list-style: none;
+    counter-reset: process-counter;
+  }
+  .process-list li {
+    counter-increment: process-counter;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: start;
+  }
+  .process-list li::before {
+    content: counter(process-counter);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--bg);
+    background: var(--text);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4px;
+  }
+  .process-list li .item-body {}
+  .process-list li .item-title {
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+    font-size: 15px;
+  }
+  .process-list li .item-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  /* Stage timeline */
+  .stage-list {
+    margin: 24px 0;
+  }
+  .stage-item {
+    border-left: 2px solid var(--border-strong);
+    padding: 0 0 28px 24px;
+    position: relative;
+  }
+  .stage-item:last-child { padding-bottom: 0; }
+  .stage-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 4px;
+    width: 8px;
+    height: 8px;
+    background: var(--text);
+    border-radius: 50%;
+  }
+  .stage-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .stage-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 0;
+  }
+
+  /* Divider */
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+  }
+
+  /* Footer */
+  .chapter-footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 2px solid var(--accent-line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-nav {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .footer-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  em { color: var(--text-secondary); }
+  strong { color: var(--text); }
+  .muted { color: var(--text-muted); font-size: 13px; }
+
+  @media (max-width: 600px) {
+    body { padding: 32px 20px 60px; }
+    h1.chapter-title { font-size: 26px; }
+    .info-grid { grid-template-columns: 1fr; }
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/designing-products-evolving-digital-users">← Về mục lục</a></p>
+<!-- Book header -->
+<div class="book-header">
+  <div class="book-label">Tóm tắt học thuật</div>
+  <div class="book-title">Designing Products for Evolving Digital Users — Study UX Behavior Patterns, Online Communities, and Future Digital Trends</div>
+  <div class="book-author">Anastasia Utesheva · Apress, 2020</div>
+</div>
+
+<!-- Chapter title -->
+<div class="chapter-num">Chương 1</div>
+<h1 class="chapter-title">Tiến Hóa Kỹ Thuật Số</h1>
+<div class="chapter-subtitle">Coevolution của Con Người và Công Nghệ</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">Nội dung chương</div>
+  <ol>
+    <li>Mở đầu — Chúng ta là sản phẩm của những gì chúng ta tạo ra</li>
+    <li>Bốn Loại Thông Tin: Sinh học, Công nghệ, Văn hóa, Nhận thức</li>
+    <li>Universal Darwinism — Khung lý thuyết meta</li>
+    <li>Tiến Hóa Sinh Học — Nền tảng từ Darwin (1859)</li>
+    <li>Tiến Hóa Công Nghệ — Từ công cụ đến máy móc đến tự động hóa</li>
+    <li>Tiến Hóa Văn Hóa — Meme, memeplex và bốn giai đoạn văn hóa</li>
+    <li>Tiến Hóa Nhận Thức — Schemata, đồng hóa và thích nghi</li>
+    <li>Tiến Hóa "Bản Thân" — Kết luận chương</li>
+  </ol>
+</div>
+
+<!-- SECTION 1: INTRO -->
+<h2>Mở Đầu — Chúng Ta Là Sản Phẩm Của Những Gì Chúng Ta Tạo Ra</h2>
+
+<p>Chúng ta là sản phẩm của những gì chúng ta tạo ra, cũng như những gì chúng ta tạo ra là sản phẩm của chúng ta. Hai thế kỷ vừa qua đã đặt ra một câu hỏi sắc bén về mối quan hệ tò mò giữa con người, văn hóa, cách tư duy, và công nghệ mà chúng ta tạo ra, chiếm dụng và bình thường hóa vào cuộc sống.</p>
+
+<p>Công nghệ kỹ thuật số đang tiến hóa với tốc độ phi thường đến mức những biến động trong động lực xã hội toàn cầu giờ đây có thể được quan sát trong vòng chưa đầy 12 tháng. Ngày càng có nhiều nhận thức công cộng về bản chất mũ nhọn (exponential) của tiến bộ và đổi mới kỹ thuật số. Một trong những ví dụ rõ ràng nhất là sự phản ánh của <strong>Định luật Moore</strong> trong tiến bộ công nghệ — kể từ thập niên 1960, số lượng bóng bán dẫn trong một mạch tích hợp mật độ cao đã tăng gấp đôi cứ khoảng 2 năm trong khi chi phí máy tính đã giảm một nửa.</p>
+
+<p>Cùng với những thay đổi về hiệu suất giá/chi phí của tính toán (tức là khi chi phí mỗi đơn vị sản xuất giảm và số lượng tính toán trên mỗi đô la tăng), ngày càng có nhiều công nghệ kỹ thuật số mạnh mẽ hơn đang được phổ biến và áp dụng toàn cầu. Điện thoại di động của chúng ta hiện nay mạnh hơn những siêu máy tính vào giữa thế kỷ 20. Chúng cũng rẻ hơn và dễ tiếp cận hơn nhiều.</p>
+
+<p>Hiện tại chúng ta mang theo nhiều sức mạnh tính toán hơn những gì chúng ta từng nghĩ là có thể, và những gì chúng ta thấy mình đang làm với nó cũng đáng ngạc nhiên không kém. Chúng ta hiện có thể tiếp cận, nhìn thấy, tạo ra và ảnh hưởng nhiều hơn bao giờ hết trong lịch sử. Phương tiện truyền thông kỹ thuật số phản ánh kết nối ngày càng tăng của chúng ta và sự thích nghi với các hình thức tồn tại mới.</p>
+
+<blockquote>
+  <p>Để hiểu được <em>cách thức</em> và <em>lý do tại sao</em> của các xu hướng xã hội mà chúng ta thể hiện và thiết kế cho nó, chúng ta cần nhìn vào bản chất thay đổi trong mối quan hệ giữa công nghệ kỹ thuật số và con người.</p>
+</blockquote>
+
+<p>Chúng ta giờ đây có nhiều thông tin hơn để truy cập, nhiều hơn để hiểu, nhiều hơn để tạo ra so với bao giờ hết. Và chúng ta không thể làm điều này mà không có công nghệ. Chúng ta không thể tiến hóa theo cách chúng ta muốn trừ khi chúng ta hiểu vai trò mà công nghệ đóng trong bước tiến hóa mới nhất của chúng ta.</p>
+
+<p><em>Làm thế nào tất cả điều này liên quan đến việc thiết kế sản phẩm?</em></p>
+
+<!-- SECTION 2: 4 TYPES OF INFORMATION -->
+<h2>Bốn Loại Thông Tin</h2>
+
+<p>Để thiết kế cho người dùng là để thiết kế cho một góc nhìn phức tạp, gần như xa lạ của <em>"người khác"</em>. Để làm điều đó với bất kỳ thành công nào, chúng ta, với tư cách là các nhà thiết kế, cần nhìn ra ngoài bề mặt và nhìn nhận cá nhân này như một phần của một hệ thống phức tạp: một hệ thống các loại thông tin liên quan và không ngừng tiến hóa.</p>
+
+<p>Để giúp tháo gỡ các loại thông tin khác nhau cấu thành bản thân được công nghệ nâng cao của chúng ta, chúng ta cần nhìn vào <strong>bốn yếu tố khác nhau nhưng liên quan</strong> của thực tại phức tạp của chúng ta:</p>
+
+<div class="info-grid">
+  <div class="info-cell">
+    <div class="cell-head">Sinh học (Biology)</div>
+    <p>Đề cập đến hình thức vật lý của sinh vật sống. Đây là loại thông tin nhất quán nhất trong bốn loại về tốc độ và phương pháp thay đổi — được mã hóa trong DNA.</p>
+  </div>
+  <div class="info-cell">
+    <div class="cell-head">Công nghệ (Technology)</div>
+    <p>Đề cập đến bất kỳ đổi mới nào mở rộng "tầm với" của cuộc sống vượt ra ngoài giới hạn cơ bản của sinh học. Bao gồm cả vật chất (phần cứng, công cụ, máy móc) và phi vật chất (ngôn ngữ, cấu trúc xã hội, kỹ thuật số).</p>
+  </div>
+  <div class="info-cell">
+    <div class="cell-head">Văn hóa (Culture)</div>
+    <p>Đề cập đến tập hợp thông tin thuộc về các tương tác xã hội giữa các thành viên cùng/tương tự loài, từng được kế thừa qua việc sinh ra trong văn hóa và nay đang hội tụ trong một nền văn hóa toàn cầu "kỹ thuật số."</p>
+  </div>
+  <div class="info-cell">
+    <div class="cell-head">Nhận thức (Cognition)</div>
+    <p>Đề cập đến các tập hợp thông tin và quy trình mà qua đó một thực thể hoạt động để hiểu và chức năng trong thế giới. Bao gồm chú ý, trí nhớ, phân tích, đánh giá, suy luận, giải quyết vấn đề, ngôn ngữ.</p>
+  </div>
+</div>
+
+<p>Sinh học là nhất quán nhất trong bốn loại về tốc độ và phương pháp thay đổi. Công nghệ là người bạn đồng hành liên tục của loài của chúng ta, nâng cao tầm với của chúng ta vượt qua những gì sinh học có thể giới hạn. Ranh giới giữa sinh học và công nghệ ngày càng trở nên mờ nhạt hơn theo thời gian khi ranh giới giữa con người và kỹ thuật số tan biến qua sự đan xen liên tục của họ (tức là, tiến hóa đồng bộ liên tục).</p>
+
+<div class="concept-box">
+  <div class="concept-label">Ý tưởng cốt lõi</div>
+  <p>Con người ngồi gần bạn đang sử dụng điện thoại di động là <strong>sự hội tụ trong vật chất của hàng tỷ năm</strong> của quá trình tiến hóa này. Bốn loại thông tin — sinh học, công nghệ, văn hóa, nhận thức — cùng tạo nên con người hiện đại. Thực tế của chúng ta là mối quan hệ (relational), không phải là một "sự thật" duy nhất bất biến.</p>
+</div>
+
+<p>Thông tin cốt lõi giả định trong góc nhìn này là thông tin tiến hóa theo thời gian ở các hình thức khác nhau thông qua các phương tiện khác nhau. Khi độ phức tạp của nó tăng lên, thông tin biến đổi thành các hình thức mới. Khi thông tin được tinh chỉnh theo thời gian và phương tiện, các mẫu vẫn còn <em>giống nhau</em> và <em>khác nhau</em> trở thành điểm tập trung.</p>
+
+<p>Để thiết kế cho người dùng đang tiến hóa, chúng ta cần học cách nhận ra các mẫu (patterns) trong sự thay đổi trên bốn luồng tiến hóa này. Khung lý thuyết Universal Darwinism cung cấp cho chúng ta cách nhìn về cách chúng ta tiến hóa, chúng ta đến từ đâu và điều này xảy ra như thế nào.</p>
+
+<!-- SECTION 3: UNIVERSAL DARWINISM -->
+<h2>Universal Darwinism — Khung Lý Thuyết Meta</h2>
+
+<p>Khái niệm tiến hóa bắt nguồn từ những quan sát về sự sống sinh học trên Trái Đất, và các cơ chế cốt lõi của nó đã được áp dụng cho nhiều lĩnh vực vượt ra ngoài lý thuyết tiến hóa sinh học ban đầu. Khái niệm này đã nhất quán cung cấp những góc nhìn có giá trị về các hiện tượng, có tính đến tính nhân quả mối quan hệ theo thời gian. Ví dụ, bạn có thể nghiên cứu sự tiến hóa của các phong cách xây dựng trong một khu phố, hoặc cách công thức bánh quy sô cô la của bạn thay đổi qua nhiều năm.</p>
+
+<div class="definition">
+  <p><strong>Universal Darwinism</strong> (phổ biến bởi Richard Dawkins vào năm 1982) đề cập đến nhiều phương pháp tiếp cận và lý thuyết mở rộng lý thuyết tiến hóa ban đầu vượt ra ngoài phạm vi áp dụng của nó đối với các thực thể sinh học trên Trái Đất. Nó tập trung vào <em>sự thay đổi trong các thực thể của một loại nhất định theo thời gian và trong bối cảnh của chúng.</em></p>
+</div>
+
+<p>Universal Darwinism khẳng định rằng tiến hóa xảy ra trong bất kỳ nhóm thực thể nào nếu có cơ chế để <strong>giới thiệu biến thể</strong> (variation), một <strong>quá trình chọn lọc</strong> nhất quán (selection), và các cơ chế để <strong>bảo tồn và/hoặc truyền bá</strong> các mẫu khác nhau trong "quần thể" (heredity/retention).</p>
+
+<p>Universal Darwinism có thể được áp dụng trong bất kỳ lĩnh vực nào miễn là các mẫu tạo nên sự thay đổi có thể được giải thích thông qua các cơ chế cốt lõi của tiến hóa. Một tập hợp gen (tức là, các phân đoạn thông tin sinh học tạo nên sự hình thành của thực thể đó) có thể được xem là thay đổi thông qua các mẫu trừu tượng giống như một bài báo tin tức trên Web (tức là, các phân đoạn thông tin kỹ thuật số thay đổi theo thời gian để định hình câu chuyện) — cả hai đều bắt đầu là một mẫu cụ thể tại một thời điểm và, tùy thuộc vào những gì xảy ra với chúng và các thực thể khác trong bối cảnh đó theo thời gian, thay đổi theo mẫu để phù hợp nhất với bối cảnh của chúng hoặc không còn tồn tại.</p>
+
+<div class="concept-box">
+  <div class="concept-label">Nguyên tắc quan trọng</div>
+  <p>Universal Darwinism không thể được sử dụng để giải thích hoặc dự đoán các hiện tượng cấp thấp (ví dụ: sự tồn tại của một công ty hoặc hành vi cụ thể của một cá nhân), nhưng rất hữu ích trong việc <strong>hiểu các thay đổi trong xu hướng và mẫu trong các tập hợp thực thể cụ thể</strong> theo thời gian và so sánh các thay đổi trong các tập hợp thực thể rất khác nhau. Theo nghĩa này, chúng ta tìm kiếm các mẫu thay đổi nhìn lại và thấy các mẫu mới nổi chỉ ra các cơ chế cốt lõi đang hoạt động. Khi hiểu được các cơ chế cốt lõi, chúng ta có thể thiết kế tương ứng để kích hoạt, phát triển hoặc phá vỡ.</p>
+</div>
+
+<p>Universal Darwinism áp dụng nguyên tắc "nhân quả phổ quát" (universal causation), ngụ ý rằng mỗi sự kiện đều có nguyên nhân nhưng nguyên nhân không thể được giả định là tuyến tính, đơn nhất hoặc đơn giản để xác định. Theo hình ảnh ẩn dụ, hãy nghĩ đến một con sóng trong đại dương, chứ không phải một cò súng. Thay vì nhân quả tuyến tính và đơn giản (A gây ra B, B gây ra C), chúng ta nhìn nhân quả là mối quan hệ và nhiều chiều.</p>
+
+<p>Trong thế giới sản phẩm kỹ thuật số, chúng ta phải liên tục vạch ra ranh giới giữa kỹ thuật số và không phải kỹ thuật số. Khi một sản phẩm kỹ thuật số đi từ khái niệm đến thực hiện, nó thực sự biến đổi từ một ý tưởng trừu tượng trong đầu ai đó, thành một bộ email, thành một bộ các bản vẽ bảng trắng và ghi chú post-it, thành một bộ yêu cầu/câu chuyện người dùng, thành một bộ thiết kế, thành code, thành một nguyên mẫu, thành một sản phẩm trực tiếp.</p>
+
+<!-- SECTION 4: BIOLOGICAL EVOLUTION -->
+<h2>Tiến Hóa Sinh Học</h2>
+
+<p>Tại cốt lõi của một số sự thay đổi mô hình lịch sử lớn nhất trong cả lĩnh vực khoa học và xã hội là lý thuyết tiến hóa sinh học bằng chọn lọc tự nhiên như được Charles Darwin đề xuất lần đầu tiên trong <em>On the Origin of Species</em> (1859). Thách thức các giả định thống trị thời đó (tức là, những giả định về các "lớp" kiểu hình học cố định hoặc không đổi trong sinh học phù hợp với một kế hoạch thần thánh chưa biết), lý thuyết này trình bày một cách thống nhất để giải thích và theo dõi sự đa dạng quan sát được của sự sống sinh học trên Trái Đất.</p>
+
+<p>Trước Darwin, "bản chất" hoặc hình thức của các sinh vật được giả định là không thay đổi: một sinh vật không thể thay đổi "bản chất" và các "bản chất" mới không thể được sinh ra. Một con bò sát không thể <em>biến thành</em> một con chim, cũng không hơn gì bạc biến thành vàng. Quan điểm này rất khó để giải thích và phân loại sự đa dạng lớn của các hình thức sinh học tương tự và bất kỳ thay đổi quan sát được nào theo thời gian trong các loài đã được phân loại.</p>
+
+<p>Darwin đã đề xuất một quan điểm thay thế: sự khác biệt trong các hình thức sinh học xuất phát từ quá trình <strong>chọn lọc tự nhiên</strong> (natural selection) trong đó các đặc điểm tăng cường cơ hội sống sót và sinh sản của một sinh vật trở nên phổ biến hơn trong các thế hệ tiếp theo.</p>
+
+<div class="concept-box">
+  <div class="concept-label">Ba cơ chế cốt lõi của Tiến Hóa Darwin</div>
+  <p><strong>Chọn lọc tự nhiên (Natural Selection):</strong> Các đặc điểm tăng cường cơ hội sống sót và sinh sản được ưu tiên và truyền lại.<br><br>
+  <strong>Biến thể ngẫu nhiên (Random Variation):</strong> Sự khác biệt tự nhiên giữa các cá thể cùng loài tạo ra sự đa dạng cần thiết cho tiến hóa.<br><br>
+  <strong>Kế thừa/Di truyền (Heredity):</strong> Các đặc điểm được truyền từ cha mẹ sang con cái thông qua các cơ chế sinh học.</p>
+</div>
+
+<p>Darwin còn lập luận rằng nhiều loài có thể tiến hóa từ một tổ tiên chung, mỗi loài thể hiện các đặc điểm có thể kế thừa phân kỳ do sự thích nghi độc đáo với những thay đổi trong bối cảnh và khả năng tinh chỉnh các đặc điểm có lợi qua các thế hệ tương lai.</p>
+
+<p>Đóng góp của Darwin cho các mô hình hiện đại là thống nhất và áp dụng các nguyên tắc <strong>biến thể, chọn lọc và kế thừa/giữ lại</strong> để giải thích sự đa dạng và thay đổi sinh học. Sau này, công trình của James Watson và Francis Crick (1953) về cấu trúc DNA, lý thuyết cân bằng gián đoạn của Stephen Jay Gould và Niles Eldredge (1972), phát hiện của Donald Johanson (1974) về bộ xương người nguyên thủy cổ nhất, và khái niệm của Richard Dawkins (1989) về hành vi và thói quen nhận thức như là "kiểu hình mở rộng" đã mở rộng những ý tưởng ban đầu của Darwin.</p>
+
+<p>Các cơ chế cốt lõi cho tiến hóa sinh học giờ đây được công nhận bao gồm <strong>chọn lọc tự nhiên, đột biến thiên lệch, trôi dạt di truyền, đi nhờ di truyền và dòng gen</strong>. Kết quả của quá trình bao gồm thích nghi, tiến hóa đồng bộ, hợp tác, hình thành loài và tuyệt chủng.</p>
+
+<p>Mặc dù những cơ chế này bắt nguồn từ sinh học, chúng đã được áp dụng theo hình thức trừu tượng để giải thích sự thay đổi trong các bối cảnh khác, chẳng hạn như nghiên cứu truyền thông, nghiên cứu văn hóa, nghệ thuật, thời trang, công nghệ, kiến trúc, nghiên cứu xã hội và kinh tế.</p>
+
+<p>Trong "Thời đại Thông tin," mọi thứ có thể được quy về mức độ thông tin, và chính các mẫu thông tin đó tiến hóa qua các phương tiện khác nhau thông qua quá trình cụ thể hóa và biến đổi theo thời gian. Trong quan điểm này, không có nhiều sự khác biệt giữa thông tin di truyền và ngôn ngữ phần mềm trong cách chúng tiến hóa theo thời gian (mặc dù tất nhiên các cơ chế và tốc độ cụ thể rất khác nhau).</p>
+
+<!-- SECTION 5: TECHNOLOGICAL EVOLUTION -->
+<h2>Tiến Hóa Công Nghệ</h2>
+
+<p>Tiến hóa công nghệ là tốc độ và các mẫu của sự thay đổi công nghệ cấu thành hành trình phát triển của loài người. "Công nghệ" trong quan điểm này là bất cứ thứ gì mà con người đã tạo ra (dù có chủ ý hay không) nhằm đạt được một số giá trị. Điều này bao gồm lửa, công cụ, máy móc, tòa nhà, máy tính, ngôn ngữ, và thậm chí cả trí nhớ và khả năng gợi lại ký ức tự nguyện.</p>
+
+<div class="definition">
+  <p>Trong quan điểm này, "công nghệ" không chỉ là vật chất hoặc bên ngoài hình thức sinh học của chúng ta (ví dụ, một cây bút chì); đúng hơn, nó là bất cứ thứ gì không trực tiếp chịu trách nhiệm cho các chức năng sinh học cốt lõi của cơ thể con người.</p>
+</div>
+
+<h3>Từ Công Cụ đến Máy Móc đến Tự Động Hóa</h3>
+
+<p>Trong thế kỷ vừa qua, chúng ta đã trải qua sự tiến hóa từ <em>công cụ</em> sang <em>máy móc</em> và gần đây hơn là <em>tự động hóa</em>. Sự xuất hiện của từng loại đánh dấu những thay đổi mô hình lớn trong văn hóa toàn cầu, nhận thức và tiến hóa sinh học của loài người (và môi trường của họ).</p>
+
+<div class="stage-list">
+  <div class="stage-item">
+    <div class="stage-name">Công cụ (Tools)</div>
+    <p class="stage-desc">Được định nghĩa là bất kỳ thực thể vật chất nào mở rộng tiềm năng của thành tựu con người bằng cách vượt qua giới hạn của sinh học (ví dụ: dao hoặc rìu). Công cụ yêu cầu toàn bộ nỗ lực của con người để hoạt động.</p>
+  </div>
+  <div class="stage-item">
+    <div class="stage-name">Máy móc (Machines)</div>
+    <p class="stage-desc">Được định nghĩa là các công cụ phức tạp thay thế một yếu tố nỗ lực của con người nhưng vẫn yêu cầu đầu vào của con người để vận hành (ví dụ: thuyền hoặc xe hơi). Máy móc giảm bớt gánh nặng vật lý nhưng vẫn cần con người điều khiển.</p>
+  </div>
+  <div class="stage-item">
+    <div class="stage-name">Tự động hóa (Automation)</div>
+    <p class="stage-desc">Được định nghĩa là một máy có khả năng thực hiện các lệnh mà không cần đầu vào trực tiếp của con người (ví dụ: thiết bị robot). Tự động hóa giải phóng con người khỏi các nhiệm vụ lặp đi lặp lại, cho phép họ tập trung vào sự sáng tạo.</p>
+  </div>
+</div>
+
+<p>Chúng ta có thể đi xa đến mức xem mỗi giai đoạn chuyển đổi là được kích hoạt bởi các giai đoạn trước đó, sao cho khi nền tảng kiến thức thiết kế công nghệ cải thiện, năng lực của chúng ta để tạo ra công nghệ phức tạp và tinh tế hơn cũng cải thiện. Tò mò thay, sự xuất hiện của mỗi loại mới không dẫn đến sự tuyệt chủng của những người tiền nhiệm của nó; đúng hơn, nó đánh dấu sự chuyển đổi của loài người sang giai đoạn tiếp theo của tiến hóa công nghệ, văn hóa và nhận thức.</p>
+
+<h3>Hệ quả Xã hội và Tiến hóa Bản ngã</h3>
+
+<p>Những tiến bộ công nghệ là tích lũy — một khi thứ gì đó được tạo ra, đổi mới mới đến với tốc độ nhanh hơn so với thời gian giữa các đổi mới trước đó. Cùng với sự tiến hóa nhanh chóng của công nghệ, chúng ta cũng có thể quan sát những thay đổi rất đáng kể trong động lực xã hội toàn cầu, bao gồm những thay đổi trong văn hóa, thực hành kinh doanh, thói quen xã hội, bản sắc và khái niệm "bản thân" của một con người.</p>
+
+<p>Chúng ta đã bắt đầu đặt câu hỏi về sự tồn tại của mình theo cách chưa từng được khám phá trước đây: thông qua sự tương tác giữa những gì chúng ta gọi là "bản thân kỹ thuật số" vs. "bản thân vật chất" của chúng ta. Ý thức về bản thân của chúng ta, và bản sắc hoạt động của nó như "John" hoặc "Mary", đã trở nên phức tạp hơn nhiều so với các thế kỷ trước.</p>
+
+<p>Nhà tương lai học Ray Kurzweil, khi phân tích các mẫu tiến hóa công nghệ này, dự đoán rằng sớm chúng ta sẽ có một sự thay đổi lớn khác. Được gọi là <strong>Kỳ điểm đặc biệt (The Singularity)</strong>, sự thay đổi mô hình tiếp theo được lập luận là liên quan đến sự vượt qua các giới hạn của sinh học con người thông qua việc hợp nhất với công nghệ mới nổi.</p>
+
+<p>Kurzweil vang vọng quan điểm của nhà lý thuyết truyền thông thế kỷ 20 Marshall McLuhan, người lập luận rằng phương tiện truyền thông là phần mở rộng của con người, nhiều hơn những gì chúng ta nhận ra. Quan điểm của ông về phương tiện truyền hình và ảnh hưởng của nó đối với văn hóa và nhận thức gợi ý rằng con người đã hợp nhất với công nghệ rồi — không phải bằng cách cấy vi mạch, mà bằng cách <em>áp dụng và tiến hóa cùng và thông qua</em> công nghệ, và sử dụng tầm với mở rộng của chúng ta để <em>trở nên nhiều hơn</em> những gì chúng ta có thể mà không có nó.</p>
+
+<h3>Ví dụ: Facebook vs. Reddit</h3>
+
+<p>Hãy xem xét hai công nghệ tập trung vào nội dung xã hội: Facebook và Reddit. Mặc dù cả hai đều phụ thuộc nhiều vào cơ sở người dùng cho nội dung (và tỷ lệ áp dụng), họ có hai sự khác biệt đáng kể trong thiết kế.</p>
+
+<p><strong>Reddit</strong> sử dụng hệ thống Up/Down Vote đối với bài đăng — điều này chuyển trọng tâm từ việc cung cấp cho người đăng nội dung sự xác nhận tích cực (và có thể nói là vô nghĩa) bên ngoài sang tiềm năng xác nhận tích cực hoặc tiêu cực bên ngoài, do đó đặt vào trọng tâm ý tưởng chính nó. Trong Reddit, nơi bản sắc được ẩn và đặt ở ngoại vi xa nhất của tương tác người dùng, nội dung/ý tưởng được ưu tiên. <strong>Facebook</strong>, nơi bản sắc tự quản lý là trọng tâm cốt lõi (và sản phẩm cốt lõi mà người dùng tự nguyện tạo ra cho công ty), tương tác hoàn toàn dựa trên người bạn biết ai thích những gì bạn nói/làm.</p>
+
+<p>Cả hai sản phẩm kỹ thuật số đều đã tiến hóa thông qua cơ sở người dùng và bộ tính năng của họ trong suốt thời gian tồn tại của họ, nhưng cho đến nay vẫn có các hành trình tiến hóa rất khác nhau và một cơ sở người dùng đang tiến hóa rất khác nhau.</p>
+
+<!-- SECTION 6: CULTURAL EVOLUTION -->
+<h2>Tiến Hóa Văn Hóa</h2>
+
+<p>Thuật ngữ "văn hóa" đề cập đến một tập hợp kiến thức được truyền đạt xã hội, được tích lũy và tinh chỉnh theo thời gian bởi một loài. Điều này bao gồm nội dung biểu diễn và các cách mà nội dung đó được diễn giải và tạo ra. Mặc dù hiện tượng này không chỉ có ở con người, nhưng việc truyền tải và tinh chỉnh kiến thức văn hóa liên tục là nền tảng cho tiến hóa của con người và sự tách biệt quan sát được của chúng ta khỏi dòng chảy của các dạng sống khác trong hệ sinh thái của chúng ta.</p>
+
+<p>Tích lũy, tinh chỉnh và chia sẻ kiến thức văn hóa đóng vai trò quan trọng (nếu không phải <em>quan trọng hơn</em>) trong hành trình tiến hóa của chúng ta so với các thích nghi sinh học. Thường thì những điều này đã tiến hóa như các mẫu của các thuộc tính tĩnh được sử dụng để bình thường hóa hành vi/nhận thức, từng được sử dụng về mặt lịch sử để đồng nhất hóa/kiểm soát quần thể.</p>
+
+<h3>Meme — Đơn vị di truyền văn hóa</h3>
+
+<p>Để kiểm tra đơn vị di truyền nào chúng ta có thể sử dụng để kiểm tra văn hóa, Richard Dawkins (1976) lần đầu tiên đề xuất thuật ngữ "<strong>meme</strong>" để mô tả một đơn vị ký hiệu học của sự kế thừa văn hóa. Một meme, được định nghĩa bởi Merriam-Webster Dictionary là "một ý tưởng, hành vi, hoặc phong cách lan truyền từ người này sang người khác trong một nền văn hóa," đề cập đến các đơn vị thông tin ký hiệu học nhân bản trong "súp nguyên thủy" của toàn bộ infosphere tạo nên văn hóa.</p>
+
+<p>Meme tuân theo một mẫu tương tự như gen, cạnh tranh để sống sót và tuân theo các nguyên tắc biến thể, chọn lọc và kế thừa/giữ lại. Thú vị thay, đôi khi meme cạnh tranh trực tiếp với gen và ngược lại (ví dụ: meme về độc thân vs. bản năng sinh học để sinh sản).</p>
+
+<div class="info-grid">
+  <div class="info-cell">
+    <div class="cell-head">Meme (nội dung)</div>
+    <p>Meme định hình <em>nội dung</em> (ý nghĩa biểu diễn). Giống như gen là đối với kiểu hình của sinh vật sinh học, meme là đối với các đặc điểm của một đối tượng cụ thể hóa (tức là, đồ vật, ý tưởng, suy nghĩ, bài hát, lời bài hát, v.v.).</p>
+  </div>
+  <div class="info-cell">
+    <div class="cell-head">Memeplex (chuỗi meme)</div>
+    <p>Các meme riêng lẻ có thể được liên kết trong một <em>memeplex</em> giống như gen được liên kết trong một hệ gen. Các mối quan hệ giữa các meme trong một memeplex tạo nên các kiểu hình cụ thể (tức là, các hành vi hoặc đặc điểm có thể quan sát được).</p>
+  </div>
+  <div class="info-cell">
+    <div class="cell-head">Cơ chế sao chép (Semiotic)</div>
+    <p>Đề cập đến <em>ý nghĩa</em> — nội dung biểu diễn. Ví dụ: lời bài hát của bài hát (meme) có thể được theo dõi qua nhiều phương tiện (nhạc tờ, đĩa CD, buổi biểu diễn trực tiếp, v.v.). Chúng ta biết đó là cùng một meme vì các nốt nhạc được sắp xếp theo một mẫu nhất định.</p>
+  </div>
+  <div class="info-cell">
+    <div class="cell-head">Cơ chế cấu trúc (Structural)</div>
+    <p>Đề cập đến <em>cách</em> ý nghĩa được tạo ra thông qua các mối quan hệ giữa các khái niệm (schemata nhận thức). Việc thích nghi các kỹ năng bắt chước phức tạp (mimetic skills) có lẽ là nền tảng cho tất cả các nền văn hóa.</p>
+  </div>
+</div>
+
+<h3>Ba Quá Trình Tiến Hóa Meme</h3>
+
+<p>Tiến hóa memetic có thể xảy ra thông qua ba quá trình riêng biệt:</p>
+
+<ul class="process-list">
+  <li>
+    <div class="item-body">
+      <div class="item-title">Copy-the-product (Sao chép sản phẩm)</div>
+      <p class="item-desc">Liên quan đến việc bắt chước một mẫu hành vi hoặc thiết kế ngược một đối tượng cụ thể hóa vật chất (ví dụ: xem một đầu bếp chuẩn bị một món ăn; tức là, bắt chước). Sao chép những gì bạn thấy.</p>
+    </div>
+  </li>
+  <li>
+    <div class="item-body">
+      <div class="item-title">Copy-the-instructions (Sao chép hướng dẫn)</div>
+      <p class="item-desc">Liên quan đến việc tạo ra một sản phẩm từ một thuật toán đã được thiết lập (ví dụ: một công thức súp; tức là, bắt chước). Làm theo hướng dẫn/quy tắc đã được đặt ra.</p>
+    </div>
+  </li>
+  <li>
+    <div class="item-body">
+      <div class="item-title">Enhance-design (Nâng cao thiết kế)</div>
+      <p class="item-desc">Ngụ ý sự tái kết hợp các meme chưa được cụ thể hóa vật chất vào một hình thức cụ thể hóa vật chất (ví dụ: kết hợp nhiều công thức để tạo ra một công thức gốc; tức là, đổi mới). Đây là nơi sự sáng tạo thực sự xảy ra.</p>
+    </div>
+  </li>
+</ul>
+
+<div class="concept-box">
+  <div class="concept-label">Nguy hiểm của Simulacra</div>
+  <p>Quan điểm này về các cơ chế tiềm ẩn thay đổi văn hóa tương tự như khái niệm "simulacra" của Jean Baudrillard (1981) — <strong>bản sao của bản sao ngày càng xa rời bản gốc</strong> theo thời gian, chủ yếu do sự bất lực của nội dung biểu diễn để nắm bắt toàn bộ sự phức tạp được cụ thể hóa. Do đó, trừ khi thuật toán cơ bản được biết đến, "động lực memetic" có thể dẫn đến sự lan rộng của các hệ thống biểu diễn không có cơ sở kinh nghiệm cho nội dung của họ và có thể vô tình góp phần vào sự suy thoái chất lượng cuộc sống và làm lệch hướng kiến thức thiết kế văn hóa qua sự lan rộng của thông tin sai lệch.</p>
+</div>
+
+<h3>Bốn Giai Đoạn Tiến Hóa Văn Hóa</h3>
+
+<p>Tiến hóa văn hóa có thể được phân loại thành bốn giai đoạn riêng biệt:</p>
+
+<div class="stage-list">
+  <div class="stage-item">
+    <div class="stage-name">1. Văn hóa Episodic (Episodic Culture)</div>
+    <p class="stage-desc">Kinh nghiệm như các sự kiện được lưu trữ trong ký ức. Con người lưu giữ và truyền đạt kinh nghiệm cụ thể nhưng chưa có khả năng trừu tượng hóa hoặc tổng quát hóa.</p>
+  </div>
+  <div class="stage-item">
+    <div class="stage-name">2. Văn hóa Mimetic (Mimetic Culture)</div>
+    <p class="stage-desc">Lớp kinh nghiệm như các hành động có thể được gợi lại và luyện tập tự nguyện, và truyền đạt qua giao tiếp dựa trên hành động vật lý. Bắt chước trở thành một cơ chế truyền đạt kiến thức quan trọng.</p>
+  </div>
+  <div class="stage-item">
+    <div class="stage-name">3. Văn hóa Mythic (Mythic Culture)</div>
+    <p class="stage-desc">Phát triển cú pháp; ý nghĩa văn hóa và cấu trúc giá trị được truyền đạt qua ngôn ngữ nói. Ngôn ngữ cho phép con người tạo ra và chia sẻ các câu chuyện, huyền thoại và hệ thống niềm tin phức tạp.</p>
+  </div>
+  <div class="stage-item">
+    <div class="stage-name">4. Văn hóa Lý thuyết (Theoretical Culture)</div>
+    <p class="stage-desc">Phát triển các cấu trúc ký hiệu học; truyền văn hóa dựa trên các biểu tượng viết và suy nghĩ mô hình. Chữ viết, khoa học, toán học và các hệ thống trừu tượng phức tạp trở thành phương tiện truyền tải văn hóa.</p>
+  </div>
+</div>
+
+<p>Chúng ta có thể quan sát một tiếng vọng xa xôi của quá trình này trong cách con người hiện đại trưởng thành qua tiếp xúc văn hóa từ trẻ sơ sinh đến trẻ mới biết đi đến trẻ em đến người lớn trẻ. Điều quan trọng là phải xem xét quá trình này khi thiết kế sản phẩm kỹ thuật số cho các nhóm tuổi và các nhóm phụ văn hóa khác nhau.</p>
+
+<!-- SECTION 7: COGNITIVE EVOLUTION -->
+<h2>Tiến Hóa Nhận Thức</h2>
+
+<p>Nhận thức đã là sự cuốn hút của loài người trong suốt thời gian chúng ta đã cố gắng hiểu chúng ta là ai và mục đích sống của chúng ta. Một trong những đóng góp có giá trị nhất của việc phân tích nhận thức là nhận ra rằng <em>cách chúng ta suy nghĩ định hình kinh nghiệm của chúng ta về thực tại</em>, các lựa chọn của chúng ta và sự kế thừa văn hóa/công nghệ mà chúng ta truyền lại cho các thế hệ tương lai.</p>
+
+<p>Thuật ngữ "nhận thức" đề cập đến các quá trình và khả năng nội tại liên quan đến việc hình thành kiến thức, chẳng hạn như chú ý, ký ức làm việc và dài hạn, phân tích, đánh giá, suy luận/"tính toán," giải quyết vấn đề, ra quyết định, hiểu và tạo/sử dụng ngôn ngữ.</p>
+
+<p>Các quan điểm tiến hóa về sự phát triển nhận thức của loài người nhận ra rằng nhận thức tiến hóa cùng và thông qua văn hóa. Mã di truyền cung cấp một nền tảng sinh học quan trọng cho sự phát triển sinh học, nhưng bối cảnh và kinh nghiệm sống tiếp theo đóng một vai trò có thể lớn hơn trong tiến hóa nhận thức. Các kỹ năng mimetic (bắt chước cấu trúc) hình thành nền tảng cho sự đồng hóa/thích nghi tiếp theo của các thực thể nhân bản memetic (ngôn ngữ, cú pháp, mạng ký hiệu học, mô hình, ý tưởng, lý thuyết) vào các kiến trúc nhận thức của một thực thể.</p>
+
+<h3>Ba Hệ Thống Trí Nhớ</h3>
+
+<p>Các nghiên cứu về nhận thức hiện đại xác định ba hệ thống chính cốt lõi cho biểu diễn tinh thần trong não/tâm trí con người:</p>
+
+<div class="info-grid">
+  <div class="info-cell">
+    <div class="cell-head">Trí nhớ ngữ nghĩa vĩnh viễn</div>
+    <p>(Permanent Semantic Memory) — tức là, từ điển tinh thần. Lưu trữ kiến thức về thế giới, khái niệm và ý nghĩa ngôn ngữ. Cơ sở của "những gì chúng ta biết."</p>
+  </div>
+  <div class="info-cell">
+    <div class="cell-head">Trí nhớ episodic</div>
+    <p>(Episodic Memory) — tức là, văn bản hiện tại. Lưu trữ ký ức về các sự kiện và kinh nghiệm cụ thể. Cho phép chúng ta nhớ lại "khi nào và ở đâu" một sự kiện xảy ra.</p>
+  </div>
+  <div class="info-cell">
+    <div class="cell-head">Trí nhớ làm việc</div>
+    <p>(Working Memory) — tức là, tình huống lời nói hiện tại, bối cảnh bên ngoài. Cho phép chúng ta giữ và xử lý thông tin trong thời gian ngắn. Quan trọng cho việc suy luận và ra quyết định.</p>
+  </div>
+  <div class="info-cell">
+    <div class="cell-head">Chú ý (Attention)</div>
+    <p>Khả năng tập trung xử lý nhận thức vào thông tin cụ thể trong khi loại bỏ những thứ khác. Mỗi hệ thống là thiết yếu để xử lý thông tin bối cảnh, cũng như tạo ra "kiến thức" từ các sự kiện biểu diễn và các loại ngữ nghĩa được ghi lại trong bộ nhớ.</p>
+  </div>
+</div>
+
+<h3>Schemata — Cơ Chế Nhận Thức Cốt Lõi</h3>
+
+<p>Cơ chế cốt lõi cho nhận thức là sự hình thành <strong>schemata</strong>. Schemata tổ chức kiến thức và các sự kiện kinh nghiệm thành các mạng thông tin nhỏ được kích hoạt bởi các kích thích bối cảnh hoặc nội tại và định hình phản ứng của thực thể (bao gồm xử lý đầu vào bối cảnh, phân tích và ra quyết định).</p>
+
+<div class="definition">
+  <p>Schemata là <strong>các cấu trúc khái niệm cấp cao quan trọng hoặc khung</strong> tổ chức các kinh nghiệm trước đây, hỗ trợ trong việc diễn giải bối cảnh, giảm tải nhận thức, cho phép dự đoán hoặc suy ra thông tin chưa biết, và định hình nội dung ngữ nghĩa của các tình huống. Chúng đóng một vai trò quan trọng trong việc phát triển ý thức về bản thân và/hoặc bản sắc của một cá nhân, và cách ý thức về bản thân và bản sắc đó tiến hóa theo thời gian.</p>
+</div>
+
+<p>Sự hình thành schema liên quan đến hai quá trình cốt lõi:</p>
+
+<div class="stage-list">
+  <div class="stage-item">
+    <div class="stage-name">Đồng hóa (Assimilation)</div>
+    <p class="stage-desc">Liên quan đến việc tái sử dụng schemata để phù hợp với thông tin mới (ví dụ: nếu một đối tượng quen thuộc được quan sát, nó sẽ được tích hợp vào schemata hiện có của đối tượng đó). Đây là cách chúng ta xử lý thông tin đã quen thuộc một cách hiệu quả.</p>
+  </div>
+  <div class="stage-item">
+    <div class="stage-name">Thích nghi (Accommodation)</div>
+    <p class="stage-desc">Nếu thông tin gặp phải không phù hợp với bất kỳ schema hiện có nào, thì một schema mới được hình thành (tức là, quá trình <em>thích nghi</em>). Đây là nơi sự học hỏi thực sự xảy ra — khi chúng ta gặp điều gì đó hoàn toàn mới.</p>
+  </div>
+  <div class="stage-item">
+    <div class="stage-name">Cân bằng (Equilibrium)</div>
+    <p class="stage-desc">Đề cập đến sự ổn định nhất thời cần thiết của schemata, khi không có thông tin mới nào được gặp phải đòi hỏi sự thay đổi hoặc hình thành schema mới. Mỗi quá trình tạo nên sự phát triển của schema ngày càng phức tạp hơn.</p>
+  </div>
+</div>
+
+<div class="concept-box">
+  <div class="concept-label">Ứng dụng thực tế cho Nhà Thiết Kế Kỹ Thuật Số</div>
+  <p>Với tư cách là nhà thiết kế kỹ thuật số, chúng ta liên tục sử dụng schemata trong thiết kế (dù chúng ta có thể không ý thức về điều đó). <strong>Schemata là vô giá trong việc giảm tải nhận thức</strong> khi xử lý các bối cảnh quen thuộc (tức là, phát triển các mẫu phản ứng tự động đối với kích thích — thói quen), tuy nhiên chúng có vấn đề trong việc xử lý các bối cảnh không quen thuộc. <br><br>Ví dụ thực tiễn: các tiêu chuẩn UX và UI toàn cầu đã xuất hiện trong hai thập kỷ qua — người dùng hiện có thể nhanh chóng tìm ra cách làm trong mỗi sản phẩm kỹ thuật số mà không cần hướng dẫn dài dòng (như phổ biến trong những ngày đầu của công nghệ kỹ thuật số). Đây là ví dụ thực tế về sự tích lũy của nền tảng kiến thức thiết kế kỹ thuật số, cũng phản ánh rõ nhất trong sự tiến hóa đồng thời của công nghệ và schemata nhận thức.</p>
+</div>
+
+<p>Phương tiện kỹ thuật số có lẽ đã chịu trách nhiệm cho sự tiến hóa schema nhanh hơn và lớn hơn so với bất kỳ phương tiện nào khác trong lịch sử được ghi chép. Không chỉ phương tiện kỹ thuật số cho phép chúng ta nhận thức và so sánh các mô hình thống trị cấu thành các nền văn hóa và cách sống địa phương, mà còn để hình thành các mô hình và tiểu văn hóa hoàn toàn mới bắt nguồn từ lĩnh vực kỹ thuật số.</p>
+
+<!-- SECTION 8: EVOLUTION OF SELVES -->
+<h2>Tiến Hóa "Bản Thân" — Kết Luận</h2>
+
+<p>Dựa trên khung lý thuyết meta của Universal Darwinism, chương này đã thảo luận về các góc nhìn tiến hóa tương thích về các quỹ đạo tiến hóa cộng sinh của sinh học, công nghệ, văn hóa và nhận thức. Các quỹ đạo tiến hóa này chia sẻ một cốt lõi chung: <em>quá trình tiến hóa được cấu thành bởi các mẫu tạo ra và tinh chỉnh thông tin thông qua biến thể, chọn lọc và kế thừa.</em> Nói cách khác, chúng ta có thể quan sát rằng những gì tiến hóa qua các phương tiện khác nhau về bản chất là <strong>thông tin</strong>.</p>
+
+<p>Qua góc nhìn được phác thảo trong chương này, chúng ta có thể kết luận rằng <strong>một thành phần đáng kể của những gì làm cho chúng ta "con người" là cách chúng ta tạo ra, lưu trữ, xử lý, tinh chỉnh và chia sẻ thông tin</strong>. Năng lực này đã được kế thừa, tinh chỉnh và chọn lọc lặp đi lặp lại trong loài người thông qua các quá trình cộng sinh của tiến hóa sinh học, công nghệ, văn hóa và nhận thức.</p>
+
+<blockquote>
+  <p>Chúng ta cần xem xét điều này trong thiết kế kỹ thuật số và đảm bảo rằng chúng ta đang thiết kế cho người dùng bằng cách sử dụng các giả định phản ánh trạng thái phát triển của họ, nhu cầu của họ và nguyện vọng của họ. Chúng ta cũng cần liên tục nhận thức rằng <strong>các quyết định thiết kế của chúng ta về cơ bản thay đổi quỹ đạo tiến hóa của chúng ta.</strong></p>
+</blockquote>
+
+<p>Với tư cách là nhà thiết kế kỹ thuật số, chúng ta có trách nhiệm ngay bây giờ hơn bao giờ hết để tạo ra các sản phẩm cho phép chúng ta thay đổi quỹ đạo tiến hóa của mình theo hướng chúng ta muốn đến. Công nghệ kỹ thuật số là một sự mở rộng và khuếch đại của chúng ta, khả năng của chúng ta, sao cho chúng ta hiện có thể làm, suy nghĩ và cảm nhận theo những cách mà chúng ta không thể chỉ thông qua khả năng sinh học.</p>
+
+<p>Chương tiếp theo đào sâu hơn vào việc khám phá cách thức và lý do tại sao chúng ta là những gì/ai chúng ta là và làm những gì chúng ta làm, sử dụng tập trung vào <strong>bản sắc con người</strong> như là động lực cốt lõi của con người hiện đại. Chúng ta tiếp theo nhìn vào người dùng kỹ thuật số cụ thể và bắt đầu nghĩ ra các cách để thiết kế các sản phẩm kỹ thuật số phù hợp liền mạch vào cuộc sống của họ/chúng ta và tạo ra nhiều giá trị tổng thể nhất có thể.</p>
+
+<hr>
+
+<!-- References -->
+<h3>Tài Liệu Tham Khảo Chương</h3>
+<p class="muted">
+  Dawkins, R. (1982), <em>The Extended Phenotype.</em><br>
+  Darwin, C. (1859), <em>On the Origins of the Species.</em><br>
+  Dawkins, R. (1976), <em>The Selfish Gene.</em><br>
+  Kurzweil, R. (2005), <em>The Singularity Is Near.</em><br>
+  McLuhan, M. (1964), <em>Understanding Media: The Extensions of Man.</em><br>
+  Baudrillard, J. (1981), <em>Simulacra and Simulation.</em><br>
+  Merriam-Webster, s.v. "meme," accessed February 4, 2020.<br>
+  Watson, J. &amp; Crick, F. (1953), cấu trúc DNA.<br>
+  Gould, S.J. &amp; Eldredge, N. (1972), Lý thuyết cân bằng gián đoạn.<br>
+  Johanson, D. (1974), phát hiện bộ xương người nguyên thủy cổ nhất.
+</p>
+
+<!-- Footer -->
+<div class="chapter-footer">
+  <div class="footer-nav">← Giới thiệu sách</div>
+  <div class="footer-meta">
+    Chương 1 / 7<br>
+    <span class="muted">Designing Products for Evolving Digital Users · Anastasia Utesheva · Apress, 2020</span>
+  </div>
+  <div class="footer-nav">Chương 2 →</div>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch2-dpfed.html"><span class="lbl">Chương sau</span>Chương 2: Tiến Hóa Bản Sắc</a>
+</nav>
+</body>
+</html>
