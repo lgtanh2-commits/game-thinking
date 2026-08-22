@@ -186,7 +186,7 @@
       border-color: rgba(39, 174, 96, .4);
     }
 
-    /* Category Badge / Status Badge — nền riêng, tự tương phản tốt dù đặt trên nền tối (hero) hay sáng (book-card) */
+    /* Category Badge / Status Badge — nền riêng, tự tương phản tốt dù đặt trên nền tối (hero) hay sáng (book-row) */
     .category-badge,
     .status-badge {
       display: inline-flex;
@@ -215,69 +215,120 @@
       padding: 48px 32px 96px;
     }
 
-    /* Book grid */
-    .book-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 24px;
-      margin-top: -56px;
-    }
-
-    /* Feature Product Card — theo đúng component DESIGN.md: nền mint, bo 32px, không shadow, padding 50px */
-    .book-card {
-      background: var(--color-mint-card);
-      border-radius: var(--radius-cards);
-      padding: 50px;
+    /* Book list — thay cho grid cũ, mỗi sách 1 hàng để dễ quét mắt hơn khi danh sách dài */
+    .book-list {
       display: flex;
       flex-direction: column;
       gap: 14px;
-      transition: transform .15s ease;
+      margin-top: -32px;
     }
 
-    .book-card:hover {
-      transform: translateY(-2px);
+    .book-row {
+      background: #ffffff;
+      border: 1px solid var(--color-dew);
+      border-radius: var(--radius-chapter-row);
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      transition: border-color .15s ease, transform .15s ease;
     }
 
-    .book-card h2 {
-      font-size: 32px;
+    .book-row:hover {
+      border-color: var(--color-sprout);
+      transform: translateY(-1px);
+    }
+
+    .book-row-main {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .book-row-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .book-row h2 {
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: -0.48px;
+      letter-spacing: -0.2px;
       line-height: 1.3;
     }
 
-    .book-card .author {
-      color: var(--color-slate-ink);
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    .book-card .chapter-count {
+    .book-row-author {
       color: var(--color-ash);
       font-size: 14px;
+      margin-top: 4px;
     }
 
     /* Primary CTA Button — theo đúng component DESIGN.md: nền sprout, chữ trắng, pill, mũi tên */
     .primary-cta {
-      align-self: flex-start;
-      margin-top: 8px;
+      flex: none;
       background: var(--color-sprout);
       color: #ffffff;
       border-radius: var(--radius-buttons);
       padding: 13px 28px;
       font-size: 16px;
       font-weight: 600;
+      white-space: nowrap;
     }
 
-    .book-card:hover .primary-cta {
+    .book-row:hover .primary-cta {
       background: var(--color-sprout-dark);
     }
 
     .empty-state {
-      grid-column: 1 / -1;
       text-align: center;
       color: var(--color-ash);
       padding: 48px 0;
       font-size: 15px;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .page-btn {
+      min-width: 40px;
+      height: 40px;
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-buttons);
+      border: 1px solid var(--color-dew);
+      background: #ffffff;
+      color: var(--color-slate-ink);
+      font-family: var(--font-main);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color .15s ease, background .15s ease, color .15s ease;
+    }
+
+    .page-btn:hover:not(:disabled):not(.active) {
+      border-color: var(--color-sprout);
+    }
+
+    .page-btn.active {
+      background: var(--color-sprout);
+      border-color: var(--color-sprout);
+      color: #ffffff;
+    }
+
+    .page-btn:disabled {
+      opacity: .35;
+      cursor: default;
     }
 
     /* Chapter list */
@@ -365,6 +416,17 @@
       .read-btn {
         margin-left: 54px;
       }
+
+      .book-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+
+      .book-row .primary-cta {
+        align-self: stretch;
+        text-align: center;
+      }
     }
 
     .hidden {
@@ -392,7 +454,8 @@
       </div>
     </div>
     <div class="content">
-      <div class="book-grid" id="book-grid"></div>
+      <div class="book-list" id="book-grid"></div>
+      <div class="pagination" id="pagination"></div>
     </div>
   </div>
 
@@ -591,12 +654,15 @@
     ];
 
     const bookGrid = document.getElementById('book-grid');
+    const pagination = document.getElementById('pagination');
     const searchInput = document.getElementById('search-input');
     const viewLibrary = document.getElementById('view-library');
     const viewDetail = document.getElementById('view-detail');
     const crumb = document.getElementById('crumb');
 
+    const PAGE_SIZE = 20;
     let searchQuery = '';
+    let currentPage = 1;
 
     function escapeHtml(str) {
       return String(str)
@@ -606,25 +672,59 @@
         .replace(/"/g, '&quot;');
     }
 
-    function renderBookGrid() {
+    function renderBookList() {
       const q = searchQuery.trim().toLowerCase();
-      const books = LIBRARY.filter(b => b.title.toLowerCase().includes(q));
+      const filtered = LIBRARY.filter(b => b.title.toLowerCase().includes(q));
 
-      if (books.length === 0) {
+      if (filtered.length === 0) {
         bookGrid.innerHTML = `<div class="empty-state">Không tìm thấy sách nào khớp với "${escapeHtml(searchQuery)}".</div>`;
+        pagination.innerHTML = '';
         return;
       }
 
-      bookGrid.innerHTML = books.map(b => `
-    <a class="book-card" href="#/book/${b.slug}">
-      <span class="category-badge">${escapeHtml(b.tag)}</span>
-      <h2>${escapeHtml(b.title)}</h2>
-      <div class="author">${escapeHtml(b.author)}</div>
-      <div class="chapter-count">${b.chapters.length} chương</div>
+      const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const pageBooks = filtered.slice(start, start + PAGE_SIZE);
+
+      bookGrid.innerHTML = pageBooks.map(b => `
+    <a class="book-row" href="#/book/${b.slug}">
+      <div class="book-row-main">
+        <div class="book-row-top">
+          <span class="category-badge">${escapeHtml(b.tag)}</span>
+          <span class="status-badge">${b.chapters.length} chương</span>
+        </div>
+        <h2>${escapeHtml(b.title)}</h2>
+        <div class="book-row-author">${escapeHtml(b.author)}</div>
+      </div>
       <span class="primary-cta">Xem mục lục →</span>
     </a>
   `).join('');
+
+      renderPagination(totalPages);
     }
+
+    function renderPagination(totalPages) {
+      if (totalPages <= 1) {
+        pagination.innerHTML = '';
+        return;
+      }
+      let html = `<button class="page-btn" data-page="${currentPage - 1}" ${currentPage === 1 ? 'disabled' : ''} aria-label="Trang trước">←</button>`;
+      for (let p = 1; p <= totalPages; p++) {
+        html += `<button class="page-btn${p === currentPage ? ' active' : ''}" data-page="${p}">${p}</button>`;
+      }
+      html += `<button class="page-btn" data-page="${currentPage + 1}" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Trang sau">→</button>`;
+      pagination.innerHTML = html;
+    }
+
+    pagination.addEventListener('click', (e) => {
+      const btn = e.target.closest('.page-btn');
+      if (!btn || btn.disabled) return;
+      currentPage = parseInt(btn.dataset.page, 10);
+      renderBookList();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
     function renderDetail(slug) {
       const book = LIBRARY.find(b => b.slug === slug);
@@ -668,14 +768,15 @@
         viewLibrary.classList.remove('hidden');
         crumb.innerHTML = '';
         searchInput.value = searchQuery;
-        renderBookGrid();
+        renderBookList();
       }
       window.scrollTo(0, 0);
     }
 
     searchInput.addEventListener('input', (e) => {
       searchQuery = e.target.value;
-      renderBookGrid();
+      currentPage = 1;
+      renderBookList();
     });
 
     window.addEventListener('hashchange', render);
