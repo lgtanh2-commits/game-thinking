@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 13 – Nghiên Cứu Bối Cảnh | User Research</title>
+<style>
+:root {
+  --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+  --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+  --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px; line-height: 1.75; color: var(--text);
+  background: var(--bg); max-width: 820px;
+  margin: 0 auto; padding: 60px 40px 100px;
+}
+h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+h2 { font-size: 1.25rem; font-weight: 700; margin: 48px 0 14px; letter-spacing: -0.2px; }
+h3 { font-size: 1.05rem; font-weight: 700; margin: 32px 0 10px; color: var(--text-secondary); }
+h4 { font-size: 0.95rem; font-weight: 700; margin: 24px 0 8px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.4px; }
+p { margin-bottom: 14px; color: var(--text-secondary); }
+strong { color: var(--text); font-weight: 700; }
+em { font-style: italic; }
+ul, ol { margin: 0 0 16px 24px; color: var(--text-secondary); }
+li { margin-bottom: 6px; }
+.chapter-meta { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+.chapter-divider { width: 48px; height: 3px; background: var(--accent-line); margin: 22px 0 36px; }
+.subtitle { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0; font-style: italic; }
+.section-rule { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+.box {
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 22px 26px; margin: 28px 0; background: var(--surface);
+}
+.box-title {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 12px;
+}
+.box p:last-child, .box ul:last-child, .box ol:last-child { margin-bottom: 0; }
+.fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 28px 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.fit-col { padding: 22px 24px; }
+.fit-col:first-child { border-right: 1px solid var(--border); background: var(--surface); }
+.fit-col:last-child { background: var(--bg); }
+.fit-col .box-title { margin-bottom: 12px; }
+.fit-col ul { margin-left: 18px; }
+.fit-col p:last-child, .fit-col ul:last-child { margin-bottom: 0; }
+.case-study { border: 2px solid var(--border-strong); border-radius: 4px; padding: 24px 28px; margin: 32px 0; }
+.case-study .box-title { margin-bottom: 16px; }
+/* Step list with numbered circles */
+.step-list { list-style: none; margin: 0 0 16px 0; counter-reset: step; }
+.step-list > li { counter-increment: step; display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start; }
+.step-list > li::before {
+  content: counter(step); flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--surface-dark); display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; color: var(--text); margin-top: 2px;
+}
+.step-content { flex: 1; }
+.step-content strong { display: block; margin-bottom: 4px; font-size: 1rem; }
+.step-content p { margin-bottom: 8px; }
+.step-content p:last-child { margin-bottom: 0; }
+/* Principle blocks */
+.principles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+.principle { border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px; background: var(--surface); }
+.principle-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+.principle h4 { margin: 0 0 8px; color: var(--text); text-transform: none; letter-spacing: 0; font-size: 0.95rem; }
+.principle p { margin-bottom: 0; font-size: 0.9rem; }
+.alert-box { border: 1px solid var(--border-strong); border-left: 4px solid var(--text); border-radius: 4px; padding: 18px 22px; margin: 28px 0; background: var(--bg); }
+.back-nav { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 48px; }
+.back-nav span { margin: 0 6px; }
+footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="back-nav">User Research – Stephanie Marsh<span>·</span>Phần Hai: Phương Pháp<span>·</span>Chương 13</div>
+
+<div class="chapter-meta">Chương 13</div>
+<h1>Nghiên Cứu Bối Cảnh</h1>
+<p class="subtitle">Phỏng vấn người dùng ngay trong môi trường của họ</p>
+<div class="chapter-divider"></div>
+
+<p>Nghiên cứu bối cảnh (contextual inquiry) là sự kết hợp giữa phỏng vấn người dùng và dân tộc học — một cuộc phỏng vấn bán cấu trúc nhằm thu thập thông tin về bối cảnh sử dụng thực tế. Người tham gia được quan sát và hỏi chuyện trong khi đang làm việc trong môi trường của chính họ.</p>
+
+<p>Khác với các phương pháp khác, người tham gia đóng vai <strong>chuyên gia</strong> — họ chủ động dẫn dắt buổi nghiên cứu bằng cách trình diễn và nói về công việc của mình. Điều này tạo ra dữ liệu thực tế và đáng tin cậy hơn đáng kể so với việc người dùng tự mô tả hoặc hồi tưởng lại hành vi.</p>
+
+<p style="font-size:0.85rem; color:var(--text-muted);">Nguồn: Herzon et al, 2010; Ross, 2012</p>
+
+<hr class="section-rule">
+
+<h2>Phù hợp và không phù hợp</h2>
+
+<div class="fit-grid">
+  <div class="fit-col">
+    <div class="box-title">✓ Phù hợp khi</div>
+    <ul>
+      <li>Cần khám phá thông tin mà người dùng không tự nhận ra là quan trọng</li>
+      <li>Thu thập dữ liệu thực tế và chi tiết bằng cách quan sát trong môi trường tự nhiên</li>
+      <li>Muốn kết hợp lợi ích của cả quan sát lẫn trò chuyện chuyên sâu</li>
+      <li><strong>Đặc biệt hữu ích</strong> với người dùng công nghệ hỗ trợ (assistive technology) và người có nhu cầu trợ năng: quan sát cách họ sắp xếp môi trường, công nghệ họ dùng và những thách thức họ đối mặt</li>
+    </ul>
+  </div>
+  <div class="fit-col">
+    <div class="box-title">✗ Không phù hợp khi</div>
+    <ul>
+      <li>Cần nghiên cứu thay đổi theo thời gian (dùng diary study hoặc dân tộc học)</li>
+      <li>Tiến độ gấp — phương pháp này đòi hỏi nhiều thời gian và công sức hơn kiểm thử khả năng dùng trong phòng lab hoặc phỏng vấn qua điện thoại</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="section-rule">
+
+<h2>Khi nào nên sử dụng</h2>
+
+<ul>
+  <li>Khi cần khám phá các thông số, tiêu chí, tính năng hoặc luồng quy trình cho thiết kế mới hoặc thiết kế lại (Webcredible, 2011)</li>
+  <li>Khi <strong>bối cảnh sử dụng là yếu tố then chốt</strong> cho sản phẩm hoặc dịch vụ</li>
+  <li>Khi người dùng không thể đến gặp bạn nhưng bạn có thể đến gặp họ</li>
+  <li><strong>Quan trọng:</strong> phải đến đúng địa điểm người dùng thường làm việc — không phải môi trường nhân tạo gần đó</li>
+</ul>
+
+<div class="case-study">
+  <div class="box-title">Nghiên Cứu Điển Hình — Công Ty Dược Phẩm</div>
+  <p>Một công ty dược phẩm muốn cải thiện khả năng sử dụng của chỉ mục trực tuyến dành cho việc pha chế hợp chất và dung dịch. Họ không thể diễn đạt rõ điều gì "sai" với hệ thống hiện tại.</p>
+  <p>Nghiên cứu bối cảnh đã tiết lộ một sự thật bất ngờ: <strong>không có máy tính nào trong phòng thí nghiệm</strong>. Nhân viên phòng lab đang in hướng dẫn từng bước rồi ép plastic để phòng acid nhỏ vào. Họ phải đi sang phòng văn phòng riêng biệt để truy cập chỉ mục trực tuyến.</p>
+  <p>Cách làm này tiềm ẩn rủi ro: nhân viên có thể không kiểm tra khi phương pháp được cập nhật, dẫn đến sử dụng quy trình lỗi thời.</p>
+  <p style="margin-bottom:0;">Kết quả: công ty phải <strong>xem xét lại thiết lập văn phòng và phòng lab</strong>, đồng thời cải thiện chỉ mục trực tuyến theo hướng lặp. Vấn đề thực sự không phải là giao diện — mà là quy trình làm việc vật lý xung quanh nó.</p>
+</div>
+
+<hr class="section-rule">
+
+<h2>Mức độ công sức</h2>
+
+<p>Nghiên cứu bối cảnh đòi hỏi kỹ năng tương tự như phỏng vấn và quan sát (và có thể cả kiểm thử khả năng dùng). Đây là phương pháp <strong>tốn nhiều thời gian và nguồn lực</strong> do phải đến tận nơi người dùng làm việc.</p>
+
+<div class="box">
+  <div class="box-title">Lưu ý thực tế</div>
+  <ul>
+    <li>Cân nhắc đưa <strong>người thứ hai</strong> cùng tham gia: hai người có thể thảo luận quan sát, ghi chú hai luồng, ít bỏ sót hơn</li>
+    <li>Giới hạn <strong>tối đa 2 lần thăm mỗi ngày</strong></li>
+    <li>Dành thời gian <strong>viết lại ghi chú và thảo luận kết quả</strong> ngay sau mỗi buổi</li>
+    <li>Lên kế hoạch cho ngân sách di chuyển</li>
+  </ul>
+</div>
+
+<hr class="section-rule">
+
+<h2>Bốn Nguyên Tắc Cốt Lõi</h2>
+
+<p>Herzon và cộng sự (2010) xác định bốn nguyên tắc nền tảng của nghiên cứu bối cảnh:</p>
+
+<div class="principles">
+  <div class="principle">
+    <div class="principle-num">Nguyên tắc 1</div>
+    <h4>Trọng tâm (Focus)</h4>
+    <p>Lên kế hoạch điều tra dựa trên sự hiểu biết rõ ràng về mục đích nghiên cứu. Biết mình muốn tìm hiểu điều gì trước khi bước vào môi trường của người dùng.</p>
+  </div>
+  <div class="principle">
+    <div class="principle-num">Nguyên tắc 2</div>
+    <h4>Bối cảnh (Context)</h4>
+    <p>Đến tận nơi người tham gia và quan sát họ thực hiện công việc thực tế của mình — không phải trong môi trường mô phỏng hay nhân tạo.</p>
+  </div>
+  <div class="principle">
+    <div class="principle-num">Nguyên tắc 3</div>
+    <h4>Hợp tác (Partnership)</h4>
+    <p>Nói chuyện với người tham gia về công việc của họ; cùng nhau khám phá những khía cạnh chưa được nói ra. Họ là chuyên gia về công việc của mình.</p>
+  </div>
+  <div class="principle">
+    <div class="principle-num">Nguyên tắc 4</div>
+    <h4>Diễn giải (Interpretation)</h4>
+    <p>Xây dựng sự hiểu biết chung với người tham gia về những khía cạnh công việc thực sự quan trọng — xác minh cách diễn giải của bạn cùng họ.</p>
+  </div>
+</div>
+
+<hr class="section-rule">
+
+<h2>Lên Kế Hoạch</h2>
+
+<ul>
+  <li>Xác định, tìm kiếm và lấy sự đồng ý từ người dùng và stakeholder phù hợp</li>
+  <li>Đưa <strong>ít nhất 2 người</strong> từ mỗi nhóm người dùng vào nghiên cứu — một người không đủ để xác định hành vi chung</li>
+  <li>Lên lịch vào ngày <strong>điển hình hoặc bận rộn</strong> của người tham gia — họ thường muốn chọn ngày yên tĩnh và ít đại diện hơn, cần khéo léo điều hướng điều này</li>
+  <li>Mỗi buổi thường kéo dài <strong>khoảng 2 giờ</strong>; có thể cần nhiều buổi để quan sát các nhiệm vụ xảy ra vào những thời điểm khác nhau</li>
+</ul>
+
+<hr class="section-rule">
+
+<h2>Tiến Hành Buổi Nghiên Cứu</h2>
+
+<p>Một buổi nghiên cứu bối cảnh có cấu trúc gồm năm phần:</p>
+
+<ol class="step-list">
+  <li>
+    <div class="step-content">
+      <strong>Chuẩn bị câu hỏi và mục tiêu nghiên cứu</strong>
+      <p>Chuẩn bị bộ câu hỏi tiêu chuẩn về nền tảng, thách thức điển hình và mục tiêu công việc của người tham gia. Đây là "bản đồ" dẫn đường trong buổi quan sát.</p>
+    </div>
+  </li>
+  <li>
+    <div class="step-content">
+      <strong>Giới thiệu</strong>
+      <p>Giới thiệu bản thân, mục đích nghiên cứu và các thông tin liên quan. Hỏi về ghi âm/ghi hình — khi nào nên bắt đầu, khi nào nên dừng. Đảm bảo tính bảo mật và ẩn danh, lấy các sự đồng ý cần thiết (xem Chương 2).</p>
+    </div>
+  </li>
+  <li>
+    <div class="step-content">
+      <strong>Phỏng vấn bán cấu trúc</strong>
+      <p>Bắt đầu với tổng quan về công việc của người tham gia. Theo đuổi những hướng thú vị nảy sinh trong cuộc trò chuyện. Theo luồng tự nhiên của người tham gia nhưng vẫn giữ trọng tâm vào các nhiệm vụ liên quan. Thảo luận các thắc mắc khi chúng xuất hiện mà không làm gián đoạn quá mức.</p>
+    </div>
+  </li>
+  <li>
+    <div class="step-content">
+      <strong>Quan sát chủ động</strong>
+      <p>Nói với người tham gia rằng bạn muốn học từ họ bằng cách quan sát và thỉnh thoảng ngắt. Thống nhất trước những lúc nào bạn có thể ngắt và những lúc nào bạn sẽ <em>không</em> làm phiền (ví dụ: khi họ đang tương tác với khách hàng). Quan sát có trọng tâm — ghi lại mọi thứ dù có vẻ không liên quan ngay lúc đó. Yêu cầu người tham gia thực hiện một số nhiệm vụ quan trọng với mục tiêu nghiên cứu ngay cả khi không thường xuyên xảy ra.</p>
+    </div>
+  </li>
+  <li>
+    <div class="step-content">
+      <strong>Kết thúc và tổng hợp</strong>
+      <p>Tóm tắt những gì bạn đã học được; chú ý đến phản ứng của người tham gia — họ sẽ không phải lúc nào cũng nói thẳng bạn đang hiểu sai. Tiếp tục đặt câu hỏi để xây dựng câu chuyện hoàn chỉnh. Nếu chưa đúng, hỏi lại cho đến khi bạn hiểu chính xác.</p>
+    </div>
+  </li>
+</ol>
+
+<hr class="section-rule">
+
+<h2>Những Điều Cần Lưu Ý</h2>
+
+<div class="alert-box">
+  <div class="box-title">Nguyên tắc vàng</div>
+  <p><strong>Buổi nghiên cứu PHẢI diễn ra ở nơi người tham gia thường thực hiện các nhiệm vụ đó.</strong> Nếu họ sẵn sàng thực hiện công việc ở một môi trường tương tự nhưng không phải môi trường thực sự, hãy lịch sự hủy buổi — dữ liệu thu được sẽ không còn giá trị như mong đợi.</p>
+</div>
+
+<div class="box">
+  <div class="box-title">Các lưu ý thực tế</div>
+  <ul>
+    <li><strong>Không diễn giải trong khi đang lắng nghe.</strong> Phân tích hàm ý sau buổi nghiên cứu. Trong khi quan sát, tách biệt sự thật và giả thuyết bằng màu highlight khác nhau hoặc dùng dấu ngoặc kép cho lời người tham gia.</li>
+    <li>Nếu khách hàng là một phần trong tương tác của người tham gia, <strong>lấy sự đồng ý của họ</strong>. Nếu không thể, không ghi âm/ghi hình những trao đổi đó.</li>
+    <li>Mang lại mức độ ẩn danh cao nhất có thể — tránh dùng tên thật trong báo cáo. Tuy nhiên, một số người muốn tiếng nói của họ được nghe — hãy tự quyết định theo từng trường hợp.</li>
+    <li>Phương pháp này bổ sung tốt cho <strong>Phỏng vấn (Chương 9)</strong> và <strong>Dân tộc học (Chương 12)</strong> — nên đọc cả ba chương cùng nhau.</li>
+  </ul>
+</div>
+
+<hr class="section-rule">
+
+<h2>Công Cụ</h2>
+
+<p>Thiết bị ghi âm/ghi hình là công cụ chính. Quan trọng: <strong>sẵn sàng từ bỏ ghi âm</strong> nếu người tham gia tỏ ra không thoải mái hoặc miễn cưỡng — việc ghi lại không quan trọng bằng việc người tham gia cảm thấy an toàn để hành xử tự nhiên.</p>
+
+<hr class="section-rule">
+
+<h2>Tổng Kết</h2>
+
+<div class="box">
+  <div class="box-title">Những điểm cần ghi nhớ</div>
+  <ul>
+    <li>Nghiên cứu bối cảnh là <strong>hybrid mạnh mẽ</strong> giữa phỏng vấn và quan sát — bạn vừa nghe vừa nhìn</li>
+    <li>Người tham gia đóng vai chuyên gia; nhà nghiên cứu đóng vai học trò — tư thế này tạo ra dữ liệu xác thực hơn</li>
+    <li>Bốn nguyên tắc: Trọng tâm → Bối cảnh → Hợp tác → Diễn giải</li>
+    <li>Luôn đến đúng địa điểm thực tế, không phải môi trường thay thế</li>
+    <li>Đặc biệt có giá trị cho người dùng với nhu cầu truy cập đặc biệt</li>
+  </ul>
+</div>
+
+<footer>
+  <p>Marsh, S. (2018). <em>User Research: A Practical Guide to Designing Better Products and Services.</em> Kogan Page. — Chương 13, tr. 166–172</p>
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch12-urpg.html"><span class="lbl">Chương trước</span>Chương 12: Dân Tộc Học</a>
+  <a href="ch14-urpg.html"><span class="lbl">Chương sau</span>Chương 14: Kiểm Thử A/B</a>
+</nav>
+</body>
+</html>

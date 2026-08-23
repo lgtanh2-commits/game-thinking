@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 06 – Kiểm Tra Nội Dung | User Research</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  .book-meta {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 14px;
+    margin-bottom: 48px;
+  }
+
+  .chapter-header {
+    margin-bottom: 56px;
+  }
+
+  .chapter-number {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .chapter-title {
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .chapter-subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    font-style: italic;
+    border-left: 3px solid var(--accent-line);
+    padding-left: 16px;
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-top: 52px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent-line);
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 32px;
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin-bottom: 14px;
+    color: var(--text-secondary);
+  }
+
+  p strong { color: var(--text); }
+
+  ul, ol {
+    margin: 12px 0 18px 0;
+    padding-left: 28px;
+  }
+
+  li {
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  li strong { color: var(--text); }
+
+  .highlight-box {
+    background: var(--surface);
+    border-left: 4px solid var(--accent-line);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .highlight-box .box-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .highlight-box p, .highlight-box li {
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+
+  .method-card {
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--text);
+    padding: 22px 24px;
+    margin: 24px 0;
+    background: var(--bg);
+  }
+
+  .method-card .mc-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .method-card .mc-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .method-card p, .method-card li {
+    font-size: 15px;
+  }
+
+  .definition {
+    background: var(--surface-dark);
+    border-left: 5px solid var(--text);
+    padding: 18px 22px;
+    margin: 24px 0;
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .example-box {
+    background: var(--surface);
+    border: 1px dashed var(--border-strong);
+    padding: 16px 20px;
+    margin: 14px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  .example-box .ex-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  blockquote {
+    border-left: 3px solid var(--border-strong);
+    padding: 10px 18px;
+    margin: 18px 0;
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 15px;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  .method-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  @media (max-width: 600px) {
+    .method-grid { grid-template-columns: 1fr; }
+  }
+
+  .method-tile {
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    background: var(--bg);
+  }
+
+  .method-tile .mt-name {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .method-tile p {
+    font-size: 14px;
+  }
+
+  .process-steps {
+    counter-reset: step;
+    list-style: none;
+    padding-left: 0;
+    margin: 16px 0;
+  }
+
+  .process-steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed var(--border);
+    align-items: flex-start;
+  }
+
+  .process-steps li:last-child { border-bottom: none; }
+
+  .process-steps li::before {
+    content: counter(step);
+    min-width: 26px;
+    height: 26px;
+    background: var(--text);
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .chapter-footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="book-meta">User Research: A Practical Guide — Stephanie Marsh &nbsp;·&nbsp; Phần Hai: Phương Pháp Nghiên Cứu &nbsp;·&nbsp; Trang 100–105</div>
+
+<div class="chapter-header">
+  <div class="chapter-number">Chương 06</div>
+  <h1 class="chapter-title">Kiểm Tra Nội Dung</h1>
+  <div class="chapter-subtitle">Người dùng hiểu nội dung của bạn như thế nào?</div>
+</div>
+
+<!-- ĐỊNH NGHĨA -->
+<div class="definition">
+  Kiểm tra nội dung (content testing) là một loại kiểm tra khả năng sử dụng đặc thù, tập trung vào mức độ phù hợp và dễ hiểu của nội dung đối với đối tượng người dùng dự kiến. Có thể thực hiện như một phần của kiểm tra người dùng hoặc riêng biệt.
+</div>
+
+<!-- NỘI DUNG TỐT LÀ GÌ -->
+<h2>I. Nội Dung Tốt Là Gì?</h2>
+
+<p>Marsh đã học được kiến thức về kiểm tra nội dung từ các blog của Government Digital Service (GDS — Dịch vụ Số Chính phủ Anh). Nội dung số tốt là:</p>
+
+<ul>
+  <li><strong>Rõ ràng (clear):</strong> Người đọc hiểu ngay lần đọc đầu tiên.</li>
+  <li><strong>Có thể hành động (actionable):</strong> Người đọc biết phải làm gì tiếp theo.</li>
+  <li><strong>Dễ tìm kiếm (findable):</strong> Người đọc có thể tìm thấy điều họ cần.</li>
+</ul>
+
+<p>Chúng ta nhận ra nội dung tốt ngay khi nhìn thấy, và cảm thấy thất vọng khi không tìm thấy. Nội dung tốt đòi hỏi rất nhiều công sức để tạo ra, nhưng nếu làm đúng, nó giúp <strong>xây dựng niềm tin và sự tự tin</strong> ở người dùng, đồng thời <strong>giảm nguy cơ xảy ra lỗi</strong> cho cả tổ chức lẫn người dùng.</p>
+
+<!-- KIỂM TRA NỘI DUNG DÙNG CHO GÌ -->
+<h2>II. Kiểm Tra Nội Dung Phù Hợp Cho Việc Gì</h2>
+
+<p>Có nhiều dạng nội dung — hình ảnh, video, infographic, các dạng nghệ thuật, văn bản, v.v. Các phương pháp trong chương này tập trung vào <strong>nội dung viết</strong>, nhưng có thể điều chỉnh cho các loại nội dung khác.</p>
+
+<p>Các phương pháp này nhằm thu thập hiểu biết về:</p>
+<ul>
+  <li>Người dùng hiểu điều gì qua những gì họ thấy</li>
+  <li>Ngôn ngữ mà người dùng sử dụng</li>
+  <li>Những gì họ sẽ làm với nội dung định hướng hành động/nhiệm vụ</li>
+</ul>
+
+<p>Kiểm tra nội dung cũng là cách tốt để hiểu nội dung <strong>có khả năng tiếp cận (accessible) và bao quát (inclusive)</strong> đến đâu đối với các nhóm người dùng khác nhau (xem Chương 3).</p>
+
+<!-- KHÔNG PHÙ HỢP CHO GÌ -->
+<h2>III. Kiểm Tra Nội Dung Không Phù Hợp Cho Việc Gì</h2>
+
+<p>Nếu bạn muốn nghiên cứu tác động của nội dung và mức độ cảm xúc mà nó gợi lên, có các phương pháp hiệu quả hơn trong bộ công cụ nghiên cứu thị trường.</p>
+
+<!-- MỨC ĐỘ NỖ LỰC -->
+<h2>IV. Mức Độ Nỗ Lực Cần Thiết</h2>
+
+<p>Tương tự kiểm tra khả năng sử dụng, kiểm tra nội dung tương đối dễ thực hành và học hỏi. Bạn có thể nắm bắt cơ bản về điều hành kiểm tra và thu thập hiểu biết về sự hiểu biết cũng như ngôn ngữ của người dùng, rồi bắt đầu kiểm tra ngay.</p>
+
+<p>Tuy nhiên, cần có thời gian và nỗ lực để trở thành người điều phối lành nghề. Khi muốn so sánh nhiều phiên bản nội dung số, bạn có thể cần thực hiện <strong>multivariate testing</strong> (kiểm tra đa biến), đòi hỏi sự hỗ trợ kỹ thuật tùy thuộc vào cấu hình của tổ chức.</p>
+
+<!-- KHI NÀO DÙNG -->
+<h2>V. Khi Nào Nên Kiểm Tra Nội Dung</h2>
+
+<p>Hãy nghiên cứu nội dung <strong>càng sớm càng tốt</strong> trong chu kỳ phát triển. Đặc biệt trong thế giới phát triển số, nội dung thường bị coi là thứ yếu — chỉ được xem xét khi bản dựng kỹ thuật đã tương đối ổn định.</p>
+
+<p>Vì việc tạo ra nội dung tốt đòi hỏi rất nhiều thời gian và công sức, việc sáng tác cần được bắt đầu sớm và kiểm tra lặp đi lặp lại. Nếu điều này không khả thi trong quy trình làm việc của bạn, hãy cố gắng bắt đầu kiểm tra nội dung ngay sau khi bản nháp nội dung đầu tiên sẵn sàng.</p>
+
+<!-- TRƯỚC KHI BẮT ĐẦU -->
+<h2>VI. Trước Khi Bắt Đầu Nghiên Cứu</h2>
+
+<p>Để chuẩn bị cho bất kỳ loại kiểm tra nội dung nào, bạn có thể kiểm tra <strong>độ tuổi đọc (reading age)</strong> của nội dung viết. Có nhiều tài nguyên trực tuyến hỗ trợ việc này:</p>
+
+<div class="highlight-box">
+  <div class="box-label">Công cụ hỗ trợ trước nghiên cứu</div>
+  <p><strong>Hemingway App</strong> (http://www.hemingwayapp.com/) — Xác định các câu dài và phức tạp, lỗi phổ biến và câu bị động, giúp bạn tinh chỉnh nội dung trước khi đưa ra trước người tham gia.</p>
+</div>
+
+<!-- CÁC PHƯƠNG PHÁP KIỂM TRA -->
+<h2>VII. Các Phương Pháp Kiểm Tra Nội Dung</h2>
+
+<div class="method-card">
+  <div class="mc-label">Phương pháp 1</div>
+  <div class="mc-title">Kiểm Tra Hiểu Biết (Comprehension Testing)</div>
+  <p>Đặt câu hỏi mở về ý nghĩa của các từ ngữ của bạn. Có rất nhiều nội dung sử dụng từ pháp lý/kỹ thuật không quen thuộc hoặc đặt ra những câu hỏi mà người dùng có thể khó hiểu.</p>
+  <p>Bạn không cần chờ có prototype hoặc tờ rơi được thiết kế đẹp — <strong>hãy in các từ, cụm từ và câu hỏi ra, rồi hỏi người dùng đọc và nói cho bạn nghe chúng có nghĩa gì.</strong></p>
+  <p>Các câu hỏi hữu ích:</p>
+  <ul>
+    <li>"Đoạn này có nghĩa gì với bạn?"</li>
+    <li>"Dựa trên những gì bạn đã đọc, bạn kỳ vọng kết quả hoặc bước tiếp theo là gì?"</li>
+    <li>"Bạn có thể hành động dựa trên những gì bạn đã hiểu không?"</li>
+  </ul>
+  <div class="example-box">
+    <div class="ex-label">Ví dụ câu hỏi định hướng nhiệm vụ</div>
+    <p>"Bạn sẽ dùng website này như thế nào để đăng ký xxx?" · "Dựa trên những gì bạn đọc trong tài liệu, bạn có thể giải thích xxx cho tôi nghe mà không cần nhìn lại không?"</p>
+  </div>
+  <p>Phương pháp này <strong>loại bỏ cảm giác 'đang làm bài kiểm tra'</strong> trong nghiên cứu, giữ áp lực và lo lắng ở mức thấp vì không có câu trả lời 'đúng'. Hữu ích khi tạo nội dung cho nhiều nhu cầu và khả năng nhận thức khác nhau.</p>
+</div>
+
+<div class="method-card">
+  <div class="mc-label">Phương pháp 2</div>
+  <div class="mc-title">Kiểm Tra Cloze (Cloze Testing)</div>
+  <p>Người tham gia xem một đoạn văn bản với một số từ bị xóa đi và họ điền vào chỗ trống. Khi tạo bài kiểm tra:</p>
+  <ul>
+    <li><strong>Theo công thức:</strong> Xóa mỗi từ thứ năm.</li>
+    <li><strong>Có chọn lọc:</strong> Xóa các từ khóa quan trọng.</li>
+  </ul>
+  <p>Bạn có thể chấp nhận <strong>chỉ đúng chính xác</strong> hoặc chấp nhận cả <strong>từ đồng nghĩa</strong>. Lấy mẫu càng nhiều người đọc càng tốt để độ chính xác cao hơn.</p>
+  <p>Quy tắc chấm điểm: <strong>75% chính xác</strong> được coi là thành công và không cần tinh chỉnh; dưới ngưỡng này, việc lặp lại thiết kế và kiểm tra nội dung là cần thiết.</p>
+  <p>Phương pháp này đặc biệt hữu ích khi không thể tránh một lượng nhất định 'jargon' (thuật ngữ chuyên ngành), dù nghiên cứu cho thấy mọi người đều thích tiếng Anh phổ thông (plain English).</p>
+</div>
+
+<div class="method-card">
+  <div class="mc-label">Phương pháp 3</div>
+  <div class="mc-title">Để Người Dùng Chọn Từ Ngữ Của Riêng Họ</div>
+  <p>Khi bạn để người dùng nói theo ngôn ngữ của chính họ, bạn có thể phản ánh ngôn ngữ đó trong nội dung. Kỹ thuật này đặc biệt hữu ích với các chủ đề nhạy cảm như hệ thống tư pháp hình sự hoặc mất mát cá nhân.</p>
+  <p><strong>Ví dụ thực tế:</strong> gov.uk có nội dung về "what to do after someone dies" (phải làm gì sau khi ai đó chết — dùng từ trực tiếp), chứ không phải "passes away" (ra đi — từ tránh né).</p>
+  <p>Bạn cũng có thể dùng phương pháp này để hiểu:</p>
+  <ul>
+    <li>Ngôn ngữ các nhóm người dùng sử dụng</li>
+    <li>Sự khác biệt giữa các nhóm người dùng</li>
+    <li>Mức độ phù hợp giữa ngôn ngữ của người dùng và ngôn ngữ của tổ chức</li>
+  </ul>
+  <p>Từ đó xác định ngôn ngữ có thể hỗ trợ nhu cầu đa dạng của các nhóm người dùng.</p>
+</div>
+
+<div class="method-card">
+  <div class="mc-label">Phương pháp 4</div>
+  <div class="mc-title">Kiểm Tra A/B (So Sánh)</div>
+  <p>So sánh hai (hoặc nhiều) phiên bản nội dung để xem phiên bản nào hoạt động tốt hơn (chi tiết hơn ở Chương 14 về sản phẩm/dịch vụ số). Đây cũng là cách tốt để kiểm tra cách người dùng kết nối với nội dung của bạn.</p>
+  <p>Có hai cách thực hiện:</p>
+  <ul>
+    <li><strong>Trong phòng nghiên cứu:</strong> Cho người tham gia xem từng phiên bản (đảm bảo luân phiên thứ tự để tránh thiên lệch).</li>
+    <li><strong>Trong thực tế:</strong> Phục vụ từng phiên bản cho các nhóm người dùng khác nhau và kiểm tra cái nào thành công hơn.</li>
+  </ul>
+  <p><strong>Ví dụ thực tế:</strong> NHS (Dịch vụ Y tế Quốc gia Anh) đã viết 8 phiên bản tài liệu khác nhau kêu gọi người dùng đăng ký làm người hiến tạng. Bài kiểm tra đa biến cho thấy lời kêu gọi hành động nào hiệu quả nhất — nhưng không cho biết tại sao (Loosemore, 2014).</p>
+</div>
+
+<div class="method-card">
+  <div class="mc-label">Phương pháp 5</div>
+  <div class="mc-title">Đánh Dấu Màu Nội Dung (Highlighting Content)</div>
+  <p>Kỹ thuật ít công nghệ nhất (low-fi): chỉ cần in nội dung và bút đánh dấu màu.</p>
+  <ol class="process-steps">
+    <li>In ra một bản nội dung cho mỗi người tham gia và một bản cho chính bạn.</li>
+    <li>Yêu cầu người tham gia đọc và đánh dấu: <strong>màu xanh</strong> cho những gì khiến họ tự tin hơn; <strong>màu đỏ</strong> cho những gì khiến họ ít tự tin hơn.</li>
+    <li>Sau khi hoàn thành, sao chép các đánh dấu lên bản của bạn với màu tương ứng cho từng người tham gia.</li>
+    <li>Sau khi thu thập từ tất cả người tham gia, nhìn vào bản của bạn để thấy tổng thể: màu xanh đậm = văn bản khiến nhiều người tự tin; màu đỏ đậm = văn bản khiến nhiều người ít tự tin.</li>
+  </ol>
+  <p><strong>Lợi ích:</strong> Nhanh và dễ. Cho phép nhóm của bạn hiểu ngay tác động của những gì họ viết. Bạn cũng có thể yêu cầu người dùng sắp xếp các từ, cụm từ và câu hỏi theo mức độ tin tưởng, tự tin, hoặc các mối quan tâm khác.</p>
+</div>
+
+<div class="method-card">
+  <div class="mc-label">Phương pháp 6</div>
+  <div class="mc-title">Kiểm Tra Nội Dung Guerrilla</div>
+  <p>Nếu bạn không dễ tiếp cận người tham gia, hãy cân nhắc sử dụng các sự kiện và hội nghị liên quan mà bạn có thể tham dự như một cơ hội để kiểm tra nội dung "trong thực tế" (in the wild).</p>
+  <p>Xem thêm về guerrilla testing tại Chương 16.</p>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- TÓM TẮT PHƯƠNG PHÁP -->
+<h2>VIII. Bảng Tổng Hợp Các Phương Pháp</h2>
+
+<div class="method-grid">
+  <div class="method-tile">
+    <div class="mt-name">Comprehension Testing</div>
+    <p>Câu hỏi mở về ý nghĩa từ ngữ. In và đọc trực tiếp. Không cần prototype.</p>
+  </div>
+  <div class="method-tile">
+    <div class="mt-name">Cloze Testing</div>
+    <p>Điền vào chỗ trống. Đo lường đọc hiểu. Ngưỡng thành công 75%.</p>
+  </div>
+  <div class="method-tile">
+    <div class="mt-name">Từ ngữ của người dùng</div>
+    <p>Để người dùng mô tả bằng ngôn ngữ của họ. Đặc biệt hữu ích với chủ đề nhạy cảm.</p>
+  </div>
+  <div class="method-tile">
+    <div class="mt-name">A/B Testing</div>
+    <p>So sánh nhiều phiên bản. Trong phòng nghiên cứu hoặc môi trường thực tế.</p>
+  </div>
+  <div class="method-tile">
+    <div class="mt-name">Highlighting</div>
+    <p>Bút đánh dấu màu — xanh = tự tin, đỏ = không tự tin. Kết quả nhìn thấy ngay.</p>
+  </div>
+  <div class="method-tile">
+    <div class="mt-name">Guerrilla Testing</div>
+    <p>Kiểm tra tại hội nghị/sự kiện. Không cần tuyển dụng chính thức.</p>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- TÓM TẮT CHƯƠNG -->
+<h2>Tóm Tắt Chương</h2>
+
+<p>Kiểm tra nội dung là một dạng đặc biệt của kiểm tra khả năng sử dụng, tập trung vào việc người dùng hiểu và tương tác với nội dung viết như thế nào. Thực hiện sớm trong chu kỳ phát triển — không cần chờ prototype hoàn chỉnh. Mỗi phương pháp phù hợp với mục đích khác nhau: comprehension testing để kiểm tra hiểu biết cơ bản; cloze testing để đo độ đọc hiểu; để người dùng tự chọn từ ngữ để nắm bắt ngôn ngữ tự nhiên; A/B testing để so sánh hiệu quả; highlighting để trực quan hóa cảm xúc; guerrilla testing khi nguồn lực hạn chế. Chọn đúng phương pháp phụ thuộc vào mục tiêu và điều kiện nghiên cứu — nếu không chắc, hãy chạy thử nghiệm thử để xem người tham gia phản hồi hiệu quả nhất với phương pháp nào.</p>
+
+<div class="chapter-footer">
+  <span>Chương 06 — Kiểm Tra Nội Dung</span>
+  <span>User Research · Stephanie Marsh · 2018</span>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch5-urpg.html"><span class="lbl">Chương trước</span>Chương 5: Kiểm Tra Khả Năng Sử Dụng</a>
+  <a href="ch7-urpg.html"><span class="lbl">Chương sau</span>Chương 7: Card Sorting</a>
+</nav>
+</body>
+</html>

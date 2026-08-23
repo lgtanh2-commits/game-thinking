@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 21 – Đưa Ra Khuyến Nghị</title>
+<style>
+  :root {
+    --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+    --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+    --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px; line-height: 1.75; color: var(--text);
+    background: var(--bg); max-width: 820px;
+    margin: 0 auto; padding: 60px 40px 100px;
+  }
+  .part-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  h1 { font-size: 2.2rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+  .chapter-num { font-size: 5rem; font-weight: 900; line-height: 1; color: var(--surface-dark); letter-spacing: -0.04em; margin-bottom: 16px; display: block; }
+  .subtitle { font-size: 1.05rem; color: var(--text-secondary); font-style: italic; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 2px solid var(--accent-line); }
+  h2 { font-size: 1.2rem; font-weight: 700; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); color: var(--text); }
+  h3 { font-size: 1rem; font-weight: 700; margin: 28px 0 8px; color: var(--text); }
+  p { margin-bottom: 16px; color: var(--text-secondary); }
+  ul, ol { padding-left: 24px; margin-bottom: 16px; }
+  li { margin-bottom: 6px; color: var(--text-secondary); }
+  .method-box { border: 1.5px solid var(--border-strong); background: var(--surface); padding: 20px 24px; margin: 32px 0; border-radius: 2px; }
+  .method-box .method-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .method-row { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .method-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); min-width: 110px; padding-top: 2px; }
+  .method-value { font-size: 0.9rem; color: var(--text-secondary); flex: 1; }
+  table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.88rem; }
+  th { background: var(--surface-dark); padding: 10px 14px; text-align: left; font-weight: 700; font-size: 0.82rem; border: 1px solid var(--border); color: var(--text); }
+  td { padding: 10px 14px; border: 1px solid var(--border); vertical-align: top; color: var(--text-secondary); }
+  .table-caption { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-style: italic; }
+  .priority-high { background: #f0f0f0; }
+  .priority-med { background: #f7f7f7; }
+  .priority-low { background: var(--bg); }
+  .type-card { border: 1px solid var(--border); padding: 14px 18px; margin: 12px 0; }
+  .type-card .type-name { font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 4px; }
+  .type-card .type-desc { font-size: 0.88rem; color: var(--text-secondary); }
+  .callout { border: 1.5px solid var(--border-strong); background: var(--surface); padding: 16px 20px; margin: 20px 0; }
+  .callout p { margin-bottom: 0; font-style: italic; }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="part-label">Phần Ba · Phân Tích và Trình Bày Dữ Liệu</div>
+<span class="chapter-num">21</span>
+<h1>Đưa Ra Khuyến Nghị</h1>
+<p class="subtitle">Cách biến kết quả nghiên cứu thành hành động có thể thực hiện được</p>
+
+<div class="method-box">
+  <div class="method-title">Tóm Tắt Phương Pháp</div>
+  <div class="method-row">
+    <span class="method-label">Áp dụng cho</span>
+    <span class="method-value">Mọi loại nghiên cứu người dùng — bước cuối của quy trình phân tích</span>
+  </div>
+  <div class="method-row">
+    <span class="method-label">Mục đích</span>
+    <span class="method-value">Chuyển kết quả phân tích thành các đề xuất cụ thể, khả thi, giúp tổ chức cải thiện sản phẩm/dịch vụ</span>
+  </div>
+</div>
+
+<h2>Tại Sao Khuyến Nghị Quan Trọng</h2>
+<p>Báo cáo nghiên cứu người dùng sẽ không có nhiều giá trị nếu nó chỉ mô tả vấn đề mà không nêu rõ cần làm gì. Khuyến nghị giúp biến những phát hiện trừu tượng thành hành động cụ thể để sửa chữa vấn đề, khai thác cơ hội và thúc đẩy dự án tiến lên.</p>
+<p>Bạn không nhất thiết phải tự mình có tất cả giải pháp. Hãy tham khảo ý kiến của những người sẽ phê duyệt hoặc thực hiện các thay đổi <em>trước khi</em> chia sẻ chính thức.</p>
+
+<div class="callout">
+  <p>Nếu không biết bắt đầu từ đâu, hãy tổ chức workshop chia sẻ phát hiện và cùng nhau lên ý tưởng — đây là cách tốt để đồng thuận về hướng đi.</p>
+</div>
+
+<h2>Các Loại Khuyến Nghị</h2>
+
+<div class="type-card">
+  <div class="type-name">Nghiên cứu thêm</div>
+  <div class="type-desc">Khi nghiên cứu hiện tại chưa đủ để đưa ra kết luận. Cần nêu rõ <em>tại sao</em> cần nghiên cứu thêm và đề xuất phương pháp / giả thuyết cụ thể.</div>
+</div>
+<div class="type-card">
+  <div class="type-name">Thay đổi quy trình nội bộ</div>
+  <div class="type-desc">Cải thiện quy trình làm việc, quy trình dịch vụ hoặc cơ cấu tổ chức.</div>
+</div>
+<div class="type-card">
+  <div class="type-name">Thay đổi sản phẩm số (front-end và back-end)</div>
+  <div class="type-desc">Thay đổi giao diện người dùng, tương tác, kiến trúc thông tin, nội dung, hoặc hệ thống phía sau.</div>
+</div>
+<div class="type-card">
+  <div class="type-name">Điều chỉnh thương hiệu</div>
+  <div class="type-desc">Thay đổi cách tổ chức định vị và truyền thông thương hiệu của mình.</div>
+</div>
+<div class="type-card">
+  <div class="type-name">Điều chỉnh đề xuất sản phẩm/dịch vụ</div>
+  <div class="type-desc">Thay đổi chính sản phẩm hoặc dịch vụ — có thể là điều chỉnh căn bản nhất và tốn kém nhất.</div>
+</div>
+<div class="type-card">
+  <div class="type-name">Thay đổi truyền thông và nội dung</div>
+  <div class="type-desc">Cải thiện ngôn ngữ, giọng điệu, nội dung marketing, hỗ trợ người dùng.</div>
+</div>
+
+<h2>Phân Loại Theo Mức Độ Ưu Tiên (Table 21.1)</h2>
+<p>Việc gán nhãn khuyến nghị theo thời hạn và chi phí giúp mọi người hiểu rõ cái nào có thể làm ngay và cái nào cần lên kế hoạch dài hạn.</p>
+
+<p class="table-caption">Table 21.1 — Phân loại khuyến nghị</p>
+<table>
+  <thead>
+    <tr>
+      <th class="priority-high">Dài hạn / Chi phí cao / Khó thực hiện</th>
+      <th class="priority-med">Trung hạn / Chi phí trung bình / Độ khó trung bình</th>
+      <th class="priority-low">Ngắn hạn / Chi phí thấp / Nhanh thực hiện</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <ul>
+          <li>Tái cơ cấu kiến trúc thông tin toàn bộ website</li>
+          <li>Thiết kế lại luồng thanh toán</li>
+          <li>Xây dựng hệ thống cá nhân hóa nội dung</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Cải thiện giao diện trang kết quả tìm kiếm</li>
+          <li>Thêm hướng dẫn onboarding cho người dùng mới</li>
+          <li>Cập nhật ngôn ngữ trong toàn bộ form</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Sửa lỗi chính tả và lỗi link</li>
+          <li>Cải thiện CTA button</li>
+          <li>Thêm thông báo xác nhận sau khi submit form</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Nguyên Tắc Đưa Ra Khuyến Nghị Hiệu Quả</h2>
+<ul>
+  <li><strong>Thực tế:</strong> Chỉ đề xuất những gì khả thi về mặt kỹ thuật và ngân sách.</li>
+  <li><strong>Cụ thể:</strong> Tránh khuyến nghị chung chung; mô tả đủ chi tiết để người thực hiện hiểu cần làm gì.</li>
+  <li><strong>Có ưu tiên:</strong> Không phải mọi thứ đều quan trọng như nhau — giúp người ra quyết định biết bắt đầu từ đâu.</li>
+  <li><strong>Đã được đồng thuận:</strong> Tham khảo với những người sẽ phê duyệt và thực hiện trước khi chia sẻ chính thức.</li>
+  <li><strong>Liên kết với phát hiện:</strong> Mỗi khuyến nghị phải gắn rõ với phát hiện nghiên cứu cụ thể.</li>
+</ul>
+
+<h2>Liên Kết với Các Chương Khác</h2>
+<p>Khuyến nghị liên quan chặt chẽ đến cách bạn trình bày kết quả nghiên cứu. Các chương tiếp theo sẽ đề cập đến:</p>
+<ul>
+  <li><strong>Chương 22:</strong> Cấu trúc báo cáo và tóm tắt điều hành — nơi khuyến nghị được trình bày một cách có tổ chức</li>
+  <li><strong>Chương 25:</strong> Mô hình tư duy để trực quan hóa khoảng cách và cơ hội</li>
+  <li><strong>Chương 29:</strong> Đề xuất thay đổi thiết kế bằng hình ảnh minh họa</li>
+</ul>
+
+
+<nav class="chapnav">
+  <a href="ch20-urpg.html"><span class="lbl">Chương trước</span>Chương 20: Ưu Tiên Hóa Vấn Đề và Nhu Cầu Người Dùng</a>
+  <a href="ch22-urpg.html"><span class="lbl">Chương sau</span>Chương 22: Tóm Tắt Điều Hành và Báo Cáo</a>
+</nav>
+</body>
+</html>

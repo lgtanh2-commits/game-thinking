@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URPG | Chương 03 — Thực Hành Tốt Nhất trong Nghiên Cứu Người Dùng</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+  }
+  .breadcrumb span { margin: 0 6px; }
+
+  .chapter-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+
+  .divider-heavy {
+    border: none;
+    border-top: 2px solid var(--accent-line);
+    margin-bottom: 40px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  .meta-strip {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .meta-value { font-size: 14px; color: var(--text-secondary); }
+
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 32px 0 12px;
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin: 20px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  p { color: var(--text-secondary); margin-bottom: 16px; }
+  strong { color: var(--text); font-weight: 700; }
+  em { color: var(--text-secondary); font-style: italic; }
+
+  ul, ol { padding-left: 24px; margin-bottom: 16px; }
+  li { color: var(--text-secondary); margin-bottom: 6px; }
+  li strong { color: var(--text); }
+
+  .key-concept {
+    background: var(--surface);
+    border-left: 3px solid var(--accent-line);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 0 2px 2px 0;
+  }
+  .key-concept .kc-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+  .key-concept p { margin-bottom: 8px; }
+  .key-concept p:last-child { margin-bottom: 0; }
+
+  .highlight-box {
+    background: var(--surface-dark);
+    border: 1px solid var(--border-strong);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 2px;
+  }
+  .highlight-box p { margin-bottom: 0; }
+
+  .tip-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border-strong);
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .tip-box .t-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+  .tip-box p { margin-bottom: 6px; font-size: 15px; }
+  .tip-box p:last-child { margin-bottom: 0; }
+
+  .example-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 2px;
+  }
+  .example-block .ex-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .example-block p { margin-bottom: 10px; font-size: 15px; }
+  .example-block p:last-child { margin-bottom: 0; }
+
+  .case-study {
+    background: #f0f0f0;
+    border: 1px solid var(--border-strong);
+    border-left: 4px solid var(--accent-line);
+    padding: 24px;
+    margin: 28px 0;
+    border-radius: 0 2px 2px 0;
+  }
+  .case-study .cs-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; font-weight: 700; }
+  .case-study .cs-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  .case-study p { margin-bottom: 10px; font-size: 15px; }
+  .case-study p:last-child { margin-bottom: 0; }
+
+  .rule-block {
+    border: 1px solid var(--border);
+    margin: 20px 0;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .rule-header {
+    background: var(--surface-dark);
+    padding: 12px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .rule-num {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    background: var(--accent-line);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 2px;
+  }
+  .rule-title { font-size: 15px; font-weight: 700; color: var(--text); }
+  .rule-body { padding: 16px 20px; }
+  .rule-body p { margin-bottom: 10px; font-size: 15px; }
+  .rule-body p:last-child { margin-bottom: 0; }
+
+  /* Compare table: bad vs good */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .compare-table th {
+    background: var(--surface-dark);
+    color: var(--text);
+    font-weight: 700;
+    text-align: left;
+    padding: 9px 13px;
+    border: 1px solid var(--border-strong);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .compare-table td {
+    padding: 9px 13px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  .compare-table tr:nth-child(even) td { background: var(--surface); }
+  .compare-table .col-bad { color: #7a3030; font-style: italic; }
+  .compare-table .col-good { color: #2a5a2a; }
+  .compare-table .col-best { color: #1a3a5a; font-weight: 700; }
+
+  /* Demographics example table */
+  .demo-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .demo-table th {
+    background: var(--surface-dark);
+    color: var(--text);
+    font-weight: 700;
+    text-align: left;
+    padding: 9px 13px;
+    border: 1px solid var(--border-strong);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .demo-table td {
+    padding: 9px 13px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  .demo-table tr:nth-child(even) td { background: var(--surface); }
+  .demo-table .col-attr { font-weight: 700; color: var(--text); }
+
+  /* Brief table */
+  .brief-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .brief-table th {
+    background: var(--surface-dark);
+    color: var(--text);
+    font-weight: 700;
+    text-align: left;
+    padding: 9px 13px;
+    border: 1px solid var(--border-strong);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .brief-table td {
+    padding: 9px 13px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  .brief-table tr:nth-child(even) td { background: var(--surface); }
+  .brief-table .field-name { font-weight: 700; color: var(--text); }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 14px;
+    margin: 20px 0;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    border-radius: 2px;
+  }
+  .card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .card p { font-size: 14px; margin-bottom: 0; color: var(--text-secondary); }
+
+  /* Likert scale visual */
+  .likert-row {
+    display: flex;
+    gap: 0;
+    margin: 12px 0;
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .likert-item {
+    flex: 1;
+    text-align: center;
+    padding: 10px 4px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    border-right: 1px solid var(--border);
+  }
+  .likert-item:last-child { border-right: none; }
+  .likert-item:nth-child(1) { background: #f8f0f0; }
+  .likert-item:nth-child(2) { background: #f5f2f0; }
+  .likert-item:nth-child(3) { background: var(--surface); }
+  .likert-item:nth-child(4) { background: #f0f4f0; }
+  .likert-item:nth-child(5) { background: #edf2ed; }
+  .likert-item:nth-child(6) { background: var(--surface-dark); font-style: italic; }
+  .likert-label { font-weight: 700; color: var(--text); font-size: 11px; margin-bottom: 2px; }
+
+  /* Accessibility grid */
+  .access-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  @media (max-width: 600px) { .access-grid { grid-template-columns: 1fr; } }
+  .access-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    border-radius: 2px;
+  }
+  .access-card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .access-card ul { margin-bottom: 0; }
+
+  .section-intro {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border-left: 2px solid var(--border-strong);
+  }
+
+  .footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-book { font-size: 13px; color: var(--text-muted); }
+  .footer-nav { font-size: 13px; color: var(--text-muted); }
+
+  @media (max-width: 600px) {
+    body { padding: 32px 20px 64px; }
+    h1 { font-size: 24px; }
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="breadcrumb">
+  User Research: A Practical Guide &nbsp;<span>›</span>&nbsp; Phần 1: Nền Tảng &nbsp;<span>›</span>&nbsp; Chương 03
+</div>
+
+<div class="chapter-label">Chương 03 &nbsp;·&nbsp; Phần 1 — Nền Tảng (The Fundamentals)</div>
+<h1>Thực Hành Tốt Nhất trong Nghiên Cứu Người Dùng</h1>
+<p class="subtitle">User Research Best Practice: Who, What, Why and How</p>
+<hr class="divider-heavy">
+
+<div class="meta-strip">
+  <div class="meta-item">
+    <span class="meta-label">Tác giả</span>
+    <span class="meta-value">Stephanie Marsh</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Nhà xuất bản</span>
+    <span class="meta-value">Kogan Page, 2018</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Trang gốc</span>
+    <span class="meta-value">pp. 31 – 64</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Phần</span>
+    <span class="meta-value">Part One — The Fundamentals</span>
+  </div>
+</div>
+
+<p class="section-intro">
+  Chương này là chương dài và chi tiết nhất trong Phần 1. Marsh trả lời bốn câu hỏi cốt lõi của mọi nghiên cứu người dùng: <strong>Ai</strong> nên tham gia? <strong>Cái gì</strong> bạn muốn tìm hiểu? <strong>Tại sao</strong> phải quan sát thay vì chỉ hỏi? Và <strong>Như thế nào</strong> để đặt câu hỏi đúng cách?
+</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>1. AI: Ai Nên Tham Gia Nghiên Cứu?</h2>
+
+<h3>Nhóm người dùng (User Groups) — không phải "người dùng chung chung"</h3>
+
+<p>
+  Sai lầm phổ biến nhất trong tuyển dụng người tham gia là nghĩ về "người dùng" như một nhóm đồng nhất. Thực tế là người dùng của hầu hết các sản phẩm và dịch vụ bao gồm <strong>nhiều nhóm khác nhau với hành vi, nhu cầu và mục tiêu khác nhau</strong>.
+</p>
+
+<p>
+  Bước đầu tiên là <strong>phân tách người dùng thành các nhóm dựa trên hành vi và nhu cầu</strong> — không phải dựa trên nhân khẩu học. Sau đó, quyết định nhóm nào cần nghiên cứu trước.
+</p>
+
+<div class="example-block">
+  <div class="ex-label">Ví dụ — Xây dựng phần mềm toán học</div>
+  <p>Nếu bạn đang thiết kế phần mềm học toán cho học sinh trung học, bạn <strong>không thể</strong> dùng sinh viên văn học Anh để kiểm tra. Dù cả hai đều là "học sinh", hành vi, bối cảnh và nhu cầu của họ hoàn toàn khác nhau. Dữ liệu từ nhóm sai sẽ không giúp được gì — thậm chí có thể dẫn dắt nhầm hướng.</p>
+</div>
+
+<div class="key-concept">
+  <div class="kc-label">Sự thật quan trọng</div>
+  <p><strong>Các nhóm người dùng khác nhau không hoạt động nhất quán với nhau.</strong> Một giao diện hoạt động tốt cho người dùng thường xuyên có thể hoàn toàn gây khó khăn cho người dùng lần đầu. Dữ liệu từ nhóm sai không chỉ vô ích — nó nguy hiểm vì tạo ra sự tự tin sai.</p>
+</div>
+
+<div class="tip-box">
+  <div class="t-label">Top Tip</div>
+  <p><strong>Một số lượng nhỏ người tham gia đúng đối tượng tốt hơn nhiều so với một số lượng lớn người tham gia sai đối tượng.</strong> Chất lượng mẫu tuyển dụng luôn quan trọng hơn số lượng.</p>
+</div>
+
+<h3>Cách tìm đúng người tham gia</h3>
+
+<p>Có hai nguồn chính để tuyển dụng người tham gia:</p>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title">Đại lý tuyển dụng</div>
+    <p>Các công ty chuyên tuyển dụng người tham gia nghiên cứu. Họ có <strong>cơ sở dữ liệu lớn</strong> và có thể tìm người đáp ứng tiêu chí rất cụ thể. Tốn chi phí nhưng tiết kiệm thời gian.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Cơ sở dữ liệu nội bộ</div>
+    <p>Danh sách đăng ký, khách hàng hiện tại, hoặc người dùng đã đăng ký nhận thông báo. <strong>Miễn phí hoặc chi phí thấp</strong>, nhưng có thể thiên kiến (chỉ là người dùng hài lòng).</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>2. Viết Recruitment Brief — Hồ Sơ Tuyển Dụng</h2>
+
+<p>
+  Khi làm việc với đại lý tuyển dụng hoặc tuyển từ cơ sở dữ liệu nội bộ, bạn cần chuẩn bị một <strong>recruitment brief</strong> — tài liệu mô tả chính xác bạn cần ai và bạn cần họ để làm gì.
+</p>
+
+<table class="brief-table">
+  <thead>
+    <tr>
+      <th>Thông tin cần có</th>
+      <th>Chi tiết cần bao gồm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="field-name">Ngày nghiên cứu</td>
+      <td>Ngày, tháng, năm cụ thể của các phiên nghiên cứu</td>
+    </tr>
+    <tr>
+      <td class="field-name">Địa điểm</td>
+      <td>Địa chỉ cụ thể, hoặc "nghiên cứu từ xa qua video call"</td>
+    </tr>
+    <tr>
+      <td class="field-name">Độ dài phiên</td>
+      <td>Thời gian mỗi phiên (ví dụ: 45 phút)</td>
+    </tr>
+    <tr>
+      <td class="field-name">Số lượng cần</td>
+      <td>Số người tham gia cần + số người dự phòng</td>
+    </tr>
+    <tr>
+      <td class="field-name">Lịch phiên</td>
+      <td>Các khung giờ cụ thể bạn đang cung cấp</td>
+    </tr>
+    <tr>
+      <td class="field-name">Incentive</td>
+      <td>Số tiền bồi dưỡng (hoặc loại phần thưởng) cho người tham gia</td>
+    </tr>
+    <tr>
+      <td class="field-name">Nhân khẩu học</td>
+      <td>Tuổi, giới tính, trình độ học vấn, nghề nghiệp, v.v.</td>
+    </tr>
+    <tr>
+      <td class="field-name">Hành vi & đặc điểm</td>
+      <td>Những gì họ làm — cách họ sử dụng sản phẩm liên quan, thói quen thực tế</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Giới hạn của nhân khẩu học — Ví dụ hoàng tử Charles & Ozzy Osbourne</h3>
+
+<p>
+  Marsh đưa ra một ví dụ kinh điển về tại sao không nên chỉ dựa vào nhân khẩu học khi tuyển người tham gia:
+</p>
+
+<div class="case-study">
+  <div class="cs-label">Ví dụ minh họa — Bảng 3.1</div>
+  <div class="cs-title">Hoàng tử Charles và Ozzy Osbourne: Nhân khẩu học giống hệt nhau, con người hoàn toàn khác nhau</div>
+  <table class="demo-table" style="margin-bottom: 12px;">
+    <thead>
+      <tr>
+        <th>Đặc điểm nhân khẩu học</th>
+        <th>Hoàng tử Charles</th>
+        <th>Ozzy Osbourne</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-attr">Giới tính</td>
+        <td>Nam</td>
+        <td>Nam</td>
+      </tr>
+      <tr>
+        <td class="col-attr">Quốc tịch</td>
+        <td>Anh</td>
+        <td>Anh</td>
+      </tr>
+      <tr>
+        <td class="col-attr">Năm sinh</td>
+        <td>1948</td>
+        <td>1948</td>
+      </tr>
+      <tr>
+        <td class="col-attr">Giàu có</td>
+        <td>Có</td>
+        <td>Có</td>
+      </tr>
+      <tr>
+        <td class="col-attr">Đã kết hôn lần 2</td>
+        <td>Có</td>
+        <td>Có</td>
+      </tr>
+      <tr>
+        <td class="col-attr">Sống ở nông thôn Anh</td>
+        <td>Có</td>
+        <td>Có</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><strong>Nhưng họ là hai con người hoàn toàn khác nhau</strong> — với lối sống, giá trị, thói quen, và hành vi sử dụng công nghệ hoàn toàn trái ngược. Nếu bạn chỉ dùng nhân khẩu học để tuyển người tham gia, bạn có thể tuyển được hai người như thế này và nghĩ rằng họ thuộc cùng một "nhóm người dùng".</p>
+  <p><strong>Bài học:</strong> Hành vi và bối cảnh quan trọng hơn nhân khẩu học trong việc xác định nhóm người dùng.</p>
+</div>
+
+<div class="tip-box">
+  <div class="t-label">Lưu ý quan trọng — Ai không nên bị loại</div>
+  <p><strong>Đừng loại người hướng nội, rụt rè, hoặc ít nói khỏi nghiên cứu.</strong> Nhiều screener vô tình loại những người không thoải mái nói về bản thân — nhưng những người này vẫn là người dùng hợp lệ và có những trải nghiệm quan trọng. Hành vi trong thực tế của họ vẫn có giá trị nghiên cứu.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>3. Xây Dựng Screener — Bộ Lọc Tuyển Dụng</h2>
+
+<p>
+  Screener là bộ câu hỏi dùng để <strong>xác định ai đủ điều kiện tham gia</strong> nghiên cứu. Đây là công cụ quan trọng để đảm bảo bạn nói chuyện với đúng người.
+</p>
+
+<h3>Ví dụ hoàn chỉnh: "The Online Train Ticket Vendor"</h3>
+
+<p>
+  Marsh cung cấp một ví dụ tuyển dụng đầy đủ trong sách. Dưới đây là tóm tắt cấu trúc và nội dung:
+</p>
+
+<div class="example-block">
+  <div class="ex-label">Thông tin cơ bản nghiên cứu (Tables 3.2–3.5)</div>
+  <p><strong>Chủ đề:</strong> Trang mua vé tàu hỏa trực tuyến</p>
+  <p><strong>Số người tham gia:</strong> 6 người</p>
+  <p><strong>Ngày:</strong> 22 tháng 10</p>
+  <p><strong>Địa điểm:</strong> Central User Research Lab</p>
+  <p><strong>Thời gian mỗi phiên:</strong> 45 phút</p>
+  <p><strong>Cơ cấu mẫu:</strong> Hỗn hợp người đi tàu thường xuyên / thỉnh thoảng / hiếm khi; hỗn hợp mức độ tự tin trực tuyến; hỗn hợp thói quen đặt vé (trực tuyến/ngoại tuyến)</p>
+</div>
+
+<h3>Cấu trúc đầy đủ của một screener nghiên cứu</h3>
+
+<p>
+  Screener trong ví dụ của Marsh bao gồm các phần sau (Tables 3.6–3.14):
+</p>
+
+<table class="brief-table">
+  <thead>
+    <tr>
+      <th>Phần screener</th>
+      <th>Nội dung và mục đích</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="field-name">1. Giới thiệu</td>
+      <td>Giải thích nghiên cứu, thời gian dự kiến, và rằng câu trả lời sẽ được sử dụng để xác định người phù hợp. Giữ vague — không tiết lộ bạn đang tìm ai cụ thể.</td>
+    </tr>
+    <tr>
+      <td class="field-name">2. Logistics</td>
+      <td>Xác nhận khả năng có mặt vào ngày/giờ cụ thể. Ví dụ: Các khung giờ còn trống: 9:30, 10:30, 11:30, 14:00, 15:00, 16:00. Loại ngay những ai không có mặt được.</td>
+    </tr>
+    <tr>
+      <td class="field-name">3. Về bạn (nhân khẩu học)</td>
+      <td>Tuổi (dải, ví dụ: 18–24, 25–34...), giới tính, trình độ học vấn, tình trạng hôn nhân, có con không, dân tộc, tình trạng việc làm. Dùng để đảm bảo tính đa dạng, không phải để loại người.</td>
+    </tr>
+    <tr>
+      <td class="field-name">4. Cách bạn đi lại</td>
+      <td>Các phương tiện giao thông họ sử dụng: tàu hỏa, xe buýt, xe hơi, xe đạp, v.v. Tần suất đi tàu: hàng ngày / hàng tuần / hàng tháng / ít hơn.</td>
+    </tr>
+    <tr>
+      <td class="field-name">5. Cách bạn đặt vé</td>
+      <td>Đặt trực tuyến qua website, app, điện thoại? Hay mua trực tiếp tại ga? Ai đặt cho bạn? Tần suất đặt trực tuyến.</td>
+    </tr>
+    <tr>
+      <td class="field-name">6. Trải nghiệm trực tuyến</td>
+      <td>Những gì họ làm trực tuyến: ngân hàng, mua sắm, mạng xã hội, email, streaming, v.v. Mức độ tự tin với internet: rất tự tin / khá tự tin / không tự tin lắm.</td>
+    </tr>
+    <tr>
+      <td class="field-name">7. Thiết bị công nghệ</td>
+      <td>Thiết bị họ sở hữu và sử dụng: smartphone, tablet, laptop, desktop. Hệ điều hành (iOS, Android, Windows, Mac).</td>
+    </tr>
+    <tr>
+      <td class="field-name">8. Nhu cầu tiếp cận (Access needs)</td>
+      <td>Bất kỳ nhu cầu khả năng tiếp cận nào cần hỗ trợ trong buổi: nghe kém, thị lực thấp, dùng thiết bị hỗ trợ, v.v.</td>
+    </tr>
+    <tr>
+      <td class="field-name">9. Bảo mật & loại trừ</td>
+      <td>Làm việc trong ngành liên quan (vé tàu, UX research, marketing)? → Loại. Đã tham gia nghiên cứu với chúng tôi trong 6 tháng qua? → Loại.</td>
+    </tr>
+    <tr>
+      <td class="field-name">10. Bước tiếp theo</td>
+      <td>Xác nhận lịch, địa điểm, thông tin liên lạc, và incentive. Thông báo cho những ai không được chọn một cách lịch sự.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Ba mẹo hàng đầu khi viết screener</h3>
+
+<div class="tip-box">
+  <div class="t-label">Top Tips — Screener Design</div>
+  <p><strong>1. Để người tham gia tự đánh giá hành vi.</strong> Thay vì hỏi "Bạn có mua sắm trực tuyến không?", hãy hỏi "Trong tháng qua, bạn đã mua sắm trực tuyến bao nhiêu lần?" Tự đánh giá cụ thể chính xác hơn câu hỏi có/không.</p>
+  <p><strong>2. Giữ câu hỏi trung lập.</strong> Không để câu hỏi screener tiết lộ bạn đang tìm kiếm loại người nào. Nếu người tham gia biết câu trả lời "đúng", họ sẽ điều chỉnh câu trả lời để được tham gia.</p>
+  <p><strong>3. Loại người trong ngành.</strong> Người làm UX research, marketing, hoặc trong cùng ngành với sản phẩm đang nghiên cứu thường có hiểu biết chuyên môn làm lệch dữ liệu. Hãy loại họ ra.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>4. Khuyến Khích Tham Gia (Incentivizing)</h2>
+
+<p>
+  Người tham gia nghiên cứu người dùng dành thời gian quý báu của họ. <strong>Bồi dưỡng xứng đáng là điều đúng đắn về mặt đạo đức</strong> và thực tế cải thiện chất lượng và tỷ lệ hoàn thành nghiên cứu.
+</p>
+
+<h3>Mức bồi dưỡng tham khảo (thị trường UK)</h3>
+
+<table class="brief-table">
+  <thead>
+    <tr>
+      <th>Độ dài phiên</th>
+      <th>Mức bồi dưỡng</th>
+      <th>Ghi chú</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>30 phút</td>
+      <td><strong>£30</strong></td>
+      <td>Phiên ngắn, phù hợp usability testing nhanh</td>
+    </tr>
+    <tr>
+      <td>45 phút</td>
+      <td><strong>£45</strong></td>
+      <td>Độ dài tiêu chuẩn</td>
+    </tr>
+    <tr>
+      <td>60 phút</td>
+      <td><strong>£60</strong></td>
+      <td>Phiên dài, phỏng vấn sâu hoặc contextual inquiry</td>
+    </tr>
+    <tr>
+      <td>Khảo sát (survey)</td>
+      <td>Rút thăm: £50 x1 hoặc £20 x2</td>
+      <td>Prize draw thay vì bồi dưỡng trực tiếp cho khảo sát</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="highlight-box">
+  <p>
+    <strong>Lưu ý quan trọng:</strong> Đừng dùng voucher của chính sản phẩm bạn đang nghiên cứu để làm incentive. Điều này tạo ra thiên kiến — người tham gia có thể có xu hướng nói tốt về sản phẩm để giữ mối quan hệ tốt. Dùng voucher trung lập (Amazon, thẻ tiền mặt) hoặc tiền mặt.
+  </p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>5. TẠI SAO: Tầm Quan Trọng của Quan Sát</h2>
+
+<h3>Những gì người ta nói ≠ Những gì người ta làm</h3>
+
+<p>
+  Đây là nguyên tắc quan trọng nhất và cũng là lý do tồn tại của nghiên cứu người dùng quan sát. Marsh nhấn mạnh: <strong>hành vi thực tế và ý kiến tự khai báo thường mâu thuẫn nhau</strong>.
+</p>
+
+<div class="key-concept">
+  <div class="kc-label">Hai tính chất khác nhau cần hai cách tiếp cận khác nhau</div>
+  <p><strong>Hành vi</strong> (behavior) khá nhất quán trong cùng một nhóm người dùng — đó là lý do tại sao design patterns tồn tại. Người dùng chia sẻ hiểu biết chung về cách điều hướng web, cách đọc form, v.v.</p>
+  <p><strong>Ý kiến</strong> (opinion) biến thiên rộng hơn nhiều giữa các cá nhân. Để có dữ liệu ý kiến đáng tin cậy, bạn cần nhiều người tham gia hơn so với nghiên cứu hành vi.</p>
+</div>
+
+<h3>Vấn đề với tự khai báo — Ba tầng mất thật (Nielsen, 2001)</h3>
+
+<p>
+  Jakob Nielsen đã chỉ ra rằng khi người ta tự báo cáo về hành vi của mình, thông tin đã bị "lọc" qua <strong>ba tầng</strong> trước khi đến với nhà nghiên cứu:
+</p>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title">Tầng 1 — Chuẩn mực xã hội</div>
+    <p>Người ta <strong>bóp méo sự thật theo hướng tích cực hơn</strong> để phù hợp với kỳ vọng xã hội. Ví dụ: nói rằng họ đọc sách nhiều hơn thực tế.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Tầng 2 — Ký ức</div>
+    <p>Người ta <strong>báo cáo những gì họ nhớ</strong>, không phải những gì thực sự xảy ra. Ký ức không trung thực — nó bị ảnh hưởng bởi cảm xúc và kỳ vọng.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Tầng 3 — Hợp lý hóa</div>
+    <p>Người ta <strong>giải thích hành vi của mình theo cách có lý</strong> trong hồi ký — ngay cả khi hành vi thực tế không có lý chút nào.</p>
+  </div>
+</div>
+
+<p>
+  Kết quả là: khi bạn hỏi ai đó "Bạn thường làm gì khi...?", câu trả lời có thể sai ở cả ba mức độ trên — và người trả lời không hề biết điều đó.
+</p>
+
+<h3>Case Study — Trang web Hạ Viện Anh (UK Houses of Parliament)</h3>
+
+<div class="case-study">
+  <div class="cs-label">Case Study — Sự khác biệt giữa quan sát và tự khai báo</div>
+  <div class="cs-title">Trang web Hạ Viện Anh: Vấn đề usability hay vấn đề chính trị?</div>
+  <p>Trong một nghiên cứu usability cho trang web Hạ Viện Anh, một người tham gia liên tục gặp khó khăn trong việc hoàn thành các nhiệm vụ trên trang. Cô ấy vật lộn với điều hướng, không tìm thấy thông tin, và thất bại ở nhiều tác vụ.</p>
+  <p>Sau khi kết thúc phần quan sát, nhà nghiên cứu hỏi cảm nhận của cô về trang web. Cô trả lời rằng trang web "rất tệ" — <strong>nhưng lý do cô đưa ra không liên quan gì đến usability</strong>: cô nói trang tệ vì cô ghét Thủ tướng.</p>
+  <p><strong>Bài học quan trọng:</strong> Nếu nhà nghiên cứu chỉ dựa vào câu trả lời hậu kỳ ("trang web tệ"), họ sẽ không biết liệu vấn đề là usability hay là quan điểm chính trị. Chỉ có <strong>dữ liệu quan sát</strong> — những vật lộn thực sự khi hoàn thành tác vụ — mới tiết lộ các vấn đề thiết kế thực sự.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>6. NHƯ THẾ NÀO: Đặt Câu Hỏi Đúng Cách</h2>
+
+<p>
+  Cách bạn đặt câu hỏi ảnh hưởng trực tiếp đến chất lượng dữ liệu bạn thu thập. Marsh đưa ra bốn quy tắc cốt lõi:
+</p>
+
+<div class="rule-block">
+  <div class="rule-header">
+    <div class="rule-num">1</div>
+    <div class="rule-title">Quy tắc 1: Dùng ngôn ngữ dễ hiểu và bao hàm</div>
+  </div>
+  <div class="rule-body">
+    <p>Dùng <strong>tiếng Anh/Việt đơn giản</strong> — tránh biệt ngữ kỹ thuật, từ ngữ chuyên ngành, và thuật ngữ nội bộ của tổ chức. Nếu phải dùng thuật ngữ, hãy giải thích nó.</p>
+    <p>Khi người tham gia không hiểu câu hỏi, họ có hai lựa chọn: <strong>đoán</strong> (dẫn đến câu trả lời sai) hoặc <strong>hỏi lại</strong> (làm gián đoạn luồng nghiên cứu). Cả hai đều không tốt. Giải pháp: viết câu hỏi đủ rõ ràng để không cần đoán và không cần hỏi lại.</p>
+  </div>
+</div>
+
+<div class="rule-block">
+  <div class="rule-header">
+    <div class="rule-num">2</div>
+    <div class="rule-title">Quy tắc 2: Câu hỏi mở và trung lập trong nghiên cứu khám phá</div>
+  </div>
+  <div class="rule-body">
+    <p>Trong nghiên cứu khám phá (<em>exploratory research</em>), câu hỏi của bạn không được dẫn dắt người tham gia theo bất kỳ hướng nào:</p>
+    <table class="compare-table" style="margin: 12px 0;">
+      <thead>
+        <tr>
+          <th>Câu hỏi đóng / Dẫn dắt ❌</th>
+          <th>Câu hỏi mở / Trung lập ✓</th>
+          <th>Câu hỏi tốt nhất ✓✓</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-bad">"Bạn có thích trang này không?"</td>
+          <td class="col-good">"Điều gì, nếu có, bạn thích về trang này?" (+ hỏi riêng về "không thích")</td>
+          <td class="col-best">"Trải nghiệm của bạn với xxx là như thế nào?" hoặc "Bạn thấy việc làm xxx thế nào?"</td>
+        </tr>
+        <tr>
+          <td class="col-bad">"Bạn có hiểu đoạn văn này không?"</td>
+          <td class="col-good">"Bạn hiểu gì về đoạn văn này?"</td>
+          <td class="col-best">"Đoạn văn này có nghĩa gì với bạn? Bạn sẽ mô tả nó với người bạn như thế nào?"</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Lưu ý ví dụ thứ hai: "Bạn có hiểu không?" mặc định giả định người tham gia <em>có</em> hoặc <em>không có</em> hiểu — một binary đơn giản. "Bạn hiểu gì?" vẫn giả định một mức độ hiểu nào đó. Câu hỏi tốt nhất không giả định gì cả.</p>
+  </div>
+</div>
+
+<div class="rule-block">
+  <div class="rule-header">
+    <div class="rule-num">3</div>
+    <div class="rule-title">Quy tắc 3: Tránh dùng "từ khoá" từ giao diện trong nhiệm vụ</div>
+  </div>
+  <div class="rule-body">
+    <p>Khi giao cho người tham gia một nhiệm vụ trong usability testing, đừng dùng <strong>đúng từ ngữ</strong> xuất hiện trên giao diện. Điều này cho phép người tham gia "scan" tìm từ khóa thay vì thực sự điều hướng — và bạn không học được gì về điều hướng thực sự của họ.</p>
+    <div style="margin: 12px 0;">
+      <p><strong>Bối cảnh:</strong> Trang web của một tổ chức từ thiện có các mục điều hướng: "Tham gia" ("Get involved"), "Sự kiện" ("Events"), "Trong khu vực của bạn" ("In your area").</p>
+    </div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Dùng từ khoá từ UI ❌</th>
+          <th>Dùng ngôn ngữ trung lập ✓</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-bad">"Hãy tìm một sự kiện tình nguyện <strong>để tham gia</strong> <strong>trong khu vực của bạn</strong>."</td>
+          <td class="col-good">"Hãy tìm cách để <strong>đóng góp cho tổ chức</strong> này <strong>gần nơi bạn sống</strong>."</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Với option 1, người tham gia nhìn vào thanh điều hướng, thấy ngay "Get involved", "Events", "In your area" — và hoàn thành nhiệm vụ mà không thực sự điều hướng. Bạn không học được gì về điều hướng tự nhiên của họ.</p>
+    <p>Với option 2, người tham gia phải tự đưa ra từ ngữ và cách tiếp cận — đây là dữ liệu thực sự về cách họ tư duy và điều hướng.</p>
+  </div>
+</div>
+
+<div class="rule-block">
+  <div class="rule-header">
+    <div class="rule-num">4</div>
+    <div class="rule-title">Quy tắc 4: Biết khi nào cần phá vỡ quy tắc</div>
+  </div>
+  <div class="rule-body">
+    <p>Ba quy tắc trên không phải là tuyệt đối. Có những tình huống khi bạn cần linh hoạt:</p>
+    <ul>
+      <li>
+        <strong>Người tham gia không phản hồi:</strong> Nếu người tham gia im lặng hoàn toàn hoặc rất ít phản hồi, bạn có thể dùng câu hỏi dẫn dắt để phá băng: "Tôi thấy bạn nhìn vào góc trên bên phải — bạn có thể nói thêm về điều đó không?"
+      </li>
+      <li>
+        <strong>Can thiệp trong usability testing:</strong> Nếu người tham gia đang rõ ràng đau khổ hoặc hoàn toàn bế tắc, bạn có thể dừng lại để giúp đỡ — ưu tiên trải nghiệm của người tham gia hơn sự tinh khiết của dữ liệu.
+      </li>
+      <li>
+        <strong>Khảo sát (surveys):</strong> Trong khảo sát, câu hỏi đóng (<em>closed questions</em>) là hoàn toàn hợp lệ và thường cần thiết. Thang Likert là ví dụ phổ biến.
+      </li>
+    </ul>
+    <p><strong>Thang đo Likert</strong> — ví dụ câu trả lời cho câu hỏi đo lường ý kiến:</p>
+    <div class="likert-row">
+      <div class="likert-item"><div class="likert-label">1</div>Hoàn toàn đồng ý</div>
+      <div class="likert-item"><div class="likert-label">2</div>Đồng ý</div>
+      <div class="likert-item"><div class="likert-label">3</div>Trung lập</div>
+      <div class="likert-item"><div class="likert-label">4</div>Không đồng ý</div>
+      <div class="likert-item"><div class="likert-label">5</div>Hoàn toàn không đồng ý</div>
+      <div class="likert-item"><div class="likert-label">N/A</div>Không áp dụng</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>7. Khả Năng Tiếp Cận và Hòa Nhập</h2>
+
+<p>
+  Phần cuối của chương tập trung vào một chủ đề thường bị bỏ qua trong nghiên cứu người dùng: <strong>đảm bảo sản phẩm và dịch vụ của bạn có thể tiếp cận được bởi tất cả mọi người</strong> — bao gồm những người có khuyết tật hoặc hạn chế.
+</p>
+
+<h3>Bốn cấp độ kiểm tra khả năng tiếp cận</h3>
+
+<div class="access-grid">
+  <div class="access-card">
+    <div class="access-card-title">1. Kiểm Tra Tự Động</div>
+    <ul>
+      <li>Công cụ W3C và tương tự</li>
+      <li>Phát hiện 20–30% vấn đề</li>
+      <li>Nhanh và rẻ nhưng không đầy đủ</li>
+      <li>Tốt để kiểm tra baseline</li>
+      <li>Không thay thế được kiểm tra thủ công</li>
+    </ul>
+  </div>
+  <div class="access-card">
+    <div class="access-card-title">2. Kiểm Tra Thủ Công</div>
+    <ul>
+      <li>Screen readers (NVDA, JAWS, VoiceOver)</li>
+      <li>Screen magnifiers</li>
+      <li>Speech recognition software</li>
+      <li>Kiểm tra độ tương phản màu sắc</li>
+      <li>Kích thước vùng nhấn (target size)</li>
+      <li>Điều hướng chỉ bằng bàn phím</li>
+    </ul>
+  </div>
+  <div class="access-card">
+    <div class="access-card-title">3. Chuyên Gia Kiểm Toán</div>
+    <ul>
+      <li>Chuyên gia kỹ thuật accessibility</li>
+      <li>Làm sớm nhất có thể trong quy trình</li>
+      <li>Tốn kém nhưng xứng đáng</li>
+      <li>Không thay thế được kiểm tra với người dùng thực</li>
+    </ul>
+  </div>
+  <div class="access-card">
+    <div class="access-card-title">4. Usability Testing với Người Dùng Thực</div>
+    <ul>
+      <li>Test với nhiều loại công nghệ hỗ trợ</li>
+      <li>Test với nhiều mức độ kinh nghiệm</li>
+      <li>Người mới dùng screen reader vs. người dùng lâu năm có hành vi rất khác nhau</li>
+      <li>Không thể thay thế bằng chuyên gia giả lập</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Hòa nhập vượt ra ngoài khuyết tật kỹ thuật</h3>
+
+<p>
+  Marsh nhắc nhở rằng "hòa nhập" (<em>inclusion</em>) rộng hơn nhiều so với "accessibility kỹ thuật":
+</p>
+
+<ul>
+  <li><strong>Trình độ đọc viết:</strong> Người dùng có trình độ đọc viết thấp gặp rào cản với nội dung phức tạp. Plain English không chỉ tốt cho người khuyết tật — nó tốt cho tất cả mọi người.</li>
+  <li><strong>Kỹ năng số:</strong> Người dùng thiếu kinh nghiệm số gặp rào cản khác hoàn toàn so với người dùng chuyên gia. Đừng thiết kế chỉ cho người dùng có kỹ năng cao.</li>
+  <li><strong>Khuyết tật tạm thời:</strong> Gãy tay, đau mắt, tai nạn — khuyết tật tạm thời ảnh hưởng đến nhiều người hơn ta nghĩ. Thiết kế cho trường hợp khó nhất thường cải thiện trải nghiệm cho tất cả.</li>
+  <li><strong>Chất lượng đa kênh:</strong> Người dùng ít có kỹ năng số thường tiếp cận dịch vụ qua nhiều kênh khác nhau — điện thoại, trực tiếp, bưu điện. Nghiên cứu người dùng cần bao gồm cả những kênh này.</li>
+</ul>
+
+<div class="key-concept">
+  <div class="kc-label">Insight quan trọng</div>
+  <p><strong>Người dùng ít có kỹ năng số gặp những rào cản khác nhau về chất so với người dùng chuyên gia.</strong> Đây không phải sự khác biệt về số lượng (dùng ít hơn) mà là sự khác biệt về chất (những gì cản trở họ là hoàn toàn khác). Điều này có nghĩa là bạn <em>phải</em> nghiên cứu cả hai nhóm — không thể suy luận từ nhóm này sang nhóm kia.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>8. Tổng Kết Chương 03</h2>
+
+<p>
+  Chương này cung cấp bộ công cụ thực hành đầy đủ nhất trong Phần 1. Những điểm cốt lõi:
+</p>
+
+<ul>
+  <li><strong>AI:</strong> Phân tách người dùng thành nhóm dựa trên hành vi, không phải nhân khẩu học. Nhân khẩu học giống nhau không có nghĩa là người dùng giống nhau (ví dụ hoàng tử Charles và Ozzy Osbourne). Tuyển đúng người hơn là tuyển nhiều người.</li>
+  <li><strong>Screener:</strong> Xây dựng screener rõ ràng với các phần: logistics, nhân khẩu học, hành vi, mức độ tự tin, thiết bị, access needs, bảo mật. Giữ câu hỏi trung lập và tự đánh giá.</li>
+  <li><strong>Incentive:</strong> Bồi dưỡng xứng đáng là đạo đức và cải thiện chất lượng nghiên cứu. Đừng dùng voucher của sản phẩm đang nghiên cứu.</li>
+  <li><strong>TẠI SAO quan sát:</strong> Hành vi ≠ ý kiến. Tự khai báo bị lọc qua 3 tầng (chuẩn mực xã hội, ký ức, hợp lý hóa). Chỉ quan sát mới tiết lộ hành vi thực sự.</li>
+  <li><strong>NHƯ THẾ NÀO:</strong> Bốn quy tắc đặt câu hỏi — ngôn ngữ đơn giản và bao hàm; câu hỏi mở trung lập trong khám phá; tránh từ khoá từ UI trong nhiệm vụ; biết khi nào cần linh hoạt.</li>
+  <li><strong>Khả năng tiếp cận:</strong> Bốn cấp độ — tự động, thủ công, chuyên gia, usability testing với người dùng thực. Hòa nhập rộng hơn accessibility kỹ thuật — bao gồm trình độ đọc viết, kỹ năng số, và khuyết tật tạm thời.</li>
+</ul>
+
+<div class="footer">
+  <div class="footer-book">
+    <em>User Research: A Practical Guide to Designing Better Products and Services</em><br>
+    Stephanie Marsh · Kogan Page · 2018
+  </div>
+  <div class="footer-nav">
+    ← <strong>Chương 02</strong> &nbsp;|&nbsp; Tiếp theo: <strong>Chương 04 — Quản Lý Logistics</strong> →
+  </div>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch2-urpg.html"><span class="lbl">Chương trước</span>Chương 2: Lập Kế Hoạch, Mục Tiêu và Các Vấn Đề Pháp Lý</a>
+  <a href="ch4-urpg.html"><span class="lbl">Chương sau</span>Chương 4: Quản Lý Logistics Nghiên Cứu Người Dùng</a>
+</nav>
+</body>
+</html>

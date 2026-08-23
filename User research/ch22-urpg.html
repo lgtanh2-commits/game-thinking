@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 22 – Tóm Tắt Điều Hành và Báo Cáo</title>
+<style>
+  :root {
+    --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+    --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+    --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px; line-height: 1.75; color: var(--text);
+    background: var(--bg); max-width: 820px;
+    margin: 0 auto; padding: 60px 40px 100px;
+  }
+  .part-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  h1 { font-size: 2.2rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+  .chapter-num { font-size: 5rem; font-weight: 900; line-height: 1; color: var(--surface-dark); letter-spacing: -0.04em; margin-bottom: 16px; display: block; }
+  .subtitle { font-size: 1.05rem; color: var(--text-secondary); font-style: italic; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 2px solid var(--accent-line); }
+  h2 { font-size: 1.2rem; font-weight: 700; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); color: var(--text); }
+  h3 { font-size: 1rem; font-weight: 700; margin: 28px 0 8px; color: var(--text); }
+  p { margin-bottom: 16px; color: var(--text-secondary); }
+  ul, ol { padding-left: 24px; margin-bottom: 16px; }
+  li { margin-bottom: 6px; color: var(--text-secondary); }
+  .method-box { border: 1.5px solid var(--border-strong); background: var(--surface); padding: 20px 24px; margin: 32px 0; border-radius: 2px; }
+  .method-box .method-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .method-row { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .method-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); min-width: 110px; padding-top: 2px; }
+  .method-value { font-size: 0.9rem; color: var(--text-secondary); flex: 1; }
+  .numbered-structure { counter-reset: sections; list-style: none; padding-left: 0; }
+  .numbered-structure li { counter-increment: sections; display: flex; gap: 16px; margin-bottom: 14px; padding: 12px 16px; border: 1px solid var(--border); background: var(--bg); }
+  .numbered-structure li::before { content: counter(sections, decimal-leading-zero); font-size: 0.8rem; font-weight: 800; color: var(--text-muted); min-width: 28px; padding-top: 1px; flex-shrink: 0; font-family: monospace; }
+  .numbered-structure li strong { color: var(--text); }
+  table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.88rem; }
+  th { background: var(--surface-dark); padding: 9px 12px; text-align: left; font-weight: 700; font-size: 0.82rem; border: 1px solid var(--border); color: var(--text); }
+  td { padding: 8px 12px; border: 1px solid var(--border); vertical-align: top; color: var(--text-secondary); }
+  tr:nth-child(even) td { background: var(--surface); }
+  .table-caption { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-style: italic; }
+  .exec-summary-box { border: 2px solid var(--border-strong); padding: 20px 24px; margin: 24px 0; }
+  .exec-summary-box h4 { font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text); margin-bottom: 14px; }
+  .exec-summary-box ul { list-style: none; padding-left: 0; }
+  .exec-summary-box li { padding-left: 16px; position: relative; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-secondary); }
+  .exec-summary-box li::before { content: '▸'; position: absolute; left: 0; color: var(--text-muted); }
+  .pyramid-diagram { background: var(--surface); padding: 20px; margin: 20px 0; text-align: center; }
+  .pyramid-diagram .pyramid-row { display: flex; justify-content: center; margin-bottom: 4px; }
+  .pyramid-diagram .pblock { background: var(--border-strong); color: var(--bg); font-size: 0.78rem; font-weight: 700; padding: 6px 12px; }
+  .tip-box { background: var(--surface); border-left: 3px solid var(--border-strong); padding: 14px 18px; margin: 20px 0; }
+  .tip-box p { margin-bottom: 0; font-size: 0.92rem; }
+  .report-layout { border: 1px solid var(--border-strong); padding: 20px; margin: 20px 0; }
+  .report-section { display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--border); }
+  .report-section:last-child { border-bottom: none; }
+  .report-section .rs-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); min-width: 60px; padding-top: 2px; }
+  .report-section .rs-content { font-size: 0.88rem; color: var(--text-secondary); }
+  .report-section .rs-content strong { color: var(--text); }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="part-label">Phần Ba · Phân Tích và Trình Bày Dữ Liệu</div>
+<span class="chapter-num">22</span>
+<h1>Tóm Tắt Điều Hành và Báo Cáo</h1>
+<p class="subtitle">Cách trình bày kết quả nghiên cứu một cách thực tế và hữu ích nhất</p>
+
+<div class="method-box">
+  <div class="method-title">Tóm Tắt Phương Pháp</div>
+  <div class="method-row">
+    <span class="method-label">Áp dụng cho</span>
+    <span class="method-value">Mọi loại nghiên cứu người dùng. Tóm tắt điều hành đặc biệt phù hợp với agile/lean.</span>
+  </div>
+  <div class="method-row">
+    <span class="method-label">Mục đích</span>
+    <span class="method-value">Loại hình trình bày kết quả nghiên cứu phổ biến nhất; phù hợp với mọi dự án</span>
+  </div>
+</div>
+
+<h2>Nguyên Tắc Cốt Lõi</h2>
+<p><strong>Câu thần chú:</strong> làm cho báo cáo thực tế và hữu ích nhất có thể. Mức độ chi tiết phụ thuộc vào mục tiêu nghiên cứu, giai đoạn dự án, thời gian và đối tượng đọc.</p>
+
+<div class="tip-box">
+  <p>Dùng định dạng PowerPoint hoặc dạng đồ họa thay vì tài liệu Word — báo cáo trực quan dễ đọc và truyền đạt hơn nhiều trang văn bản thuần túy.</p>
+</div>
+
+<h2>Cấu Trúc Báo Cáo (10 Phần)</h2>
+<ul class="numbered-structure">
+  <li><strong>Trang tiêu đề</strong> — Tiêu đề dự án, ngày, nhóm thực hiện</li>
+  <li><strong>Mục lục</strong> — Giúp người đọc điều hướng</li>
+  <li><strong>Tóm tắt điều hành</strong> — Được viết sau cùng; có thể đứng độc lập</li>
+  <li><strong>Mục tiêu và phương pháp nghiên cứu</strong> — Giải thích tại sao nghiên cứu được thực hiện và theo cách nào</li>
+  <li><strong>Tài liệu kiểm thử</strong> — Kịch bản, hướng dẫn, công cụ sử dụng</li>
+  <li><strong>Tóm tắt người tham gia</strong> — Ẩn danh hóa (xem Table 22.2)</li>
+  <li><strong>Cách đọc báo cáo này</strong> — Hướng dẫn ngắn cho người chưa quen với nghiên cứu người dùng</li>
+  <li><strong>Chi tiết kết quả được nhóm theo logic</strong> — Phần chính của báo cáo</li>
+  <li><strong>Hạn chế của nghiên cứu</strong> — Thành thật về những gì chưa được kiểm tra hoặc còn mơ hồ</li>
+  <li><strong>Tóm tắt: Kết luận và bước tiếp theo</strong> — Kết hợp với khuyến nghị (Chương 21)</li>
+</ul>
+
+<h2>Tóm Tắt Điều Hành</h2>
+<p>Tóm tắt điều hành là phần được viết sau cùng nhưng đặt ở đầu báo cáo. Nó phải có khả năng đứng độc lập — người đọc chỉ đọc phần này phải hiểu được toàn bộ bức tranh.</p>
+
+<div class="exec-summary-box">
+  <h4>Nội Dung Tóm Tắt Điều Hành (lý tưởng: một trang)</h4>
+  <ul>
+    <li><strong>Mục đích nghiên cứu</strong> — Chúng tôi đã nghiên cứu gì và tại sao?</li>
+    <li><strong>Phương pháp sử dụng</strong> — Nghiên cứu được thực hiện như thế nào?</li>
+    <li><strong>Phát hiện và khuyến nghị chính</strong> — Điều quan trọng nhất chúng tôi tìm thấy và đề xuất làm gì?</li>
+    <li><strong>Hạn chế và tóm tắt tích cực</strong> — Những giới hạn nào cần lưu ý, và điều gì đang hoạt động tốt?</li>
+  </ul>
+</div>
+
+<h2>Thông Tin Người Tham Gia (Ẩn Danh Hóa)</h2>
+<p>Không bao giờ đưa tên thật và thông tin liên hệ của người tham gia vào báo cáo — điều này vi phạm tính bảo mật, ngay cả khi bạn đang chia sẻ video của họ. Chỉ chia sẻ đủ thông tin để cho thấy người tham gia liên quan đến tổ chức và nghiên cứu của bạn.</p>
+
+<p class="table-caption">Table 22.2 — Ví dụ thông tin người tham gia đã được ẩn danh hóa</p>
+<table>
+  <thead>
+    <tr>
+      <th>Người tham gia #</th>
+      <th>Persona / Loại khán giả</th>
+      <th>Một vài nhân khẩu học liên quan</th>
+      <th>Năng lực số</th>
+      <th>Đặc điểm hoặc hành vi khác liên quan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P1</td>
+      <td>Quản lý dự án</td>
+      <td>Nữ, 31 tuổi, Đã kết hôn</td>
+      <td>Chuyên gia</td>
+      <td>Thường nghiên cứu trực tuyến trước khi nói chuyện với bất kỳ ai về dịch vụ</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Cách Đọc Báo Cáo</h2>
+<p>Với những người chưa quen với nghiên cứu người dùng, hãy thêm hướng dẫn ngắn về cách báo cáo được cấu trúc. Ví dụ: nếu viết báo cáo về kiểm thử khả năng sử dụng định tính, giải thích cách báo cáo được chia thành vấn đề và khuyến nghị.</p>
+<p>Thêm hình ảnh và mockup trực quan của phát hiện và khuyến nghị khi phù hợp (xem Chương 25). Con người tiếp nhận thông tin theo nhiều cách khác nhau — kết hợp văn bản và hình ảnh giúp hầu hết mọi người tiêu hóa báo cáo tốt hơn.</p>
+
+<h2>Cấu Trúc Một Phát Hiện Điển Hình (Figure 22.1)</h2>
+<div class="report-layout">
+  <div class="report-section">
+    <span class="rs-label">Tiêu đề</span>
+    <span class="rs-content"><strong>Tiêu đề mô tả: Vấn đề và Khuyến Nghị</strong></span>
+  </div>
+  <div class="report-section">
+    <span class="rs-label">Hình ảnh</span>
+    <span class="rs-content">Screenshot trang web / mockup liên quan</span>
+  </div>
+  <div class="report-section">
+    <span class="rs-label">Tốt</span>
+    <span class="rs-content">Thực hành tốt đáng ghi nhận — tính năng đóng góp tích cực vào UX</span>
+  </div>
+  <div class="report-section">
+    <span class="rs-label">Vấn đề</span>
+    <span class="rs-content">Tóm tắt vấn đề trong một câu nếu có thể. Mô tả chi tiết hơn nếu cần. Có thể thêm screenshot hoặc video.</span>
+  </div>
+  <div class="report-section">
+    <span class="rs-label">Khuyến nghị</span>
+    <span class="rs-content">Mô tả đề xuất cải thiện UX. Chỉ đưa vào những khuyến nghị đã được đánh giá và thảo luận. Có thể thêm sketch minh họa.</span>
+  </div>
+  <div class="report-section">
+    <span class="rs-label">Trích dẫn</span>
+    <span class="rs-content"><em>"Trích dẫn về vấn đề từ người tham gia"</em> — P1</span>
+  </div>
+</div>
+
+<h2>Thứ Tự Trình Bày Phát Hiện</h2>
+<p>Có nhiều cách sắp xếp thứ tự phát hiện; điều quan trọng là nghĩ về câu chuyện bạn muốn kể và cách sắp xếp nội dung để kể câu chuyện đó.</p>
+<p><strong>Tùy chọn 1: Thứ tự tuần tự</strong> — Phù hợp khi nghiên cứu tập trung vào một dịch vụ/sản phẩm mà thứ tự quan trọng (ví dụ: từ trang chủ đến checkout).</p>
+<p><strong>Tùy chọn 2: Quan trọng nhất trước (hình tam giác ngược)</strong> — Đặt những gì có tác động lớn nhất lên đầu, giảm dần về cuối. Người đọc thường mất hứng đọc ở đâu đó, vì vậy hãy đặt những điều quan trọng nhất lên đầu tiên.</p>
+
+<div style="text-align:center; margin: 24px 0; padding: 20px; background: var(--surface);">
+  <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:8px; font-style:italic;">Figure 22.2 — Cấu trúc nội dung theo mức độ quan trọng</div>
+  <div style="display:inline-block; width:0; height:0; border-left:120px solid transparent; border-right:120px solid transparent; border-top:160px solid var(--surface-dark);"></div>
+  <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:8px;">
+    <span style="display:block;">← Đầu → Nội dung quan trọng nhất</span>
+    <span style="display:block; color:var(--text-muted)">↓ Giữa</span>
+    <span style="display:block; color:var(--text-muted)">↓ Cuối → Nội dung ít quan trọng nhất</span>
+  </div>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch21-urpg.html"><span class="lbl">Chương trước</span>Chương 21: Đưa Ra Khuyến Nghị</a>
+  <a href="ch23-urpg.html"><span class="lbl">Chương sau</span>Chương 23: Sử Dụng Video để Trình Bày Kết Quả Nghiên Cứu</a>
+</nav>
+</body>
+</html>

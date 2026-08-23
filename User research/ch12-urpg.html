@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 12 – Dân Tộc Học | User Research</title>
+<style>
+:root {
+  --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+  --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+  --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px; line-height: 1.75; color: var(--text);
+  background: var(--bg); max-width: 820px;
+  margin: 0 auto; padding: 60px 40px 100px;
+}
+/* ── Typography ── */
+h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+h2 { font-size: 1.25rem; font-weight: 700; margin: 48px 0 14px; letter-spacing: -0.2px; }
+h3 { font-size: 1.05rem; font-weight: 700; margin: 32px 0 10px; color: var(--text-secondary); }
+h4 { font-size: 0.95rem; font-weight: 700; margin: 24px 0 8px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.4px; }
+p { margin-bottom: 14px; color: var(--text-secondary); }
+strong { color: var(--text); font-weight: 700; }
+em { font-style: italic; }
+ul, ol { margin: 0 0 16px 24px; color: var(--text-secondary); }
+li { margin-bottom: 6px; }
+/* ── Chapter header ── */
+.chapter-meta { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+.chapter-divider { width: 48px; height: 3px; background: var(--accent-line); margin: 22px 0 36px; }
+.subtitle { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0; font-style: italic; }
+/* ── Section rule ── */
+.section-rule { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+/* ── Info boxes ── */
+.box {
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 22px 26px; margin: 28px 0; background: var(--surface);
+}
+.box-title {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 12px;
+}
+.box p:last-child, .box ul:last-child, .box ol:last-child { margin-bottom: 0; }
+/* ── Good / not good grid ── */
+.fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 28px 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.fit-col { padding: 22px 24px; }
+.fit-col:first-child { border-right: 1px solid var(--border); background: var(--surface); }
+.fit-col:last-child { background: var(--bg); }
+.fit-col .box-title { margin-bottom: 12px; }
+.fit-col ul { margin-left: 18px; }
+.fit-col p:last-child, .fit-col ul:last-child { margin-bottom: 0; }
+/* ── Quote ── */
+.quote { border-left: 3px solid var(--border-strong); padding: 10px 20px; margin: 24px 0; color: var(--text-secondary); font-style: italic; }
+/* ── Case study ── */
+.case-study { border: 2px solid var(--border-strong); border-radius: 4px; padding: 24px 28px; margin: 32px 0; }
+.case-study .box-title { margin-bottom: 16px; }
+/* ── Step list ── */
+.step-list { list-style: none; margin: 0 0 16px 0; counter-reset: step; }
+.step-list li { counter-increment: step; display: flex; gap: 14px; margin-bottom: 14px; }
+.step-list li::before { content: counter(step); flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--surface-dark); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: var(--text); margin-top: 2px; }
+/* ── Tools table ── */
+.tools-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
+.tools-table th { text-align: left; padding: 10px 14px; background: var(--surface-dark); font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border-strong); }
+.tools-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-secondary); }
+.tools-table tr:last-child td { border-bottom: none; }
+/* ── Tag ── */
+.tag { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); background: var(--surface-dark); padding: 3px 8px; border-radius: 2px; margin-right: 6px; }
+/* ── Back nav ── */
+.back-nav { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 48px; }
+.back-nav span { margin: 0 6px; }
+/* ── Footer ── */
+footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="back-nav">User Research – Stephanie Marsh<span>·</span>Phần Hai: Phương Pháp<span>·</span>Chương 12</div>
+
+<div class="chapter-meta">Chương 12</div>
+<h1>Dân Tộc Học</h1>
+<p class="subtitle">Quan sát con người trong môi trường tự nhiên của họ</p>
+<div class="chapter-divider"></div>
+
+<p>Dân tộc học (ethnography) là lĩnh vực khoa học nghiên cứu con người và văn hóa. Trong bối cảnh nghiên cứu người dùng, đây là phương pháp quan sát, ghi chép và phân tích hành vi con người ngay trong môi trường tự nhiên của họ — không phải trong phòng thí nghiệm hay môi trường nhân tạo. Điều này cho phép nhà nghiên cứu nắm bắt được những phản ứng tự nhiên, phi ngôn ngữ và những tình huống bất ngờ mà các phương pháp khác thường bỏ sót.</p>
+
+<hr class="section-rule">
+
+<h2>Phù hợp và không phù hợp</h2>
+
+<div class="fit-grid">
+  <div class="fit-col">
+    <div class="box-title">✓ Phù hợp khi</div>
+    <ul>
+      <li>Cần khám phá những điều bạn chưa biết mình chưa biết</li>
+      <li>Muốn quan sát hành vi xác thực trong bối cảnh thực</li>
+      <li>Cần hiểu cách sản phẩm tương tác trong cuộc sống hàng ngày của người dùng</li>
+      <li>Nghiên cứu tương tác nhóm trong tổ chức</li>
+      <li>Quan sát cách bạn bè, gia đình, khách hàng hay cộng đồng tương tác với nhau</li>
+    </ul>
+  </div>
+  <div class="fit-col">
+    <div class="box-title">✗ Không phù hợp khi</div>
+    <ul>
+      <li>Cần kết quả nhanh — phương pháp này tốn nhiều thời gian và không phù hợp với tiến độ gấp</li>
+      <li>Ngân sách và nhân lực hạn chế — đây là phương pháp tốn kém về cả hai</li>
+      <li>Không có thời gian lên kế hoạch kỹ lưỡng</li>
+      <li>Bối cảnh agile sprint ngắn — người tham gia cần thời gian quen với sự hiện diện của nhà nghiên cứu</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="section-rule">
+
+<h2>Khi nào nên sử dụng</h2>
+
+<p>Dân tộc học phù hợp nhất ở <strong>giai đoạn đầu của dự án</strong> khi bạn cần hiểu sâu về phạm vi và bối cảnh vấn đề. Phương pháp này đặc biệt có giá trị khi:</p>
+<ul>
+  <li>Bạn muốn hiểu <em>thực sự</em> điều gì đang xảy ra trong cuộc sống của người dùng</li>
+  <li>Cần nắm bắt các giá trị cảm xúc gắn với sản phẩm hoặc dịch vụ</li>
+  <li>Mục tiêu nghiên cứu còn mơ hồ và cần khám phá rộng trước khi thu hẹp trọng tâm</li>
+</ul>
+
+<div class="case-study">
+  <div class="box-title">Nghiên Cứu Điển Hình — Thiết Kế Sân Bay</div>
+  <p>Nghiên cứu dân tộc học đã được sử dụng trong thiết kế sân bay để xác định vị trí đặt ổ điện và cổng USB gần khu vực ngồi chờ — nơi hành khách thực sự cần sạc thiết bị. Quan sát tự nhiên cũng giúp xác định vị trí tối ưu cho biển chỉ đường (wayfinding signage), dựa trên cách hành khách thực sự di chuyển và tìm kiếm thông tin chứ không phải dựa trên giả định của người thiết kế.</p>
+  <p style="margin-bottom:0; font-size:0.85rem; color:var(--text-muted);">Nguồn: Larsen, 2016</p>
+</div>
+
+<hr class="section-rule">
+
+<h2>Mức độ công sức</h2>
+
+<p>Dân tộc học là phương pháp <strong>tốn nhiều công sức nhất</strong> trong nghiên cứu người dùng. Nó đòi hỏi sự đắm chìm hoàn toàn vào môi trường của người tham gia. Chất lượng dữ liệu thu được phụ thuộc trực tiếp vào kỹ năng và kinh nghiệm của nhà nghiên cứu.</p>
+
+<p>Tuy nhiên, đầu tư này xứng đáng cho các dự án phức tạp với người dùng chuyên biệt. Điểm tích cực là nhiều kỹ năng từ các phương pháp nghiên cứu khác đều có thể áp dụng được.</p>
+
+<hr class="section-rule">
+
+<h2>Cách thực hiện</h2>
+
+<p>Trước tiên, cần <strong>xác định rõ mục tiêu nghiên cứu</strong>. Trong dân tộc học, mục tiêu thường có xu hướng rộng và khái quát hơn so với các phương pháp khác.</p>
+
+<h3>Những gì cần ghi chép</h3>
+
+<p>Emerson và cộng sự (2011) gợi ý nhà nghiên cứu cần ghi lại hai loại thông tin:</p>
+
+<div class="fit-grid">
+  <div class="fit-col">
+    <div class="box-title">Mô tả bối cảnh</div>
+    <ul>
+      <li>Môi trường vật lý xung quanh</li>
+      <li>Vị trí làm việc, bàn làm việc</li>
+      <li>Sự lộn xộn hoặc ngăn nắp trong không gian</li>
+      <li>Khu vực nghỉ ngơi và sinh hoạt chung</li>
+    </ul>
+  </div>
+  <div class="fit-col">
+    <div class="box-title">Sự kiện và tình huống quan trọng</div>
+    <ul>
+      <li>Những gì đã xảy ra, ai làm gì</li>
+      <li>Ấn tượng và suy nghĩ tại thời điểm đó</li>
+      <li>Cách giải thích và cảm nhận của nhà nghiên cứu</li>
+      <li>Những khoảnh khắc đáng chú ý</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box">
+  <div class="box-title">Nguyên tắc ghi chép quan trọng</div>
+  <ul>
+    <li><strong>Phân biệt rõ</strong> giữa điều bạn quan sát được (bằng chứng) và điều bạn suy diễn (giả thuyết). Dùng ký hiệu khác nhau để phân biệt hai loại ghi chú này.</li>
+    <li><strong>Đặt câu hỏi làm rõ</strong> vào những thời điểm phù hợp, nhưng không làm gián đoạn quá nhiều đến luồng hoạt động tự nhiên.</li>
+    <li><strong>Cân bằng</strong>: ngắt đủ để hiểu sâu, nhưng không làm phá vỡ sự tự nhiên của hành vi được quan sát.</li>
+  </ul>
+</div>
+
+<h3>Phân tích dữ liệu</h3>
+
+<p>Colville Hyde (2009) nhấn mạnh: <strong>thực hiện phân tích xuyên suốt quá trình thu thập</strong>, không chỉ sau khi kết thúc. Cách tiếp cận này giúp nhà nghiên cứu điều chỉnh trọng tâm quan sát theo những gì đang xuất hiện, thay vì chờ đến cuối mới nhìn lại toàn bộ dữ liệu.</p>
+
+<hr class="section-rule">
+
+<h2>Dân Tộc Học Di Động</h2>
+
+<h3>Là gì?</h3>
+
+<p>Dân tộc học di động (mobile ethnography) kết hợp quan sát dân tộc học truyền thống với nhật ký nghiên cứu (diary study), sử dụng công nghệ truyền thông và ghi chép hiện đại. Người tham gia ghi lại suy nghĩ, cảm xúc và quyết định của mình thông qua các mục nhật ký có hướng dẫn, video ngắn, câu hỏi gợi ý và đoạn âm thanh — thực hiện trên điện thoại thông minh hoặc camera clip nhỏ gắn trên người (chụp tự động mỗi 30 giây).</p>
+
+<p style="font-size:0.85rem; color:var(--text-muted);">Nguồn: Cribbett, 2015; Korostoff, 2014</p>
+
+<h3>Khi nào sử dụng</h3>
+
+<ul>
+  <li>Bổ sung cho dân tộc học truyền thống khi bạn không thể luôn có mặt cùng người tham gia</li>
+  <li>Người tham gia tự ghi chép trong những khoảng thời gian nhà nghiên cứu vắng mặt</li>
+  <li>Cần đặt các câu hỏi bối cảnh: thời gian, môi trường, áp lực xã hội, động lực, kinh nghiệm trước đó</li>
+  <li>Sử dụng phỏng vấn sau đó để hiểu sâu hơn dữ liệu đã ghi lại</li>
+</ul>
+
+<h3>Cách thực hiện</h3>
+
+<div class="fit-grid">
+  <div class="fit-col">
+    <div class="box-title">Cách tiếp cận thụ động</div>
+    <p>Không yêu cầu người tham gia thực hiện hành động có chủ đích → hành vi tự nhiên hơn, nhưng có thể bỏ sót chi tiết quan trọng.</p>
+  </div>
+  <div class="fit-col">
+    <div class="box-title">Cách tiếp cận chủ động</div>
+    <p>Người tham gia ghi lại trải nghiệm theo cách họ thấy phù hợp hoặc theo lời nhắc định kỳ (tương tự diary study) → nắm bắt nhiều chi tiết hơn nhưng làm gián đoạn luồng hoạt động tự nhiên.</p>
+  </div>
+</div>
+
+<p>Có thể kết hợp cả hai cách tiếp cận để tận dụng ưu điểm của mỗi phương pháp.</p>
+
+<hr class="section-rule">
+
+<h2>Công Cụ Dân Tộc Học</h2>
+
+<p>Theo phương pháp truyền thống, bút và giấy vẫn là công cụ cơ bản nhất. Các công cụ di động chuyên biệt bao gồm:</p>
+
+<table class="tools-table">
+  <thead>
+    <tr>
+      <th>Công cụ</th>
+      <th>Mô tả</th>
+      <th>Ưu điểm / Hạn chế</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Narrative Clip</strong></td>
+      <td>Camera nhỏ gắn trên quần áo; tự động chụp ảnh mỗi 30 giây kèm thẻ thời gian/ngày tháng/vị trí; ứng dụng điện thoại tạo dòng thời gian hoạt ảnh để xem lại trong phỏng vấn chuyên sâu</td>
+      <td>Góc nhìn cố định; không có đánh giá trải nghiệm hay mô tả kèm theo (Bailey, 2014)</td>
+    </tr>
+    <tr>
+      <td><strong>Experiencefellow</strong></td>
+      <td>Ứng dụng điện thoại; mỗi điểm chạm: tiêu đề, đánh giá trải nghiệm, mô tả, ảnh, video, vị trí; đồng bộ lên web-app hiển thị điểm chạm và đánh giá trên dòng thời gian</td>
+      <td>Tạo bản đồ trải nghiệm tự động; làm nổi bật đỉnh trải nghiệm, cơ hội cải thiện và điểm đau (Bailey, 2014)</td>
+    </tr>
+    <tr>
+      <td><strong>SurveySwipe</strong></td>
+      <td>Nền tảng khảo sát di động</td>
+      <td>surveyswipe.com</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr class="section-rule">
+
+<h2>Tổng Kết</h2>
+
+<div class="box">
+  <div class="box-title">Những điểm cần ghi nhớ</div>
+  <ul>
+    <li>Dân tộc học là phương pháp <strong>khám phá mạnh nhất</strong> — lý tưởng khi bạn chưa biết mình chưa biết điều gì</li>
+    <li>Đòi hỏi đầu tư lớn về thời gian, kỹ năng và nguồn lực, nhưng mang lại <strong>hiểu biết sâu sắc và xác thực</strong> nhất</li>
+    <li>Phân biệt rõ bằng chứng và suy diễn trong ghi chép</li>
+    <li>Dân tộc học di động mở rộng phạm vi quan sát đến những lúc nhà nghiên cứu không thể có mặt</li>
+    <li>Phân tích liên tục trong quá trình thu thập — đừng đợi đến cuối</li>
+  </ul>
+</div>
+
+<footer>
+  <p>Marsh, S. (2018). <em>User Research: A Practical Guide to Designing Better Products and Services.</em> Kogan Page. — Chương 12, tr. 160–165</p>
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch11-urpg.html"><span class="lbl">Chương trước</span>Chương 11: Kiểm Định Kiến Trúc Thông Tin</a>
+  <a href="ch13-urpg.html"><span class="lbl">Chương sau</span>Chương 13: Nghiên Cứu Bối Cảnh</a>
+</nav>
+</body>
+</html>

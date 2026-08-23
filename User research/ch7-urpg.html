@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 07 – Card Sorting | User Research</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  .book-meta {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 14px;
+    margin-bottom: 48px;
+  }
+
+  .chapter-header { margin-bottom: 56px; }
+
+  .chapter-number {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .chapter-title {
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .chapter-subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    font-style: italic;
+    border-left: 3px solid var(--accent-line);
+    padding-left: 16px;
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-top: 52px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent-line);
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 32px;
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin-bottom: 14px;
+    color: var(--text-secondary);
+  }
+
+  p strong { color: var(--text); }
+
+  ul, ol {
+    margin: 12px 0 18px 0;
+    padding-left: 28px;
+  }
+
+  li {
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  li strong { color: var(--text); }
+
+  .highlight-box {
+    background: var(--surface);
+    border-left: 4px solid var(--accent-line);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .highlight-box .box-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .highlight-box p, .highlight-box li {
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+
+  .definition {
+    background: var(--surface-dark);
+    border-left: 5px solid var(--text);
+    padding: 18px 22px;
+    margin: 24px 0;
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .case-study {
+    border: 1px solid var(--border-strong);
+    border-top: 3px solid var(--accent-line);
+    padding: 24px 28px;
+    margin: 32px 0;
+    background: var(--bg);
+  }
+
+  .case-study .cs-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .case-study .cs-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border-strong);
+    border: 1px solid var(--border-strong);
+    margin: 24px 0;
+  }
+
+  .type-grid .cell {
+    background: var(--bg);
+    padding: 16px 18px;
+  }
+
+  .type-grid .cell-header {
+    background: var(--surface-dark);
+    padding: 12px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .numbered-list {
+    counter-reset: item;
+    list-style: none;
+    padding-left: 0;
+    margin: 16px 0;
+  }
+
+  .numbered-list li {
+    counter-increment: item;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--border);
+    align-items: flex-start;
+  }
+
+  .numbered-list li:last-child { border-bottom: none; }
+
+  .numbered-list li::before {
+    content: counter(item);
+    min-width: 26px;
+    height: 26px;
+    background: var(--text);
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .protocol-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+
+  .protocol-section .ps-heading {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+
+  .script-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .script-box .script-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-style: normal;
+  }
+
+  .tool-checklist {
+    list-style: none;
+    padding-left: 0;
+    margin: 12px 0;
+  }
+
+  .tool-checklist li {
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .tool-checklist li:last-child { border-bottom: none; }
+
+  .tool-checklist li::before {
+    content: "→";
+    color: var(--text-muted);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  .chapter-footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="book-meta">User Research: A Practical Guide — Stephanie Marsh &nbsp;·&nbsp; Phần Hai: Phương Pháp Nghiên Cứu &nbsp;·&nbsp; Trang 106–120</div>
+
+<div class="chapter-header">
+  <div class="chapter-number">Chương 07</div>
+  <h1 class="chapter-title">Card Sorting</h1>
+  <div class="chapter-subtitle">Hiểu cách người dùng phân nhóm và liên kết thông tin</div>
+</div>
+
+<!-- ĐỊNH NGHĨA -->
+<div class="definition">
+  Card sorting là phương pháp được dùng để hiểu cách người dùng tư duy về và liên kết các thứ lại với nhau, phân nhóm các mục có liên quan.
+</div>
+
+<!-- I. DÙNG CHO GÌ -->
+<h2>I. Card Sorting Phù Hợp Cho Việc Gì</h2>
+
+<p>Đây là phương pháp hữu ích khi thiết kế hoặc tinh chỉnh cấu trúc của một website — ví dụ: những thông tin nào liên quan chặt chẽ và vì vậy nên được nhóm lại với nhau và đặt nhãn. Cấu trúc của website, còn được gọi là <strong>kiến trúc thông tin (information architecture)</strong>, giúp bạn làm cho mọi thứ dễ tìm: không chỉ là vị trí trong điều hướng mà còn tên gọi của chúng.</p>
+
+<p>Card sorting không nhất thiết chỉ tập trung vào nội dung và các mục trên website. Nó cũng có thể cung cấp hiểu biết về <strong>mô hình tư duy (mental models)</strong> của người dùng — cách họ tư duy về và liên kết mọi thứ. Card sorting có thể cung cấp nền tảng tốt để cấu trúc nội dung và liên tục cải thiện cấu trúc đó, dù bạn biết một phần nào đó không hoạt động hay bạn đang thêm những thứ mới vào.</p>
+
+<!-- II. KHÔNG PHÙ HỢP CHO GÌ -->
+<h2>II. Card Sorting Không Phù Hợp Cho Việc Gì</h2>
+
+<p>Card sorting tập trung vào nội dung. Nếu dùng đơn lẻ mà không xem xét các nhiệm vụ và hành trình người dùng, nó có thể tạo ra kiến trúc thông tin không thể sử dụng được khi người dùng thực hiện các nhiệm vụ thực tế. Để đáp ứng nhu cầu người dùng, card sorting nên kết hợp với các phương pháp khác như kiểm tra khả năng sử dụng trên prototype hoặc bản giấy.</p>
+
+<p>Card sorting cũng có thể tốn nhiều thời gian tùy thuộc vào lượng nội dung được phân loại và số lượng người tham gia. Phân tích dữ liệu có thể khó và tốn thời gian, nhưng có các công cụ hỗ trợ.</p>
+
+<!-- III. KHI NÀO DÙNG -->
+<h2>III. Khi Nào Nên Dùng Card Sorting</h2>
+
+<p>Card sorting có thể được dùng ở bất kỳ thời điểm nào trong vòng đời của sản phẩm, dịch vụ hoặc trải nghiệm. Tùy thuộc vào vị trí trong vòng đời đó và mục tiêu của bạn, các phương pháp card sorting khác nhau sẽ phù hợp ở các thời điểm khác nhau. Có <strong>bốn phương pháp</strong> để cân nhắc:</p>
+
+<ol class="numbered-list">
+  <li><div><strong>Open card sorting (Phân loại mở):</strong> Người tham gia tự nhóm các mục và đặt tên nhóm theo cách họ muốn.</div></li>
+  <li><div><strong>Closed card sorting (Phân loại đóng):</strong> Nhà nghiên cứu định nghĩa trước tên các nhóm và yêu cầu người tham gia đặt mục vào nhóm mà họ nghĩ mỗi mục liên quan nhất.</div></li>
+  <li><div><strong>Hybrid card sorting (Phân loại kết hợp):</strong> Kết hợp open và closed sorting. Có thể có một vài nhóm được định nghĩa sẵn nhưng người tham gia có thể thêm nhóm bổ sung.</div></li>
+  <li><div><strong>Iterative card sorting (Phân loại lặp):</strong> Có thể dùng trong cả open và closed sorting, người tham gia lặp đi lặp lại và tinh chỉnh kết quả phân loại của những người tham gia trước.</div></li>
+</ol>
+
+<div class="type-grid">
+  <div class="cell-header">Phương pháp</div>
+  <div class="cell-header">Khi nào dùng</div>
+  <div class="cell"><strong>Open sorting</strong></div>
+  <div class="cell">
+    Rất khám phá. Không có ý tưởng cố định về cách nhóm. Dùng khi:
+    <ul>
+      <li>Xây dựng mới từ đầu</li>
+      <li>Analytics cho thấy các nhóm hiện tại không hoạt động về cơ bản</li>
+      <li>Có sự thay đổi đáng kể làm cấu trúc hiện tại không còn phù hợp</li>
+    </ul>
+  </div>
+  <div class="cell"><strong>Closed sorting</strong></div>
+  <div class="cell">
+    Xác nhận cấu trúc có sẵn hoạt động với tất cả nhóm người dùng. Bạn đã có ý tưởng về cách cấu trúc (có analytics, insight hoặc đã làm open card sort để khám phá).
+  </div>
+  <div class="cell"><strong>Hybrid sorting</strong></div>
+  <div class="cell">
+    Analytics cho thấy một số phần hoạt động, một số không. Bao gồm các danh mục bạn tự tin cùng với các danh mục chưa chắc chắn để người tham gia đặt tên. Hoặc khi thêm nội dung/sản phẩm/dịch vụ mới.
+  </div>
+  <div class="cell"><strong>Iterative sorting</strong></div>
+  <div class="cell">
+    Nhiều vòng (khuyến nghị): chia nhỏ thành các phần quản lý được hoặc làm riêng với mỗi nhóm người dùng. Một vòng hiếm khi đủ — thường kết hợp open và closed. Nếu thời gian gấp: dùng single iterative (người tham gia tinh chỉnh những gì người trước đã làm).
+  </div>
+</div>
+
+<!-- IV. MỨC ĐỘ NỖ LỰC -->
+<h2>IV. Mức Độ Nỗ Lực Cần Thiết</h2>
+
+<p>Card sorting phù hợp với mọi cấp độ nhà nghiên cứu: các bài phân loại đơn giản tương đối dễ tổ chức và chạy. Tuy nhiên, cần có thời gian và nỗ lực để trở thành người điều phối lành nghề với các bài phân loại phức tạp.</p>
+
+<p>Thiết bị không đắt tiền — dù bạn chọn phương án ít công nghệ (thẻ/giấy) hay công nghệ cao (công cụ trực tuyến). Thời gian và nỗ lực phụ thuộc vào loại phân loại bạn đang thực hiện: moderated face-to-face tốn nhiều thời gian và nguồn lực hơn; unmoderated remote card sort nhanh và dễ thiết lập hơn nếu đã có người tham gia sẵn sàng.</p>
+
+<!-- V. CÁCH THỰC HIỆN -->
+<h2>V. Cách Thực Hiện Card Sorting</h2>
+
+<h3>A. Các hình thức thực hiện</h3>
+
+<div class="type-grid">
+  <div class="cell-header">Có điều phối (Moderated)</div>
+  <div class="cell-header">Không có điều phối (Unmoderated)</div>
+  <div class="cell">
+    <p><strong>Trực tiếp (Face-to-face):</strong> Nhà nghiên cứu và người tham gia ở cùng phòng, tương tác với nhau. Các mục được viết trên thẻ, người tham gia nhóm các mục trên bàn trong khi nói chuyện về suy nghĩ của họ.</p>
+    <p><strong>Từ xa (Remote):</strong> Nhà nghiên cứu và người tham gia ở các địa điểm khác nhau nhưng tương tác với nhau — dùng công nghệ chia sẻ màn hình và các công cụ như OptimalSort (www.optimalworkshop.com) để thực hiện "virtual card sort". Có thể dùng bảng tính cho phân loại ảo/từ xa.</p>
+  </div>
+  <div class="cell">
+    <p><strong>Trực tiếp (Face-to-face):</strong> Nhà nghiên cứu và người tham gia ở cùng phòng nhưng nhà nghiên cứu không can thiệp hoặc trò chuyện trong khi người tham gia phân loại. Ít phổ biến hơn, nhưng có thể có cuộc thảo luận chuyên sâu sau khi hoàn thành.</p>
+    <p><strong>Từ xa (Remote):</strong> Nhà nghiên cứu không tham gia; người tham gia thực hiện card sort vào thời điểm và địa điểm của riêng họ, dùng các công cụ như OptimalSort hoặc UserZoom.</p>
+  </div>
+</div>
+
+<h3>B. Chuẩn bị thẻ (Preparing your cards)</h3>
+
+<p>Với card sorting có điều phối trực tiếp, có hai lựa chọn:</p>
+
+<div class="highlight-box">
+  <div class="box-label">Lựa chọn 1 — Chỉ tên</div>
+  <p>Viết tên mục lên mặt trước của thẻ. Nếu không đưa mô tả lên chính thẻ, hãy giữ mô tả riêng để tham khảo nếu người tham gia có câu hỏi. Không chia sẻ mô tả trước là cách tiếp cận mở hơn — tạo ra nhiều cuộc trò chuyện về ý nghĩa của các mục.</p>
+</div>
+
+<div class="highlight-box">
+  <div class="box-label">Lựa chọn 2 — Tên + mô tả</div>
+  <p>Viết tên mục lên mặt trước và mô tả lên mặt sau. Điều này cho phép người tham gia tự kiểm tra để đảm bảo điều họ nghĩ tên mục có nghĩa là giống với hiểu biết của bạn. Tránh phân loại không nhất quán do hiểu nhầm ý nghĩa các mục. Bạn có thể đặt câu hỏi thăm dò về lý do họ kiểm tra mô tả, điều này giúp bạn hiểu sâu hơn về nhãn nào cần được tinh chỉnh.</p>
+</div>
+
+<p>Không có phương pháp đúng hay sai — quan trọng hơn là có <strong>hiểu biết chung trong tổ chức về mỗi mục là gì</strong>, để có thể so sánh với hiểu biết của người tham gia để xác định điểm hội tụ và phân kỳ.</p>
+
+<h3>C. Có cho đổi tên không?</h3>
+
+<p>Nếu người tham gia cảm thấy tên thẻ/mục không có nghĩa hoặc họ có cách mô tả tốt hơn, có cho phép đổi tên không? Trong kiểm tra trực tiếp, bạn có thể cho phép điều này và có thêm vật liệu văn phòng phẩm để thực hiện. Trong kiểm tra từ xa, bạn có thể ghi chú bình luận về việc thay đổi tên nhóm, nhưng phần mềm dùng cho card sorting từ xa thường không cho phép đổi tên (trừ khi dùng bảng tính).</p>
+
+<h3>D. Chọn thẻ như thế nào</h3>
+
+<p><strong>Chọn chủ đề cần kiểm tra:</strong> Có thể đến từ nội dung trực tuyến hiện tại hoặc tiềm năng, mô tả quy trình, ứng dụng và chức năng. Bao gồm những gì được lên kế hoạch để tạo ra cấu trúc hoạt động hiện tại và tương lai (ở mức độ nhất định).</p>
+
+<p><strong>Đảm bảo độ hạt (granularity) nhất quán:</strong> Tất cả các chủ đề phải ở cùng một cấp độ. Ví dụ: nếu đa số thẻ là các trang riêng lẻ, đừng đưa vào các thẻ đại diện cho toàn bộ phần của site. Các cấp độ khác nhau sẽ phải được thực hiện trong card sort khác, nếu không người tham gia sẽ khó nhóm nội dung ở các cấp độ khác nhau.</p>
+
+<p><strong>Cần đủ nội dung tương tự để nhóm hình thành</strong>, nhưng có sự biến đổi trong mục đang nghiên cứu để các mẫu và xu hướng có thể được xác định.</p>
+
+<p><strong>Số lượng thẻ:</strong> Quy tắc chung là từ <strong>30 đến 100 thẻ</strong>. Ít hơn 30 không đủ mục để hình thành nhóm; nhiều hơn 100 tốn thời gian và mệt mỏi cho người tham gia. Chủ đề càng phức tạp, dùng càng ít thẻ vì loại card sorting này có tải nhận thức cao.</p>
+
+<h3>E. Số lượng người tham gia</h3>
+
+<div class="highlight-box">
+  <div class="box-label">Lưu ý về số lượng người tham gia</div>
+  <p>Như với kiểm tra khả năng sử dụng, bạn nên thực hiện card sorting với <strong>5 người từ mỗi nhóm người dùng đã xác định</strong> (định tính). Hiếm khi một nhóm người dùng quan tâm đến tất cả mọi thứ bạn cung cấp — hỏi người tham gia sắp xếp những thứ họ không có kiến thức hoặc hứng thú sẽ tạo ra sự không chính xác và không nhất quán.</p>
+  <p>Với kiểm tra định lượng: hướng đến hơn <strong>100 người tham gia</strong> nếu có thể (cho unmoderated remote testing).</p>
+</div>
+
+<div class="case-study">
+  <div class="cs-label">Tình Huống Thực Tế</div>
+  <div class="cs-title">Card sorting cho mạng nội bộ UK Houses of Parliament</div>
+  <p>Marsh đã thực hiện qualitative face-to-face moderated open card sort cho mạng nội bộ của Nghị viện Anh. Có ba nhóm nhân viên cấp cao:</p>
+  <ul>
+    <li><strong>Nhóm 1 — Commons-focused:</strong> Công việc của các Thành viên Nghị viện trong Hạ viện</li>
+    <li><strong>Nhóm 2 — Lords-focused:</strong> Công việc của các Thành viên Thượng viện</li>
+    <li><strong>Nhóm 3 — Bicameral:</strong> Công việc diễn ra ở cả hai viện</li>
+  </ul>
+  <p>Người tham gia nhóm 1 tập trung vào nội dung Commons và không quan tâm đến nội dung Lords. Nhóm 2 ngược lại. Nhóm 3 có nhiều kiến thức về công việc bicameral nhưng không thể giả định rằng họ quan tâm đến công việc riêng của từng viện. Điều này chỉ có thể xác định bằng cách nói chuyện với họ và tìm hiểu lĩnh vực quan tâm của họ.</p>
+</div>
+
+<!-- VI. GIAO THỨC MODERATED CARD SORTING -->
+<h2>VI. Giao Thức Card Sorting Có Điều Phối</h2>
+
+<p>Dù bạn chọn phương pháp card sorting nào, bạn cần có một giao thức ngắn ghi rõ những gì cần nói và làm, các chủ đề và câu hỏi muốn đề cập. Nó sẽ không chi tiết như giao thức kiểm tra khả năng sử dụng (Chương 5), nhưng cực kỳ hữu ích để giữ mỗi phiên tương đối nhất quán.</p>
+
+<div class="protocol-section">
+  <div class="ps-heading">Cấu trúc giao thức (4 phần)</div>
+  <ol>
+    <li>Giới thiệu + các vấn đề đạo đức/pháp lý (Chương 2) — <em>5 phút</em></li>
+    <li>Câu hỏi phỏng vấn ngắn trước nhiệm vụ — <em>5 phút</em></li>
+    <li>Gợi mở và nhắc nhở câu hỏi cho việc điều phối card sort</li>
+    <li>Câu hỏi phỏng vấn ngắn sau nhiệm vụ — <em>5 phút</em></li>
+  </ol>
+</div>
+
+<h3>1. Giới thiệu</h3>
+<p>Giải thích mục đích nghiên cứu, quy trình phiên, cách ghi âm/ghi hình (nếu có) và cách dữ liệu sẽ được sử dụng và lưu trữ. Nếu muốn chụp ảnh người tham gia đang thực hiện phân loại, cần xin phép cả để chụp và sử dụng trong báo cáo.</p>
+
+<p>Với remote moderated sort, cần thông báo thêm về: người quan sát khác (nếu có), các công cụ sẽ dùng, cách ghi âm và lưu trữ dữ liệu. Có thể cần gửi biểu mẫu đồng ý/NDA để ký trước hoặc đọc tuyên bố đồng ý cho họ đồng ý bằng lời.</p>
+
+<h3>2. Câu hỏi phỏng vấn ngắn trước nhiệm vụ</h3>
+<p>Những câu hỏi này giúp bạn hiểu một số quan sát trong phiên về cách người tham gia tư duy và nhóm các mục, đồng thời giúp người tham gia cảm thấy thoải mái hơn trước khi phân loại. Tham khảo Chương 3 về cách đặt đúng loại câu hỏi.</p>
+
+<h3>3. Gợi mở và câu hỏi điều phối card sort</h3>
+
+<p>Trước khi bắt đầu, giải thích rõ cách thực hiện:</p>
+
+<div class="script-box">
+  <div class="script-label">Hướng dẫn giải thích card sort trực tiếp</div>
+  <p>Tôi sắp nói cho bạn biết cách thức hoạt động — hãy cho tôi biết nếu bạn có câu hỏi trước khi bắt đầu. Trước mặt bạn là một xếp thẻ. Những thẻ đó đại diện cho (nội dung/chức năng/mục) của (sản phẩm/dịch vụ) này. Bạn nên thử phân loại các thẻ thành những nhóm có ý nghĩa với bạn.</p>
+  <p>Đừng lo lắng về việc thiết kế điều hướng cho website; chúng tôi sẽ lo việc đó. Đây không phải bài kiểm tra trí nhớ, và bạn không cần cố tổ chức thông tin theo cách nó đang được tổ chức hiện tại trên (sản phẩm/dịch vụ). Tôi quan tâm hơn đến việc xem cách bạn sẽ tổ chức thành các nhóm mà bạn mong muốn tìm thấy mọi thứ trong đó.</p>
+  <p><em>(Open sort)</em> Sau khi các nhóm đã hình thành, tôi muốn bạn đặt tên cho mỗi nhóm theo cách có ý nghĩa với bạn. Bạn có thể tạo nhóm con. Nếu bạn cảm thấy thiếu gì đó, bạn có thể dùng thẻ trắng để thêm vào.</p>
+  <p><em>(Closed sort)</em> Bạn sẽ thấy có một số thẻ đã có sẵn trên bàn. Đây là các nhóm chúng tôi muốn bạn phân loại thẻ vào.</p>
+  <p><em>(Hybrid sort)</em> Có một số thẻ sẵn trên bàn — đây là các nhóm bạn có thể phân loại. Nếu cảm thấy thiếu, bạn có thể dùng thẻ trắng để thêm nhóm hay mục. Nếu nhãn chưa rõ, hãy viết nhãn mới lên thẻ.</p>
+  <p><em>(Iterative sort)</em> Bạn sẽ thấy các thẻ đã được phân loại sẵn; đây là kết quả của những người tham gia trước. Hãy xem liệu chúng có ý nghĩa với bạn không. Nếu bạn muốn thay đổi, hãy thoải mái thực hiện.</p>
+  <p><em>(Tất cả)</em> Cuối cùng, nếu bạn nghĩ một thứ gì đó không thuộc về đâu, bạn có thể tạo nhóm "không chắc". Hãy thoải mái đặt câu hỏi trong quá trình phân loại nếu cần thiết; tôi có thể không trả lời ngay, nhưng sẽ cố hết sức trả lời khi bạn hoàn thành.</p>
+</div>
+
+<p><strong>Trong giai đoạn phân loại:</strong> Ghi chú bình luận và câu hỏi của người tham gia để hiểu nhãn nào đang/không hoạt động, quá trình tư duy của họ. Card sorting có tải nhận thức cao, nên có thể phải khuyến khích think aloud. Hãy cho người tham gia vài phút im lặng để vào nhịp — khi họ đã hình thành vài nhóm, bạn có thể bắt đầu trò chuyện.</p>
+
+<p>Các câu hỏi gợi mở ví dụ khi người tham gia gặp khó khăn:</p>
+<ul>
+  <li>"Mục này có nghĩa gì với bạn? Bạn mô tả nó như thế nào?"</li>
+  <li>"Điều gì về tên mục này khiến bạn không chắc?"</li>
+  <li>"Điều gì về những mục này khiến chúng liên quan với nhau với bạn?"</li>
+  <li>"Dựa trên mô tả của thẻ tôi vừa đưa cho bạn, tên mục có phù hợp với bạn không, hay bạn sẽ gọi nó là gì?"</li>
+  <li>"Bạn có nghĩ một số thẻ trong nhóm này liên quan chặt chẽ hơn với nhau không?"</li>
+  <li>"Bạn có nghĩ thẻ này có thể thuộc nhóm khác hoặc có thể thuộc cả hai nhóm không? Tại sao?"</li>
+</ul>
+
+<h3>4. Câu hỏi phỏng vấn ngắn sau nhiệm vụ</h3>
+
+<p>Kết thúc phiên giúp bạn có cái nhìn tổng quan từ người tham gia:</p>
+<ul>
+  <li>"Vui lòng nói cho tôi biết về mỗi nhóm bạn đã tạo."</li>
+  <li>"Điều gì về các mục trong nhóm này khiến chúng liên quan?"</li>
+  <li>"Tại sao bạn đặt tên nhóm này là thế này?"</li>
+  <li>"Có thẻ nào bạn nghĩ có thể thuộc về nhiều hơn một nhóm không?"</li>
+  <li>"Nhóm nào, nếu có, bạn tự tin nhất? Tại sao?"</li>
+  <li>"Nhóm nào, nếu có, bạn ít tự tin nhất? Tại sao?"</li>
+  <li>"Có suy nghĩ cuối cùng nào không?"</li>
+</ul>
+
+<p>Kết thúc bằng lời cảm ơn: <em>"Cảm ơn rất nhiều vì sự tham gia của bạn; điều này sẽ giúp chúng tôi trong quá trình cải thiện xxx để dễ sử dụng hơn."</em></p>
+
+<!-- VII. UNMODERATED CARD SORTING -->
+<h2>VII. Card Sorting Không Có Điều Phối (Từ Xa)</h2>
+
+<p>Với card sorting không có điều phối từ xa (dùng OptimalSort, UserZoom), nhà nghiên cứu không tham gia. Phương pháp này hữu ích nhất khi cần kiểm tra định lượng với nhiều người tham gia. Cần bao gồm:</p>
+
+<ul class="tool-checklist">
+  <li>Giải thích</li>
+  <li>Câu hỏi khảo sát ban đầu</li>
+  <li>Hướng dẫn phân loại</li>
+  <li>Câu hỏi sau phân loại</li>
+  <li>Tuyên bố cảm ơn và bước tiếp theo (Mayfield, 2011)</li>
+</ul>
+
+<p>Card sorting không có điều phối trực tiếp ít phổ biến hơn nhưng vẫn có lợi: người tham gia hoàn thành nhiệm vụ không bị ảnh hưởng từ bên ngoài, và sau đó có thể có cuộc thảo luận chuyên sâu về những gì họ đã làm.</p>
+
+<!-- VIII. CÔNG CỤ -->
+<h2>VIII. Công Cụ Cần Thiết</h2>
+
+<h3>Cho card sorting trực tiếp (Bắt buộc)</h3>
+
+<ol class="numbered-list">
+  <li><div><strong>Thẻ ghi chú (plain hoặc lined):</strong> Đủ thẻ cho số mục đang phân loại (đã viết sẵn); thẻ dự phòng nếu người tham gia muốn đổi tên; một bộ thẻ (khác màu hoặc kích thước) cho tiêu đề nhóm (để trắng cho open sort, đã viết cho closed sort).</div></li>
+  <li><div><strong>Bút:</strong> Lý tưởng là Sharpie để viết trên thẻ. Nhiều màu cho các mục, tiêu đề nhóm và ghi chú của người tham gia. Dùng bút dạ đầu to cho chữ dễ đọc và dễ chụp ảnh.</div></li>
+  <li><div><strong>Máy ảnh hoặc điện thoại:</strong> Để chụp ảnh các nhóm từng người tham gia tạo ra.</div></li>
+  <li><div><strong>Biểu mẫu đồng ý:</strong> Người tham gia ký để thể hiện sự đồng ý và hiểu biết.</div></li>
+  <li><div><strong>Giao thức:</strong> Hướng dẫn bạn qua phiên, những gì muốn nói và làm, chủ đề muốn đề cập. Nếu không ghi chú lên giao thức, cần thêm sổ ghi chú.</div></li>
+</ol>
+
+<p><strong>Đồ dùng tùy chọn:</strong> Máy quay video (khó ghi lại chi tiết thẻ mà không quá xâm phạm); Máy ghi âm (nếu muốn nghe lại cuộc trò chuyện); Clipboard (để nghỉ chân khi đứng trong lúc người tham gia di chuyển thẻ trên bàn).</p>
+
+<h3>Cho card sorting từ xa (Bắt buộc)</h3>
+
+<ol>
+  <li>Công cụ card sorting trực tuyến như OptimalSort hoặc UserZoom.</li>
+  <li>Công cụ hội nghị và chia sẻ màn hình trực tuyến (như mô tả trong Chương 5).</li>
+  <li>Nếu công cụ không có khả năng ghi âm, dùng ứng dụng ghi màn hình hoặc điện thoại thay vì hội nghị video.</li>
+</ol>
+
+<div class="section-divider"></div>
+
+<!-- TÓM TẮT -->
+<h2>Tóm Tắt Chương</h2>
+
+<p>Card sorting là phương pháp dùng để hiểu mô hình tư duy của người dùng và xây dựng kiến trúc thông tin phù hợp với cách họ nghĩ. Có bốn biến thể chính — open, closed, hybrid, và iterative — mỗi loại phù hợp với giai đoạn và mục tiêu nghiên cứu khác nhau. Thực hiện card sorting một cách lặp đi lặp lại: một vòng phân loại hiếm khi đủ, đặc biệt khi có tập nội dung lớn và phức tạp hoặc nhiều nhóm người dùng khác nhau. Đừng cố gắng làm tất cả trong một lần — điều này sẽ làm mọi thứ trở nên khó khăn và phức tạp, không chỉ trong thiết lập và thực hiện mà đặc biệt trong phân tích.</p>
+
+<div class="chapter-footer">
+  <span>Chương 07 — Card Sorting</span>
+  <span>User Research · Stephanie Marsh · 2018</span>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch6-urpg.html"><span class="lbl">Chương trước</span>Chương 6: Kiểm Tra Nội Dung</a>
+  <a href="ch8-urpg.html"><span class="lbl">Chương sau</span>Chương 8: Khảo Sát</a>
+</nav>
+</body>
+</html>

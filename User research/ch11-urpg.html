@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 11 — Kiểm Định Kiến Trúc Thông Tin | User Research</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+  .breadcrumb {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .breadcrumb span { margin: 0 6px; }
+  .chapter-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .chapter-number {
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  h1.chapter-title {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .chapter-subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.5;
+    margin-bottom: 40px;
+  }
+  .chapter-divider {
+    height: 3px;
+    background: var(--accent-line);
+    margin-bottom: 48px;
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-top: 52px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent-line);
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 32px;
+    margin-bottom: 10px;
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-top: 22px;
+    margin-bottom: 8px;
+  }
+  p { margin-bottom: 16px; color: var(--text); }
+  ul, ol { margin: 12px 0 20px 0; padding-left: 28px; }
+  li { margin-bottom: 8px; line-height: 1.65; }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 28px 0;
+  }
+  .info-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent-line);
+    padding: 20px 22px;
+  }
+  .info-box .label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .info-box ul { margin: 0; padding-left: 18px; }
+  .info-box li { font-size: 14px; margin-bottom: 6px; }
+  /* Checklist / materials list */
+  .material-list { list-style: none; padding: 0; margin: 16px 0; }
+  .material-list li {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    align-items: flex-start;
+  }
+  .material-list li:last-child { border-bottom: none; }
+  .material-list .mat-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: var(--surface-dark);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+  }
+  .material-list .mat-text { flex: 1; line-height: 1.6; }
+  .material-list .mat-text strong { color: var(--text); }
+  /* IA size table */
+  .ia-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .ia-table thead tr { background: var(--text); color: #fff; }
+  .ia-table th { padding: 10px 14px; text-align: left; font-weight: 600; letter-spacing: 0.04em; }
+  .ia-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.6; }
+  .ia-table tr:nth-child(even) td { background: var(--surface); }
+  /* Option cards for cutting IA */
+  .option-cards { margin: 20px 0; }
+  .option-card {
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    background: var(--surface);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .option-card .oc-badge {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--surface-dark);
+    padding: 4px 8px;
+    white-space: nowrap;
+  }
+  .option-card .oc-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+  /* Tools box */
+  .tools-box {
+    background: var(--surface-dark);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+  .tools-box .tools-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .tools-box ul { margin: 0; padding-left: 20px; }
+  .tools-box li { font-size: 14px; margin-bottom: 6px; }
+  /* Relation to other chapters */
+  .relation-strip {
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    margin: 24px 0;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    background: var(--surface);
+  }
+  .relation-strip .rs-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .relation-strip p { font-size: 14px; margin: 0; color: var(--text-secondary); }
+  /* Summary */
+  .summary-strip {
+    background: var(--text);
+    color: #fff;
+    padding: 28px 32px;
+    margin: 48px 0 32px;
+  }
+  .summary-strip h3 {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin: 0 0 14px;
+  }
+  .summary-strip ul { padding-left: 20px; margin: 0; }
+  .summary-strip li { font-size: 14px; margin-bottom: 8px; color: rgba(255,255,255,0.9); }
+  .chapter-footer {
+    margin-top: 72px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+  }
+  .note-inline {
+    background: var(--surface);
+    border-left: 3px solid var(--border-strong);
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+  @media (max-width: 600px) {
+    body { padding: 32px 20px 60px; }
+    .chapter-number { font-size: 52px; }
+    h1.chapter-title { font-size: 26px; }
+    .info-grid { grid-template-columns: 1fr; }
+    .option-card { flex-direction: column; }
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="breadcrumb">
+  User Research: A Practical Guide
+  <span>›</span> Phần Hai: Phương Pháp Nghiên Cứu
+  <span>›</span> Chương 11
+</div>
+
+<div class="chapter-eyebrow">Chương 11</div>
+<div class="chapter-number">11</div>
+<h1 class="chapter-title">Kiểm Định Kiến Trúc Thông Tin</h1>
+<p class="chapter-subtitle">Cấu trúc thông tin của bạn có hoạt động đúng với người dùng không?</p>
+<div class="chapter-divider"></div>
+
+<!-- ═══════════════════════════════════════════════
+     KIẾN TRÚC THÔNG TIN LÀ GÌ?
+══════════════════════════════════════════════════ -->
+<h2>Kiến trúc thông tin là gì?</h2>
+
+<p>Kiến trúc thông tin (Information Architecture — IA) là cấu trúc tổ chức thông tin. Ví dụ phổ biến nhất là cách tổ chức và gán nhãn nội dung của website hoặc intranet. IA bao gồm cả hai phạm vi:</p>
+
+<ul>
+  <li><strong>Phạm vi rộng:</strong> Cấu trúc tổng thể của trang web và hệ thống điều hướng (navigation).</li>
+  <li><strong>Phạm vi chi tiết:</strong> Cách đặt tên, gán nhãn và tổ chức nội dung cụ thể.</li>
+</ul>
+
+<p>Kiểm định kiến trúc thông tin (IA Validation) là quá trình kiểm tra xem cấu trúc thông tin hiện tại — hoặc một cấu trúc mới được đề xuất — có hoạt động đúng như kỳ vọng với người dùng hay không, thông qua một bài tập khám phá điều hướng trực tuyến.</p>
+
+<div class="relation-strip">
+  <div class="rs-icon">↔</div>
+  <p><strong>Mối liên hệ với Card Sorting (Chương 7):</strong> Card sorting giúp tạo ra một cấu trúc IA dự thảo từ góc nhìn người dùng. IA Validation là bước tiếp theo để kiểm tra xem cấu trúc dự thảo đó có thực sự hoạt động tốt với nhóm lớn người dùng hơn hay không.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PHÙ HỢP VÀ KHÔNG PHÙ HỢP
+══════════════════════════════════════════════════ -->
+<h2>Khi nào phù hợp và không phù hợp</h2>
+
+<div class="info-grid">
+  <div class="info-box">
+    <div class="label">Phù hợp để</div>
+    <ul>
+      <li>Kiểm tra các cấu trúc hiện tại đã được xác định (qua analytics) là không hiệu quả</li>
+      <li>Đánh giá cấu trúc dự thảo sau một bài card sorting</li>
+      <li>Phát hiện vấn đề về gán nhãn (labelling) và tổ chức nội dung, tách biệt với yếu tố thiết kế</li>
+      <li>Thực hiện sớm và lặp lại nhiều lần trong dự án</li>
+      <li>Thay thế remote unmoderated usability testing khi analytics không phản ánh đúng hành trình người dùng</li>
+    </ul>
+  </div>
+  <div class="info-box">
+    <div class="label">Không phù hợp khi</div>
+    <ul>
+      <li>Vấn đề nghi ngờ liên quan đến tương tác (interaction design) hoặc thiết kế trực quan → dùng usability testing</li>
+      <li>Dùng đơn lẻ; nên kết hợp với card sorting, usability testing hoặc content audit</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     KHI NÀO NÊN DÙNG
+══════════════════════════════════════════════════ -->
+<h2>Khi nào nên dùng IA Validation</h2>
+
+<p>Một bài kiểm định IA thường được thực hiện sau khi hoàn thành card sorting (xem Chương 7). Card sorting với số lượng nhỏ người dùng cho một ý tưởng cơ bản về cách cấu trúc thông tin — kiểm định với số lượng lớn hơn sẽ xác nhận hoặc bác bỏ cấu trúc đó.</p>
+
+<p>Phương pháp này nhanh và dễ thiết lập, triển khai, phân tích. Một số thời điểm cụ thể phù hợp:</p>
+
+<ul>
+  <li><strong>Sớm và thường xuyên:</strong> Không cần đợi prototype; có thể thực hiện song song với quá trình thiết kế.</li>
+  <li><strong>Trong lý tưởng:</strong> IA nên được làm từ đầu dự án và duy trì xuyên suốt — từ đầu đến giữa và đến cuối (O'Brien, 2016e).</li>
+  <li><strong>Khi analytics bất thường:</strong> Nếu analytics không phản ánh hành trình người dùng như mong đợi, bài kiểm định giúp hiểu cách người dùng thực sự điều hướng.</li>
+  <li><strong>Sau content audit:</strong> Khi đã quyết định thêm, cập nhật hay xóa nội dung, có thể lập tức kiểm định IA mới.</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════════
+     MỨC ĐỘ NỖ LỰC
+══════════════════════════════════════════════════ -->
+<h2>Mức độ nỗ lực cần thiết</h2>
+
+<p>IA là một lĩnh vực đòi hỏi thời gian để làm quen nếu bạn chưa có kinh nghiệm. Khi mới bắt đầu, nên tìm người có kinh nghiệm để hợp tác và học hỏi.</p>
+
+<p>Các công cụ trực tuyến cần thiết để thực hiện loại nghiên cứu này thường không đắt, nhưng có thể là rào cản nếu ngân sách hạn chế. Nên tìm hiểu chi phí trước, đặc biệt vì đây là loại nghiên cứu tốt nhất khi được thực hiện lặp đi lặp lại và kết hợp với các phương pháp khác.</p>
+
+<!-- ═══════════════════════════════════════════════
+     CÁCH THỰC HIỆN
+══════════════════════════════════════════════════ -->
+<h2>Cách thực hiện IA Validation</h2>
+
+<h3>1. Chuẩn bị bài kiểm định</h3>
+
+<p>Chuẩn bị kỹ lưỡng là chìa khoá để thu thập dữ liệu hữu ích.</p>
+
+<h4>Tuyển dụng người tham gia</h4>
+<p>Tuỳ vào nội dung kiểm định, bài tập có thể phù hợp với tất cả người dùng và người dùng tiềm năng, hoặc chỉ một phân nhóm cụ thể. Tham khảo hướng dẫn tuyển dụng ở Chương 8 (Khảo sát) và Chương 3 (Thực hành tốt nhất).</p>
+
+<h4>Vật liệu kiểm định</h4>
+
+<ul class="material-list">
+  <li>
+    <div class="mat-num">1</div>
+    <div class="mat-text"><strong>Thư giới thiệu + câu hỏi khảo sát sơ bộ:</strong> Gửi cho người tham gia trước khi bắt đầu. Giải thích mục đích bài tập và thu thập thông tin nền về họ nếu cần.</div>
+  </li>
+  <li>
+    <div class="mat-num">2</div>
+    <div class="mat-text"><strong>Kiến trúc thông tin:</strong> Bản IA hiện tại hoặc dự thảo — ở bất kỳ giai đoạn phát triển nào. Nội dung/mục có thể xuất hiện ở nhiều nơi nếu bạn chưa chắc chắn về vị trí đặt.</div>
+  </li>
+  <li>
+    <div class="mat-num">3</div>
+    <div class="mat-text"><strong>Bản văn bản của IA:</strong> Phiên bản đơn giản hoá (dạng text field hoặc spreadsheet) của cấu trúc. Đây là định dạng các công cụ dùng để tạo điều hướng có thể nhấp mà không cần thiết kế giao diện. (Xem hình minh hoạ trong sách: ví dụ BikeSite với các danh mục For commuters, For families, For roadies, v.v.)</div>
+  </li>
+  <li>
+    <div class="mat-num">4</div>
+    <div class="mat-text"><strong>Danh sách nhiệm vụ đại diện:</strong> Không có số lượng nhiệm vụ chuẩn, nhưng nhiệm vụ phải đại diện cho lĩnh vực đang nghiên cứu. Optimal Workshop khuyến nghị tối đa 10 nhiệm vụ mỗi bài. Bạn cần biết đáp án đúng của mỗi nhiệm vụ để phân tích các chỉ số thành công.</div>
+  </li>
+  <li>
+    <div class="mat-num">5</div>
+    <div class="mat-text"><strong>Khảo sát sau bài tập + lời kết:</strong> Thu thập dữ liệu định tính về trải nghiệm của người tham gia; cảm ơn họ và thông báo về các bước tiếp theo.</div>
+  </li>
+</ul>
+
+<h3>2. Quyết định cái gì cần kiểm định</h3>
+
+<p>Bạn không cần kiểm định toàn bộ IA. Nếu có nhiều nhóm người dùng với mối quan tâm khác nhau, có thể thiết kế bài tập riêng biệt cho từng nhóm. Nếu IA quá lớn, đưa tất cả vào một lần sẽ ảnh hưởng đến trải nghiệm người tham gia — vấn đề chính là về trải nghiệm người dùng trong bài test, không phải về kỹ thuật (O'Brien, 2016d).</p>
+
+<h3>3. Quy mô IA phù hợp</h3>
+
+<p>Lời khuyên của Optimal Workshop về quy mô cấu trúc cần kiểm định (O'Brien, 2016d):</p>
+
+<table class="ia-table">
+  <thead>
+    <tr>
+      <th>Quy mô IA</th>
+      <th>Khuyến nghị</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Nhỏ/trung bình</strong><br><em>Dưới 500 mục</em></td>
+      <td>Kiểm định toàn bộ cây cấu trúc — không đủ lớn để gây tác động tiêu cực.</td>
+    </tr>
+    <tr>
+      <td><strong>Lớn</strong><br><em>500–1.000 mục</em></td>
+      <td>Có 4 lựa chọn (xem bên dưới).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>4 cách xử lý khi IA quá lớn</h4>
+
+<div class="option-cards">
+  <div class="option-card">
+    <div class="oc-badge">Cách 1</div>
+    <div class="oc-text"><strong>Kiểm định toàn bộ cấu trúc</strong> — chấp nhận rằng điều này làm giảm trải nghiệm của người tham gia.</div>
+  </div>
+  <div class="option-card">
+    <div class="oc-badge">Cách 2</div>
+    <div class="oc-text"><strong>Phiên bản thu gọn (cut-down)</strong> — ví dụ chỉ kiểm tra 3–4 cấp độ trên cùng. Người tham gia có thể hoàn thành nhiều nhiệm vụ hơn trong thời gian ngắn hơn.</div>
+  </div>
+  <div class="option-card">
+    <div class="oc-badge">Cách 3</div>
+    <div class="oc-text"><strong>Cắt bỏ các phần không liên quan</strong> — thu gọn cấu trúc bằng cách loại bỏ những phần không quan trọng với mục tiêu kiểm định. (Kết quả chỉ cho biết người dùng đến đúng khu vực tổng quan, không phải trang cụ thể.)</div>
+  </div>
+  <div class="option-card">
+    <div class="oc-badge">Cách 4</div>
+    <div class="oc-text"><strong>Kiểm định một phân nhóm</strong> — chọn một phần cụ thể của cấu trúc (ví dụ: chuyên mục Văn hoá của một trang tin tức). Trong trường hợp này, cần tuyển người tham gia có quan tâm hoặc chuyên môn về lĩnh vực đó.</div>
+  </div>
+</div>
+
+<h3>4. Nhãn nào cần bao gồm và loại trừ?</h3>
+
+<p>Theo khuyến nghị của Optimal Workshop:</p>
+<ul>
+  <li><strong>Nên bao gồm:</strong> Các mục điều hướng toàn cục (global navigation items), trừ những mục rất nhỏ.</li>
+  <li><strong>Nên loại trừ:</strong>
+    <ul>
+      <li>Các liên kết hoặc phím tắt không nằm trong điều hướng toàn cục (ví dụ: "overview").</li>
+      <li>Các tiêu đề "thoát" như: Search, Contact Us, Help, v.v.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>5. Chạy bài kiểm định</h3>
+
+<p>Nên <strong>pilot test</strong> trước khi gửi cho số lượng lớn người tham gia, để đảm bảo bài tập hoạt động đúng và các nhiệm vụ rõ ràng. Quy trình triển khai:</p>
+
+<ul>
+  <li>Liên hệ người tham gia qua email kèm đường link đến bài tập.</li>
+  <li>Nêu rõ khung thời gian hoàn thành bài tập.</li>
+  <li>Theo dõi tỷ lệ phản hồi — cân nhắc gửi email nhắc nhở giữa chừng nếu tỷ lệ thấp (O'Brien, 2016b).</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════════
+     CÔNG CỤ
+══════════════════════════════════════════════════ -->
+<h2>Công cụ khảo sát</h2>
+
+<p>IA Validation là bài tập thực hiện trực tuyến, dùng các công cụ chuyên biệt để tạo điều hướng có thể nhấp (tree testing). Hai công cụ phổ biến nhất:</p>
+
+<div class="tools-box">
+  <div class="tools-label">Công cụ chuyên biệt</div>
+  <ul>
+    <li><strong>Treejack</strong> (Optimal Workshop) — <em>optimalworkshop.com/treejack</em>: Công cụ tree testing hàng đầu, cho phép tạo và chạy bài kiểm định IA với giao diện điều hướng thuần văn bản.</li>
+    <li><strong>C-inspector</strong> — <em>c-inspector.com</em>: Công cụ thay thế cho tree testing.</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TÓM TẮT
+══════════════════════════════════════════════════ -->
+<div class="summary-strip">
+  <h3>Điểm cốt lõi — Chương 11</h3>
+  <ul>
+    <li>IA Validation kiểm tra xem cấu trúc thông tin (cũ hoặc mới) có hoạt động đúng với người dùng không, tách biệt hoàn toàn với yếu tố thiết kế giao diện.</li>
+    <li>Thường được thực hiện sau card sorting (Ch. 7) để kiểm chứng cấu trúc dự thảo với nhóm lớn hơn.</li>
+    <li>Nhanh, dễ thiết lập, có thể chạy song song với quá trình thiết kế và lặp lại nhiều lần.</li>
+    <li>Vật liệu cần chuẩn bị: thư giới thiệu, bản IA, bản văn bản IA, danh sách nhiệm vụ (tối đa 10), khảo sát sau bài.</li>
+    <li>IA nhỏ/trung bình (&lt;500 mục): kiểm định toàn bộ. IA lớn (500–1.000): cắt bỏ, thu gọn hoặc chọn phân nhóm.</li>
+    <li>Loại trừ các nhãn "thoát" (Search, Contact Us, Help) và liên kết không trong global nav.</li>
+    <li>Pilot test trước khi triển khai chính thức; email nhắc nhở giữa chừng nếu cần.</li>
+    <li>Công cụ chính: Treejack (Optimal Workshop) và C-inspector.</li>
+  </ul>
+</div>
+
+<div class="chapter-footer">
+  <span>Stephanie Marsh — User Research (Kogan Page, 2018)</span>
+  <span>Chương 11, trang 152–159</span>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch10-urpg.html"><span class="lbl">Chương trước</span>Chương 10: Nghiên Cứu Nhật Ký</a>
+  <a href="ch12-urpg.html"><span class="lbl">Chương sau</span>Chương 12: Dân Tộc Học</a>
+</nav>
+</body>
+</html>

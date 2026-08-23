@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 23 – Sử Dụng Video để Trình Bày Kết Quả</title>
+<style>
+  :root {
+    --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+    --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+    --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px; line-height: 1.75; color: var(--text);
+    background: var(--bg); max-width: 820px;
+    margin: 0 auto; padding: 60px 40px 100px;
+  }
+  .part-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  h1 { font-size: 2.2rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+  .chapter-num { font-size: 5rem; font-weight: 900; line-height: 1; color: var(--surface-dark); letter-spacing: -0.04em; margin-bottom: 16px; display: block; }
+  .subtitle { font-size: 1.05rem; color: var(--text-secondary); font-style: italic; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 2px solid var(--accent-line); }
+  h2 { font-size: 1.2rem; font-weight: 700; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); color: var(--text); }
+  h3 { font-size: 1rem; font-weight: 700; margin: 28px 0 8px; color: var(--text); }
+  p { margin-bottom: 16px; color: var(--text-secondary); }
+  ul, ol { padding-left: 24px; margin-bottom: 16px; }
+  li { margin-bottom: 6px; color: var(--text-secondary); }
+  .method-box { border: 1.5px solid var(--border-strong); background: var(--surface); padding: 20px 24px; margin: 32px 0; border-radius: 2px; }
+  .method-box .method-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .method-row { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .method-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); min-width: 110px; padding-top: 2px; }
+  .method-value { font-size: 0.9rem; color: var(--text-secondary); flex: 1; }
+  .tip-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .tip-card { border: 1px solid var(--border); padding: 16px 18px; }
+  .tip-card h4 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .tip-card ul { list-style: none; padding-left: 0; margin-bottom: 0; }
+  .tip-card li { padding-left: 14px; position: relative; margin-bottom: 7px; font-size: 0.88rem; }
+  .tip-card li::before { content: '—'; position: absolute; left: 0; color: var(--text-muted); }
+  .callout-strong { border: 2px solid var(--border-strong); background: var(--surface-dark); padding: 16px 20px; margin: 24px 0; }
+  .callout-strong p { margin-bottom: 0; font-weight: 600; color: var(--text); font-size: 0.95rem; }
+  .usage-list { list-style: none; padding-left: 0; }
+  .usage-list li { display: flex; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--text-secondary); }
+  .usage-list li::before { content: '▸'; color: var(--text-muted); flex-shrink: 0; padding-top: 2px; }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="part-label">Phần Ba · Phân Tích và Trình Bày Dữ Liệu</div>
+<span class="chapter-num">23</span>
+<h1>Sử Dụng Video để Trình Bày Kết Quả Nghiên Cứu</h1>
+<p class="subtitle">Video là công cụ mạnh mẽ để truyền đạt phát hiện và tạo sự đồng cảm với người dùng</p>
+
+<div class="method-box">
+  <div class="method-title">Tóm Tắt Phương Pháp</div>
+  <div class="method-row">
+    <span class="method-label">Phù hợp với</span>
+    <span class="method-value">Bất kỳ nghiên cứu người dùng nào có ghi hình. Phù hợp với agile và lean.</span>
+  </div>
+  <div class="method-row">
+    <span class="method-label">Sử dụng khi</span>
+    <span class="method-value">Muốn minh họa mạnh mẽ một điểm về trải nghiệm người dùng — nhanh chóng và thuyết phục.</span>
+  </div>
+</div>
+
+<h2>Tại Sao Video Hiệu Quả</h2>
+<p>Video là cách mạnh mẽ để truyền đạt phát hiện nghiên cứu. Chúng cho phép người xem thực sự <em>thấy</em> người dùng, <em>nghe</em> những gì họ nói và <em>hiểu</em> bối cảnh của những gì bạn đề xuất thay đổi — đặc biệt hữu ích với những người không thể trực tiếp quan sát nghiên cứu.</p>
+<p>Video có thể được sử dụng trong nhiều bối cảnh:</p>
+<ul class="usage-list">
+  <li>Nhúng vào báo cáo văn bản</li>
+  <li>Trong buổi retrospective agile cuối sprint</li>
+  <li>Trong workshop với các bên liên quan</li>
+  <li>Trong thuyết trình kết quả</li>
+</ul>
+
+<div class="callout-strong">
+  <p>Hãy cứng rắn về việc yêu cầu những người ra quyết định xem video trước khi đưa ra ý kiến — có thể là hai hoặc ba video đại diện đầy đủ, hoặc bất kỳ số lượng nào phù hợp với dự án.</p>
+</div>
+
+<h2>Cách Chỉnh Sửa Video Nghiên Cứu</h2>
+<p>Tạo video highlight có thể tốn thời gian. Một vài mẹo để hợp lý hóa quá trình:</p>
+<ul>
+  <li><strong>Xác định trước những gì bạn cần video về:</strong> một vấn đề cụ thể, tương tác, thái độ, v.v.</li>
+  <li><strong>Đọc lại ghi chú</strong> để xác định những quan sát và trích dẫn chính cho từng người tham gia, sau đó tìm trong footage — thay vì xem lại toàn bộ video.</li>
+  <li><strong>Đánh dấu thời gian trong ghi chú</strong> trong khi nghiên cứu, nếu bạn vừa quan sát hoặc nghe được điều gì có thể muốn đưa vào video.</li>
+</ul>
+
+<h2>Những Gì Nên Đưa Vào Video</h2>
+<div class="tip-cards">
+  <div class="tip-card">
+    <h4>Nên làm</h4>
+    <ul>
+      <li>Giữ mỗi đoạn video ngắn nhất có thể</li>
+      <li>Thêm đủ bối cảnh để rõ người tham gia đang làm gì / nói gì — đặt tiêu đề mô tả chủ đề</li>
+      <li>Tìm nhiều hơn một ví dụ về cùng vấn đề/tương tác — cho thấy điều đó xảy ra nhiều lần để nhấn mạnh tầm quan trọng</li>
+      <li>Dán nhãn người tham gia trong montage nhiều người (ví dụ: số P)</li>
+      <li>Chỉ tạo video cho những điểm quan trọng nhất bạn đang trình bày</li>
+    </ul>
+  </div>
+  <div class="tip-card">
+    <h4>Không nên làm</h4>
+    <ul>
+      <li>Không đưa vào những đoạn video quá dài, khó xem</li>
+      <li>Không để người xem phải tự đoán bối cảnh</li>
+      <li>Không tạo video cho mọi quan sát — chỉ những điểm then chốt</li>
+      <li>Không sử dụng video thô chưa chỉnh sửa trong thuyết trình</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Thuyết Phục Tổ Chức Xem Video</h2>
+<p>Trong một thế giới lý tưởng, mọi bên liên quan đều sẽ xem video nghiên cứu liên quan. Nhưng khi bạn có nhiều giờ footage, đây là điều không thực tế.</p>
+<p>Chiến lược: xây dựng sự đồng thuận từ trước với chủ sở hữu dự án (nếu không phải bạn) để yêu cầu bất kỳ ai có quyền ra quyết định mà không quan sát nghiên cứu phải xem một lượng video nhất định trước khi họ có tiếng nói. Đây là cách bảo vệ giá trị của nghiên cứu.</p>
+
+<h2>Tích Hợp với Các Phương Pháp Khác</h2>
+<p>Video hoạt động tốt nhất khi kết hợp với các phương pháp trình bày khác:</p>
+<ul>
+  <li>Đặt video trong báo cáo bên cạnh mô tả vấn đề (Chương 22)</li>
+  <li>Sử dụng trích dẫn từ video trong persona (Chương 24)</li>
+  <li>Chiếu video trong workshop để kích hoạt thảo luận</li>
+  <li>Kết hợp với infographic (Chương 28) để tổng hợp dữ liệu định tính và định lượng</li>
+</ul>
+
+
+<nav class="chapnav">
+  <a href="ch22-urpg.html"><span class="lbl">Chương trước</span>Chương 22: Tóm Tắt Điều Hành và Báo Cáo</a>
+  <a href="ch24-urpg.html"><span class="lbl">Chương sau</span>Chương 24: Sử Dụng Persona để Truyền Đạt Đặc Điểm và Hành Vi Người Dùng</a>
+</nav>
+</body>
+</html>

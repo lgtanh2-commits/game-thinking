@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 27 – Kịch Bản và Storyboard</title>
+<style>
+  :root {
+    --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+    --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+    --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px; line-height: 1.75; color: var(--text);
+    background: var(--bg); max-width: 820px;
+    margin: 0 auto; padding: 60px 40px 100px;
+  }
+  .part-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  h1 { font-size: 2.2rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+  .chapter-num { font-size: 5rem; font-weight: 900; line-height: 1; color: var(--surface-dark); letter-spacing: -0.04em; margin-bottom: 16px; display: block; }
+  .subtitle { font-size: 1.05rem; color: var(--text-secondary); font-style: italic; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 2px solid var(--accent-line); }
+  h2 { font-size: 1.2rem; font-weight: 700; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); color: var(--text); }
+  h3 { font-size: 1rem; font-weight: 700; margin: 28px 0 8px; color: var(--text); }
+  p { margin-bottom: 16px; color: var(--text-secondary); }
+  ul, ol { padding-left: 24px; margin-bottom: 16px; }
+  li { margin-bottom: 6px; color: var(--text-secondary); }
+  .method-box { border: 1.5px solid var(--border-strong); background: var(--surface); padding: 20px 24px; margin: 32px 0; border-radius: 2px; }
+  .method-box .method-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .method-row { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .method-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); min-width: 110px; padding-top: 2px; }
+  .method-value { font-size: 0.9rem; color: var(--text-secondary); flex: 1; }
+  .define-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border-strong); margin: 24px 0; }
+  .define-side { background: var(--bg); padding: 20px; }
+  .define-side h4 { font-size: 1rem; font-weight: 800; color: var(--text); margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .define-side p { font-size: 0.88rem; margin-bottom: 0; }
+  .scenario-elements { list-style: none; padding-left: 0; }
+  .scenario-elements li { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .scenario-elements li:last-child { border-bottom: none; }
+  .se-num { font-size: 0.78rem; font-weight: 800; color: var(--text-muted); min-width: 20px; padding-top: 2px; }
+  .se-content .se-title { font-weight: 700; font-size: 0.88rem; color: var(--text); font-style: italic; }
+  .se-content .se-desc { font-size: 0.85rem; color: var(--text-secondary); }
+  .storyboard-template { margin: 24px 0; }
+  .sb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .sb-frame { border: 1.5px solid var(--border-strong); }
+  .sb-image { background: var(--surface); height: 80px; display: flex; align-items: center; justify-content: center; }
+  .sb-image-inner { width: 60px; height: 50px; background: var(--border-strong); opacity: 0.3; }
+  .sb-caption { padding: 8px; border-top: 1px solid var(--border); }
+  .sb-caption-lines div { height: 4px; background: var(--border); margin-bottom: 4px; }
+  .sb-caption-lines div:last-child { width: 60%; margin-bottom: 0; }
+  .question-section { margin: 20px 0; }
+  .question-group { margin-bottom: 20px; }
+  .question-group h4 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 8px; }
+  .question-group ul { list-style: none; padding-left: 0; }
+  .question-group ul li { padding-left: 16px; position: relative; margin-bottom: 6px; font-size: 0.88rem; color: var(--text-secondary); }
+  .question-group ul li::before { content: '?'; position: absolute; left: 0; color: var(--text-muted); font-weight: 700; }
+  .tip-box { background: var(--surface); border-left: 3px solid var(--border-strong); padding: 14px 18px; margin: 20px 0; }
+  .tip-box p { margin-bottom: 0; font-size: 0.9rem; }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="part-label">Phần Ba · Phân Tích và Trình Bày Dữ Liệu</div>
+<span class="chapter-num">27</span>
+<h1>Sử Dụng Kịch Bản và Storyboard để Đại Diện cho Hành Trình Người Dùng</h1>
+<p class="subtitle">Đặt người dùng vào trung tâm của quy trình thiết kế và phát triển</p>
+
+<div class="method-box">
+  <div class="method-title">Tóm Tắt Phương Pháp</div>
+  <div class="method-row">
+    <span class="method-label">Phù hợp với</span>
+    <span class="method-value">Mọi loại nghiên cứu người dùng. Phù hợp với agile và lean.</span>
+  </div>
+  <div class="method-row">
+    <span class="method-label">Kịch bản</span>
+    <span class="method-value">Câu chuyện giả định được tạo ra với đủ chi tiết để khám phá ý nghĩa một cách có ý nghĩa về khía cạnh của dịch vụ, trải nghiệm hoặc sử dụng sản phẩm.</span>
+  </div>
+  <div class="method-row">
+    <span class="method-label">Storyboard</span>
+    <span class="method-value">Chuỗi hình vẽ/hình ảnh trực quan hóa một chuỗi sự kiện (hành trình hoặc kịch bản) nơi dịch vụ được sử dụng.</span>
+  </div>
+</div>
+
+<h2>Định Nghĩa</h2>
+<div class="define-grid">
+  <div class="define-side">
+    <h4>Kịch bản (Scenarios)</h4>
+    <p>Kịch bản mô tả câu chuyện và bối cảnh đằng sau lý do tại sao một nhóm người dùng cụ thể đến với sản phẩm/dịch vụ của bạn. Chúng có thể được mô tả dưới dạng văn bản thuần túy, video hoặc storyboard. Kịch bản thường được kết hợp với persona để đặt người dùng vào trung tâm của quá trình thiết kế và phát triển (Stickdorn và Schneider, 2014; Usability.gov, 2017).</p>
+  </div>
+  <div class="define-side">
+    <h4>Storyboard</h4>
+    <p>Storyboard là chuỗi hình vẽ/hình ảnh trực quan hóa một chuỗi sự kiện. Chúng có thể được dùng cho hành trình hiện tại hoặc việc triển khai giả định sản phẩm/dịch vụ mới. Chúng kể những câu chuyện về trải nghiệm người dùng để đưa vào quá trình thiết kế. Có thể đại diện cho cả những gì đang xảy ra và những gì nên xảy ra (vấn đề và khuyến nghị).</p>
+  </div>
+</div>
+
+<h2>Cách Tạo Kịch Bản</h2>
+<p>Kịch bản tốt ngắn gọn và bao gồm các yếu tố sau:</p>
+
+<ul class="scenario-elements">
+  <li>
+    <div class="se-num">1</div>
+    <div class="se-content">
+      <div class="se-title">Goals (Mục tiêu)</div>
+      <div class="se-desc">Người dùng đang cố gắng hoàn thành điều gì? Hành động của người dùng phù hợp với mục tiêu của tổ chức như thế nào?</div>
+    </div>
+  </li>
+  <li>
+    <div class="se-num">2</div>
+    <div class="se-content">
+      <div class="se-title">Process (Quy trình)</div>
+      <div class="se-desc">Các bước người dùng sẽ thực hiện là gì? Thông tin chuyển từ bước này sang bước tiếp theo như thế nào? Các vai trò khác nhau nào được tham gia (người tạo, người đóng góp, người chỉnh sửa, người phê duyệt)?</div>
+    </div>
+  </li>
+  <li>
+    <div class="se-num">3</div>
+    <div class="se-content">
+      <div class="se-title">Inputs and outputs (Đầu vào và đầu ra)</div>
+      <div class="se-desc">Những tài liệu và thông tin nào người dùng cần để sử dụng thành công? Họ cần gì từ giao diện để tiếp tục với mục tiêu tổng thể?</div>
+    </div>
+  </li>
+  <li>
+    <div class="se-num">4</div>
+    <div class="se-content">
+      <div class="se-title">Experience (Kinh nghiệm)</div>
+      <div class="se-desc">Người dùng đã làm những điều tương tự gì trong quá khứ? Tổ chức đã tồn tại như thế nào mà không có thiết kế này trước đây?</div>
+    </div>
+  </li>
+  <li>
+    <div class="se-num">5</div>
+    <div class="se-content">
+      <div class="se-title">Constraints (Ràng buộc)</div>
+      <div class="se-desc">Những ràng buộc vật lý, thời gian hoặc tài chính nào có thể áp đặt lên người dùng?</div>
+    </div>
+  </li>
+  <li>
+    <div class="se-num">6</div>
+    <div class="se-content">
+      <div class="se-title">Physical environment (Môi trường vật lý)</div>
+      <div class="se-desc">Người dùng có bao nhiêu không gian để làm những gì họ cần? Những tài liệu nào trên bàn họ? Họ có quyền truy cập vào thông tin cần thiết không? Họ có ghi chú dán trên màn hình không?</div>
+    </div>
+  </li>
+  <li>
+    <div class="se-num">7</div>
+    <div class="se-content">
+      <div class="se-title">Tools in use (Công cụ đang sử dụng)</div>
+      <div class="se-desc">Người dùng hiện đang sử dụng những công cụ nào?</div>
+    </div>
+  </li>
+  <li>
+    <div class="se-num">8</div>
+    <div class="se-content">
+      <div class="se-title">Relationships (Mối quan hệ)</div>
+      <div class="se-desc">Các kết nối giữa người dùng sơ cấp và những người khác bị ảnh hưởng bởi công cụ là gì? (US Department of Health and Human Services, 2017; Wechsler, 2010)</div>
+    </div>
+  </li>
+</ul>
+
+<h2>Cách Tạo Storyboard</h2>
+<p>Storyboard là cách tuyệt vời để bước qua một trải nghiệm tiềm năng cho các persona đang hình thành: để hiểu sâu hơn về bối cảnh, nhu cầu, động cơ và hành vi. Các nhóm nhỏ có thể phác thảo các cảnh của kịch bản tương lai từ 6 đến 10 ô (hoặc nhiều hơn nếu cần). Đặt tiêu đề cho mỗi cảnh, truyền tải cảm xúc và đối thoại qua bong bóng lời nói / suy nghĩ và emoticons.</p>
+
+<h3>Mẫu Storyboard Trống (Figure 27.1)</h3>
+<div class="storyboard-template">
+  <div class="sb-grid">
+    <div class="sb-frame">
+      <div class="sb-image"><div class="sb-image-inner"></div></div>
+      <div class="sb-caption">
+        <div class="sb-caption-lines">
+          <div></div><div></div><div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sb-frame">
+      <div class="sb-image"><div class="sb-image-inner"></div></div>
+      <div class="sb-caption">
+        <div class="sb-caption-lines">
+          <div></div><div></div><div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sb-frame">
+      <div class="sb-image"><div class="sb-image-inner"></div></div>
+      <div class="sb-caption">
+        <div class="sb-caption-lines">
+          <div></div><div></div><div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Câu Hỏi Hữu Ích Khi Tạo Storyboard</h2>
+
+<div class="tip-box">
+  <p>Mỗi kịch bản nên tập trung vào một persona: "Đây là câu chuyện của [tên] khi sử dụng [sản phẩm/dịch vụ]". Bạn có thể muốn đưa ra cho nhóm các câu hỏi cụ thể để đề cập trong storyboard.</p>
+</div>
+
+<div class="question-section">
+  <div class="question-group">
+    <h4>Về Bối Cảnh và Động Cơ</h4>
+    <ul>
+      <li>Điều gì kích hoạt và thúc đẩy họ đến với sản phẩm/dịch vụ? Họ muốn giải quyết nhu cầu gì?</li>
+      <li>Họ đã biết gì về cách giải quyết nhu cầu của mình?</li>
+      <li>Họ mong đợi sản phẩm/dịch vụ giúp họ như thế nào?</li>
+      <li>Họ đến bao nhiêu lần trong câu chuyện của họ?</li>
+    </ul>
+  </div>
+  <div class="question-group">
+    <h4>Về Hành Vi Sử Dụng</h4>
+    <ul>
+      <li>Họ làm gì trên sản phẩm/dịch vụ? Họ xem nội dung gì? Họ tương tác với gì?</li>
+      <li>Họ ghé thăm những trang web và nguồn nào khác (online và offline) trong câu chuyện của mình?</li>
+      <li>Ai khác giúp đỡ hoặc ảnh hưởng đến họ?</li>
+    </ul>
+  </div>
+  <div class="question-group">
+    <h4>Về Kết Quả</h4>
+    <ul>
+      <li>Điều gì khuyến khích và ngăn cản họ sử dụng sản phẩm/dịch vụ?</li>
+      <li>Sản phẩm/dịch vụ cuối cùng giúp họ giải quyết nhu cầu như thế nào?</li>
+      <li>Câu chuyện kết thúc khi nào và họ coi điều gì là trải nghiệm người dùng thành công?</li>
+    </ul>
+  </div>
+  <div class="question-group">
+    <h4>Ở Mỗi Giai Đoạn</h4>
+    <ul>
+      <li>Điều gì đang thúc đẩy họ tại mỗi giai đoạn?</li>
+      <li>Họ đang cảm thấy gì ở mỗi giai đoạn?</li>
+      <li>Những điểm quyết định quan trọng của họ là gì?</li>
+      <li>Sự tương tác giữa hoạt động offline và online trong câu chuyện của họ là gì?</li>
+      <li>Những rào cản và điểm đau của họ là gì? Họ vượt qua chúng như thế nào?</li>
+    </ul>
+  </div>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch26-urpg.html"><span class="lbl">Chương trước</span>Chương 26: Sử Dụng Bản Đồ Hành Trình và Trải Nghiệm để Trực Quan Hóa Dữ Liệu Nghiên Cứu</a>
+  <a href="ch28-urpg.html"><span class="lbl">Chương sau</span>Chương 28: Sử Dụng Infographic để Chuyển Đổi Dữ Liệu Số và Thống Kê</a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URPG | Chương 04 — Quản Lý Logistics: Đại Lý, Cơ Sở Vật Chất và Hợp Đồng</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+  }
+  .breadcrumb span { margin: 0 6px; }
+
+  .chapter-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+
+  .divider-heavy {
+    border: none;
+    border-top: 2px solid var(--accent-line);
+    margin-bottom: 40px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  .meta-strip {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .meta-value { font-size: 14px; color: var(--text-secondary); }
+
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 32px 0 12px;
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin: 20px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  p { color: var(--text-secondary); margin-bottom: 16px; }
+  strong { color: var(--text); font-weight: 700; }
+  em { color: var(--text-secondary); font-style: italic; }
+
+  ul, ol { padding-left: 24px; margin-bottom: 16px; }
+  li { color: var(--text-secondary); margin-bottom: 6px; }
+  li strong { color: var(--text); }
+
+  .key-concept {
+    background: var(--surface);
+    border-left: 3px solid var(--accent-line);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 0 2px 2px 0;
+  }
+  .key-concept .kc-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+  .key-concept p { margin-bottom: 8px; }
+  .key-concept p:last-child { margin-bottom: 0; }
+
+  .highlight-box {
+    background: var(--surface-dark);
+    border: 1px solid var(--border-strong);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 2px;
+  }
+  .highlight-box p { margin-bottom: 0; }
+
+  .warning-box {
+    background: #f5f0f0;
+    border: 1px solid #c8b8b8;
+    border-left: 3px solid #8b4040;
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 0 2px 2px 0;
+  }
+  .warning-box .w-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #8b4040; margin-bottom: 8px; font-weight: 700; }
+  .warning-box p { margin-bottom: 8px; color: var(--text-secondary); }
+  .warning-box p:last-child { margin-bottom: 0; }
+
+  .tip-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border-strong);
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .tip-box .t-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+  .tip-box p { margin-bottom: 6px; font-size: 15px; }
+  .tip-box p:last-child { margin-bottom: 0; }
+
+  /* Budget tier cards */
+  .budget-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  @media (max-width: 600px) { .budget-grid { grid-template-columns: 1fr; } }
+  .budget-card {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .budget-header {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .budget-header.tier-1 { background: var(--surface); }
+  .budget-header.tier-2 { background: #efefef; }
+  .budget-header.tier-3 { background: #e5e5e5; }
+  .budget-header.tier-4 { background: var(--surface-dark); }
+  .budget-tier { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px; }
+  .budget-title { font-size: 15px; font-weight: 700; color: var(--text); }
+  .budget-body { padding: 14px 16px; }
+  .budget-body ul { margin: 0; padding-left: 18px; }
+  .budget-body li { font-size: 14px; margin-bottom: 4px; color: var(--text-secondary); }
+
+  /* Summary checklist */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 24px 0;
+  }
+  @media (max-width: 600px) { .summary-grid { grid-template-columns: 1fr; } }
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    border-radius: 2px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .summary-num {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    background: var(--accent-line);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 2px;
+    margin-top: 1px;
+  }
+  .summary-content {}
+  .summary-content strong { display: block; font-size: 14px; margin-bottom: 3px; color: var(--text); }
+  .summary-content p { font-size: 13px; margin: 0; color: var(--text-secondary); line-height: 1.5; }
+
+  /* Part 1 big summary box */
+  .part-summary {
+    background: var(--surface-dark);
+    border: 2px solid var(--accent-line);
+    padding: 28px 32px;
+    margin: 32px 0;
+    border-radius: 2px;
+  }
+  .part-summary .ps-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .part-summary h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+  .part-summary ol { padding-left: 22px; margin: 0; }
+  .part-summary li { color: var(--text-secondary); margin-bottom: 10px; font-size: 15px; }
+  .part-summary li strong { color: var(--text); }
+
+  .step-list { margin: 16px 0; }
+  .step-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .step-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: var(--surface-dark);
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin-top: 2px;
+  }
+  .step-content p { margin-bottom: 4px; font-size: 15px; }
+
+  .footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-book { font-size: 13px; color: var(--text-muted); }
+  .footer-nav { font-size: 13px; color: var(--text-muted); }
+
+  @media (max-width: 600px) {
+    body { padding: 32px 20px 64px; }
+    h1 { font-size: 24px; }
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="breadcrumb">
+  User Research: A Practical Guide &nbsp;<span>›</span>&nbsp; Phần 1: Nền Tảng &nbsp;<span>›</span>&nbsp; Chương 04
+</div>
+
+<div class="chapter-label">Chương 04 &nbsp;·&nbsp; Phần 1 — Nền Tảng (The Fundamentals) &nbsp;·&nbsp; Chương cuối Phần 1</div>
+<h1>Quản Lý Logistics Nghiên Cứu Người Dùng</h1>
+<p class="subtitle">Managing User Research Logistics: Agencies, Facilities and Contracts</p>
+<hr class="divider-heavy">
+
+<div class="meta-strip">
+  <div class="meta-item">
+    <span class="meta-label">Tác giả</span>
+    <span class="meta-value">Stephanie Marsh</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Nhà xuất bản</span>
+    <span class="meta-value">Kogan Page, 2018</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Trang gốc</span>
+    <span class="meta-value">pp. 65 – 69</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Phần</span>
+    <span class="meta-value">Part One — The Fundamentals (Kết thúc)</span>
+  </div>
+</div>
+
+<p>
+  Chương 4 là chương cuối của Phần 1. Ngắn hơn các chương trước nhưng giải quyết những câu hỏi thực tế quan trọng: Làm thế nào để đảm bảo an toàn trong nghiên cứu? Khi nào nên thuê đại lý? Ngân sách nên phân bổ thế nào? Và Phần 1 kết thúc bằng bản tóm tắt 9 điểm nguyên tắc cho toàn bộ nền tảng nghiên cứu người dùng.
+</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>1. An Toàn Trước Hết (Safety First)</h2>
+
+<p>
+  Đây là phần mà nhiều nhà nghiên cứu người dùng mới vào nghề không được chuẩn bị đúng mức. Nghiên cứu người dùng đưa bạn vào tiếp xúc với người lạ — đôi khi trong môi trường không quen thuộc. <strong>An toàn không phải là thứ yếu</strong>.
+</p>
+
+<h3>Nguyên tắc an toàn cơ bản — Mọi nghiên cứu</h3>
+
+<div class="step-list">
+  <div class="step-item">
+    <div class="step-icon">📍</div>
+    <div class="step-content">
+      <p><strong>Luôn thông báo địa điểm và lịch trình cho đồng nghiệp.</strong> Trước mỗi ngày nghiên cứu, đảm bảo ít nhất một người trong team biết bạn đang ở đâu, nghiên cứu với ai, và khi nào bạn dự kiến kết thúc. Đây là quy tắc không thể bỏ qua.</p>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-icon">👥</div>
+    <div class="step-content">
+      <p><strong>Nếu có thể, luôn có đồng nghiệp hiện diện.</strong> Một nhà nghiên cứu đặt câu hỏi, một người quan sát và ghi chú — mô hình hai người vừa cải thiện chất lượng nghiên cứu vừa tăng cường an toàn.</p>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-icon">🛑</div>
+    <div class="step-content">
+      <p><strong>Biết khi nào cần dừng phiên.</strong> Nếu người tham gia thô lỗ, hung hăng, hoặc khiến bạn cảm thấy không thoải mái — bạn có quyền dừng phiên. Không có dữ liệu nào xứng đáng với sự an toàn cá nhân của bạn.</p>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-icon">🔍</div>
+    <div class="step-content">
+      <p><strong>Xử lý trường hợp người tham gia gian lận danh tính.</strong> Nếu bạn nghi ngờ người tham gia không phải là người họ khai báo trong screener (ví dụ: một người tham gia không hề sử dụng sản phẩm liên quan nhưng khai là người dùng thường xuyên) — hãy dừng phiên một cách lịch sự với sự hỗ trợ của đồng nghiệp.</p>
+    </div>
+  </div>
+</div>
+
+<h3>An toàn khi nghiên cứu tại nhà hoặc nơi làm việc của người tham gia</h3>
+
+<p>
+  Khi bạn đến thăm người dùng tại môi trường của họ — nhà riêng, nơi làm việc — mức độ cẩn thận cần cao hơn:
+</p>
+
+<div class="warning-box">
+  <div class="w-label">⚠ Yêu cầu bắt buộc khi nghiên cứu hiện trường</div>
+  <p><strong>Luôn đi theo cặp — hai nhà nghiên cứu cùng đến.</strong> Không bao giờ đến một mình, đặc biệt là địa điểm không quen thuộc hoặc nhà riêng của người tham gia.</p>
+  <p><strong>Phân công vai trò rõ ràng trước.</strong> Ai sẽ hỏi? Ai sẽ quan sát và ghi chú? Ai chịu trách nhiệm thiết bị? Sự rõ ràng này giúp buổi diễn ra suôn sẻ và giảm rủi ro nhầm lẫn trong tình huống bất ngờ.</p>
+  <p><strong>Hỏi trước về điều kiện y tế.</strong> Khi liên hệ xác nhận lịch, hỏi liệu có bất kỳ điều kiện y tế nào bạn cần biết để đảm bảo môi trường phù hợp (ví dụ: dị ứng, tình trạng linh hoạt, v.v.).</p>
+</div>
+
+<h3>Hình thức và ngoại hình khi gặp người tham gia</h3>
+
+<p>
+  Cách bạn xuất hiện ảnh hưởng đến cách người tham gia cảm nhận và tương tác với bạn:
+</p>
+
+<ul>
+  <li>
+    <strong>Ăn mặc tương tự người tham gia.</strong> Nếu bạn nghiên cứu người dùng trong môi trường thông thường, đừng đến trong bộ vest kinh doanh chính thức nếu người tham gia mặc jeans. Khoảng cách xã hội trong trang phục có thể tạo ra cảm giác không thoải mái và ảnh hưởng đến sự cởi mở của họ.
+  </li>
+  <li>
+    <strong>Tránh vẻ ngoài quá uy quyền.</strong> Mục tiêu là tạo ra môi trường mà người tham gia cảm thấy thoải mái nói thật — không phải môi trường mà họ cảm thấy đang bị "phỏng vấn xin việc" hoặc "bị đánh giá".
+  </li>
+  <li>
+    <strong>Có thiết bị sẵn sàng trước khi người tham gia đến.</strong> Tránh cảnh thiết lập thiết bị trong khi người tham gia đang chờ — điều này làm lãng phí thời gian, tạo cảm giác không chuyên nghiệp, và có thể làm người tham gia lo lắng về quy trình.
+  </li>
+</ul>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>2. Sự Khác Biệt Văn Hóa</h2>
+
+<p>
+  Khi tiến hành nghiên cứu qua các nền văn hóa khác nhau — dù trong cùng một quốc gia hay ở nước ngoài — nhà nghiên cứu cần nhận thức về sự khác biệt có thể ảnh hưởng đến nghiên cứu.
+</p>
+
+<div class="key-concept">
+  <div class="kc-label">Ba chiều cần lưu ý</div>
+  <p><strong>Rào cản ngôn ngữ:</strong> Ngay cả khi cùng ngôn ngữ, giọng điệu, thành ngữ địa phương, và cách hiểu từ ngữ có thể khác nhau. Nếu làm nghiên cứu qua phiên dịch, hiểu rằng sắc thái có thể bị mất.</p>
+  <p><strong>Phong tục địa phương:</strong> Ví dụ về việc giao tiếp mắt, cách chào hỏi, thái độ đối với người lạ — tất cả đều khác nhau giữa các nền văn hóa và có thể ảnh hưởng đến cách người tham gia tương tác.</p>
+  <p><strong>Hành vi chấp nhận được:</strong> Những gì được xem là lịch sự hay bất lịch sự, những chủ đề nhạy cảm, và mức độ thoải mái khi nói về trải nghiệm cá nhân — tất cả đều biến thiên theo văn hóa.</p>
+</div>
+
+<p>
+  Nhận thức về sự khác biệt văn hóa không chỉ giúp bạn <strong>lập kế hoạch và chuẩn bị tốt hơn</strong> — nó còn giúp bạn <strong>hiểu đúng bối cảnh</strong> khi phân tích dữ liệu sau này. Một hành vi có vẻ "bất thường" trong một bối cảnh có thể hoàn toàn bình thường trong văn hóa khác.
+</p>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>3. Nghiên Cứu Người Dùng với Trẻ Em</h2>
+
+<p>
+  Nghiên cứu với trẻ em đòi hỏi các biện pháp bảo vệ đặc biệt — vì trẻ em là đối tượng dễ bị tổn thương và có quyền được bảo vệ nghiêm ngặt hơn.
+</p>
+
+<ul>
+  <li>
+    <strong>Kiểm tra lý lịch tư pháp (CRB check — UK, hoặc tương đương):</strong> Tất cả nhà nghiên cứu làm việc với trẻ em phải có kiểm tra lý lịch tư pháp hợp lệ. Đây là yêu cầu pháp lý ở Anh và nhiều quốc gia khác.
+  </li>
+  <li>
+    <strong>Sự cho phép của phụ huynh + người lớn hiện diện:</strong> Bạn cần sự đồng thuận có thông tin từ phụ huynh hoặc người giám hộ, không chỉ từ trẻ. Và phải có người lớn (phụ huynh hoặc giáo viên) hiện diện trong suốt phiên nghiên cứu.
+  </li>
+  <li>
+    <strong>Không dùng tiền mặt làm incentive (ở Anh):</strong> Tại Anh, cho tiền mặt trực tiếp cho trẻ em không được khuyến khích. Thay vào đó, dùng voucher hoặc quà tặng phù hợp với độ tuổi (thẻ mua sách, v.v.).
+  </li>
+  <li>
+    <strong>Điều chỉnh độ dài phiên theo độ tuổi và khả năng tập trung:</strong> Trẻ em không thể duy trì sự tập trung trong phiên 60 phút như người lớn. Thiết kế phiên ngắn hơn, có nhiều phần nghỉ, và dùng phương pháp phù hợp với độ tuổi.
+  </li>
+</ul>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>4. Thuê Đại Lý, Chọn Cơ Sở Vật Chất và Ký Hợp Đồng</h2>
+
+<p>
+  Quyết định thuê ai và sử dụng dịch vụ gì phụ thuộc nhiều vào <strong>ngân sách</strong>. Marsh cung cấp hướng dẫn thực tế theo bốn mức ngân sách:
+</p>
+
+<div class="budget-grid">
+  <div class="budget-card">
+    <div class="budget-header tier-1">
+      <div class="budget-tier">Ngân sách rất nhỏ</div>
+      <div class="budget-title">Tự làm mọi thứ</div>
+    </div>
+    <div class="budget-body">
+      <ul>
+        <li>Tự tuyển dụng người tham gia (từ mạng lưới, mạng xã hội, hoặc guerrilla)</li>
+        <li>Tự tiến hành nghiên cứu</li>
+        <li>Dùng không gian sẵn có (văn phòng, quán cà phê)</li>
+        <li>Chi tiêu chủ yếu cho <strong>incentive</strong> và chi phí di chuyển nhỏ</li>
+        <li>Phù hợp: startup, dự án cá nhân, nghiên cứu guerrilla</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="budget-card">
+    <div class="budget-header tier-2">
+      <div class="budget-tier">Ngân sách nhỏ</div>
+      <div class="budget-title">Thuê đại lý tuyển dụng</div>
+    </div>
+    <div class="budget-body">
+      <ul>
+        <li>Thuê <strong>đại lý tuyển dụng</strong> để tìm đúng người tham gia</li>
+        <li>Tự tiến hành nghiên cứu</li>
+        <li>Vẫn dùng không gian sẵn có</li>
+        <li>Tiết kiệm thời gian tuyển dụng, đảm bảo chất lượng mẫu</li>
+        <li>Phù hợp: SME, team nhỏ có ít thời gian tuyển dụng</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="budget-card">
+    <div class="budget-header tier-3">
+      <div class="budget-tier">Ngân sách trung bình</div>
+      <div class="budget-title">Cơ sở + đại lý chuyên biệt</div>
+    </div>
+    <div class="budget-body">
+      <ul>
+        <li>Thuê <strong>cơ sở nghiên cứu chuyên biệt</strong> (user research lab có phòng quan sát)</li>
+        <li>Thuê <strong>đại lý tuyển dụng chuyên biệt</strong> (có cơ sở dữ liệu lớn và chuyên môn)</li>
+        <li>Bao gồm chi phí <strong>incentive và logistics</strong></li>
+        <li>Có khả năng <strong>thực hiện nhiều vòng nghiên cứu lặp</strong></li>
+        <li>Phù hợp: tổ chức tầm trung, dự án sản phẩm quan trọng</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="budget-card">
+    <div class="budget-header tier-4">
+      <div class="budget-tier">Ngân sách lớn</div>
+      <div class="budget-title">Toàn diện + nghiên cứu chuyên sâu</div>
+    </div>
+    <div class="budget-body">
+      <ul>
+        <li>Tất cả những gì ở mức trung bình</li>
+        <li>Thêm <strong>nghiên cứu chuyên sâu hơn</strong>: ethnography, contextual inquiry, diary studies</li>
+        <li>Nhiều vòng lặp nghiên cứu hơn</li>
+        <li>Có thể thuê <strong>nhà nghiên cứu người dùng chuyên nghiệp ngoài</strong></li>
+        <li>Tham khảo hướng dẫn của <strong>Government Digital Service (GDS)</strong> về mua sắm dịch vụ nghiên cứu</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="tip-box">
+  <div class="t-label">Lời khuyên thực tế về hợp đồng</div>
+  <p><strong>Thương lượng!</strong> Chi phí của đại lý tuyển dụng, cơ sở nghiên cứu, và các nhà cung cấp dịch vụ thường có thể thương lượng — đặc biệt nếu bạn cam kết nhiều phiên hoặc xây dựng mối quan hệ dài hạn.</p>
+  <p><strong>Đọc hợp đồng kỹ.</strong> Đặc biệt chú ý đến điều khoản hủy bỏ, quyền sở hữu dữ liệu, và bảo mật thông tin người tham gia.</p>
+  <p><strong>Chi tiêu thông minh hơn là chi tiêu nhiều hơn.</strong> Một buổi nghiên cứu với 5 người đúng đối tượng tốt hơn nhiều so với 20 người sai đối tượng.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>5. Tổng Kết Phần 1 — Chín Nguyên Tắc Nền Tảng</h2>
+
+<p>
+  Marsh kết thúc Phần 1 bằng một bản tổng kết rõ ràng. Đây là chín điểm mà bất kỳ nhà nghiên cứu người dùng — dù mới hay có kinh nghiệm — cần ghi nhớ và thực hành:
+</p>
+
+<div class="part-summary">
+  <div class="ps-label">Tóm Tắt Phần 1 — The Fundamentals</div>
+  <h3>Chín Nguyên Tắc Nền Tảng của Nghiên Cứu Người Dùng</h3>
+  <ol>
+    <li>
+      <strong>Hãy rõ ràng về mục đích nghiên cứu.</strong> Đồng ý về câu hỏi nghiên cứu, mục tiêu và phạm vi trước khi bắt đầu. Tránh "feature creep" trong phạm vi nghiên cứu.
+    </li>
+    <li>
+      <strong>Tìm đúng người.</strong> Tuyển dụng những người tham gia thực sự đại diện cho người dùng thực tế của bạn — dựa trên hành vi và bối cảnh, không chỉ nhân khẩu học.
+    </li>
+    <li>
+      <strong>Luôn nhận thức về vấn đề đạo đức.</strong> Đồng thuận có thông tin không phải tùy chọn — đó là yêu cầu pháp lý và đạo đức. Minh bạch với người tham gia về mọi khía cạnh của nghiên cứu.
+    </li>
+    <li>
+      <strong>Tổ chức và lập kế hoạch cho cả bạn lẫn người tham gia.</strong> Logistics tốt giúp phiên diễn ra suôn sẻ và giúp người tham gia cảm thấy được tôn trọng và chuẩn bị tốt.
+    </li>
+    <li>
+      <strong>Quan sát — những gì người ta nói không bằng những gì người ta làm.</strong> Dữ liệu hành vi quan sát được đáng tin cậy hơn tự khai báo. Đây là lý do tồn tại cốt lõi của nghiên cứu người dùng định tính.
+    </li>
+    <li>
+      <strong>Đặt câu hỏi đúng cách.</strong> Dùng ngôn ngữ đơn giản và bao hàm; câu hỏi mở và trung lập; tránh từ khóa từ giao diện; và biết khi nào cần linh hoạt.
+    </li>
+    <li>
+      <strong>Đừng quên khả năng tiếp cận và hòa nhập.</strong> Thiết kế và nghiên cứu cần bao gồm người dùng với đa dạng khả năng, trình độ đọc viết, kỹ năng số, và bối cảnh sống.
+    </li>
+    <li>
+      <strong>An toàn là ưu tiên.</strong> Luôn thông báo địa điểm cho đồng nghiệp; đi theo cặp khi nghiên cứu hiện trường; biết khi nào cần dừng phiên. Không có dữ liệu nào đáng đánh đổi bằng sự an toàn cá nhân.
+    </li>
+    <li>
+      <strong>Chi tiêu thông minh và thương lượng hợp đồng tốt.</strong> Mức ngân sách quyết định mức dịch vụ bạn có thể dùng — nhưng dù ngân sách ở mức nào, luôn có cách tiến hành nghiên cứu người dùng có ý nghĩa. Chất lượng mẫu tuyển dụng quan trọng hơn quy mô.
+    </li>
+  </ol>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>6. Từ Phần 1 Đến Phần 2 — Tiếp Theo</h2>
+
+<p>
+  Phần 1 đã trang bị cho bạn nền tảng để bắt đầu bất kỳ dự án nghiên cứu người dùng nào. Bạn hiểu <em>tại sao</em> nghiên cứu người dùng quan trọng, <em>khi nào</em> và <em>cách nào</em> lập kế hoạch, <em>ai</em> cần tham gia, <em>làm thế nào</em> để đặt câu hỏi đúng, và <em>những rào cản logistics nào</em> cần giải quyết.
+</p>
+
+<p>
+  <strong>Phần 2 — Methods</strong> bắt đầu với Chương 05 và đi sâu vào 13 phương pháp cụ thể, mỗi phương pháp với hướng dẫn chi tiết về khi nào dùng, cách chuẩn bị, cách tiến hành và cách phân tích kết quả ban đầu:
+</p>
+
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="summary-num">05</div>
+    <div class="summary-content">
+      <strong>Usability Testing</strong>
+      <p>Kiểm thử khả năng sử dụng — phương pháp phổ biến nhất</p>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-num">06</div>
+    <div class="summary-content">
+      <strong>Content Testing</strong>
+      <p>Kiểm tra mức độ hiểu và hiệu quả của nội dung</p>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-num">07</div>
+    <div class="summary-content">
+      <strong>Card Sorting</strong>
+      <p>Hiểu cách người dùng phân loại và tổ chức thông tin</p>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-num">08</div>
+    <div class="summary-content">
+      <strong>Surveys</strong>
+      <p>Thu thập dữ liệu định lượng từ số lượng lớn người dùng</p>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-num">09</div>
+    <div class="summary-content">
+      <strong>User Interviews</strong>
+      <p>Phỏng vấn sâu để hiểu tư duy và động lực người dùng</p>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-num">10</div>
+    <div class="summary-content">
+      <strong>Diary Studies</strong>
+      <p>Nghiên cứu nhật ký để nắm bắt hành vi theo thời gian thực</p>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-num">11</div>
+    <div class="summary-content">
+      <strong>IA Validation</strong>
+      <p>Kiểm tra cấu trúc thông tin và điều hướng</p>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-num">12</div>
+    <div class="summary-content">
+      <strong>Ethnography</strong>
+      <p>Quan sát người dùng trong môi trường tự nhiên của họ</p>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-num">13</div>
+    <div class="summary-content">
+      <strong>Contextual Inquiry</strong>
+      <p>Kết hợp quan sát và phỏng vấn trong bối cảnh thực tế</p>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-num">14</div>
+    <div class="summary-content">
+      <strong>A/B Testing</strong>
+      <p>So sánh định lượng giữa hai phiên bản thiết kế</p>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-num">15</div>
+    <div class="summary-content">
+      <strong>Stakeholder Workshops</strong>
+      <p>Làm việc cùng các bên liên quan để xác định nhu cầu và ưu tiên</p>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-num">16</div>
+    <div class="summary-content">
+      <strong>Guerrilla Research</strong>
+      <p>Nghiên cứu nhanh, chi phí thấp tại không gian công cộng</p>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-num">17</div>
+    <div class="summary-content">
+      <strong>Combining Methods</strong>
+      <p>Kết hợp nhiều phương pháp để có bức tranh toàn diện hơn</p>
+    </div>
+  </div>
+</div>
+
+<div class="highlight-box">
+  <p>
+    <strong>Lời kết Phần 1:</strong> Nghiên cứu người dùng không phải là một kỹ năng bí truyền chỉ dành cho chuyên gia. Nó là một tư duy — một cam kết đặt con người vào trung tâm của mọi quyết định. Phần 1 đã cho bạn framework. Phần 2 sẽ cho bạn công cụ. Phần 3 sẽ dạy bạn cách biến dữ liệu thành hành động.
+  </p>
+</div>
+
+<div class="footer">
+  <div class="footer-book">
+    <em>User Research: A Practical Guide to Designing Better Products and Services</em><br>
+    Stephanie Marsh · Kogan Page · 2018
+  </div>
+  <div class="footer-nav">
+    ← <strong>Chương 03</strong> &nbsp;|&nbsp; Tiếp theo: <strong>Phần 2 — Chương 05: Usability Testing</strong> →
+  </div>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch3-urpg.html"><span class="lbl">Chương trước</span>Chương 3: Thực Hành Tốt Nhất trong Nghiên Cứu Người Dùng</a>
+  <a href="ch5-urpg.html"><span class="lbl">Chương sau</span>Chương 5: Kiểm Tra Khả Năng Sử Dụng</a>
+</nav>
+</body>
+</html>

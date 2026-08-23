@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 25 – Mô Hình Tư Duy</title>
+<style>
+  :root {
+    --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+    --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+    --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px; line-height: 1.75; color: var(--text);
+    background: var(--bg); max-width: 820px;
+    margin: 0 auto; padding: 60px 40px 100px;
+  }
+  .part-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  h1 { font-size: 2.2rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+  .chapter-num { font-size: 5rem; font-weight: 900; line-height: 1; color: var(--surface-dark); letter-spacing: -0.04em; margin-bottom: 16px; display: block; }
+  .subtitle { font-size: 1.05rem; color: var(--text-secondary); font-style: italic; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 2px solid var(--accent-line); }
+  h2 { font-size: 1.2rem; font-weight: 700; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); color: var(--text); }
+  h3 { font-size: 1rem; font-weight: 700; margin: 28px 0 8px; color: var(--text); }
+  p { margin-bottom: 16px; color: var(--text-secondary); }
+  ul, ol { padding-left: 24px; margin-bottom: 16px; }
+  li { margin-bottom: 6px; color: var(--text-secondary); }
+  .method-box { border: 1.5px solid var(--border-strong); background: var(--surface); padding: 20px 24px; margin: 32px 0; border-radius: 2px; }
+  .method-box .method-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .method-row { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .method-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); min-width: 110px; padding-top: 2px; }
+  .method-value { font-size: 0.9rem; color: var(--text-secondary); flex: 1; }
+  .compare-box { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border-strong); margin: 24px 0; }
+  .compare-side { background: var(--bg); padding: 16px 18px; }
+  .compare-side h4 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .compare-side p { font-size: 0.88rem; margin-bottom: 0; }
+  .case-study { border: 1px solid var(--border-strong); margin: 24px 0; }
+  .case-study .cs-header { background: var(--surface-dark); padding: 8px 16px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text); }
+  .case-study .cs-body { padding: 14px 16px; }
+  .case-study .cs-body p { font-size: 0.88rem; margin-bottom: 8px; }
+  .case-study .cs-body p:last-child { margin-bottom: 0; }
+  .important-note { border: 1.5px solid var(--border-strong); padding: 14px 18px; margin: 20px 0; background: var(--surface); }
+  .important-note .note-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text); margin-bottom: 8px; }
+  .important-note p { margin-bottom: 0; font-size: 0.9rem; font-style: italic; }
+  .mental-model-diagram { border: 1px solid var(--border-strong); padding: 0; margin: 24px 0; }
+  .mmd-title { background: var(--surface-dark); padding: 8px 14px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text); }
+  .mmd-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
+  .mmd-col { background: var(--bg); }
+  .mmd-col-head { background: var(--surface); padding: 8px 10px; font-size: 0.75rem; font-weight: 700; color: var(--text); border-bottom: 1px solid var(--border); text-align: center; min-height: 50px; display: flex; align-items: center; justify-content: center; }
+  .mmd-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
+  .mmd-cell { background: var(--bg); padding: 8px 10px; font-size: 0.75rem; color: var(--text-secondary); min-height: 60px; }
+  .mmd-cell.box1 { background: var(--surface); }
+  .mmd-cell.box2 { background: var(--bg); }
+  .mmd-cell.box3 { background: var(--surface); }
+  .mmd-cell-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 4px; }
+  .mmd-cell ul { list-style: none; padding-left: 0; margin-bottom: 0; }
+  .mmd-cell li { font-size: 0.72rem; color: var(--text-secondary); padding-left: 8px; position: relative; margin-bottom: 3px; }
+  .mmd-cell li::before { content: '·'; position: absolute; left: 0; }
+  .horizontal-line { border: none; border-top: 2px solid var(--border-strong); margin: 0; }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="part-label">Phần Ba · Phân Tích và Trình Bày Dữ Liệu</div>
+<span class="chapter-num">25</span>
+<h1>Sử Dụng Mô Hình Tư Duy để Trực Quan Hóa Cách Người Dùng Nghĩ và Xác Định Cơ Hội</h1>
+<p class="subtitle">Lấp đầy khoảng cách giữa cách người dùng nghĩ về sản phẩm và những gì sản phẩm thực sự cung cấp</p>
+
+<div class="method-box">
+  <div class="method-title">Tóm Tắt Phương Pháp</div>
+  <div class="method-row">
+    <span class="method-label">Phù hợp với</span>
+    <span class="method-value">Dữ liệu từ nhiều nguồn: quan sát kiểm thử khả năng sử dụng, dữ liệu phỏng vấn, nghiên cứu nhật ký, điều tra ngữ cảnh. Tương thích với agile và lean.</span>
+  </div>
+  <div class="method-row">
+    <span class="method-label">Sử dụng khi</span>
+    <span class="method-value">Muốn trực quan hóa và hiểu cách các nhóm người dùng nghĩ về sản phẩm/dịch vụ; xác định khoảng cách và cơ hội.</span>
+  </div>
+</div>
+
+<h2>Mô Hình Tư Duy là Gì?</h2>
+<p>Mô hình tư duy là sự hiểu biết trực giác của một người về cách thứ gì đó hoạt động — dựa trên những lần gặp gỡ trước đây, tiếp xúc với thông tin, trải nghiệm hàng ngày và phán đoán. Mô hình tư duy về <em>niềm tin</em> hơn là thực tế.</p>
+<p>Trong UX, mô hình tư duy người dùng là biểu đồ trực quan về cách mọi người nghĩ và cảm nhận về sản phẩm/dịch vụ. Các câu hỏi của khách hàng ở các giai đoạn khác nhau trong hành trình được lập bản đồ với các ý tưởng về loại nội dung, chức năng cần thiết để đáp ứng.</p>
+
+<h2>Mô Hình Tư Duy vs. Mô Hình Khái Niệm</h2>
+<div class="compare-box">
+  <div class="compare-side">
+    <h4>Mô Hình Tư Duy (Mental Model)</h4>
+    <p>Cách người dùng <em>tin rằng</em> sản phẩm/dịch vụ hoạt động. Dựa trên kinh nghiệm, trực giác, kỳ vọng. Là <strong>niềm tin</strong>, không phải thực tế.</p>
+  </div>
+  <div class="compare-side">
+    <h4>Mô Hình Khái Niệm (Conceptual Model)</h4>
+    <p>Mô hình thực tế của sản phẩm/dịch vụ mà người dùng trải nghiệm qua giao diện. Là <strong>thực tế</strong>, không phải niềm tin.</p>
+  </div>
+</div>
+<p>Khi hai mô hình này không khớp → sản phẩm khó học và sử dụng. Mô hình khái niệm cần tính đến mô hình tư duy của người dùng. Bạn có nhiều nhóm người dùng với các mô hình tư duy khác nhau — mô hình khái niệm cần hoạt động tốt cho tất cả các nhóm người dùng sơ cấp.</p>
+<p>Nghiên cứu người dùng cho bạn thấy nơi các nhóm người dùng chồng lấp và phân kỳ trong mô hình tư duy. Bạn có thể thiết kế, tinh chỉnh và xác nhận các khái niệm thông qua nghiên cứu để đáp ứng nhu cầu của các mô hình tư duy khác nhau.</p>
+
+<div class="important-note">
+  <div class="note-label">Lưu ý quan trọng về đổi mới</div>
+  <p>Nếu bạn đang đổi mới, vượt ra ngoài ranh giới và cung cấp cho mọi người điều gì đó họ chưa từng thấy, bạn có thể thay đổi mô hình tư duy của họ. Có một mức độ quán tính nhất định cần vượt qua — mất thời gian và công sức để thay đổi mô hình tư duy. Điều này cần được tính đến khi phát triển sản phẩm mới. Nếu sản phẩm/dịch vụ mang lại trải nghiệm có giá trị, người dùng sẽ nỗ lực học cách mới. Nếu họ không thấy giá trị, họ sẽ rời đi.</p>
+</div>
+
+<div class="case-study">
+  <div class="cs-header">Case Study · Thanh URL và thanh tìm kiếm trong trình duyệt web</div>
+  <div class="cs-body">
+    <p>Jakob Nielsen chỉ ra sự nhầm lẫn tiềm ẩn trong mô hình tư duy khi người dùng không nhận ra sự khác biệt giữa các phần tương tự (nhưng không giống nhau) của hệ thống (Interaction Design Foundation, 2017; Nielsen, 2010).</p>
+    <p>Nhiều người dùng không phân biệt được trường tìm kiếm Google và thanh URL trong trình duyệt. Họ dùng Google để tìm tên website nổi tiếng để nhấp vào link — thay vì nhập tên cộng '.com' vào thanh URL. Google Chrome đã phát triển để biến thanh URL thành công cụ tìm kiếm (Omnibox) để đáp ứng mô hình tư duy của người dùng, vì mô hình tư duy quá phổ biến để thay đổi bằng cách điều chỉnh thiết kế.</p>
+  </div>
+</div>
+
+<h2>Cách Tạo Mô Hình Tư Duy Của Riêng Bạn</h2>
+<p>Mỗi cột trong mô hình tư duy (Figure 25.1) bao gồm ba phần xếp theo chiều dọc:</p>
+<ul>
+  <li><strong>Hộp 1 (trên đường kẻ ngang):</strong> Câu hỏi / suy nghĩ của người dùng — những gì họ đang cố gắng hiểu hoặc quyết định</li>
+  <li><strong>Hộp 2 (dưới đường kẻ ngang):</strong> Nội dung/chức năng hiện có đang hỗ trợ các câu hỏi đó</li>
+  <li><strong>Hộp 3:</strong> Nội dung/chức năng còn thiếu cần có = <strong>cơ hội</strong></li>
+</ul>
+<p>Xác định những gì hiện tồn tại (hộp 2) đòi hỏi kiểm tra nội dung và chức năng hiện có. So sánh hộp 1 và hộp 2 sẽ xác định những cơ hội bạn đang bỏ lỡ để điền vào hộp 3.</p>
+
+<h2>Ví Dụ: Mô Hình Tư Duy Đóng Góp Từ Thiện (Figure 25.2)</h2>
+<p>Sử dụng kịch bản "Support Charity" từ Chương 3, đây là ví dụ về câu hỏi được xác định từ phỏng vấn người dùng về cảm nhận của họ khi quyên tiền cho tổ chức từ thiện:</p>
+
+<div class="mental-model-diagram">
+  <div class="mmd-title">Mô Hình Tư Duy — Quy Trình Đóng Góp Từ Thiện</div>
+  <div style="display:grid; grid-template-columns: repeat(4,1fr); gap:1px; background:var(--border);">
+    <div style="background:var(--surface); padding:10px; font-size:0.75rem; font-weight:700; color:var(--text); min-height:60px;">Tôi muốn quyên tiền cho từ thiện</div>
+    <div style="background:var(--surface); padding:10px; font-size:0.75rem; font-weight:700; color:var(--text); min-height:60px;">Tôi nên quyên cho ai?</div>
+    <div style="background:var(--surface); padding:10px; font-size:0.75rem; font-weight:700; color:var(--text); min-height:60px;">Tôi nên quyên như thế nào?</div>
+    <div style="background:var(--surface); padding:10px; font-size:0.75rem; font-weight:700; color:var(--text); min-height:60px;">Thực hiện quyên tiền</div>
+  </div>
+  <div style="display:grid; grid-template-columns: repeat(4,1fr); gap:1px; background:var(--border);">
+    <div style="background:var(--bg); padding:10px; font-size:0.72rem; color:var(--text-secondary);">
+      <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:4px;">Câu hỏi người dùng</div>
+      Tôi quan tâm đến các tổ chức từ thiện hỗ trợ người bệnh. Những tổ chức nào? Tôi muốn quyên tiền, không muốn tổ chức sự kiện.
+    </div>
+    <div style="background:var(--bg); padding:10px; font-size:0.72rem; color:var(--text-secondary);">
+      <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:4px;">Câu hỏi người dùng</div>
+      Tiền tôi quyên đi đâu? Có bằng chứng về việc chi tiêu hiệu quả không?
+    </div>
+    <div style="background:var(--bg); padding:10px; font-size:0.72rem; color:var(--text-secondary);">
+      <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:4px;">Câu hỏi người dùng</div>
+      Quyên online có an toàn không? Nếu quyên online, tôi có thể dùng Gift Aid? Có thể dùng PayPal không?
+    </div>
+    <div style="background:var(--bg); padding:10px; font-size:0.72rem; color:var(--text-secondary);">
+      <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:4px;">Câu hỏi người dùng</div>
+      Tôi muốn quyên ngay bây giờ. Tôi cần chia sẻ thông tin gì? Số tiền được Gift Aid là bao nhiêu? Tôi không muốn đăng ký nhận bản tin.
+    </div>
+  </div>
+  <div style="border-top: 2px solid var(--border-strong);"></div>
+  <div style="display:grid; grid-template-columns: repeat(4,1fr); gap:1px; background:var(--border);">
+    <div style="background:var(--surface); padding:10px; font-size:0.72rem; color:var(--text-secondary);">
+      <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:4px;">Nội dung hiện có</div>
+      (Trống — cơ hội)
+    </div>
+    <div style="background:var(--surface); padding:10px; font-size:0.72rem; color:var(--text-secondary);">
+      <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:4px;">Nội dung hiện có</div>
+      Chi phí chăm sóc một người/ngày và bao nhiêu % từ tiền quyên góp. Ví dụ gần đây về thiết bị y tế được mua từ dự án gây quỹ.
+    </div>
+    <div style="background:var(--surface); padding:10px; font-size:0.72rem; color:var(--text-secondary);">
+      <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:4px;">Nội dung hiện có</div>
+      (Trống — cơ hội)
+    </div>
+    <div style="background:var(--surface); padding:10px; font-size:0.72rem; color:var(--text-secondary);">
+      <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:4px;">Nội dung hiện có</div>
+      (Trống — cơ hội)
+    </div>
+  </div>
+  <div style="display:grid; grid-template-columns: repeat(4,1fr); gap:1px; background:var(--border);">
+    <div style="background:var(--bg); padding:10px; font-size:0.72rem; color:var(--text-secondary);">
+      <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:4px;">Nội dung cần có</div>
+      (Cơ hội cần nghiên cứu thêm)
+    </div>
+    <div style="background:var(--bg); padding:10px; font-size:0.72rem; color:var(--text-secondary);">
+      <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:4px;">Nội dung cần có</div>
+      Tiền đến từ đâu (quyên góp, trợ cấp chính phủ). Cách chi tiêu: chi phí hành chính, quảng cáo, tiền trao cho bệnh nhân.
+    </div>
+    <div style="background:var(--bg); padding:10px; font-size:0.72rem; color:var(--text-secondary);">
+      <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:4px;">Nội dung cần có</div>
+      (Cơ hội cần nghiên cứu thêm)
+    </div>
+    <div style="background:var(--bg); padding:10px; font-size:0.72rem; color:var(--text-secondary);">
+      <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:4px;">Nội dung cần có</div>
+      (Cơ hội cần nghiên cứu thêm)
+    </div>
+  </div>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch24-urpg.html"><span class="lbl">Chương trước</span>Chương 24: Sử Dụng Persona để Truyền Đạt Đặc Điểm và Hành Vi Người Dùng</a>
+  <a href="ch26-urpg.html"><span class="lbl">Chương sau</span>Chương 26: Sử Dụng Bản Đồ Hành Trình và Trải Nghiệm để Trực Quan Hóa Dữ Liệu Nghiên Cứu</a>
+</nav>
+</body>
+</html>

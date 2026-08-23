@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URPG | Chương 02 — Lập Kế Hoạch, Mục Tiêu và Các Vấn Đề Pháp Lý</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+  }
+  .breadcrumb span { margin: 0 6px; }
+
+  .chapter-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+
+  .divider-heavy {
+    border: none;
+    border-top: 2px solid var(--accent-line);
+    margin-bottom: 40px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  .meta-strip {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .meta-value { font-size: 14px; color: var(--text-secondary); }
+
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 32px 0 12px;
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin: 20px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  strong { color: var(--text); font-weight: 700; }
+  em { color: var(--text-secondary); font-style: italic; }
+
+  ul, ol {
+    padding-left: 24px;
+    margin-bottom: 16px;
+  }
+  li {
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+  li strong { color: var(--text); }
+
+  .key-concept {
+    background: var(--surface);
+    border-left: 3px solid var(--accent-line);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 0 2px 2px 0;
+  }
+  .key-concept .kc-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .key-concept p { margin-bottom: 0; }
+
+  .highlight-box {
+    background: var(--surface-dark);
+    border: 1px solid var(--border-strong);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 2px;
+  }
+  .highlight-box p { margin-bottom: 0; }
+
+  .warning-box {
+    background: #f5f0f0;
+    border: 1px solid #c8b8b8;
+    border-left: 3px solid #8b4040;
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 0 2px 2px 0;
+  }
+  .warning-box .w-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8b4040;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .warning-box p { margin-bottom: 0; color: var(--text-secondary); }
+
+  .tip-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border-strong);
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-radius: 0 2px 2px 0;
+  }
+  .tip-box .t-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .tip-box p { margin-bottom: 6px; font-size: 15px; }
+  .tip-box p:last-child { margin-bottom: 0; }
+
+  .example-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 2px;
+  }
+  .example-block .ex-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .example-block p { margin-bottom: 8px; font-size: 15px; }
+  .example-block p:last-child { margin-bottom: 0; }
+
+  .script-block {
+    background: #f7f7f7;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border-strong);
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+  .script-block .s-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .script-block p { margin-bottom: 8px; font-size: 15px; }
+  .script-block .placeholder { color: var(--text-muted); font-style: italic; }
+
+  /* Schedule table */
+  .sched-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .sched-table th {
+    background: var(--surface-dark);
+    color: var(--text);
+    font-weight: 700;
+    text-align: left;
+    padding: 9px 13px;
+    border: 1px solid var(--border-strong);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .sched-table td {
+    padding: 8px 13px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  .sched-table tr:nth-child(even) td { background: var(--surface); }
+  .sched-table .col-time { font-weight: 700; color: var(--text); white-space: nowrap; }
+
+  /* Two-col table for locations */
+  .loc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .loc-table th {
+    background: var(--surface-dark);
+    color: var(--text);
+    font-weight: 700;
+    text-align: left;
+    padding: 9px 13px;
+    border: 1px solid var(--border-strong);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .loc-table td {
+    padding: 8px 13px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  .loc-table tr:nth-child(even) td { background: var(--surface); }
+  .loc-table .location-name { font-weight: 700; color: var(--text); }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 14px;
+    margin: 20px 0;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .card p { font-size: 14px; margin-bottom: 0; color: var(--text-secondary); }
+
+  .step-list { margin: 16px 0; }
+  .step-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: var(--surface-dark);
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 2px;
+  }
+  .step-content p { margin-bottom: 4px; }
+
+  .note-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .note-bullet {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    background: var(--text);
+    border-radius: 50%;
+    margin-top: 8px;
+  }
+  .note-content { color: var(--text-secondary); font-size: 15px; }
+
+  .footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-book { font-size: 13px; color: var(--text-muted); }
+  .footer-nav { font-size: 13px; color: var(--text-muted); }
+
+  @media (max-width: 600px) {
+    body { padding: 32px 20px 64px; }
+    h1 { font-size: 24px; }
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="breadcrumb">
+  User Research: A Practical Guide &nbsp;<span>›</span>&nbsp; Phần 1: Nền Tảng &nbsp;<span>›</span>&nbsp; Chương 02
+</div>
+
+<div class="chapter-label">Chương 02 &nbsp;·&nbsp; Phần 1 — Nền Tảng (The Fundamentals)</div>
+<h1>Lập Kế Hoạch, Mục Tiêu và Các Vấn Đề Pháp Lý</h1>
+<p class="subtitle">Planning, Goals and Legal Issues</p>
+<hr class="divider-heavy">
+
+<div class="meta-strip">
+  <div class="meta-item">
+    <span class="meta-label">Tác giả</span>
+    <span class="meta-value">Stephanie Marsh</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Nhà xuất bản</span>
+    <span class="meta-value">Kogan Page, 2018</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Trang gốc</span>
+    <span class="meta-value">pp. 13 – 30</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Phần</span>
+    <span class="meta-value">Part One — The Fundamentals</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>1. Khi Nào Là Thời Điểm Đúng Để Làm Nghiên Cứu Người Dùng?</h2>
+
+<p>
+  Đây là một trong những câu hỏi phổ biến nhất mà các nhóm sản phẩm đặt ra. Câu trả lời của Marsh vừa thực dụng vừa tham vọng:
+</p>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title">Câu trả lời thực dụng</div>
+    <p><strong>Bất cứ lúc nào.</strong> Không có thời điểm nào là quá sớm hay quá muộn để hiểu người dùng tốt hơn. Ngay cả khi sản phẩm đã ra mắt, nghiên cứu vẫn có giá trị để cải thiện.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Câu trả lời lý tưởng</div>
+    <p><strong>Mọi lúc.</strong> Nghiên cứu người dùng nên là một hoạt động liên tục, không phải sự kiện một lần trước khi ra mắt.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Câu trả lời chiến lược</div>
+    <p><strong>Khi tác động lớn nhất.</strong> Xác định điểm trong vòng đời sản phẩm mà một phát hiện từ nghiên cứu có thể thay đổi quyết định lớn nhất.</p>
+  </div>
+</div>
+
+<p>
+  Thực tế là hầu hết các tổ chức không thể làm nghiên cứu "mọi lúc". Do đó, điều quan trọng là <strong>xác định những thời điểm có tác động cao nhất</strong> — khi quyết định thiết kế quan trọng đang được đưa ra, khi có thể thay đổi hướng đi trước khi đầu tư quá nhiều.
+</p>
+
+<h3>Nghiên cứu người dùng trong môi trường Agile và Lean</h3>
+
+<div class="key-concept">
+  <div class="kc-label">Định nghĩa — Agile</div>
+  <p>
+    <strong>Agile</strong> là một phương pháp quản lý dự án phần mềm theo hướng lặp và tăng dần (<em>iterative and incremental</em>). Thay vì lập kế hoạch toàn bộ dự án từ đầu, Agile chia công việc thành các sprint ngắn (thường 1–2 tuần), liên tục điều chỉnh dựa trên phản hồi.
+  </p>
+</div>
+
+<p>
+  Nghiên cứu người dùng trong môi trường Agile có những thách thức riêng:
+</p>
+
+<ul>
+  <li>Chu kỳ sprint ngắn gây áp lực thời gian cho việc tuyển dụng và tiến hành nghiên cứu</li>
+  <li>Backlog luôn thay đổi → khó lên kế hoạch nghiên cứu dài hạn</li>
+  <li>Ranh giới giữa "discovery" và "delivery" thường mờ nhạt</li>
+</ul>
+
+<p>
+  Giải pháp của Marsh:
+</p>
+
+<ul>
+  <li>Lên kế hoạch nghiên cứu vào <strong>giai đoạn đầu sprint planning</strong>, không để đến giữa sprint</li>
+  <li>Không để quá <strong>2–3 tuần</strong> mà không có bất kỳ hình thức kiểm thử nào với người dùng</li>
+  <li>Sử dụng <strong>phân tích nhóm</strong> (group analysis) thay vì phân tích cá nhân để tăng tốc độ</li>
+  <li>Kết hợp retrospectives và show-and-tells để chia sẻ phát hiện nhanh chóng với toàn team</li>
+</ul>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>2. Xác Định Mục Tiêu Nghiên Cứu Rõ Ràng</h2>
+
+<p>
+  Trước khi bắt đầu bất kỳ nghiên cứu nào, bạn phải biết <strong>chính xác bạn đang cố gắng trả lời câu hỏi gì</strong>. Đây là bước mà nhiều nhóm bỏ qua, dẫn đến nghiên cứu lan man, tốn kém và kết quả không thể hành động.
+</p>
+
+<h3>Phân biệt: Phát biểu vấn đề vs. Phát biểu cơ hội</h3>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title">Problem Framing</div>
+    <p><strong>Phát biểu vấn đề</strong>: "Người dùng không thể tìm thấy tính năng X." Tập trung vào điều gì đang sai.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Opportunity Framing</div>
+    <p><strong>Phát biểu cơ hội</strong>: "Làm thế nào để giúp người dùng khám phá tính năng X dễ dàng hơn?" Tập trung vào điều có thể cải thiện.</p>
+  </div>
+</div>
+
+<p>
+  Marsh khuyến nghị đồng ý về <strong>mục tiêu và câu hỏi nghiên cứu cụ thể</strong> trước khi bắt đầu — với tất cả các bên liên quan. Điều này ngăn chặn "feature creep" trong nghiên cứu, khi stakeholders liên tục thêm yêu cầu vào nghiên cứu đang diễn ra.
+</p>
+
+<div class="tip-box">
+  <div class="t-label">Nguyên tắc đặt mục tiêu tốt</div>
+  <p>Mục tiêu nghiên cứu tốt phải <strong>cụ thể</strong>, <strong>có thể đo lường</strong> và <strong>dẫn đến hành động</strong>. "Hiểu người dùng tốt hơn" là mục tiêu quá mơ hồ. "Xác định 3 rào cản chính ngăn người dùng hoàn thành quy trình đăng ký" là mục tiêu tốt.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>3. Đạo Đức và Pháp Lý: Không Được Bỏ Qua</h2>
+
+<div class="warning-box">
+  <div class="w-label">⚠ Lưu ý quan trọng</div>
+  <p>
+    Đây là chủ đề mà Marsh nhấn mạnh rằng <strong>không được phép bỏ qua</strong> — không phải vì lý do đạo đức đơn thuần, mà vì nhiều yêu cầu trong số này là <strong>bắt buộc theo pháp luật</strong>. Vi phạm có thể dẫn đến hậu quả pháp lý nghiêm trọng.
+  </p>
+</div>
+
+<h3>Nguyên tắc: Minh bạch và Đồng thuận có thông tin</h3>
+
+<p>
+  Hai nguyên tắc cốt lõi của nghiên cứu người dùng có đạo đức:
+</p>
+
+<ul>
+  <li>
+    <strong>Minh bạch (Transparency):</strong> Người tham gia phải biết họ đang tham gia vào gì, tại sao dữ liệu được thu thập, và dữ liệu đó sẽ được dùng như thế nào.
+  </li>
+  <li>
+    <strong>Đồng thuận có thông tin (Informed Consent):</strong> Người tham gia phải tự nguyện đồng ý tham gia <em>sau khi</em> được thông báo đầy đủ về nghiên cứu. Đồng thuận không thể thu thập dưới áp lực hay sau khi nghiên cứu đã bắt đầu.
+  </li>
+</ul>
+
+<div class="key-concept">
+  <div class="kc-label">Tại sao Informed Consent là bắt buộc</div>
+  <p>
+    Ở nhiều quốc gia, <strong>đồng thuận có thông tin là yêu cầu pháp lý</strong>, đặc biệt khi thu thập và lưu trữ dữ liệu cá nhân (tên, hình ảnh, tiếng nói, hành vi). Vi phạm có thể vi phạm luật bảo vệ dữ liệu (như GDPR ở châu Âu). Không phải chỉ là "best practice" — đây là nghĩa vụ pháp lý.
+  </p>
+</div>
+
+<h3>Những gì bạn phải nói với người tham gia</h3>
+
+<p>
+  Trước khi bắt đầu bất kỳ phiên nghiên cứu nào, bạn phải thông báo rõ ràng những điều sau:
+</p>
+
+<ul>
+  <li>Phiên nghiên cứu <strong>có được ghi âm/ghi hình không</strong></li>
+  <li>Dữ liệu thu thập sẽ <strong>được dùng như thế nào</strong> (cải thiện sản phẩm, chia sẻ nội bộ, v.v.)</li>
+  <li>Dữ liệu <strong>có được chia sẻ với ai không</strong> và dưới hình thức nào (ẩn danh hay có tên)</li>
+  <li>Dữ liệu được <strong>lưu trữ ở đâu và được bảo mật như thế nào</strong></li>
+  <li>Dữ liệu sẽ được <strong>lưu trong bao lâu</strong> trước khi xóa</li>
+  <li>Có <strong>người quan sát nào</strong> đang theo dõi phiên không (và họ là ai)</li>
+</ul>
+
+<h3>Mẫu lời giới thiệu đồng thuận (Consent Introduction Script)</h3>
+
+<div class="script-block">
+  <div class="s-label">Ví dụ — Lời giới thiệu đồng thuận (bản dịch tiếng Việt)</div>
+  <p>"Xin chào, tên tôi là <span class="placeholder">(tên người nghiên cứu)</span>. Tôi làm việc cho <span class="placeholder">(tên tổ chức)</span> với tư cách là <span class="placeholder">(vai trò)</span>."</p>
+  <p>"Hôm nay chúng tôi đang nghiên cứu <span class="placeholder">(mô tả ngắn về chủ đề nghiên cứu)</span>. Chúng tôi quan tâm đến ý kiến và trải nghiệm của bạn — không có câu trả lời đúng hay sai."</p>
+  <p>"Phiên hôm nay sẽ kéo dài khoảng <span class="placeholder">(thời gian)</span>. Trong suốt phiên, chúng tôi sẽ <span class="placeholder">(mô tả hoạt động: ví dụ 'yêu cầu bạn thực hiện một số tác vụ trên trang web')</span>."</p>
+  <p>"Với sự đồng ý của bạn, chúng tôi muốn <span class="placeholder">(ghi âm/ghi hình/ghi chú)</span> phiên này. Dữ liệu này sẽ chỉ được sử dụng nội bộ cho mục đích <span class="placeholder">(mục đích cụ thể)</span> và sẽ được lưu giữ trong <span class="placeholder">(khoảng thời gian)</span>."</p>
+  <p>"Bạn có thể rút khỏi nghiên cứu bất cứ lúc nào mà không cần giải thích lý do. Nếu bạn rút, tất cả dữ liệu của bạn sẽ bị xóa."</p>
+  <p>"Bạn có câu hỏi gì về điều này không? Bạn có đồng ý tham gia và đồng ý với <span class="placeholder">(ghi âm/ghi hình)</span> không?"</p>
+</div>
+
+<h3>Ví dụ: Mẫu Đồng Thuận Trực Tuyến</h3>
+
+<p>
+  Đối với nghiên cứu trực tuyến (khảo sát, nghiên cứu không có người kiểm duyệt), Marsh gợi ý một mẫu đồng thuận tương tự được tích hợp ngay trên trang khảo sát (ví dụ từ SurveyMonkey 2017):
+</p>
+
+<div class="example-block">
+  <div class="ex-label">Ví dụ — Mẫu đồng thuận trực tuyến</div>
+  <p><strong>Trước khi bắt đầu khảo sát, vui lòng đọc các thông tin sau:</strong></p>
+  <p>Nghiên cứu này được thực hiện bởi <em>[tên tổ chức]</em>. Câu trả lời của bạn hoàn toàn bảo mật và ẩn danh.</p>
+  <p>Dữ liệu sẽ được lưu giữ trong <em>[khoảng thời gian]</em> và chỉ được truy cập bởi nhóm nghiên cứu nội bộ.</p>
+  <p>Tham gia là tự nguyện. Bạn có thể dừng bất cứ lúc nào.</p>
+  <p><strong>☐ Tôi đã đọc thông tin trên và đồng ý tham gia vào nghiên cứu này.</strong></p>
+</div>
+
+<h3>Ba mẹo hàng đầu về quản lý đồng thuận</h3>
+
+<div class="tip-box">
+  <div class="t-label">Top Tips — Consent Management</div>
+  <p><strong>1. Không có đồng thuận = không có nghiên cứu.</strong> Nếu người tham gia từ chối ký mẫu đồng thuận hoặc không đồng ý với các điều khoản, bạn phải dừng phiên lại. Không có ngoại lệ.</p>
+  <p><strong>2. Giữ mẫu đồng thuận miễn là bạn còn giữ dữ liệu.</strong> Nếu bạn lưu trữ dữ liệu từ nghiên cứu trong 2 năm, mẫu đồng thuận phải được giữ ít nhất 2 năm.</p>
+  <p><strong>3. Rút lui = xóa tất cả dữ liệu.</strong> Nếu người tham gia rút lui khỏi nghiên cứu — kể cả sau khi phiên đã hoàn thành — bạn có nghĩa vụ xóa tất cả dữ liệu của họ.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>4. Lên Lịch và Lập Kế Hoạch Nghiên Cứu</h2>
+
+<h3>Ví dụ lịch nghiên cứu điển hình</h3>
+
+<p>
+  Marsh cung cấp các ví dụ cụ thể về việc một ngày nghiên cứu có thể trông như thế nào tùy thuộc vào thời gian mỗi phiên:
+</p>
+
+<table class="sched-table">
+  <thead>
+    <tr>
+      <th>Độ dài phiên</th>
+      <th>Số ngày</th>
+      <th>Số người tham gia</th>
+      <th>Ghi chú lịch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="col-time">30 phút</td>
+      <td>1 ngày</td>
+      <td>9 người</td>
+      <td>Nghỉ 15 phút giữa các phiên; 5–6 phiên buổi sáng, 3–4 phiên buổi chiều</td>
+    </tr>
+    <tr>
+      <td class="col-time">45 phút</td>
+      <td>1,5 ngày</td>
+      <td>9 người</td>
+      <td>Nghỉ 15 phút giữa các phiên; phân bổ đều qua 1 ngày rưỡi</td>
+    </tr>
+    <tr>
+      <td class="col-time">60 phút</td>
+      <td>2 ngày</td>
+      <td>9 người</td>
+      <td>Nghỉ 15 phút giữa các phiên; 4–5 phiên mỗi ngày</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="tip-box">
+  <div class="t-label">Ba mẹo lên lịch quan trọng</div>
+  <p><strong>1. Luôn có người tham gia dự phòng.</strong> Hãy tuyển thêm một người tham gia và thông báo họ sẽ được gọi nếu có người hủy. Hủy phút chót xảy ra thường xuyên hơn bạn nghĩ.</p>
+  <p><strong>2. Nghỉ 15 phút giữa mỗi phiên.</strong> Người nghiên cứu cần thời gian để ghi chú, chuẩn bị cho phiên tiếp theo, và phục hồi tinh thần. Không nên sắp xếp các phiên liên tiếp không có nghỉ.</p>
+  <p><strong>3. Không bắt đầu ngay đầu ngày.</strong> Phiên đầu tiên không nên được đặt vào lúc 9:00 sáng vì người tham gia thường đến muộn, còn nhóm nghiên cứu cần thời gian để thiết lập và kiểm tra thiết bị.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>5. Địa Điểm Nghiên Cứu</h2>
+
+<p>
+  Nơi bạn tiến hành nghiên cứu ảnh hưởng đáng kể đến chất lượng và loại dữ liệu bạn thu thập. Marsh cung cấp một bảng so sánh chi tiết về các lựa chọn địa điểm (Table 2.1 trong sách gốc):
+</p>
+
+<table class="loc-table">
+  <thead>
+    <tr>
+      <th>Địa điểm</th>
+      <th>Ưu điểm</th>
+      <th>Nhược điểm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="location-name">Văn phòng công ty</td>
+      <td>Dễ dàng kiểm soát môi trường; có sẵn cơ sở hạ tầng; tiết kiệm chi phí</td>
+      <td>Người tham gia có thể cảm thấy áp lực hoặc không thoải mái trong môi trường lạ; khó tạo bầu không khí tự nhiên</td>
+    </tr>
+    <tr>
+      <td class="location-name">Phòng lab nghiên cứu người dùng</td>
+      <td>Được thiết kế chuyên biệt; có phòng quan sát riêng biệt; thiết bị ghi âm/hình chuyên nghiệp</td>
+      <td>Chi phí thuê cao; người tham gia phải di chuyển đến địa điểm; không phản ánh môi trường thực tế của người dùng</td>
+    </tr>
+    <tr>
+      <td class="location-name">Cơ sở hội nghị</td>
+      <td>Trung lập; thoải mái; có thể đặt nhiều phòng linh hoạt</td>
+      <td>Chi phí; không có thiết bị chuyên dụng; người tham gia vẫn phải di chuyển</td>
+    </tr>
+    <tr>
+      <td class="location-name">Không gian công cộng (thư viện, quán cà phê)</td>
+      <td>Chi phí thấp; dễ tiếp cận; phù hợp với nghiên cứu guerrilla; người tham gia cảm thấy thoải mái hơn</td>
+      <td>Nhiều tiếng ồn và xao nhãng; khó kiểm soát môi trường; vấn đề bảo mật thông tin; không phù hợp cho nghiên cứu nhạy cảm</td>
+    </tr>
+    <tr>
+      <td class="location-name">Nhà/nơi làm việc của người tham gia</td>
+      <td>Dữ liệu chân thực nhất; quan sát được bối cảnh thực tế; thiết lập thực tế của người dùng</td>
+      <td>Chi phí di chuyển của nhóm nghiên cứu; vấn đề an toàn; khó kiểm soát; đòi hỏi nhiều nỗ lực logistics hơn</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Nghiên cứu từ xa (Remote Research)</h3>
+
+<p>
+  Nghiên cứu từ xa ngày càng phổ biến và có thể chia thành hai loại chính:
+</p>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title">Có người kiểm duyệt (Moderated)</div>
+    <p>Nhà nghiên cứu và người tham gia cùng tham gia trực tiếp qua <strong>điện thoại hoặc video call</strong> kết hợp chia sẻ màn hình. Phù hợp với usability testing, user interviews sâu.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Không có người kiểm duyệt (Unmoderated)</div>
+    <p>Người tham gia tự hoàn thành nghiên cứu theo tốc độ riêng — <strong>khảo sát, IA validation, diary studies</strong>. Không có nhà nghiên cứu trực tiếp theo dõi.</p>
+  </div>
+</div>
+
+<p>Bảng so sánh nghiên cứu từ xa có kiểm duyệt và không có kiểm duyệt (Table 2.2):</p>
+
+<table class="loc-table">
+  <thead>
+    <tr>
+      <th>Yếu tố</th>
+      <th>Có người kiểm duyệt</th>
+      <th>Không có người kiểm duyệt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Chi phí</td>
+      <td>Cao hơn (thời gian nhà nghiên cứu)</td>
+      <td>Thấp hơn (tự động hóa)</td>
+    </tr>
+    <tr>
+      <td>Chất lượng dữ liệu</td>
+      <td>Sâu hơn; có thể hỏi follow-up</td>
+      <td>Rộng hơn; ít sâu hơn</td>
+    </tr>
+    <tr>
+      <td>Khả năng mở rộng</td>
+      <td>Hạn chế (từng phiên một)</td>
+      <td>Cao (có thể chạy song song nhiều người)</td>
+    </tr>
+    <tr>
+      <td>Kiểm soát môi trường</td>
+      <td>Không kiểm soát được môi trường của người dùng</td>
+      <td>Không kiểm soát được; còn ít hơn</td>
+    </tr>
+    <tr>
+      <td>Phù hợp với</td>
+      <td>Usability testing, user interviews, contextual inquiry</td>
+      <td>Surveys, card sorting, IA validation, diary studies</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>6. Thử Nghiệm Pilot (Pilot Testing)</h2>
+
+<p>
+  Marsh nhấn mạnh tầm quan trọng của việc <strong>luôn luôn chạy thử pilot</strong> trước khi bắt đầu nghiên cứu chính thức. Pilot testing nghĩa là chạy thử toàn bộ phiên với một người — thường là đồng nghiệp — trước ngày nghiên cứu thực sự.
+</p>
+
+<p>Pilot testing giúp phát hiện:</p>
+
+<ul>
+  <li>Câu hỏi hoặc nhiệm vụ không rõ ràng hoặc gây hiểu nhầm</li>
+  <li>Vấn đề về thứ tự và thời gian (phiên quá dài hoặc quá ngắn)</li>
+  <li>Vấn đề kỹ thuật với thiết bị ghi hình, màn hình chia sẻ, phần mềm prototype</li>
+  <li>Những chỗ mà nhà nghiên cứu vô tình dẫn dắt người tham gia</li>
+  <li>Nội dung prototype có vấn đề hoặc thiếu sót cần sửa trước</li>
+</ul>
+
+<div class="tip-box">
+  <div class="t-label">Nguyên tắc vàng</div>
+  <p>Không bao giờ bắt đầu một phiên nghiên cứu thực sự mà không đã chạy ít nhất một pilot. Chi phí để sửa vấn đề sau pilot gần như bằng không. Chi phí để phát hiện vấn đề trong giữa phiên với người tham gia thực sự là rất cao.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>7. Mời Người Quan Sát</h2>
+
+<p>
+  Một trong những thực hành có giá trị nhất trong nghiên cứu người dùng là mời <strong>stakeholders và thành viên team quan sát phiên nghiên cứu trực tiếp</strong>. Khi người thiết kế, developer, hoặc quản lý sản phẩm ngồi xem người dùng thực sự vật lộn với giao diện, họ phát triển sự đồng cảm không thể có được qua báo cáo.
+</p>
+
+<div class="key-concept">
+  <div class="kc-label">Nguyên tắc từ GDS (Government Digital Service, UK)</div>
+  <p>
+    <strong>"Mỗi thành viên team nên quan sát ít nhất 2 giờ nghiên cứu người dùng mỗi 6 tuần."</strong> Đây là tiêu chuẩn được Government Digital Service của Anh áp dụng — không phải như một đặc quyền mà như một kỳ vọng nghề nghiệp cơ bản.
+  </p>
+</div>
+
+<h3>Quy tắc ghi chú cho người quan sát</h3>
+
+<p>
+  Người quan sát phải tuân theo các quy tắc rõ ràng để tránh gây nhiễu kết quả và để đảm bảo ghi chú có ích:
+</p>
+
+<ul>
+  <li><strong>Ghi chú từng quan sát riêng biệt</strong> — mỗi quan sát một ghi chú (dùng Post-it hoặc ô riêng), không gộp nhiều quan sát vào một chỗ</li>
+  <li><strong>Ghi số ID người tham gia</strong> vào mỗi ghi chú để biết quan sát đó đến từ ai</li>
+  <li><strong>Ghi thời gian</strong> khi quan sát xảy ra (giúp tìm lại trong video ghi hình)</li>
+  <li><strong>Tránh diễn giải</strong> — ghi lại những gì bạn <em>thấy</em> và <em>nghe</em>, không phải những gì bạn <em>nghĩ</em> về nó</li>
+  <li><strong>Dùng Post-it hoặc bảng số hóa riêng</strong> — không viết trực tiếp vào sổ của người nghiên cứu chính</li>
+</ul>
+
+<div class="example-block">
+  <div class="ex-label">Ví dụ về cách ghi chú quan sát</div>
+  <p><strong>Tốt:</strong> "P3 | 12:34 | Người tham gia mất 45 giây tìm nút 'Tiếp tục'. Họ nhìn lên thanh điều hướng trước khi cuộn xuống."</p>
+  <p><strong>Tránh:</strong> "P3 | 12:34 | Người tham gia bị confused bởi giao diện kém thiết kế." (đây là diễn giải, không phải quan sát)</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>8. Tuyển Dụng Người Tham Gia</h2>
+
+<h3>Thời gian chuẩn bị cần thiết</h3>
+
+<p>
+  Một trong những sai lầm phổ biến nhất là để quá ít thời gian tuyển dụng. Marsh cung cấp hướng dẫn cụ thể:
+</p>
+
+<ul>
+  <li><strong>Tối thiểu 2 tuần</strong> cho người tham gia thông thường từ cơ sở dữ liệu khách hàng</li>
+  <li><strong>Dài hơn đáng kể</strong> cho những đối tượng đặc biệt hoặc chuyên gia (bác sĩ, kỹ sư, CEO, v.v.) — có thể cần 4–6 tuần</li>
+  <li><strong>Dài hơn nữa</strong> nếu phải tuyển qua đại lý hoặc yêu cầu kiểm tra đặc biệt (ví dụ: CRB check cho nghiên cứu với trẻ em)</li>
+</ul>
+
+<div class="highlight-box">
+  <p>
+    <strong>Quy tắc thực tế:</strong> Nếu ai đó nói với bạn "chúng tôi cần nghiên cứu trong 3 ngày nữa" — bạn không thể tuyển đúng người tham gia trong thời gian đó. Hãy thương lượng hoặc dùng phương pháp khác (như guerrilla research) thay vì thỏa hiệp chất lượng mẫu tuyển dụng.
+  </p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>9. Lập Kế Hoạch Phân Tích và Chia Sẻ Kết Quả</h2>
+
+<p>
+  Lập kế hoạch cho nghiên cứu không kết thúc ở việc lên lịch các phiên — bạn cũng cần lập kế hoạch cho <strong>giai đoạn sau nghiên cứu</strong>.
+</p>
+
+<div class="step-list">
+  <div class="step-item">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <p><strong>Lên lịch phiên phân tích nhóm (group analysis)</strong> ngay sau khi kết thúc các phiên nghiên cứu — lý tưởng là trong ngày hoặc ngay ngày hôm sau, khi ký ức còn tươi.</p>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <p><strong>Lên lịch debrief với stakeholders</strong> — buổi chia sẻ kết quả ban đầu với team ngay sau phân tích, trước khi viết báo cáo chính thức.</p>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <p><strong>Xác định định dạng đầu ra</strong> — báo cáo, video highlights, affinity diagram, presentation, hay infographic? Quyết định này ảnh hưởng đến cách bạn thu thập và lưu trữ dữ liệu trong quá trình nghiên cứu.</p>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <p><strong>Lên lịch show-and-tells hoặc retrospectives</strong> trong môi trường Agile để chia sẻ phát hiện nhanh chóng với toàn bộ team phát triển.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>10. Tổng Kết Chương 02</h2>
+
+<p>
+  Chương này bao gồm những nền tảng lập kế hoạch mà mọi nghiên cứu người dùng đều cần có trước khi bắt đầu. Những điểm then chốt cần ghi nhớ:
+</p>
+
+<ul>
+  <li>
+    <strong>Thời điểm nghiên cứu:</strong> Bất cứ lúc nào đều tốt, nhưng hãy xác định điểm có tác động cao nhất — khi quyết định quan trọng đang được đưa ra.
+  </li>
+  <li>
+    <strong>Mục tiêu rõ ràng:</strong> Đồng ý về câu hỏi nghiên cứu cụ thể trước khi bắt đầu. Tránh "feature creep" trong phạm vi nghiên cứu.
+  </li>
+  <li>
+    <strong>Đạo đức và pháp lý là không thể bỏ qua:</strong> Đồng thuận có thông tin là yêu cầu pháp lý, không chỉ là tùy chọn. Không có đồng thuận = không có nghiên cứu.
+  </li>
+  <li>
+    <strong>Lịch trình thực tế:</strong> Nghỉ 15 phút giữa phiên; có người tham gia dự phòng; không bắt đầu quá sớm trong ngày.
+  </li>
+  <li>
+    <strong>Địa điểm ảnh hưởng đến dữ liệu:</strong> Mỗi lựa chọn địa điểm có đánh đổi riêng. Nghiên cứu tại nhà/nơi làm việc của người dùng cho dữ liệu chân thực nhất nhưng tốn công nhất.
+  </li>
+  <li>
+    <strong>Pilot testing là bắt buộc:</strong> Luôn chạy thử trước khi tiến hành nghiên cứu thực sự.
+  </li>
+  <li>
+    <strong>Mời người quan sát:</strong> Stakeholders quan sát nghiên cứu trực tiếp sẽ đưa ra quyết định tốt hơn — tối thiểu 2 giờ/6 tuần (tiêu chuẩn GDS).
+  </li>
+  <li>
+    <strong>Tuyển dụng cần thời gian:</strong> Tối thiểu 2 tuần cho người dùng thông thường; dài hơn cho đối tượng chuyên biệt.
+  </li>
+  <li>
+    <strong>Lập kế hoạch phân tích ngay từ đầu:</strong> Lên lịch phân tích nhóm và debrief trước khi bắt đầu nghiên cứu.
+  </li>
+</ul>
+
+<div class="footer">
+  <div class="footer-book">
+    <em>User Research: A Practical Guide to Designing Better Products and Services</em><br>
+    Stephanie Marsh · Kogan Page · 2018
+  </div>
+  <div class="footer-nav">
+    ← <strong>Chương 01 — Giới Thiệu</strong> &nbsp;|&nbsp; Tiếp theo: <strong>Chương 03 — Thực Hành Tốt Nhất</strong> →
+  </div>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch1-urpg.html"><span class="lbl">Chương trước</span>Chương 1: Giới Thiệu: Tại Sao Nghiên Cứu Người Dùng Lại Quan Trọng?</a>
+  <a href="ch3-urpg.html"><span class="lbl">Chương sau</span>Chương 3: Thực Hành Tốt Nhất trong Nghiên Cứu Người Dùng</a>
+</nav>
+</body>
+</html>

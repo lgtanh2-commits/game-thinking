@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 05 – Kiểm Tra Khả Năng Sử Dụng | User Research</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── HEADER ── */
+  .book-meta {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 14px;
+    margin-bottom: 48px;
+  }
+
+  .chapter-header {
+    margin-bottom: 56px;
+  }
+
+  .chapter-number {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .chapter-title {
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .chapter-subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    font-style: italic;
+    border-left: 3px solid var(--accent-line);
+    padding-left: 16px;
+  }
+
+  /* ── SECTION HEADINGS ── */
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-top: 52px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent-line);
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 32px;
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+
+  /* ── BODY TEXT ── */
+  p {
+    margin-bottom: 14px;
+    color: var(--text-secondary);
+  }
+
+  p strong { color: var(--text); }
+
+  /* ── LISTS ── */
+  ul, ol {
+    margin: 12px 0 18px 0;
+    padding-left: 28px;
+  }
+
+  li {
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  li strong { color: var(--text); }
+
+  /* ── HIGHLIGHT BOXES ── */
+  .highlight-box {
+    background: var(--surface);
+    border-left: 4px solid var(--accent-line);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .highlight-box .box-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .highlight-box p, .highlight-box li {
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+
+  /* ── CASE STUDY BOX ── */
+  .case-study {
+    border: 1px solid var(--border-strong);
+    border-top: 3px solid var(--accent-line);
+    padding: 24px 28px;
+    margin: 32px 0;
+    background: var(--bg);
+  }
+
+  .case-study .cs-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .case-study .cs-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border-strong);
+    border: 1px solid var(--border-strong);
+    margin: 24px 0;
+  }
+
+  .comparison-grid .cell {
+    background: var(--bg);
+    padding: 16px 18px;
+  }
+
+  .comparison-grid .cell-header {
+    background: var(--surface-dark);
+    padding: 12px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  /* ── NUMBERED STEPS ── */
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    padding-left: 0;
+    margin: 16px 0;
+  }
+
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed var(--border);
+    align-items: flex-start;
+  }
+
+  .steps li:last-child { border-bottom: none; }
+
+  .steps li::before {
+    content: counter(step);
+    min-width: 26px;
+    height: 26px;
+    background: var(--text);
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── DEFINITION BLOCK ── */
+  .definition {
+    background: var(--surface-dark);
+    border-left: 5px solid var(--text);
+    padding: 18px 22px;
+    margin: 24px 0;
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  /* ── TOOL LIST ── */
+  .tool-list {
+    background: var(--surface);
+    padding: 16px 20px;
+    margin: 16px 0;
+    border: 1px solid var(--border);
+  }
+
+  .tool-list .tool-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  .tool-list .tool-item:last-child { border-bottom: none; }
+
+  .tool-list .tool-name { font-weight: 600; color: var(--text); }
+
+  /* ── SUS SCALE ── */
+  .sus-list {
+    list-style: none;
+    padding-left: 0;
+    counter-reset: sus;
+    margin: 12px 0;
+  }
+
+  .sus-list li {
+    counter-increment: sus;
+    display: flex;
+    gap: 12px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-secondary);
+    align-items: flex-start;
+  }
+
+  .sus-list li::before {
+    content: counter(sus);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text-muted);
+    min-width: 20px;
+    flex-shrink: 0;
+  }
+
+  /* ── INLINE QUOTE ── */
+  blockquote {
+    border-left: 3px solid var(--border-strong);
+    padding: 10px 18px;
+    margin: 18px 0;
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 15px;
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  /* ── FOOTER ── */
+  .chapter-footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="book-meta">User Research: A Practical Guide — Stephanie Marsh &nbsp;·&nbsp; Phần Hai: Phương Pháp Nghiên Cứu &nbsp;·&nbsp; Trang 75–99</div>
+
+<div class="chapter-header">
+  <div class="chapter-number">Chương 05</div>
+  <h1 class="chapter-title">Kiểm Tra Khả Năng Sử Dụng</h1>
+  <div class="chapter-subtitle">Quan sát người dùng thực hiện nhiệm vụ để phát hiện vấn đề</div>
+</div>
+
+<!-- ĐỊNH NGHĨA -->
+<div class="definition">
+  Kiểm tra khả năng sử dụng (usability testing) là phương pháp trong đó nhà nghiên cứu quan sát người dùng thực hiện các nhiệm vụ trên sản phẩm/dịch vụ nhằm xác định các vấn đề ảnh hưởng đến trải nghiệm. Phương pháp này kết hợp cả dữ liệu định tính lẫn định lượng, có thể thực hiện dưới dạng có người điều phối (moderated) hoặc không có người điều phối (unmoderated).
+</div>
+
+<!-- I. KIỂM TRA CÓ ĐIỀU PHỐI -->
+<h2>I. Kiểm Tra Có Điều Phối (Moderated)</h2>
+
+<p>Trong kiểm tra có điều phối, nhà nghiên cứu hiện diện trong suốt phiên kiểm tra — trực tiếp hoặc từ xa — để quan sát, ghi chú và đặt câu hỏi theo dõi. Đây là hình thức phổ biến nhất và cung cấp dữ liệu định tính sâu nhất.</p>
+
+<h3>Các hình thức có điều phối</h3>
+<ul>
+  <li><strong>Trực tiếp (face-to-face):</strong> Nhà nghiên cứu và người tham gia ở cùng một phòng.</li>
+  <li><strong>Từ xa (remote):</strong> Nhà nghiên cứu và người tham gia kết nối qua chia sẻ màn hình và hội nghị video.</li>
+</ul>
+
+<h3>Ưu điểm</h3>
+<ul>
+  <li><strong>Kiểm soát tốt hơn:</strong> Có thể ghi chú câu hỏi của người tham gia, trả lời nếu cần; không cần thiết bị đặc biệt; ngồi cạnh người dùng là đủ.</li>
+  <li><strong>Kết quả mạnh mẽ:</strong> Quan sát trực tiếp giúp tránh thiên lệch và dễ thuyết phục các bên liên quan.</li>
+  <li><strong>Linh hoạt trong tiến trình:</strong> Có thể điều chỉnh nghiên cứu theo những phát hiện xuất hiện trong phiên — tuy nhiên <em>không nên thay đổi các nhiệm vụ sau mỗi phiên</em> vì sẽ làm mất tính nhất quán.</li>
+  <li><strong>Kiểm tra trợ năng:</strong> Phù hợp để kiểm tra với người dùng công nghệ hỗ trợ (assistive technology); nếu có thể, hãy đến thăm họ tại môi trường của chính họ.</li>
+</ul>
+
+<h3>Nhược điểm</h3>
+<ul>
+  <li><strong>Tốn thời gian:</strong> Lên lịch và thực hiện từng phiên một tốn nhiều nguồn lực.</li>
+  <li><strong>Không có ý nghĩa thống kê:</strong> Mẫu nhỏ (thường chỉ 5 người) khiến một số bên liên quan không tin tưởng. Xem phần <em>Xây dựng niềm tin với mẫu nhỏ</em> cuối chương.</li>
+  <li><strong>Think-aloud không tự nhiên:</strong> Nói to trong khi làm việc không phải thói quen của ai. Tuy nhiên người tham gia thường quen dần rất nhanh; hãy dùng các phản hồi nhỏ như "mmm" và "uh-ha" để khuyến khích họ tiếp tục.</li>
+  <li><strong>Hiệu ứng quan sát (observer effect):</strong> Việc bị quan sát thay đổi hành vi của người dùng. Hiệu ứng này giảm theo kinh nghiệm nhưng luôn tồn tại ở một mức độ nào đó.</li>
+</ul>
+
+<div class="case-study">
+  <div class="cs-label">Tình Huống Thực Tế</div>
+  <div class="cs-title">Nghiên cứu phần mềm địa lý — Luận án Tiến sĩ của Marsh</div>
+  <p>Marsh đã kiểm tra phần mềm cho phép người dùng kết hợp nhiều tập dữ liệu địa lý cho khu vực Lake District (Anh). Kết quả cho thấy sinh viên Thạc sĩ và Tiến sĩ gặp phải các vấn đề khác nhau so với các học giả có kinh nghiệm. Điều này nhấn mạnh tầm quan trọng của việc bao gồm <strong>đúng nhóm người dùng liên quan</strong> trong nghiên cứu — không phải ai cũng đại diện cho tất cả.</p>
+</div>
+
+<!-- II. GIAO THỨC (PROTOCOL) -->
+<h2>II. Xây Dựng Giao Thức Kiểm Tra</h2>
+
+<div class="highlight-box">
+  <div class="box-label">Phân biệt quan trọng</div>
+  <p><strong>Script (kịch bản):</strong> Tuân theo chính xác theo thứ tự đã viết, không linh hoạt.</p>
+  <p><strong>Protocol (giao thức):</strong> Hướng dẫn linh hoạt — có thể sắp xếp lại, bỏ qua hoặc điều chỉnh nhiệm vụ. <strong>Ưu tiên dùng protocol.</strong> Thêm lưu ý ở cuối trang đầu cho người quan sát: "Lịch trình nhiệm vụ có thể thay đổi; điều chỉnh theo phản hồi của người dùng cho phép có phản hồi thực tế hơn."</p>
+</div>
+
+<h3>Cấu trúc một giao thức điển hình (~ 60–90 phút)</h3>
+
+<ol class="steps">
+  <li>
+    <div>
+      <strong>Giới thiệu + các vấn đề đạo đức/pháp lý</strong> (5 phút)
+      <br>Giải thích mục đích nghiên cứu, quy trình phiên, đồng ý ghi âm/ghi hình, ký biểu mẫu đồng ý, đảm bảo người tham gia thoải mái.
+    </div>
+  </li>
+  <li>
+    <div>
+      <strong>Phỏng vấn ngắn trước nhiệm vụ</strong> (5 phút)
+      <br>Hiểu bối cảnh người dùng trước khi bắt đầu. Ví dụ câu hỏi: (a) Thiết bị bạn dùng ở nhà; (b) Thiết bị bạn dùng ở nơi làm việc; (c) Các hoạt động trực tuyến bạn thích làm; (d) Các hoạt động trực tuyến bạn không thích làm — với câu c và d: "Bạn có thể kể thêm lý do tại sao không?"
+    </div>
+  </li>
+  <li>
+    <div>
+      <strong>Các nhiệm vụ nghiên cứu</strong> (phần chính)
+      <br>Người tham gia thực hiện các nhiệm vụ trong khi nhà nghiên cứu quan sát và ghi chú.
+    </div>
+  </li>
+  <li>
+    <div>
+      <strong>Phỏng vấn ngắn sau nhiệm vụ</strong> (5 phút)
+      <br>Thu thập phản hồi tổng thể về trải nghiệm vừa thực hiện.
+    </div>
+  </li>
+</ol>
+
+<!-- III. CÁC LOẠI NHIỆM VỤ -->
+<h2>III. Phân Loại Nhiệm Vụ Nghiên Cứu</h2>
+
+<div class="comparison-grid">
+  <div class="cell-header">Nhiệm vụ cụ thể (Specific tasks)</div>
+  <div class="cell-header">Nhiệm vụ mở (Open-ended tasks)</div>
+  <div class="cell">
+    Tập trung vào một vấn đề hoặc phạm vi vấn đề chính xác: giỏ hàng bị bỏ, một tính năng cụ thể, điểm rời khỏi hành trình, sản phẩm phức tạp. <strong>Tránh gợi ý câu trả lời cụ thể</strong> trong cách đặt vấn đề.
+  </div>
+  <div class="cell">
+    Cung cấp thông tin tối thiểu; người tham gia tự khám phá câu trả lời. Hữu ích khi: kiểm tra prototype, nghiên cứu khám phá, tìm các vấn đề chưa biết trước. Cho phép người tham gia khám phá tự do.
+  </div>
+</div>
+
+<h3>Nhiệm vụ do nhà nghiên cứu định nghĩa vs. do người dùng định nghĩa</h3>
+<p>Nhiệm vụ có thể được định nghĩa trước (pre-defined) bởi nhà nghiên cứu dựa trên mục tiêu nghiên cứu, hoặc để người dùng tự đặt ra nhiệm vụ của mình (user-defined) khi muốn tìm hiểu người dùng thực sự làm gì với sản phẩm.</p>
+
+<!-- IV. KỸ THUẬT THINK ALOUD -->
+<h2>IV. Kỹ Thuật Think Aloud (Nói To Suy Nghĩ)</h2>
+
+<p>Think aloud là phương pháp chính trong kiểm tra có điều phối. Người tham gia được yêu cầu <strong>nói to những gì họ đang làm, suy nghĩ và cảm thấy</strong> trong suốt quá trình thực hiện nhiệm vụ.</p>
+
+<div class="comparison-grid">
+  <div class="cell-header">Quan sát phản ứng tích cực</div>
+  <div class="cell-header">Quan sát phản ứng tiêu cực</div>
+  <div class="cell">
+    <ul>
+      <li>Những gì người tham gia thích</li>
+      <li>Các khoảnh khắc thú vị, bất ngờ (delights)</li>
+      <li>Những gì vượt kỳ vọng</li>
+    </ul>
+  </div>
+  <div class="cell">
+    <ul>
+      <li>Những nơi người dùng gặp khó khăn</li>
+      <li>Những gì họ không thích</li>
+      <li>Sự thất vọng, hiểu nhầm</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Hướng dẫn thực hành Think Aloud</h3>
+<ul>
+  <li><strong>Đừng lấp đầy khoảng trống im lặng</strong> — để người tham gia tự điền vào bằng bình luận. Hãy dùng "mmm" và "uh-ha" như các phản hồi không định hướng.</li>
+  <li><strong>Khi người tham gia đặt câu hỏi:</strong> (1) Ghi chú câu hỏi và điểm trong nhiệm vụ; (2) Hỏi họ sẽ làm gì nếu tự thực hiện một mình; (3) Nếu không quan trọng — đề nghị tiếp tục và nói sẽ trả lời cuối phiên; (4) Nếu quan trọng — giúp đỡ nhưng ghi nhận đây là vấn đề khả năng sử dụng nghiêm trọng.</li>
+</ul>
+
+<!-- V. PHỎNG VẤN SAU NHIỆM VỤ -->
+<h2>V. Phỏng Vấn Sau Nhiệm Vụ</h2>
+
+<p>Phỏng vấn kết thúc trong khoảng 5 phút với các câu hỏi trung lập, mở. Ví dụ:</p>
+
+<ul>
+  <li>"Nhìn chung, bạn mô tả trải nghiệm của mình như thế nào?"</li>
+  <li>"Nó có như bạn kỳ vọng không?"</li>
+  <li>"X có dễ/khó tìm không?"</li>
+  <li>"X nhìn chung có dễ/khó hiểu không?"</li>
+  <li>"Sau khi thấy những gì hiện có, bạn có muốn thêm điều gì không?"</li>
+  <li>"Nếu có thể thay đổi một điều, đó là điều gì?"</li>
+  <li>"Còn điều gì bạn muốn chia sẻ không?"</li>
+</ul>
+
+<p>Kết thúc bằng lời cảm ơn và thanh toán thù lao (nếu có).</p>
+
+<!-- VI. TỜ TỔNG HỢP SAU PHIÊN -->
+<h2>VI. Tờ Tổng Hợp Sau Mỗi Phiên (Crib Sheet)</h2>
+
+<p>Điền ngay sau phiên trong khi ký ức còn mới. Cấu trúc gợi ý:</p>
+
+<div class="highlight-box">
+  <div class="box-label">Tờ Tổng Hợp Sau Phiên</div>
+  <ul>
+    <li>Tên/mã số người tham gia</li>
+    <li>Tên nhiệm vụ</li>
+    <li>Tình trạng: Hoàn thành / Hoàn thành một phần / Thất bại</li>
+    <li>3 vấn đề hàng đầu</li>
+    <li>3 điều tích cực hàng đầu</li>
+    <li>Câu trích dẫn hữu ích</li>
+  </ul>
+</div>
+
+<!-- VII. KIỂM TRA TỪ XA CÓ ĐIỀU PHỐI -->
+<h2>VII. Kiểm Tra Từ Xa Có Điều Phối</h2>
+
+<p>Tương tự về giao thức với kiểm tra trực tiếp, nhưng có một số điểm khác biệt:</p>
+
+<ul>
+  <li><strong>Cần nhiều gợi mở hơn:</strong> Không nhìn thấy ngôn ngữ cơ thể hay biểu cảm khuôn mặt.</li>
+  <li><strong>Dành thêm thời gian để thiết lập:</strong> Đăng nhập, chia sẻ màn hình, kiểm tra âm thanh.</li>
+  <li><strong>Các quy tắc về đồng ý và ghi âm tương tự</strong> với kiểm tra trực tiếp.</li>
+  <li><strong>Nhắc nhở về người quan sát:</strong> Thông báo cho người tham gia nếu có người khác đang theo dõi.</li>
+</ul>
+
+<p><strong>Các công cụ hội nghị video/chia sẻ màn hình miễn phí:</strong> join.me, gotomeeting.com, screenleap.com, skype.com</p>
+
+<p><strong>Lưu ý thực tế:</strong> Ví dụ về kiểm tra phần mềm giáo dục với giáo viên trong giờ ăn trưa — cần cài đặt phần mềm trước một ngày để tiết kiệm thời gian trong phiên.</p>
+
+<!-- VIII. THIẾT BỊ VÀ CÔNG CỤ -->
+<h2>VIII. Thiết Bị và Công Cụ</h2>
+
+<h3>Thiết bị bắt buộc</h3>
+<ul>
+  <li>Giao thức (một bản cho mỗi người tham gia hoặc dùng chung với giấy ghi chú riêng)</li>
+  <li>Thiết bị kiểm tra: máy tính để bàn/xách tay/tablet/smartphone</li>
+  <li>Với di động: cần nhiều thiết bị (sự khác biệt giữa iOS và Android); ưu tiên thiết bị người tham gia đã quen dùng ở mức độ nào đó</li>
+</ul>
+
+<h3>Thiết bị tùy chọn</h3>
+<ul>
+  <li><strong>Màn hình phản chiếu thứ hai:</strong> Để người quan sát theo dõi mà không ngồi gần.</li>
+  <li><strong>Phần mềm ghi hình:</strong> Morae, Camtasia (của TechSmith) — ghi lại hành động trên màn hình và phản ứng của người tham gia.</li>
+  <li><strong>Rig di động với webcam:</strong> Để quan sát người dùng trên thiết bị di động.</li>
+  <li><strong>Eye tracking (theo dõi mắt):</strong> Đắt tiền, có trong các phòng thí nghiệm chuyên dụng — hữu ích để xem người tham gia đang nhìn vào đâu và bỏ qua gì.</li>
+</ul>
+
+<!-- IX. KIỂM TRA KHÔNG CÓ ĐIỀU PHỐI -->
+<h2>IX. Kiểm Tra Không Có Điều Phối (Unmoderated)</h2>
+
+<p>Người tham gia tự hoàn thành nhiệm vụ mà <strong>không có sự hiện diện của nhà nghiên cứu</strong> — vào thời điểm, địa điểm và thiết bị của riêng họ. Thực tế và ít thiên lệch hơn (Zurb, 2017) vì không có hiệu ứng quan sát.</p>
+
+<h3>Khi nào nên dùng kiểm tra không có điều phối</h3>
+<ul>
+  <li><strong>Cần mẫu dữ liệu lớn:</strong> Một mẫu nhỏ kiểm tra trực tiếp đủ để hiểu hành vi từ góc độ thiết kế, nhưng một số bên liên quan không thoải mái với con số nhỏ.</li>
+  <li><strong>Đối tượng khó tiếp cận:</strong> Người dùng phân tán về địa lý hoặc không có thời gian di chuyển.</li>
+  <li><strong>Thời gian gấp:</strong> Nghiên cứu không có điều phối có thể hoàn thành trong vài ngày.</li>
+  <li><strong>Bối cảnh cụ thể quan trọng:</strong> Ứng dụng sử dụng ngoài trời hoặc dịch vụ dành cho y tế khẩn cấp — không thể tái tạo trong phòng lab.</li>
+  <li><strong>Ngân sách hạn chế:</strong> Không cần địa điểm dành riêng; chi phí công cụ có thể điều chỉnh theo nhu cầu.</li>
+</ul>
+
+<h3>Nhược điểm</h3>
+<ul>
+  <li><strong>Khó tuyển đúng người:</strong> Loại trừ những người không có máy tính/internet hoặc có kỹ năng số thấp; rủi ro người tham gia chỉ bị thúc đẩy bởi thù lao.</li>
+  <li><strong>Thiếu cuộc trò chuyện chuyên sâu:</strong> Không có được chiều sâu từ cuộc đối thoại giữa nhà nghiên cứu và người tham gia.</li>
+  <li><strong>Ít kiểm soát hơn:</strong> Người dùng tự quyết định khi nào nhiệm vụ hoàn thành, có thể chuyển sang nhiệm vụ tiếp theo quá sớm.</li>
+</ul>
+
+<h3>Các định dạng kiểm tra không có điều phối</h3>
+<ul>
+  <li><strong>Prototype số/giấy:</strong> Ảnh chụp bản vẽ giấy hoặc wireframe đơn giản không có chức năng.</li>
+  <li><strong>Prototype độ trung thực thấp:</strong> Wireframe đen trắng với một số chức năng cơ bản.</li>
+  <li><strong>Prototype độ trung thực cao:</strong> Wireframe tương tác có visual design; gần giống website hoàn chỉnh.</li>
+  <li><strong>Môi trường kiểm tra trực tiếp:</strong> Phiên bản website chưa hoàn chỉnh hoặc chưa công khai.</li>
+  <li><strong>Website đã công khai.</strong></li>
+</ul>
+
+<h3>Các chỉ số cần ghi lại</h3>
+<ul>
+  <li>Tỷ lệ hoàn thành nhiệm vụ (task completion rates)</li>
+  <li>Thời gian thực hiện nhiệm vụ (time on task)</li>
+  <li>Thời gian trên trang (time on pages)</li>
+  <li>Số lần nhấp chuột mỗi nhiệm vụ (clicks per task)</li>
+  <li>Dữ liệu phân tích web (trình duyệt, hệ điều hành, độ phân giải màn hình, thiết bị)</li>
+</ul>
+
+<h3>Cấu trúc giao thức không có điều phối</h3>
+
+<ol class="steps">
+  <li><strong>Tuyên bố mở đầu:</strong> Người tham gia đọc và đồng ý trước khi bắt đầu — giải thích nhiệm vụ, thời gian, cách dữ liệu được thu thập và lưu trữ.</li>
+  <li><strong>Thiết lập nhiệm vụ:</strong> Nhiệm vụ cụ thể, rõ ràng, dễ hiểu. Không gộp hai nhiệm vụ vào một câu hỏi. Người tham gia hoàn thành từng nhiệm vụ một.</li>
+  <li><strong>Chạy thử nghiệm thử (pilot test):</strong> Ước lượng thời gian trung bình. Phiên ngắn hơn (tối đa 30 phút) hiệu quả hơn vì phụ thuộc vào động lực tự thân của người tham gia.</li>
+  <li><strong>Câu hỏi sau nhiệm vụ/bài kiểm tra:</strong> Đo lường mức độ hài lòng sau mỗi nhiệm vụ hoặc cuối phiên.</li>
+</ol>
+
+<h3>Thang đo System Usability Scale (SUS)</h3>
+
+<p>Một công cụ đo lường phổ biến và miễn phí. Người tham gia đánh giá 10 câu hỏi sau đây:</p>
+
+<ol class="sus-list">
+  <li>Tôi nghĩ rằng tôi muốn sử dụng hệ thống này thường xuyên.</li>
+  <li>Tôi thấy hệ thống này phức tạp không cần thiết.</li>
+  <li>Tôi thấy hệ thống này dễ sử dụng.</li>
+  <li>Tôi nghĩ rằng tôi cần sự hỗ trợ của một người có chuyên môn kỹ thuật để có thể sử dụng hệ thống này.</li>
+  <li>Tôi thấy các chức năng khác nhau trong hệ thống này được tích hợp tốt.</li>
+  <li>Tôi thấy có quá nhiều sự không nhất quán trong hệ thống này.</li>
+  <li>Tôi tưởng tượng rằng hầu hết mọi người sẽ học cách sử dụng hệ thống này rất nhanh.</li>
+  <li>Tôi thấy hệ thống này rất cồng kềnh khi sử dụng.</li>
+  <li>Tôi cảm thấy rất tự tin khi sử dụng hệ thống.</li>
+  <li>Tôi cần học rất nhiều thứ trước khi có thể bắt đầu sử dụng hệ thống này.</li>
+</ol>
+
+<p>Sử dụng thang đo rõ ràng: Hoàn toàn đồng ý / Đồng ý / Không đồng ý cũng không phản đối / Không đồng ý / Hoàn toàn không đồng ý.</p>
+
+<h3>Câu hỏi sau nhiệm vụ và phương pháp ghi nhận</h3>
+<ul>
+  <li>Dùng câu hỏi đóng với lựa chọn có sẵn thay vì ô văn bản mở (dễ phân tích hơn).</li>
+  <li>Nếu cần hiểu sự hiểu biết của người tham gia, có thể cần câu hỏi mở với trường nhập văn bản.</li>
+  <li>Bạn phải chọn giữa: quan sát chính xác (cho phép ghi chú trong lúc làm) vs. hoàn thành nhiệm vụ tự nhiên (khảo sát sau nhiệm vụ để biết suy nghĩ).</li>
+</ul>
+
+<h3>Kiểm tra không có điều phối trực tiếp (Face-to-face)</h3>
+<p>Người tham gia được để một mình trong phòng lab với loạt nhiệm vụ. Ít phổ biến hơn nhưng cho phép hành vi tự nhiên hơn. Kết hợp với eye tracking, có thể trả lời các câu hỏi như:</p>
+<ul>
+  <li>Người dùng có chú ý đến xx không?</li>
+  <li>Người dùng có thể sử dụng xx không?</li>
+  <li>Tải nhận thức (cognitive load) khi có xx trên trang là bao nhiêu?</li>
+</ul>
+
+<p>Sau khi hoàn thành, có thể thu thập phản hồi qua: (1) Khảo sát online/giấy; (2) Phỏng vấn ngắn; (3) Phương pháp PEEP (Post Experience Eye-tracked Protocol) — xem lại video cùng người tham gia và dừng tại các thời điểm quan trọng để hỏi suy nghĩ của họ.</p>
+
+<div class="case-study">
+  <div class="cs-label">Ví dụ thực tế</div>
+  <div class="cs-title">Kiểm tra không có điều phối trực tiếp — hướng dẫn Agile</div>
+  <p>Marsh đã dùng phương pháp này để kiểm tra cách người tham gia tìm kiếm hướng dẫn và tài nguyên trực tuyến về Agile. Kết quả cho thấy rõ khi nào người dùng bỏ cuộc và tìm ở nơi khác khi không hiểu thuật ngữ Agile. Điều này giúp xác định khi nào ngôn ngữ jargon (tiếng lóng chuyên ngành) được dùng quá nhiều và cần cân bằng giữa người mới với Agile và người đã có kinh nghiệm.</p>
+</div>
+
+<!-- X. CÔNG CỤ KIỂM TRA TỪ XA KHÔNG CÓ ĐIỀU PHỐI -->
+<h2>X. Công Cụ Kiểm Tra Từ Xa Không Có Điều Phối</h2>
+
+<div class="tool-list">
+  <div class="tool-item"><span class="tool-name">Loop11</span><span>http://www.loop11.com/</span></div>
+  <div class="tool-item"><span class="tool-name">Usertesting.com</span><span>http://www.usertest.com/</span></div>
+  <div class="tool-item"><span class="tool-name">UserZoom</span><span>http://www.userzoom.com/</span></div>
+  <div class="tool-item"><span class="tool-name">WhatUsersDo</span><span>http://whatusersdo.com/</span></div>
+  <div class="tool-item"><span class="tool-name">Zurb</span><span>http://zurb.com/</span></div>
+  <div class="tool-item"><span class="tool-name">Lookback</span><span>https://lookback.io/</span></div>
+</div>
+
+<p>Hầu hết các công cụ này cung cấp bản demo trực tiếp hoặc cho phép dùng thử miễn phí. Nếu cần thiết lập kỹ thuật phức tạp, hãy báo trước cho đội kỹ thuật.</p>
+
+<!-- XI. TỔNG HỢP -->
+<h2>XI. Tổng Hợp và Nguyên Tắc Quan Trọng</h2>
+
+<h3>Không phải "moderated vs unmoderated" — mà là bổ sung cho nhau</h3>
+
+<div class="highlight-box">
+  <p>Kiểm tra có và không có điều phối là bổ sung lẫn nhau. Ví dụ: chạy kiểm tra có điều phối trên prototype để giải quyết các vấn đề khả năng sử dụng lớn; sau đó trong chu kỳ phát triển, chạy kiểm tra không có điều phối để đánh giá hiệu suất thực tế. <strong>Nếu có thể, hãy chạy cả hai loại để có sự tự tin thực sự với kết quả.</strong></p>
+</div>
+
+<h3>Xây dựng niềm tin với mẫu nhỏ</h3>
+
+<p>Nếu bạn đã có kinh nghiệm làm hoặc thuê nghiên cứu người dùng, bạn có thể đã gặp phải sự phản đối của các bên liên quan với các con số nhỏ trong kiểm tra định tính.</p>
+
+<p>Reichelt (2014) lập luận: nếu đang làm nghiên cứu thiết kế định tính, bạn không nên lo lắng về kích thước mẫu hay ý nghĩa thống kê. <strong>Điều duy nhất quan trọng là mức độ tự tin của các thành viên nhóm về quyết định tiếp theo cần đưa ra.</strong></p>
+
+<blockquote>
+  "Ngay khi bạn bắt đầu làm nghiên cứu người dùng, bạn sẽ bận rộn đến mức không còn thời gian lo lắng về thống kê. Bạn sẽ biết điều gì đang bị hỏng và điều gì thì không, và bạn sẽ biết cần dành thêm thời gian tìm hiểu điều gì." — Reichelt (2014)
+</blockquote>
+
+<p>Reichelt (2014) cũng khuyến nghị rằng mọi người tham gia vào quá trình ra quyết định nên xem các phiên nghiên cứu người dùng thường xuyên. Điều này có thể khó sắp xếp với lịch trình bận rộn, nhưng xem lại video phiên kiểm tra là giải pháp thay thế hiệu quả.</p>
+
+<div class="section-divider"></div>
+
+<h2>Tóm Tắt Chương</h2>
+
+<p>Kiểm tra khả năng sử dụng là phương pháp quan sát người dùng thực hiện nhiệm vụ để xác định vấn đề. Có thể thực hiện ở bất kỳ giai đoạn nào của chu kỳ phát triển — từ prototype giấy đến hệ thống đang chạy. Hai hình thức chính — có điều phối và không có điều phối — bổ sung cho nhau. Dùng giao thức linh hoạt thay vì kịch bản cứng nhắc; thu thập dữ liệu định tính bằng think aloud; điền tờ tổng hợp ngay sau phiên trong khi ký ức còn mới. Để thuyết phục bên liên quan về mẫu nhỏ, hãy giải thích rằng trong nghiên cứu định tính, điều quan trọng là mức độ tự tin vào quyết định tiếp theo, không phải ý nghĩa thống kê.</p>
+
+<div class="chapter-footer">
+  <span>Chương 05 — Kiểm Tra Khả Năng Sử Dụng</span>
+  <span>User Research · Stephanie Marsh · 2018</span>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch4-urpg.html"><span class="lbl">Chương trước</span>Chương 4: Quản Lý Logistics Nghiên Cứu Người Dùng</a>
+  <a href="ch6-urpg.html"><span class="lbl">Chương sau</span>Chương 6: Kiểm Tra Nội Dung</a>
+</nav>
+</body>
+</html>

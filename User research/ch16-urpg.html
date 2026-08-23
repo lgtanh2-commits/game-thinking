@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 16 – Nghiên Cứu Gerilla | User Research</title>
+<style>
+:root {
+  --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+  --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+  --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px; line-height: 1.75; color: var(--text);
+  background: var(--bg); max-width: 820px;
+  margin: 0 auto; padding: 60px 40px 100px;
+}
+h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+h2 { font-size: 1.25rem; font-weight: 700; margin: 48px 0 14px; letter-spacing: -0.2px; }
+h3 { font-size: 1.05rem; font-weight: 700; margin: 32px 0 10px; color: var(--text-secondary); }
+p { margin-bottom: 14px; color: var(--text-secondary); }
+strong { color: var(--text); font-weight: 700; }
+em { font-style: italic; }
+ul, ol { margin: 0 0 16px 24px; color: var(--text-secondary); }
+li { margin-bottom: 6px; }
+.chapter-meta { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+.chapter-divider { width: 48px; height: 3px; background: var(--accent-line); margin: 22px 0 36px; }
+.subtitle { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0; font-style: italic; }
+.section-rule { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+.box {
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 22px 26px; margin: 28px 0; background: var(--surface);
+}
+.box-title {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 12px;
+}
+.box p:last-child, .box ul:last-child { margin-bottom: 0; }
+.fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 28px 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.fit-col { padding: 22px 24px; }
+.fit-col:first-child { border-right: 1px solid var(--border); background: var(--surface); }
+.fit-col:last-child { background: var(--bg); }
+.fit-col .box-title { margin-bottom: 12px; }
+.fit-col ul { margin-left: 18px; }
+.fit-col p:last-child, .fit-col ul:last-child { margin-bottom: 0; }
+/* Method cards */
+.method-cards { display: flex; flex-direction: column; gap: 16px; margin: 28px 0; }
+.method-card { border: 1px solid var(--border); border-radius: 4px; padding: 20px 24px; }
+.method-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 0 0 8px; text-transform: none; letter-spacing: 0; }
+.method-card p { margin-bottom: 0; font-size: 0.92rem; }
+/* Quote callout */
+.callout { border: 2px solid var(--border-strong); border-radius: 4px; padding: 20px 24px; margin: 28px 0; }
+.callout p { font-size: 1rem; font-style: italic; color: var(--text); margin-bottom: 6px; }
+.callout .attribution { font-size: 0.8rem; color: var(--text-muted); font-style: normal; margin-bottom: 0; }
+/* Tip list */
+.tip-section { margin: 24px 0; }
+.tip-section h4 { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+/* Inline highlight */
+.inline-highlight { background: var(--surface-dark); border-radius: 3px; padding: 2px 6px; font-size: 0.9rem; font-weight: 700; color: var(--text); white-space: nowrap; }
+.back-nav { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 48px; }
+.back-nav span { margin: 0 6px; }
+footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="back-nav">User Research – Stephanie Marsh<span>·</span>Phần Hai: Phương Pháp<span>·</span>Chương 16</div>
+
+<div class="chapter-meta">Chương 16</div>
+<h1>Nghiên Cứu Gerilla</h1>
+<p class="subtitle">Thực hiện nghiên cứu nhanh trong thế giới thực</p>
+<div class="chapter-divider"></div>
+
+<p>Nghiên cứu gerilla (guerrilla research) là phương pháp nghiên cứu nhanh, linh hoạt và chi phí thấp — cách tiếp cận kiểu "cứ làm đi" (Foolproof, 2014). Belam (2010) mô tả đây là <em>"nghệ thuật chặn người lạ trong quán cà phê hay không gian công cộng, rồi nhanh chóng quay phim họ khi dùng một trang web trong vài phút."</em></p>
+
+<p>Bản chất của nghiên cứu gerilla là <strong>bạn đến gặp người dùng</strong> — không phải chờ họ đến gặp bạn.</p>
+
+<hr class="section-rule">
+
+<h2>Phù hợp và không phù hợp</h2>
+
+<div class="fit-grid">
+  <div class="fit-col">
+    <div class="box-title">✓ Phù hợp khi</div>
+    <ul>
+      <li>Chi phí thấp — chỉ tốn thời gian và đi lại</li>
+      <li>Cần kết quả nhanh</li>
+      <li>Trả lời các câu hỏi thiết kế quy mô nhỏ nhanh chóng</li>
+      <li>Muốn kéo cả nhóm tham gia vào hoạt động nghiên cứu</li>
+      <li>Cần hiểu bối cảnh sử dụng thực tế — đặc biệt khi kiểm thử trên thiết bị di động ngoài trời</li>
+      <li>Sự bất ngờ khiến người được tiếp cận cởi mở và trung thực hơn</li>
+    </ul>
+  </div>
+  <div class="fit-col">
+    <div class="box-title">✗ Không phù hợp khi</div>
+    <ul>
+      <li>Phương pháp "nhanh và bẩn" — chỉ cung cấp hiểu biết ở mức cao, khó đạt mẫu đại diện đúng</li>
+      <li>Thách thức môi trường: thời tiết, tiếng ồn, ánh sáng</li>
+      <li>Phải cạnh tranh sự chú ý của người đang bận việc</li>
+      <li>Có thể gặp vấn đề kỹ thuật trong quá trình nghiên cứu</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="section-rule">
+
+<h2>Khi nào nên sử dụng</h2>
+
+<p>Nghiên cứu gerilla <strong>không đủ chi tiết và chặt chẽ để là nguồn dữ liệu duy nhất</strong>. Nó phù hợp nhất trong giai đoạn đầu, khi đang khám phá vấn đề và cơ hội. Nó có thể mở rộng hiểu biết và xây dựng các giả thuyết ban đầu cho nghiên cứu và thiết kế chuyên sâu hơn.</p>
+
+<p style="font-size:0.85rem; color:var(--text-muted);">Nguồn: Foolproof, 2014</p>
+
+<hr class="section-rule">
+
+<h2>Mức độ công sức</h2>
+
+<p>Nếu bạn đã quen thuộc với nền tảng của nghiên cứu người dùng, nghiên cứu gerilla có thể thực hiện rất nhanh. Cần có <em>một số</em> chuẩn bị để có trọng tâm, nhưng phải sẵn sàng linh hoạt và phản ứng với những tình huống bất ngờ — đây là phương pháp ít có cấu trúc và kiểm soát hơn các phương pháp khác.</p>
+
+<div class="callout">
+  <p>"Theo tôi, rào cản lớn nhất của nghiên cứu gerilla là sự tự tin để dừng người ta lại trên đường phố, tại một sự kiện... Tôi không thấy dễ dàng khi nhờ người lạ giúp đỡ. Bạn có thể muốn thực hiện nghiên cứu này theo cặp, một người tuyển dụng và một người làm nghiên cứu. Tôi biết mình muốn là ai trong số hai người đó!"</p>
+  <p class="attribution">— Stephanie Marsh</p>
+</div>
+
+<hr class="section-rule">
+
+<h2>Cách thực hiện</h2>
+
+<div class="method-cards">
+  <div class="method-card">
+    <h4>Kiểm thử khả năng dùng theo kiểu gerilla</h4>
+    <p>Bản chất của nghiên cứu gerilla là bạn mang sản phẩm hoặc dịch vụ đến nơi người dùng — trên laptop, điện thoại hay sketchpad — đến bất cứ nơi nào họ có mặt và tiếp cận họ trực tiếp.</p>
+  </div>
+  <div class="method-card">
+    <h4>Phỏng vấn người dùng theo bối cảnh</h4>
+    <p>Các cuộc phỏng vấn ngắn với người dùng trong môi trường của họ: nhà riêng, nơi làm việc... Cách làm này tiết lộ cách môi trường ảnh hưởng đến việc họ sử dụng sản phẩm hoặc dịch vụ của bạn.</p>
+  </div>
+  <div class="method-card">
+    <h4>Dân tộc học thu gọn</h4>
+    <p>Quan sát dân tộc học là cách tốt để nắm bắt sự vật được dùng trong cuộc sống thực. Bạn không cần quá cầu kỳ với ghi chú chính thức — những nét viết vội thường hoạt động tốt: quan trọng là chúng kích hoạt ký ức để chuyển thành thông tin chi tiết và hành động.</p>
+  </div>
+</div>
+
+<hr class="section-rule">
+
+<h2>Mẹo Tuyển Dụng và Tiến Hành Nghiên Cứu Hiệu Quả</h2>
+
+<div class="box">
+  <div class="box-title">Lên kế hoạch</div>
+  <ul>
+    <li>Thành công nằm ở khâu lên kế hoạch. Chuẩn bị danh sách câu hỏi hoặc nhiệm vụ đã thống nhất để tập trung vào mục tiêu nghiên cứu.</li>
+    <li>Sắp xếp ưu tiên câu hỏi và nhiệm vụ — khó biết trước bạn có thể làm được bao nhiêu và người ta sẵn sàng dành bao nhiêu thời gian khi bạn tiếp cận họ đột ngột.</li>
+    <li>Thống nhất trước loại dữ liệu bạn muốn thu thập. Luôn có những điều bất ngờ, vì vậy hãy tập trung vào những vấn đề hàng đầu và mức độ hoàn thành nhiệm vụ.</li>
+  </ul>
+</div>
+
+<div class="box">
+  <div class="box-title">Tiếp cận người tham gia</div>
+  <ul>
+    <li>Chuẩn bị <strong>phần giới thiệu ngắn</strong> truyền đạt nhanh bạn đang làm gì và tại sao họ nên tham gia. Cần phiên bản rút gọn của các điểm đạo đức và pháp lý (xem Chương 2) và giải thích cách nghiên cứu sẽ diễn ra.</li>
+    <li>Chọn địa điểm cẩn thận dựa trên nhóm mục tiêu bạn đang tuyển. Trước khi tiếp cận, quan sát ngôn ngữ cơ thể và hành vi của họ.</li>
+    <li>Chặn người ở đường phố, quán cà phê hoặc hội nghị rất thách thức. Đôi khi có thể nản lòng, nhưng hãy tiếp tục.</li>
+    <li>Linh hoạt trong cách tiếp cận: thu nhỏ, tái định hướng và thay đổi chiến thuật tùy theo diễn biến thực tế. Có thể mang tính lặp lại hơn so với nghiên cứu trong phòng lab.</li>
+    <li>Giữ buổi nghiên cứu ngắn — không nên vượt quá <strong>15 phút</strong>. Giữ không khí thoải mái: đề nghị thức ăn hoặc cà phê để đổi lấy thời gian của họ nếu phù hợp với bối cảnh.</li>
+  </ul>
+</div>
+
+<hr class="section-rule">
+
+<h2>Công Cụ</h2>
+
+<p>Công cụ phụ thuộc hoàn toàn vào những gì bạn đang kiểm thử. Bạn có thể chỉ cần một thiết bị kỹ thuật số hoặc một cuốn sổ giấy thông thường. Tốt nhất là <strong>không mang quá nhiều thiết bị</strong> — giữ mọi thứ đơn giản và không gây chú ý.</p>
+
+<p>Video, âm thanh và chụp ảnh có thể dùng nhưng là tùy chọn. Nghiên cứu gerilla có thể tạo ra những câu chuyện thuyết phục về người dùng thực. Tuy nhiên, không phải lúc nào cũng phù hợp để thu thập dữ liệu theo cách này — đôi khi nó khiến người ta từ chối tham gia.</p>
+
+<hr class="section-rule">
+
+<h2>Tổng Kết</h2>
+
+<div class="box">
+  <div class="box-title">Những điểm cần ghi nhớ</div>
+  <ul>
+    <li>Nghiên cứu gerilla là công cụ <strong>khởi động hoàn hảo</strong> — nhanh, rẻ, thu thập bằng chứng ban đầu</li>
+    <li>Không đủ chặt chẽ để là nguồn dữ liệu duy nhất, nhưng đủ để <strong>xây dựng giả thuyết và thuyết phục nội bộ</strong></li>
+    <li>Ba hình thức chính: kiểm thử khả năng dùng tại chỗ, phỏng vấn bối cảnh, dân tộc học thu gọn</li>
+    <li>Làm theo cặp: một người tuyển dụng, một người nghiên cứu — chia sẻ gánh nặng cảm xúc khi tiếp cận người lạ</li>
+    <li>Giữ buổi dưới <strong>15 phút</strong> và linh hoạt với những gì diễn ra</li>
+    <li>Đơn giản về công cụ — sổ giấy thường đủ dùng</li>
+  </ul>
+</div>
+
+<footer>
+  <p>Marsh, S. (2018). <em>User Research: A Practical Guide to Designing Better Products and Services.</em> Kogan Page. — Chương 16, tr. 191–195</p>
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch15-urpg.html"><span class="lbl">Chương trước</span>Chương 15: Workshop Với Stakeholder</a>
+  <a href="ch17-urpg.html"><span class="lbl">Chương sau</span>Chương 17: Kết Hợp Các Phương Pháp Nghiên Cứu Người Dùng</a>
+</nav>
+</body>
+</html>

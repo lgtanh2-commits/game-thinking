@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 17 – Kết Hợp Các Phương Pháp | User Research</title>
+<style>
+:root {
+  --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+  --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+  --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px; line-height: 1.75; color: var(--text);
+  background: var(--bg); max-width: 820px;
+  margin: 0 auto; padding: 60px 40px 100px;
+}
+h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+h2 { font-size: 1.25rem; font-weight: 700; margin: 48px 0 14px; letter-spacing: -0.2px; }
+h3 { font-size: 1.05rem; font-weight: 700; margin: 32px 0 10px; color: var(--text-secondary); }
+p { margin-bottom: 14px; color: var(--text-secondary); }
+strong { color: var(--text); font-weight: 700; }
+em { font-style: italic; }
+ul, ol { margin: 0 0 16px 24px; color: var(--text-secondary); }
+li { margin-bottom: 6px; }
+.chapter-meta { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+.chapter-divider { width: 48px; height: 3px; background: var(--accent-line); margin: 22px 0 36px; }
+.section-rule { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+.box {
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 22px 26px; margin: 28px 0; background: var(--surface);
+}
+.box-title {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 12px;
+}
+.box p:last-child, .box ul:last-child { margin-bottom: 0; }
+/* Show don't tell callout */
+.callout-strong { border: 2px solid var(--text); border-radius: 4px; padding: 20px 24px; margin: 28px 0; }
+.callout-strong .callout-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.callout-strong p { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0; }
+/* Scenario tables */
+.scenario-block { margin: 32px 0; }
+.scenario-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+.scenario-block h3 { margin: 0 0 16px; font-size: 1.05rem; }
+.method-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.method-table th { text-align: left; padding: 10px 14px; background: var(--surface-dark); font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border-strong); }
+.method-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-secondary); }
+.method-table tr:last-child td { border-bottom: none; }
+.method-table td:first-child { font-weight: 700; color: var(--text); width: 36px; text-align: center; }
+.method-table td:nth-child(2) { font-weight: 700; color: var(--text); width: 200px; }
+.method-ref { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; display: block; margin-top: 2px; }
+/* Funnel diagram */
+.funnel-wrap { margin: 32px 0; display: flex; flex-direction: column; align-items: center; gap: 0; }
+.funnel-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.funnel-label-left { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; width: 70px; text-align: right; }
+.funnel-label-right { font-size: 0.8rem; color: var(--text-muted); width: 180px; }
+.funnel-shape { display: flex; flex-direction: column; align-items: center; }
+.funnel-top { width: 220px; height: 0; border-left: 110px solid transparent; border-right: 110px solid transparent; border-top: 40px solid var(--surface-dark); }
+.funnel-mid { width: 0; height: 0; border-left: 60px solid transparent; border-right: 60px solid transparent; border-top: 70px solid var(--surface); margin-top: -2px; }
+.funnel-label-inside { font-size: 0.78rem; color: var(--text-secondary); text-align: center; margin: 4px 0; }
+/* Part Two summary box */
+.summary-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 20px 0; }
+.method-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; padding: 8px 12px; font-size: 0.85rem; color: var(--text-secondary); }
+.method-pill strong { display: block; font-size: 0.75rem; color: var(--text); margin-bottom: 1px; }
+.back-nav { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 48px; }
+.back-nav span { margin: 0 6px; }
+/* Part closing */
+.part-close { border: 2px solid var(--border-strong); border-radius: 4px; padding: 28px 30px; margin: 40px 0; background: var(--bg); }
+.part-close h3 { font-size: 1rem; color: var(--text); margin: 0 0 14px; }
+.part-close p:last-child { margin-bottom: 0; }
+footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="back-nav">User Research – Stephanie Marsh<span>·</span>Phần Hai: Phương Pháp<span>·</span>Chương 17</div>
+
+<div class="chapter-meta">Chương 17</div>
+<h1>Kết Hợp Các Phương Pháp Nghiên Cứu Người Dùng</h1>
+<div class="chapter-divider"></div>
+
+<p>Nghiên cứu người dùng là một quá trình lặp lại và liên tục. Suốt vòng đời phát triển sản phẩm, ở mỗi thời điểm khác nhau sẽ có những phương pháp phù hợp khác nhau. Không có một cách kết hợp duy nhất đúng — nhưng có những cách làm phổ biến mà chương này sẽ phác thảo để bạn tự xây dựng cách phối hợp của mình.</p>
+
+<hr class="section-rule">
+
+<h2>Điểm Khởi Đầu: Khi Tổ Chức Chưa Quen Với Nghiên Cứu Người Dùng</h2>
+
+<p>Nếu nghiên cứu người dùng chưa phổ biến trong tổ chức của bạn, có thể bạn đang gặp khó khăn trong việc được phê duyệt thời gian, nguồn lực và ngân sách. Vấn đề nan giải: cách tốt nhất để chứng minh giá trị của nghiên cứu người dùng là <em>cho thấy bằng chứng thực tế từ nghiên cứu</em> — nhưng bạn không thể làm điều đó khi chưa được phép thực hiện bất kỳ nghiên cứu nào.</p>
+
+<h3>Dùng nghiên cứu gerilla để khởi động</h3>
+
+<p>Đây là thời điểm lý tưởng để thực hiện một số nghiên cứu gerilla (Chương 16). Bạn có thể nhanh chóng và với chi phí thấp thu thập bằng chứng ban đầu để trình bày:</p>
+<ul>
+  <li>Những vấn đề người dùng đang gặp phải</li>
+  <li>Cách người dùng nghĩ và cảm nhận về một chủ đề — có thể khác với quan điểm của tổ chức</li>
+  <li>Cách con người thực sự hành xử trong cuộc sống thực</li>
+  <li>Một số hiểu biết về cách mọi thứ có thể được cải tiến</li>
+</ul>
+
+<div class="callout-strong">
+  <div class="callout-label">Nguyên tắc</div>
+  <p>Cho thấy, đừng chỉ nói. Bằng chứng là cách hiệu quả nhất để vận động cho nghiên cứu người dùng.</p>
+</div>
+
+<p>Cho đồng nghiệp thấy những thông tin chi tiết bạn có thể thu được từ một nghiên cứu nhanh là cách tuyệt vời để xây dựng sự ủng hộ cho công việc chuyên sâu và có cấu trúc hơn. Nghiên cứu gerilla có thể dùng như một cái nhìn thoáng qua về tiềm năng của nghiên cứu người dùng như một công cụ kinh doanh.</p>
+
+<h3>Khi nghiên cứu gerilla không phù hợp</h3>
+
+<p>Luôn có những tình huống và môi trường mà nghiên cứu gerilla không phù hợp — ví dụ điển hình là nghiên cứu với bệnh nhân trong bệnh viện. Trong những trường hợp đó, có thể thực hiện một số nghiên cứu bàn (desktop research): liệu có tổ chức tương tự trong lĩnh vực của bạn đã gặp vấn đề tương tự và thực hiện nghiên cứu người dùng thành công không? Điều này vừa cho thấy khả năng thực hiện, vừa chứng minh rằng những tổ chức khác đang có lợi thế cạnh tranh.</p>
+
+<hr class="section-rule">
+
+<h2>Các Kịch Bản Kết Hợp Phương Pháp Phổ Biến</h2>
+
+<p>Không có quy tắc cứng nhắc nào về cách kết hợp các phương pháp — tất cả phụ thuộc vào tình huống và công việc bạn đang thực hiện. Dưới đây là ba kịch bản điển hình.</p>
+
+<!-- SCENARIO 1 -->
+<div class="scenario-block">
+  <div class="scenario-label">Kịch bản 1</div>
+  <h3>Phát triển hoặc cải thiện sản phẩm/dịch vụ</h3>
+  <p>Dù đang xây dựng thứ hoàn toàn mới hay cải thiện thứ đang hoạt động chưa tốt, một cách tiếp cận lặp lại tương tự có thể áp dụng:</p>
+  <table class="method-table">
+    <thead>
+      <tr><th>Bước</th><th>Phương pháp</th><th>Mục đích</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Workshop Stakeholder<span class="method-ref">Chương 15</span></td>
+        <td>Tập hợp tất cả người liên quan trong cùng phòng để chia sẻ hiểu biết về tình hình hiện tại, thống nhất phạm vi và thu thập yêu cầu ban đầu.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Phỏng vấn hoặc Nghiên cứu bối cảnh<span class="method-ref">Chương 9 hoặc 13</span></td>
+        <td>Sau khi có sự đồng thuận nội bộ về phạm vi, thu thập phản hồi và thông tin chi tiết từ người dùng thực. Xác nhận hoặc bác bỏ các giả định từ workshop; thu thập thông tin về hành vi và rào cản của người dùng.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Thiết kế prototype</td>
+        <td>Kết hợp kết quả của bước 1 và 2 để phác thảo ban đầu sản phẩm/dịch vụ mới, hoặc đề xuất một số phương án tiềm năng.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Kiểm thử khả năng dùng<span class="method-ref">Chương 5</span></td>
+        <td>Không đầu tư quá nhiều thời gian vào thiết kế trước khi kiểm thử với người dùng để xem cái gì hoạt động và cái gì không.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Lặp lại</td>
+        <td>Dùng thông tin từ kiểm thử khả năng dùng để cải thiện prototype, kiểm thử lại để xác nhận các thay đổi. Sau khi ra mắt, chu trình cải thiện và xác nhận tiếp tục không ngừng.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SCENARIO 2 -->
+<div class="scenario-block">
+  <div class="scenario-label">Kịch bản 2a</div>
+  <h3>Tổ chức lại nội dung và cấu trúc — ví dụ 1</h3>
+  <p>Khi đã xác định có vấn đề với nội dung hoặc kiến trúc thông tin thông qua analytics hoặc phản hồi:</p>
+  <table class="method-table">
+    <thead>
+      <tr><th>Bước</th><th>Phương pháp</th><th>Mục đích</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Kiểm thử khả năng dùng<span class="method-ref">Chương 5</span></td>
+        <td>Với sản phẩm/dịch vụ đang có và đã xác định vấn đề — nắm bắt lý do tại sao có vấn đề trước khi tiến xa hơn.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Card sorting đóng<span class="method-ref">Chương 7</span></td>
+        <td>Khi đã xác nhận các phần có nhãn và cấu trúc không phù hợp với cách người dùng nghĩ, dùng card sorting với nhóm đã định sẵn để kiểm tra xem cấu trúc và nhãn mới có hoạt động không.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Thiết kế kiến trúc thông tin</td>
+        <td>Dùng thông tin từ card sorting để khắc phục các vấn đề ban đầu và tạo bản thảo kiến trúc thông tin.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Kiểm thử cây (Tree test)<span class="method-ref">Chương 11</span></td>
+        <td>Kiểm thử bản thảo kiến trúc thông tin với mẫu lớn hơn nhiều bằng Treejack từ Optimal Workshop.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Kiểm thử nội dung<span class="method-ref">Chương 6</span></td>
+        <td>Kiểm thử nội dung về mức độ hiểu của người dùng — đặc biệt hữu ích nếu có sự lệch về ngôn ngữ giữa người dùng và tổ chức.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="scenario-block">
+  <div class="scenario-label">Kịch bản 2b</div>
+  <h3>Tổ chức lại nội dung và cấu trúc — ví dụ 2</h3>
+  <p>Khi bắt đầu từ phản hồi giai thoại rằng nội dung gây nhầm lẫn:</p>
+  <table class="method-table">
+    <thead>
+      <tr><th>Bước</th><th>Phương pháp</th><th>Mục đích</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Kiểm thử nội dung<span class="method-ref">Chương 6</span></td>
+        <td>Có phản hồi giai thoại rằng nội dung gây nhầm lẫn. Thu thập bằng chứng cho thấy người dùng không thể hoàn thành nhiệm vụ vì thiếu nội dung quan trọng.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Card sorting mở<span class="method-ref">Chương 7</span></td>
+        <td>Nhóm đã xác định nội dung mới cần viết và đặt tên sơ bộ. Trong khi nội dung đang được soạn thảo, dùng card sorting mở để hiểu người dùng sẽ nhóm các mục mới như thế nào và họ hiểu nhãn dự thảo ra sao.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Kiểm thử nội dung<span class="method-ref">Chương 6</span></td>
+        <td>Kiểm tra nội dung dự thảo có dễ hiểu không. Người dùng có thể thực hiện hành động phù hợp dựa trên những gì họ hiểu không?</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Card sorting đóng<span class="method-ref">Chương 7</span></td>
+        <td>Với mẫu nhỏ, dựa trên thông tin từ card sorting mở và kiểm thử nội dung, kiểm tra xem cấu trúc và nhãn mới có phù hợp không.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Kiểm thử cây (Tree test)<span class="method-ref">Chương 11</span></td>
+        <td>Kiểm thử kiến trúc thông tin dựa trên kết quả card sorting đóng với mẫu lớn hơn nhiều (Treejack từ Optimal Workshop).</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Kiểm thử nội dung + Kiểm thử khả năng dùng<span class="method-ref">Chương 6 và 5</span></td>
+        <td>Nội dung mới có thể được kiểm thử lặp lại; kết hợp cấu trúc mới và nội dung mới để kiểm thử tổng thể với nhiệm vụ thực tế.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SCENARIO 3 -->
+<div class="scenario-block">
+  <div class="scenario-label">Kịch bản 3</div>
+  <h3>Đánh giá liệu một khái niệm mới có đáng đầu tư không</h3>
+  <p>Khi không rõ vấn đề là gì hoặc đang cân nhắc một ý tưởng mới, bạn thường bắt đầu với nghiên cứu rộng rồi thu hẹp dần theo hình phễu:</p>
+
+  <div class="funnel-wrap">
+    <div class="funnel-row">
+      <div class="funnel-label-left">Rộng</div>
+      <div style="width:240px; height:0; border-left:120px solid transparent; border-right:120px solid transparent; border-top:50px solid var(--surface-dark);"></div>
+      <div class="funnel-label-right" style="font-size:0.8rem; color:var(--text-secondary);">Dân tộc học, Diary study, Nghiên cứu bối cảnh</div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-label-left"></div>
+      <div style="width:130px; height:0; border-left:65px solid transparent; border-right:65px solid transparent; border-top:40px solid var(--surface);"></div>
+      <div class="funnel-label-right"></div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-label-left">Tập trung</div>
+      <div style="width:50px; height:0; border-left:25px solid transparent; border-right:25px solid transparent; border-top:30px solid var(--surface-dark);"></div>
+      <div class="funnel-label-right" style="font-size:0.8rem; color:var(--text-secondary);">Kiểm thử khả năng dùng, Kiểm thử nội dung</div>
+    </div>
+  </div>
+
+  <table class="method-table">
+    <thead>
+      <tr><th>Bước</th><th>Phương pháp</th><th>Mục đích</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Workshop Stakeholder<span class="method-ref">Chương 15</span></td>
+        <td>Khởi động để chia sẻ ví dụ về các khái niệm tương tự trong ngành khác, tạo ý tưởng và thống nhất phạm vi công việc ban đầu cho khái niệm mới.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Dân tộc học, Diary study, hoặc Nghiên cứu bối cảnh<span class="method-ref">Chương 12, 10, hoặc 13</span></td>
+        <td>Tùy theo thời gian sẵn có, chọn phương pháp phù hợp để đặt câu hỏi rộng, tìm hiểu cách mọi thứ hoạt động trong thực tế, trong bối cảnh cụ thể.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Workshop Stakeholder<span class="method-ref">Chương 15</span></td>
+        <td>Chia sẻ những thông tin chi tiết thu được từ nghiên cứu rộng với stakeholder; thống nhất hướng đi sẽ theo đuổi.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Tạo prototype</td>
+        <td>Giả sử nghiên cứu cho thấy ý tưởng đáng theo đuổi, bắt đầu phác thảo một số concept.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Kiểm thử khả năng dùng<span class="method-ref">Chương 5</span></td>
+        <td>Thu thập phản hồi người dùng rất sớm — ví dụ kiểm thử prototype trên giấy và phác thảo storyboard.</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Lặp lại</td>
+        <td>Khi prototype ngày càng chất lượng cao hơn, tiếp tục nghiên cứu lặp lại. Có thể bao gồm workshop co-design (thiết kế cùng người dùng cuối) và kiểm tra thường xuyên với stakeholder tại workshop, retrospective hoặc buổi show &amp; tell.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr class="section-rule">
+
+<h2>Tổng Kết Chương 17</h2>
+
+<div class="box">
+  <div class="box-title">Những điểm cần ghi nhớ</div>
+  <p><strong>Không có một phương pháp nào phù hợp cho mọi tình huống.</strong> Không có phương pháp nào thích hợp trong mọi hoàn cảnh. Điều này cũng có nghĩa là nếu bạn đảm nhận trách nhiệm nghiên cứu người dùng lặp lại, bạn sẽ học cách dùng nhiều phương pháp.</p>
+  <p>Điều này nghe có vẻ đáng sợ, nhưng con người rất giỏi việc học hỏi — kinh nghiệm từ một nghiên cứu có thể mang sang nghiên cứu khác với phương pháp khác. Đường cong học tập vẫn còn đó, nhưng sẽ dốc ít hơn. <strong>Mỗi lần thực hiện nghiên cứu người dùng, bạn học được điều mới về cả phương pháp lẫn chủ đề nghiên cứu.</strong></p>
+</div>
+
+<hr class="section-rule">
+
+<div class="part-close">
+  <h3>Tổng Kết Phần Hai: Phương Pháp</h3>
+  <p>Sau khi đi qua tất cả các phương pháp nghiên cứu người dùng trong Phần Hai, chúng ta đã xem xét:</p>
+  <div class="summary-methods">
+    <div class="method-pill"><strong>Chương 5</strong>Kiểm thử khả năng dùng</div>
+    <div class="method-pill"><strong>Chương 6</strong>Kiểm thử nội dung</div>
+    <div class="method-pill"><strong>Chương 7</strong>Card sorting</div>
+    <div class="method-pill"><strong>Chương 8</strong>Khảo sát</div>
+    <div class="method-pill"><strong>Chương 9</strong>Phỏng vấn</div>
+    <div class="method-pill"><strong>Chương 10</strong>Diary study</div>
+    <div class="method-pill"><strong>Chương 11</strong>Xác nhận kiến trúc thông tin</div>
+    <div class="method-pill"><strong>Chương 12</strong>Dân tộc học &amp; dân tộc học di động</div>
+    <div class="method-pill"><strong>Chương 13</strong>Nghiên cứu bối cảnh</div>
+    <div class="method-pill"><strong>Chương 14</strong>Kiểm thử A/B</div>
+    <div class="method-pill"><strong>Chương 15</strong>Workshop với stakeholder</div>
+    <div class="method-pill"><strong>Chương 16</strong>Nghiên cứu gerilla</div>
+    <div class="method-pill"><strong>Chương 17</strong>Kết hợp các phương pháp</div>
+  </div>
+  <p style="margin-bottom:0;">Phần Ba tiếp theo sẽ đề cập đến điều cần làm với dữ liệu đã thu thập: phân tích nội dung, xác định chủ đề, lập danh mục vấn đề, tạo backlog nhu cầu người dùng, user stories, personas, customer journey map, video playback, infographic và cách tinh chỉnh thiết kế.</p>
+</div>
+
+<footer>
+  <p>Marsh, S. (2018). <em>User Research: A Practical Guide to Designing Better Products and Services.</em> Kogan Page. — Chương 17, tr. 196–204</p>
+</footer>
+
+
+<nav class="chapnav">
+  <a href="ch16-urpg.html"><span class="lbl">Chương trước</span>Chương 16: Nghiên Cứu Gerilla</a>
+  <a href="ch18-urpg.html"><span class="lbl">Chương sau</span>Chương 18: Phân Tích Nội Dung</a>
+</nav>
+</body>
+</html>

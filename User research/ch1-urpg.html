@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URPG | Chương 01 — Giới Thiệu: Tại Sao Nghiên Cứu Người Dùng Lại Quan Trọng?</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── Header breadcrumb ── */
+  .breadcrumb {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+  }
+  .breadcrumb span { margin: 0 6px; }
+
+  /* ── Chapter label ── */
+  .chapter-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  /* ── Title block ── */
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+
+  .divider-heavy {
+    border: none;
+    border-top: 2px solid var(--accent-line);
+    margin-bottom: 40px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* ── Meta strip ── */
+  .meta-strip {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .meta-value { font-size: 14px; color: var(--text-secondary); }
+
+  /* ── Section headings ── */
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 32px 0 12px;
+  }
+
+  h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin: 24px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Body text ── */
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  strong { color: var(--text); font-weight: 700; }
+  em { color: var(--text-secondary); font-style: italic; }
+
+  /* ── Lists ── */
+  ul, ol {
+    padding-left: 24px;
+    margin-bottom: 16px;
+  }
+  li {
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+  li strong { color: var(--text); }
+
+  /* ── Key concept box ── */
+  .key-concept {
+    background: var(--surface);
+    border-left: 3px solid var(--accent-line);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 0 2px 2px 0;
+  }
+  .key-concept .kc-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .key-concept p { margin-bottom: 0; color: var(--text-secondary); }
+  .key-concept strong { color: var(--text); }
+
+  /* ── Quote / highlight block ── */
+  .highlight-box {
+    background: var(--surface-dark);
+    border: 1px solid var(--border-strong);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 2px;
+  }
+  .highlight-box p { margin-bottom: 0; }
+
+  /* ── Author note ── */
+  .author-note {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 2px;
+  }
+  .author-note .an-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .author-note p { margin-bottom: 0; font-style: italic; color: var(--text-secondary); }
+
+  /* ── Grid cards ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .card p { font-size: 14px; margin-bottom: 0; color: var(--text-secondary); }
+
+  /* ── Part structure table ── */
+  .part-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 14px;
+  }
+  .part-table th {
+    background: var(--surface-dark);
+    color: var(--text);
+    font-weight: 700;
+    text-align: left;
+    padding: 10px 14px;
+    border: 1px solid var(--border-strong);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .part-table td {
+    padding: 9px 14px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  .part-table tr:nth-child(even) td { background: var(--surface); }
+  .part-table .part-name {
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  /* ── Inline tag ── */
+  .tag {
+    display: inline-block;
+    background: var(--surface-dark);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin: 2px 3px 2px 0;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-book { font-size: 13px; color: var(--text-muted); }
+  .footer-nav { font-size: 13px; color: var(--text-muted); }
+
+  @media (max-width: 600px) {
+    body { padding: 32px 20px 64px; }
+    h1 { font-size: 24px; }
+    .meta-strip { gap: 16px; }
+  }
+
+  /* -- chapter navigation (added) -- */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+
+<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<div class="breadcrumb">
+  User Research: A Practical Guide &nbsp;<span>›</span>&nbsp; Phần 1: Nền Tảng &nbsp;<span>›</span>&nbsp; Chương 01
+</div>
+
+<div class="chapter-label">Chương 01 &nbsp;·&nbsp; Phần 1 — Nền Tảng (The Fundamentals)</div>
+<h1>Giới Thiệu: Tại Sao Nghiên Cứu Người Dùng Lại Quan Trọng?</h1>
+<p class="subtitle">Introduction: Why User Research Matters</p>
+<hr class="divider-heavy">
+
+<div class="meta-strip">
+  <div class="meta-item">
+    <span class="meta-label">Tác giả</span>
+    <span class="meta-value">Stephanie Marsh</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Nhà xuất bản</span>
+    <span class="meta-value">Kogan Page, 2018</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Trang gốc</span>
+    <span class="meta-value">pp. 1 – 10</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Phần</span>
+    <span class="meta-value">Part One — The Fundamentals</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>1. Nghiên Cứu Người Dùng Là Gì?</h2>
+
+<p>
+  Nghiên cứu người dùng (<em>user research</em>) là <strong>việc nghiên cứu hành vi, động lực và nhu cầu của con người trong bối cảnh thực tế của họ</strong>. Mục tiêu là hiểu sâu sắc người dùng thực sự — không phải người dùng lý tưởng hay người dùng giả định — để từ đó thiết kế ra những sản phẩm và dịch vụ thực sự hữu ích.
+</p>
+
+<div class="key-concept">
+  <div class="kc-label">Định nghĩa cốt lõi</div>
+  <p>
+    Nghiên cứu người dùng là <strong>nghiên cứu có hệ thống về hành vi, động lực và nhu cầu của con người</strong>, được thực hiện trong bối cảnh thực tế của họ, nhằm thông báo cho quá trình thiết kế và phát triển sản phẩm, dịch vụ.
+  </p>
+</div>
+
+<h3>Sự khác biệt giữa nghiên cứu người dùng và nghiên cứu thị trường</h3>
+
+<p>
+  Đây là điểm phân biệt quan trọng thường bị nhầm lẫn. Nghiên cứu người dùng và nghiên cứu thị trường (<em>market research</em>) không phải là một:
+</p>
+
+<ul>
+  <li>
+    <strong>Nghiên cứu thị trường</strong> tập trung vào thị trường — quy mô phân khúc, xu hướng tiêu dùng, sở thích mua hàng, phân tích đối thủ cạnh tranh. Câu hỏi trung tâm là: "Thị trường này có đủ lớn không? Người ta có sẵn sàng mua không?"
+  </li>
+  <li>
+    <strong>Nghiên cứu người dùng</strong> tập trung vào con người — cách họ thực sự hành xử, tư duy và cảm nhận khi tương tác với một sản phẩm hay dịch vụ. Câu hỏi trung tâm là: "Người ta thực sự làm gì? Họ cần gì? Điều gì cản trở họ?"
+  </li>
+</ul>
+
+<p>
+  Cả hai đều có giá trị, nhưng nghiên cứu người dùng đặc biệt không thể thiếu trong quá trình thiết kế — vì nó tiết lộ những hành vi thực tế thường rất khác với những gì thị trường dự đoán hay những gì người dùng tự khai báo.
+</p>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>2. Cuốn Sách Này Dành Cho Ai?</h2>
+
+<p>
+  Stephanie Marsh viết cuốn sách này cho một nhóm đối tượng rộng — bất kỳ ai quan tâm đến việc tạo ra những sản phẩm, dịch vụ và trải nghiệm tốt hơn cho con người. Đây không phải một cuốn sách chỉ dành cho "nhà nghiên cứu" chuyên nghiệp.
+</p>
+
+<h3>Các vai trò được đề cập trực tiếp</h3>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title">Thiết Kế & Kỹ Thuật</div>
+    <p>Designers, developers, information architects, content specialists, social media & digital specialists</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Quản Lý Sản Phẩm</div>
+    <p>Web managers, product managers, business analysts (BAs)</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Nghiên Cứu Chuyên Nghiệp</div>
+    <p>User researchers, UX researchers, service designers</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Chính Sách & Giáo Dục</div>
+    <p>Policy analysts, teachers, museum curators, politicians, public sector professionals</p>
+  </div>
+</div>
+
+<p>
+  Nguyên tắc cốt lõi là: <strong>bất kỳ ai tạo ra thứ gì đó cho người khác sử dụng</strong> — dù là phần mềm, trang web, dịch vụ công, chương trình giảng dạy, hay không gian vật lý — đều có thể và nên thực hành nghiên cứu người dùng.
+</p>
+
+<div class="author-note">
+  <div class="an-label">Quan điểm của tác giả</div>
+  <p>
+    "Nghiên cứu người dùng không phải là lĩnh vực độc quyền của bất kỳ nhóm chuyên nghiệp nào. Nó là một tư duy — một cam kết đặt con người vào trung tâm của mọi quyết định thiết kế."
+  </p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>3. Tại Sao Phải Làm Nghiên Cứu Người Dùng?</h2>
+
+<p>
+  Câu hỏi này tưởng chừng hiển nhiên, nhưng trong thực tế, nhiều tổ chức vẫn bỏ qua bước này — thường vì áp lực thời gian, ngân sách hạn chế, hoặc đơn giản là vì họ chắc chắn rằng họ đã biết người dùng muốn gì. Sự tự tin đó thường là sai lầm đắt giá nhất.
+</p>
+
+<h3>Hậu quả khi không có nghiên cứu người dùng</h3>
+
+<div class="highlight-box">
+  <p>
+    <strong>Khi tổ chức không có dữ liệu người dùng thực sự, họ thiết kế dựa trên giả định.</strong> Những giả định đó đến từ CEO, từ đội thiết kế, từ bên marketing — từ bất kỳ ai trừ người dùng thực tế. Kết quả là những sản phẩm không ai dùng, những dịch vụ không ai hiểu, và những khoản đầu tư lớn đổ xuống cống.
+  </p>
+</div>
+
+<p>
+  Marsh liệt kê các rủi ro cụ thể khi thiếu nghiên cứu người dùng:
+</p>
+
+<ul>
+  <li>Xây dựng tính năng mà người dùng không cần hoặc không muốn</li>
+  <li>Thiết kế giao diện theo logic của tổ chức, không theo logic của người dùng</li>
+  <li>Bỏ lỡ những nhu cầu thực sự quan trọng vì đã không hỏi đúng người</li>
+  <li>Tạo ra sản phẩm thất bại tốn kém — phải làm lại sau khi ra mắt</li>
+  <li>Mất niềm tin của người dùng và danh tiếng thương hiệu</li>
+</ul>
+
+<h3>Những lợi ích cụ thể của nghiên cứu người dùng</h3>
+
+<p>Dưới đây là bảy lợi ích then chốt mà nghiên cứu người dùng mang lại:</p>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title">1. Thiết Kế Tốt Hơn</div>
+    <p>Hiểu hành vi thực sự → thiết kế phù hợp với cách người ta thực sự làm việc, không phải cách ta nghĩ họ làm.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">2. Thích Ứng Với Thay Đổi</div>
+    <p>Hành vi người dùng thay đổi theo thời gian. Nghiên cứu liên tục giúp tổ chức bắt kịp thay vì tụt hậu.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">3. Tiết Kiệm Tiền</div>
+    <p>Phát hiện vấn đề sớm trong quá trình thiết kế rẻ hơn nhiều so với sửa lỗi sau khi đã ra mắt.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">4. Bằng Chứng Thuyết Phục</div>
+    <p>Dữ liệu từ người dùng thực thuyết phục stakeholders mạnh hơn bất kỳ ý kiến nào từ nội bộ.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">5. Thách Thức Giả Định</div>
+    <p>Nghiên cứu người dùng tiết lộ những giả định sai mà cả tổ chức đã tin là đúng trong nhiều năm.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">6. Xây Dựng Đồng Cảm</div>
+    <p>Khi cả team quan sát người dùng thực tế, họ phát triển sự đồng cảm thực sự — không phải lý thuyết.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">7. Ra Quyết Định Tốt Hơn</div>
+    <p>Thay vì tranh luận nội bộ về "người dùng muốn gì", team có dữ liệu thực để ra quyết định dựa trên bằng chứng.</p>
+  </div>
+</div>
+
+<div class="key-concept">
+  <div class="kc-label">Nguyên tắc cốt lõi</div>
+  <p>
+    <strong>Không có gì thay thế được việc quan sát người dùng thực sự.</strong> Ý kiến của CEO, kinh nghiệm của designer, dữ liệu analytics từ hệ thống — tất cả đều có giá trị, nhưng không ai trong số này là người dùng thực tế đang cố gắng hoàn thành một công việc thực tế trong cuộc sống thực tế của họ.
+  </p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>4. Bạn Sẽ Học Được Gì Từ Cuốn Sách Này?</h2>
+
+<p>
+  Cuốn sách được tổ chức thành <strong>ba phần</strong>, thiết kế để dẫn dắt người đọc từ nền tảng lý thuyết đến thực hành phương pháp cụ thể và cuối cùng là phân tích, trình bày kết quả.
+</p>
+
+<table class="part-table">
+  <thead>
+    <tr>
+      <th>Phần</th>
+      <th>Tên</th>
+      <th>Nội dung chính</th>
+      <th>Chương</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="part-name">Phần 1</td>
+      <td><strong>The Fundamentals<br>(Nền Tảng)</strong></td>
+      <td>Tại sao nghiên cứu người dùng; lập kế hoạch và pháp lý; thực hành tốt nhất; quản lý logistics</td>
+      <td>Ch. 01–04</td>
+    </tr>
+    <tr>
+      <td class="part-name">Phần 2</td>
+      <td><strong>Methods<br>(Phương Pháp)</strong></td>
+      <td>Usability testing, content testing, card sorting, surveys, user interviews, diary studies, IA validation, ethnography, contextual inquiry, A/B testing, stakeholder workshops, guerrilla research, combining methods</td>
+      <td>Ch. 05–17</td>
+    </tr>
+    <tr>
+      <td class="part-name">Phần 3</td>
+      <td><strong>Analysis<br>(Phân Tích)</strong></td>
+      <td>Content analysis, affinity diagramming, prioritizing issues, recommendations, executive summaries, video, personas, mental models, journey maps, scenarios/storyboards, infographics, design changes</td>
+      <td>Ch. 18–29 + Kết luận</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Phần 1 — The Fundamentals (Chương 01–04)</h3>
+<p>
+  Bốn chương đầu đặt nền tảng cho toàn bộ cuốn sách. Đây là phần bạn đang đọc. Sau Chương 01 giới thiệu này, các chương tiếp theo sẽ bao gồm:
+</p>
+<ul>
+  <li><strong>Chương 02:</strong> Lập kế hoạch nghiên cứu, đặt mục tiêu rõ ràng, và các vấn đề đạo đức & pháp lý (đặc biệt là consent — đồng thuận tham gia)</li>
+  <li><strong>Chương 03:</strong> Thực hành tốt nhất — tuyển chọn đúng người, hỏi đúng câu hỏi, và các vấn đề tiếp cận & hòa nhập</li>
+  <li><strong>Chương 04:</strong> Quản lý logistics — an toàn, đại lý tuyển dụng, cơ sở vật chất và hợp đồng</li>
+</ul>
+
+<h3>Phần 2 — Methods (Chương 05–17)</h3>
+<p>
+  Đây là phần chi tiết nhất của cuốn sách, bao gồm 13 phương pháp nghiên cứu người dùng khác nhau:
+</p>
+<div style="margin: 12px 0 16px;">
+  <span class="tag">Usability Testing</span>
+  <span class="tag">Content Testing</span>
+  <span class="tag">Card Sorting</span>
+  <span class="tag">Surveys</span>
+  <span class="tag">User Interviews</span>
+  <span class="tag">Diary Studies</span>
+  <span class="tag">IA Validation</span>
+  <span class="tag">Ethnography</span>
+  <span class="tag">Contextual Inquiry</span>
+  <span class="tag">A/B Testing</span>
+  <span class="tag">Stakeholder Workshops</span>
+  <span class="tag">Guerrilla Research</span>
+  <span class="tag">Combining Methods</span>
+</div>
+<p>
+  Mỗi chương trong Phần 2 đi sâu vào một phương pháp cụ thể: khi nào dùng, cách chuẩn bị, cách tiến hành, và những lưu ý quan trọng.
+</p>
+
+<h3>Phần 3 — Analysis (Chương 18–29 + Kết luận)</h3>
+<p>
+  Phần cuối tập trung vào điều mà nhiều người bỏ qua: <strong>làm gì với dữ liệu sau khi thu thập</strong>. Các chủ đề bao gồm:
+</p>
+<div style="margin: 12px 0 16px;">
+  <span class="tag">Content Analysis</span>
+  <span class="tag">Affinity Diagramming</span>
+  <span class="tag">Prioritizing Issues</span>
+  <span class="tag">Recommendations</span>
+  <span class="tag">Executive Summaries</span>
+  <span class="tag">Video Highlights</span>
+  <span class="tag">Personas</span>
+  <span class="tag">Mental Models</span>
+  <span class="tag">Journey Maps</span>
+  <span class="tag">Scenarios & Storyboards</span>
+  <span class="tag">Infographics</span>
+  <span class="tag">Design Changes</span>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>5. Về Tác Giả — Stephanie Marsh</h2>
+
+<p>
+  Điều thú vị về Stephanie Marsh là bà <strong>không bắt đầu sự nghiệp như một nhà nghiên cứu người dùng</strong>. Nền tảng học thuật của bà là <strong>địa chất môi trường</strong> (<em>environmental geology</em>).
+</p>
+
+<p>
+  Bà tự học nghiên cứu người dùng trong quá trình làm luận án tiến sĩ — một trải nghiệm mà bà mô tả là hành trình khám phá sức mạnh của việc thực sự hiểu người dùng trước khi thiết kế giải pháp. Từ đó, bà chuyển hướng sang lĩnh vực UX và trải qua <strong>14 năm sự nghiệp</strong> trong nghiên cứu người dùng.
+</p>
+
+<div class="key-concept">
+  <div class="kc-label">Bài học từ hành trình của tác giả</div>
+  <p>
+    Hành trình của Marsh từ địa chất sang nghiên cứu người dùng minh họa một điểm quan trọng: <strong>kỹ năng nghiên cứu người dùng không phải bẩm sinh — chúng có thể học được</strong>. Và chúng có giá trị trong mọi lĩnh vực, không chỉ trong công nghệ.
+  </p>
+</div>
+
+<p>
+  Kinh nghiệm của Marsh đến từ nhiều loại tổ chức và dự án khác nhau — từ dịch vụ công đến sản phẩm thương mại — điều này cho phép bà đưa vào cuốn sách những ví dụ và case study đa dạng, thực tế, không chỉ lý thuyết.
+</p>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>6. Những Điểm Mấu Chốt Cần Ghi Nhớ</h2>
+
+<ul>
+  <li>
+    <strong>Nghiên cứu người dùng ≠ nghiên cứu thị trường.</strong> Hai lĩnh vực này bổ sung cho nhau nhưng không thay thế được nhau.
+  </li>
+  <li>
+    <strong>Nghiên cứu người dùng không chỉ dành cho nhà nghiên cứu.</strong> Bất kỳ ai tạo ra thứ gì cho người khác dùng đều cần tư duy này.
+  </li>
+  <li>
+    <strong>Chi phí không làm nghiên cứu cao hơn chi phí làm sai.</strong> Phát hiện vấn đề sớm luôn rẻ hơn sửa lỗi sau khi ra mắt.
+  </li>
+  <li>
+    <strong>Dữ liệu từ người dùng thực thuyết phục hơn bất kỳ ý kiến nội bộ nào.</strong> Đây là vũ khí tốt nhất để vượt qua "HiPPO effect" (Highest Paid Person's Opinion).
+  </li>
+  <li>
+    <strong>Cuốn sách này là hướng dẫn thực hành.</strong> Ba phần — Nền tảng, Phương pháp, Phân tích — cung cấp framework hoàn chỉnh để tiến hành nghiên cứu người dùng từ đầu đến cuối.
+  </li>
+</ul>
+
+<div class="highlight-box">
+  <p>
+    <strong>Câu hỏi để suy ngẫm:</strong> Lần cuối cùng tổ chức của bạn thực sự quan sát người dùng thực tế đang sử dụng sản phẩm/dịch vụ của bạn là khi nào? Nếu câu trả lời là "chưa bao giờ" hoặc "không nhớ" — đây là lý do tại sao cuốn sách này tồn tại.
+  </p>
+</div>
+
+<div class="footer">
+  <div class="footer-book">
+    <em>User Research: A Practical Guide to Designing Better Products and Services</em><br>
+    Stephanie Marsh · Kogan Page · 2018
+  </div>
+  <div class="footer-nav">
+    Tiếp theo: <strong>Chương 02 — Lập Kế Hoạch, Mục Tiêu và Các Vấn Đề Pháp Lý</strong> →
+  </div>
+</div>
+
+
+<nav class="chapnav">
+  <a href="ch2-urpg.html"><span class="lbl">Chương sau</span>Chương 2: Lập Kế Hoạch, Mục Tiêu và Các Vấn Đề Pháp Lý</a>
+</nav>
+</body>
+</html>
