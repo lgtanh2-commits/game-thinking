@@ -591,9 +591,37 @@
     .gulf-diagram { flex-direction: column; }
     .gulf-arrow { width: 100%; height: 36px; }
   }
+
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
 </style>
 </head>
 <body>
+
+<p class="book-topline"><a href="../index.html#/book/design-of-everyday-things">← Về mục lục</a></p>
+
 
 <div class="book-meta">Thiết kế lấy người dùng làm trung tâm · Don Norman · Phương Lan dịch</div>
 
@@ -981,10 +1009,10 @@
   <p>Khám phá được · Phản hồi · Mô hình khái niệm · Tính năng đáp ứng · Công cụ chỉ dẫn · Sơ đồ liên hệ · Giới hạn — tương ứng với bảy câu hỏi mà người dùng cần trả lời được ở mỗi giai đoạn hành động.</p>
 </div>
 
-<div class="chapter-footer">
-  <span>← Chương 1: Tâm lý học trong thiết kế</span>
-  <span>Chương 3: Kiến thức trong đầu và kiến thức thực tế →</span>
-</div>
 
+<nav class="chapnav">
+  <a href="ch1-doet.html"><span class="lbl">Chương trước</span>Chương 1: Tâm Lý Học Trong Thiết Kế</a>
+  <a href="ch3-doet.html"><span class="lbl">Chương sau</span>Chương 3: Kiến Thức Trong Đầu Và Kiến Thức Thực Tế</a>
+</nav>
 </body>
 </html>

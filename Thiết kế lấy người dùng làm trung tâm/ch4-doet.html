@@ -350,15 +350,38 @@
     .concept-grid { grid-template-columns: 1fr; }
     .chapter-meta { flex-wrap: wrap; gap: 16px; }
   }
+
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
 </style>
 </head>
 <body>
 
-<nav class="chapter-nav">
-  <a href="doet_ch3.html">← Chương 3</a>
-  <span>THIẾT KẾ LẤY NGƯỜI DÙNG LÀM TRUNG TÂM</span>
-  <a href="doet_ch5.html">Chương 5 →</a>
-</nav>
+<p class="book-topline"><a href="../index.html#/book/design-of-everyday-things">← Về mục lục</a></p>
+
+
 
 <header>
   <div class="book-label">Don Norman · Phương Lan dịch</div>
@@ -912,11 +935,10 @@
   </ul>
 </div>
 
-<footer class="chapter-footer">
-  <div>← <a href="doet_ch3.html" style="color: var(--text-muted); text-decoration: none;">Chương 3: Kiến Thức Trong Đầu và Thực Tế</a></div>
-  <div style="text-align: center; color: var(--text-muted);">Chương 4 / 7</div>
-  <div><a href="doet_ch5.html" style="color: var(--text-muted); text-decoration: none;">Chương 5: Thiết Kế Lấy Con Người Làm Trung Tâm →</a></div>
-</footer>
 
+<nav class="chapnav">
+  <a href="ch3-doet.html"><span class="lbl">Chương trước</span>Chương 3: Kiến Thức Trong Đầu Và Kiến Thức Thực Tế</a>
+  <a href="ch5-doet.html"><span class="lbl">Chương sau</span>Chương 5: Lỗi Của Con Người? Không, Lỗi Của Thiết Kế</a>
+</nav>
 </body>
 </html>

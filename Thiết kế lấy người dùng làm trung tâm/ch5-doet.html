@@ -376,9 +376,37 @@
     .taxonomy { grid-template-columns: 1fr; }
     .taxon-box.wide { grid-column: 1; }
   }
+
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
 </style>
 </head>
 <body>
+
+<p class="book-topline"><a href="../index.html#/book/design-of-everyday-things">← Về mục lục</a></p>
+
 
 <nav class="nav">
   <span class="nav-book">Thiết Kế Lấy Người Làm Trung Tâm — Don Norman</span>
@@ -793,5 +821,9 @@
   <span class="footer-chap">← Ch.4 · Ch.6 →</span>
 </div>
 
+<nav class="chapnav">
+  <a href="ch4-doet.html"><span class="lbl">Chương trước</span>Chương 4: Biết Phải Làm Gì: Các Giới Hạn, Khả Năng Có Thể Được Khám Phá và Phản Hồi</a>
+  <a href="ch6-doet.html"><span class="lbl">Chương sau</span>Chương 6: Tư Duy Thiết Kế</a>
+</nav>
 </body>
 </html>

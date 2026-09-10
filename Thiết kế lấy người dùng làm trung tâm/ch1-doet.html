@@ -512,9 +512,37 @@
     .concept-grid, .two-col, .triangle-diagram, .cycle-steps { grid-template-columns: 1fr; }
     .two-col .col:first-child { border-right: none; border-bottom: 1px solid var(--border-strong); }
   }
+
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
 </style>
 </head>
 <body>
+
+<p class="book-topline"><a href="../index.html#/book/design-of-everyday-things">← Về mục lục</a></p>
+
 
 <div class="book-label">Thiết Kế Lấy Người Dùng Làm Trung Tâm · Don Norman</div>
 <div class="chapter-eyebrow">Chương 1</div>
@@ -778,5 +806,8 @@
   <span>Chương 1 / 7</span>
 </div>
 
+<nav class="chapnav">
+  <a href="ch2-doet.html"><span class="lbl">Chương sau</span>Chương 2: Tâm Lý Học Trong Các Hoạt Động Thường Ngày</a>
+</nav>
 </body>
 </html>

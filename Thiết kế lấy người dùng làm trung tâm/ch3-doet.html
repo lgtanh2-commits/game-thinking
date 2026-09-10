@@ -494,9 +494,37 @@
     color: var(--text-muted);
   }
   .chapter-nav span { font-weight: 600; color: var(--text); }
+
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
 </style>
 </head>
 <body>
+
+<p class="book-topline"><a href="../index.html#/book/design-of-everyday-things">← Về mục lục</a></p>
+
 
 <div class="book-meta">
   <div class="book-label">Don Norman · Phương Lan dịch</div>
@@ -973,10 +1001,10 @@
   Thiết kế tốt khai thác sức mạnh của cả <strong>kiến thức trong thực tế</strong> (thông tin hiện diện trong môi trường, giảm tải trí nhớ) và <strong>kiến thức trong đầu</strong> (kiến thức đã học, tạo ra tốc độ và hiệu quả). Sơ đồ liên hệ tự nhiên, các giới hạn vật lý và quy ước văn hóa là những công cụ mạnh — nhưng nhà thiết kế phải nhận ra rằng "tự nhiên" không đồng nghĩa với "phổ quát": sự tự nhiên luôn gắn với văn hóa, quan điểm và thói quen. <strong>Thiết kế phải phục vụ người dùng thực tế trong bối cảnh thực tế của họ.</strong>
 </div>
 
-<div class="chapter-nav">
-  <div>← <span>Chương 2:</span> Tâm lý học trong các hoạt động thường ngày</div>
-  <div><span>Chương 4:</span> Biết phải làm gì: Giới hạn, khả năng khám phá và phản hồi →</div>
-</div>
 
+<nav class="chapnav">
+  <a href="ch2-doet.html"><span class="lbl">Chương trước</span>Chương 2: Tâm Lý Học Trong Các Hoạt Động Thường Ngày</a>
+  <a href="ch4-doet.html"><span class="lbl">Chương sau</span>Chương 4: Biết Phải Làm Gì: Các Giới Hạn, Khả Năng Có Thể Được Khám Phá và Phản Hồi</a>
+</nav>
 </body>
 </html>
