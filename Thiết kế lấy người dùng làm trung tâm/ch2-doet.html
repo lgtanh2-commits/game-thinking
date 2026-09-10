@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 2 — Tâm Lý Học Trong Các Hoạt Động Thường Ngày</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── HEADER ── */
+  .book-meta {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+    margin-bottom: 48px;
+  }
+
+  .chapter-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .chapter-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+    font-style: italic;
+  }
+
+  /* ── SECTIONS ── */
+  h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin: 52px 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent-line);
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 32px 0 12px;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  strong { color: var(--text); }
+
+  em { font-style: italic; color: var(--text-secondary); }
+
+  /* ── OPENING STORY ── */
+  .opening-story {
+    background: var(--surface);
+    border-left: 3px solid var(--accent-line);
+    padding: 24px 28px;
+    margin: 0 0 40px;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .opening-story p {
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+
+  .opening-story p:last-child { margin-bottom: 0; }
+
+  /* ── FIGURE BOXES ── */
+  .figure-box {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin: 32px 0;
+    background: #fff;
+  }
+
+  .figure-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .figure-caption {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* ── GULF DIAGRAM ── */
+  .gulf-diagram {
+    display: flex;
+    gap: 0;
+    margin: 20px 0;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .gulf-side {
+    flex: 1;
+    padding: 20px 22px;
+    background: var(--surface);
+    text-align: center;
+  }
+
+  .gulf-side:first-child {
+    border-right: 1px solid var(--border-strong);
+  }
+
+  .gulf-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .gulf-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .gulf-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .gulf-arrow {
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-dark);
+    font-size: 22px;
+    color: var(--text-muted);
+  }
+
+  /* ── ACTION STAGES CYCLE ── */
+  .action-cycle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .action-stage {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .stage-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    min-width: 18px;
+    padding-top: 2px;
+  }
+
+  .stage-content {}
+
+  .stage-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .stage-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .goal-center {
+    grid-column: 1 / -1;
+    background: var(--surface-dark);
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* ── TWO-COL COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 14px;
+  }
+
+  .compare-table th {
+    background: var(--surface-dark);
+    border: 1px solid var(--border-strong);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .compare-table td {
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    color: var(--text-secondary);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .compare-table tr:nth-child(even) td {
+    background: var(--surface);
+  }
+
+  /* ── THREE LEVELS DIAGRAM ── */
+  .three-levels {
+    margin: 20px 0;
+  }
+
+  .level-row {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 4px;
+    gap: 0;
+  }
+
+  .level-tag {
+    width: 120px;
+    min-width: 120px;
+    padding: 14px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    border-radius: 4px 0 0 4px;
+  }
+
+  .level-content {
+    flex: 1;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    background: #fff;
+  }
+
+  .level-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .level-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .level-visceral .level-tag { background: var(--surface); color: var(--text-muted); }
+  .level-behavioral .level-tag { background: var(--surface-dark); color: var(--text-secondary); }
+  .level-reflective .level-tag { background: #e8e8e8; color: var(--text); }
+
+  /* ── PRINCIPLE CARDS ── */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .principle-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px 20px;
+    background: #fff;
+    position: relative;
+  }
+
+  .principle-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .principle-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .principle-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ── QUOTE BLOCK ── */
+  .quote-block {
+    border-left: 3px solid var(--border-strong);
+    padding: 18px 24px;
+    margin: 28px 0;
+    background: var(--surface);
+  }
+
+  .quote-text {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .quote-source {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── INFO BOX ── */
+  .info-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+
+  .info-box-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .info-box p {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .info-box p:last-child { margin-bottom: 0; }
+
+  /* ── SEVEN QUESTIONS DIAGRAM ── */
+  .questions-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 20px 0;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .q-item {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    background: #fff;
+  }
+
+  .q-item:last-child { border-bottom: none; }
+
+  .q-item:nth-child(odd) { background: var(--surface); }
+
+  .q-side {
+    width: 80px;
+    padding: 12px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+    border-right: 1px solid var(--border);
+    line-height: 1.3;
+  }
+
+  .q-main {
+    flex: 1;
+    padding: 12px 18px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .q-stage {
+    width: 100px;
+    padding: 12px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+    border-left: 1px solid var(--border);
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow-diagram {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+
+  .flow-item {
+    padding: 8px 16px;
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #fff;
+    text-align: center;
+    min-width: 90px;
+  }
+
+  .flow-arrow {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .flow-highlight {
+    background: var(--surface-dark);
+    border-color: var(--accent-line);
+    color: var(--text);
+  }
+
+  /* ── NEST EXAMPLE ── */
+  .example-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+
+  .example-col {
+    background: #fff;
+    padding: 18px 20px;
+  }
+
+  .example-col:first-child { background: var(--surface); }
+
+  .example-col-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .example-col-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .example-col p {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  /* ── TAKEAWAY BOX ── */
+  .takeaway-box {
+    border: 2px solid var(--accent-line);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin: 52px 0 0;
+    background: #fff;
+  }
+
+  .takeaway-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+  }
+
+  .takeaway-box h3 {
+    font-size: 14px;
+    margin: 0 0 6px;
+  }
+
+  .takeaway-box p {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  .takeaway-box p:last-child { margin-bottom: 0; }
+
+  /* ── FOOTER ── */
+  .chapter-footer {
+    margin-top: 72px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    body { padding: 32px 20px 60px; }
+    .action-cycle { grid-template-columns: 1fr; }
+    .principles-grid { grid-template-columns: 1fr; }
+    .example-box { grid-template-columns: 1fr; }
+    .gulf-diagram { flex-direction: column; }
+    .gulf-arrow { width: 100%; height: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="book-meta">Thiết kế lấy người dùng làm trung tâm · Don Norman · Phương Lan dịch</div>
+
+<div class="chapter-label">Chương 2</div>
+<h1>Tâm Lý Học Trong Các Hoạt Động Thường Ngày</h1>
+<p class="chapter-subtitle">The Psychology of Everyday Actions</p>
+
+<!-- OPENING STORY -->
+<div class="opening-story">
+  <p>Một người phụ nữ đang phàn nàn rằng bà không thể mở được ngăn kéo tủ hồ sơ. Vấn đề nằm ở đâu? Thực ra có đến hai vấn đề: <strong>vấn đề thực hiện</strong> (làm thế nào để mở được ngăn kéo?) và <strong>vấn đề đánh giá</strong> (tại sao ngăn kéo không mở ra được?).</p>
+  <p>Câu chuyện tưởng chừng đơn giản này chứa đựng toàn bộ cấu trúc tâm lý học của hành động: mục tiêu, kế hoạch, thực thi — và sau đó là nhận thức, diễn giải, đánh giá. Norman gọi đây là <em>bảy giai đoạn của hành động</em>.</p>
+</div>
+
+<!-- SECTION 1: HAI VẤN ĐỀ -->
+<h2>Hố Thực Hiện và Hố Đánh Giá</h2>
+
+<p>Khi tương tác với bất kỳ vật thể hay hệ thống nào, con người đối mặt với hai loại thách thức cơ bản:</p>
+
+<div class="gulf-diagram">
+  <div class="gulf-side">
+    <div class="gulf-label">Vấn đề thực hiện</div>
+    <div class="gulf-title">Hố Thực Hiện</div>
+    <div class="gulf-desc">Khoảng cách giữa điều người dùng <em>muốn làm</em> và những gì hệ thống <em>cho phép</em> làm. Câu hỏi: "Tôi có thể làm gì? Làm như thế nào?"</div>
+  </div>
+  <div class="gulf-arrow">⇄</div>
+  <div class="gulf-side">
+    <div class="gulf-label">Vấn đề đánh giá</div>
+    <div class="gulf-title">Hố Đánh Giá</div>
+    <div class="gulf-desc">Khoảng cách giữa trạng thái thực tế của hệ thống và sự <em>diễn giải</em> của người dùng về trạng thái đó. Câu hỏi: "Điều gì đã xảy ra? Có ổn không?"</div>
+  </div>
+</div>
+
+<p>Thiết kế tốt phải <em>thu hẹp cả hai hố</em>: giúp người dùng biết họ có thể làm gì (hố thực hiện) và hiểu điều gì đã xảy ra sau khi thực hiện (hố đánh giá). Hình 2.1 trong sách minh họa hai vòng phản hồi song song này xoay quanh trục trung tâm là hệ thống.</p>
+
+<!-- SECTION 2: BẢY GIAI ĐOẠN -->
+<h2>Bảy Giai Đoạn Của Hành Động</h2>
+
+<p>Norman đề xuất một mô hình bảy giai đoạn để mô tả toàn bộ chu trình hành động của con người — từ khi hình thành mục tiêu đến khi đánh giá kết quả (Hình 2.2).</p>
+
+<div class="figure-box">
+  <div class="figure-label">Hình 2.2 · Chu Trình Bảy Giai Đoạn Của Hành Động</div>
+
+  <div class="action-cycle">
+    <div class="action-stage goal-center">
+      <div class="stage-num">0</div>
+      <div class="stage-content">
+        <div class="stage-name">Mục tiêu (Goal)</div>
+        <div class="stage-desc">Điều người dùng muốn đạt được — xuất phát điểm và đích đến của toàn bộ chu trình</div>
+      </div>
+    </div>
+
+    <div class="action-stage">
+      <div class="stage-num">1</div>
+      <div class="stage-content">
+        <div class="stage-name">Lên kế hoạch (Plan)</div>
+        <div class="stage-desc">Xác định các lựa chọn hành động thay thế để đạt mục tiêu</div>
+      </div>
+    </div>
+    <div class="action-stage">
+      <div class="stage-num">7</div>
+      <div class="stage-content">
+        <div class="stage-name">So sánh (Compare)</div>
+        <div class="stage-desc">Đánh giá kết quả so với mục tiêu ban đầu — vòng lặp đóng lại</div>
+      </div>
+    </div>
+
+    <div class="action-stage">
+      <div class="stage-num">2</div>
+      <div class="stage-content">
+        <div class="stage-name">Cụ thể hóa (Specify)</div>
+        <div class="stage-desc">Chuyển kế hoạch thành chuỗi hành động cụ thể, có thể thực thi</div>
+      </div>
+    </div>
+    <div class="action-stage">
+      <div class="stage-num">6</div>
+      <div class="stage-content">
+        <div class="stage-name">Diễn giải (Interpret)</div>
+        <div class="stage-desc">Hiểu ý nghĩa của những gì được nhận thức — xây dựng diễn giải</div>
+      </div>
+    </div>
+
+    <div class="action-stage">
+      <div class="stage-num">3</div>
+      <div class="stage-content">
+        <div class="stage-name">Thực hiện (Perform)</div>
+        <div class="stage-desc">Triển khai chuỗi hành động cụ thể trong thực tế</div>
+      </div>
+    </div>
+    <div class="action-stage">
+      <div class="stage-num">5</div>
+      <div class="stage-content">
+        <div class="stage-name">Nhận thức (Perceive)</div>
+        <div class="stage-desc">Quan sát trạng thái của thế giới sau khi thực hiện hành động</div>
+      </div>
+    </div>
+
+    <div class="action-stage goal-center">
+      <div class="stage-num">4</div>
+      <div class="stage-content">
+        <div class="stage-name">↕ Thế giới thực · Điểm hành động trực tiếp</div>
+        <div class="stage-desc">Ranh giới giữa ý định (1–3) và đánh giá (5–7) — nơi hành động gặp hiện thực</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="figure-caption">Giai đoạn 1–3 thuộc về <em>vòng thực hiện</em> (từ mục tiêu đến hành động); giai đoạn 5–7 thuộc về <em>vòng đánh giá</em> (từ hành động đến so sánh với mục tiêu). Nhiều hành động thường ngày bỏ qua một số giai đoạn — chúng ta không lên kế hoạch rõ ràng mỗi cử động tay.</div>
+</div>
+
+<h3>Hành vi thúc đẩy bởi mục tiêu vs. hành vi xuất phát từ sự kiện bên ngoài</h3>
+
+<p>Không phải mọi hành động đều bắt đầu từ mục tiêu nội tại. Nhiều hành vi được kích hoạt bởi các sự kiện bên ngoài — một âm thanh, một thông báo, một câu hỏi từ người khác. Trong trường hợp này, chu trình có thể bắt đầu từ giai đoạn <em>nhận thức</em> (5) thay vì từ mục tiêu (0).</p>
+
+<h3>Phân tích căn nguyên (Root cause analysis)</h3>
+
+<p>Theodore Levitt từng nói: "Người ta không mua mũi khoan. Người ta mua cái lỗ." Norman mở rộng thêm: người ta không cần cái lỗ — họ cần giá sách — họ cần chỗ để sách — họ cần thông tin từ sách — ngày nay thông tin đó có thể có từ ebook mà không cần cái lỗ, giá sách, hay mũi khoan nào cả.</p>
+
+<p>Đây chính là kỹ thuật <strong>phân tích căn nguyên</strong>: luôn hỏi "tại sao?" nhiều lần để tìm đến <em>mục tiêu gốc rễ</em> (root goal) thay vì chỉ đáp ứng mục tiêu bề mặt (surface goal). Nhà thiết kế giỏi không chỉ thỏa mãn yêu cầu đã nêu — họ hiểu được nhu cầu thực sự ẩn sau yêu cầu đó.</p>
+
+<!-- SECTION 3: TÂM TRÍ -->
+<h2>Suy Nghĩ Của Con Người: Phần Lớn Là Tiềm Thức</h2>
+
+<p>Một trong những hiểu biết quan trọng nhất từ khoa học thần kinh và tâm lý học nhận thức: <strong>phần lớn hoạt động tinh thần của con người diễn ra dưới ngưỡng ý thức</strong>. Chúng ta không "quyết định" từng cử động khi lái xe, không "chọn" phát âm từng âm tiết khi nói. Những kỹ năng thuần thục trở thành hành vi tự động.</p>
+
+<div class="figure-box">
+  <div class="figure-label">Bảng 2.1 · Hai Chế Độ Tư Duy</div>
+  <table class="compare-table">
+    <tr>
+      <th>Đặc điểm</th>
+      <th>Vô thức (Tiềm thức)</th>
+      <th>Có ý thức</th>
+    </tr>
+    <tr>
+      <td>Tốc độ</td>
+      <td>Nhanh, tức thì</td>
+      <td>Chậm, tuần tự</td>
+    </tr>
+    <tr>
+      <td>Kiểm soát</td>
+      <td>Tự động, không chủ ý</td>
+      <td>Có kiểm soát, chủ đích</td>
+    </tr>
+    <tr>
+      <td>Dung lượng</td>
+      <td>Nhiều luồng song song</td>
+      <td>Nguồn lực bị giới hạn</td>
+    </tr>
+    <tr>
+      <td>Loại kiến thức</td>
+      <td>Kỹ năng, thói quen, trực giác</td>
+      <td>Suy luận, phân tích, lập kế hoạch</td>
+    </tr>
+    <tr>
+      <td>Ví dụ</td>
+      <td>Lái xe quen đường, đánh máy</td>
+      <td>Học lái xe lần đầu, giải toán</td>
+    </tr>
+  </table>
+</div>
+
+<p>Điều này có hệ quả thiết kế quan trọng: thiết kế tốt phải <em>phù hợp với cả hai chế độ</em>. Người dùng mới cần hỗ trợ ý thức (hướng dẫn rõ ràng); người dùng thuần thục cần không gian cho hành vi tự động (không bị gián đoạn bởi các bước thừa).</p>
+
+<h3>Ký ức khai báo và ký ức trình tự</h3>
+
+<p><strong>Ký ức khai báo</strong> (declarative memory) là kiến thức về sự thật — "Paris là thủ đô của Pháp." Nó có thể được nói ra, giải thích, truyền đạt bằng ngôn ngữ. <strong>Ký ức trình tự</strong> (procedural memory) là kiến thức về cách làm — cách đạp xe, cách đánh đàn. Nó thể hiện qua hành động, không qua lời nói, và phần lớn nằm ở cấp độ vô thức.</p>
+
+<!-- SECTION 4: CẢM XÚC -->
+<h2>Cảm Xúc và Nhận Thức: Không Thể Tách Rời</h2>
+
+<p>Cảm xúc và nhận thức thường bị coi là hai lĩnh vực tách biệt — lý trí đối lập với cảm xúc. Nhưng nghiên cứu thần kinh học cho thấy điều ngược lại: <strong>cảm xúc là một hệ thống xử lý thông tin song song với nhận thức</strong>, không phải đối lập với nó.</p>
+
+<p>Cảm xúc đặt ra các giá trị — giúp chúng ta phán xét điều gì là tốt hay xấu, an toàn hay nguy hiểm, đáng theo đuổi hay nên tránh. Không có cảm xúc, các quyết định bị suy giảm nghiêm trọng, ngay cả ở những người có trí tuệ bình thường.</p>
+
+<h3>Ba cấp độ xử lý (Hình 2.3)</h3>
+
+<div class="three-levels">
+  <div class="level-row level-reflective">
+    <div class="level-tag">Suy nghĩ</div>
+    <div class="level-content">
+      <div class="level-name">Cấp độ suy nghĩ (Reflective)</div>
+      <div class="level-desc">Ý thức, chậm, nguồn gốc của những cảm xúc phức tạp nhất. Tạo ra kỷ niệm lâu dài hơn hai cấp kia. Thúc đẩy lời truyền miệng (word-of-mouth) và lòng trung thành thương hiệu. Liên quan đến câu hỏi "Ý nghĩa của điều này là gì?"</div>
+    </div>
+  </div>
+  <div class="level-row level-behavioral">
+    <div class="level-tag">Hành vi</div>
+    <div class="level-content">
+      <div class="level-name">Cấp độ hành vi (Behavioral)</div>
+      <div class="level-desc">Các kỹ năng đã học, phần lớn vô thức, được dẫn dắt bởi kỳ vọng. Trạng thái <em>dòng chảy</em> (flow) xảy ra ở cấp độ này. Phản hồi xác nhận hay bác bỏ kỳ vọng — tạo ra sự thỏa mãn hay thất vọng tức thì.</div>
+    </div>
+  </div>
+  <div class="level-row level-visceral">
+    <div class="level-tag">Nội tại</div>
+    <div class="level-content">
+      <div class="level-name">Cấp độ nội tại (Visceral)</div>
+      <div class="level-desc">Vô thức, nhanh, sinh học — phản ứng chiến/chạy/đứng im. Liên quan đến thẩm mỹ và ấn tượng tức thì. Đây là lý do "phong cách" quan trọng: ấn tượng đầu tiên tạo ra cảm xúc nội tại mạnh mẽ trước cả khi người dùng kịp tư duy.</div>
+    </div>
+  </div>
+</div>
+
+<div class="figure-caption" style="margin-top: 8px; font-size:13px; color: var(--text-muted); font-style: italic;">Hình 2.3: Ba cấp độ xử lý xếp từ thấp (nội tại) đến cao (suy nghĩ). Hình 2.4 kết hợp sơ đồ ba cấp độ với chu trình bảy giai đoạn hành động — cho thấy mỗi giai đoạn hành động tương ứng với cấp độ xử lý nào.</div>
+
+<h3>Dòng chảy (Flow) — Csikszentmihalyi</h3>
+
+<p>Nhà tâm lý học Mihaly Csikszentmihalyi mô tả trạng thái <strong>dòng chảy</strong> (flow): khi độ khó của nhiệm vụ khớp hoàn hảo với mức kỹ năng của người thực hiện, sự tập trung trở nên hoàn toàn, cảm giác về thời gian biến mất, và hiệu suất đạt đỉnh. Thiết kế tốt tạo điều kiện cho dòng chảy — không quá dễ (gây nhàm chán), không quá khó (gây lo lắng).</p>
+
+<!-- SECTION 5: KỂ CHUYỆN VÀ ĐỔ LỖI -->
+<h2>Não Người Là Cỗ Máy Kể Chuyện</h2>
+
+<p>Con người gán nhân quả cho mọi thứ. Khi hai sự kiện xảy ra liên tiếp, não tự động tạo ra một câu chuyện nhân quả — kể cả khi không có mối liên hệ thực sự. Đây là lý do mô hình khái niệm thường sai: người ta <em>tưởng tượng</em> ra một câu chuyện về cơ chế hoạt động, và câu chuyện đó thường không chính xác.</p>
+
+<div class="info-box">
+  <div class="info-box-label">Ví dụ điển hình: Bộ điều nhiệt</div>
+  <p>Nhiều người tin rằng vặn bộ điều nhiệt lên nhiệt độ cao nhất sẽ làm phòng ấm <em>nhanh hơn</em>. Thực ra bộ điều nhiệt chỉ đơn giản là bật/tắt — nhiệt độ đặt không ảnh hưởng đến tốc độ sưởi. Người dùng tạo ra mô hình khái niệm sai ("nhiệt độ cao hơn = máy chạy mạnh hơn") và hành vi của họ phản ánh mô hình sai đó.</p>
+  <p>Hệ quả thực tế: phòng thường được sưởi quá mức vì người dùng "quên tắt" sau khi vặn lên tối đa. Một màn hình hiển thị trạng thái thực của bộ điều nhiệt — như Nest (Hình 2.6) — giúp sửa mô hình khái niệm sai.</p>
+</div>
+
+<h3>Đổ lỗi không đúng chỗ (Misplaced blame)</h3>
+
+<p>Khi một vật không hoạt động như mong đợi, phản ứng đầu tiên của con người thường là <em>tăng cường hành động cũ</em>: đẩy cửa kẹt mạnh hơn, nhấn nút thang máy nhiều lần hơn. Đây là hành vi hợp lý trong một thế giới vật lý — nhưng phản tác dụng với các hệ thống có độ trễ phản hồi.</p>
+
+<p>Hình 2.5 minh họa: cửa thoát hiểm với thanh ngang nằm ngang (panic bar) — khi hoảng loạn, người dùng tự nhiên đẩy về phía trước. Đây là thiết kế <em>affordance phù hợp</em>: hành động tự nhiên của người dùng trùng khớp với cơ chế mở cửa đúng.</p>
+
+<!-- SECTION 6: SỰ BẤT LỰC -->
+<h2>Sự Bất Lực Được Kiểm Chứng</h2>
+
+<p>Khi một người thất bại lặp đi lặp lại khi cố gắng làm điều gì đó, họ có thể bắt đầu tin rằng mình <em>không thể</em> làm được — ngay cả khi nguyên nhân thực sự là thiết kế kém. Norman gọi đây là <strong>sự bất lực được kiểm chứng</strong> (learned helplessness).</p>
+
+<div class="quote-block">
+  <div class="quote-text">"Nếu bạn gặp khó khăn với công nghệ, hãy nhớ: không phải bạn ngu. Thiết kế của nó kém."</div>
+  <div class="quote-source">— Don Norman, tinh thần của Chương 2</div>
+</div>
+
+<p>Biểu hiện phổ biến: <em>lo lắng về toán học</em> (math anxiety), <em>sợ công nghệ</em> (technology phobia). Người ta không sinh ra đã ghét toán hay máy tính — họ được <em>dạy</em> phải sợ chúng qua những trải nghiệm thất bại không được giải thích đúng.</p>
+
+<h3>Tâm lý học tích cực trong thiết kế</h3>
+
+<p>IDEO, công ty thiết kế nổi tiếng, có khẩu hiệu nội bộ: <strong>"Thất bại thường xuyên, thất bại nhanh chóng."</strong> Thay vì gọi sai sót là "thất bại," hãy gọi đó là <em>trải nghiệm học hỏi</em>. Framing này không chỉ là thủ thuật ngôn ngữ — nó thay đổi cách não bộ phân loại và xử lý thông tin, từ đó ảnh hưởng đến khả năng học hỏi và cải thiện.</p>
+
+<h3>Đổ lỗi oan cho bản thân</h3>
+
+<p>Norman kể lại câu chuyện về phím Return và phím Enter: tại một công ty, nhân viên liên tục bị xóa dữ liệu do nhầm phím. Người quản lý kết luận "nhân viên không chú ý." Thực tế, <em>tất cả</em> nhân viên đều mắc lỗi này — nhưng họ im lặng vì xấu hổ, sợ bị coi là vô ý. Không ai báo cáo vì ai cũng nghĩ chỉ mình mình mắc lỗi.</p>
+
+<p>Hệ quả của tư duy "lỗi người dùng": các vấn đề thiết kế thực sự không bao giờ được sửa. Norman đề xuất đổi tên: thay vì <em>"lỗi của con người" (human error)</em>, hãy gọi là <em>"lỗi hệ thống" (system error)</em>. Máy móc chính xác nhưng cứng nhắc; con người sáng tạo nhưng dễ sai. Thiết kế phải để máy móc thích nghi với con người — không phải ngược lại.</p>
+
+<!-- SECTION 7: THIẾT BỊ THÔNG MINH -->
+<h2>Thiết Bị Công Nghệ Có Thể Đáp Ứng Hành Vi Con Người</h2>
+
+<div class="example-box">
+  <div class="example-col">
+    <div class="example-col-label">Thiết kế tệ</div>
+    <div class="example-col-title">Bộ điều nhiệt truyền thống</div>
+    <p>Chỉ hiển thị nhiệt độ đặt. Người dùng không biết hệ thống đang sưởi hay làm mát, đang hoạt động hay đã tắt. Mô hình khái niệm sai được củng cố.</p>
+    <p>Kết quả: người dùng vặn lên tối đa, phòng quá nóng, tốn năng lượng.</p>
+  </div>
+  <div class="example-col">
+    <div class="example-col-label">Thiết kế tốt · Hình 2.6</div>
+    <div class="example-col-title">Nest Thermostat</div>
+    <p>Hiển thị đồng thời: nhiệt độ hiện tại, nhiệt độ mục tiêu, và <em>trạng thái hệ thống</em> (đang sưởi / làm mát / chờ). Màu sắc chỉ thị rõ ràng.</p>
+    <p>Kết quả: người dùng hình thành mô hình khái niệm đúng, hành vi hiệu quả hơn, tiết kiệm năng lượng.</p>
+  </div>
+</div>
+
+<p>Ví dụ khác: Microsoft cho phép nhập ngày tháng theo nhiều định dạng (1/1/2024, Jan 1, 2024, 01-Jan-2024). Thay vì bắt người dùng học một định dạng duy nhất, phần mềm chấp nhận những gì người dùng tự nhiên gõ vào.</p>
+
+<!-- SECTION 8: BẢY NGUYÊN TẮC -->
+<h2>Bảy Nguyên Tắc Thiết Kế Từ Chu Trình Hành Động</h2>
+
+<p>Mỗi giai đoạn trong chu trình bảy giai đoạn đặt ra một câu hỏi mà người dùng cần trả lời được. Nhà thiết kế giỏi đảm bảo hệ thống trả lời đủ cả bảy câu hỏi (Hình 2.7):</p>
+
+<div class="figure-box">
+  <div class="figure-label">Hình 2.7 · Bảy Câu Hỏi — Bảy Giai Đoạn</div>
+  <div class="questions-flow">
+    <div class="q-item">
+      <div class="q-side">Mục tiêu</div>
+      <div class="q-main"><strong>Tôi muốn đạt được điều gì?</strong> — Người dùng cần hình thành được mục tiêu rõ ràng</div>
+      <div class="q-stage">Mục tiêu</div>
+    </div>
+    <div class="q-item">
+      <div class="q-side">Lên kế hoạch</div>
+      <div class="q-main"><strong>Các chuỗi hành động thay thế là gì?</strong> — Người dùng cần thấy các lựa chọn có thể thực hiện</div>
+      <div class="q-stage">Lên kế hoạch</div>
+    </div>
+    <div class="q-item">
+      <div class="q-side">Cụ thể hóa</div>
+      <div class="q-main"><strong>Tôi có thể làm gì bây giờ?</strong> — Hệ thống cần cho biết hành động nào khả thi trong trạng thái hiện tại</div>
+      <div class="q-stage">Cụ thể hóa</div>
+    </div>
+    <div class="q-item">
+      <div class="q-side">Thực hiện</div>
+      <div class="q-main"><strong>Tôi thực hiện điều đó như thế nào?</strong> — Hệ thống cần cung cấp cách thực thi rõ ràng</div>
+      <div class="q-stage">Thực hiện</div>
+    </div>
+    <div class="q-item">
+      <div class="q-side">Nhận thức</div>
+      <div class="q-main"><strong>Điều gì đã xảy ra?</strong> — Hệ thống cần cung cấp phản hồi có thể nhận thấy được</div>
+      <div class="q-stage">Nhận thức</div>
+    </div>
+    <div class="q-item">
+      <div class="q-side">Diễn giải</div>
+      <div class="q-main"><strong>Điều đó có nghĩa là gì?</strong> — Phản hồi cần có thể hiểu và diễn giải được</div>
+      <div class="q-stage">Diễn giải</div>
+    </div>
+    <div class="q-item">
+      <div class="q-side">So sánh</div>
+      <div class="q-main"><strong>Mọi chuyện có ổn không? Tôi đã đạt được mục tiêu chưa?</strong> — Người dùng cần so sánh được kết quả với mục tiêu</div>
+      <div class="q-stage">So sánh</div>
+    </div>
+  </div>
+</div>
+
+<p>Từ bảy câu hỏi này, Norman rút ra <strong>bảy nguyên tắc thiết kế cơ bản</strong>:</p>
+
+<div class="principles-grid">
+  <div class="principle-card">
+    <div class="principle-num">Nguyên tắc 1</div>
+    <div class="principle-name">Đặc tính có thể khám phá được</div>
+    <div class="principle-desc">Người dùng luôn có thể xác định được: trạng thái hiện tại của hệ thống là gì, và những hành động nào đang khả thi.</div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-num">Nguyên tắc 2</div>
+    <div class="principle-name">Phản hồi</div>
+    <div class="principle-desc">Thông tin liên tục về kết quả của hành động và trạng thái hiện tại của hệ thống — đủ rõ để người dùng diễn giải được.</div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-num">Nguyên tắc 3</div>
+    <div class="principle-name">Mô hình khái niệm</div>
+    <div class="principle-desc">Thiết kế cung cấp đầy đủ thông tin để người dùng xây dựng mô hình khái niệm đúng về hệ thống.</div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-num">Nguyên tắc 4</div>
+    <div class="principle-name">Tính năng đáp ứng</div>
+    <div class="principle-desc">Luôn có các tính năng đáp ứng phù hợp để biến việc thực hiện các hành động mong muốn trở thành khả thi.</div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-num">Nguyên tắc 5</div>
+    <div class="principle-name">Công cụ chỉ dẫn</div>
+    <div class="principle-desc">Sử dụng hiệu quả các công cụ chỉ dẫn đảm bảo khả năng khám phá và phản hồi dễ hiểu, dễ nhận ra.</div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-num">Nguyên tắc 6</div>
+    <div class="principle-name">Sơ đồ các mối liên hệ</div>
+    <div class="principle-desc">Mối quan hệ giữa bảng điều khiển và hoạt động tuân theo nguyên tắc sơ đồ liên hệ rõ ràng — qua bố trí không gian và kết nối thời gian.</div>
+  </div>
+
+  <div class="principle-card" style="grid-column: 1 / -1;">
+    <div class="principle-num">Nguyên tắc 7</div>
+    <div class="principle-name">Giới hạn</div>
+    <div class="principle-desc">Đưa ra các giới hạn vật lý, lô-gic, ngữ nghĩa và văn hóa để định hướng các hành động và khiến việc lý giải kết quả trở nên dễ dàng. Giới hạn không phải hạn chế người dùng — chúng <em>hướng dẫn</em> người dùng đến hành động đúng.</div>
+  </div>
+</div>
+
+<!-- SECTION 9: KẾT LUẬN -->
+<h2>Áp Dụng Thực Tiễn</h2>
+
+<p>Lần tới khi bạn không thể ngay lập tức hiểu được cách sử dụng vòi hoa sen trong khách sạn hoặc gặp rắc rối khi sử dụng một chiếc ti-vi mới, hãy nhớ rằng vấn đề nằm ở thiết kế. Hãy tự hỏi: <em>vấn đề nằm ở giai đoạn nào trong bảy giai đoạn hành động? Nguyên tắc thiết kế nào chưa được đáp ứng đầy đủ?</em></p>
+
+<div class="quote-block">
+  <div class="quote-text">"Đừng chỉ trích trừ khi bạn có thể làm tốt hơn. Hãy cố gắng để hiểu các thiết kế có lỗi xuất phát từ đâu và cố gắng xác định xem nó có thể làm khác đi như thế nào."</div>
+  <div class="quote-source">— Don Norman</div>
+</div>
+
+<p>Việc tìm ra lỗi không phải là chuyện khó. Vấn đề chính là cải thiện để mọi thứ tốt hơn. Thiết kế tốt đòi hỏi sự xem xét toàn bộ hệ thống — đảm bảo rằng những yêu cầu, ý định và mong muốn tại một giai đoạn được hiểu và tôn trọng đầy đủ tại tất cả các giai đoạn khác.</p>
+
+<!-- TAKEAWAY -->
+<div class="takeaway-box">
+  <div class="takeaway-label">Những điểm cốt lõi của Chương 2</div>
+
+  <h3>Hai hố cơ bản trong tương tác</h3>
+  <p>Mọi tương tác người–thiết bị đều tồn tại <em>Hố Thực Hiện</em> (không biết làm gì/làm thế nào) và <em>Hố Đánh Giá</em> (không hiểu điều gì đã xảy ra). Thiết kế tốt thu hẹp cả hai.</p>
+
+  <h3>Hành động là một chu trình 7 giai đoạn</h3>
+  <p>Mục tiêu → Lên kế hoạch → Cụ thể hóa → Thực hiện → Nhận thức → Diễn giải → So sánh → (trở lại Mục tiêu). Mỗi giai đoạn là cơ hội để thiết kế hỗ trợ hoặc cản trở người dùng.</p>
+
+  <h3>Não người hoạt động ở ba cấp độ song song</h3>
+  <p><em>Nội tại</em> (tức thì, vô thức, cảm xúc sinh học) → <em>Hành vi</em> (kỹ năng, kỳ vọng, flow) → <em>Suy nghĩ</em> (ý thức, phân tích, ký ức dài hạn). Thiết kế phải phục vụ cả ba.</p>
+
+  <h3>Lỗi hầu hết là lỗi hệ thống, không phải lỗi người dùng</h3>
+  <p>Con người không sai — thiết kế sai. Thay vì đổ lỗi cho người dùng, hãy hỏi: nguyên tắc thiết kế nào đã bị vi phạm? Sự bất lực học được là di sản của thiết kế kém, không phải giới hạn của người dùng.</p>
+
+  <h3>Bảy nguyên tắc thiết kế</h3>
+  <p>Khám phá được · Phản hồi · Mô hình khái niệm · Tính năng đáp ứng · Công cụ chỉ dẫn · Sơ đồ liên hệ · Giới hạn — tương ứng với bảy câu hỏi mà người dùng cần trả lời được ở mỗi giai đoạn hành động.</p>
+</div>
+
+<div class="chapter-footer">
+  <span>← Chương 1: Tâm lý học trong thiết kế</span>
+  <span>Chương 3: Kiến thức trong đầu và kiến thức thực tế →</span>
+</div>
+
+</body>
+</html>

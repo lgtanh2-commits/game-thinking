@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 5 – Lỗi của con người? Không, lỗi của thiết kế</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* NAV */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 32px;
+    border-bottom: 2px solid var(--accent-line);
+    margin-bottom: 56px;
+  }
+  .nav-book {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .nav-chapter {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  /* CHAPTER HEADER */
+  .chapter-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .chapter-subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+  .chapter-divider {
+    width: 48px;
+    height: 3px;
+    background: var(--accent-line);
+    margin-bottom: 48px;
+  }
+
+  /* INTRO BLOCK */
+  .intro {
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    border-left: 3px solid var(--accent-line);
+    padding-left: 24px;
+    margin-bottom: 52px;
+  }
+
+  /* SECTION HEADINGS */
+  h2 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-top: 60px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent-line);
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 36px;
+    margin-bottom: 14px;
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-top: 28px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* BODY TEXT */
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+  }
+
+  /* DEFINITION TERM */
+  .term {
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* CASE STUDY CARD */
+  .case {
+    background: var(--surface);
+    border-left: 4px solid var(--accent-line);
+    padding: 20px 24px;
+    margin: 28px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .case-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .case p {
+    margin-bottom: 8px;
+    font-size: 15px;
+  }
+  .case p:last-child { margin-bottom: 0; }
+
+  /* QUOTE BLOCK */
+  blockquote {
+    border-left: 3px solid var(--border-strong);
+    padding: 16px 24px;
+    margin: 28px 0;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.7;
+    background: var(--surface);
+  }
+  blockquote cite {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    font-style: normal;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0;
+    font-size: 14px;
+  }
+  th {
+    background: var(--surface-dark);
+    font-weight: 700;
+    text-align: left;
+    padding: 10px 14px;
+    color: var(--text);
+    border-bottom: 2px solid var(--border-strong);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  /* TAXONOMY GRID */
+  .taxonomy {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 28px 0;
+  }
+  .taxon-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+    border-radius: 4px;
+  }
+  .taxon-box.wide {
+    grid-column: 1 / -1;
+    background: var(--surface-dark);
+    border-color: var(--border-strong);
+  }
+  .taxon-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .taxon-body {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* PRINCIPLE CARD */
+  .principles {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 28px 0;
+  }
+  .principle-item {
+    display: flex;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    border-radius: 4px;
+  }
+  .principle-num {
+    flex-shrink: 0;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--border-strong);
+    line-height: 1;
+    min-width: 28px;
+  }
+  .principle-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+  .principle-text strong { color: var(--text); }
+
+  /* SWISS CHEESE VISUAL */
+  .swiss-cheese {
+    background: var(--surface-dark);
+    border: 2px solid var(--border-strong);
+    border-radius: 4px;
+    padding: 24px;
+    margin: 28px 0;
+    text-align: center;
+  }
+  .cheese-layers {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .cheese-slice {
+    width: 64px;
+    height: 80px;
+    background: var(--surface);
+    border: 2px solid var(--border-strong);
+    border-radius: 6px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 8px 4px;
+  }
+  .cheese-hole {
+    background: var(--surface-dark);
+    border-radius: 50%;
+    border: 1px solid var(--border);
+  }
+  .arrow-right {
+    font-size: 22px;
+    color: var(--text-muted);
+  }
+  .swiss-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* KEY INSIGHT */
+  .insight {
+    background: var(--text);
+    color: var(--bg);
+    padding: 24px 28px;
+    margin: 36px 0;
+    border-radius: 4px;
+  }
+  .insight p {
+    color: #e8e8e8;
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.7;
+  }
+  .insight strong { color: #ffffff; }
+
+  /* TOC */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    margin-bottom: 52px;
+  }
+  .toc-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .toc ol {
+    padding-left: 20px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 2;
+  }
+
+  /* FIGURE CAPTION */
+  .fig-caption {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-text {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .footer-chap {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 32px 20px 60px; }
+    h1 { font-size: 26px; }
+    .taxonomy { grid-template-columns: 1fr; }
+    .taxon-box.wide { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-book">Thiết Kế Lấy Người Làm Trung Tâm — Don Norman</span>
+  <span class="nav-chapter">Chương 5 / 7</span>
+</nav>
+
+<!-- CHAPTER HEADER -->
+<div class="chapter-label">Chương Năm</div>
+<h1>Lỗi của con người?<br>Không, lỗi của thiết kế</h1>
+<p class="chapter-subtitle">Phân tích nguyên nhân gốc rễ, phân loại lỗi, và nguyên tắc thiết kế để đối phó với sai phạm của con người</p>
+<div class="chapter-divider"></div>
+
+<!-- OPENING INSIGHT -->
+<div class="intro">
+  Khi tai nạn xảy ra, các ủy ban điều tra luôn tìm được một con người để đổ lỗi. Nhưng nếu giải pháp là xác định nguyên nhân thực sự và căn bản của sự việc thì bí mật của thành công trong thiết kế nằm ở việc hiểu được vấn đề thực sự là gì — và <em>thiết kế lại hệ thống</em>.
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">Nội dung chương này</div>
+  <ol>
+    <li>Phân tích nguyên nhân gốc rễ & "Năm câu hỏi Vì sao"</li>
+    <li>Những vi phạm cố ý</li>
+    <li>Hai loại lỗi: Sai phạm (Slips) và Sai lầm (Mistakes)</li>
+    <li>Phân loại các sai phạm</li>
+    <li>Phân loại sai lầm</li>
+    <li>Áp lực xã hội và hệ thống</li>
+    <li>Danh sách kiểm tra (Checklists)</li>
+    <li>Báo cáo lỗi & Poka-yoke</li>
+    <li>Phát hiện và thiết kế cho lỗi</li>
+    <li>Khi thiết kế tốt là chưa đủ</li>
+    <li>Thiết kế tăng khả năng chịu đựng</li>
+    <li>Nghịch lý của tự động hóa</li>
+    <li>Các nguyên tắc thiết kế để đối phó với lỗi</li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>1. Phân tích nguyên nhân gốc rễ</h2>
+
+<p>Ủy ban điều tra tai nạn thường dừng lại khi tìm được một người để đổ lỗi. Nhưng các cơ quan điều tra uy tín biết rằng hiếm khi chỉ có một nguyên nhân duy nhất — đó là lý do tại sao các cuộc điều tra của họ mất rất nhiều thời gian. Trách nhiệm của họ là hiểu được hệ thống và đưa ra những thay đổi để giảm bớt khả năng xuất hiện chuỗi sự kiện tương tự trong tương lai.</p>
+
+<div class="case">
+  <div class="case-label">Ví dụ thực tế</div>
+  <p><strong>Vụ tai nạn F-22, 2010:</strong> Không quân đổ lỗi cho phi công (thiếu oxy — hypoxia). Tuy nhiên Thanh tra Tổng quát lại không đồng ý. Điều tra sâu hơn cho thấy chuỗi nguyên nhân phức tạp hơn nhiều — không phải lỗi đơn giản của một cá nhân.</p>
+</div>
+
+<h3>Phương pháp "Năm câu hỏi Vì sao" (5 Whys)</h3>
+
+<p>Sakichi Toyoda — người sáng lập Toyota — phát triển kỹ thuật đơn giản nhưng mạnh mẽ: <span class="term">cứ hỏi "Vì sao?" sau mỗi câu trả lời</span> cho đến khi tìm được nguyên nhân thực sự. Kỹ thuật này ngăn chặn xu hướng dừng lại quá sớm tại nguyên nhân bề mặt.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Câu hỏi "Vì sao"</th>
+      <th>Câu trả lời (ví dụ F-22)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Vì sao máy bay rơi?</td>
+      <td>Phi công mất kiểm soát</td>
+    </tr>
+    <tr>
+      <td>Vì sao phi công mất kiểm soát?</td>
+      <td>Bị thiếu oxy (hypoxia)</td>
+    </tr>
+    <tr>
+      <td>Vì sao thiếu oxy?</td>
+      <td>Hệ thống cung cấp oxy thất bại</td>
+    </tr>
+    <tr>
+      <td>Vì sao hệ thống thất bại?</td>
+      <td>Van khí bị chặn</td>
+    </tr>
+    <tr>
+      <td>Vì sao van bị chặn?</td>
+      <td>Thiết kế không có biện pháp phòng ngừa đủ mạnh</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>2. Những vi phạm cố ý</h2>
+
+<p>Đây là một loại lỗi khác biệt hoàn toàn: người ta <em>biết</em> mình đang vi phạm quy tắc. Ví dụ: lái xe quá tốc độ, làm việc khi đang bị bệnh. Những vi phạm này khác với lỗi vô tình (errors) ở chỗ chúng có chủ ý.</p>
+
+<p>Nguyên nhân thường gặp: quy tắc được viết ra để tuân thủ mặt giấy tờ, không phản ánh thực tế vận hành; tổ chức ngầm khuyến khích vi phạm để hoàn thành công việc; hoặc người vi phạm đánh cược rằng xác suất sự cố thấp đến mức "chắc chắn không xảy ra với mình".</p>
+
+<div class="insight">
+  <p>Nếu 7 tỷ người mỗi người thực hiện một hành động có xác suất tai nạn <strong>một phần một triệu</strong>, điều đó có nghĩa là <strong>7.000 tai nạn</strong> mỗi ngày trên toàn thế giới.</p>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>3. Hai loại lỗi: Sai phạm và Sai lầm</h2>
+
+<p>Norman và nhà tâm lý học James Reason phân loại lỗi thành hai nhóm lớn:</p>
+
+<div class="taxonomy">
+  <div class="taxon-box wide">
+    <div class="taxon-title">Lỗi (Error)</div>
+    <div class="taxon-body">Bất kỳ hành động không đúng nào — bao gồm cả sai phạm và sai lầm</div>
+  </div>
+
+  <div class="taxon-box">
+    <div class="taxon-title">Sai phạm (Slip)</div>
+    <div class="taxon-body">
+      <strong>Mục tiêu đúng nhưng hành động sai.</strong><br>
+      Xảy ra khi thực thi tự động — người làm biết mình muốn làm gì nhưng tay hoặc não "trượt" sang một hành động khác.<br><br>
+      <em>Ví dụ:</em> Định bật đèn phòng ngủ nhưng lại bật đèn phòng tắm vì tay quen với vị trí cũ.
+    </div>
+  </div>
+
+  <div class="taxon-box">
+    <div class="taxon-title">Sai lầm (Mistake)</div>
+    <div class="taxon-body">
+      <strong>Mục tiêu sai ngay từ đầu.</strong><br>
+      Xảy ra ở tầng tư duy có chủ ý — người làm tin rằng mình đang làm đúng, nhưng mục tiêu hoặc kế hoạch đề ra là sai.<br><br>
+      <em>Ví dụ:</em> Tắt đèn đúng công tắc nhưng nhầm đây là phòng trống khi thực ra có người.
+    </div>
+  </div>
+</div>
+
+<p class="fig-caption">Hình 5.1 — Cây phân loại lỗi: Sai phạm (dựa trên hành động / nhớ) và Sai lầm (dựa trên quy tắc / hiểu biết / nhớ). Hình 5.2 — Trong vòng lặp hành động: Sai lầm xảy ra ở các tầng cao (mục tiêu, kế hoạch), sai phạm xảy ra ở các tầng thấp (thực hiện).</p>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>4. Phân loại các sai phạm (Slips)</h2>
+
+<h3>4.1 Sai phạm do quán tính (Habit Capture)</h3>
+<p>Một hành động thường xuyên "chiếm quyền kiểm soát" một hành động ít quen thuộc hơn. <span class="term">Người có kinh nghiệm dễ mắc lỗi này hơn người mới</span> — vì hành vi quen đã được tự động hóa quá sâu.</p>
+<div class="case">
+  <div class="case-label">Ví dụ</div>
+  <p>Đang đếm trang tài liệu → não trượt sang hành động đếm bài poker. Người mới học đếm trang sẽ không mắc lỗi này vì không có thói quen đếm bài.</p>
+</div>
+
+<h3>4.2 Sai phạm do tính chất tương đồng (Similarity)</h3>
+<p>Khi hai hành động hoặc hai đối tượng quá giống nhau, não nhầm lẫn giữa chúng. Thiết kế cần tạo ra sự khác biệt rõ ràng giữa các điều khiển có chức năng khác nhau.</p>
+<div class="case">
+  <div class="case-label">Ví dụ</div>
+  <p>Ném áo bẩn vào bồn cầu thay vì giỏ đựng đồ. Nhận dạng đồng xu nhầm (đã đề cập ở Chương 3).</p>
+</div>
+
+<h3>4.3 Sai phạm do nhớ sót (Memory Lapses)</h3>
+<p>Quên thực hiện một bước trong quy trình, hoặc quên mình đã thực hiện bước đó chưa.</p>
+<div class="case">
+  <div class="case-label">Ví dụ</div>
+  <p>Để quên bản gốc trong máy photocopy; quên đứa con đang ngủ trong xe; không nhớ đã khóa cửa chưa. Giải pháp kinh điển: <strong>máy ATM nhả thẻ trước khi nhả tiền</strong> — forcing function ngăn quên thẻ.</p>
+</div>
+
+<h3>4.4 Sai phạm do lỗi phương thức (Mode Errors)</h3>
+<p>Thiết bị có nhiều chế độ; người dùng thực hiện hành động đúng nhưng trong sai chế độ.</p>
+
+<div class="case">
+  <div class="case-label">Thảm họa hàng không — Lỗi phương thức</div>
+  <p>Phi công Airbus nhập <strong>−3,3°</strong> (góc hạ cánh) nhưng hệ thống đang ở chế độ tốc độ hạ xuống — nên hiểu là <strong>−3.300 ft/phút</strong>. Máy bay đâm xuống. Bài học: <em>Luôn hiển thị rõ chế độ hiện tại</em> để người dùng không phải đoán.</p>
+</div>
+
+<div class="case">
+  <div class="case-label">Ví dụ hàng ngày</div>
+  <p>Đặt báo thức AM thay vì PM; đồng hồ chuyển sang giờ mùa hè/đông mà không báo người dùng chế độ đã thay đổi.</p>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>5. Phân loại sai lầm (Mistakes)</h2>
+
+<p>Jens Rasmussen — nhà tâm lý học người Đan Mạch — xác định ba tầng hành vi:</p>
+
+<div class="taxonomy">
+  <div class="taxon-box">
+    <div class="taxon-title">Dựa trên kỹ năng</div>
+    <div class="taxon-body">Hành động tự động, không cần suy nghĩ có ý thức. Ví dụ: lái xe quen thuộc.</div>
+  </div>
+  <div class="taxon-box">
+    <div class="taxon-title">Dựa trên quy tắc</div>
+    <div class="taxon-body">Áp dụng quy tắc đã học. Ví dụ: nếu đèn cảnh báo X thì làm Y.</div>
+  </div>
+  <div class="taxon-box wide">
+    <div class="taxon-title">Dựa trên hiểu biết</div>
+    <div class="taxon-body">Tình huống hoàn toàn mới, phải suy nghĩ từ đầu. Ví dụ: xử lý sự cố chưa từng gặp.</div>
+  </div>
+</div>
+
+<h3>5.1 Sai lầm dựa trên quy tắc</h3>
+<p>Người nhận dạng sai tình huống → áp dụng quy tắc sai. Hoặc quy tắc đúng cho tình huống thông thường nhưng sai cho tình huống hiện tại.</p>
+
+<div class="case">
+  <div class="case-label">Thảm họa hộp đêm Kiss — Brazil, 2013</div>
+  <p>230 người chết trong vụ cháy. Bảo vệ ngăn khách chạy ra cửa thoát hiểm vì nghĩ họ trốn không trả tiền (áp dụng quy tắc thông thường). Kết quả thảm khốc khi tình huống thực tế là khẩn cấp.</p>
+</div>
+
+<div class="case">
+  <div class="case-label">Ví dụ khác</div>
+  <p>Hiểu nhầm rung lắc của hệ thống phanh ABS là dấu hiệu hỏng hóc → tắt ABS đúng lúc cần nhất. Vặn lò nướng lên nhiệt độ tối đa nghĩ là sẽ nóng nhanh hơn.</p>
+</div>
+
+<h3>5.2 Sai lầm dựa trên hiểu biết</h3>
+<p>Tình huống lạ, không có quy tắc sẵn có. Người dùng phải tự suy luận với kiến thức không đầy đủ.</p>
+
+<div class="case">
+  <div class="case-label">Gimli Glider — Canada, 1983</div>
+  <p>Phi hành đoàn tính toán nhiên liệu bằng <strong>pound</strong> thay vì <strong>kilogram</strong> — cả hai đơn vị đều đo khối lượng nhưng giá trị lệch nhau hệ số 2,2. Kết quả: máy bay hết nhiên liệu giữa chuyến bay, phải hạ cánh khẩn cấp xuống đường băng đã bỏ hoang. Giải pháp: hiển thị tốt hơn, mô hình khái niệm rõ ràng hơn, hỗ trợ AI.</p>
+</div>
+
+<h3>5.3 Sai lầm do quên kế hoạch (Memory-Lapse Mistakes)</h3>
+<p>Bị gián đoạn giữa chừng → quên mục tiêu hoặc kế hoạch ban đầu. <span class="term">Giải pháp then chốt: hiển thị liên tục trạng thái hiện tại của hệ thống</span> — để người dùng biết mình đang ở đâu trong quy trình.</p>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>6. Áp lực xã hội và hệ thống</h2>
+
+<p>Áp lực thời gian là một trong những nguyên nhân hàng đầu gây lỗi. Áp lực thương mại, thứ bậc xã hội, và văn hóa tổ chức có thể khiến con người im lặng khi nhận ra có vấn đề.</p>
+
+<div class="case">
+  <div class="case-label">Thảm họa Tenerife, 1977 — 538 người chết</div>
+  <p>Máy bay KLM 747 đâm vào máy bay Pan Am 747 trên đường băng trong sương mù. Cơ phó nhận thấy có vấn đề nhưng không dám phản đối cơ trưởng (thứ bậc xã hội). Áp lực thời gian (phi hành đoàn KLM sắp hết giờ làm việc theo quy định) + sương mù + giao tiếp nhầm lẫn = tai nạn hàng không chết người nhất lịch sử.</p>
+</div>
+
+<div class="case">
+  <div class="case-label">Air Florida, Washington DC, 1982 — 7 người chết</div>
+  <p>Phi hành đoàn không bật hệ thống chống đóng băng vì không muốn làm chậm chuyến bay trong điều kiện thời tiết xấu. Cơ phó đã đề cập lo ngại nhưng không đủ mạnh để phản đối quyết định cơ trưởng.</p>
+</div>
+
+<p><span class="term">Quy tắc "buồng lái vô trùng" (Sterile Cockpit):</span> Không được nói chuyện không liên quan đến bay trong giai đoạn cất/hạ cánh. Quy tắc này ra đời trực tiếp từ những tai nạn như Air Florida.</p>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>7. Danh sách kiểm tra (Checklists)</h2>
+
+<p>Một trong những công cụ đơn giản và hiệu quả nhất để chống lại sai phạm và sai lầm do quên.</p>
+
+<div class="principles">
+  <div class="principle-item">
+    <div class="principle-num">✓</div>
+    <div class="principle-text"><strong>Hai người hợp tác:</strong> Một người đọc tên yêu cầu, người kia thực hiện và xác nhận. Phân chia trách nhiệm rõ ràng.</div>
+  </div>
+  <div class="principle-item">
+    <div class="principle-num">✓</div>
+    <div class="principle-text"><strong>Nghịch lý checklist:</strong> Càng nhiều người kiểm tra, mỗi người càng ít chú ý vì nghĩ người khác sẽ bắt được lỗi.</div>
+  </div>
+  <div class="principle-item">
+    <div class="principle-num">✓</div>
+    <div class="principle-text"><strong>Hàng không:</strong> Bắt buộc trên tất cả chuyến bay thương mại Mỹ — nhưng mất hàng thập kỷ để được chấp nhận.</div>
+  </div>
+  <div class="principle-item">
+    <div class="principle-num">✓</div>
+    <div class="principle-text"><strong>Y tế:</strong> Lâu dài kháng cự vì tự ái nghề nghiệp, nhưng đang dần thay đổi. Checklist điện tử có thể theo dõi tiến độ và phát hiện bỏ sót giữa chừng.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>8. Báo cáo lỗi và Poka-yoke</h2>
+
+<h3>Văn hóa báo cáo</h3>
+<p>Áp lực xã hội khiến việc báo cáo lỗi rất khó: sợ bị trừng phạt, sợ bị chế giễu, sợ mất việc. Nhưng nếu không thu thập dữ liệu, không thể cải thiện hệ thống.</p>
+
+<div class="case">
+  <div class="case-label">Hệ thống báo cáo an toàn hàng không NASA (ASRS)</div>
+  <p>Phi công có thể gửi báo cáo sự cố một cách nặc danh bán phần. NASA lột bỏ danh tính, gửi bản xác nhận lại; FAA không được dùng báo cáo NASA để truy cứu trách nhiệm nếu phi công đã báo cáo trong vòng 10 ngày. Kết quả: kho dữ liệu quý báu về lỗi hàng không, giúp phòng ngừa tai nạn trong tương lai.</p>
+</div>
+
+<h3>Jidoka và Poka-yoke (Toyota)</h3>
+
+<div class="taxonomy">
+  <div class="taxon-box">
+    <div class="taxon-title">Jidoka</div>
+    <div class="taxon-body">Dừng dây chuyền khi phát hiện lỗi. Dây thừng Andon cho phép bất kỳ công nhân nào dừng sản xuất. Sau đó áp dụng "Năm câu hỏi Vì sao" để tìm nguyên nhân gốc rễ.</div>
+  </div>
+  <div class="taxon-box">
+    <div class="taxon-title">Poka-yoke (Shigeo Shingo)</div>
+    <div class="taxon-body">Thiết kế đồ gá chống lỗi — hình dạng và kích thước buộc công nhân lắp đúng chiều. Chấm xanh trên ổ khóa chỉ ra hướng xoay đúng.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>9. Phát hiện lỗi</h2>
+
+<p><span class="term">Sai phạm</span> tương đối dễ phát hiện nếu có phản hồi đủ nhanh. Khó nhất là <em>sai phạm do quên</em> — sự vắng mặt của một hành động không tạo ra phản hồi.</p>
+
+<p><span class="term">Sai lầm</span> rất khó phát hiện — khi mục tiêu sai, mọi bước tiếp theo đều nhất quán với mục tiêu đó, không có gì "kêu lên" bất thường.</p>
+
+<h3>Thiên kiến nhìn lại (Hindsight Bias)</h3>
+<p>Sau khi biết kết quả, con người thường cảm thấy sự kiện đó đáng lẽ phải thấy trước được. <em>Baruch Fischhoff</em> (nhà tâm lý học) gọi đây là thiên kiến nhìn lại — nó làm người ta đánh giá thấp độ khó của việc ra quyết định trong thời gian thực.</p>
+
+<div class="case">
+  <div class="case-label">Câu chuyện minh họa</div>
+  <p>Norman đang lái xe đến Las Vegas nhưng thực ra cần đến Mammoth. Dọc đường, mọi biển chỉ đường đều phù hợp với Las Vegas — não không kích hoạt cảnh báo vì đã có một "giải thích hợp lý". Lỗi chỉ được phát hiện rất muộn.</p>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>10. Thiết kế cho tình huống phát sinh lỗi</h2>
+
+<h3>Mô hình Pho mát Thụy Sỹ (Swiss Cheese Model)</h3>
+
+<p>James Reason đề xuất: tai nạn không xảy ra từ một nguyên nhân duy nhất mà do <em>chuỗi lỗ hổng</em> của nhiều lớp bảo vệ cùng thẳng hàng vào một lúc — như các lỗ trong nhiều lát pho mát Thụy Sỹ cùng thẳng hàng để ánh sáng xuyên qua.</p>
+
+<div class="swiss-cheese">
+  <div class="cheese-layers">
+    <div class="cheese-slice">
+      <div class="cheese-hole" style="width:20px;height:20px;margin:0 auto;"></div>
+      <div class="cheese-hole" style="width:14px;height:14px;margin:0 auto;margin-left:8px;"></div>
+    </div>
+    <span class="arrow-right">→</span>
+    <div class="cheese-slice">
+      <div class="cheese-hole" style="width:16px;height:16px;margin:0 auto;margin-left:12px;"></div>
+      <div class="cheese-hole" style="width:20px;height:20px;margin:0 auto;"></div>
+    </div>
+    <span class="arrow-right">→</span>
+    <div class="cheese-slice">
+      <div class="cheese-hole" style="width:22px;height:22px;margin:0 auto;"></div>
+      <div class="cheese-hole" style="width:12px;height:12px;margin:0 auto;margin-left:4px;"></div>
+    </div>
+    <span class="arrow-right">☠</span>
+  </div>
+  <p class="swiss-label">Mỗi lát = một lớp bảo vệ. Tai nạn xảy ra khi mọi lỗ hổng thẳng hàng đồng thời.</p>
+</div>
+
+<p>Ba cách giảm tai nạn theo mô hình này: <strong>Tăng số lớp bảo vệ</strong> (thêm checklist, quy trình kép) — <strong>Giảm kích thước lỗ hổng</strong> (thiết kế tốt hơn) — <strong>Cảnh báo khi có nhiều lỗ thẳng hàng</strong> (hệ thống giám sát).</p>
+
+<h3>Đảo ngược (Undo)</h3>
+<p>Công cụ đơn lẻ mạnh nhất để giảm hậu quả của lỗi. Mọi hệ thống điện tử nên hỗ trợ Undo nhiều cấp độ. Chức năng Thùng rác (Trash) trong máy tính là ví dụ xuất sắc — tệp bị "xóa" vẫn còn đó và có thể khôi phục.</p>
+
+<h3>Xác nhận và thông báo lỗi</h3>
+<p>Hộp thoại "Bạn có chắc chắn muốn xóa không?" thường không đủ — người dùng đã quen click "OK" mà không đọc. Giải pháp tốt hơn: <em>hiển thị rõ hành động sẽ xảy ra</em> và <em>hỗ trợ Undo</em> để việc xác nhận ít quan trọng hơn.</p>
+
+<h3>Kiểm tra tri giác (Sanity Checks)</h3>
+<p>Hệ thống thông minh phải tự hỏi: "Kết quả này có hợp lý không?" trước khi thực hiện.</p>
+
+<div class="case">
+  <div class="case-label">Lỗi ngân hàng Hàn Quốc</div>
+  <p>Nhân viên nhập <strong>1.000 won</strong> vào ô USD (vì 1 USD ≈ 1.000 won). Hệ thống hiểu đây là <strong>1.000 USD = 1.000.000 won</strong>. Chuyển khoản 1 triệu USD thực hiện mà không có cảnh báo gì. Một sanity check đơn giản ("Số tiền này có vẻ bất thường — xác nhận?") sẽ ngăn được sự cố.</p>
+</div>
+
+<h3>Hạn chế sai phạm</h3>
+<p>Giữ sự chú ý có ý thức tập trung vào đúng nhiệm vụ. Thiết kế các điều khiển khác biệt rõ ràng để tránh nhầm lẫn. Huyền thoại "đa nhiệm" đã bị bác bỏ — não người không thực sự làm hai việc cùng lúc, chỉ chuyển đổi nhanh giữa các nhiệm vụ, và cả hai đều kém đi.</p>
+
+<div class="case">
+  <div class="case-label">Nghiên cứu Hyman (2010)</div>
+  <p>Sinh viên đi bộ qua quảng trường trong khi nói chuyện điện thoại — <strong>75% không nhìn thấy người cưỡi kỳ lân đơn bánh</strong> đi ngang qua. Dùng điện thoại khi đi bộ làm giảm đáng kể khả năng nhận biết môi trường xung quanh.</p>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>11. Khi thiết kế tốt là chưa đủ</h2>
+
+<h3>Khi con người thực sự mắc lỗi</h3>
+<p>Không phải mọi tai nạn đều do thiết kế tồi. Một số hoạt động có yêu cầu thể chất, kỹ năng hoặc trạng thái tâm lý cụ thể — và con người không đáp ứng được. Buồn ngủ, say rượu, kiệt sức, chất kích thích đều làm giảm năng lực con người một cách thực sự.</p>
+
+<p>Tuy nhiên, một tỷ lệ lớn hơn nhiều các vụ tai nạn là do thiết kế tồi — cả thiết bị lẫn quy trình. Và con người cũng có lỗi khi không tự bảo vệ bản thân khi biết rằng gánh nặng không hoàn toàn là của mình.</p>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>12. Thiết kế tăng khả năng chịu đựng (Resilience Engineering)</h2>
+
+<p>Trong các hệ thống công nghiệp lớn và phức tạp — giàn khoan dầu, nhà máy lọc dầu, hệ thống điện, giao thông, y tế — tai nạn không thể loại bỏ hoàn toàn. <span class="term">Thiết kế tăng khả năng chịu đựng</span> nhắm đến việc <em>hệ thống có thể phục hồi với thiệt hại tối thiểu</em> khi sự cố xảy ra.</p>
+
+<blockquote>
+  Thiết kế tăng khả năng chịu đựng là một lý thuyết cho mục đích quản lý hoạt động an toàn tập trung vào việc làm thế nào để giúp con người đối phó với sự phức tạp dưới áp lực lớn để đạt được thành công. Một tổ chức có khả năng chịu đựng tốt coi an toàn là giá trị cốt lõi, không phải là một thứ hàng hóa để có thể tính đếm. Trên thực tế, sự an toàn chỉ thể hiện bản thân nó qua những sự kiện <em>không</em> xảy ra!
+  <cite>— Hollnagel, Woods & Leveson (2006)</cite>
+</blockquote>
+
+<p>Các nhà cung cấp máy tính lớn chủ động tạo ra lỗi trên hệ thống của mình để kiểm nghiệm xem họ có thể phản ứng ở mức độ nào — đây là cách duy nhất để kiểm nghiệm các hệ thống lớn và phức tạp thực sự.</p>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>13. Nghịch lý của tự động hóa</h2>
+
+<p>Tự động hóa giải quyết xuất sắc những công việc nhàm chán, tẻ nhạt, lặp đi lặp lại. Nhưng khi sự việc trở nên phức tạp — đúng lúc cần tự động hóa nhất — hệ thống tự động hóa có xu hướng đầu hàng. Và khi nó thất bại, thường không đưa ra cảnh báo.</p>
+
+<p>Điều này đặt con người vào trạng thái "nằm ngoài phạm vi chú ý" — không tập trung vào quá trình vận hành, do đó cần nhiều thời gian để nhận ra và đánh giá hỏng hóc, rồi quyết định phản ứng như thế nào.</p>
+
+<div class="case">
+  <div class="case-label">Tàu Royal Majesty mắc cạn, 1997</div>
+  <p>Dây cáp từ ăng-ten vệ tinh đến hệ thống dẫn đường bị ngắt (không ai biết). Hệ thống chuyển sang "tính toán tĩnh" (dead reckoning) — ước tính vị trí qua tốc độ và hướng — nhưng <em>không hiển thị sự chuyển đổi này</em>. Con tàu đi từ Bermuda đến Boston lệch rất nhiều về phía nam và mắc cạn tại Cape Cod. Hệ thống tự động đã hoạt động hoàn hảo trong nhiều năm → không ai kiểm tra thủ công màn hình hiển thị nữa.</p>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>14. Các nguyên tắc thiết kế để đối phó với lỗi</h2>
+
+<p>Con người linh hoạt, sáng tạo, dễ thay đổi. Máy móc cứng nhắc, chính xác và tương đối cố định. Khi chia tách phần máy móc và con người theo cách không tận dụng điểm mạnh của mỗi bên, chúng ta nhận được điều tệ nhất của cả hai.</p>
+
+<div class="insight">
+  <p>Điều chúng ta gọi là <strong>"lỗi do con người"</strong> thường chỉ đơn giản là một hành động của con người không phù hợp với các yêu cầu kỹ thuật. Kết quả là, nó cho thấy một thiếu sót trong <strong>kỹ thuật</strong> của chúng ta — không phải trong con người.</p>
+</div>
+
+<div class="principles">
+  <div class="principle-item">
+    <div class="principle-num">1</div>
+    <div class="principle-text">
+      <strong>Đặt kiến thức vào môi trường bên ngoài.</strong> Không đòi hỏi tất cả kiến thức cần phải được trang bị sẵn trong đầu. Thiết bị vận hành hiệu quả khi con người đã học hết tất cả các yêu cầu; nhưng cả chuyên gia lẫn người mới đều có thể vận hành nhờ thông tin trong môi trường.
+    </div>
+  </div>
+  <div class="principle-item">
+    <div class="principle-num">2</div>
+    <div class="principle-text">
+      <strong>Sử dụng lợi thế của giới hạn tự nhiên và nhân tạo.</strong> Tận dụng giới hạn vật lý, lô-gic, ngữ nghĩa và văn hóa. Tận dụng các chức năng bắt buộc (forcing functions) và sơ đồ kết nối tự nhiên (natural mappings).
+    </div>
+  </div>
+  <div class="principle-item">
+    <div class="principle-num">3</div>
+    <div class="principle-text">
+      <strong>Liên kết Quá trình Thực hiện và Quá trình Đánh giá.</strong> Làm cho mọi thứ dễ thấy — cả cho việc thực hiện lẫn đánh giá. Cung cấp thông tin gửi đi (affordances); cung cấp phản hồi rõ ràng cho mỗi hành động. Trạng thái hệ thống luôn sẵn sàng, dễ đọc, chính xác, nhất quán với mục tiêu và kỳ vọng của con người.
+    </div>
+  </div>
+  <div class="principle-item">
+    <div class="principle-num">4</div>
+    <div class="principle-text">
+      <strong>Chấp nhận lỗi sẽ xảy ra.</strong> Hãy giả định là mọi khả năng bất lợi sẽ xảy ra, sau đó tìm cách bảo vệ trước chúng. Làm cho các hành động có thể đảo ngược; làm cho các lỗi gây ra để lại hậu quả nhỏ hơn. Đối xử với lỗi như hành động gần đúng, không phải hành động ác ý.
+    </div>
+  </div>
+</div>
+
+<p>Chúng ta nên đối mặt với các lỗi phát sinh bằng cách bao quát nó, tìm cách hiểu được các nguyên nhân và bảo đảm chúng sẽ không xảy ra một lần nữa. Chúng ta cần hỗ trợ chứ không phải trừng phạt hay lên án.</p>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span class="footer-text">Don Norman · Thiết Kế Lấy Người Làm Trung Tâm · Dịch: Phương Lan</span>
+  <span class="footer-chap">← Ch.4 · Ch.6 →</span>
+</div>
+
+</body>
+</html>

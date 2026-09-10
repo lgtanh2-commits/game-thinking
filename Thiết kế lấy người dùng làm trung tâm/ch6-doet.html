@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 6 – Tư Duy Thiết Kế | TKLN Người Dùng Làm Trung Tâm</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── Header ── */
+  .book-meta {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .chapter-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  h1.chapter-title {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .chapter-subtitle {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    font-style: italic;
+  }
+
+  .header-rule {
+    border: none;
+    border-top: 2px solid var(--accent-line);
+    margin-bottom: 40px;
+  }
+
+  /* ── Opening quote ── */
+  .opening-quote {
+    border-left: 3px solid var(--accent-line);
+    padding: 16px 24px;
+    margin: 0 0 40px;
+    background: var(--surface);
+  }
+  .opening-quote p {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  .opening-quote .attribution {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: normal;
+  }
+
+  /* ── Sections ── */
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin: 56px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 32px 0 12px;
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    margin: 24px 0 8px;
+  }
+
+  p {
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+  }
+
+  /* ── Key concept box ── */
+  .concept-box {
+    border: 1px solid var(--border-strong);
+    padding: 24px 28px;
+    margin: 32px 0;
+    background: var(--surface);
+  }
+
+  .concept-box .concept-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .concept-box .concept-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .concept-box p {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  /* ── Pull quote ── */
+  .pull-quote {
+    margin: 32px 0;
+    padding: 20px 0;
+    border-top: 2px solid var(--accent-line);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pull-quote p {
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--text);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* ── Steps / process ── */
+  .process-steps {
+    margin: 24px 0;
+    counter-reset: step;
+  }
+
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .step:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 2px;
+  }
+
+  .step-content h4 {
+    margin-top: 0;
+    margin-bottom: 6px;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 15px;
+  }
+
+  .step-content p {
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+
+  /* ── Diamond diagram ── */
+  .diamond-diagram {
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin: 24px 0;
+    background: var(--surface);
+  }
+
+  .diamond-row {
+    display: flex;
+    gap: 0;
+    margin: 12px 0;
+    align-items: stretch;
+  }
+
+  .diamond-phase {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .diamond-phase.diverge {
+    background: var(--surface-dark);
+    clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
+    padding-right: 28px;
+  }
+
+  .diamond-phase.converge {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 50%);
+    padding-left: 28px;
+  }
+
+  .diamond-phase strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  /* ── Info table ── */
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 14px;
+  }
+
+  .info-table th {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface-dark);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    border-bottom: 2px solid var(--border-strong);
+  }
+
+  .info-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+
+  .info-table tr:last-child td { border-bottom: none; }
+
+  /* ── Figure caption ── */
+  .figure-ref {
+    margin: 24px 0;
+    padding: 14px 18px;
+    background: var(--surface);
+    border-left: 3px solid var(--border-strong);
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .figure-ref strong {
+    font-style: normal;
+    color: var(--text-secondary);
+  }
+
+  /* ── Law box ── */
+  .law-box {
+    border: 2px solid var(--accent-line);
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+
+  .law-box .law-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .law-box blockquote {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.55;
+    color: var(--text);
+    font-style: italic;
+    border: none;
+    padding: 0;
+    margin: 0 0 10px;
+  }
+
+  .law-box .law-context {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* ── Case study ── */
+  .case-study {
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    margin: 32px 0;
+    background: var(--surface);
+  }
+
+  .case-study .cs-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .case-study h3 {
+    margin: 0 0 12px;
+    font-size: 15px;
+  }
+
+  .case-study p {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .case-study p:last-child { margin-bottom: 0; }
+
+  /* ── Bullet list ── */
+  ul.styled {
+    margin: 12px 0 20px 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  ul.styled li {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.55;
+  }
+
+  ul.styled li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  ul.styled li::before {
+    content: '—';
+    flex-shrink: 0;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  /* ── Key insight ── */
+  .key-insight {
+    background: var(--surface-dark);
+    padding: 20px 24px;
+    margin: 28px 0;
+    border-right: 3px solid var(--accent-line);
+  }
+
+  .key-insight p {
+    font-size: 14px;
+    margin: 0;
+    font-style: italic;
+    color: var(--text);
+  }
+
+  /* ── Navigation ── */
+  .chapter-nav {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    body { padding: 32px 20px 60px; }
+    h1.chapter-title { font-size: 22px; }
+    h2 { font-size: 15px; }
+    .diamond-row { flex-direction: column; }
+    .diamond-phase { clip-path: none; padding: 10px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<p class="book-meta">Thiết Kế Lấy Người Dùng Làm Trung Tâm — Don Norman</p>
+<p class="chapter-label">Chương 6 / 7</p>
+<h1 class="chapter-title">Tư Duy Thiết Kế</h1>
+<p class="chapter-subtitle">Design Thinking — Từ việc xác định đúng vấn đề đến thiết kế lấy con người làm trung tâm</p>
+<hr class="header-rule">
+
+<div class="opening-quote">
+  <p>Nhà thiết kế giỏi không bao giờ bắt đầu bằng cách giải quyết vấn đề được đặt ra. Họ bắt đầu bằng cách đặt câu hỏi: vấn đề thực sự là gì?</p>
+  <span class="attribution">— Don Norman, The Design of Everyday Things</span>
+</div>
+
+<h2>Giải Quyết Đúng Vấn Đề</h2>
+
+<p>Nhà thiết kế không bao giờ nên bắt đầu bằng cách cố gắng giải quyết vấn đề được trình bày. Lý do là vấn đề được trình bày thường không phải vấn đề thực sự. Tìm ra vấn đề đúng thực ra thường là thử thách lớn hơn so với việc tìm ra giải pháp cho vấn đề đó.</p>
+
+<p>Nhà thiết kế tốt có tư duy đặc biệt: họ đặt câu hỏi về mọi thứ, họ không sợ nói rằng họ không hiểu, và họ liên tục thử nghiệm. Điều này trái ngược với tư duy của kỹ sư hay doanh nhân, những người thường tập trung vào việc tối ưu hóa giải pháp cho vấn đề đã được định nghĩa.</p>
+
+<div class="concept-box">
+  <p class="concept-label">Tư duy thiết kế</p>
+  <p class="concept-title">Nhà thiết kế vs. Kỹ sư</p>
+  <p><strong>Kỹ sư/Doanh nhân:</strong> Tập trung vào giải pháp tối ưu cho vấn đề đã được định nghĩa.</p>
+  <p><strong>Nhà thiết kế:</strong> Trước tiên đặt câu hỏi liệu đây có phải là vấn đề đúng cần giải quyết không. Họ tìm hiểu tại sao vấn đề tồn tại trước khi đề xuất giải pháp.</p>
+</div>
+
+<h2>Mô Hình Thiết Kế Kim Cương Đôi</h2>
+
+<p>Hội đồng Thiết kế Vương quốc Anh (UK Design Council) đề xuất năm 2005 mô hình "Kim Cương Đôi" (Double Diamond) — một trong những mô hình thiết kế được sử dụng rộng rãi nhất hiện nay.</p>
+
+<div class="figure-ref">
+  <strong>Hình 6.1 — Mô hình Kim Cương Đôi:</strong> Hai chu kỳ phân kỳ–hội tụ. Chu kỳ đầu tìm ra đúng vấn đề; chu kỳ thứ hai tìm ra giải pháp đúng.
+</div>
+
+<div class="diamond-diagram">
+  <p style="font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:16px;">Kim Cương Đôi — Bốn Giai Đoạn</p>
+
+  <div class="diamond-row">
+    <div class="diamond-phase diverge">
+      <strong>① Khám phá</strong>
+      Phân kỳ: Mở rộng phạm vi, thu thập thông tin, quan sát người dùng trong môi trường thực tế
+    </div>
+    <div class="diamond-phase converge">
+      <strong>② Xác định</strong>
+      Hội tụ: Lọc thông tin, xác định vấn đề thực sự cần giải quyết
+    </div>
+  </div>
+
+  <div class="diamond-row">
+    <div class="diamond-phase diverge">
+      <strong>③ Phát triển</strong>
+      Phân kỳ: Tạo ra nhiều ý tưởng, xây dựng mô hình thử nghiệm đa dạng
+    </div>
+    <div class="diamond-phase converge">
+      <strong>④ Ra thành quả</strong>
+      Hội tụ: Chọn giải pháp tốt nhất, hoàn thiện và đưa ra thị trường
+    </div>
+  </div>
+</div>
+
+<div class="key-insight">
+  <p>Kim Cương thứ nhất đảm bảo bạn đang giải quyết đúng vấn đề. Kim Cương thứ hai đảm bảo bạn giải quyết nó đúng cách. Bỏ qua Kim Cương thứ nhất là sai lầm phổ biến nhất trong thiết kế.</p>
+</div>
+
+<h2>Quá Trình Thiết Kế Lấy Con Người Làm Trung Tâm</h2>
+
+<p>Thiết kế lấy con người làm trung tâm (Human-Centered Design – HCD) là quá trình lặp đi lặp lại gồm bốn hoạt động liên tiếp, được mô tả trong Hình 6.2.</p>
+
+<div class="figure-ref">
+  <strong>Hình 6.2 — Quá trình HCD:</strong> Vòng lặp bốn bước: Quan sát → Đưa ra ý tưởng → Xây dựng mô hình mẫu → Thử nghiệm → (lặp lại).
+</div>
+
+<div class="process-steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h4>Quan Sát</h4>
+      <p>Áp dụng phương pháp dân tộc học ứng dụng (applied ethnography): quan sát người dùng đích trong môi trường tự nhiên, không phải trong phòng lab. Thiết kế cần nghiên cứu định tính (nhóm nhỏ ~10 người) bổ sung cho nghiên cứu thị trường định lượng (khảo sát). Nghiên cứu thiết kế cho thấy người dùng thực sự cần gì; nghiên cứu thị trường cho thấy họ sẽ mua gì.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h4>Đưa Ra Ý Tưởng (Brainstorming)</h4>
+      <p>Hai nguyên tắc chính: <strong>(a)</strong> tạo ra thật nhiều ý tưởng; <strong>(b)</strong> không được chỉ trích bất kỳ ý tưởng nào trong giai đoạn này. Norman bổ sung nguyên tắc thứ ba: hỏi những câu hỏi "ngớ ngẩn" — những điều tưởng hiển nhiên thường lại không phải vậy.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h4>Xây Dựng Mô Hình Mẫu (Prototyping)</h4>
+      <p>Mô hình mẫu có thể là bản phác thảo, bìa cứng dán lại, slide PowerPoint, hay kịch bản hành động. Kỹ thuật <em>Wizard of Oz</em>: người thật đóng vai máy tính để thử nghiệm tương tác (Norman dùng tại Xerox PARC cho hệ thống đặt vé máy bay). Mô hình mẫu trong giai đoạn định nghĩa vấn đề giúp đảm bảo hiểu đúng; mô hình mẫu trong giai đoạn giải pháp giúp kiểm tra thiết kế.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <h4>Thử Nghiệm (Testing)</h4>
+      <p>Nhóm nhỏ người dùng thực tế. Quy tắc 5 người của Jakob Nielsen: 5 người dùng đủ để phát hiện 85% vấn đề. Quan sát từ phía sau hoặc qua video; cho người dùng tự nhìn lại (retrospective walkthrough). Triết lý: <em>"Thất bại nhanh, thất bại nhiều lần"</em> — David Kelley, người sáng lập IDEO. Yêu cầu thiết kế phải xuất phát từ quan sát người trong môi trường tự nhiên, không phải từ việc hỏi họ muốn gì.</p>
+    </div>
+  </div>
+</div>
+
+<h3>Lặp Lại Quá Trình</h3>
+
+<p>Mỗi vòng lặp mang lại sự hiểu biết sâu hơn về cả vấn đề lẫn giải pháp. Sau vài vòng lặp, quá trình sẽ hội tụ. Nhưng khi nào thì dừng?</p>
+
+<div class="law-box">
+  <p class="law-label">Định Luật Norman về Phát Triển Sản Phẩm</p>
+  <blockquote>"Từ khi quá trình phát triển sản phẩm bắt đầu, nó đã vượt quá thời hạn và ngân sách cho phép."</blockquote>
+  <p class="law-context">Áp lực thời gian luôn dẫn đến các phím tắt trong quy trình thiết kế. Quá trình thực tế kết thúc khi hết thời gian và ngân sách, không phải khi đạt được giải pháp hoàn hảo.</p>
+</div>
+
+<h2>Thiết Kế Lấy Hoạt Động Làm Trung Tâm</h2>
+
+<p>Thay vì tập trung vào cá nhân, thiết kế lấy hoạt động làm trung tâm (Activity-Centered Design) tập trung vào <em>hoạt động</em> (activities) — những thứ mang tính phổ quát xuyên văn hóa.</p>
+
+<p>Thiết kế xe ô tô không cần phục vụ một người cụ thể nào — nó hỗ trợ <em>hoạt động lái xe</em>. Đây không phải là vi phạm nguyên tắc HCD mà là sự cải tiến phù hợp cho các sản phẩm đại chúng.</p>
+
+<div class="case-study">
+  <p class="cs-label">Nghiên cứu trường hợp</p>
+  <h3>Apple iPod — Thiết kế hỗ trợ toàn bộ hoạt động</h3>
+  <p>Thành công của iPod không phải vì thiết kế đẹp mà vì nó hỗ trợ toàn bộ <em>hoạt động nghe nhạc</em>: khám phá nhạc → mua nhạc → tải về → sắp xếp → chia sẻ → nghe. Toàn bộ hệ sinh thái, không chỉ một thiết bị đơn lẻ.</p>
+</div>
+
+<h3>Phân Cấp Hoạt Động — Nhiệm Vụ — Thao Tác</h3>
+
+<table class="info-table">
+  <thead>
+    <tr>
+      <th>Cấp độ</th>
+      <th>Tên</th>
+      <th>Mô tả</th>
+      <th>Ví dụ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Be-goals</strong></td>
+      <td>Mục tiêu sinh tồn</td>
+      <td>Ta là ai, bản sắc cốt lõi</td>
+      <td>"Tôi là người chuyên nghiệp"</td>
+    </tr>
+    <tr>
+      <td><strong>Do-goals</strong></td>
+      <td>Mục tiêu làm việc</td>
+      <td>Ta muốn đạt điều gì</td>
+      <td>"Tôi muốn viết email này"</td>
+    </tr>
+    <tr>
+      <td><strong>Motor-goals</strong></td>
+      <td>Mục tiêu vận động</td>
+      <td>Cách thực hiện thao tác cụ thể</td>
+      <td>"Gõ phím, di chuột"</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Carver &amp; Scheier đề xuất ba cấp độ mục tiêu này, và Marc Hassenzahl xây dựng thành khung UX ba lớp. Thiết kế cần xem xét cả ba cấp độ, không chỉ tập trung vào thao tác.
+
+<h2>Thiết Kế Lặp vs. Thiết Kế Tuyến Tính</h2>
+
+<table class="info-table">
+  <thead>
+    <tr>
+      <th>Phương pháp</th>
+      <th>Đặc điểm</th>
+      <th>Ưu điểm</th>
+      <th>Nhược điểm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Lặp (Agile/Scrum)</strong></td>
+      <td>Chu kỳ ngắn, liên tục thử nghiệm và cải thiện</td>
+      <td>Linh hoạt, phát hiện sớm vấn đề</td>
+      <td>Khó quản lý ngân sách và thời hạn</td>
+    </tr>
+    <tr>
+      <td><strong>Tuyến tính (Waterfall)</strong></td>
+      <td>Các giai đoạn tuần tự với "cổng chặn" (gates)</td>
+      <td>Dễ kiểm soát, rõ ràng về tiến độ</td>
+      <td>Phát hiện vấn đề muộn, khó sửa đổi</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="key-insight">
+  <p>Giải pháp tốt nhất: kết hợp — thiết kế lặp trong từng giai đoạn, xen kẽ với các điểm xem xét của ban quản lý tại từng cổng chặn. Điều quan trọng: trì hoãn việc xác định yêu cầu cứng nhắc cho đến khi đã có một số vòng lặp thử nghiệm.</p>
+</div>
+
+<h2>Thực Tế Khắc Nghiệt của Thiết Kế</h2>
+
+<p>Trong thực tế, thiết kế lấy con người làm trung tâm thường bị gác lại vì hai động lực thực tế:</p>
+
+<ul class="styled">
+  <li><strong>Áp lực cạnh tranh:</strong> Bổ sung tính năng để đánh bại đối thủ, không phải vì người dùng cần.</li>
+  <li><strong>Áp lực công nghệ:</strong> Áp dụng công nghệ mới vì nó có thể, không phải vì nó cải thiện trải nghiệm.</li>
+</ul>
+
+<div class="pull-quote">
+  <p>"Vậy chúng tôi có quan tâm tới nhu cầu của người dùng không? Không."</p>
+</div>
+
+<p>Đây là câu trả lời Norman nhận được từ một product manager khi hỏi về quy trình thiết kế thực tế tại nhiều công ty. Nhà thiết kế là một mắt xích trong một chuỗi phức tạp với nhiều yêu cầu mâu thuẫn nhau.</p>
+
+<h2>Thách Thức Đối Với Thiết Kế</h2>
+
+<h3>Người Mua ≠ Người Dùng</h3>
+
+<p>Tại nhiều tổ chức, người mua sản phẩm và người thực sự sử dụng nó là hai nhóm khác nhau hoàn toàn. Máy photocopy văn phòng được bộ phận mua sắm mua, nhưng nhân viên thì dùng. Điều này dẫn đến thiết bị tối ưu cho người mua (giá, tính năng trên giấy) chứ không phải cho người dùng thực tế.</p>
+
+<p>Giải pháp: nhóm đa ngành — kỹ sư, nhà thiết kế, nhà nghiên cứu người dùng, người marketing, và cả đại diện người dùng — cùng làm việc ngay từ đầu.</p>
+
+<h3>Không Có "Người Bình Thường"</h3>
+
+<p>Trong nhân trắc học (physical anthropometry): thiết kế theo tỷ lệ thứ 95 (95th percentile) vẫn loại trừ 5% ở mỗi đầu của phân phối. Khi thiết kế cho 6 thông số cơ thể, số người bị loại trừ tích lũy đến 15 triệu người Mỹ — lớn hơn dân số nhiều bang.</p>
+
+<h2>Thiết Kế Bao Trùm (Inclusive Design)</h2>
+
+<p>Còn gọi là thiết kế vạn năng (universal design), hướng đến việc thiết kế cho mọi người — kể cả người khuyết tật, người cao tuổi, và những ai có nhu cầu đặc biệt — mà không tạo ra cảm giác "sản phẩm dành cho người kém may mắn".</p>
+
+<div class="case-study">
+  <p class="cs-label">Nghiên cứu trường hợp</p>
+  <h3>OXO Good Grips — Thiết kế cho tất cả</h3>
+  <p>Sam Farber thiết kế dụng cụ nhà bếp Good Grips vì vợ ông bị viêm khớp, không thể cầm nắm các dụng cụ truyền thống. Ông không thiết kế "sản phẩm cho người khuyết tật" mà thiết kế sản phẩm tốt hơn cho tất cả mọi người.</p>
+  <p>Kết quả: Good Grips trở thành hiện tượng thương mại, được người dùng bình thường ưa chuộng vì thoải mái hơn — không ai cảm thấy như đang dùng "thiết bị y tế". Điều này tạo ra cuộc cách mạng trong thiết kế dụng cụ nhà bếp (Hình 6.3).</p>
+</div>
+
+<div class="key-insight">
+  <p>Vấn đề kỳ thị: Nhiều người từ chối sử dụng thiết bị hỗ trợ vì nó trông như "đồ dành cho người tàn tật". Giải pháp: thiết kế sao cho mọi người muốn dùng vì nó tốt hơn, không phải vì họ cần nó.</p>
+</div>
+
+<p>Các ví dụ khác về thiết kế bao trùm thành công:</p>
+
+<ul class="styled">
+  <li>Gậy chống — từ thiết bị y tế tẻ nhạt đến phụ kiện thời trang thời đại Victoria.</li>
+  <li>Máy trợ thính đeo tai — từ thiết bị y tế lộ liễu đến phụ kiện thời trang người không khuyết tật cũng muốn đeo.</li>
+  <li>Tay nắm cửa cần gạt — dễ dùng hơn cho tất cả, đặc biệt khi tay đang bận.</li>
+</ul>
+
+<h3>Thiết Kế Cho Người Cao Tuổi</h3>
+
+<p>Khi tuổi tác tăng lên, năng lực thể chất giảm nhưng năng lực trí tuệ, trí khôn, và kinh nghiệm tăng lên. Thiết kế tốt cho người cao tuổi thường có nghĩa là thiết kế tốt hơn cho tất cả.</p>
+
+<h2>Phức Tạp Là Điều Tốt, Rối Rắm Mới Tệ</h2>
+
+<p>Norman phân biệt rõ ràng hai khái niệm thường bị nhầm lẫn:</p>
+
+<table class="info-table">
+  <thead>
+    <tr>
+      <th>Khái niệm</th>
+      <th>Định nghĩa</th>
+      <th>Nguyên nhân</th>
+      <th>Giải pháp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Phức tạp</strong> (Complexity)</td>
+      <td>Trạng thái của thế giới — sản phẩm có nhiều tính năng, nhiều bộ phận</td>
+      <td>Bản chất của vấn đề cần giải quyết</td>
+      <td>Không thể và không nên loại bỏ</td>
+    </tr>
+    <tr>
+      <td><strong>Rối rắm</strong> (Confusion)</td>
+      <td>Trạng thái của tâm trí — người dùng không hiểu cách sử dụng</td>
+      <td>Thiết kế thất bại trong việc truyền đạt mô hình khái niệm</td>
+      <td>Mô hình khái niệm rõ ràng sẽ loại bỏ được</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Norman đã viết cả một cuốn sách về chủ đề này: <em>Living with Complexity</em>. Mục tiêu của thiết kế không phải là đơn giản hóa tất cả mọi thứ, mà là tạo ra sự rõ ràng — mô hình khái niệm tốt giúp người dùng hiểu và kiểm soát được sự phức tạp.</p>
+
+<h2>Tiêu Chuẩn Hóa và Công Nghệ</h2>
+
+<p>Tiêu chuẩn hóa là cơ chế quan trọng giảm gánh nặng học tập. Khi mọi xe ô tô đều có vô-lăng bên trái (ở một số nước) và bàn đạp theo thứ tự cố định, người dùng có thể lái bất kỳ xe nào mà không cần học lại từ đầu.</p>
+
+<div class="figure-ref">
+  <strong>Hình 6.4 — Đồng hồ ngược chiều kim:</strong> Chiếc đồng hồ này chạy ngược chiều kim đồng hồ — kim giờ quay sang trái thay vì sang phải. Bạn vẫn có thể đọc "7:11" vì logic vẫn như nhau, chỉ là bị phản chiếu. Tuy nhiên, rất khó vì quy ước đã quá mạnh. Đây là minh họa sức mạnh của tiêu chuẩn hóa.
+</div>
+
+<h3>Lịch Sử Tiêu Chuẩn HDTV tại Mỹ</h3>
+
+<p>Cuộc chiến tiêu chuẩn HDTV là minh họa điển hình về quá trình tiêu chuẩn hóa kéo dài và phức tạp trong thực tế:</p>
+
+<ul class="styled">
+  <li>Nhật Bản bắt đầu nghiên cứu HDTV từ những năm 1970.</li>
+  <li>FCC Mỹ mở quá trình lựa chọn tiêu chuẩn — Norman là người phát ngôn cho Apple trong quá trình này.</li>
+  <li>Xung đột giữa 1080i và 720p kéo dài nhiều năm.</li>
+  <li>Tiêu chuẩn chính thức được công bố năm 1996 — 35 năm sau khi Nhật Bản khởi xướng.</li>
+  <li>Tiêu chuẩn thường là thỏa hiệp chính trị, không phải giải pháp kỹ thuật tối ưu.</li>
+</ul>
+
+<h3>Khi Tiêu Chuẩn Thất Bại</h3>
+
+<p>Không phải tiêu chuẩn nào cũng được thị trường chấp nhận. Swatch ".beat time" (1998) chia ngày thành 1000 nhịp (beats) — thất bại hoàn toàn. Thời gian thập phân của Pháp năm 1792 cũng không tồn tại được. Hệ đo lường metric vẫn chưa hoàn toàn thay thế hệ imperial ở Mỹ. Lý do: con người và thói quen thay đổi rất chậm.</p>
+
+<h2>Cố Tình Làm Mọi Thứ Trở Nên Khó Khăn</h2>
+
+<p>Không phải mọi thiết kế đều cần dễ sử dụng. Đôi khi mục tiêu thiết kế chính là <em>ngăn chặn</em> việc sử dụng hoặc tạo ra <em>ma sát có chủ ý</em> (intentional friction).</p>
+
+<ul class="styled">
+  <li>Cửa, ngăn kéo và két an toàn: bạn không muốn bất kỳ ai cũng biết cách mở.</li>
+  <li>Yêu cầu xác nhận hai bước trước khi xóa vĩnh viễn — ngắt quãng thói quen để tránh lỗi không thể phục hồi.</li>
+  <li>Nút kích hoạt hệ thống phải có hai người vận hành đồng thời — ngăn một cá nhân hành động sai phép.</li>
+  <li>Nắp lọ thuốc chống trẻ em — yêu cầu thao tác phối hợp mà người lớn làm được nhưng trẻ thì không.</li>
+  <li>Cổng trường đặc biệt — hai chốt (một cao, một thấp), chỉ người lớn đủ cao mới mở được cả hai cùng lúc.</li>
+  <li>Trò chơi — thử thách là mục tiêu thiết kế, không phải thứ cần loại bỏ.</li>
+</ul>
+
+<div class="concept-box">
+  <p class="concept-label">Nguyên tắc</p>
+  <p class="concept-title">An toàn vs. Khả năng sử dụng</p>
+  <p>Ngay cả khi thiết kế có chủ ý tạo ra khó khăn, vẫn cần nắm vững các nguyên tắc thiết kế cơ bản — để vi phạm chúng một cách có hệ thống và có kiểm soát. Chỉ vi phạm những gì cần thiết, giữ nguyên những gì không cần thiết phải khó.</p>
+</div>
+
+<p>Các hệ thống an toàn đặt ra vấn đề đặc biệt cho thiết kế. Thường thì chi tiết thêm vào để đảm bảo an toàn sẽ loại bỏ một mối nguy hiểm này nhưng tạo ra mối nguy hiểm khác. Ví dụ: tấm chắn xung quanh hố đào bảo vệ người không ngã xuống, nhưng bản thân tấm chắn lại trở thành mối nguy mới cần có biển báo hay đèn hiệu.</p>
+
+<h2>Thiết Kế: Tạo Ra Công Nghệ Phục Vụ Con Người</h2>
+
+<p>Thiết kế là lĩnh vực kết nối công nghệ và con người, kinh doanh và chính trị, văn hóa và thương mại. Nhà thiết kế chịu nhiều áp lực từ nhiều phía khác nhau, nhưng họ vẫn luôn phải nhớ rằng sản phẩm họ tạo ra là để phục vụ con người.</p>
+
+<p>Đây chính là điều khiến thiết kế trở thành một công việc đáng trân trọng: một mặt, nó đòi hỏi nhà thiết kế phải vượt qua những giới hạn phức tạp; mặt khác, nó mang lại cơ hội tạo ra những thứ hỗ trợ và làm giàu thêm cuộc sống của con người. Điều đó đem lại nhiều lợi ích xã hội và cả niềm vui cho nhà thiết kế.</p>
+
+<div class="chapter-nav">
+  <span>← Chương 5: Lỗi của Con Người? Không, Lỗi của Thiết Kế</span>
+  <span>Chương 7: Thiết Kế Trong Thế Giới Kinh Doanh →</span>
+</div>
+
+</body>
+</html>

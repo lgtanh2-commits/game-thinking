@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 1 – Tâm Lý Học Trong Thiết Kế | Thiết Kế Lấy Người Dùng Làm Trung Tâm</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── Header ── */
+  .book-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .chapter-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  h1.chapter-title {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .chapter-subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 36px;
+  }
+
+  .divider {
+    width: 48px;
+    height: 3px;
+    background: var(--accent-line);
+    margin-bottom: 40px;
+  }
+
+  /* ── Opening pull quote ── */
+  .opening-quote {
+    background: var(--surface);
+    border-left: 3px solid var(--accent-line);
+    padding: 24px 28px;
+    margin-bottom: 48px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+  .opening-quote cite {
+    display: block;
+    margin-top: 12px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ── Section headings ── */
+  h2 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-top: 56px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent-line);
+  }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-top: 36px;
+    margin-bottom: 12px;
+  }
+
+  p {
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+  }
+
+  p strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  /* ── Concept cards ── */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0 32px;
+  }
+
+  .concept-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 22px;
+  }
+
+  .concept-card .term-en {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .concept-card .term-vi {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+
+  .concept-card p {
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 0;
+    color: var(--text-secondary);
+  }
+
+  /* ── Principle list ── */
+  .principle-list {
+    list-style: none;
+    margin: 20px 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .principle-list li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .principle-list .num {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--border-strong);
+    line-height: 1;
+    min-width: 28px;
+    margin-top: 2px;
+  }
+
+  .principle-list .content .label-en {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .principle-list .content .label-vi {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    margin: 2px 0 6px;
+  }
+
+  .principle-list .content p {
+    font-size: 14px;
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ── Comparison / contrast block ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border-strong);
+    margin: 24px 0 32px;
+  }
+
+  .two-col .col {
+    padding: 20px 22px;
+  }
+
+  .two-col .col:first-child {
+    border-right: 1px solid var(--border-strong);
+  }
+
+  .two-col .col-header {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .two-col .col p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+
+  /* ── Story / anecdote box ── */
+  .story-box {
+    border: 1px solid var(--border);
+    padding: 24px 26px;
+    margin: 28px 0;
+    background: var(--surface);
+    position: relative;
+  }
+
+  .story-box::before {
+    content: "CÂU CHUYỆN";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    background: var(--text);
+    color: var(--bg);
+    padding: 3px 8px;
+  }
+
+  .story-box p {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-top: 8px;
+  }
+
+  /* ── Diagram / figure ── */
+  .figure-block {
+    border: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  .figure-inner {
+    padding: 32px 28px;
+    background: var(--surface);
+  }
+
+  .figure-caption {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .figure-caption strong {
+    color: var(--text);
+    font-style: normal;
+  }
+
+  /* Triangle diagram */
+  .triangle-diagram {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .triangle-node {
+    background: var(--surface-dark);
+    border: 1px solid var(--border-strong);
+    padding: 14px 12px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .triangle-center {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .arrow-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .arrow-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .arrow-row .arrow {
+    font-size: 16px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  /* Action cycle steps */
+  .cycle-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border-strong);
+    margin: 20px 0 32px;
+  }
+
+  .cycle-steps .phase-header {
+    grid-column: 1 / -1;
+    background: var(--text);
+    color: var(--bg);
+    padding: 10px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .cycle-step {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+
+  .cycle-step:last-child, .cycle-step:nth-last-child(2):nth-child(odd) {
+    border-bottom: none;
+  }
+
+  .cycle-step .step-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .cycle-step .step-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .cycle-step .step-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ── Key insight ── */
+  .key-insight {
+    border-top: 2px solid var(--accent-line);
+    border-bottom: 2px solid var(--accent-line);
+    padding: 20px 0;
+    margin: 36px 0;
+  }
+
+  .key-insight p {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ── Summary table ── */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0 32px;
+    font-size: 14px;
+  }
+
+  .summary-table th {
+    background: var(--text);
+    color: var(--bg);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .summary-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  .summary-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .summary-table td:first-child {
+    font-weight: 700;
+    color: var(--text);
+    border-right: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  /* ── Takeaway box ── */
+  .takeaway-box {
+    background: var(--surface-dark);
+    border: 1px solid var(--border-strong);
+    padding: 28px 30px;
+    margin: 48px 0 0;
+  }
+
+  .takeaway-box .header {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .takeaway-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .takeaway-box li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .takeaway-box li::before {
+    content: "→";
+    color: var(--text);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .takeaway-box li strong {
+    color: var(--text);
+  }
+
+  /* ── Footer ── */
+  .doc-footer {
+    margin-top: 72px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 40px 20px 80px; }
+    .concept-grid, .two-col, .triangle-diagram, .cycle-steps { grid-template-columns: 1fr; }
+    .two-col .col:first-child { border-right: none; border-bottom: 1px solid var(--border-strong); }
+  }
+</style>
+</head>
+<body>
+
+<div class="book-label">Thiết Kế Lấy Người Dùng Làm Trung Tâm · Don Norman</div>
+<div class="chapter-eyebrow">Chương 1</div>
+<h1 class="chapter-title">Tâm Lý Học Trong Thiết Kế</h1>
+<p class="chapter-subtitle">The Psychopathology of Everyday Things</p>
+<div class="divider"></div>
+
+<div class="opening-quote">
+  "Những thiết kế tồi tệ nhất lại thường xuất phát từ những người cực kỳ thông minh — những người biết rõ về vật liệu, về kỹ thuật, về kinh doanh, nhưng không hề nghĩ đến con người sẽ sử dụng sản phẩm đó."
+  <cite>— Don Norman</cite>
+</div>
+
+<!-- 1. MỞ ĐẦU -->
+<h2>1. Khởi Đầu: Những Đồ Vật Làm Khó Chúng Ta</h2>
+
+<div class="story-box">
+  <p><strong>Cửa Norman (Norman Doors)</strong> — Hãy hình dung một chiếc cửa trông rất đẹp. Nhưng khi bạn tiến lại gần, bạn không biết nên đẩy hay kéo. Không có công cụ chỉ dẫn nào rõ ràng. Bạn đoán sai, đẩy khi lẽ ra phải kéo, hoặc ngược lại. Sự bối rối đó không phải lỗi của bạn — đó là lỗi thiết kế. Những chiếc cửa kiểu này phổ biến đến mức giới thiết kế đã đặt tên cho chúng là <em>"Cửa Norman"</em> — chính là tên tác giả cuốn sách này, vì ông đã nhiều lần mô tả hiện tượng này.</p>
+</div>
+
+<p><strong>Hình 1.1: Bình cà phê của người khổ hạnh (Cafetière pour Masochiste)</strong> — Một chiếc bình cà phê có quai nắm ở... bên đối diện với vòi rót. Để rót cà phê bạn phải nắm phần nóng. Đây là ví dụ cực đoan về một vật dụng ưu tiên hình thức thẩm mỹ và bỏ qua hoàn toàn tính năng sử dụng.</p>
+
+<p>Đây không phải hiện tượng hiếm gặp. Chúng ta sống trong một thế giới đầy những thiết kế gây bối rối, thất vọng, và đôi khi nguy hiểm — không phải vì người làm ra chúng thiếu thông minh, mà vì họ không đặt <strong>người dùng</strong> làm trung tâm của quá trình thiết kế.</p>
+
+<!-- 2. HAI PHẨM CHẤT CỐT LÕI -->
+<h2>2. Hai Phẩm Chất Cốt Lõi Của Thiết Kế Tốt</h2>
+
+<div class="concept-grid">
+  <div class="concept-card">
+    <div class="term-en">Discoverability</div>
+    <div class="term-vi">Có thể khám phá được</div>
+    <p>Người dùng có thể tự tìm ra <em>cần làm gì</em> khi tương tác với sản phẩm mà không cần đọc hướng dẫn. Tất cả các hành động có thể thực hiện được đều hiển thị rõ ràng, hoặc dễ dàng khám phá.</p>
+  </div>
+  <div class="concept-card">
+    <div class="term-en">Understandability</div>
+    <div class="term-vi">Có thể hiểu được</div>
+    <p>Người dùng có thể tự hiểu <em>sản phẩm dùng để làm gì</em> và <em>cách nó vận hành</em>. Họ có thể xây dựng một mô hình tư duy chính xác về sản phẩm chỉ từ việc quan sát và tương tác.</p>
+  </div>
+</div>
+
+<p>Khi một sản phẩm thiếu một trong hai phẩm chất này, người dùng thường đổ lỗi cho bản thân — "Mình thật kém cỏi" hay "Mình không giỏi công nghệ". Nhưng thực ra, đó là <strong>lỗi thiết kế</strong>, không phải lỗi người dùng.</p>
+
+<!-- 3. BA LĨNH VỰC THIẾT KẾ -->
+<h2>3. Ba Lĩnh Vực Thiết Kế Liên Quan</h2>
+
+<table class="summary-table">
+  <thead>
+    <tr>
+      <th>Lĩnh vực</th>
+      <th>Tên tiếng Anh</th>
+      <th>Mục tiêu chính</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Thiết kế công nghiệp</td>
+      <td>Industrial Design</td>
+      <td>Tạo ra các sản phẩm vừa có chức năng tốt, vừa có giá trị thẩm mỹ và kinh doanh — hình dạng, vật liệu, chế tạo.</td>
+    </tr>
+    <tr>
+      <td>Thiết kế tương tác</td>
+      <td>Interaction Design</td>
+      <td>Tăng khả năng hiểu và sử dụng sản phẩm dễ dàng, tập trung vào cách con người tương tác với sản phẩm.</td>
+    </tr>
+    <tr>
+      <td>Thiết kế trải nghiệm</td>
+      <td>Experience Design</td>
+      <td>Tạo ra những trải nghiệm có chất lượng cao — thẩm mỹ, cảm xúc, niềm vui — trải rộng trên toàn bộ hành trình người dùng.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Thiết kế lấy con người làm trung tâm <strong>(HCD — Human-Centered Design)</strong> là triết lý xuyên suốt ba lĩnh vực trên, đặt nhu cầu, khả năng và hành vi của con người vào trọng tâm của mọi quyết định thiết kế. Thiết kế tốt bắt đầu từ việc thấu hiểu con người, không phải từ công nghệ hay thẩm mỹ.</p>
+
+<!-- 4. NĂM NGUYÊN TẮC -->
+<h2>4. Năm Nguyên Tắc Cơ Bản Của Tương Tác</h2>
+
+<ul class="principle-list">
+  <li>
+    <div class="num">1</div>
+    <div class="content">
+      <div class="label-en">Affordance</div>
+      <div class="label-vi">Tính năng tương tác</div>
+      <p>Mối quan hệ giữa thuộc tính của đồ vật và khả năng của người dùng — khi kết hợp, chúng xác định xem đồ vật có thể được sử dụng như thế nào. Khái niệm này xuất phát từ nhà tâm lý học sinh thái <strong>J.J. Gibson</strong> (1966, 1979). Ví dụ: ghế <em>đủ khả năng</em> để ngồi, nhưng cũng có khả năng đứng lên, giấu sau lưng, hay đập vỡ cửa sổ. Affordance tồn tại dù người ta có nhận thức được nó hay không.</p>
+    </div>
+  </li>
+  <li>
+    <div class="num">2</div>
+    <div class="content">
+      <div class="label-en">Signifiers</div>
+      <div class="label-vi">Công cụ chỉ dẫn</div>
+      <p>Các tín hiệu — có thể là âm thanh, hình ảnh, nhãn dán, bất cứ thứ gì — <strong>truyền đạt cho người dùng biết nên làm gì và làm ở đâu</strong>. Công cụ chỉ dẫn quan trọng hơn tính năng tương tác vì nó có thể được giao tiếp, còn tính năng tương tác thì tồn tại một cách im lặng. Tấm bảng "Đẩy" trên cửa là công cụ chỉ dẫn; việc cửa có thể đẩy được là tính năng tương tác. Thiết kế tốt cần cả hai — và đặc biệt là phải có công cụ chỉ dẫn rõ ràng.</p>
+    </div>
+  </li>
+  <li>
+    <div class="num">3</div>
+    <div class="content">
+      <div class="label-en">Mapping</div>
+      <div class="label-vi">Sơ đồ các mối liên hệ</div>
+      <p>Mối quan hệ giữa các điều khiển và kết quả của chúng. <strong>Sơ đồ tự nhiên</strong> khai thác sự tương tự vật lý và những tiêu chuẩn văn hóa để tạo ra sự hiểu biết tức thì. Ví dụ: núm điều chỉnh bếp được đặt theo vị trí thực của từng bếp; cần lái xe quay theo hướng xe sẽ rẽ. Khi sơ đồ liên hệ trực quan và tự nhiên, người dùng không cần nhớ — họ biết một cách tự nhiên.</p>
+    </div>
+  </li>
+  <li>
+    <div class="num">4</div>
+    <div class="content">
+      <div class="label-en">Feedback</div>
+      <div class="label-vi">Phản hồi</div>
+      <p>Thông tin được truyền đạt về kết quả của hành động và trạng thái hiện tại của hệ thống. Phản hồi phải: <strong>tức thì</strong> (không chậm trễ), <strong>đầy đủ thông tin</strong> (cho biết điều gì đang xảy ra), và <strong>không gây phiền nhiễu</strong> (không làm gián đoạn công việc đang thực hiện). Phản hồi nghèo nàn hoặc thiếu phản hồi khiến người dùng không biết hành động của mình có tác dụng hay không.</p>
+    </div>
+  </li>
+  <li>
+    <div class="num">5</div>
+    <div class="content">
+      <div class="label-en">Conceptual Model</div>
+      <div class="label-vi">Mô hình khái niệm</div>
+      <p>Một bản giải thích đơn giản, thường bỏ qua nhiều chi tiết, về cách thức vận hành của một thứ gì đó. Ví dụ: người dùng hình dung hệ thống tệp tin máy tính như những ngăn hồ sơ và tờ giấy — đây là mô hình khái niệm, không phải thực tế kỹ thuật. Mô hình khái niệm tốt cho phép người dùng dự đoán kết quả của các hành động khi xảy ra sự cố.</p>
+    </div>
+  </li>
+</ul>
+
+<!-- 5. TÍNH NĂNG TƯƠNG TÁC vs CÔNG CỤ CHỈ DẪN -->
+<h2>5. Phân Biệt: Tính Năng Tương Tác và Công Cụ Chỉ Dẫn</h2>
+
+<p>Đây là sự phân biệt quan trọng nhất trong chương này — và cũng là điểm dễ nhầm lẫn nhất:</p>
+
+<div class="two-col">
+  <div class="col">
+    <div class="col-header">Tính năng tương tác (Affordance)</div>
+    <p>Là mối <strong>quan hệ</strong>, không phải thuộc tính của đồ vật hay người dùng đơn lẻ.</p>
+    <p>Tồn tại <strong>dù có được nhận biết hay không</strong>.</p>
+    <p>Câu hỏi: <em>"Đồ vật này có thể làm gì?"</em></p>
+    <p><strong>Ví dụ:</strong> Kính có tính năng để nhìn qua (perceived affordance), đồng thời cũng có tính năng đập vỡ hay cắt (hidden affordance mà người thiết kế không muốn).</p>
+  </div>
+  <div class="col">
+    <div class="col-header">Công cụ chỉ dẫn (Signifier)</div>
+    <p>Là <strong>tín hiệu có thể nhận biết</strong> — phải được cảm nhận mới có giá trị.</p>
+    <p>Có thể là <strong>chủ ý hoặc vô tình</strong>. Vết mòn trên thảm chỉ ra đường đi là công cụ chỉ dẫn vô tình.</p>
+    <p>Câu hỏi: <em>"Tôi nên làm gì và làm ở đâu?"</em></p>
+    <p><strong>Ví dụ:</strong> Nút "Like" hình ngón tay cái chỉ dẫn rõ ràng hành động và vị trí tương tác.</p>
+  </div>
+</div>
+
+<div class="key-insight">
+  <p>Trong thiết kế, <strong>công cụ chỉ dẫn quan trọng hơn tính năng tương tác</strong>. Một cái cửa có tính năng đẩy hay kéo nhưng thiếu công cụ chỉ dẫn rõ ràng thì người dùng vẫn gặp khó khăn. Đó là lý do "Cửa Norman" tồn tại ở khắp nơi.</p>
+</div>
+
+<!-- 6. MÔ HÌNH KHÁI NIỆM: TỦ LẠNH -->
+<h2>6. Mô Hình Khái Niệm: Câu Chuyện Chiếc Tủ Lạnh</h2>
+
+<p>Tủ lạnh phổ biến có hai núm điều chỉnh — một cho khoang làm lạnh, một cho khoang làm đá. Nhưng thực tế, cơ chế bên trong hoàn toàn khác với những gì người dùng nghĩ (Hình 1.9 và 1.10):</p>
+
+<div class="figure-block">
+  <div class="figure-inner">
+    <div class="arrow-block">
+      <div class="arrow-row">
+        <span class="arrow">◉</span>
+        <span><strong>Mô hình A (sai — nhưng phổ biến):</strong> Mỗi khoang có bộ phận làm lạnh riêng và cảm biến nhiệt độ riêng. Người dùng nghĩ mỗi núm điều khiển một khoang độc lập.</span>
+      </div>
+      <div class="arrow-row">
+        <span class="arrow">◉</span>
+        <span><strong>Mô hình B (đúng — nhưng ít ai biết):</strong> Chỉ có <em>một</em> bộ phận làm lạnh. Một núm điều chỉnh nhiệt độ tổng; núm kia điều chỉnh <em>tỷ lệ</em> không khí lạnh phân chia giữa hai khoang. Điều chỉnh một khoang ảnh hưởng đến khoang còn lại.</span>
+      </div>
+    </div>
+  </div>
+  <div class="figure-caption"><strong>Hình 1.9 & 1.10:</strong> Hai mô hình khái niệm cho cùng một chiếc tủ lạnh. Nhà sản xuất đã cố ý gợi ý mô hình sai vì nghĩ nó "dễ hiểu hơn". Kết quả: người dùng không thể điều chỉnh nhiệt độ chính xác.</div>
+</div>
+
+<p>Sau 25 năm từ lần xuất bản đầu, Norman nhận được vô số thư cảm ơn từ độc giả vì cuốn sách đã giải thích được cơ chế vận hành rắc rối của tủ lạnh — nhưng không có thư nào từ General Electric (nhà sản xuất). Họ vẫn tiếp tục bán tủ lạnh với thiết kế gây nhầm lẫn như vậy.</p>
+
+<!-- 7. HÌNH ẢNH HỆ THỐNG -->
+<h2>7. Hình Ảnh Hệ Thống — Cầu Nối Giữa Nhà Thiết Kế Và Người Dùng</h2>
+
+<p>Ba thực thể chính tham gia vào mỗi sản phẩm:</p>
+
+<div class="figure-block">
+  <div class="figure-inner">
+    <div class="triangle-diagram">
+      <div class="triangle-node">Mô hình khái niệm<br>của NHÀ THIẾT KẾ<br><small style="font-weight:400;font-size:11px">(Ý định thiết kế)</small></div>
+      <div class="triangle-center">
+        ← <strong>HÌNH ẢNH<br>HỆ THỐNG</strong> →<br>
+        <small>(Cấu trúc vật lý<br>+ tài liệu + hướng dẫn)</small>
+      </div>
+      <div class="triangle-node">Mô hình khái niệm<br>của NGƯỜI DÙNG<br><small style="font-weight:400;font-size:11px">(Hiểu biết từ tương tác)</small></div>
+    </div>
+  </div>
+  <div class="figure-caption"><strong>Hình 1.11:</strong> Nhà thiết kế không thể giao tiếp trực tiếp với người dùng. Toàn bộ gánh nặng truyền đạt mô hình đúng đặt lên <em>hình ảnh hệ thống</em> — tất cả những gì người dùng có thể nhìn thấy, chạm vào, đọc được.</div>
+</div>
+
+<p><strong>Hình ảnh hệ thống</strong> (System Image) là tổng hợp tất cả những gì người dùng thu thập được từ sản phẩm: hình dạng vật lý, nhãn mác, tài liệu hướng dẫn, quảng cáo, bài báo, trang web, tổng đài hỗ trợ. Khi hình ảnh hệ thống không rõ ràng hoặc mâu thuẫn, người dùng xây dựng mô hình tư duy sai — và họ sẽ không thể vận hành sản phẩm đúng cách.</p>
+
+<p><strong>Kết luận then chốt:</strong> Nhà thiết kế cần đầu tư không chỉ vào sản phẩm, mà còn vào toàn bộ hệ thống thông tin xung quanh nó — từ tài liệu hướng dẫn, giao diện, đến trải nghiệm hỗ trợ — để hình ảnh hệ thống truyền đạt đúng mô hình thiết kế.</p>
+
+<!-- 8. ĐỒNG HỒ VÀ NGHỊCH LÝ CÔNG NGHỆ -->
+<h2>8. Nghịch Lý Của Công Nghệ</h2>
+
+<p>Vài thập kỷ trước, đồng hồ chỉ có một chức năng: hiển thị giờ. Cơ chế đơn giản, sơ đồ liên hệ tự nhiên — xoay núm lên dây cót và chỉnh giờ. Thiết kế thậm chí tính đến lỗi của con người: ở vị trí bình thường, xoay núm chỉ lên dây cót; phải kéo núm ra ngoài mới có thể chỉnh giờ, ngăn chặn thay đổi vô tình.</p>
+
+<p>Ngày nay, đồng hồ tích hợp: ngày tháng năm, bấm giờ, đếm ngược, chuông báo thức, múi giờ, la bàn, đo nhịp tim, GPS, Internet, e-mail. Chiếc Junghans Mega 1000 (Hình 1.8) trong cuốn sách dù đã đơn giản hơn nhiều loại đồng hồ hiện đại, vẫn cần đến 20 tổ hợp nút bấm để điều khiển tất cả chức năng.</p>
+
+<div class="key-insight">
+  <p><strong>Nghịch lý của công nghệ:</strong> Một công nghệ đơn giản hóa cuộc sống bằng cách thêm chức năng vào một thiết bị cũng sẽ làm cho cuộc sống trở nên phức tạp hơn — vì thiết bị đó trở nên khó hiểu và khó sử dụng hơn. Đây chính là thách thức cốt lõi của thiết kế hiện đại.</p>
+</div>
+
+<!-- 9. THÁCH THỨC THIẾT KẾ -->
+<h2>9. Thách Thức Đa Chiều Của Thiết Kế</h2>
+
+<p>Thiết kế đòi hỏi sự kết hợp hài hòa của nhiều nguyên tắc, mỗi bên liên quan đều có ưu tiên riêng:</p>
+
+<table class="summary-table">
+  <thead>
+    <tr>
+      <th>Bên liên quan</th>
+      <th>Ưu tiên</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Marketing</td>
+      <td>"Giá phải đảm bảo cạnh tranh."</td>
+    </tr>
+    <tr>
+      <td>Kỹ sư</td>
+      <td>"Sản phẩm phải đáng tin cậy."</td>
+    </tr>
+    <tr>
+      <td>Sản xuất</td>
+      <td>"Chúng ta phải có khả năng sản xuất được nó."</td>
+    </tr>
+    <tr>
+      <td>Hỗ trợ khách hàng</td>
+      <td>"Chúng ta cần giải quyết những vấn đề phổ biến ngay từ thiết kế."</td>
+    </tr>
+    <tr>
+      <td>Thiết kế</td>
+      <td>"Chúng ta không thể thỏa mãn tất cả trong một sản phẩm."</td>
+    </tr>
+    <tr>
+      <td>Khách hàng</td>
+      <td>Ở cửa hàng: giá và hình thức. Ở nhà: chức năng và giá trị sử dụng.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Vậy ai đúng? <strong>Tất cả đều đúng.</strong> Một sản phẩm thành công cần đáp ứng tất cả những yêu cầu trên. Thách thức của người thiết kế là tìm ra giải pháp thỏa mãn được cùng lúc nhiều ràng buộc — và điều đó chỉ có thể thực hiện khi đội thiết kế đại diện được cho quan điểm của tất cả các đối tượng liên quan. Thiết kế lấy con người làm trung tâm chính là công cụ để làm được điều đó.</p>
+
+<!-- TAKEAWAY -->
+<div class="takeaway-box">
+  <div class="header">Điểm mấu chốt của chương 1</div>
+  <ul>
+    <li>Khi người dùng gặp khó khăn với một sản phẩm, <strong>đó là lỗi thiết kế</strong>, không phải lỗi của người dùng. Đừng đổ lỗi cho "người dùng không đủ thông minh".</li>
+    <li>Hai phẩm chất không thể thiếu của thiết kế tốt: <strong>có thể khám phá được</strong> và <strong>có thể hiểu được</strong>.</li>
+    <li>Năm nguyên tắc cơ bản của tương tác: <strong>tính năng tương tác, công cụ chỉ dẫn, sơ đồ liên hệ, phản hồi, mô hình khái niệm</strong> — thiếu bất kỳ nguyên tắc nào cũng dẫn đến thiết kế tồi.</li>
+    <li><strong>Công cụ chỉ dẫn quan trọng hơn tính năng tương tác</strong> trong thực tế thiết kế — vì tính năng tương tác tồn tại im lặng, còn công cụ chỉ dẫn mới thực sự hướng dẫn người dùng.</li>
+    <li><strong>Mô hình khái niệm sai</strong> là nguyên nhân của phần lớn sự thất vọng khi dùng công nghệ — tủ lạnh, đồng hồ kỹ thuật số, và hàng ngàn sản phẩm khác.</li>
+    <li><strong>Hình ảnh hệ thống</strong> là cầu nối duy nhất giữa ý định của nhà thiết kế và mô hình tư duy của người dùng. Nhà thiết kế phải chăm chút toàn bộ hệ thống này, không chỉ sản phẩm vật lý.</li>
+    <li>Nghịch lý công nghệ: <strong>thêm chức năng = tăng phức tạp = khó sử dụng hơn</strong>. Giải pháp là thiết kế lấy con người làm trung tâm.</li>
+  </ul>
+</div>
+
+<div class="doc-footer">
+  <span>Thiết Kế Lấy Người Dùng Làm Trung Tâm · Don Norman</span>
+  <span>Chương 1 / 7</span>
+</div>
+
+</body>
+</html>
