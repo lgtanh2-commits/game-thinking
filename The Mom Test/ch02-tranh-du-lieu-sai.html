@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 2: Tránh Thu Thập Dữ Liệu Sai – The Mom Test</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: #f8f7f4;
+  color: #2c2c2c;
+  line-height: 1.75;
+  font-size: 16px;
+}
+.page-wrap {
+  display: flex;
+  min-height: 100vh;
+}
+nav.sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #1a1a2e;
+  color: #ccc;
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+nav.sidebar .book-title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #333;
+  line-height: 1.4;
+}
+nav.sidebar .book-title span {
+  display: block;
+  color: #aaa;
+  font-weight: 400;
+  font-size: 11px;
+  margin-top: 4px;
+}
+nav.sidebar ul { list-style: none; padding: 12px 0; }
+nav.sidebar ul li a {
+  display: block;
+  padding: 7px 20px;
+  color: #bbb;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.4;
+  transition: background 0.15s, color 0.15s;
+}
+nav.sidebar ul li a:hover { background: #2a2a4a; color: #fff; }
+nav.sidebar ul li.active a { background: #16213e; color: #7eb8f7; font-weight: 600; }
+main {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+h1.chapter-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.chapter-num {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 32px;
+}
+h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 40px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e8e4d9;
+}
+h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin: 28px 0 10px;
+}
+p { margin-bottom: 16px; }
+ul, ol {
+  margin: 12px 0 18px 24px;
+}
+li { margin-bottom: 8px; }
+.rule-box {
+  background: #fffbea;
+  border-left: 4px solid #f5c518;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 28px 0;
+}
+.rule-box .rule-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #b8860b;
+  margin-bottom: 6px;
+}
+.rule-box p { margin: 0; font-weight: 500; color: #3a3000; }
+.dialogue {
+  background: #f0f4ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 15px;
+}
+.dialogue-line { margin-bottom: 6px; }
+.dialogue-line:last-child { margin-bottom: 0; }
+.speaker { font-weight: 700; color: #1a1a2e; margin-right: 6px; }
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-box {
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.compare-box.bad {
+  background: #fff0f0;
+  border-left: 3px solid #e05252;
+}
+.compare-box.good {
+  background: #f0fff4;
+  border-left: 3px solid #38a169;
+}
+.compare-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.compare-label.bad-label { color: #c53030; }
+.compare-label.good-label { color: #276749; }
+.compare-box p { margin: 0 0 6px; font-size: 14px; }
+.compare-box .explain { color: #666; font-size: 13px; font-style: italic; }
+.callout {
+  background: #eef4ff;
+  border: 1px solid #c3d9ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.callout-title { font-weight: 700; color: #1e3a8a; margin-bottom: 8px; }
+.symptom-list {
+  background: #fff8f0;
+  border-left: 3px solid #ed8936;
+  border-radius: 4px;
+  padding: 14px 20px;
+  margin: 16px 0;
+}
+.symptom-list .symptom-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c05621;
+  margin-bottom: 8px;
+}
+.symbol-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 15px;
+}
+.symbol-table th {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #ddd;
+}
+.symbol-table td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+.symbol-table tr:nth-child(even) { background: #fafafa; }
+.checklist {
+  background: #f7f9fc;
+  border: 1px solid #dde3ee;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.checklist-title { font-weight: 700; color: #2c2c2c; margin-bottom: 10px; }
+.checklist ul { margin: 0 0 0 18px; }
+.nav-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid #e0dcd0;
+}
+.nav-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #1a1a2e;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+.nav-btn:hover { background: #2a2a4a; }
+.nav-btn.disabled { background: #ccc; pointer-events: none; color: #888; }
+hr { border: none; border-top: 1px solid #e8e4d9; margin: 32px 0; }
+@media (max-width: 768px) {
+  .page-wrap { flex-direction: column; }
+  nav.sidebar { width: 100%; height: auto; position: static; }
+  main { padding: 24px 20px 60px; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+.book-topline {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 28px;
+}
+.book-topline a { color: #888; text-decoration: none; border-bottom: 1px solid #e0dcd0; padding-bottom: 1px; }
+.book-topline a:hover { color: #1a1a2e; border-bottom-color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav class="sidebar">
+  <div class="book-title">The Mom Test<span>Rob Fitzpatrick</span></div>
+  <ul><li><a href="ch00-gioi-thieu.html">Giới Thiệu</a></li>
+<li><a href="ch01-bai-kiem-tra-cua-me.html">Chương 1: Bài Kiểm Tra Của Mẹ</a></li>
+<li class="active"><a href="ch02-tranh-du-lieu-sai.html">Chương 2: Tránh Thu Thập Dữ Liệu Sai</a></li>
+<li><a href="ch03-cau-hoi-quan-trong.html">Chương 3: Đặt Câu Hỏi Quan Trọng</a></li>
+<li><a href="ch04-khong-khi-thoai-mai.html">Chương 4: Giữ Không Khí Thoải Mái</a></li>
+<li><a href="ch05-cam-ket-tien-trien.html">Chương 5: Cam Kết và Tiến Triển</a></li>
+<li><a href="ch06-tim-nguoi-noi-chuyen.html">Chương 6: Tìm Người Để Nói Chuyện</a></li>
+<li><a href="ch07-chon-khach-hang.html">Chương 7: Chọn Khách Hàng</a></li>
+<li><a href="ch08-thuc-hien-quy-trinh.html">Chương 8: Thực Hiện Quy Trình</a></li>
+<li><a href="ch09-ket-luan.html">Kết Luận và Tóm Tắt</a></li>
+</ul>
+</nav>
+<main>
+  <p class="book-topline"><a href="../index.html#/book/the-mom-test">← The Mom Test — Mục lục</a></p>
+  <div class="chapter-num">The Mom Test · Rob Fitzpatrick</div>
+  <h1 class="chapter-title">Chương 2: Tránh Thu Thập Dữ Liệu Sai</h1>
+  
+<p>Ngay cả khi bạn đặt câu hỏi đúng, có ba loại phản hồi sẽ làm bạn hiểu sai tình hình. Nhận biết được chúng là bước đầu tiên để tránh bị đánh lừa.</p>
+
+<h2>Loại 1: Lời Khen</h2>
+<p>Lời khen là loại dữ liệu sai lệch phổ biến nhất và nguy hiểm nhất. Nó không mang thông tin gì, nhưng khiến bạn cảm thấy đang đi đúng hướng.</p>
+<p>Ví dụ lời khen:</p>
+<ul>
+  <li>"Ý tưởng tuyệt vời!"</li>
+  <li>"Tôi chắc chắn sẽ mua cái đó."</li>
+  <li>"Đây đúng là thứ tôi đang cần."</li>
+  <li>"Tôi sẽ giới thiệu cho bạn bè ngay khi ra mắt."</li>
+</ul>
+<p>Những câu này không cho bạn biết gì về vấn đề thực sự, mức độ ưu tiên của vấn đề, hay liệu người đó có thực sự trả tiền không.</p>
+<p><strong>Cách xử lý:</strong> Khi nhận được lời khen, hãy chuyển ngay sang câu hỏi về hành vi thực tế. Ví dụ: "Cảm ơn. Bạn đang giải quyết vấn đề này bằng cách nào hiện tại?"</p>
+
+<div class="symptom-list">
+  <div class="symptom-label">Dấu hiệu bạn đang nhận lời khen</div>
+  <ul>
+    <li>Họ nói "tôi yêu thích ý tưởng này" nhưng không nói họ sẽ làm gì tiếp theo.</li>
+    <li>Cuộc trò chuyện kết thúc với cảm giác tốt nhưng bạn không biết gì mới.</li>
+    <li>Họ không đặt câu hỏi phản bác nào về sản phẩm.</li>
+  </ul>
+</div>
+
+<h2>Loại 2: Câu Trả Lời Mơ Hồ</h2>
+<p>Câu trả lời mơ hồ là những phát biểu chung chung hoặc giả định không thể kiểm chứng. Chúng nghe có vẻ hữu ích nhưng thực ra không cho bạn biết điều gì chắc chắn.</p>
+<p>Ví dụ:</p>
+<ul>
+  <li>"Tôi thường dùng loại công cụ này."</li>
+  <li>"Ai cũng cần thứ như vậy."</li>
+  <li>"Tôi thỉnh thoảng gặp vấn đề đó."</li>
+  <li>"Nhìn chung tôi thấy ổn với giải pháp hiện tại."</li>
+</ul>
+<p><strong>Cách xử lý:</strong> Kéo họ về sự kiện cụ thể. Khi họ nói "tôi thường…", hỏi: "Lần gần nhất bạn làm vậy là khi nào? Hãy kể tôi nghe cụ thể chuyện gì xảy ra."</p>
+
+<div class="compare-grid">
+  <div class="compare-box bad">
+    <div class="compare-label bad-label">❌ Câu trả lời mơ hồ</div>
+    <p>"Tôi thường bị stress với việc quản lý nhiều dự án cùng lúc."</p>
+    <p class="explain">"Thường" không cho bạn biết mức độ nghiêm trọng, tần suất, hay họ đang làm gì về nó.</p>
+  </div>
+  <div class="compare-box good">
+    <div class="compare-label good-label">✅ Câu trả lời cụ thể</div>
+    <p>"Tuần trước tôi bỏ lỡ deadline của khách hàng A vì tôi không biết task đó đã bị chuyển sang người khác. Tôi mất 2 tiếng để tìm hiểu chuyện gì xảy ra."</p>
+    <p class="explain">Sự kiện cụ thể với hậu quả đo lường được — đây là dữ liệu thực sự.</p>
+  </div>
+</div>
+
+<h2>Loại 3: Đề Xuất Tính Năng</h2>
+<p>Khi bạn nói về sản phẩm của mình, người ta thường bắt đầu đề xuất các tính năng: "Sẽ tốt hơn nếu có thêm X", "Bạn nên thêm tính năng Y". Bạn rất dễ ghi lại những đề xuất này và cho vào danh sách cần xây dựng.</p>
+<p><strong>Vấn đề:</strong> Đề xuất tính năng thường không phản ánh nhu cầu thực sự. Người ta đề xuất dựa trên ý tưởng thoáng qua, không phải trải nghiệm đau đầu hàng ngày.</p>
+<p><strong>Cách xử lý:</strong> Đừng ghi lại tính năng — hãy tìm hiểu vấn đề ẩn sau đó. Hỏi: "Tại sao bạn cần tính năng đó? Bạn đang cố làm gì? Bạn đang giải quyết nó bằng cách nào hiện tại?"</p>
+
+<div class="dialogue">
+  <div class="dialogue-line"><span class="speaker">Khách hàng:</span> "Nếu có thêm tính năng xuất báo cáo sang PDF thì tốt quá."</div>
+  <div class="dialogue-line"><span class="speaker">Bạn:</span> "Ý hay đấy. Bạn cần báo cáo PDF để làm gì?"</div>
+  <div class="dialogue-line"><span class="speaker">Khách hàng:</span> "Để gửi cho sếp mỗi tuần."</div>
+  <div class="dialogue-line"><span class="speaker">Bạn:</span> "Hiện tại bạn đang làm báo cáo đó bằng cách nào?"</div>
+  <div class="dialogue-line"><span class="speaker">Khách hàng:</span> "Tôi copy dữ liệu sang Excel rồi làm thủ công. Mỗi lần mất khoảng 1 tiếng."</div>
+</div>
+<p>Bây giờ bạn có thông tin thực sự: vấn đề là mất 1 tiếng mỗi tuần để tổng hợp báo cáo thủ công. Đây có thể được giải quyết bằng nhiều cách khác nhau, không nhất thiết phải là xuất PDF.</p>
+
+<h2>Đừng Tìm Kiếm Sự Chấp Thuận</h2>
+<p>Sai lầm phổ biến nhất: bạn chia sẻ ý tưởng và ngầm chờ đợi người kia nói "nghe hay đấy". Khi họ nói vậy, bạn cảm thấy được xác nhận và rời đi với cảm giác tích cực.</p>
+<p>Nhưng sự chấp thuận không phải dữ liệu. Nó chỉ có nghĩa là họ lịch sự.</p>
+<p>Dấu hiệu bạn đang tìm kiếm sự chấp thuận:</p>
+<ul>
+  <li>Bạn kể về ý tưởng trước khi hỏi về vấn đề của họ.</li>
+  <li>Bạn cảm thấy nhẹ nhõm khi họ khen.</li>
+  <li>Bạn tránh đặt câu hỏi có thể cho ra câu trả lời tiêu cực.</li>
+  <li>Bạn rời đi với cảm giác "cuộc trò chuyện diễn ra tốt đẹp" mà không có thông tin cụ thể nào mới.</li>
+</ul>
+
+<h2>Khi Nào Nên Tiết Lộ Ý Tưởng Của Bạn</h2>
+<p>Trong giai đoạn đầu, hãy trì hoãn việc tiết lộ ý tưởng của bạn càng lâu càng tốt. Trước tiên hãy học về cuộc sống và vấn đề của họ. Chỉ khi bạn đã có đủ thông tin, hãy giới thiệu sản phẩm — và lúc đó hãy chuyển sang chế độ kiểm tra cam kết (xem Chương 5).</p>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Lời khen không phải dữ liệu. Câu trả lời mơ hồ không phải dữ liệu. Đề xuất tính năng không phải dữ liệu. Dữ liệu thực sự là hành vi cụ thể đã xảy ra và hậu quả đo lường được.</p>
+</div>
+
+  <div class="nav-footer">
+    <a class="nav-btn" href="ch01-bai-kiem-tra-cua-me.html">← Chương 1: Bài Kiểm Tra Của Mẹ</a>
+    <a class="nav-btn" href="ch03-cau-hoi-quan-trong.html">Chương 3: Đặt Câu Hỏi Quan Trọng →</a>
+  </div>
+</main>
+</div>
+</body>
+</html>

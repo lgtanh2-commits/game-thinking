@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 7: Chọn Khách Hàng – The Mom Test</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: #f8f7f4;
+  color: #2c2c2c;
+  line-height: 1.75;
+  font-size: 16px;
+}
+.page-wrap {
+  display: flex;
+  min-height: 100vh;
+}
+nav.sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #1a1a2e;
+  color: #ccc;
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+nav.sidebar .book-title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #333;
+  line-height: 1.4;
+}
+nav.sidebar .book-title span {
+  display: block;
+  color: #aaa;
+  font-weight: 400;
+  font-size: 11px;
+  margin-top: 4px;
+}
+nav.sidebar ul { list-style: none; padding: 12px 0; }
+nav.sidebar ul li a {
+  display: block;
+  padding: 7px 20px;
+  color: #bbb;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.4;
+  transition: background 0.15s, color 0.15s;
+}
+nav.sidebar ul li a:hover { background: #2a2a4a; color: #fff; }
+nav.sidebar ul li.active a { background: #16213e; color: #7eb8f7; font-weight: 600; }
+main {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+h1.chapter-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.chapter-num {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 32px;
+}
+h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 40px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e8e4d9;
+}
+h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin: 28px 0 10px;
+}
+p { margin-bottom: 16px; }
+ul, ol {
+  margin: 12px 0 18px 24px;
+}
+li { margin-bottom: 8px; }
+.rule-box {
+  background: #fffbea;
+  border-left: 4px solid #f5c518;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 28px 0;
+}
+.rule-box .rule-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #b8860b;
+  margin-bottom: 6px;
+}
+.rule-box p { margin: 0; font-weight: 500; color: #3a3000; }
+.dialogue {
+  background: #f0f4ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 15px;
+}
+.dialogue-line { margin-bottom: 6px; }
+.dialogue-line:last-child { margin-bottom: 0; }
+.speaker { font-weight: 700; color: #1a1a2e; margin-right: 6px; }
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-box {
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.compare-box.bad {
+  background: #fff0f0;
+  border-left: 3px solid #e05252;
+}
+.compare-box.good {
+  background: #f0fff4;
+  border-left: 3px solid #38a169;
+}
+.compare-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.compare-label.bad-label { color: #c53030; }
+.compare-label.good-label { color: #276749; }
+.compare-box p { margin: 0 0 6px; font-size: 14px; }
+.compare-box .explain { color: #666; font-size: 13px; font-style: italic; }
+.callout {
+  background: #eef4ff;
+  border: 1px solid #c3d9ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.callout-title { font-weight: 700; color: #1e3a8a; margin-bottom: 8px; }
+.symptom-list {
+  background: #fff8f0;
+  border-left: 3px solid #ed8936;
+  border-radius: 4px;
+  padding: 14px 20px;
+  margin: 16px 0;
+}
+.symptom-list .symptom-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c05621;
+  margin-bottom: 8px;
+}
+.symbol-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 15px;
+}
+.symbol-table th {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #ddd;
+}
+.symbol-table td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+.symbol-table tr:nth-child(even) { background: #fafafa; }
+.checklist {
+  background: #f7f9fc;
+  border: 1px solid #dde3ee;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.checklist-title { font-weight: 700; color: #2c2c2c; margin-bottom: 10px; }
+.checklist ul { margin: 0 0 0 18px; }
+.nav-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid #e0dcd0;
+}
+.nav-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #1a1a2e;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+.nav-btn:hover { background: #2a2a4a; }
+.nav-btn.disabled { background: #ccc; pointer-events: none; color: #888; }
+hr { border: none; border-top: 1px solid #e8e4d9; margin: 32px 0; }
+@media (max-width: 768px) {
+  .page-wrap { flex-direction: column; }
+  nav.sidebar { width: 100%; height: auto; position: static; }
+  main { padding: 24px 20px 60px; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+.book-topline {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 28px;
+}
+.book-topline a { color: #888; text-decoration: none; border-bottom: 1px solid #e0dcd0; padding-bottom: 1px; }
+.book-topline a:hover { color: #1a1a2e; border-bottom-color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav class="sidebar">
+  <div class="book-title">The Mom Test<span>Rob Fitzpatrick</span></div>
+  <ul><li><a href="ch00-gioi-thieu.html">Giới Thiệu</a></li>
+<li><a href="ch01-bai-kiem-tra-cua-me.html">Chương 1: Bài Kiểm Tra Của Mẹ</a></li>
+<li><a href="ch02-tranh-du-lieu-sai.html">Chương 2: Tránh Thu Thập Dữ Liệu Sai</a></li>
+<li><a href="ch03-cau-hoi-quan-trong.html">Chương 3: Đặt Câu Hỏi Quan Trọng</a></li>
+<li><a href="ch04-khong-khi-thoai-mai.html">Chương 4: Giữ Không Khí Thoải Mái</a></li>
+<li><a href="ch05-cam-ket-tien-trien.html">Chương 5: Cam Kết và Tiến Triển</a></li>
+<li><a href="ch06-tim-nguoi-noi-chuyen.html">Chương 6: Tìm Người Để Nói Chuyện</a></li>
+<li class="active"><a href="ch07-chon-khach-hang.html">Chương 7: Chọn Khách Hàng</a></li>
+<li><a href="ch08-thuc-hien-quy-trinh.html">Chương 8: Thực Hiện Quy Trình</a></li>
+<li><a href="ch09-ket-luan.html">Kết Luận và Tóm Tắt</a></li>
+</ul>
+</nav>
+<main>
+  <p class="book-topline"><a href="../index.html#/book/the-mom-test">← The Mom Test — Mục lục</a></p>
+  <div class="chapter-num">The Mom Test · Rob Fitzpatrick</div>
+  <h1 class="chapter-title">Chương 7: Chọn Khách Hàng</h1>
+  
+<p>Bạn đã biết cách hỏi và tìm người để hỏi. Nhưng bạn nên hỏi ai trước? Chương này giúp bạn xác định nhóm khách hàng cụ thể nhất để bắt đầu.</p>
+
+<h2>Tại Sao Phân Khúc Quá Rộng Là Vấn Đề</h2>
+<p>Khi nhóm khách hàng mục tiêu của bạn quá rộng, bạn sẽ nói chuyện với nhiều loại người khác nhau — mỗi người có vấn đề, nhu cầu, và ưu tiên khác nhau. Kết quả:</p>
+<ul>
+  <li>Phản hồi mâu thuẫn nhau — mỗi người muốn một thứ khác nhau.</li>
+  <li>Bạn không thể xác định điều gì thực sự đúng.</li>
+  <li>Bạn không biết bắt đầu từ đâu.</li>
+  <li>Sản phẩm cố gắng phục vụ tất cả — cuối cùng không phục vụ tốt ai cả.</li>
+</ul>
+
+<p>Ví dụ: Một nhà sáng lập nói khách hàng của mình là "nhà quảng cáo". Đây là phân khúc quá rộng — bao gồm cửa hàng nhỏ, doanh nghiệp lớn, công ty thương mại điện tử, nhãn hàng âm nhạc, và nhiều loại khác. Mỗi loại có ngân sách, quy trình ra quyết định, và nhu cầu hoàn toàn khác nhau.</p>
+
+<p>Ví dụ khác: "Sinh viên" nghe có vẻ cụ thể nhưng thực ra bao gồm: nghiên cứu sinh tiến sĩ, học sinh trung học, trẻ học tại nhà, học sinh ở vùng nông thôn không có internet ổn định. Mỗi nhóm có nhu cầu rất khác nhau.</p>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Nếu phản hồi từ các cuộc trò chuyện không nhất quán, phân khúc khách hàng của bạn chưa đủ cụ thể.</p>
+</div>
+
+<h2>Quy Trình Thu Hẹp Phân Khúc</h2>
+<p>Bắt đầu từ phân khúc rộng và liên tục thu hẹp bằng cách đặt các câu hỏi sau:</p>
+<ul>
+  <li>Trong nhóm này, ai sẽ muốn sản phẩm nhất?</li>
+  <li>Tất cả mọi người trong nhóm này đều sẽ mua/dùng, hay chỉ một phần?</li>
+  <li>Tại sao họ muốn nó? Vấn đề hoặc mục tiêu của họ là gì?</li>
+  <li>Không phải tất cả mọi người trong nhóm đều có động lực đó — chỉ những ai?</li>
+  <li>Còn những động lực nào khác?</li>
+  <li>Những nhóm người nào khác có những động lực tương tự?</li>
+</ul>
+
+<p>Sau đó tiếp tục với hành vi:</p>
+<ul>
+  <li>Những người này hiện đang làm gì để giải quyết vấn đề của họ?</li>
+  <li>Tôi có thể tìm thấy nhóm này ở đâu?</li>
+  <li>Tôi có thể tìm thấy những người đang thực hiện các hành vi tạm thời đó ở đâu?</li>
+</ul>
+
+<h2>Ví Dụ Thực Tế: Thu Hẹp Phân Khúc</h2>
+<p>Giả sử bạn đang xây dựng ứng dụng giúp người ta tự tin hơn khi nói trước công chúng.</p>
+<p>Bắt đầu: "Sinh viên" → Quá rộng.</p>
+<p>Thu hẹp 1: "Sinh viên sắp ra trường lo lắng về buổi phỏng vấn xin việc đầu tiên" → Cụ thể hơn nhiều.</p>
+<p>Nhóm người có động lực tương tự:</p>
+<ul>
+  <li>Người sắp xuất hiện lần đầu trên truyền hình/radio.</li>
+  <li>Người sắp đọc diễn văn trong đám cưới.</li>
+  <li>Tác giả sắp bắt đầu tour quảng bá sách.</li>
+</ul>
+<p>Động lực khác (không chỉ là lo lắng trước một sự kiện):</p>
+<ul>
+  <li>Muốn nâng cao kỹ năng nói chuyện lâu dài như một kỹ năng nghề nghiệp.</li>
+  <li>Khắc phục các lỗi phát âm của người nói tiếng Việt không phải tiếng mẹ đẻ.</li>
+</ul>
+<p>Nhóm cụ thể có thể tìm thấy dễ dàng:</p>
+<ul>
+  <li>Nghiên cứu sinh tiến sĩ không phải người bản xứ sắp có bài thuyết trình hội thảo → Tìm qua phòng quản lý của khoa hoặc cố vấn học thuật.</li>
+  <li>Người tham gia câu lạc bộ diễn thuyết Toastmasters → Tìm tại các buổi họp của họ.</li>
+</ul>
+
+<h2>Phân Khúc Tốt = Ai + Ở Đâu</h2>
+<p>Một phân khúc khách hàng có giá trị phải trả lời được hai câu hỏi:</p>
+<ul>
+  <li><strong>Ai:</strong> Mô tả cụ thể về người đó (nghề nghiệp, tình huống, động lực).</li>
+  <li><strong>Ở đâu:</strong> Bạn có thể tìm thấy họ ở đâu cụ thể.</li>
+</ul>
+<p>"Người dùng smartphone lo lắng về bảo mật dữ liệu" — có ai, không có ở đâu. Không hữu ích.</p>
+<p>"Người dùng smartphone làm việc trong ngành tài chính tại Hà Nội, thường đọc các diễn đàn về bảo mật trên Facebook Groups" — có cả ai lẫn ở đâu. Có thể hành động ngay.</p>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Phân khúc khách hàng tốt là cặp "ai + ở đâu". Nếu bạn không biết tìm khách hàng ở đâu, hãy tiếp tục thu hẹp phân khúc cho đến khi biết.</p>
+</div>
+
+<h2>Chọn Phân Khúc Bắt Đầu</h2>
+<p>Khi bạn đã có nhiều phân khúc tiềm năng, hãy chọn một phân khúc để bắt đầu dựa trên ba tiêu chí:</p>
+<ol>
+  <li><strong>Lợi nhuận tiềm năng:</strong> Họ có khả năng trả tiền không? Họ có ngân sách không?</li>
+  <li><strong>Dễ tiếp cận:</strong> Bạn có thể gặp họ trong tuần này không?</li>
+  <li><strong>Phù hợp với bạn:</strong> Bạn có thấy việc xây dựng doanh nghiệp xung quanh nhóm này là có ý nghĩa không?</li>
+</ol>
+<p>Bạn không cần chọn phân khúc hoàn hảo — chọn phân khúc đủ cụ thể để bạn có thể gặp họ và bắt đầu học ngay tuần này. Bạn có thể mở rộng hoặc thay đổi sau khi đã học được gì đó.</p>
+
+<h2>Tránh Nói Chuyện Với Sai Người</h2>
+<p>Ba cách phổ biến dẫn đến nói chuyện với sai người:</p>
+<ol>
+  <li><strong>Phân khúc quá rộng:</strong> Bạn nói chuyện với tất cả mọi người và nhận phản hồi mâu thuẫn.</li>
+  <li><strong>Bỏ sót phân khúc:</strong> Bạn quên mất một nhóm người quan trọng. Ví dụ: xây dựng ứng dụng cho trẻ em nhưng chỉ nói chuyện với trẻ, không nói với phụ huynh — những người thực sự trả tiền.</li>
+  <li><strong>Bỏ sót người ra quyết định:</strong> Trong bán hàng doanh nghiệp, bạn chỉ nói chuyện với người dùng cuối nhưng không nói với người ký duyệt ngân sách.</li>
+</ol>
+
+  <div class="nav-footer">
+    <a class="nav-btn" href="ch06-tim-nguoi-noi-chuyen.html">← Chương 6: Tìm Người Để Nói Chuyện</a>
+    <a class="nav-btn" href="ch08-thuc-hien-quy-trinh.html">Chương 8: Thực Hiện Quy Trình →</a>
+  </div>
+</main>
+</div>
+</body>
+</html>

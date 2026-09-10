@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 5: Cam Kết và Tiến Triển – The Mom Test</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: #f8f7f4;
+  color: #2c2c2c;
+  line-height: 1.75;
+  font-size: 16px;
+}
+.page-wrap {
+  display: flex;
+  min-height: 100vh;
+}
+nav.sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #1a1a2e;
+  color: #ccc;
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+nav.sidebar .book-title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #333;
+  line-height: 1.4;
+}
+nav.sidebar .book-title span {
+  display: block;
+  color: #aaa;
+  font-weight: 400;
+  font-size: 11px;
+  margin-top: 4px;
+}
+nav.sidebar ul { list-style: none; padding: 12px 0; }
+nav.sidebar ul li a {
+  display: block;
+  padding: 7px 20px;
+  color: #bbb;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.4;
+  transition: background 0.15s, color 0.15s;
+}
+nav.sidebar ul li a:hover { background: #2a2a4a; color: #fff; }
+nav.sidebar ul li.active a { background: #16213e; color: #7eb8f7; font-weight: 600; }
+main {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+h1.chapter-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.chapter-num {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 32px;
+}
+h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 40px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e8e4d9;
+}
+h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin: 28px 0 10px;
+}
+p { margin-bottom: 16px; }
+ul, ol {
+  margin: 12px 0 18px 24px;
+}
+li { margin-bottom: 8px; }
+.rule-box {
+  background: #fffbea;
+  border-left: 4px solid #f5c518;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 28px 0;
+}
+.rule-box .rule-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #b8860b;
+  margin-bottom: 6px;
+}
+.rule-box p { margin: 0; font-weight: 500; color: #3a3000; }
+.dialogue {
+  background: #f0f4ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 15px;
+}
+.dialogue-line { margin-bottom: 6px; }
+.dialogue-line:last-child { margin-bottom: 0; }
+.speaker { font-weight: 700; color: #1a1a2e; margin-right: 6px; }
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-box {
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.compare-box.bad {
+  background: #fff0f0;
+  border-left: 3px solid #e05252;
+}
+.compare-box.good {
+  background: #f0fff4;
+  border-left: 3px solid #38a169;
+}
+.compare-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.compare-label.bad-label { color: #c53030; }
+.compare-label.good-label { color: #276749; }
+.compare-box p { margin: 0 0 6px; font-size: 14px; }
+.compare-box .explain { color: #666; font-size: 13px; font-style: italic; }
+.callout {
+  background: #eef4ff;
+  border: 1px solid #c3d9ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.callout-title { font-weight: 700; color: #1e3a8a; margin-bottom: 8px; }
+.symptom-list {
+  background: #fff8f0;
+  border-left: 3px solid #ed8936;
+  border-radius: 4px;
+  padding: 14px 20px;
+  margin: 16px 0;
+}
+.symptom-list .symptom-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c05621;
+  margin-bottom: 8px;
+}
+.symbol-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 15px;
+}
+.symbol-table th {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #ddd;
+}
+.symbol-table td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+.symbol-table tr:nth-child(even) { background: #fafafa; }
+.checklist {
+  background: #f7f9fc;
+  border: 1px solid #dde3ee;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.checklist-title { font-weight: 700; color: #2c2c2c; margin-bottom: 10px; }
+.checklist ul { margin: 0 0 0 18px; }
+.nav-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid #e0dcd0;
+}
+.nav-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #1a1a2e;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+.nav-btn:hover { background: #2a2a4a; }
+.nav-btn.disabled { background: #ccc; pointer-events: none; color: #888; }
+hr { border: none; border-top: 1px solid #e8e4d9; margin: 32px 0; }
+@media (max-width: 768px) {
+  .page-wrap { flex-direction: column; }
+  nav.sidebar { width: 100%; height: auto; position: static; }
+  main { padding: 24px 20px 60px; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+.book-topline {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 28px;
+}
+.book-topline a { color: #888; text-decoration: none; border-bottom: 1px solid #e0dcd0; padding-bottom: 1px; }
+.book-topline a:hover { color: #1a1a2e; border-bottom-color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav class="sidebar">
+  <div class="book-title">The Mom Test<span>Rob Fitzpatrick</span></div>
+  <ul><li><a href="ch00-gioi-thieu.html">Giới Thiệu</a></li>
+<li><a href="ch01-bai-kiem-tra-cua-me.html">Chương 1: Bài Kiểm Tra Của Mẹ</a></li>
+<li><a href="ch02-tranh-du-lieu-sai.html">Chương 2: Tránh Thu Thập Dữ Liệu Sai</a></li>
+<li><a href="ch03-cau-hoi-quan-trong.html">Chương 3: Đặt Câu Hỏi Quan Trọng</a></li>
+<li><a href="ch04-khong-khi-thoai-mai.html">Chương 4: Giữ Không Khí Thoải Mái</a></li>
+<li class="active"><a href="ch05-cam-ket-tien-trien.html">Chương 5: Cam Kết và Tiến Triển</a></li>
+<li><a href="ch06-tim-nguoi-noi-chuyen.html">Chương 6: Tìm Người Để Nói Chuyện</a></li>
+<li><a href="ch07-chon-khach-hang.html">Chương 7: Chọn Khách Hàng</a></li>
+<li><a href="ch08-thuc-hien-quy-trinh.html">Chương 8: Thực Hiện Quy Trình</a></li>
+<li><a href="ch09-ket-luan.html">Kết Luận và Tóm Tắt</a></li>
+</ul>
+</nav>
+<main>
+  <p class="book-topline"><a href="../index.html#/book/the-mom-test">← The Mom Test — Mục lục</a></p>
+  <div class="chapter-num">The Mom Test · Rob Fitzpatrick</div>
+  <h1 class="chapter-title">Chương 5: Cam Kết và Tiến Triển</h1>
+  
+<p>Khi bạn đã học đủ về vấn đề và bắt đầu có sản phẩm để trình bày, bạn bước vào giai đoạn mới: kiểm tra xem ai thực sự sẽ mua — không phải ai chỉ nói tốt.</p>
+
+<h2>Cơ Hội Kinh Doanh Không Thực Sự</h2>
+<p>Khi không yêu cầu cam kết, bạn sẽ tích lũy một danh sách những người nói những điều tích cực nhưng không bao giờ ra quyết định. Họ tiếp tục gặp bạn, tiếp tục khen ngợi, nhưng không bao giờ ký hợp đồng hay trả tiền.</p>
+<p>Đây là những cơ hội kinh doanh không có thực — trông như có triển vọng nhưng thực chất không dẫn đến đâu cả. Bạn tạo ra tình trạng này vì bạn sợ bị từ chối và tránh đẩy họ đến quyết định.</p>
+<p>Cách nhận biết:</p>
+<ul>
+  <li>Bạn có nhiều "khách hàng tiềm năng đang xem xét" nhưng không ai ra quyết định.</li>
+  <li>Cuộc họp kết thúc với lời khen nhưng không có bước tiếp theo rõ ràng.</li>
+  <li>Bạn rời đi với cảm giác "cuộc họp diễn ra tốt" nhưng không có gì thay đổi.</li>
+</ul>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Những "khách hàng" luôn thân thiện nhưng không bao giờ mua là nguồn tín hiệu sai lệch nguy hiểm nhất.</p>
+</div>
+
+<h2>Ba Loại Cam Kết</h2>
+<p>Cam kết không chỉ là tiền. Hãy nghĩ về cam kết như các thứ có giá trị mà người kia sẵn sàng bỏ ra cho bạn:</p>
+
+<h3>1. Thời Gian</h3>
+<ul>
+  <li>Đồng ý gặp lại với mục tiêu cụ thể.</li>
+  <li>Dành thời gian dùng thử sản phẩm trong 2 tuần và báo cáo kết quả.</li>
+  <li>Ngồi xuống và xem xét bản thiết kế chi tiết.</li>
+</ul>
+
+<h3>2. Danh Tiếng</h3>
+<ul>
+  <li>Giới thiệu bạn với đồng nghiệp hoặc người ra quyết định.</li>
+  <li>Đồng ý trở thành trường hợp điển hình (case study) khi sản phẩm ra mắt.</li>
+  <li>Công khai ủng hộ sản phẩm của bạn với đội nhóm của họ.</li>
+</ul>
+
+<h3>3. Tiền</h3>
+<ul>
+  <li>Thư bày tỏ ý định mua (letter of intent).</li>
+  <li>Đặt cọc trước.</li>
+  <li>Thanh toán cho phiên bản thử nghiệm.</li>
+</ul>
+
+<p>Lời khen không tốn gì — nên nó không có giá trị thông tin. Cam kết thực sự đòi hỏi người ta từ bỏ thứ gì đó có giá trị với họ.</p>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Họ càng sẵn sàng bỏ ra nhiều (thời gian, danh tiếng, tiền), bạn càng có thể tin vào những gì họ nói.</p>
+</div>
+
+<h2>Phân Tích Cuộc Họp Tốt và Xấu</h2>
+<p>Sau đây là các kết thúc cuộc họp phổ biến và cách đánh giá chúng:</p>
+
+<div class="callout">
+  <div class="callout-title">❌ "Ý tưởng tuyệt vời! Tôi yêu thích nó!"</div>
+  <p>Xấu. Lời khen thuần túy, không có thông tin gì. Hãy chuyển ngay sang: "Cảm ơn. Bước tiếp theo của chúng ta là gì?"</p>
+</div>
+
+<div class="callout">
+  <div class="callout-title">❌ "Trông hay đấy. Hãy cho tôi biết khi nào ra mắt."</div>
+  <p>Xấu. Lời khen kết hợp với chiến thuật trì hoãn. Đừng nhầm lẫn điều này với đơn đặt hàng trước. Hãy hỏi: "Chúng ta có thể làm gì hôm nay để tiến lên bước tiếp theo không?"</p>
+</div>
+
+<div class="callout">
+  <div class="callout-title">❌ "Tôi chắc chắn sẽ mua khi ra mắt."</div>
+  <p>Xấu. Đây là câu trả lời nguy hiểm nhất vì nghe như xác nhận nhưng không phải. Hãy chuyển thành cam kết cụ thể: "Bạn có thể đặt cọc trước không? Hoặc ký thư bày tỏ ý định mua?"</p>
+</div>
+
+<div class="callout">
+  <div class="callout-title">✅ "Bước tiếp theo là gì?"</div>
+  <p>Tốt. Cả hai bên đều muốn tiến lên bước tiếp theo. Hãy biết trước bước tiếp theo của bạn là gì và nêu ra ngay.</p>
+</div>
+
+<div class="callout">
+  <div class="callout-title">✅ "Khi nào chúng tôi có thể bắt đầu dùng thử?"</div>
+  <p>Tốt. Họ chủ động muốn hành động — không phải chỉ khen ngợi.</p>
+</div>
+
+<div class="callout">
+  <div class="callout-title">✅ "Tôi có thể mua nguyên mẫu này không?"</div>
+  <p>Rất tốt. Họ muốn có sản phẩm ngay bây giờ, kể cả khi chưa hoàn thiện.</p>
+</div>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Không có cuộc họp nào chỉ "diễn ra tốt". Mỗi cuộc họp hoặc thành công (có cam kết hoặc bước tiếp theo rõ ràng) hoặc thất bại.</p>
+</div>
+
+<h2>Khách Hàng Tiên Phong</h2>
+<p>Những khách hàng đầu tiên của bạn không phải người bình thường. Họ là những người đặc biệt — họ thực sự muốn giải pháp đến mức sẵn sàng mua từ một công ty khởi nghiệp chưa chứng minh được gì.</p>
+<p>Đặc điểm của khách hàng tiên phong (áp dụng cho thị trường doanh nghiệp):</p>
+<ul>
+  <li>Họ có vấn đề cụ thể đang gặp phải.</li>
+  <li>Họ biết họ có vấn đề đó.</li>
+  <li>Họ có ngân sách để giải quyết vấn đề đó.</li>
+  <li>Họ đã tự cố gắng giải quyết — dù bằng cách tạm thời, không hoàn hảo.</li>
+</ul>
+<p>Đặc điểm của khách hàng tiên phong (thị trường người dùng cá nhân):</p>
+<ul>
+  <li>Họ đang tích cực tìm kiếm giải pháp (đọc blog, tham gia nhóm, tìm thủ thuật tạm thời).</li>
+  <li>Họ thể hiện cảm xúc mạnh mẽ về vấn đề — không phải "vấn đề này khá phiền" mà là "đây là điều tệ nhất trong công việc của tôi".</li>
+  <li>Họ sẵn sàng trả tiền ngay cả khi sản phẩm chưa hoàn thiện.</li>
+</ul>
+<p>Khi bạn tìm thấy người như vậy, hãy giữ liên lạc chặt chẽ với họ. Họ sẽ giúp bạn vượt qua giai đoạn khó khăn nhất.</p>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Trong giai đoạn đầu, mục tiêu của mỗi cuộc gặp gỡ là học hỏi. Doanh thu chỉ là kết quả phụ.</p>
+</div>
+
+  <div class="nav-footer">
+    <a class="nav-btn" href="ch04-khong-khi-thoai-mai.html">← Chương 4: Giữ Không Khí Thoải Mái</a>
+    <a class="nav-btn" href="ch06-tim-nguoi-noi-chuyen.html">Chương 6: Tìm Người Để Nói Chuyện →</a>
+  </div>
+</main>
+</div>
+</body>
+</html>

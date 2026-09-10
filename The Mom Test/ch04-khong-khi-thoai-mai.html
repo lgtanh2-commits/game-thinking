@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 4: Giữ Không Khí Thoải Mái – The Mom Test</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: #f8f7f4;
+  color: #2c2c2c;
+  line-height: 1.75;
+  font-size: 16px;
+}
+.page-wrap {
+  display: flex;
+  min-height: 100vh;
+}
+nav.sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #1a1a2e;
+  color: #ccc;
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+nav.sidebar .book-title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #333;
+  line-height: 1.4;
+}
+nav.sidebar .book-title span {
+  display: block;
+  color: #aaa;
+  font-weight: 400;
+  font-size: 11px;
+  margin-top: 4px;
+}
+nav.sidebar ul { list-style: none; padding: 12px 0; }
+nav.sidebar ul li a {
+  display: block;
+  padding: 7px 20px;
+  color: #bbb;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.4;
+  transition: background 0.15s, color 0.15s;
+}
+nav.sidebar ul li a:hover { background: #2a2a4a; color: #fff; }
+nav.sidebar ul li.active a { background: #16213e; color: #7eb8f7; font-weight: 600; }
+main {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+h1.chapter-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.chapter-num {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 32px;
+}
+h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 40px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e8e4d9;
+}
+h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin: 28px 0 10px;
+}
+p { margin-bottom: 16px; }
+ul, ol {
+  margin: 12px 0 18px 24px;
+}
+li { margin-bottom: 8px; }
+.rule-box {
+  background: #fffbea;
+  border-left: 4px solid #f5c518;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 28px 0;
+}
+.rule-box .rule-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #b8860b;
+  margin-bottom: 6px;
+}
+.rule-box p { margin: 0; font-weight: 500; color: #3a3000; }
+.dialogue {
+  background: #f0f4ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 15px;
+}
+.dialogue-line { margin-bottom: 6px; }
+.dialogue-line:last-child { margin-bottom: 0; }
+.speaker { font-weight: 700; color: #1a1a2e; margin-right: 6px; }
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-box {
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.compare-box.bad {
+  background: #fff0f0;
+  border-left: 3px solid #e05252;
+}
+.compare-box.good {
+  background: #f0fff4;
+  border-left: 3px solid #38a169;
+}
+.compare-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.compare-label.bad-label { color: #c53030; }
+.compare-label.good-label { color: #276749; }
+.compare-box p { margin: 0 0 6px; font-size: 14px; }
+.compare-box .explain { color: #666; font-size: 13px; font-style: italic; }
+.callout {
+  background: #eef4ff;
+  border: 1px solid #c3d9ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.callout-title { font-weight: 700; color: #1e3a8a; margin-bottom: 8px; }
+.symptom-list {
+  background: #fff8f0;
+  border-left: 3px solid #ed8936;
+  border-radius: 4px;
+  padding: 14px 20px;
+  margin: 16px 0;
+}
+.symptom-list .symptom-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c05621;
+  margin-bottom: 8px;
+}
+.symbol-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 15px;
+}
+.symbol-table th {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #ddd;
+}
+.symbol-table td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+.symbol-table tr:nth-child(even) { background: #fafafa; }
+.checklist {
+  background: #f7f9fc;
+  border: 1px solid #dde3ee;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.checklist-title { font-weight: 700; color: #2c2c2c; margin-bottom: 10px; }
+.checklist ul { margin: 0 0 0 18px; }
+.nav-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid #e0dcd0;
+}
+.nav-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #1a1a2e;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+.nav-btn:hover { background: #2a2a4a; }
+.nav-btn.disabled { background: #ccc; pointer-events: none; color: #888; }
+hr { border: none; border-top: 1px solid #e8e4d9; margin: 32px 0; }
+@media (max-width: 768px) {
+  .page-wrap { flex-direction: column; }
+  nav.sidebar { width: 100%; height: auto; position: static; }
+  main { padding: 24px 20px 60px; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+.book-topline {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 28px;
+}
+.book-topline a { color: #888; text-decoration: none; border-bottom: 1px solid #e0dcd0; padding-bottom: 1px; }
+.book-topline a:hover { color: #1a1a2e; border-bottom-color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav class="sidebar">
+  <div class="book-title">The Mom Test<span>Rob Fitzpatrick</span></div>
+  <ul><li><a href="ch00-gioi-thieu.html">Giới Thiệu</a></li>
+<li><a href="ch01-bai-kiem-tra-cua-me.html">Chương 1: Bài Kiểm Tra Của Mẹ</a></li>
+<li><a href="ch02-tranh-du-lieu-sai.html">Chương 2: Tránh Thu Thập Dữ Liệu Sai</a></li>
+<li><a href="ch03-cau-hoi-quan-trong.html">Chương 3: Đặt Câu Hỏi Quan Trọng</a></li>
+<li class="active"><a href="ch04-khong-khi-thoai-mai.html">Chương 4: Giữ Không Khí Thoải Mái</a></li>
+<li><a href="ch05-cam-ket-tien-trien.html">Chương 5: Cam Kết và Tiến Triển</a></li>
+<li><a href="ch06-tim-nguoi-noi-chuyen.html">Chương 6: Tìm Người Để Nói Chuyện</a></li>
+<li><a href="ch07-chon-khach-hang.html">Chương 7: Chọn Khách Hàng</a></li>
+<li><a href="ch08-thuc-hien-quy-trinh.html">Chương 8: Thực Hiện Quy Trình</a></li>
+<li><a href="ch09-ket-luan.html">Kết Luận và Tóm Tắt</a></li>
+</ul>
+</nav>
+<main>
+  <p class="book-topline"><a href="../index.html#/book/the-mom-test">← The Mom Test — Mục lục</a></p>
+  <div class="chapter-num">The Mom Test · Rob Fitzpatrick</div>
+  <h1 class="chapter-title">Chương 4: Giữ Không Khí Thoải Mái</h1>
+  
+<p>Chương trước tập trung vào nội dung câu hỏi. Chương này nói về hình thức: bạn không cần lịch hẹn chính thức để học từ khách hàng.</p>
+
+<h2>Vấn Đề Với Cuộc Họp Chính Thức</h2>
+<p>Nhiều người nghĩ "phỏng vấn khách hàng" có nghĩa là đặt lịch hẹn, đến văn phòng, ngồi vào phòng họp, và đặt câu hỏi theo danh sách chuẩn bị sẵn. Hình thức này có nhiều hạn chế:</p>
+<ul>
+  <li>Chi phí thời gian cao: một cuộc họp 1 tiếng thực ra tốn 4 tiếng khi tính cả việc sắp xếp lịch, di chuyển, và chuẩn bị.</li>
+  <li>Môi trường nhân tạo: người ta hành xử khác trong phòng họp so với trong công việc thực tế.</li>
+  <li>Kỳ vọng bị đặt ra sai: khi họ đến "cuộc họp", họ mong được xem sản phẩm — bạn chưa sẵn sàng cho điều đó.</li>
+  <li>Bạn bỏ lỡ cơ hội tình cờ: nhiều cuộc trò chuyện giá trị xảy ra tự nhiên, không theo lịch.</li>
+</ul>
+
+<h2>Cuộc Trò Chuyện Thoải Mái Hiệu Quả Hơn</h2>
+<p>Cấu trúc gồm ba cuộc họp riêng biệt (vấn đề → giải pháp → bán hàng) là tư duy đúng. Nhưng cuộc họp đầu tiên — giai đoạn tìm hiểu vấn đề — không nhất thiết phải là một cuộc họp chính thức.</p>
+<p>Thay vào đó, hãy chèn câu hỏi vào các cuộc trò chuyện tự nhiên:</p>
+<ul>
+  <li>Tại sự kiện ngành: "Nhân tiện, bạn đang xử lý vấn đề X như thế nào?"</li>
+  <li>Gặp gỡ xã giao: "Tôi nghe nói vấn đề Y khá phổ biến trong ngành của bạn — bạn có gặp không?"</li>
+  <li>Sau một buổi thuyết trình: "Bạn vừa đề cập đến vấn đề Z — bạn có thể kể thêm không?"</li>
+</ul>
+<p>Khi làm đúng, người được hỏi không nhận ra đây là "phỏng vấn". Họ chỉ đang có cuộc trò chuyện thú vị.</p>
+
+<h2>Dấu Hiệu Cuộc Trò Chuyện Quá Chính Thức</h2>
+<div class="symptom-list">
+  <div class="symptom-label">Các dấu hiệu cần tránh</div>
+  <ul>
+    <li>"Cảm ơn bạn đã dành thời gian cho buổi phỏng vấn này. Tôi có vài câu hỏi…"</li>
+    <li>Đọc câu hỏi từ danh sách chuẩn bị sẵn.</li>
+    <li>"Trên thang điểm 1 đến 5, bạn đánh giá vấn đề này ở mức nào?"</li>
+    <li>Cảm giác như bạn đang làm phiền họ bằng câu hỏi của mình.</li>
+  </ul>
+</div>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Nếu cảm giác như họ đang làm ơn cho bạn khi trả lời, cuộc trò chuyện đang quá chính thức.</p>
+</div>
+
+<h2>Thời Lượng Cuộc Trò Chuyện</h2>
+<p>Thời gian cần thiết phụ thuộc vào giai đoạn và mục tiêu:</p>
+<ul>
+  <li><strong>5 phút:</strong> Đủ để xác nhận một vấn đề có tồn tại và có quan trọng không.</li>
+  <li><strong>10–15 phút:</strong> Đủ để hiểu cách họ đang giải quyết vấn đề hiện tại.</li>
+  <li><strong>30 phút:</strong> Cần thiết khi bạn đã có sản phẩm và muốn phản hồi chi tiết.</li>
+  <li><strong>1 tiếng+:</strong> Khi cần hiểu sâu về quy trình của một ngành.</li>
+</ul>
+<p>Ở giai đoạn đầu, một cuộc trò chuyện 10 phút có thể cho bạn thông tin đủ để quyết định có nên tiếp tục hướng đó không. Đừng kéo dài không cần thiết.</p>
+
+<h2>Kết Hợp Thoải Mái Với Cuộc Họp Chính Thức</h2>
+<p>Ngay cả trong một cuộc họp chính thức, bạn vẫn nên bắt đầu bằng cách trò chuyện thoải mái về công việc và cuộc sống của họ — trước khi đi vào chủ đề chính. Điều này giúp bạn có thêm thông tin không thiên kiến và tạo bầu không khí cởi mở hơn.</p>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Cung cấp càng ít thông tin về ý tưởng của bạn càng tốt, trong khi vẫn dẫn dắt cuộc trò chuyện theo hướng có ích.</p>
+</div>
+
+  <div class="nav-footer">
+    <a class="nav-btn" href="ch03-cau-hoi-quan-trong.html">← Chương 3: Đặt Câu Hỏi Quan Trọng</a>
+    <a class="nav-btn" href="ch05-cam-ket-tien-trien.html">Chương 5: Cam Kết và Tiến Triển →</a>
+  </div>
+</main>
+</div>
+</body>
+</html>

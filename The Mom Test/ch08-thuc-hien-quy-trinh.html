@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 8: Thực Hiện Quy Trình – The Mom Test</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: #f8f7f4;
+  color: #2c2c2c;
+  line-height: 1.75;
+  font-size: 16px;
+}
+.page-wrap {
+  display: flex;
+  min-height: 100vh;
+}
+nav.sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #1a1a2e;
+  color: #ccc;
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+nav.sidebar .book-title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #333;
+  line-height: 1.4;
+}
+nav.sidebar .book-title span {
+  display: block;
+  color: #aaa;
+  font-weight: 400;
+  font-size: 11px;
+  margin-top: 4px;
+}
+nav.sidebar ul { list-style: none; padding: 12px 0; }
+nav.sidebar ul li a {
+  display: block;
+  padding: 7px 20px;
+  color: #bbb;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.4;
+  transition: background 0.15s, color 0.15s;
+}
+nav.sidebar ul li a:hover { background: #2a2a4a; color: #fff; }
+nav.sidebar ul li.active a { background: #16213e; color: #7eb8f7; font-weight: 600; }
+main {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+h1.chapter-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.chapter-num {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 32px;
+}
+h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 40px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e8e4d9;
+}
+h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin: 28px 0 10px;
+}
+p { margin-bottom: 16px; }
+ul, ol {
+  margin: 12px 0 18px 24px;
+}
+li { margin-bottom: 8px; }
+.rule-box {
+  background: #fffbea;
+  border-left: 4px solid #f5c518;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 28px 0;
+}
+.rule-box .rule-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #b8860b;
+  margin-bottom: 6px;
+}
+.rule-box p { margin: 0; font-weight: 500; color: #3a3000; }
+.dialogue {
+  background: #f0f4ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 15px;
+}
+.dialogue-line { margin-bottom: 6px; }
+.dialogue-line:last-child { margin-bottom: 0; }
+.speaker { font-weight: 700; color: #1a1a2e; margin-right: 6px; }
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-box {
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.compare-box.bad {
+  background: #fff0f0;
+  border-left: 3px solid #e05252;
+}
+.compare-box.good {
+  background: #f0fff4;
+  border-left: 3px solid #38a169;
+}
+.compare-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.compare-label.bad-label { color: #c53030; }
+.compare-label.good-label { color: #276749; }
+.compare-box p { margin: 0 0 6px; font-size: 14px; }
+.compare-box .explain { color: #666; font-size: 13px; font-style: italic; }
+.callout {
+  background: #eef4ff;
+  border: 1px solid #c3d9ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.callout-title { font-weight: 700; color: #1e3a8a; margin-bottom: 8px; }
+.symptom-list {
+  background: #fff8f0;
+  border-left: 3px solid #ed8936;
+  border-radius: 4px;
+  padding: 14px 20px;
+  margin: 16px 0;
+}
+.symptom-list .symptom-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c05621;
+  margin-bottom: 8px;
+}
+.symbol-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 15px;
+}
+.symbol-table th {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #ddd;
+}
+.symbol-table td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+.symbol-table tr:nth-child(even) { background: #fafafa; }
+.checklist {
+  background: #f7f9fc;
+  border: 1px solid #dde3ee;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.checklist-title { font-weight: 700; color: #2c2c2c; margin-bottom: 10px; }
+.checklist ul { margin: 0 0 0 18px; }
+.nav-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid #e0dcd0;
+}
+.nav-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #1a1a2e;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+.nav-btn:hover { background: #2a2a4a; }
+.nav-btn.disabled { background: #ccc; pointer-events: none; color: #888; }
+hr { border: none; border-top: 1px solid #e8e4d9; margin: 32px 0; }
+@media (max-width: 768px) {
+  .page-wrap { flex-direction: column; }
+  nav.sidebar { width: 100%; height: auto; position: static; }
+  main { padding: 24px 20px 60px; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+.book-topline {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 28px;
+}
+.book-topline a { color: #888; text-decoration: none; border-bottom: 1px solid #e0dcd0; padding-bottom: 1px; }
+.book-topline a:hover { color: #1a1a2e; border-bottom-color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav class="sidebar">
+  <div class="book-title">The Mom Test<span>Rob Fitzpatrick</span></div>
+  <ul><li><a href="ch00-gioi-thieu.html">Giới Thiệu</a></li>
+<li><a href="ch01-bai-kiem-tra-cua-me.html">Chương 1: Bài Kiểm Tra Của Mẹ</a></li>
+<li><a href="ch02-tranh-du-lieu-sai.html">Chương 2: Tránh Thu Thập Dữ Liệu Sai</a></li>
+<li><a href="ch03-cau-hoi-quan-trong.html">Chương 3: Đặt Câu Hỏi Quan Trọng</a></li>
+<li><a href="ch04-khong-khi-thoai-mai.html">Chương 4: Giữ Không Khí Thoải Mái</a></li>
+<li><a href="ch05-cam-ket-tien-trien.html">Chương 5: Cam Kết và Tiến Triển</a></li>
+<li><a href="ch06-tim-nguoi-noi-chuyen.html">Chương 6: Tìm Người Để Nói Chuyện</a></li>
+<li><a href="ch07-chon-khach-hang.html">Chương 7: Chọn Khách Hàng</a></li>
+<li class="active"><a href="ch08-thuc-hien-quy-trinh.html">Chương 8: Thực Hiện Quy Trình</a></li>
+<li><a href="ch09-ket-luan.html">Kết Luận và Tóm Tắt</a></li>
+</ul>
+</nav>
+<main>
+  <p class="book-topline"><a href="../index.html#/book/the-mom-test">← The Mom Test — Mục lục</a></p>
+  <div class="chapter-num">The Mom Test · Rob Fitzpatrick</div>
+  <h1 class="chapter-title">Chương 8: Thực Hiện Quy Trình</h1>
+  
+<p>Ngay cả khi bạn đặt câu hỏi đúng và tìm đúng người, bạn vẫn có thể lãng phí toàn bộ nỗ lực nếu không có quy trình đúng để tổ chức và chia sẻ những gì học được.</p>
+
+<h2>Vấn Đề Của Nút Thắt Cổ Chai Thông Tin</h2>
+<p>Tình huống phổ biến: Một người trong nhóm đi gặp khách hàng, về nói với cả nhóm "Khách hàng nói chúng ta cần làm X". Cả nhóm làm X theo lệnh.</p>
+<p>Vấn đề:</p>
+<ul>
+  <li>Người đi gặp có thể hiểu sai hoặc nhớ sai.</li>
+  <li>Người còn lại không thể đánh giá tính chính xác của thông tin.</li>
+  <li>Quyết định được đưa ra dựa trên "khách hàng nói vậy" — không thể kiểm chứng hay phản bác.</li>
+  <li>Người đi gặp trở thành người kiểm soát mọi quyết định.</li>
+</ul>
+<p>Giải pháp: Thông tin từ khách hàng phải được chia sẻ với cả nhóm — dưới dạng ghi chú chi tiết và trích dẫn chính xác.</p>
+
+<div class="symptom-list">
+  <div class="symptom-label">Dấu hiệu đang có nút thắt cổ chai thông tin</div>
+  <ul>
+    <li>"Bạn cứ lo làm sản phẩm. Tôi sẽ xử lý việc nói chuyện với khách hàng."</li>
+    <li>"Vì khách hàng bảo vậy!"</li>
+    <li>"Tôi không có thời gian gặp khách hàng — tôi cần code!"</li>
+  </ul>
+</div>
+
+<h2>Chuẩn Bị Trước Cuộc Trò Chuyện</h2>
+<p>Trước mỗi đợt gặp khách hàng, cả nhóm cần làm những việc sau:</p>
+<ul>
+  <li>Xác định 3 câu hỏi quan trọng nhất cần trả lời.</li>
+  <li>Quyết định cam kết hoặc bước tiếp theo bạn sẽ đề xuất cuối cuộc gặp.</li>
+  <li>Tìm hiểu sơ lược về người bạn sắp gặp (LinkedIn, website công ty) — 5 phút để không bị hớ.</li>
+  <li>Viết ra những dự đoán của bạn về những gì người đó sẽ quan tâm — ngay cả khi bạn có thể sai.</li>
+  <li>Nếu có câu hỏi nào có thể trả lời qua tìm kiếm trên mạng, hãy tìm trước. Đừng lãng phí thời gian của cả hai bên vào những thứ đã có sẵn thông tin.</li>
+</ul>
+<p>Hai câu hỏi giúp xác định những rủi ro ẩn trong sản phẩm:</p>
+<ul>
+  <li>"Nếu công ty này thất bại, nguyên nhân khả năng nhất là gì?"</li>
+  <li>"Điều gì phải đúng thì sản phẩm này mới thành công lớn được?"</li>
+</ul>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Nếu bạn không biết mình cần học gì từ cuộc trò chuyện, đừng tổ chức cuộc trò chuyện đó.</p>
+</div>
+
+<h2>Đánh Giá Sau Cuộc Trò Chuyện</h2>
+<p>Ngay sau mỗi đợt gặp khách hàng, cả nhóm ngồi lại và làm:</p>
+<ul>
+  <li>Đọc ghi chú và trích dẫn quan trọng cho cả nhóm nghe.</li>
+  <li>Cập nhật những gì bạn tin là đúng — và những gì đã thay đổi.</li>
+  <li>Xác định 3 câu hỏi quan trọng tiếp theo.</li>
+  <li>Thảo luận về cách đặt câu hỏi: câu hỏi nào hoạt động tốt, câu hỏi nào không?</li>
+</ul>
+<p>Đừng bỏ qua bước này. Mục tiêu là lan truyền thông tin học được đến toàn bộ nhóm ngay lập tức.</p>
+
+<h2>Ai Tham Gia Cuộc Gặp</h2>
+<p>Quy tắc thực tế:</p>
+<ul>
+  <li><strong>Lý tưởng: 2 người.</strong> Một người dẫn dắt cuộc trò chuyện, một người ghi chú và để ý những điều người kia bỏ lỡ.</li>
+  <li><strong>Tối đa: 2 người.</strong> Ba người có thể khiến khách hàng cảm thấy bị áp đảo.</li>
+  <li><strong>Một mình:</strong> Được, nhưng khó hơn vì bạn phải vừa hỏi vừa ghi chú vừa để ý tín hiệu.</li>
+  <li><strong>Ai đó không phải nhà sáng lập:</strong> Không nên. Thuê ngoài việc học từ khách hàng dẫn đến tín hiệu bị lọc và bóp méo.</li>
+</ul>
+<p>Tất cả những người đưa ra quyết định lớn (kể cả quyết định kỹ thuật) cần tham gia ít nhất một số cuộc gặp khách hàng để có cảm giác trực tiếp về phản hồi.</p>
+
+<h2>Cách Ghi Chú Hiệu Quả</h2>
+<p>Ghi chú tốt là nền tảng của việc học từ khách hàng. Không có ghi chú tốt, mọi thông tin chỉ tồn tại trong đầu một người và sẽ bị biến dạng hoặc mất đi.</p>
+<p><strong>Viết trích dẫn chính xác:</strong> Khi ai đó nói điều gì quan trọng, hãy ghi lại chính xác từng chữ và để trong dấu ngoặc kép. Trích dẫn chính xác có thể được dùng trong tài liệu bán hàng, pitching nhà đầu tư, và giải quyết tranh luận trong nhóm.</p>
+<p><strong>Dùng ký hiệu để ghi chú nhanh:</strong> Thêm ký hiệu vào ghi chú để ghi lại bối cảnh nhanh hơn. Ví dụ các ký hiệu tác giả sử dụng:</p>
+
+<table class="symbol-table">
+  <tr><th>Ký hiệu</th><th>Ý nghĩa</th></tr>
+  <tr><td>:)</td><td>Họ hào hứng</td></tr>
+  <tr><td>:(</td><td>Họ bực bội hoặc tức giận</td></tr>
+  <tr><td>:|</td><td>Họ ngượng ngùng hoặc không thoải mái</td></tr>
+  <tr><td>⚡</td><td>Vấn đề hoặc điểm đau (pain point)</td></tr>
+  <tr><td>⊞</td><td>Mục tiêu hoặc nhiệm vụ cần hoàn thành</td></tr>
+  <tr><td>☐</td><td>Trở ngại đang ngăn họ giải quyết vấn đề</td></tr>
+  <tr><td>↗</td><td>Giải pháp tạm thời họ đang dùng</td></tr>
+  <tr><td>^</td><td>Bối cảnh hoặc thông tin nền</td></tr>
+  <tr><td>☑</td><td>Yêu cầu tính năng hoặc tiêu chí mua hàng</td></tr>
+  <tr><td>$</td><td>Liên quan đến tiền hoặc ngân sách</td></tr>
+  <tr><td>♦</td><td>Họ đề cập đến người hoặc công ty cụ thể</td></tr>
+  <tr><td>☆</td><td>Việc cần làm sau cuộc gặp</td></tr>
+</table>
+
+<p>Bạn sẽ xây dựng bộ ký hiệu riêng phù hợp với ngành của mình.</p>
+
+<h2>Nơi Lưu Ghi Chú</h2>
+<p>Ghi chú cần đáp ứng các yêu cầu sau:</p>
+<ul>
+  <li>Có thể sắp xếp, lọc, và tìm kiếm.</li>
+  <li>Cả nhóm có thể truy cập.</li>
+  <li>Lưu trữ lâu dài và dễ tìm lại.</li>
+  <li>Tách biệt khỏi các ghi chú khác (danh sách việc cần làm, ý tưởng…).</li>
+</ul>
+<p>Các lựa chọn tốt:</p>
+<ul>
+  <li>Bảng tính Google Sheets — có thể sắp xếp theo tín hiệu, dễ tìm kiếm.</li>
+  <li>Thẻ chỉ mục (index cards) — mỗi thẻ một thông tin, dễ sắp xếp và tìm lại.</li>
+  <li>Evernote hoặc Notion — tìm kiếm toàn văn tốt.</li>
+</ul>
+<p>Lựa chọn không tốt: Ghi trong sổ tay thông thường cùng với các ghi chú khác — sau vài tháng bạn sẽ không tìm lại được gì.</p>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Ghi chú không có giá trị gì nếu bạn không đọc lại chúng.</p>
+</div>
+
+<h2>Dấu Hiệu Đang Làm Không Đúng</h2>
+<div class="symptom-list">
+  <div class="symptom-label">Dấu hiệu đang đi qua các bước nhưng không thực sự học được gì</div>
+  <ul>
+    <li>Bạn nói nhiều hơn họ.</li>
+    <li>Họ khen ngợi bạn và ý tưởng của bạn.</li>
+    <li>Bạn đã chia sẻ ý tưởng của mình nhưng không biết bước tiếp theo là gì.</li>
+    <li>Bạn không có ghi chú.</li>
+    <li>Bạn chưa xem lại ghi chú với cả nhóm.</li>
+    <li>Bạn nhận được câu trả lời bất ngờ nhưng nó không thay đổi kế hoạch của bạn.</li>
+    <li>Bạn không sợ bất kỳ câu hỏi nào bạn đặt ra.</li>
+    <li>Bạn không chắc câu hỏi lớn nào bạn đang cố trả lời.</li>
+  </ul>
+</div>
+
+<h2>Tổng Quan Quy Trình</h2>
+<div class="checklist">
+  <div class="checklist-title">Trước mỗi đợt gặp khách hàng</div>
+  <ul>
+    <li>Xác định phân khúc khách hàng cụ thể, có thể tiếp cận được.</li>
+    <li>Cùng nhóm xác định 3 câu hỏi học hỏi quan trọng nhất.</li>
+    <li>Quyết định cam kết hoặc bước tiếp theo lý tưởng.</li>
+    <li>Xác định ai sẽ gặp và tìm họ ở đâu.</li>
+    <li>Viết ra dự đoán về những gì người đó quan tâm.</li>
+    <li>Tìm kiếm những thông tin có thể tìm được trước.</li>
+  </ul>
+</div>
+
+<div class="checklist">
+  <div class="checklist-title">Trong cuộc trò chuyện</div>
+  <ul>
+    <li>Giới thiệu bối cảnh cuộc trò chuyện.</li>
+    <li>Giữ không khí thoải mái, không quá chính thức.</li>
+    <li>Đặt câu hỏi đúng theo Bài Kiểm Tra Của Mẹ.</li>
+    <li>Bỏ qua lời khen, kéo câu trả lời mơ hồ về sự kiện cụ thể, đào sâu vào tín hiệu quan trọng.</li>
+    <li>Ghi chú tốt.</li>
+    <li>Đẩy đến cam kết và bước tiếp theo khi phù hợp.</li>
+  </ul>
+</div>
+
+<div class="checklist">
+  <div class="checklist-title">Sau mỗi đợt gặp khách hàng</div>
+  <ul>
+    <li>Cùng nhóm xem lại ghi chú và trích dẫn quan trọng.</li>
+    <li>Chuyển ghi chú vào hệ thống lưu trữ chính thức.</li>
+    <li>Cập nhật những gì bạn tin là đúng.</li>
+    <li>Xác định 3 câu hỏi quan trọng tiếp theo.</li>
+  </ul>
+</div>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Hãy đi xây dựng công ty của bạn. Nói chuyện với khách hàng là công cụ giúp bạn làm điều đó nhanh hơn — không phải mục tiêu cuối cùng.</p>
+</div>
+
+  <div class="nav-footer">
+    <a class="nav-btn" href="ch07-chon-khach-hang.html">← Chương 7: Chọn Khách Hàng</a>
+    <a class="nav-btn" href="ch09-ket-luan.html">Kết Luận và Tóm Tắt →</a>
+  </div>
+</main>
+</div>
+</body>
+</html>

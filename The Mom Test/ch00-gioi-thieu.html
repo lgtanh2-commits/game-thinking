@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giới Thiệu – The Mom Test</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: #f8f7f4;
+  color: #2c2c2c;
+  line-height: 1.75;
+  font-size: 16px;
+}
+.page-wrap {
+  display: flex;
+  min-height: 100vh;
+}
+nav.sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #1a1a2e;
+  color: #ccc;
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+nav.sidebar .book-title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #333;
+  line-height: 1.4;
+}
+nav.sidebar .book-title span {
+  display: block;
+  color: #aaa;
+  font-weight: 400;
+  font-size: 11px;
+  margin-top: 4px;
+}
+nav.sidebar ul { list-style: none; padding: 12px 0; }
+nav.sidebar ul li a {
+  display: block;
+  padding: 7px 20px;
+  color: #bbb;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.4;
+  transition: background 0.15s, color 0.15s;
+}
+nav.sidebar ul li a:hover { background: #2a2a4a; color: #fff; }
+nav.sidebar ul li.active a { background: #16213e; color: #7eb8f7; font-weight: 600; }
+main {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+h1.chapter-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.chapter-num {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 32px;
+}
+h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 40px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e8e4d9;
+}
+h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin: 28px 0 10px;
+}
+p { margin-bottom: 16px; }
+ul, ol {
+  margin: 12px 0 18px 24px;
+}
+li { margin-bottom: 8px; }
+.rule-box {
+  background: #fffbea;
+  border-left: 4px solid #f5c518;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 28px 0;
+}
+.rule-box .rule-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #b8860b;
+  margin-bottom: 6px;
+}
+.rule-box p { margin: 0; font-weight: 500; color: #3a3000; }
+.dialogue {
+  background: #f0f4ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 15px;
+}
+.dialogue-line { margin-bottom: 6px; }
+.dialogue-line:last-child { margin-bottom: 0; }
+.speaker { font-weight: 700; color: #1a1a2e; margin-right: 6px; }
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-box {
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.compare-box.bad {
+  background: #fff0f0;
+  border-left: 3px solid #e05252;
+}
+.compare-box.good {
+  background: #f0fff4;
+  border-left: 3px solid #38a169;
+}
+.compare-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.compare-label.bad-label { color: #c53030; }
+.compare-label.good-label { color: #276749; }
+.compare-box p { margin: 0 0 6px; font-size: 14px; }
+.compare-box .explain { color: #666; font-size: 13px; font-style: italic; }
+.callout {
+  background: #eef4ff;
+  border: 1px solid #c3d9ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.callout-title { font-weight: 700; color: #1e3a8a; margin-bottom: 8px; }
+.symptom-list {
+  background: #fff8f0;
+  border-left: 3px solid #ed8936;
+  border-radius: 4px;
+  padding: 14px 20px;
+  margin: 16px 0;
+}
+.symptom-list .symptom-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c05621;
+  margin-bottom: 8px;
+}
+.symbol-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 15px;
+}
+.symbol-table th {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #ddd;
+}
+.symbol-table td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+.symbol-table tr:nth-child(even) { background: #fafafa; }
+.checklist {
+  background: #f7f9fc;
+  border: 1px solid #dde3ee;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.checklist-title { font-weight: 700; color: #2c2c2c; margin-bottom: 10px; }
+.checklist ul { margin: 0 0 0 18px; }
+.nav-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid #e0dcd0;
+}
+.nav-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #1a1a2e;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+.nav-btn:hover { background: #2a2a4a; }
+.nav-btn.disabled { background: #ccc; pointer-events: none; color: #888; }
+hr { border: none; border-top: 1px solid #e8e4d9; margin: 32px 0; }
+@media (max-width: 768px) {
+  .page-wrap { flex-direction: column; }
+  nav.sidebar { width: 100%; height: auto; position: static; }
+  main { padding: 24px 20px 60px; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+.book-topline {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 28px;
+}
+.book-topline a { color: #888; text-decoration: none; border-bottom: 1px solid #e0dcd0; padding-bottom: 1px; }
+.book-topline a:hover { color: #1a1a2e; border-bottom-color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav class="sidebar">
+  <div class="book-title">The Mom Test<span>Rob Fitzpatrick</span></div>
+  <ul><li class="active"><a href="ch00-gioi-thieu.html">Giới Thiệu</a></li>
+<li><a href="ch01-bai-kiem-tra-cua-me.html">Chương 1: Bài Kiểm Tra Của Mẹ</a></li>
+<li><a href="ch02-tranh-du-lieu-sai.html">Chương 2: Tránh Thu Thập Dữ Liệu Sai</a></li>
+<li><a href="ch03-cau-hoi-quan-trong.html">Chương 3: Đặt Câu Hỏi Quan Trọng</a></li>
+<li><a href="ch04-khong-khi-thoai-mai.html">Chương 4: Giữ Không Khí Thoải Mái</a></li>
+<li><a href="ch05-cam-ket-tien-trien.html">Chương 5: Cam Kết và Tiến Triển</a></li>
+<li><a href="ch06-tim-nguoi-noi-chuyen.html">Chương 6: Tìm Người Để Nói Chuyện</a></li>
+<li><a href="ch07-chon-khach-hang.html">Chương 7: Chọn Khách Hàng</a></li>
+<li><a href="ch08-thuc-hien-quy-trinh.html">Chương 8: Thực Hiện Quy Trình</a></li>
+<li><a href="ch09-ket-luan.html">Kết Luận và Tóm Tắt</a></li>
+</ul>
+</nav>
+<main>
+  <p class="book-topline"><a href="../index.html#/book/the-mom-test">← The Mom Test — Mục lục</a></p>
+  <div class="chapter-num">Sách: The Mom Test · Rob Fitzpatrick</div>
+  <h1 class="chapter-title">Giới Thiệu</h1>
+  
+<p>Khi bạn nói chuyện với khách hàng về ý tưởng kinh doanh, họ thường nói những điều tốt đẹp. Nhưng sau đó sản phẩm được xây dựng xong, bạn cố gắng bán hàng — và không ai mua. Chuyện gì đã xảy ra?</p>
+<p>Câu trả lời là: họ không thực sự nói cho bạn biết sự thật. Không phải vì họ cố ý lừa bạn. Mà vì:</p>
+<ul>
+  <li>Người ta muốn lịch sự và không muốn làm bạn tổn thương.</li>
+  <li>Người ta muốn giúp đỡ bạn, nhưng họ không biết họ thực sự cần gì.</li>
+  <li>Bạn đặt câu hỏi theo cách khiến họ không thể trả lời trung thực.</li>
+</ul>
+<p>Cuốn sách này giải quyết vấn đề đó. Nó dạy bạn cách đặt câu hỏi để có được thông tin đáng tin cậy — ngay cả khi người bạn hỏi muốn nói tốt cho bạn.</p>
+
+<h2>Tại Sao Gọi Là "Bài Kiểm Tra Của Mẹ"?</h2>
+<p>Hãy tưởng tượng bạn đến gặp mẹ và nói: "Mẹ ơi, con có một ý tưởng kinh doanh. Con muốn mở một quán cà phê. Mẹ thấy ý tưởng này có hay không?"</p>
+<p>Mẹ bạn yêu bạn. Bà muốn bạn thành công. Bà sẽ nói: "Ý tưởng hay đấy con. Mẹ nghĩ con sẽ làm được."</p>
+<p>Nhưng câu trả lời đó không có giá trị gì. Bà không phải chuyên gia ngành cà phê. Bà không biết thị trường. Bà chỉ đang động viên bạn.</p>
+<p><strong>Bài Kiểm Tra Của Mẹ là tập hợp các nguyên tắc đặt câu hỏi giúp bạn nhận được thông tin thực sự — ngay cả khi hỏi người yêu thương bạn nhất.</strong> Nếu câu hỏi của bạn đúng, ngay cả mẹ bạn cũng không thể vô tình đưa ra câu trả lời sai lệch.</p>
+
+<h2>Những Gì Cuốn Sách Này Dạy</h2>
+<p>Cuốn sách chia thành các phần chính sau:</p>
+<ul>
+  <li><strong>Chương 1:</strong> Ba quy tắc cơ bản để đặt câu hỏi đúng.</li>
+  <li><strong>Chương 2:</strong> Nhận biết và tránh các loại dữ liệu sai lệch phổ biến nhất.</li>
+  <li><strong>Chương 3:</strong> Cách xác định và hỏi những câu hỏi thực sự quan trọng.</li>
+  <li><strong>Chương 4:</strong> Học từ khách hàng không nhất thiết phải qua các cuộc họp chính thức.</li>
+  <li><strong>Chương 5:</strong> Phân biệt khách hàng thực sự với người chỉ khen ngợi mà không bao giờ mua.</li>
+  <li><strong>Chương 6:</strong> Cách tìm và bắt đầu cuộc trò chuyện với khách hàng.</li>
+  <li><strong>Chương 7:</strong> Chọn đúng nhóm khách hàng để nói chuyện trước.</li>
+  <li><strong>Chương 8:</strong> Tổ chức quy trình học từ khách hàng cho cả nhóm.</li>
+</ul>
+<p>Cuốn sách này không dạy bạn xây dựng sản phẩm hoàn hảo ngay từ đầu. Nó dạy bạn cách thu thập thông tin đáng tin cậy để đưa ra quyết định đúng — trước khi bỏ nhiều tháng và nhiều tiền vào một thứ không ai cần.</p>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Nói chuyện với khách hàng là một công cụ. Nó chỉ có ích khi bạn sử dụng đúng cách.</p>
+</div>
+
+  <div class="nav-footer">
+    <span class="nav-btn disabled">← Trước</span>
+    <a class="nav-btn" href="ch01-bai-kiem-tra-cua-me.html">Chương 1: Bài Kiểm Tra Của Mẹ →</a>
+  </div>
+</main>
+</div>
+</body>
+</html>

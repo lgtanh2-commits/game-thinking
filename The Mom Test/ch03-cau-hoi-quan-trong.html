@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 3: Đặt Câu Hỏi Quan Trọng – The Mom Test</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: #f8f7f4;
+  color: #2c2c2c;
+  line-height: 1.75;
+  font-size: 16px;
+}
+.page-wrap {
+  display: flex;
+  min-height: 100vh;
+}
+nav.sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #1a1a2e;
+  color: #ccc;
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+nav.sidebar .book-title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #333;
+  line-height: 1.4;
+}
+nav.sidebar .book-title span {
+  display: block;
+  color: #aaa;
+  font-weight: 400;
+  font-size: 11px;
+  margin-top: 4px;
+}
+nav.sidebar ul { list-style: none; padding: 12px 0; }
+nav.sidebar ul li a {
+  display: block;
+  padding: 7px 20px;
+  color: #bbb;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.4;
+  transition: background 0.15s, color 0.15s;
+}
+nav.sidebar ul li a:hover { background: #2a2a4a; color: #fff; }
+nav.sidebar ul li.active a { background: #16213e; color: #7eb8f7; font-weight: 600; }
+main {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+h1.chapter-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.chapter-num {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 32px;
+}
+h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 40px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e8e4d9;
+}
+h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin: 28px 0 10px;
+}
+p { margin-bottom: 16px; }
+ul, ol {
+  margin: 12px 0 18px 24px;
+}
+li { margin-bottom: 8px; }
+.rule-box {
+  background: #fffbea;
+  border-left: 4px solid #f5c518;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 28px 0;
+}
+.rule-box .rule-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #b8860b;
+  margin-bottom: 6px;
+}
+.rule-box p { margin: 0; font-weight: 500; color: #3a3000; }
+.dialogue {
+  background: #f0f4ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 15px;
+}
+.dialogue-line { margin-bottom: 6px; }
+.dialogue-line:last-child { margin-bottom: 0; }
+.speaker { font-weight: 700; color: #1a1a2e; margin-right: 6px; }
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-box {
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.compare-box.bad {
+  background: #fff0f0;
+  border-left: 3px solid #e05252;
+}
+.compare-box.good {
+  background: #f0fff4;
+  border-left: 3px solid #38a169;
+}
+.compare-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.compare-label.bad-label { color: #c53030; }
+.compare-label.good-label { color: #276749; }
+.compare-box p { margin: 0 0 6px; font-size: 14px; }
+.compare-box .explain { color: #666; font-size: 13px; font-style: italic; }
+.callout {
+  background: #eef4ff;
+  border: 1px solid #c3d9ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.callout-title { font-weight: 700; color: #1e3a8a; margin-bottom: 8px; }
+.symptom-list {
+  background: #fff8f0;
+  border-left: 3px solid #ed8936;
+  border-radius: 4px;
+  padding: 14px 20px;
+  margin: 16px 0;
+}
+.symptom-list .symptom-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c05621;
+  margin-bottom: 8px;
+}
+.symbol-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 15px;
+}
+.symbol-table th {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #ddd;
+}
+.symbol-table td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+.symbol-table tr:nth-child(even) { background: #fafafa; }
+.checklist {
+  background: #f7f9fc;
+  border: 1px solid #dde3ee;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.checklist-title { font-weight: 700; color: #2c2c2c; margin-bottom: 10px; }
+.checklist ul { margin: 0 0 0 18px; }
+.nav-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid #e0dcd0;
+}
+.nav-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #1a1a2e;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+.nav-btn:hover { background: #2a2a4a; }
+.nav-btn.disabled { background: #ccc; pointer-events: none; color: #888; }
+hr { border: none; border-top: 1px solid #e8e4d9; margin: 32px 0; }
+@media (max-width: 768px) {
+  .page-wrap { flex-direction: column; }
+  nav.sidebar { width: 100%; height: auto; position: static; }
+  main { padding: 24px 20px 60px; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+.book-topline {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 28px;
+}
+.book-topline a { color: #888; text-decoration: none; border-bottom: 1px solid #e0dcd0; padding-bottom: 1px; }
+.book-topline a:hover { color: #1a1a2e; border-bottom-color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav class="sidebar">
+  <div class="book-title">The Mom Test<span>Rob Fitzpatrick</span></div>
+  <ul><li><a href="ch00-gioi-thieu.html">Giới Thiệu</a></li>
+<li><a href="ch01-bai-kiem-tra-cua-me.html">Chương 1: Bài Kiểm Tra Của Mẹ</a></li>
+<li><a href="ch02-tranh-du-lieu-sai.html">Chương 2: Tránh Thu Thập Dữ Liệu Sai</a></li>
+<li class="active"><a href="ch03-cau-hoi-quan-trong.html">Chương 3: Đặt Câu Hỏi Quan Trọng</a></li>
+<li><a href="ch04-khong-khi-thoai-mai.html">Chương 4: Giữ Không Khí Thoải Mái</a></li>
+<li><a href="ch05-cam-ket-tien-trien.html">Chương 5: Cam Kết và Tiến Triển</a></li>
+<li><a href="ch06-tim-nguoi-noi-chuyen.html">Chương 6: Tìm Người Để Nói Chuyện</a></li>
+<li><a href="ch07-chon-khach-hang.html">Chương 7: Chọn Khách Hàng</a></li>
+<li><a href="ch08-thuc-hien-quy-trinh.html">Chương 8: Thực Hiện Quy Trình</a></li>
+<li><a href="ch09-ket-luan.html">Kết Luận và Tóm Tắt</a></li>
+</ul>
+</nav>
+<main>
+  <p class="book-topline"><a href="../index.html#/book/the-mom-test">← The Mom Test — Mục lục</a></p>
+  <div class="chapter-num">The Mom Test · Rob Fitzpatrick</div>
+  <h1 class="chapter-title">Chương 3: Đặt Câu Hỏi Quan Trọng</h1>
+  
+<p>Sau khi nắm vững cách đặt câu hỏi đúng và tránh dữ liệu sai lệch, câu hỏi tiếp theo là: hỏi về điều gì? Chương này trả lời câu hỏi đó.</p>
+
+<h2>Câu Hỏi Đáng Sợ</h2>
+<p>Trong mọi cuộc phỏng vấn khách hàng, có những câu hỏi mà bạn sợ hỏi — vì bạn sợ câu trả lời sẽ phủ nhận ý tưởng của mình. Đây chính xác là những câu hỏi bạn cần hỏi nhất.</p>
+<p>Ví dụ các câu hỏi "đáng sợ":</p>
+<ul>
+  <li>"Giá là lý do duy nhất bạn chưa dùng giải pháp hiện có không?"</li>
+  <li>"Vấn đề này có đủ quan trọng để bạn bỏ tiền giải quyết không?"</li>
+  <li>"Điều gì khiến bạn không mua sản phẩm tương tự trên thị trường hiện tại?"</li>
+  <li>"Nếu sản phẩm này biến mất ngày mai, bạn sẽ làm gì?"</li>
+</ul>
+<p>Nếu câu trả lời là "Không có gì — tôi sẽ tìm thứ khác ngay", đó là thông tin rất quan trọng. Tốt hơn là biết điều này sớm.</p>
+
+<h2>Yêu Cầu Tin Xấu</h2>
+<p>Tin xấu có giá trị hơn tin tốt. Tin tốt ("Sản phẩm này tuyệt vời!") có thể là lời khen vô nghĩa. Tin xấu ("Tôi không thích vì...") cho bạn biết chính xác điều cần cải thiện.</p>
+<p>Cách chủ động tìm tin xấu:</p>
+<ul>
+  <li>"Điều gì trong giải pháp hiện tại của bạn không hoạt động tốt?"</li>
+  <li>"Lần gần nhất bạn thất vọng với công cụ bạn đang dùng là khi nào?"</li>
+  <li>"Điều gì khiến bạn không thể giải quyết vấn đề này hoàn toàn?"</li>
+</ul>
+<p>Khi ai đó phàn nàn về thứ gì đó, đó là dữ liệu thực sự. Hãy đào sâu hơn: "Kể tôi nghe thêm về lần đó."</p>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Tin xấu có giá trị hơn tin tốt. Người ta thường che giấu tin xấu vì họ muốn lịch sự — bạn cần chủ động tìm kiếm nó.</p>
+</div>
+
+<h2>Nhìn Tổng Quan Trước Khi Đi Sâu Vào Chi Tiết</h2>
+<p>Sai lầm phổ biến: bạn đã có ý tưởng về sản phẩm cụ thể, nên bạn hỏi thẳng về tính năng đó ngay từ đầu. Nhưng bạn có thể đang giải quyết vấn đề sai.</p>
+<p>Ví dụ: Bạn muốn xây dựng công cụ đặt lịch họp tự động. Bạn hỏi ngay: "Bạn có muốn đặt lịch họp tự động không?" Nhưng có thể vấn đề thực sự của họ không phải là đặt lịch — mà là chuẩn bị tài liệu trước cuộc họp.</p>
+<p>Trước tiên hãy hỏi về quy trình làm việc tổng thể:</p>
+<ul>
+  <li>"Một tuần làm việc điển hình của bạn trông như thế nào?"</li>
+  <li>"Phần nào trong công việc hàng ngày của bạn tốn nhiều thời gian nhất?"</li>
+  <li>"Điều gì khiến bạn bực bội nhất trong công việc hiện tại?"</li>
+</ul>
+<p>Chỉ khi bạn đã hiểu bức tranh tổng thể, hãy đi sâu vào vấn đề cụ thể mà sản phẩm của bạn giải quyết.</p>
+
+<h2>Vấn Đề Hiển Nhiên Mà Không Ai Nhắc Đến</h2>
+<p>Đôi khi trong cuộc trò chuyện, có một vấn đề lớn rõ ràng mà người được phỏng vấn không đề cập — có thể vì họ đã quen với nó, hoặc họ coi đó là điều tất nhiên. Bạn cần chủ động hỏi về nó.</p>
+<p>Ví dụ: Bạn đang nói chuyện với một người quản lý kho hàng. Họ kể về quy trình làm việc hàng ngày. Bạn nhận ra họ đang theo dõi hàng tồn kho bằng bảng tính Excel — nhưng họ không đề cập điều này là vấn đề. Hỏi thẳng: "Bạn đang dùng Excel để quản lý tồn kho? Điều đó có gây ra vấn đề gì không?"</p>
+
+<h2>Chuẩn Bị 3 Câu Hỏi Quan Trọng Nhất</h2>
+<p>Trước mỗi cuộc trò chuyện với khách hàng, hãy viết ra 3 điều bạn cần biết nhất từ cuộc trò chuyện đó. Không phải danh sách 20 câu hỏi — chỉ 3 điều quan trọng nhất.</p>
+<p>Lý do:</p>
+<ul>
+  <li>Buộc bạn phải suy nghĩ về điều thực sự quan trọng.</li>
+  <li>Giúp bạn không bị lạc hướng trong cuộc trò chuyện.</li>
+  <li>Nếu bạn không biết mình cần học gì, cuộc trò chuyện sẽ không có mục tiêu.</li>
+</ul>
+<p>Ví dụ 3 câu hỏi trước khi gặp người quản lý kho hàng:</p>
+<ol>
+  <li>Vấn đề lớn nhất trong quản lý tồn kho của họ là gì?</li>
+  <li>Họ đang dùng công cụ gì hiện tại và tại sao?</li>
+  <li>Họ có ngân sách để mua công cụ mới không, và ai là người ra quyết định mua?</li>
+</ol>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Nếu bạn không biết mình đang cố học điều gì, đừng lãng phí thời gian của cả hai bên bằng cách gặp gỡ.</p>
+</div>
+
+  <div class="nav-footer">
+    <a class="nav-btn" href="ch02-tranh-du-lieu-sai.html">← Chương 2: Tránh Thu Thập Dữ Liệu Sai</a>
+    <a class="nav-btn" href="ch04-khong-khi-thoai-mai.html">Chương 4: Giữ Không Khí Thoải Mái →</a>
+  </div>
+</main>
+</div>
+</body>
+</html>

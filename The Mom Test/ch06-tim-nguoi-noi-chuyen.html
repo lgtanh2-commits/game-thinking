@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 6: Tìm Người Để Nói Chuyện – The Mom Test</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: #f8f7f4;
+  color: #2c2c2c;
+  line-height: 1.75;
+  font-size: 16px;
+}
+.page-wrap {
+  display: flex;
+  min-height: 100vh;
+}
+nav.sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #1a1a2e;
+  color: #ccc;
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+nav.sidebar .book-title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #333;
+  line-height: 1.4;
+}
+nav.sidebar .book-title span {
+  display: block;
+  color: #aaa;
+  font-weight: 400;
+  font-size: 11px;
+  margin-top: 4px;
+}
+nav.sidebar ul { list-style: none; padding: 12px 0; }
+nav.sidebar ul li a {
+  display: block;
+  padding: 7px 20px;
+  color: #bbb;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.4;
+  transition: background 0.15s, color 0.15s;
+}
+nav.sidebar ul li a:hover { background: #2a2a4a; color: #fff; }
+nav.sidebar ul li.active a { background: #16213e; color: #7eb8f7; font-weight: 600; }
+main {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+h1.chapter-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.chapter-num {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 32px;
+}
+h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 40px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e8e4d9;
+}
+h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin: 28px 0 10px;
+}
+p { margin-bottom: 16px; }
+ul, ol {
+  margin: 12px 0 18px 24px;
+}
+li { margin-bottom: 8px; }
+.rule-box {
+  background: #fffbea;
+  border-left: 4px solid #f5c518;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 28px 0;
+}
+.rule-box .rule-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #b8860b;
+  margin-bottom: 6px;
+}
+.rule-box p { margin: 0; font-weight: 500; color: #3a3000; }
+.dialogue {
+  background: #f0f4ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 15px;
+}
+.dialogue-line { margin-bottom: 6px; }
+.dialogue-line:last-child { margin-bottom: 0; }
+.speaker { font-weight: 700; color: #1a1a2e; margin-right: 6px; }
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-box {
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.compare-box.bad {
+  background: #fff0f0;
+  border-left: 3px solid #e05252;
+}
+.compare-box.good {
+  background: #f0fff4;
+  border-left: 3px solid #38a169;
+}
+.compare-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.compare-label.bad-label { color: #c53030; }
+.compare-label.good-label { color: #276749; }
+.compare-box p { margin: 0 0 6px; font-size: 14px; }
+.compare-box .explain { color: #666; font-size: 13px; font-style: italic; }
+.callout {
+  background: #eef4ff;
+  border: 1px solid #c3d9ff;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.callout-title { font-weight: 700; color: #1e3a8a; margin-bottom: 8px; }
+.symptom-list {
+  background: #fff8f0;
+  border-left: 3px solid #ed8936;
+  border-radius: 4px;
+  padding: 14px 20px;
+  margin: 16px 0;
+}
+.symptom-list .symptom-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c05621;
+  margin-bottom: 8px;
+}
+.symbol-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 15px;
+}
+.symbol-table th {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #ddd;
+}
+.symbol-table td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+.symbol-table tr:nth-child(even) { background: #fafafa; }
+.checklist {
+  background: #f7f9fc;
+  border: 1px solid #dde3ee;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.checklist-title { font-weight: 700; color: #2c2c2c; margin-bottom: 10px; }
+.checklist ul { margin: 0 0 0 18px; }
+.nav-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid #e0dcd0;
+}
+.nav-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #1a1a2e;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+.nav-btn:hover { background: #2a2a4a; }
+.nav-btn.disabled { background: #ccc; pointer-events: none; color: #888; }
+hr { border: none; border-top: 1px solid #e8e4d9; margin: 32px 0; }
+@media (max-width: 768px) {
+  .page-wrap { flex-direction: column; }
+  nav.sidebar { width: 100%; height: auto; position: static; }
+  main { padding: 24px 20px 60px; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+.book-topline {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 28px;
+}
+.book-topline a { color: #888; text-decoration: none; border-bottom: 1px solid #e0dcd0; padding-bottom: 1px; }
+.book-topline a:hover { color: #1a1a2e; border-bottom-color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav class="sidebar">
+  <div class="book-title">The Mom Test<span>Rob Fitzpatrick</span></div>
+  <ul><li><a href="ch00-gioi-thieu.html">Giới Thiệu</a></li>
+<li><a href="ch01-bai-kiem-tra-cua-me.html">Chương 1: Bài Kiểm Tra Của Mẹ</a></li>
+<li><a href="ch02-tranh-du-lieu-sai.html">Chương 2: Tránh Thu Thập Dữ Liệu Sai</a></li>
+<li><a href="ch03-cau-hoi-quan-trong.html">Chương 3: Đặt Câu Hỏi Quan Trọng</a></li>
+<li><a href="ch04-khong-khi-thoai-mai.html">Chương 4: Giữ Không Khí Thoải Mái</a></li>
+<li><a href="ch05-cam-ket-tien-trien.html">Chương 5: Cam Kết và Tiến Triển</a></li>
+<li class="active"><a href="ch06-tim-nguoi-noi-chuyen.html">Chương 6: Tìm Người Để Nói Chuyện</a></li>
+<li><a href="ch07-chon-khach-hang.html">Chương 7: Chọn Khách Hàng</a></li>
+<li><a href="ch08-thuc-hien-quy-trinh.html">Chương 8: Thực Hiện Quy Trình</a></li>
+<li><a href="ch09-ket-luan.html">Kết Luận và Tóm Tắt</a></li>
+</ul>
+</nav>
+<main>
+  <p class="book-topline"><a href="../index.html#/book/the-mom-test">← The Mom Test — Mục lục</a></p>
+  <div class="chapter-num">The Mom Test · Rob Fitzpatrick</div>
+  <h1 class="chapter-title">Chương 6: Tìm Người Để Nói Chuyện</h1>
+  
+<p>Bạn đã biết cách hỏi đúng. Nhưng bạn tìm người để hỏi ở đâu? Chương này trả lời câu hỏi thực tế đó.</p>
+
+<h2>Tiếp Cận Lạnh</h2>
+<p>Tiếp cận lạnh nghĩa là liên hệ với người bạn chưa biết để xin nói chuyện. Nhiều người sợ làm điều này, nhưng nó hiệu quả hơn hầu hết mọi người nghĩ.</p>
+<p>Công thức tiếp cận qua email hoặc tin nhắn:</p>
+
+<div class="callout">
+  <div class="callout-title">Công thức: Tầm nhìn → Bối cảnh → Điểm yếu → Tôn trọng → Yêu cầu</div>
+  <p><strong>Tầm nhìn:</strong> Tôi đang làm việc để giải quyết vấn đề X cho nhóm người Y.</p>
+  <p><strong>Bối cảnh:</strong> Chúng tôi đang ở giai đoạn tìm hiểu và đang nói chuyện với những người có kinh nghiệm trong lĩnh vực này.</p>
+  <p><strong>Điểm yếu:</strong> Chúng tôi chưa có tất cả câu trả lời và đang cố gắng hiểu vấn đề trước khi xây dựng giải pháp.</p>
+  <p><strong>Tôn trọng:</strong> Bạn là người có hiểu biết sâu về lĩnh vực này, và kinh nghiệm của bạn sẽ rất có giá trị.</p>
+  <p><strong>Yêu cầu:</strong> Bạn có thể dành 20 phút để nói chuyện không?</p>
+</div>
+
+<p>Ví dụ thực tế:</p>
+<div class="dialogue">
+  <div class="dialogue-line">"Chào anh Minh. Tôi đang nghiên cứu về cách các công ty vừa và nhỏ quản lý quy trình tuyển dụng. Chúng tôi đang gặp gỡ những người quản lý nhân sự để hiểu rõ hơn về quy trình thực tế trước khi phát triển bất kỳ giải pháp nào. Chúng tôi chưa có sản phẩm — chỉ đang cố học hỏi. Anh có kinh nghiệm trong lĩnh vực này và tôi nghĩ góc nhìn của anh sẽ rất hữu ích. Anh có thể dành 20 phút để nói chuyện qua điện thoại tuần này không?"</div>
+</div>
+
+<p>Điểm then chốt của công thức này:</p>
+<ul>
+  <li>Thừa nhận bạn chưa có câu trả lời — người ta sẵn sàng chia sẻ kinh nghiệm hơn khi không bị "bán hàng".</li>
+  <li>Tôn trọng kiến thức của họ — ai cũng muốn được coi là chuyên gia.</li>
+  <li>Yêu cầu cụ thể về thời gian (20 phút) — dễ đồng ý hơn yêu cầu mơ hồ.</li>
+</ul>
+
+<h2>Nắm Bắt Cơ Hội Tình Cờ</h2>
+<p>Nhiều cuộc trò chuyện giá trị nhất xảy ra ngoài lịch hẹn — tại sự kiện ngành, hội thảo, meetup, hay thậm chí trên máy bay. Hãy sẵn sàng tận dụng những cơ hội này.</p>
+<p>Tại sự kiện ngành, bạn có thể có 10–15 cuộc trò chuyện ngắn trong một buổi tối — mỗi cuộc cho bạn thông tin tương đương một cuộc họp chính thức. Đây là cách hiệu quả nhất để thu thập dữ liệu nhanh.</p>
+<p>Cách bắt đầu cuộc trò chuyện tại sự kiện:</p>
+<ul>
+  <li>"Bạn làm trong ngành này bao lâu rồi? Vấn đề lớn nhất bạn đang đối mặt hiện tại là gì?"</li>
+  <li>"Tôi đang nghiên cứu về X. Bạn có gặp vấn đề tương tự không?"</li>
+  <li>"Bạn đang dùng công cụ gì để giải quyết Y? Bạn có hài lòng không?"</li>
+</ul>
+
+<h2>Chuyển Đổi Thành Người Tư Vấn</h2>
+<p>Thay vì nói "tôi muốn phỏng vấn bạn về vấn đề X", hãy nói "tôi muốn xin lời khuyên của bạn về X". Người ta phản hồi tốt hơn khi được hỏi ý kiến chuyên gia, thay vì bị "phỏng vấn".</p>
+<p>Điều này đặc biệt hữu ích khi bạn muốn nói chuyện với người có vị trí cao hơn hoặc bận rộn hơn:</p>
+
+<div class="dialogue">
+  <div class="dialogue-line"><span class="speaker">Thay vì:</span> "Tôi đang xây dựng sản phẩm cho ngành của bạn và muốn phỏng vấn bạn."</div>
+  <div class="dialogue-line"><span class="speaker">Hãy nói:</span> "Tôi đang nghiên cứu thách thức trong ngành logistics và tôi biết bạn có nhiều năm kinh nghiệm. Tôi muốn xin lời khuyên của bạn về một số vấn đề chúng tôi đang gặp phải trong quá trình nghiên cứu."</div>
+</div>
+
+<h2>Chuyển Đổi Từ Xin Lời Khuyên Sang Nói Chuyện Về Sản Phẩm</h2>
+<p>Khi bạn đã xây dựng được mối quan hệ qua việc xin lời khuyên, và người kia đang hỏi về những gì bạn đang làm — đây là thời điểm tốt để giới thiệu sản phẩm.</p>
+<p>Cách chuyển đổi tự nhiên:</p>
+<div class="dialogue">
+  <div class="dialogue-line"><span class="speaker">Họ:</span> "Thú vị. Bạn đang làm gì với tất cả thông tin này?"</div>
+  <div class="dialogue-line"><span class="speaker">Bạn:</span> "Chúng tôi đang xây dựng một công cụ để giải quyết chính xác vấn đề bạn vừa mô tả. Bạn có muốn xem thử không?"</div>
+</div>
+
+<div class="rule-box">
+  <div class="rule-label">Nguyên tắc cần nhớ</div>
+  <p>Học về khách hàng và vấn đề của họ hoạt động tốt nhất như một cuộc trò chuyện ngắn, thoải mái — thay vì một cuộc họp dài, chính thức.</p>
+</div>
+
+  <div class="nav-footer">
+    <a class="nav-btn" href="ch05-cam-ket-tien-trien.html">← Chương 5: Cam Kết và Tiến Triển</a>
+    <a class="nav-btn" href="ch07-chon-khach-hang.html">Chương 7: Chọn Khách Hàng →</a>
+  </div>
+</main>
+</div>
+</body>
+</html>
