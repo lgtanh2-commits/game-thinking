@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 6 — Cho vay bảng cân đối & Factoring</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+    margin-bottom: 60px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .chapter-nav a { color: var(--text-secondary); text-decoration: none; }
+  .chapter-nav a:hover { text-decoration: underline; }
+
+  .book-label {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .chapter-subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+  .chapter-meta {
+    display: flex;
+    gap: 24px;
+    font-size: 13px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+    margin-bottom: 48px;
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 56px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent-line);
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 36px 0 12px;
+    color: var(--text);
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 24px 0 8px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  p { margin-bottom: 16px; }
+  ul, ol { margin: 12px 0 16px 24px; }
+  li { margin-bottom: 6px; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+
+  .callout {
+    border-left: 3px solid var(--accent-line);
+    padding: 16px 20px;
+    margin: 24px 0;
+    background: var(--surface);
+  }
+  .callout-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .callout p { margin-bottom: 0; font-size: 15px; }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin: 24px 0;
+  }
+  .metric-cell {
+    background: var(--bg);
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .metric-value {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .metric-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 20px 0 32px;
+  }
+  thead tr { border-bottom: 2px solid var(--accent-line); }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--surface); }
+
+  .company-card {
+    border: 1px solid var(--border-strong);
+    margin: 32px 0;
+  }
+  .company-header {
+    background: var(--surface-dark);
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .company-name { font-size: 18px; font-weight: 700; }
+  .company-tag {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .company-body { padding: 20px; }
+  .company-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .stat-item {
+    padding: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .stat-value { font-weight: 700; font-size: 18px; }
+  .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .bmc-title {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 36px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .bmc-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .bmc-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1px;
+    background: var(--border-strong);
+    border: 1px solid var(--border-strong);
+    margin-bottom: 0;
+    font-size: 13px;
+  }
+  .bmc-cell {
+    background: var(--bg);
+    padding: 14px 12px;
+    min-height: 110px;
+  }
+  .bmc-cell.span2 { grid-row: span 2; min-height: 220px; }
+  .bmc-section-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .bmc-cell ul { margin: 0; padding-left: 14px; }
+  .bmc-cell li { margin-bottom: 3px; font-size: 12px; }
+  .bmc-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border-strong);
+    border: 1px solid var(--border-strong);
+    border-top: none;
+    margin-bottom: 48px;
+  }
+  .bmc-bottom-cell {
+    background: var(--bg);
+    padding: 14px 12px;
+    font-size: 13px;
+  }
+
+  .bar-chart { margin: 20px 0 32px; }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 12px;
+    font-size: 13px;
+  }
+  .bar-label { width: 170px; flex-shrink: 0; color: var(--text-secondary); text-align: right; }
+  .bar-track {
+    flex: 1;
+    height: 22px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    background: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 6px;
+    color: var(--bg);
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .bar-val { width: 65px; flex-shrink: 0; font-weight: 700; }
+
+  .comparison {
+    border: 1px solid var(--border);
+    margin: 24px 0;
+  }
+  .comparison-header {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border-strong);
+    border-bottom: 2px solid var(--accent-line);
+  }
+  .comparison-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .comparison-row:last-child { border-bottom: none; }
+  .comparison-cell {
+    background: var(--bg);
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+  .comparison-cell.head {
+    background: var(--surface-dark);
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+  }
+
+  .source-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  .round-badge {
+    display: inline-block;
+    border: 1px solid var(--border-strong);
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-right: 4px;
+  }
+
+  .insight-box {
+    border: 1px solid var(--border-strong);
+    padding: 20px 24px;
+    margin: 24px 0;
+    background: var(--surface);
+  }
+  .insight-box-title {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/fintech-business-models">← Về mục lục</a></p>
+
+
+
+<div class="book-label">Chương 6</div>
+<h1>Cho vay bảng cân đối & Factoring</h1>
+<div class="chapter-subtitle">Balance-Sheet Lending from Fintechs Providing Credit & Factoring</div>
+<div class="chapter-meta">
+  <span>Sách: Fintech Business Models</span>
+  <span>Tác giả: Matthias Fischer</span>
+  <span>NXB: De Gruyter (2021)</span>
+  <span>Trang: 126–139</span>
+</div>
+
+<!-- INTRO -->
+<p>Một ranh giới quan trọng trong fintech lending nằm giữa hai mô hình: <strong>balance-sheet lending</strong> — nơi fintech tự giữ khoản vay trên bảng cân đối như ngân hàng truyền thống — và <strong>marketplace lending</strong> — nơi fintech chỉ kết nối người vay với chủ nợ. Trong mô hình balance-sheet, rủi ro vỡ nợ nằm trên bảng cân đối của fintech, đòi hỏi nguồn vốn ổn định và rẻ để duy trì hoạt động.</p>
+
+<p>Chương này phân tích hai đại diện tiêu biểu của balance-sheet lending: <strong>OnDeck</strong> (cho vay SME tại Mỹ) và <strong>Avant</strong> (cho vay tiêu dùng với tệp khách hàng FICO thấp), cùng dữ liệu VC cho toàn phân khúc credit & factoring.</p>
+
+<div class="callout">
+  <div class="callout-label">Khái niệm cốt lõi</div>
+  <p><strong>Balance-sheet lending:</strong> Fintech giữ khoản vay trên bảng cân đối — chịu rủi ro tín dụng trực tiếp, cần vốn lớn nhưng kiểm soát hoàn toàn lãi suất và điều khoản. Khác với P2P/marketplace lending nơi rủi ro được chuyển cho nhà đầu tư thứ ba.</p>
+</div>
+
+<!-- 6.1 ONDECK -->
+<h2>6.1 OnDeck — Cho vay SME có lợi nhuận</h2>
+
+<div class="company-card">
+  <div class="company-header">
+    <span class="company-name">OnDeck Capital</span>
+    <span class="company-tag">Balance-Sheet SME Lending · New York · 2007 · NYSE: ONDK</span>
+  </div>
+  <div class="company-body">
+    <div class="company-stats">
+      <div class="stat-item">
+        <div class="stat-value">$5K–$50K</div>
+        <div class="stat-label">Term loan (3–36 tháng)</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">$100K</div>
+        <div class="stat-label">Hạn mức credit line tối đa</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">$8 tỷ</div>
+        <div class="stat-label">Tổng loan volume từ 2007</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">45,2%</div>
+        <div class="stat-label">Lãi suất trung bình term loan (2017)</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">32,7%</div>
+        <div class="stat-label">Lãi suất trung bình credit line (2017)</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">0–5%</div>
+        <div class="stat-label">Origination fee</div>
+      </div>
+    </div>
+
+    <h4>Định vị chiến lược — lấp đầy khoảng trống SME</h4>
+    <p>OnDeck khai thác <strong>financing gap</strong> của doanh nghiệp nhỏ: ngân hàng truyền thống thường từ chối SME vì thiếu tài sản đảm bảo hoặc lịch sử tín dụng ngắn. OnDeck thay đổi cách đánh giá tín dụng — thay vì chỉ dựa vào credit score của chủ doanh nghiệp, nền tảng phân tích <strong>hiệu suất kinh doanh thực tế</strong>: dòng tiền, đánh giá mạng xã hội, lịch sử thanh toán với nhà cung cấp, và hơn 2.000 điểm dữ liệu mỗi đơn.</p>
+
+    <p>Kết quả: quyết định tín dụng trong vài giây; giải ngân có thể hoàn tất trong vài phút thay vì 1–2 ngày như quy trình truyền thống, nhờ hợp tác với <strong>Visa</strong> và <strong>Ingo Money</strong> để giải ngân tức thì.</p>
+
+    <h4>OnDeck Score — thuật toán cạnh tranh cốt lõi</h4>
+    <p>Lợi thế cạnh tranh của OnDeck là <strong>OnDeck Score</strong> — thuật toán credit scoring độc quyền với ba đặc điểm nổi bật:</p>
+    <ul>
+      <li><strong>Tự cải thiện (self-improving):</strong> machine learning liên tục học từ dữ liệu mới — càng nhiều SME sử dụng nền tảng, thuật toán càng chính xác</li>
+      <li><strong>Feedback loop:</strong> dữ liệu từ người vay → cải thiện scoring → thu hút người vay tốt hơn → dữ liệu tốt hơn</li>
+      <li><strong>Đa chiều:</strong> kết hợp credit bureau, cash flow, social media, thanh toán, và hàng trăm nguồn dữ liệu bên thứ ba</li>
+    </ul>
+    <p>OnDeck thu nợ tự động hàng tuần hoặc hàng ngày — giảm rủi ro vỡ nợ đáng kể so với thanh toán hàng tháng như ngân hàng truyền thống.</p>
+
+    <h4>Cấu trúc phân phối</h4>
+    <p>52% volume gốc đến từ kênh <strong>direct mail, online, radio và TV</strong>. Phần còn lại qua mạng lưới đối tác: ngân hàng, công ty xử lý thanh toán, nhà cung cấp dịch vụ tập trung vào SME, và hơn 700 funding advisors trong mạng lưới phân phối. Khách hàng tái sử dụng được hưởng phí origination thấp hơn lần đầu — tạo switching cost và khuyến khích trung thành.</p>
+
+    <h4>White-label partnership với JPMorgan Chase</h4>
+    <div class="insight-box">
+      <div class="insight-box-title">Mô hình hợp tác B2B — Bài học về white-label fintech</div>
+      <p>Năm 2015, OnDeck ký hợp tác chiến lược với JPMorgan Chase (JPM) để ra mắt sản phẩm <strong>"Chase Business Quick Capital"</strong> — sản phẩm cho vay SME lên đến $200,000 với APR 9–25%, được pre-score dựa trên dữ liệu khách hàng doanh nghiệp của JPM.</p>
+      <p style="margin-top:10px; margin-bottom:0;"><strong>Phân công:</strong> JPM xử lý phê duyệt và cung cấp vốn (giữ rủi ro trên bảng cân đối); OnDeck cung cấp công nghệ, xử lý bán hàng, servicing và thu hồi nợ (white-label). JPM kiếm lãi suất cao hơn thông thường (9–25%) mà không cần xây dựng công nghệ; OnDeck kiếm phí origination và servicing mà không cần dùng vốn của mình. Hợp tác kết thúc vào tháng 8/2019.</p>
+    </div>
+
+    <h4>Nguồn vốn</h4>
+    <p>OnDeck huy động vốn qua ba kênh: (1) vốn chủ sở hữu (NYSE IPO), (2) debt facilities truyền thống, và (3) <strong>chứng khoán hóa</strong> — bán danh mục khoản vay SME cho nhà đầu tư tổ chức trên thị trường OnDeck. Cơ cấu này giúp OnDeck duy trì đủ vốn mà không cần phụ thuộc hoàn toàn vào vốn cổ đông.</p>
+  </div>
+</div>
+
+<div class="bmc-title">Business Model Canvas — OnDeck (Figure 6.1)</div>
+<div class="bmc-grid">
+  <div class="bmc-cell span2">
+    <div class="bmc-section-label">Đối tác chính</div>
+    <ul>
+      <li>Capital providers (debt + equity)</li>
+      <li>Bên thứ 3 cung cấp dữ liệu tín dụng</li>
+      <li>Referring partners & funding advisors</li>
+      <li>Visa & Ingo Money (giải ngân tức thì)</li>
+      <li>White-label clients (JPMorgan Chase)</li>
+      <li>Cổ đông và nhà quản lý</li>
+      <li>Cơ quan quản lý</li>
+    </ul>
+  </div>
+  <div class="bmc-cell">
+    <div class="bmc-section-label">Hoạt động chính</div>
+    <ul>
+      <li>Online onboarding</li>
+      <li>Credit scoring doanh nghiệp</li>
+      <li>Phát triển & duy trì nền tảng/thuật toán</li>
+      <li>Marketing & thu hút khách hàng</li>
+      <li>Thu hồi nợ tự động</li>
+    </ul>
+  </div>
+  <div class="bmc-cell span2">
+    <div class="bmc-section-label">Đề xuất giá trị</div>
+    <ul>
+      <li>Sử dụng nền tảng miễn phí</li>
+      <li>Tiếp cận vốn cho SME (term loan + credit line)</li>
+      <li>Thẩm định theo dòng tiền thực — không chỉ credit score chủ doanh nghiệp</li>
+      <li>Quyết định nhanh, giải ngân tức thì</li>
+      <li>Cho vay cả SME có lịch sử tín dụng kém</li>
+    </ul>
+  </div>
+  <div class="bmc-cell">
+    <div class="bmc-section-label">Quan hệ KH</div>
+    <ul>
+      <li>Online 24/7</li>
+      <li>Trải nghiệm người dùng tiện lợi</li>
+      <li>Blog hỗ trợ trực tuyến</li>
+      <li>On-demand support</li>
+    </ul>
+  </div>
+  <div class="bmc-cell span2">
+    <div class="bmc-section-label">Phân khúc KH</div>
+    <ul>
+      <li>SME (doanh nghiệp vừa và nhỏ)</li>
+      <li>Nhà đầu tư tổ chức (mua danh mục chứng khoán hóa)</li>
+    </ul>
+  </div>
+  <div class="bmc-cell">
+    <div class="bmc-section-label">Nguồn lực chính</div>
+    <ul>
+      <li>Nền tảng online</li>
+      <li>Thuật toán OnDeck Score</li>
+      <li>Mạng lưới dữ liệu</li>
+      <li>Mạng lưới đối tác</li>
+    </ul>
+  </div>
+  <div class="bmc-cell">
+    <div class="bmc-section-label">Kênh phân phối</div>
+    <ul>
+      <li>Nền tảng online</li>
+      <li>Social media</li>
+      <li>Direct mail & phone</li>
+      <li>Đối tác chiến lược, funding advisors</li>
+    </ul>
+  </div>
+</div>
+<div class="bmc-bottom">
+  <div class="bmc-bottom-cell">
+    <div class="bmc-section-label">Cơ cấu chi phí</div>
+    <ul style="padding-left:14px; font-size:12px;">
+      <li>Phát triển & duy trì thuật toán/nền tảng</li>
+      <li>Chi phí cố định: marketing, nhân sự</li>
+      <li>Phí trả cho capital providers</li>
+      <li>Hoa hồng cho referring partners & funding advisors</li>
+      <li>Chi phí hợp tác white-label (JPMorgan)</li>
+    </ul>
+  </div>
+  <div class="bmc-bottom-cell">
+    <div class="bmc-section-label">Dòng doanh thu</div>
+    <ul style="padding-left:14px; font-size:12px;">
+      <li>Origination fee (0–5% trên khoản vay)</li>
+      <li>Monthly maintenance fee ($20/tháng credit line)</li>
+      <li>Interest income (lãi suất 32–45% APR)</li>
+      <li>Origination & servicing fee từ JPMorgan Chase (white-label)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 6.2 AVANT -->
+<hr class="section-divider">
+<h2>6.2 Avant — Cho vay tiêu dùng "frictionless"</h2>
+
+<div class="company-card">
+  <div class="company-header">
+    <span class="company-name">Avant</span>
+    <span class="company-tag">Balance-Sheet Consumer Lending · Chicago · 2012</span>
+  </div>
+  <div class="company-body">
+    <div class="company-stats">
+      <div class="stat-item">
+        <div class="stat-value">$2K–$35K</div>
+        <div class="stat-label">Hạn mức vay (Mỹ)</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">9,95–35,99%</div>
+        <div class="stat-label">APR khoản vay</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">0–4,75%</div>
+        <div class="stat-label">Administration fee</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">800K+</div>
+        <div class="stat-label">Khoản vay đã phát hành (Mỹ)</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">80K+</div>
+        <div class="stat-label">Khoản vay tại Anh</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">10.000+</div>
+        <div class="stat-label">Biến số trong mô hình scoring</div>
+      </div>
+    </div>
+
+    <h4>Luận điểm kinh doanh — phục vụ phân khúc bị bỏ qua</h4>
+    <p>Co-founder <strong>John Sun</strong> nhận ra khoảng trống thị trường: hàng triệu người Mỹ có điểm FICO "fair" (580–669) hoặc "bad" (&lt;580) bị ngân hàng từ chối hoặc chỉ có thể vay với điều kiện rất bất lợi. Avant phục vụ đúng phân khúc này — không cần FICO tốt, nhưng vẫn phân tích tín dụng nghiêm ngặt hơn thẻ tín dụng hay cho vay ngày lương (payday loans).</p>
+
+    <h4>Mô hình credit scoring độc quyền</h4>
+    <p>Avant xây dựng mô hình scoring mới với <strong>hơn 10.000 biến số</strong>, vượt xa mô hình FICO truyền thống. Các biến số bao gồm:</p>
+    <ul>
+      <li>Dữ liệu FICO chuẩn (lịch sử trả nợ, tỷ lệ sử dụng tín dụng)</li>
+      <li><strong>Hành vi nộp đơn:</strong> thời điểm trong ngày nộp đơn, thời gian hoàn thành form</li>
+      <li><strong>Metadata thiết bị:</strong> loại thiết bị dùng để nộp đơn, trình duyệt</li>
+      <li>Lịch sử từ Experian, Transunion và Equifax</li>
+      <li>Dữ liệu tài chính bổ sung từ các nguồn phi truyền thống</li>
+    </ul>
+    <p>Kết quả: phê duyệt ngay lập tức, giải ngân vào tài khoản ngân hàng <strong>ngày làm việc tiếp theo</strong>.</p>
+
+    <h4>WebBank — đối tác banking license</h4>
+    <p>Tương tự LendingClub, Avant sử dụng <strong>WebBank</strong> (Utah) làm đối tác banking để phát hành khoản vay tại Mỹ — vượt qua rào cản usury laws của từng bang. Avant sau đó mua lại khoản vay từ WebBank và giữ trên bảng cân đối.</p>
+
+    <h4>Sản phẩm thẻ tín dụng</h4>
+    <p>Ngoài khoản vay cá nhân, Avant cung cấp thẻ tín dụng với hạn mức $300–$1.000, APR 24,49–25,49% và phí thường niên $39. Thẻ phục vụ khách hàng cần xây dựng lại lịch sử tín dụng.</p>
+
+    <h4>Avant Institutional Marketplace</h4>
+    <p>Avant thiết lập marketplace cho các nhà đầu tư tổ chức mua danh mục khoản vay đã chứng khoán hóa thông qua <strong>Avant Loans Funding Trust</strong> — kênh quan trọng để tái cấp vốn và giảm thiểu risk tập trung trên bảng cân đối.</p>
+  </div>
+</div>
+
+<div class="bmc-title">Business Model Canvas — Avant (Figure 6.2)</div>
+<div class="bmc-grid">
+  <div class="bmc-cell span2">
+    <div class="bmc-section-label">Đối tác chính</div>
+    <ul>
+      <li>Experian, Transunion, Equifax (dữ liệu tín dụng)</li>
+      <li>Institutional marketplace partners</li>
+      <li>WebBank (banking license — phát hành khoản vay Mỹ)</li>
+      <li>Cơ quan quản lý</li>
+    </ul>
+  </div>
+  <div class="bmc-cell">
+    <div class="bmc-section-label">Hoạt động chính</div>
+    <ul>
+      <li>Credit scoring độc quyền</li>
+      <li>Cải tiến liên tục mô hình số hóa onboarding</li>
+      <li>Direct mail targeting (pre-approved)</li>
+      <li>Digital customer acquisition</li>
+      <li>White-label solutions</li>
+      <li>Chứng khoán hóa khoản vay</li>
+    </ul>
+  </div>
+  <div class="bmc-cell span2">
+    <div class="bmc-section-label">Đề xuất giá trị</div>
+    <ul>
+      <li>Quy trình nộp đơn đơn giản và nhanh online</li>
+      <li>Phê duyệt khoản vay tức thì</li>
+      <li>Giải ngân ngày làm việc tiếp theo</li>
+      <li>Đánh giá tín dụng bổ sung (focus vào online data analytics)</li>
+      <li>Tiếp cận tín dụng cho người có FICO thấp</li>
+    </ul>
+  </div>
+  <div class="bmc-cell">
+    <div class="bmc-section-label">Quan hệ KH</div>
+    <ul>
+      <li>Online</li>
+      <li>Trải nghiệm frictionless</li>
+      <li>Blog tài chính cá nhân</li>
+      <li>Giờ mở rộng cho direct customer service</li>
+    </ul>
+  </div>
+  <div class="bmc-cell span2">
+    <div class="bmc-section-label">Phân khúc KH</div>
+    <ul>
+      <li>Khách hàng cá nhân FICO thấp hơn mức "fair"</li>
+      <li>Nhà đầu tư tổ chức (Avant Institutional Marketplace)</li>
+    </ul>
+  </div>
+  <div class="bmc-cell">
+    <div class="bmc-section-label">Nguồn lực chính</div>
+    <ul>
+      <li>Dữ liệu từ quá trình nộp đơn</li>
+      <li>Dữ liệu từ credit bureaus</li>
+      <li>Machine learning & Big Data</li>
+      <li>Thuật toán credit scoring</li>
+    </ul>
+  </div>
+  <div class="bmc-cell">
+    <div class="bmc-section-label">Kênh phân phối</div>
+    <ul>
+      <li>Marketing: social media, website, direct mail, phone</li>
+      <li>Nộp đơn: nền tảng online</li>
+      <li>Chứng khoán hóa: Avant Loans Funding Trust</li>
+    </ul>
+  </div>
+</div>
+<div class="bmc-bottom">
+  <div class="bmc-bottom-cell">
+    <div class="bmc-section-label">Cơ cấu chi phí</div>
+    <ul style="padding-left:14px; font-size:12px;">
+      <li>Phát triển & duy trì thuật toán/nền tảng</li>
+      <li>Chi phí cố định: marketing, nhân sự</li>
+      <li>Tổn thất từ write-offs (nợ xấu)</li>
+    </ul>
+  </div>
+  <div class="bmc-bottom-cell">
+    <div class="bmc-section-label">Dòng doanh thu</div>
+    <ul style="padding-left:14px; font-size:12px;">
+      <li>Origination fee (0–4,75%)</li>
+      <li>Phí thanh toán trễ / từ chối</li>
+      <li>Interest income (9,95–35,99% APR)</li>
+      <li>Credit card fees ($39 annual fee)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- COMPARISON -->
+<h3>So sánh OnDeck vs. Avant — hai mô hình balance-sheet lending</h3>
+<div class="comparison">
+  <div class="comparison-header">
+    <div class="comparison-cell head">Tiêu chí</div>
+    <div class="comparison-cell head">OnDeck</div>
+    <div class="comparison-cell head">Avant</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comparison-cell">Đối tượng khách hàng</div>
+    <div class="comparison-cell">SME (doanh nghiệp nhỏ)</div>
+    <div class="comparison-cell">Cá nhân FICO thấp</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comparison-cell">Hạn mức vay</div>
+    <div class="comparison-cell">$5K–$50K (term); đến $100K (line)</div>
+    <div class="comparison-cell">$2K–$35K</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comparison-cell">Lãi suất (APR)</div>
+    <div class="comparison-cell">32,7–45,2% (2017 weighted avg)</div>
+    <div class="comparison-cell">9,95–35,99%</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comparison-cell">Kỳ hạn</div>
+    <div class="comparison-cell">3–36 tháng</div>
+    <div class="comparison-cell">24–60 tháng</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comparison-cell">Banking partner</div>
+    <div class="comparison-cell">Không (giấy phép riêng)</div>
+    <div class="comparison-cell">WebBank (Utah)</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comparison-cell">Dữ liệu scoring</div>
+    <div class="comparison-cell">2.000+ data points / đơn</div>
+    <div class="comparison-cell">10.000+ biến số</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comparison-cell">Thu nợ</div>
+    <div class="comparison-cell">Hàng ngày / hàng tuần (tự động)</div>
+    <div class="comparison-cell">Hàng tháng</div>
+  </div>
+  <div class="comparison-row">
+    <div class="comparison-cell">B2B (white-label)</div>
+    <div class="comparison-cell">Có (JPMorgan Chase)</div>
+    <div class="comparison-cell">Có (Avant Institutional Marketplace)</div>
+  </div>
+</div>
+
+<!-- 6.3 VC ANALYSIS -->
+<hr class="section-divider">
+<h2>6.3 Tài trợ Venture Capital — Credit & Factoring</h2>
+
+<div class="callout">
+  <div class="callout-label">Phạm vi phân tích</div>
+  <p>Bảng 6.1 phân tích <strong>181 vòng gọi vốn toàn cầu</strong> vào các credit fintechs từ tháng 1/2017 đến tháng 4/2020. Bảng 6.2 phân tích riêng 5 vòng gọi vốn vào factoring fintechs. Nguồn: Crunchbase 2020.</p>
+</div>
+
+<h3>Bảng 6.1 — Credit Fintechs: Thống kê VC theo khu vực</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Khu vực</th>
+      <th>Số vòng</th>
+      <th>Trung vị</th>
+      <th>Tổng vốn</th>
+      <th>Pre-money trung vị</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Toàn cầu</strong></td>
+      <td>181</td>
+      <td>$5,54M</td>
+      <td>$1.960,5M</td>
+      <td>$749,8M</td>
+    </tr>
+    <tr>
+      <td>Trung Quốc</td>
+      <td>5</td>
+      <td>$20,50M</td>
+      <td>$89,5M</td>
+      <td>n/a</td>
+    </tr>
+    <tr>
+      <td>Châu Âu</td>
+      <td>45</td>
+      <td>$5,83M</td>
+      <td>$253,5M</td>
+      <td>$43,3M</td>
+    </tr>
+    <tr>
+      <td>Mỹ</td>
+      <td>59</td>
+      <td>$11,86M</td>
+      <td>$1.164,9M</td>
+      <td>$622,0M</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Bảng 6.2 — Factoring Fintechs: Thống kê VC</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Khu vực</th>
+      <th>Số vòng</th>
+      <th>Trung vị</th>
+      <th>Tổng vốn</th>
+      <th>Pre-money trung vị</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Toàn cầu</strong></td>
+      <td>5</td>
+      <td>$1,24M</td>
+      <td>$13,0M</td>
+      <td>$6,0M</td>
+    </tr>
+    <tr>
+      <td>Châu Âu</td>
+      <td>4</td>
+      <td>$0,77M</td>
+      <td>$3,0M</td>
+      <td>$6,0M</td>
+    </tr>
+    <tr>
+      <td>Trung Quốc & Mỹ</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>n/a</td>
+    </tr>
+  </tbody>
+</table>
+<p class="source-note">Factoring fintech là phân khúc còn rất nhỏ với rất ít dữ liệu công khai. Phân tích tiếp theo tập trung vào credit fintechs EU và US. Nguồn: Fischer (2021), Table 6.1 & 6.2</p>
+
+<h3>Bảng 6.3 — Trung vị vốn theo vòng: Credit & Factoring (€M)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Vòng</th>
+      <th>Overall</th>
+      <th>EU</th>
+      <th>US</th>
+      <th>n (mẫu)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="round-badge">SEED</span></td>
+      <td>€1,3M</td>
+      <td>€1,3M</td>
+      <td>€1,2M</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td><span class="round-badge">A</span></td>
+      <td>€6,1M</td>
+      <td>€4,7M</td>
+      <td>€7,0M</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <td><span class="round-badge">B</span></td>
+      <td>€18,1M</td>
+      <td>€18,1M</td>
+      <td>€18,2M</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td><span class="round-badge">C</span></td>
+      <td>€31,9M</td>
+      <td>€24,8M</td>
+      <td>€32,0M</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td><span class="round-badge">D</span></td>
+      <td>€44,4M</td>
+      <td>€81,4M</td>
+      <td>€44,1M</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td><span class="round-badge">E</span></td>
+      <td>€87,3M</td>
+      <td>€16,8M</td>
+      <td>€118,6M</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td><span class="round-badge">F</span></td>
+      <td>€472,6M</td>
+      <td>n/a</td>
+      <td>€472,6M</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td><span class="round-badge">IPO</span></td>
+      <td>€117,9M</td>
+      <td>n/a</td>
+      <td>€117,9M</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Số vòng đầu tư theo năm — Credit & Factoring Fintechs</h3>
+<div class="bar-chart">
+  <div class="bar-row">
+    <div class="bar-label">2000–2005</div>
+    <div class="bar-track"><div class="bar-fill" style="width:4%">3</div></div>
+    <div class="bar-val">3 vòng</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">2006–2008</div>
+    <div class="bar-track"><div class="bar-fill" style="width:6%">5</div></div>
+    <div class="bar-val">5 vòng</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">2009–2010</div>
+    <div class="bar-track"><div class="bar-fill" style="width:14%">11</div></div>
+    <div class="bar-val">11 vòng</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">2011</div>
+    <div class="bar-track"><div class="bar-fill" style="width:17%">14</div></div>
+    <div class="bar-val">14 vòng</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">2012</div>
+    <div class="bar-track"><div class="bar-fill" style="width:20%">16</div></div>
+    <div class="bar-val">16 vòng</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">2013</div>
+    <div class="bar-track"><div class="bar-fill" style="width:25%">20</div></div>
+    <div class="bar-val">20 vòng</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">2014 (đỉnh)</div>
+    <div class="bar-track"><div class="bar-fill" style="width:44%">35</div></div>
+    <div class="bar-val">35 vòng</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">2015</div>
+    <div class="bar-track"><div class="bar-fill" style="width:42%">34</div></div>
+    <div class="bar-val">34 vòng</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">2016</div>
+    <div class="bar-track"><div class="bar-fill" style="width:37%">30</div></div>
+    <div class="bar-val">30 vòng</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">2017 (Q1–Q2)</div>
+    <div class="bar-track"><div class="bar-fill" style="width:22%">18</div></div>
+    <div class="bar-val">18 vòng</div>
+  </div>
+</div>
+<p class="source-note">Tổng: 166 vòng đầu tư credit & factoring; 52 công ty thành lập 2000–2017; đỉnh 2014 với 35 vòng. Nguồn: Fischer (2021), Figure 6.4</p>
+
+<h3>Phân tích tăng trưởng vốn theo giai đoạn</h3>
+
+<div class="metrics-grid">
+  <div class="metric-cell">
+    <div class="metric-value">€3,2M</div>
+    <div class="metric-label">Tổng vốn credit fintech EU + US năm 2006</div>
+  </div>
+  <div class="metric-cell">
+    <div class="metric-value">€88M</div>
+    <div class="metric-label">Tổng vốn năm 2010 (CAGR 129%)</div>
+  </div>
+  <div class="metric-cell">
+    <div class="metric-value">€2,5 tỷ</div>
+    <div class="metric-label">Đỉnh vốn năm 2015</div>
+  </div>
+  <div class="metric-cell">
+    <div class="metric-value">€1B</div>
+    <div class="metric-label">SoFi Round E 2015 — cú hích thị trường US</div>
+  </div>
+</div>
+
+<p>Vốn đầu tư tăng trưởng mạnh từ 2010–2015 với CAGR 129% giai đoạn 2006–2010, được thúc đẩy chủ yếu bởi thị trường Mỹ. Năm 2015 là kỷ lục với vòng Round E của <strong>SoFi đạt €1 tỷ</strong> — ảnh hưởng lớn đến số liệu trung bình toàn ngành. Sau 2015, hoạt động đầu tư giảm dần nhưng quy mô mỗi vòng tăng lên, dấu hiệu ngành đang chuyển sang giai đoạn trưởng thành.</p>
+
+<h3>Xu hướng EU vs. US theo vòng</h3>
+<p>Điểm đáng chú ý trong Bảng 6.3:</p>
+<ul>
+  <li><strong>Seed — tương đương:</strong> EU €1,3M vs US €1,2M — điểm khởi đầu gần như ngang nhau</li>
+  <li><strong>Series A — US vượt trội:</strong> EU €4,7M vs US €7,0M (US cao hơn 49%)</li>
+  <li><strong>Series B — hội tụ:</strong> EU €18,1M ≈ US €18,2M — khoảng cách gần như biến mất</li>
+  <li><strong>Series D — EU đột biến:</strong> EU €81,4M &gt; US €44,1M — các công ty EU đạt được vòng D lớn hơn</li>
+  <li><strong>Series E trở lên — US áp đảo:</strong> US €118,6M vs EU €16,8M; US độc chiếm round F và IPO</li>
+</ul>
+<p>Kết luận: Credit & factoring fintechs EU thành công ở giai đoạn đầu và giữa, nhưng <strong>thị trường late-stage vẫn là đặc quyền của US</strong> (IPO, round F+).</p>
+
+<!-- SUMMARY -->
+<hr class="section-divider">
+<h2>Kết luận chương 6</h2>
+
+<div class="callout">
+  <div class="callout-label">Luận điểm chính</div>
+  <p>Balance-sheet lending fintech phục vụ thị trường mà ngân hàng truyền thống từ chối — không phải cạnh tranh trực tiếp mà <strong>mở rộng biên giới tín dụng</strong>. Chìa khóa thành công là thuật toán credit scoring độc quyền (OnDeck Score, Avant's 10,000+ variables) — rào cản cạnh tranh thực sự trong mô hình này. Lãi suất cao (32–45%) là cần thiết để bù đắp rủi ro tín dụng của phân khúc sub-prime và chi phí vốn, nhưng vẫn thấp hơn nhiều so với payday loans hay thẻ tín dụng sub-prime. Phân khúc credit & factoring đang tiến tới trưởng thành — 2014–2015 là đỉnh vòng gọi vốn, sau đó consolidation và scale-up.</p>
+</div>
+
+<div class="metrics-grid">
+  <div class="metric-cell">
+    <div class="metric-value">2 BMC</div>
+    <div class="metric-label">OnDeck (SME) + Avant (Consumer)</div>
+  </div>
+  <div class="metric-cell">
+    <div class="metric-value">181 vòng</div>
+    <div class="metric-label">Credit fintech VC toàn cầu 2017–2020</div>
+  </div>
+  <div class="metric-cell">
+    <div class="metric-value">$1,96 tỷ</div>
+    <div class="metric-label">Tổng vốn credit fintech toàn cầu</div>
+  </div>
+  <div class="metric-cell">
+    <div class="metric-value">2014</div>
+    <div class="metric-label">Đỉnh hoạt động VC (35 vòng/năm)</div>
+  </div>
+</div>
+
+<div style="margin-top:60px; padding-top:24px; border-top:1px solid var(--border); font-size:13px; color:var(--text-muted);">
+  <p>Fintech Business Models — Matthias Fischer, De Gruyter 2021 | Chương 6, trang 126–139</p>
+  <p>Tóm tắt và phân tích chi tiết | Tiếp theo: <a href="ch7-fbm.html" style="color:var(--text-secondary);">Chương 7 — Tương lai của quản lý tài chính cá nhân</a></p>
+</div>
+
+<nav class="chapnav">
+  <a href="ch5-fbm.html"><span class="lbl">Chương trước</span>Chương 5: Crowdfunding Có Thay Thế Vay Ngân Hàng Không?</a>
+  <a href="ch7-fbm.html"><span class="lbl">Chương sau</span>Chương 7: Tương Lai Của Quản Lý Tài Chính Cá Nhân (PFM)</a>
+</nav>
+</body>
+</html>

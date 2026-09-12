@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 7 — Tương lai của quản lý tài chính cá nhân (PFM)</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --text: #111111;
+  --text-secondary: #333333;
+  --text-muted: #888888;
+  --border: #d8d8d8;
+  --border-strong: #999999;
+  --surface: #f2f2f2;
+  --surface-dark: #e0e0e0;
+  --accent-line: #111111;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text);
+  background: var(--bg);
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+h2 { font-size: 1.4rem; font-weight: 700; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent-line); }
+h3 { font-size: 1.1rem; font-weight: 700; margin: 32px 0 12px; }
+h4 { font-size: 0.95rem; font-weight: 700; margin: 24px 0 8px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); }
+p { margin-bottom: 16px; color: var(--text-secondary); }
+.chapter-meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 48px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.chapter-meta span { margin-right: 24px; }
+
+/* Key metric cards */
+.metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0; }
+.metric { background: var(--surface); border: 1px solid var(--border); padding: 16px; }
+.metric-value { font-size: 1.5rem; font-weight: 700; line-height: 1.2; }
+.metric-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+
+/* Market overview table */
+.market-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.88rem; }
+.market-table th { background: var(--surface-dark); padding: 10px 12px; text-align: left; font-weight: 700; border: 1px solid var(--border); }
+.market-table td { padding: 10px 12px; border: 1px solid var(--border); vertical-align: top; }
+.market-table tr:nth-child(even) { background: var(--surface); }
+
+/* Section cards */
+.section-card { border: 1px solid var(--border); margin: 24px 0; }
+.section-card-header { background: var(--surface-dark); padding: 14px 20px; font-weight: 700; font-size: 1rem; border-bottom: 1px solid var(--border); }
+.section-card-body { padding: 20px; }
+
+/* Highlight box */
+.highlight-box { background: var(--surface); border-left: 3px solid var(--accent-line); padding: 16px 20px; margin: 20px 0; }
+.highlight-box strong { display: block; margin-bottom: 4px; }
+
+/* Business Model Canvas */
+.bmc-container { margin: 28px 0; border: 2px solid var(--border-strong); }
+.bmc-title { background: var(--text); color: white; padding: 10px 16px; font-weight: 700; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+.bmc-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; grid-template-rows: auto auto auto; }
+.bmc-cell { border: 1px solid var(--border); padding: 14px 12px; }
+.bmc-cell-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 8px; }
+.bmc-cell-content { font-size: 0.82rem; line-height: 1.55; color: var(--text-secondary); }
+.bmc-cell-content li { list-style: none; padding: 2px 0; }
+.bmc-cell-content li::before { content: "·  "; color: var(--text-muted); }
+.bmc-key-partners { grid-column: 1; grid-row: 1 / 3; }
+.bmc-key-activities { grid-column: 2; grid-row: 1; }
+.bmc-value-prop { grid-column: 3; grid-row: 1 / 3; }
+.bmc-cust-rel { grid-column: 4; grid-row: 1; }
+.bmc-cust-seg { grid-column: 5; grid-row: 1 / 3; }
+.bmc-key-resources { grid-column: 2; grid-row: 2; }
+.bmc-channels { grid-column: 4; grid-row: 2; }
+.bmc-cost { grid-column: 1 / 4; padding: 12px; border: 1px solid var(--border); background: var(--surface); font-size: 0.82rem; }
+.bmc-revenue { grid-column: 4 / 6; padding: 12px; border: 1px solid var(--border); background: var(--surface); font-size: 0.82rem; }
+.bmc-bottom-row { display: grid; grid-template-columns: 3fr 2fr; }
+
+/* VC Tables */
+.vc-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.85rem; }
+.vc-table th { background: var(--surface-dark); padding: 9px 11px; text-align: left; border: 1px solid var(--border); font-weight: 700; }
+.vc-table td { padding: 9px 11px; border: 1px solid var(--border); }
+.vc-table tr:nth-child(even) { background: var(--surface); }
+.vc-table .highlight-row { background: var(--surface-dark) !important; font-weight: 700; }
+
+/* Bar chart */
+.bar-chart { margin: 24px 0; }
+.bar-chart-title { font-size: 0.82rem; font-weight: 700; margin-bottom: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.bar-row { display: flex; align-items: center; margin-bottom: 6px; gap: 8px; font-size: 0.8rem; }
+.bar-label { width: 38px; text-align: right; color: var(--text-muted); flex-shrink: 0; }
+.bar-track { flex: 1; background: var(--surface); height: 18px; position: relative; }
+.bar-fill { height: 100%; background: var(--text); }
+.bar-fill.eu { background: var(--text-secondary); }
+.bar-fill.us { background: var(--text-muted); }
+.bar-value { font-size: 0.75rem; color: var(--text-muted); width: 40px; flex-shrink: 0; }
+.bar-legend { display: flex; gap: 20px; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; }
+.bar-legend span { display: flex; align-items: center; gap: 6px; }
+.legend-dot { width: 12px; height: 12px; display: inline-block; }
+
+/* Detail list */
+.detail-list { margin: 12px 0 20px 0; padding-left: 0; }
+.detail-list li { list-style: none; padding: 6px 0 6px 16px; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--text-secondary); position: relative; }
+.detail-list li::before { content: "→"; position: absolute; left: 0; color: var(--text-muted); }
+.detail-list li:last-child { border-bottom: none; }
+
+.comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-card { border: 1px solid var(--border); padding: 16px; }
+.comparison-card h4 { margin-top: 0; font-size: 0.9rem; }
+
+.note { font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 12px; margin-top: 20px; }
+
+/* Summary box */
+.summary-box { border: 2px solid var(--border-strong); padding: 24px; margin: 32px 0; background: var(--surface); }
+.summary-box h3 { margin-top: 0; }
+
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/fintech-business-models">← Về mục lục</a></p>
+
+
+<div class="chapter-meta">
+  <span>Matthias Fischer — Fintech Business Models (De Gruyter, 2021)</span>
+  <span>Chương 7</span>
+  <span>Trang 139–156</span>
+</div>
+
+<h1>Chương 7: Tương lai của quản lý tài chính cá nhân (PFM)</h1>
+<p style="font-size:1.05rem; color:var(--text); margin-bottom:32px;">Personal Finance Management (PFM) là công cụ tự động phân loại giao dịch, theo dõi ngân sách, và đề xuất sản phẩm tài chính. PFM vừa là dịch vụ trực tiếp cho người tiêu dùng vừa là nền tảng white-label B2B cho ngân hàng truyền thống. PSD-2 (Payment Services Directive 2) là chất xúc tác quan trọng khi mở ra quyền truy cập dữ liệu tài khoản ngân hàng cho bên thứ ba.</p>
+
+<!-- Market Overview -->
+<h2>7.0 Tổng quan thị trường PFM</h2>
+<table class="market-table">
+  <thead>
+    <tr>
+      <th>Công ty</th>
+      <th>Thị trường</th>
+      <th>Thành lập</th>
+      <th>Tổng vốn huy động</th>
+      <th>Số khách hàng</th>
+      <th>Đặc điểm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Mint</strong></td>
+      <td>Mỹ</td>
+      <td>2006</td>
+      <td>$31.8M</td>
+      <td>20M</td>
+      <td>Tổng hợp tài chính miễn phí, tư vấn tiết kiệm — acquired by Intuit $170M (2009)</td>
+    </tr>
+    <tr>
+      <td><strong>Credit Karma</strong></td>
+      <td>Mỹ</td>
+      <td>2007</td>
+      <td>$868M</td>
+      <td>85M</td>
+      <td>Đánh giá tín dụng, quản lý nợ, giám sát tài khoản — miễn phí</td>
+    </tr>
+    <tr>
+      <td><strong>Meniga</strong></td>
+      <td>Anh/EU</td>
+      <td>2009</td>
+      <td>$34.5M</td>
+      <td>65M</td>
+      <td>White-label PFM hàng đầu châu Âu cho ngân hàng truyền thống (B2B)</td>
+    </tr>
+    <tr>
+      <td><strong>51Xinyongka (u51.com)</strong></td>
+      <td>Trung Quốc</td>
+      <td>2013</td>
+      <td>$459M</td>
+      <td>100M</td>
+      <td>Quản lý thẻ tín dụng, thị trường so sánh lớn nhất Trung Quốc</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="highlight-box">
+  <strong>Vai trò của PSD-2</strong>
+  PSD-2 (EU Payment Services Directive 2) yêu cầu ngân hàng mở API, cho phép bên thứ ba truy cập dữ liệu giao dịch với sự đồng ý của khách hàng. Điều này biến PFM từ công cụ manual scraping (yêu cầu mật khẩu) thành nền tảng khai thác dữ liệu hợp pháp — catalyst cho thị trường PFM EU.
+</div>
+
+<!-- 7.1 Mint -->
+<h2>7.1 Business Model Canvas — Mint</h2>
+
+<div class="metric-row">
+  <div class="metric"><div class="metric-value">$170M</div><div class="metric-label">Giá Intuit mua lại (2009) — 1M users → 20M users (2016)</div></div>
+  <div class="metric"><div class="metric-value">20M</div><div class="metric-label">Người dùng tích cực (tháng 4/2016)</div></div>
+  <div class="metric"><div class="metric-value">$6.74B</div><div class="metric-label">Doanh thu Intuit FY2019 (Mint thuộc Consumer segment ~41% = $2.78B)</div></div>
+  <div class="metric"><div class="metric-value">20%</div><div class="metric-label">Traffic đến từ SEO/content marketing (blog, infographic, Reddit)</div></div>
+</div>
+
+<h3>Đặc điểm kinh doanh</h3>
+<p>Mint được thành lập năm 2006 và phát triển từ $0 lên $170M trong 2 năm nhờ content marketing (blog, infographic, Reddit, SEO). Sau khi Intuit mua lại, Mint trở thành trung tâm ecosystem gồm QuickBooks (kế toán doanh nghiệp) và TurboTax (khai thuế).</p>
+
+<h4>Đề xuất giá trị (Value Propositions)</h4>
+<ul class="detail-list">
+  <li>Tổng quan tài chính miễn phí — tự động kết nối tài khoản ngân hàng, thẻ tín dụng, khoản đầu tư</li>
+  <li>Auto-categorization — phân loại giao dịch tự động (chi phí ăn uống, đi lại, mua sắm…)</li>
+  <li>Điểm tín dụng miễn phí — cập nhật liên tục (thông thường phải trả $35/lần)</li>
+  <li>Theo dõi đầu tư — portfolio tracking so với benchmark thị trường</li>
+  <li>Đề xuất tiết kiệm — gợi ý chuyển sang sản phẩm rẻ hơn (thẻ tín dụng, bảo hiểm…)</li>
+  <li>Bảo mật: 128-bit SSL + mã PIN 4 chữ số + chứng chỉ TrustE + VeriSign</li>
+  <li>Stanford study: 46% người dùng đánh giá độ uy tín qua thiết kế → Mint đầu tư Web 2.0 (3D tabs, gradients)</li>
+</ul>
+
+<h4>Đối tác & Doanh thu</h4>
+<div class="highlight-box">
+  <strong>Hợp tác chiến lược với LendingClub</strong>
+  71.37% người dùng LendingClub vay để trả nợ thẻ tín dụng. Năm 2019: ~920K khoản vay / $12.3B dư nợ. Mint giới thiệu người dùng → nhận commission từ LC. Mô hình: Mint không cho vay trực tiếp mà là cổng dẫn khách hàng đến đối tác tài chính phù hợp.
+</div>
+
+<h4>Mô hình doanh thu</h4>
+<ul class="detail-list">
+  <li><strong>Commission/referral</strong>: Giới thiệu thẻ tín dụng, khoản vay, bảo hiểm → nhận phí từ nhà cung cấp</li>
+  <li><strong>Quảng cáo</strong>: Bán không gian quảng cáo trên website/app — targeted theo lịch sử tài chính người dùng</li>
+  <li><strong>White-label</strong>: Cung cấp PFM cho ngân hàng và tổ chức tài chính (B2B)</li>
+  <li><strong>Dữ liệu ẩn danh</strong>: Bán phân tích hành vi tiêu dùng tổng hợp cho công ty nghiên cứu thị trường</li>
+</ul>
+
+<div class="bmc-container">
+  <div class="bmc-title">Business Model Canvas — Mint (Intuit)</div>
+  <div class="bmc-grid">
+    <div class="bmc-cell bmc-key-partners">
+      <div class="bmc-cell-label">Key Partners</div>
+      <div class="bmc-cell-content">
+        <li>Intuit (parent company)</li>
+        <li>LendingClub</li>
+        <li>Các ngân hàng &amp; tổ chức tín dụng</li>
+        <li>Nhà cung cấp bảo hiểm</li>
+        <li>Credit bureaus (Equifax, TransUnion, Experian)</li>
+        <li>TurboTax, QuickBooks (ecosystem)</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-key-activities">
+      <div class="bmc-cell-label">Key Activities</div>
+      <div class="bmc-cell-content">
+        <li>Tự động phân loại giao dịch (auto-categorization)</li>
+        <li>Content marketing (blog, infographic, Reddit, SEO)</li>
+        <li>Phát triển &amp; bảo trì API kết nối ngân hàng</li>
+        <li>Tổng hợp dữ liệu tài chính</li>
+        <li>Phát triển white-label cho đối tác</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-value-prop">
+      <div class="bmc-cell-label">Value Propositions</div>
+      <div class="bmc-cell-content">
+        <li>Quản lý tài chính toàn diện miễn phí</li>
+        <li>Auto-categorize tất cả giao dịch</li>
+        <li>Điểm tín dụng miễn phí &amp; liên tục</li>
+        <li>Theo dõi đầu tư</li>
+        <li>Đề xuất sản phẩm tài chính tiết kiệm hơn</li>
+        <li>Bảo mật cao (128-bit SSL, TrustE, VeriSign)</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-cust-rel">
+      <div class="bmc-cell-label">Customer Relationships</div>
+      <div class="bmc-cell-content">
+        <li>Tự phục vụ (self-service)</li>
+        <li>Tự động hóa cao — gần như không cần thao tác thủ công</li>
+        <li>Giao diện đơn giản, trực quan</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-cust-seg">
+      <div class="bmc-cell-label">Customer Segments</div>
+      <div class="bmc-cell-content">
+        <li>B2C: Người tiêu dùng Mỹ muốn kiểm soát tài chính cá nhân</li>
+        <li>B2B: Ngân hàng &amp; tổ chức tài chính cần PFM white-label</li>
+        <li>Đặc biệt: người dùng có nợ thẻ tín dụng (target của LC referral)</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-key-resources">
+      <div class="bmc-cell-label">Key Resources</div>
+      <div class="bmc-cell-content">
+        <li>Thuật toán phân loại giao dịch</li>
+        <li>API kết nối với 16,000+ tổ chức tài chính</li>
+        <li>Dữ liệu hành vi tài chính 20M người dùng</li>
+        <li>Thương hiệu &amp; uy tín (TrustE, VeriSign)</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-channels">
+      <div class="bmc-cell-label">Channels</div>
+      <div class="bmc-cell-content">
+        <li>Website mint.com</li>
+        <li>App iOS &amp; Android</li>
+        <li>Blog, infographic, Reddit (20% traffic từ SEO)</li>
+        <li>Hệ sinh thái Intuit (QuickBooks, TurboTax)</li>
+      </div>
+    </div>
+  </div>
+  <div class="bmc-bottom-row">
+    <div class="bmc-cost">
+      <strong>Cost Structure:</strong> Phát triển &amp; duy trì API kết nối; Marketing &amp; content creation; Hạ tầng bảo mật dữ liệu; Đội ngũ kỹ thuật phân tích dữ liệu
+    </div>
+    <div class="bmc-revenue">
+      <strong>Revenue Streams:</strong> Commission/referral (thẻ tín dụng, vay, bảo hiểm); Quảng cáo targeted; White-label licensing; Bán dữ liệu ẩn danh
+    </div>
+  </div>
+</div>
+
+<!-- 7.2 Credit Karma -->
+<h2>7.2 Business Model Canvas — Credit Karma</h2>
+
+<div class="metric-row">
+  <div class="metric"><div class="metric-value">85M</div><div class="metric-label">Người dùng đăng ký (Mỹ)</div></div>
+  <div class="metric"><div class="metric-value">$682M</div><div class="metric-label">Doanh thu 2017 (+37% YoY)</div></div>
+  <div class="metric"><div class="metric-value">$868M</div><div class="metric-label">Tổng vốn huy động</div></div>
+  <div class="metric"><div class="metric-value">~⅓</div><div class="metric-label">Dân số Mỹ có điểm tín dụng thấp (target segment)</div></div>
+</div>
+
+<h3>Đặc điểm kinh doanh</h3>
+<p>Credit Karma là mô hình freemium: hoàn toàn miễn phí cho người dùng, doanh thu từ commission của đối tác tài chính. USP cốt lõi: tại thời điểm ra mắt (2007), các dịch vụ điểm tín dụng như TrueCredit và FreeCreditReport.com đều tính phí — Credit Karma làm điều đó miễn phí và ngay lập tức thu hút đông đảo người dùng có điểm tín dụng thấp (khoảng 1/3 dân số Mỹ).</p>
+
+<h4>Key Partners — National Credit Bureaus</h4>
+<ul class="detail-list">
+  <li><strong>TransUnion</strong> — cung cấp điểm tín dụng và báo cáo hàng tuần</li>
+  <li><strong>Equifax</strong> — cung cấp thông tin tín dụng bổ sung</li>
+  <li>Ngân hàng &amp; công ty thẻ tín dụng (Chase, Capital One, Discover…) — đối tác commission</li>
+  <li>LendingClub, OnDeck, Marcus by Goldman Sachs — đối tác cho vay trực tuyến</li>
+</ul>
+
+<h4>Value Propositions</h4>
+<ul class="detail-list">
+  <li>Điểm tín dụng miễn phí cập nhật hàng tuần từ TransUnion &amp; Equifax</li>
+  <li>Giám sát tín dụng miễn phí — thông báo khi có thay đổi đáng kể</li>
+  <li>Công cụ miễn phí: Credit Score Simulator, Debt Repayment Calculator, Simple Loan Calculator, Amortization Calculator</li>
+  <li>So sánh thẻ tín dụng theo nhiều danh mục: điểm thưởng, thể thao, cashback, sinh viên, hàng không</li>
+  <li>So sánh khoản vay: personal, home, auto, student, business</li>
+  <li>Giải thích những yếu tố ảnh hưởng đến điểm và cách cải thiện</li>
+</ul>
+
+<h4>Customer Segments & Relationships</h4>
+<p>Credit Karma nhắm vào người tiêu dùng Mỹ tìm kiếm thẻ tín dụng hoặc khoản vay giá rẻ — đặc biệt những người có điểm tín dụng thấp. Hơn 30% trong 5 triệu visitor hàng tháng đến vì các công cụ miễn phí. Khi đăng ký, người dùng mở khóa thêm tính năng cá nhân hóa → Credit Karma tích lũy dữ liệu tài chính chi tiết để cải thiện khả năng matching với đối tác.</p>
+
+<h4>Mô hình doanh thu</h4>
+<div class="highlight-box">
+  <strong>Commission model — không phí cho người dùng</strong>
+  Credit Karma biết chính xác mức nợ thẻ tín dụng, lãi suất hiện tại và lịch sử thanh toán của mỗi người dùng → khi giới thiệu sản phẩm rẻ hơn và người dùng chuyển sang, nhà phát hành trả commission cho Credit Karma. Tính minh bạch cao (full transparency) là USP để phân biệt với các dịch vụ không rõ ràng về lãi suất.
+</div>
+
+<div class="bmc-container">
+  <div class="bmc-title">Business Model Canvas — Credit Karma</div>
+  <div class="bmc-grid">
+    <div class="bmc-cell bmc-key-partners">
+      <div class="bmc-cell-label">Key Partners</div>
+      <div class="bmc-cell-content">
+        <li>TransUnion (credit data)</li>
+        <li>Equifax (credit data)</li>
+        <li>Ngân hàng &amp; tổ chức phát hành thẻ</li>
+        <li>LendingClub, OnDeck, Marcus/GS</li>
+        <li>Công ty bảo hiểm xe, nhà</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-key-activities">
+      <div class="bmc-cell-label">Key Activities</div>
+      <div class="bmc-cell-content">
+        <li>Cung cấp điểm tín dụng miễn phí hàng tuần</li>
+        <li>Phát triển công cụ tính toán miễn phí</li>
+        <li>SEO — top Google search results</li>
+        <li>Matching người dùng với sản phẩm phù hợp</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-value-prop">
+      <div class="bmc-cell-label">Value Propositions</div>
+      <div class="bmc-cell-content">
+        <li>Điểm tín dụng miễn phí (cập nhật tuần)</li>
+        <li>Giám sát tín dụng miễn phí</li>
+        <li>Công cụ tính toán miễn phí</li>
+        <li>So sánh thẻ &amp; vay theo nhu cầu cá nhân</li>
+        <li>Tính minh bạch về chi phí</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-cust-rel">
+      <div class="bmc-cell-label">Customer Relationships</div>
+      <div class="bmc-cell-content">
+        <li>Self-service hoàn toàn</li>
+        <li>Cá nhân hóa theo điểm tín dụng</li>
+        <li>Thông báo tự động khi có thay đổi</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-cust-seg">
+      <div class="bmc-cell-label">Customer Segments</div>
+      <div class="bmc-cell-content">
+        <li>B2C: Người Mỹ có điểm tín dụng thấp hoặc muốn cải thiện</li>
+        <li>Người tìm kiếm thẻ &amp; khoản vay giá rẻ</li>
+        <li>Người muốn hiểu &amp; kiểm soát tín dụng cá nhân</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-key-resources">
+      <div class="bmc-cell-label">Key Resources</div>
+      <div class="bmc-cell-content">
+        <li>Dữ liệu tín dụng 85M người dùng</li>
+        <li>Thuật toán matching sản phẩm</li>
+        <li>Hợp đồng với credit bureaus</li>
+        <li>SEO ranking</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-channels">
+      <div class="bmc-cell-label">Channels</div>
+      <div class="bmc-cell-content">
+        <li>creditkarma.com (SEO top rank)</li>
+        <li>App iOS &amp; Android</li>
+        <li>Google Ads (công cụ miễn phí thu hút traffic)</li>
+      </div>
+    </div>
+  </div>
+  <div class="bmc-bottom-row">
+    <div class="bmc-cost">
+      <strong>Cost Structure:</strong> Phí dữ liệu từ credit bureaus; Phát triển &amp; duy trì nền tảng; Marketing để duy trì SEO ranking
+    </div>
+    <div class="bmc-revenue">
+      <strong>Revenue Streams:</strong> Commission từ đối tác tài chính khi người dùng chấp nhận sản phẩm (thẻ tín dụng, khoản vay, bảo hiểm). Doanh thu 2017: $682M (+37% YoY). Double-digit growth kỳ vọng tiếp tục.
+    </div>
+  </div>
+</div>
+
+<!-- 7.3 Meniga -->
+<h2>7.3 Business Model Canvas — Meniga</h2>
+
+<div class="metric-row">
+  <div class="metric"><div class="metric-value">65M</div><div class="metric-label">Khách hàng thông qua ngân hàng đối tác</div></div>
+  <div class="metric"><div class="metric-value">€13.5M</div><div class="metric-label">Doanh thu FY2018/2019 (+17.4% YoY)</div></div>
+  <div class="metric"><div class="metric-value">€7.9M</div><div class="metric-label">License fees FY2019 (+49% YoY)</div></div>
+  <div class="metric"><div class="metric-value">25%</div><div class="metric-label">Hộ gia đình Iceland dùng Meniga PFM</div></div>
+</div>
+
+<h3>Mô hình B2B White-Label</h3>
+<p>Meniga là trường hợp duy nhất trong chương 7 theo mô hình thuần B2B. Thay vì bán trực tiếp cho người tiêu dùng, Meniga tích hợp phần mềm PFM vào hệ thống của ngân hàng đối tác — ngân hàng phát triển quan hệ khách hàng, Meniga cung cấp engine phân tích và trải nghiệm.</p>
+
+<h4>Đối tác ngân hàng chính</h4>
+<ul class="detail-list">
+  <li><strong>Banco Santander</strong> — 144M khách hàng toàn cầu; tích hợp 2015</li>
+  <li><strong>BNP Paribas / Consorsbank</strong> — mở rộng hiện diện trực tuyến tại Đức</li>
+  <li><strong>ING Direct</strong> — ngân hàng đầu tiên ở Tây Ban Nha mở rộng online banking qua Meniga</li>
+  <li><strong>Commerzbank / mBank</strong> — mBank: 5M+ khách hàng tại Ba Lan, Czech, Slovakia; ngân hàng trực tuyến lớn nhất Trung Âu. mBank sử dụng Meniga APIs từ 2013 để tái thiết kế hoàn toàn trải nghiệm ngân hàng (CRM event-driven, P2P payments, Facebook integration)</li>
+  <li><strong>Islandsbanki</strong> — ngân hàng đầu tiên triển khai Meniga (2009); 20% online users đăng ký trong 6 tháng; 88% nói sẽ dùng thường xuyên</li>
+  <li><strong>comdirect</strong> — Đức, 2.5M người dùng, 2013</li>
+</ul>
+
+<h4>Iceland — Thị trường thử nghiệm lý tưởng</h4>
+<div class="highlight-box">
+  <strong>Tại sao Iceland là thị trường test hoàn hảo</strong>
+  90% giao dịch thanh toán tại Iceland dùng thẻ → dữ liệu giao dịch đầy đủ. Tỷ lệ internet tốc độ cao và mobile usage cao. 25% hộ gia đình Iceland dùng Meniga PFM → constant pool of valuable suggestions. Meniga giữ liên lạc chặt chẽ với người dùng để hiểu nhu cầu và yêu cầu.
+</div>
+
+<h4>Value Propositions cho ngân hàng (B2B)</h4>
+<ul class="detail-list">
+  <li>PFM cho phép ngân hàng cá nhân hóa trải nghiệm trực tuyến và tạo ra unique customer experience</li>
+  <li>Meniga Business Finance — SME có view real-time về tài chính, cải thiện cash conversion cycle</li>
+  <li>Engagement platform — deep insights vào hành vi tài chính, cho phép tư vấn cá nhân hóa và đề xuất sản phẩm</li>
+  <li>Card-linked offers — thuật toán phân tích lịch sử giao dịch để cung cấp quote cá nhân hóa cho khách hàng thẻ</li>
+  <li>Consumer data analytics — ngân hàng so sánh xu hướng thị trường real-time với đối thủ (doanh số, thị phần)</li>
+  <li>Triết lý: Data consolidation và data enrichment để cá nhân hóa trải nghiệm ngân hàng</li>
+</ul>
+
+<h4>Doanh thu — Software License Model</h4>
+<p>Meniga kiếm tiền từ license phần mềm dài hạn cho ngân hàng đối tác. FY2018/2019: Doanh thu €13.5M (+17.4% YoY), nhưng lỗ €1.6M do đầu tư mạnh vào marketing và giải pháp data analytics. License fees ~€7.9M (+49%). Meniga mở rộng sang Italy, Greece, Sweden trong kỳ này. €3.0M equity investment mới từ investors hiện tại.</p>
+
+<div class="bmc-container">
+  <div class="bmc-title">Business Model Canvas — Meniga</div>
+  <div class="bmc-grid">
+    <div class="bmc-cell bmc-key-partners">
+      <div class="bmc-cell-label">Key Partners</div>
+      <div class="bmc-cell-content">
+        <li>Banco Santander (144M khách hàng)</li>
+        <li>BNP Paribas / Consorsbank</li>
+        <li>ING Direct</li>
+        <li>Commerzbank / mBank</li>
+        <li>Islandsbanki</li>
+        <li>Accenture, SamLink</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-key-activities">
+      <div class="bmc-cell-label">Key Activities</div>
+      <div class="bmc-cell-content">
+        <li>Phát triển &amp; bảo trì APIs (tuân thủ PSD-2)</li>
+        <li>Tích hợp PFM vào hệ thống ngân hàng</li>
+        <li>Thử nghiệm sản phẩm mới tại Iceland</li>
+        <li>Data consolidation và enrichment</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-value-prop">
+      <div class="bmc-cell-label">Value Propositions</div>
+      <div class="bmc-cell-content">
+        <li>White-label PFM cho ngân hàng</li>
+        <li>Cá nhân hóa trải nghiệm ngân hàng trực tuyến</li>
+        <li>Real-time financial view cho SME</li>
+        <li>Card-linked personalized offers</li>
+        <li>Consumer &amp; market analytics</li>
+        <li>Tích hợp CRM event-driven</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-cust-rel">
+      <div class="bmc-cell-label">Customer Relationships</div>
+      <div class="bmc-cell-content">
+        <li>B2B: quan hệ dài hạn với ngân hàng đối tác</li>
+        <li>Hỗ trợ implementation và tích hợp</li>
+        <li>Website &amp; testimonials từ executives</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-cust-seg">
+      <div class="bmc-cell-label">Customer Segments</div>
+      <div class="bmc-cell-content">
+        <li><strong>Hoàn toàn B2B</strong></li>
+        <li>Ngân hàng truyền thống muốn số hóa trải nghiệm khách hàng</li>
+        <li>Tổ chức tài chính cần PFM engine</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-key-resources">
+      <div class="bmc-cell-label">Key Resources</div>
+      <div class="bmc-cell-content">
+        <li>API platform tuân thủ PSD-2</li>
+        <li>Thuật toán phân tích dữ liệu tài chính</li>
+        <li>Team kỹ thuật tại Iceland, Finland, Sweden, UK, Poland, Singapore</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-channels">
+      <div class="bmc-cell-label">Channels</div>
+      <div class="bmc-cell-content">
+        <li>Website meniga.com + awards/distinctions</li>
+        <li>Quotes từ executives đối tác</li>
+        <li>Hội nghị &amp; sự kiện ngành ngân hàng</li>
+      </div>
+    </div>
+  </div>
+  <div class="bmc-bottom-row">
+    <div class="bmc-cost">
+      <strong>Cost Structure:</strong> Đầu tư vào marketing và data analytics solutions (tăng 19.9% YoY); Phát triển APIs; Chi phí hành chính €15.7M (FY2018/2019)
+    </div>
+    <div class="bmc-revenue">
+      <strong>Revenue Streams:</strong> Software license dài hạn — €13.5M FY2019 (+17.4%). License fees ~€7.9M (+49%). Subscription-like contracts với ngân hàng đối tác. Lỗ €1.6M trong giai đoạn đầu tư tăng trưởng.
+    </div>
+  </div>
+</div>
+
+<!-- 7.4 u51.com -->
+<h2>7.4 Business Model Canvas — u51.com (51Xinyongka)</h2>
+
+<div class="metric-row">
+  <div class="metric"><div class="metric-value">138.7M</div><div class="metric-label">Thẻ tín dụng được quản lý (tháng 6/2019)</div></div>
+  <div class="metric"><div class="metric-value">RMB115.8B</div><div class="metric-label">Giao dịch thanh toán thẻ tín dụng (Q2/2019)</div></div>
+  <div class="metric"><div class="metric-value">CAGR 215.3%</div><div class="metric-label">Tăng trưởng doanh thu 2015–2018</div></div>
+  <div class="metric"><div class="metric-value">73%</div><div class="metric-label">Tỷ lệ doanh thu từ credit facilitation &amp; service fees (2018)</div></div>
+</div>
+
+<h3>Đặc điểm kinh doanh</h3>
+<p>51 Credit Card Inc. (51Xinyongka), còn biết đến là u51.com, là nền tảng quản lý thẻ tín dụng lớn nhất Trung Quốc. Ứng dụng phân tích hóa đơn thẻ tín dụng, ứng dụng xin thẻ và giao dịch thanh toán để cung cấp thông tin và khuyến nghị cá nhân hóa. Trong 2015, mở rộng danh mục sang "51 Characters" (asset manager) và "51 Person Loan" (nền tảng cho vay riêng).</p>
+
+<h4>Đối tác chiến lược — China UnionPay</h4>
+<div class="highlight-box">
+  <strong>China UnionPay — tổ chức thẻ tín dụng duy nhất tại Trung Quốc</strong>
+  UnionPay là đối tác quan trọng nhất của u51.com. Members bao gồm: Bank of China, China Merchants Bank, CITIC China International Trust and Investment Corporation (đầu tư nhà nước). Nền tảng không hỗ trợ thẻ từ UnionPay trực tiếp, nhưng có thẻ từ MasterCard và Visa phát hành ở Trung Quốc.
+</div>
+
+<h4>Tăng trưởng thẻ được quản lý (2016–2019)</h4>
+<div class="bar-chart">
+  <div class="bar-chart-title">Số thẻ tín dụng được quản lý trên nền tảng u51.com (triệu thẻ)</div>
+  <div class="bar-row"><div class="bar-label">2016</div><div class="bar-track"><div class="bar-fill" style="width:76.7%"></div></div><div class="bar-value">106.3M</div></div>
+  <div class="bar-row"><div class="bar-label">2017</div><div class="bar-track"><div class="bar-fill" style="width:88.7%"></div></div><div class="bar-value">123.0M</div></div>
+  <div class="bar-row"><div class="bar-label">2018</div><div class="bar-track"><div class="bar-fill" style="width:85.6%"></div></div><div class="bar-value">118.6M</div></div>
+  <div class="bar-row"><div class="bar-label">2019</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">138.7M</div></div>
+  <p class="note" style="margin-top:8px">CAGR 9.27% (2016–2019). Dữ liệu: 51 Credit Card 2019a.</p>
+</div>
+
+<h4>Sản phẩm đa dạng (4 categories)</h4>
+<ul class="detail-list">
+  <li><strong>51 Credit Card Manager</strong> — so sánh và phân tích ưu đãi thẻ tín dụng theo: gia đình trẻ, phụ nữ, du lịch, power users, khách sạn, hàng không, thể thao, ẩm thực</li>
+  <li><strong>51 Characters</strong> (2015) — quản lý tài sản (asset manager)</li>
+  <li><strong>51 People</strong> — mạng lưới xã hội tài chính</li>
+  <li><strong>Give Flowers (Tặng Hoa)</strong> — dành riêng cho khách hàng trẻ, rút ngắn quy trình vay truyền thống</li>
+</ul>
+
+<h4>Kênh phân phối — "Uncle Bo"</h4>
+<p>51Xinyongka quảng bá sản phẩm qua Wu Xiubo, đại sứ thương hiệu nổi tiếng Trung Quốc — diễn viên, nhạc sĩ, nhà sản xuất, còn được gọi là "Uncle Bo" (Bác Bố). Đây là Chief Product Experience Officer của công ty. Tuy nhiên, do bê bối cá nhân vào 2020, tên của Wu Xiubo không còn xuất hiện trên website.</p>
+
+<h4>Hiệu quả tài chính</h4>
+<table class="vc-table">
+  <thead>
+    <tr><th>Năm</th><th>Doanh thu (RMB triệu)</th><th>Lợi nhuận/Lỗ (RMB triệu)</th><th>Biên lợi nhuận hoạt động</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>2015</td><td>89.7</td><td>-147.6</td><td>—</td></tr>
+    <tr><td>2016</td><td>—</td><td>+86.6</td><td>—</td></tr>
+    <tr><td>2017</td><td>—</td><td>+777.2</td><td>31.1%</td></tr>
+    <tr><td>2018</td><td>2,812.0</td><td>+65.3</td><td>0.02% (adj. net margin 17.3%)</td></tr>
+  </tbody>
+</table>
+<p class="note">Doanh thu CAGR 215.3% (2015→2018). Chi phí vận hành tăng CAGR 120.6% từ RMB255.7M (2015) lên RMB2,746.4M (2018). Nguồn doanh thu chính: credit facilitation &amp; service fees (~73% năm 2018). Volume cho vay: RMB815.3M (2015) → RMB20,457.4M (2018).</p>
+
+<div class="bmc-container">
+  <div class="bmc-title">Business Model Canvas — u51.com (51Xinyongka)</div>
+  <div class="bmc-grid">
+    <div class="bmc-cell bmc-key-partners">
+      <div class="bmc-cell-label">Key Partners</div>
+      <div class="bmc-cell-content">
+        <li>China UnionPay (độc quyền TQ)</li>
+        <li>Bank of China, China Merchants Bank, CITIC</li>
+        <li>MasterCard, Visa (thẻ quốc tế)</li>
+        <li>Wu Xiubo (đại sứ thương hiệu)</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-key-activities">
+      <div class="bmc-cell-label">Key Activities</div>
+      <div class="bmc-cell-content">
+        <li>Phân tích hóa đơn &amp; giao dịch thẻ</li>
+        <li>So sánh &amp; đề xuất sản phẩm thẻ</li>
+        <li>Credit facilitation (cho vay)</li>
+        <li>Marketing qua KOL (Uncle Bo)</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-value-prop">
+      <div class="bmc-cell-label">Value Propositions</div>
+      <div class="bmc-cell-content">
+        <li>Quản lý toàn bộ thẻ tín dụng một chỗ</li>
+        <li>So sánh ưu đãi thẻ theo nhu cầu cá nhân</li>
+        <li>Tự động hóa thanh toán thẻ</li>
+        <li>Dịch vụ vay cầu nối (Give Flowers)</li>
+        <li>100M+ người dùng → network effect mạnh</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-cust-rel">
+      <div class="bmc-cell-label">Customer Relationships</div>
+      <div class="bmc-cell-content">
+        <li>App mobile trung tâm</li>
+        <li>B2C: người dùng thẻ tín dụng Trung Quốc</li>
+        <li>Marketing via Uncle Bo (KOL)</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-cust-seg">
+      <div class="bmc-cell-label">Customer Segments</div>
+      <div class="bmc-cell-content">
+        <li>B2C: người dùng thẻ tín dụng Trung Quốc</li>
+        <li>Đặc biệt: khách hàng trẻ (Give Flowers)</li>
+        <li>SME cần giải pháp quản lý thẻ doanh nghiệp</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-key-resources">
+      <div class="bmc-cell-label">Key Resources</div>
+      <div class="bmc-cell-content">
+        <li>Dữ liệu 83M+ người dùng đăng ký</li>
+        <li>Hợp tác độc quyền UnionPay</li>
+        <li>Thuật toán phân tích tín dụng</li>
+      </div>
+    </div>
+    <div class="bmc-cell bmc-channels">
+      <div class="bmc-cell-label">Channels</div>
+      <div class="bmc-cell-content">
+        <li>App mobile (iOS &amp; Android)</li>
+        <li>KOL marketing (Uncle Bo)</li>
+        <li>Social media Trung Quốc</li>
+      </div>
+    </div>
+  </div>
+  <div class="bmc-bottom-row">
+    <div class="bmc-cost">
+      <strong>Cost Structure:</strong> Origination &amp; servicing costs (>20% tổng chi phí 2018); Sales &amp; marketing (>20%); R&amp;D (12% tổng chi phí)
+    </div>
+    <div class="bmc-revenue">
+      <strong>Revenue Streams:</strong> Credit facilitation &amp; service fees (~73% năm 2018). Volume cho vay RMB20,457.4M (2018). Commission từ thẻ. IPO tại Hồng Kông.
+    </div>
+  </div>
+</div>
+
+<!-- 7.5 VC Analysis -->
+<h2>7.5 Phân tích vốn đầu tư mạo hiểm — PFM</h2>
+
+<div class="metric-row">
+  <div class="metric"><div class="metric-value">$3.9B</div><div class="metric-label">Đầu tư vào PFM Mỹ (Jan 2017–Apr 2020, 122 vòng)</div></div>
+  <div class="metric"><div class="metric-value">$2.6B</div><div class="metric-label">Đầu tư vào PFM EU (59 vòng cùng kỳ)</div></div>
+  <div class="metric"><div class="metric-value">€385.2M</div><div class="metric-label">Tổng gọi vốn năm 2015 (đỉnh điểm, tăng trưởng CAGR 153.7%)</div></div>
+  <div class="metric"><div class="metric-value">€238.8M</div><div class="metric-label">Tổng gọi vốn năm 2016 (-38% so với 2015)</div></div>
+</div>
+
+<h3>Bảng 7.2 — Trung vị vốn theo vòng gọi vốn (€M)</h3>
+<table class="vc-table">
+  <thead>
+    <tr><th>Vòng</th><th>Overall Median (€M)</th><th>Median EU (€M)</th><th>Median US (€M)</th><th>n mẫu</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Seed</strong></td><td>1.1</td><td>1.1</td><td>1.1</td><td>22</td></tr>
+    <tr><td><strong>A</strong></td><td>5.5</td><td>5.5</td><td>5.4</td><td>27</td></tr>
+    <tr><td><strong>B</strong></td><td>10.2</td><td>9.0</td><td>10.2</td><td>18</td></tr>
+    <tr><td><strong>C</strong></td><td>23.1</td><td>23.1</td><td>27.2</td><td>7</td></tr>
+    <tr><td><strong>D</strong></td><td>124.9</td><td>n/a</td><td>124.9</td><td>3</td></tr>
+    <tr><td><strong>E, F, IPO</strong></td><td>n/a</td><td>n/a</td><td>n/a</td><td>0</td></tr>
+  </tbody>
+</table>
+
+<h4>Phân tích tăng trưởng vốn giữa các vòng</h4>
+<table class="vc-table">
+  <thead>
+    <tr><th>Chuyển vòng</th><th>Overall</th><th>EU</th><th>US</th><th>Nhận xét</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Seed → A</strong></td><td>—</td><td>+64%</td><td><strong>+398%</strong></td><td>US tăng gấp 6.2x so với EU — PFM Mỹ tăng nhanh hơn nhiều ở early stage</td></tr>
+    <tr><td><strong>A → B</strong></td><td>~+87%</td><td>+87%</td><td><strong>+171%</strong></td><td>Khoảng cách tiếp tục nới rộng — US tăng gấp đôi EU</td></tr>
+    <tr><td><strong>B → C</strong></td><td>—</td><td><strong>+328%</strong></td><td>+143%</td><td>Đảo chiều — EU vượt US ở growth stage (n nhỏ, cần thận trọng)</td></tr>
+  </tbody>
+</table>
+
+<h4>Thời gian giữa các vòng</h4>
+<ul class="detail-list">
+  <li><strong>Seed → A:</strong> 1.16 năm (EU) vs. 0.71 năm (US) — EU mất thêm ~5 tháng để gọi vòng A</li>
+  <li><strong>A → B:</strong> ~1.2 năm cho cả hai thị trường — tương đồng hoàn toàn</li>
+  <li>Kết luận: Thị trường PFM Mỹ trưởng thành hơn EU — nhiều fintech mới hơn được thành lập và vốn lớn hơn được huy động. EU vẫn trong giai đoạn tăng trưởng.</li>
+</ul>
+
+<h4>Xu hướng gọi vốn theo năm</h4>
+<div class="bar-chart">
+  <div class="bar-chart-title">Số vòng gọi vốn PFM theo năm (EU vs US, mẫu April 2000–June 2017)</div>
+  <div class="bar-legend">
+    <span><span class="legend-dot" style="background:var(--text-secondary)"></span>EU</span>
+    <span><span class="legend-dot" style="background:var(--text-muted)"></span>US</span>
+  </div>
+  <div class="bar-row"><div class="bar-label">2008</div><div class="bar-track"><div class="bar-fill eu" style="width:8%"></div></div><div class="bar-value">~2 (EU)</div></div>
+  <div class="bar-row"><div class="bar-label">2009</div><div class="bar-track"><div class="bar-fill us" style="width:21%"></div></div><div class="bar-value">~5 (US peak)</div></div>
+  <div class="bar-row"><div class="bar-label">2011</div><div class="bar-track"><div class="bar-fill eu" style="width:8%"></div></div><div class="bar-value">2 + EU bắt đầu tăng</div></div>
+  <div class="bar-row"><div class="bar-label">2015</div><div class="bar-track"><div class="bar-fill eu" style="width:25%"></div></div><div class="bar-value">~6 EU (EU peak)</div></div>
+  <div class="bar-row"><div class="bar-label">2016</div><div class="bar-track"><div class="bar-fill" style="width:42%"></div></div><div class="bar-value">~12 (EU+US combined)</div></div>
+  <div class="bar-row"><div class="bar-label">2017</div><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div><div class="bar-value">~12 (EU+US combined)</div></div>
+  <p class="note">Chú ý: US PFM market ổn định 1–2 fintech mới/năm từ 2010. EU tăng đều, đạt đỉnh 2015. Nguồn: Fischer 2021, Figure 7.2 &amp; 7.3.</p>
+</div>
+
+<!-- Summary -->
+<div class="summary-box">
+  <h3>Tổng kết Chương 7 — PFM</h3>
+  <div class="bmc-container" style="margin-top:16px">
+    <div class="bmc-title">Business Model Canvas — PFM Segment Tổng Hợp (Figure 7.7)</div>
+    <div class="bmc-grid">
+      <div class="bmc-cell bmc-key-partners">
+        <div class="bmc-cell-label">Key Partners</div>
+        <div class="bmc-cell-content">
+          <li>Tổ chức tài chính, ngân hàng, nhà phát hành thẻ tín dụng</li>
+          <li>Đối tác chiến lược với fintech khác: LendingClub, OnDeck, Marcus by Goldman Sachs</li>
+        </div>
+      </div>
+      <div class="bmc-cell bmc-key-activities">
+        <div class="bmc-cell-label">Key Activities</div>
+        <div class="bmc-cell-content">
+          <li>PSD-2 mở quyền truy cập thị trường thanh toán</li>
+          <li>Hiện diện trực tuyến đáng tin cậy</li>
+          <li>Công cụ tính toán miễn phí</li>
+        </div>
+      </div>
+      <div class="bmc-cell bmc-value-prop">
+        <div class="bmc-cell-label">Value Propositions</div>
+        <div class="bmc-cell-content">
+          <li>Quản lý &amp; kiểm soát giao dịch tài chính dễ dàng</li>
+          <li>Tổng quan tình hình tài chính</li>
+          <li>Auto-categorize, visualize, evaluate</li>
+          <li>Miễn phí cho người dùng</li>
+          <li>Insight vào thói quen tài chính</li>
+          <li>Cổng vào quan hệ khách hàng</li>
+        </div>
+      </div>
+      <div class="bmc-cell bmc-cust-rel">
+        <div class="bmc-cell-label">Customer Relationships</div>
+        <div class="bmc-cell-content">
+          <li>Tự động hóa cao</li>
+          <li>Giao diện đơn giản, dễ dùng</li>
+        </div>
+      </div>
+      <div class="bmc-cell bmc-cust-seg">
+        <div class="bmc-cell-label">Customer Segments</div>
+        <div class="bmc-cell-content">
+          <li>B2C: Khách hàng ngân hàng bán lẻ / người tiêu dùng</li>
+          <li>B2B: White-label cho ngân hàng &amp; tổ chức tài chính</li>
+        </div>
+      </div>
+      <div class="bmc-cell bmc-key-resources">
+        <div class="bmc-cell-label">Key Resources</div>
+        <div class="bmc-cell-content">
+          <li>Phát triển &amp; duy trì APIs tuân thủ pháp lý</li>
+        </div>
+      </div>
+      <div class="bmc-cell bmc-channels">
+        <div class="bmc-cell-label">Channels</div>
+        <div class="bmc-cell-content">
+          <li>Social media (Reddit, Facebook)</li>
+          <li>SEO (Google search)</li>
+        </div>
+      </div>
+    </div>
+    <div class="bmc-bottom-row">
+      <div class="bmc-cost">
+        <strong>Cost Structure:</strong> Đầu tư cao vào marketing &amp; giải pháp data analytics; Phát triển APIs cho đối tác
+      </div>
+      <div class="bmc-revenue">
+        <strong>Revenue Streams:</strong> Commission model và affiliate marketing
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top:20px"><strong>So sánh 4 mô hình:</strong></p>
+  <table class="vc-table">
+    <thead>
+      <tr><th>Tiêu chí</th><th>Mint</th><th>Credit Karma</th><th>Meniga</th><th>u51.com</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Mô hình</td><td>B2C (+ B2B white-label)</td><td>B2C</td><td>Thuần B2B</td><td>B2C + Lending</td></tr>
+      <tr><td>Doanh thu</td><td>Commission + quảng cáo</td><td>Commission</td><td>Software license</td><td>Credit facilitation fees</td></tr>
+      <tr><td>Thị trường</td><td>Mỹ (global via Intuit)</td><td>Mỹ</td><td>Châu Âu</td><td>Trung Quốc</td></tr>
+      <tr><td>Lợi thế</td><td>Intuit ecosystem, nổi tiếng nhất</td><td>85M users, SEO dominance</td><td>B2B API platform, PSD-2 ready</td><td>Thị trường TQ 1.4B dân</td></tr>
+      <tr><td>Vốn huy động</td><td>$31.8M (pre-acquisition)</td><td>$868M (lớn nhất)</td><td>$34.5M</td><td>$459M</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="note">Nguồn: Matthias Fischer, "Fintech Business Models", De Gruyter 2021, Chapter 7 (trang 139–156). Dữ liệu: CBInsights 2019, Crunchbase 2020, Intuit 2019, 51 Credit Card 2019a, Companies House 2019, Meniga 2019, 2020.</p>
+
+<nav class="chapnav">
+  <a href="ch6-fbm.html"><span class="lbl">Chương trước</span>Chương 6: Cho Vay Bảng Cân Đối & Factoring</a>
+  <a href="ch8-fbm.html"><span class="lbl">Chương sau</span>Chương 8: Tác Động Của Công Nghệ Blockchain</a>
+</nav>
+</body>
+</html>
