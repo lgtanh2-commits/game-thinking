@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tổng hợp insight</title>
+  <title>Insight Product Management</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -395,6 +395,89 @@
       background: var(--color-sprout-dark);
     }
 
+    /* ── Đánh dấu đã đọc ── */
+    .read-toggle {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--color-mist);
+      background: #ffffff;
+      color: var(--color-ash);
+      border-radius: var(--radius-buttons);
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background .15s ease, border-color .15s ease, color .15s ease;
+    }
+
+    .read-toggle:hover {
+      border-color: var(--color-sprout);
+      color: var(--color-sprout-dark);
+    }
+
+    .read-toggle .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1.5px solid var(--color-mist);
+      flex: none;
+    }
+
+    .read-toggle.is-read {
+      background: var(--color-sage-whisper);
+      border-color: var(--color-sprout);
+      color: var(--color-sprout-dark);
+    }
+
+    .read-toggle.is-read .dot {
+      background: var(--color-sprout);
+      border-color: var(--color-sprout);
+    }
+
+    .chapter-row.is-read {
+      background: var(--color-parchment);
+      border-color: var(--color-dew);
+    }
+
+    .chapter-row.is-read .chapter-text h3 {
+      color: var(--color-ash);
+    }
+
+    .progress-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: var(--radius-badges);
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      background: var(--color-dew);
+      color: var(--color-slate-ink);
+    }
+
+    .progress-badge.all-read {
+      background: var(--color-sage-whisper);
+      color: var(--color-sprout-dark);
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 4px;
+      background: var(--color-dew);
+      border-radius: 999px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--color-sprout);
+      border-radius: 999px;
+    }
+
     @media (max-width: 560px) {
       .hero {
         padding: 48px 20px 64px;
@@ -413,7 +496,8 @@
         flex-wrap: wrap;
       }
 
-      .read-btn {
+      .read-btn,
+      .read-toggle {
         margin-left: 54px;
       }
 
@@ -438,7 +522,7 @@
 <body>
 
   <nav class="topnav">
-    <a class="brand" href="#/">Tổng hợp insight</a>
+    <a class="brand" href="#/">Insight Product Management</a>
     <span class="crumb" id="crumb"></span>
   </nav>
 
@@ -446,8 +530,8 @@
   <div id="view-library">
     <div class="hero">
       <div class="hero-inner">
-        <h1>Tổng hợp insight <span class="accent">trong Game Thinking</span></h1>
-        <p class="lead">Được tổng hợp từ The art of Game, Game Thinking.</p>
+        <h1>Insight <span class="accent">trong Product Management</span></h1>
+        <p class="lead">Được tổng hợp từ nhiều sách khác nhau.</p>
         <div class="search-wrap">
           <input type="text" id="search-input" class="search-input" placeholder="Tìm theo tên sách…" autocomplete="off">
         </div>
@@ -827,6 +911,47 @@
         .replace(/"/g, '&quot;');
     }
 
+    /* ── Đánh dấu đã đọc — lưu trong localStorage của trình duyệt, riêng theo máy ── */
+    const READ_STORAGE_KEY = 'ipm-read-chapters-v1';
+
+    function loadReadState() {
+      try {
+        return JSON.parse(localStorage.getItem(READ_STORAGE_KEY) || '{}');
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveReadState(state) {
+      try {
+        localStorage.setItem(READ_STORAGE_KEY, JSON.stringify(state));
+      } catch (e) { /* storage không khả dụng (chế độ riêng tư…) — bỏ qua */ }
+    }
+
+    function chapterKey(slug, n) {
+      return slug + '::' + n;
+    }
+
+    function isChapterRead(slug, n) {
+      return !!loadReadState()[chapterKey(slug, n)];
+    }
+
+    function toggleChapterRead(slug, n) {
+      const state = loadReadState();
+      const key = chapterKey(slug, n);
+      if (state[key]) {
+        delete state[key];
+      } else {
+        state[key] = true;
+      }
+      saveReadState(state);
+    }
+
+    function countRead(slug, chapters) {
+      const state = loadReadState();
+      return chapters.reduce((n, ch) => n + (state[chapterKey(slug, ch.n)] ? 1 : 0), 0);
+    }
+
     function renderBookList() {
       const q = searchQuery.trim().toLowerCase();
       const filtered = LIBRARY.filter(b => b.title.toLowerCase().includes(q));
@@ -843,19 +968,27 @@
       const start = (currentPage - 1) * PAGE_SIZE;
       const pageBooks = filtered.slice(start, start + PAGE_SIZE);
 
-      bookGrid.innerHTML = pageBooks.map(b => `
+      bookGrid.innerHTML = pageBooks.map(b => {
+        const readCount = countRead(b.slug, b.chapters);
+        const total = b.chapters.length;
+        const allRead = readCount === total;
+        const progressPct = total ? Math.round((readCount / total) * 100) : 0;
+        return `
     <a class="book-row" href="#/book/${b.slug}">
       <div class="book-row-main">
         <div class="book-row-top">
           <span class="category-badge">${escapeHtml(b.tag)}</span>
-          <span class="status-badge">${b.chapters.length} chương</span>
+          <span class="status-badge">${total} chương</span>
+          ${readCount > 0 ? `<span class="progress-badge${allRead ? ' all-read' : ''}">${allRead ? '✓ Đã đọc hết' : `Đã đọc ${readCount}/${total}`}</span>` : ''}
         </div>
         <h2>${escapeHtml(b.title)}</h2>
         <div class="book-row-author">${escapeHtml(b.author)}</div>
+        ${readCount > 0 ? `<div class="progress-bar-track"><div class="progress-bar-fill" style="width:${progressPct}%"></div></div>` : ''}
       </div>
       <span class="primary-cta">Xem mục lục →</span>
     </a>
-  `).join('');
+  `;
+      }).join('');
 
       renderPagination(totalPages);
     }
@@ -888,27 +1021,47 @@
         return;
       }
 
+      const readCount = countRead(book.slug, book.chapters);
+      const total = book.chapters.length;
+      const allRead = readCount === total;
+
       document.getElementById('detail-title').textContent = book.title;
       document.getElementById('detail-author').textContent = book.author;
       document.getElementById('detail-meta').innerHTML = `
     <span class="category-badge">${escapeHtml(book.tag)}</span>
-    <span class="status-badge">${book.chapters.length} chương</span>
+    <span class="status-badge">${total} chương</span>
+    <span class="progress-badge${allRead ? ' all-read' : ''}">${allRead ? '✓ Đã đọc hết' : `Đã đọc ${readCount}/${total}`}</span>
   `;
 
       const list = document.getElementById('chapter-list');
-      list.innerHTML = book.chapters.map(ch => `
-    <div class="chapter-row">
+      list.innerHTML = book.chapters.map(ch => {
+        const read = isChapterRead(book.slug, ch.n);
+        return `
+    <div class="chapter-row${read ? ' is-read' : ''}">
       <div class="chapter-num">${ch.n}</div>
       <div class="chapter-text">
         <h3>${escapeHtml(ch.title)}</h3>
         ${ch.sub ? `<div class="sub">${escapeHtml(ch.sub)}</div>` : ''}
       </div>
+      <button type="button" class="read-toggle${read ? ' is-read' : ''}" data-n="${ch.n}"><span class="dot"></span>${read ? 'Đã đọc' : 'Đánh dấu đã đọc'}</button>
       <a class="read-btn" href="${encodeURI(ch.file)}">Đọc →</a>
     </div>
-  `).join('');
+  `;
+      }).join('');
 
       crumb.innerHTML = `/ <b>${escapeHtml(book.title)}</b>`;
     }
+
+    document.getElementById('chapter-list').addEventListener('click', (e) => {
+      const btn = e.target.closest('.read-toggle');
+      if (!btn) return;
+      const bookMatch = (location.hash || '').match(/^#\/book\/(.+)$/);
+      if (!bookMatch) return;
+      const slug = decodeURIComponent(bookMatch[1]);
+      const n = parseInt(btn.dataset.n, 10);
+      toggleChapterRead(slug, n);
+      renderDetail(slug);
+    });
 
     function render() {
       const hash = location.hash || '#/';
