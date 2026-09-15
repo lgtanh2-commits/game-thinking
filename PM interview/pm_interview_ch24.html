@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 24 – Kỹ thuật</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+h1{font-size:2rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+h2{font-size:1.25rem;font-weight:700;margin:48px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--accent-line);}
+h3{font-size:1.05rem;font-weight:700;margin:28px 0 10px;color:var(--text-secondary);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+ul,ol{margin:10px 0 16px 22px;}
+li{margin-bottom:6px;color:var(--text-secondary);}
+strong{color:var(--text);font-weight:700;}
+.book-label{font-size:0.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;}
+.chapter-intro{background:var(--surface);border-left:3px solid var(--accent-line);padding:18px 22px;margin:24px 0 40px;border-radius:0 4px 4px 0;}
+.chapter-intro p{margin:0;font-size:0.95rem;}
+.exercise-block{border:1px solid var(--border);border-radius:6px;margin:36px 0;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:14px 22px;border-bottom:1px solid var(--border);}
+.exercise-header .ex-num{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-header .ex-title{font-size:1.1rem;font-weight:700;color:var(--text);}
+.exercise-body{padding:22px;}
+.question-box{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px 20px;margin-bottom:20px;}
+.question-box .q-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.question-box p{margin:0;font-style:italic;color:var(--text-secondary);}
+.code-block{background:#1a1a1a;color:#e8e8e8;border-radius:4px;padding:16px 20px;margin:14px 0;font-family:'Courier New',monospace;font-size:0.88rem;line-height:1.7;overflow-x:auto;}
+.code-block .comment{color:#888;}
+.code-block .keyword{color:#ccc;}
+.complexity-table{width:100%;border-collapse:collapse;margin:14px 0;}
+.complexity-table th{background:var(--surface-dark);padding:10px 14px;text-align:left;font-size:0.82rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);}
+.complexity-table td{padding:10px 14px;border:1px solid var(--border);font-size:0.92rem;color:var(--text-secondary);vertical-align:top;}
+.complexity-table td:nth-child(2){font-family:'Courier New',monospace;font-weight:700;color:var(--text);}
+.insight-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin:16px 0;border-radius:0 4px 4px 0;}
+.insight-box p{margin:0;font-size:0.92rem;color:var(--text-secondary);}
+.step-list{counter-reset:step;list-style:none;margin:0;padding:0;}
+.step-list li{counter-increment:step;display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
+.step-list li:last-child{border-bottom:none;}
+.step-list li::before{content:counter(step);width:26px;height:26px;border:2px solid var(--border-strong);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:700;flex-shrink:0;color:var(--text);margin-top:2px;}
+.step-list li .s-content .s-title{font-weight:700;color:var(--text);margin-bottom:3px;}
+.step-list li .s-content .s-desc{font-size:0.9rem;color:var(--text-secondary);}
+.race-diagram{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px 20px;margin:14px 0;font-family:'Courier New',monospace;font-size:0.85rem;line-height:2;}
+.race-round{margin-bottom:8px;}
+.race-round .r-label{font-weight:700;color:var(--text);font-size:0.82rem;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px;}
+.race-round .r-content{color:var(--text-secondary);}
+.bayesian-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px 18px;margin:10px 0;}
+.bayesian-card .bc-title{font-weight:700;color:var(--text);margin-bottom:4px;}
+.bayesian-card .bc-desc{font-size:0.91rem;color:var(--text-secondary);}
+.recommend-box{background:var(--surface-dark);border:2px solid var(--border-strong);border-radius:4px;padding:16px 20px;margin:16px 0;}
+.recommend-box .rec-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.recommend-box p{margin:0;color:var(--text);font-size:0.95rem;}
+.conclusion-box{margin-top:60px;padding:28px 30px;border:2px solid var(--accent-line);border-radius:4px;background:var(--surface);}
+.conclusion-label{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+.conclusion-box p{margin-bottom:10px;font-size:0.95rem;}
+.conclusion-box p:last-child{margin-bottom:0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 24</div>
+<h1>Kỹ thuật</h1>
+
+<div class="chapter-intro">
+  <p>Câu hỏi kỹ thuật trong phỏng vấn PM không đòi hỏi bạn phải là kỹ sư phần mềm, nhưng cần hiểu đủ để thảo luận về kiến trúc hệ thống, cấu trúc dữ liệu, và các đánh đổi kỹ thuật. Khả năng làm rõ yêu cầu, đề xuất giải pháp hợp lý, và nhận biết giới hạn của mình là những điểm mấu chốt.</p>
+</div>
+
+<!-- BÀI TẬP 1 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 01</div>
+    <div class="ex-title">Thiết kế Load Balancer cho google.com</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Thiết kế một load balancer đơn giản cho google.com. Cấu trúc dữ liệu nào bạn dùng? Tại sao? Định nghĩa độ phức tạp truy cập/xóa/thêm cho mỗi cấu trúc. Thiết kế thuật toán thêm/xóa node. Làm thế nào để chọn server xử lý request?</p>
+    </div>
+
+    <h3>Phân tích hệ thống</h3>
+    <p>Google.com là website toàn cầu — cần ưu tiên server gần nhất với người dùng theo vùng địa lý (ví dụ: người dùng ở California → cluster California). Nếu cluster đó đầy, reroute sang cluster lân cận (Nevada).</p>
+
+    <h3>Cấu trúc dữ liệu: Queue (Hàng đợi FIFO)</h3>
+    <p>Load balancer sử dụng thuật toán <strong>Round-Robin</strong> dựa trên queue. Mỗi "slot" là một node server trong hàng đợi.</p>
+
+    <div class="code-block">
+// Mô phỏng queue với 10 server slots: 1,2,3,4,5,6,7,8,9,10
+// User 1 vào → dequeue → lấy slot 1
+2,3,4,5,6,7,8,9,10
+// User 2 vào → dequeue → lấy slot 2
+3,4,5,6,7,8,9,10
+// User 1 xong → enqueue slot 1 trở lại
+3,4,5,6,7,8,9,10,1</div>
+
+    <h3>Kiến trúc 2 tầng (Two-Tier)</h3>
+    <ul>
+      <li><strong>Tầng 1 — Queue theo tiểu bang:</strong> Sắp xếp ưu tiên server ở tiểu bang gần nhất. Queue được sắp xếp lại để server gần nhất luôn ở đầu (weighted round-robin).</li>
+      <li><strong>Tầng 2 — Queue theo server cluster:</strong> Trong mỗi tiểu bang, phân phối theo vòng tròn giữa các server cụ thể.</li>
+    </ul>
+
+    <h3>Độ phức tạp</h3>
+    <table class="complexity-table">
+      <thead>
+        <tr><th>Thao tác</th><th>Độ phức tạp</th><th>Lý do</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Truy cập (Access)</td><td>O(1)</td><td>peek() — server gần nhất luôn ở đầu hàng</td></tr>
+        <tr><td>Xóa (Delete)</td><td>O(1)</td><td>dequeue() — lấy phần tử đầu</td></tr>
+        <tr><td>Thêm (Add)</td><td>O(1)</td><td>enqueue() — thêm vào cuối</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Thuật toán Queue</h3>
+    <div class="code-block">// Ba hàm cơ bản của Queue:
+peek()           // Trả về head hiện tại: return list.head;
+enqueue(newNode) // Thêm vào cuối: list.end.next = newNode;
+dequeue()        // Lấy và xóa head:
+                 //   node headNode = list.head;
+                 //   list.head = headNode.next;
+                 //   return headNode;</div>
+
+    <h3>Phòng tránh starvation</h3>
+    <div class="insight-box">
+      <p>Slot trở về hàng đợi sau một khoảng thời gian cố định, dù job chưa hoàn thành. Nếu User 1 chiếm slot 1 quá lâu → slot 1 ngừng xử lý job đó và quay lại queue. Job tiếp tục trên slot tiếp theo. Điều này ngăn một request "đóng băng" toàn bộ hệ thống.</p>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Nâng cao:</strong> Level 4 load balancer cân bằng theo network layer (địa chỉ IP, port). Level 7 load balancer cân bằng theo application layer (URL path, HTTP headers, cookie) — cho phép routing thông minh hơn nhưng phức tạp hơn.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 2 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 02</div>
+    <div class="ex-title">Từ điển tra cứu cho Scrabble</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Thiết kế hệ thống tra cứu từ điển cho trò chơi Scrabble. Cấu trúc dữ liệu nào phù hợp nhất?</p>
+    </div>
+
+    <h3>Yêu cầu hệ thống</h3>
+    <p>Đầu vào: mảng chữ cái (ví dụ: {A, E, S, T}). Đầu ra: tất cả các từ có thể tạo từ những chữ đó (seta, tea, sea, set, east, ...). Lưu ý: chữ có thể lặp, không theo thứ tự, có thể là anagram.</p>
+
+    <div class="code-block">String[] lookup(char[] letters) {}
+// Đầu vào: mảng chữ cái {A, E, S, T}
+// Đầu ra: ["seta", "tea", "sea", "set", "east", ...]</div>
+
+    <h3>Cấu trúc dữ liệu: Trie</h3>
+    <p>Trie là cây prefix — mỗi node đại diện một chữ cái, lý tưởng cho tiếng Anh vì từ dài nhất trong Scrabble chỉ 8 ký tự.</p>
+
+    <div class="code-block">class trieNode {
+    char letter;       // Chữ cái tại node này (VD: 'A')
+    boolean endOfWord; // Đây có phải cuối từ hợp lệ không?
+    List&lt;trieNode&gt; children; // Các node con (chữ kế tiếp)
+}</div>
+
+    <h3>Cách xây dựng Trie</h3>
+    <ol class="step-list">
+      <li>
+        <div class="s-content">
+          <div class="s-title">Khởi tạo node gốc</div>
+          <div class="s-desc">Node gốc là ký hiệu đặc biệt ^ (không phải chữ cái). Con của nó là 26 chữ cái A-Z.</div>
+        </div>
+      </li>
+      <li>
+        <div class="s-content">
+          <div class="s-title">Mở rộng đệ quy đến độ sâu 8</div>
+          <div class="s-desc">Mỗi level là một vị trí trong từ. Tổng số node tối đa: 26^8 + 1 ≈ 208 tỷ node (nhưng được tối ưu bằng pruning).</div>
+        </div>
+      </li>
+      <li>
+        <div class="s-content">
+          <div class="s-title">Cắt tỉa các nhánh vô nghĩa (Pruning)</div>
+          <div class="s-desc">Nếu "aaa" không phải từ tiếng Anh, cắt bỏ toàn bộ nhánh đó. Chỉ thực hiện một lần lúc khởi tạo từ file từ điển.</div>
+        </div>
+      </li>
+    </ol>
+
+    <h3>Cách tra cứu với rack chữ cái {A, E, S, T}</h3>
+    <ul>
+      <li>Nhìn vào A → xem E, S, T có là nhánh con không</li>
+      <li>Từ AE → xem S, T có là nhánh con không</li>
+      <li>Từ AS → xem E, T có là nhánh con không</li>
+      <li>Lặp lại cho E, S, T làm chữ bắt đầu...</li>
+    </ul>
+
+    <h3>Độ phức tạp</h3>
+    <table class="complexity-table">
+      <thead>
+        <tr><th>Chỉ số</th><th>Giá trị</th><th>Ghi chú</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Tra cứu mỗi từ</td><td>O(N²)</td><td>N là độ dài từ</td></tr>
+        <tr><td>Số node tối đa</td><td>26^8 + 1</td><td>Sau pruning nhỏ hơn nhiều</td></tr>
+        <tr><td>Bộ nhớ mỗi node</td><td>~11 bytes</td><td>2 (char) + 1 (boolean) + 8 (reference)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- BÀI TẬP 3 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 03</div>
+    <div class="ex-title">Phân tích tần suất thống kê là gì?</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Phân tích tần suất thống kê (Statistical Frequency Analysis) là gì? Hãy giải thích và cho ví dụ.</p>
+    </div>
+
+    <h3>Định nghĩa</h3>
+    <p>Phân tích tần suất thống kê là quá trình <strong>tách dữ liệu thành các thành phần</strong> và xác định thành phần nào xuất hiện nhiều nhất / ít nhất — nhằm tìm ra mẫu hình có ý nghĩa.</p>
+
+    <h3>Ví dụ điển hình: Giải mã mật mã (Cypher)</h3>
+    <div class="insight-box">
+      <p>Trong tiếng Anh, các chữ cái xuất hiện nhiều nhất là <strong>A, E, T, O</strong>. Ít nhất là <strong>Q, X, Z</strong>. Nếu tôi đưa cho bạn một đoạn văn bản đã mã hóa (A→B, B→C, C→D...), bạn có thể tìm chữ xuất hiện nhiều nhất trong mã — đó có khả năng là A hoặc E — và dùng đó làm điểm khởi đầu giải mã.</p>
+    </div>
+
+    <h3>Quy trình giải mã</h3>
+    <ol>
+      <li>Phân tích tần suất chữ cái trong văn bản mã hóa</li>
+      <li>So sánh với tần suất của ngôn ngữ đích (tiếng Anh, tiếng Pháp, v.v.)</li>
+      <li>Thử khớp chữ tần suất cao nhất với A, E, T</li>
+      <li>Kiểm tra xem đoạn văn có đọc được không</li>
+      <li>Thử các ngôn ngữ khác nếu kết quả không khớp</li>
+    </ol>
+
+    <div class="insight-box">
+      <p>Phương pháp này không phải đoán mù — nó <strong>có tính xác định</strong> (deterministic) hơn vì giới hạn không gian tìm kiếm dựa trên xác suất thống kê đã biết.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 4 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 04</div>
+    <div class="ex-title">Thiết kế dịch vụ tìm kiếm Google</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Thiết kế dịch vụ tìm kiếm Google bao gồm các thành phần thiết yếu, logic và các đánh đổi quan trọng.</p>
+    </div>
+
+    <h3>3 bước cốt lõi</h3>
+    <ol>
+      <li><strong>Web Crawler:</strong> Thu thập trang web và theo dõi các link</li>
+      <li><strong>Lưu trữ:</strong> Lưu bản sao các trang web đã crawl</li>
+      <li><strong>Xếp hạng kết quả:</strong> Trả về kết quả phù hợp nhất cho query</li>
+    </ol>
+
+    <h3>5 yếu tố ngữ cảnh người dùng</h3>
+    <ul>
+      <li>Lịch sử tìm kiếm tương tự (search history)</li>
+      <li>Lịch sử tìm kiếm liên quan (context: tìm "C" sau khi tìm "programming" → ngôn ngữ lập trình, không phải chữ cái)</li>
+      <li>Hoạt động trên dịch vụ khác (YouTube, Gmail → sở thích)</li>
+      <li>Vị trí địa lý hiện tại (search "nearby restaurants")</li>
+      <li>Dữ liệu sở thích (thích hamburger → ưu tiên burger joint)</li>
+    </ul>
+
+    <h3>5 tiêu chí xếp hạng kết quả</h3>
+    <ul>
+      <li><strong>CTR + Clickback rate:</strong> Người dùng click vào và có quay lại tìm tiếp không?</li>
+      <li><strong>Truy vấn tiếp theo:</strong> Giảm thời gian để người dùng tìm thấy điều họ cần</li>
+      <li><strong>Thời gian:</strong> Trang mới hơn ưu tiên hơn (TV shows mới nhất)</li>
+      <li><strong>Quảng cáo:</strong> Nhà quảng cáo trả tiền để xuất hiện trên kết quả liên quan</li>
+      <li><strong>Google affiliates:</strong> Khi tìm "map" → Google Maps xuất hiện trước Bing Maps</li>
+    </ul>
+
+    <h3>Bộ lọc nội dung</h3>
+    <ul>
+      <li>Nội dung công kích, ngôn ngữ thù ghét</li>
+      <li>Nội dung vi phạm pháp luật</li>
+      <li>Phishing, malware</li>
+      <li>Nội dung khiêu dâm (đặc biệt với người dùng dưới 18)</li>
+      <li>Spam không liên quan</li>
+    </ul>
+
+    <div class="insight-box">
+      <p><strong>Về quảng cáo:</strong> Quảng cáo là một "hy sinh cần thiết" cho dịch vụ miễn phí. Nó tạo ra win-win: người dùng nhận kết quả phù hợp hơn (quảng cáo được target tốt), Google nhận doanh thu để duy trì dịch vụ.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 5 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 05</div>
+    <div class="ex-title">Khi nào dùng Bayesian thay vì AI?</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Khi nào phương pháp Bayesian phù hợp hơn các kỹ thuật AI (Machine Learning) trong phân tích dự đoán?</p>
+    </div>
+
+    <h3>Phân biệt cơ bản</h3>
+    <div class="insight-box">
+      <p><strong>Bayesian:</strong> Dùng phương pháp thống kê để dự đoán xác suất dựa trên thông tin đã có. Đơn giản hơn, nhanh hơn.<br><strong>AI (Machine Learning):</strong> Thuật toán tự học mẫu hình từ lượng lớn dữ liệu. Phức tạp hơn, cần nhiều dữ liệu hơn.</p>
+    </div>
+
+    <h3>3 tình huống Bayesian phù hợp hơn AI</h3>
+    <div class="bayesian-card">
+      <div class="bc-title">1. Không có đủ dữ liệu</div>
+      <div class="bc-desc">Machine learning cần lượng lớn dữ liệu để học hiệu quả. Khi dataset nhỏ, ML không tăng được sức mạnh dự đoán đáng kể — Bayesian đơn giản hơn và hiệu quả hơn trong trường hợp này.</div>
+    </div>
+    <div class="bayesian-card">
+      <div class="bc-title">2. Muốn tránh overfitting</div>
+      <div class="bc-desc">Khi có quá nhiều dữ liệu và ML cố học quá kỹ — nó bắt đầu học cả "nhiễu" (noise) thay vì tín hiệu thực sự. Bayesian với giả định đơn giản hơn thường tổng quát hóa tốt hơn.</div>
+    </div>
+    <div class="bayesian-card">
+      <div class="bc-title">3. Thiếu kinh nghiệm với ML</div>
+      <div class="bc-desc">Công cụ tốt nhất là công cụ bạn biết dùng. Đôi khi, Bayesian đơn giản được triển khai đúng cách còn hiệu quả hơn ML phức tạp được triển khai sai.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 6 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 06</div>
+    <div class="ex-title">Giảm tiêu thụ băng thông Google Search</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Làm thế nào để giảm tiêu thụ băng thông toàn cầu cho Google Search?</p>
+    </div>
+
+    <h3>3 loại file chính tốn băng thông</h3>
+    <ul>
+      <li><strong>Video:</strong> Tốn nhiều nhất, nhưng Google thường không lưu video — chỉ thumbnail từ bên thứ ba</li>
+      <li><strong>Hình ảnh:</strong> Tốn nhiều hơn text, Google có thể cache ảnh từ bên thứ ba</li>
+      <li><strong>File text (HTML/CSS/JS):</strong> Nhỏ hơn nhưng nhiều về số lượng, cộng với cached web pages</li>
+    </ul>
+
+    <h3>5 giải pháp</h3>
+    <ol>
+      <li><strong>Cache Policies:</strong> Yêu cầu browser của người dùng cache nhiều dữ liệu hơn — ưu tiên với người dùng xa server Google hoặc ở vùng băng thông hạn chế</li>
+      <li><strong>Cache Settings:</strong> Khuyến khích người dùng bật cache settings trên browser</li>
+      <li><strong>Smaller Result Sets:</strong> Nếu người dùng chỉ xem top X kết quả, loại bỏ những kết quả dưới X</li>
+      <li><strong>Less Detailed Results:</strong> Hiển thị snippet nhỏ hơn, ảnh preview độ phân giải thấp hơn, tắt "See Cached Page" mặc định</li>
+      <li><strong>Improve file compression:</strong> Nén ảnh và file tốt hơn</li>
+    </ol>
+
+    <div class="recommend-box">
+      <div class="rec-label">Khuyến nghị</div>
+      <p><strong>Cache Policies + Smaller Result Sets.</strong> Lý do: nỗ lực kỹ thuật minimal nhưng tác động lớn. Không nên xóa snippet dài hay nút "See cached version" — thay vào đó tắt chúng mặc định và cho phép power user bật lên trong settings.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 7 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 07</div>
+    <div class="ex-title">Đua 15 con ngựa — Tìm Top 3</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Bạn có 15 con ngựa tốc độ khác nhau. Đường đua chứa tối đa 5 ngựa. Không có đồng hồ bấm giờ. Cần bao nhiêu cuộc đua để xác định chắc chắn con ngựa nhanh nhất, nhì, ba?</p>
+    </div>
+
+    <h3>Giải pháp: 5 cuộc đua</h3>
+
+    <div class="race-diagram">
+      <div class="race-round">
+        <div class="r-label">Vòng 1-3: Chia nhóm ban đầu</div>
+        <div class="r-content">
+          Đua 1: Ngựa 1-5 → Kết quả: H1 &gt; H2 &gt; H3 &gt; H4 &gt; H5<br>
+          Đua 2: Ngựa 6-10 → Kết quả: H6 &gt; H7 &gt; H8 &gt; H9 &gt; H10<br>
+          Đua 3: Ngựa 11-15 → Kết quả: H11 &gt; H12 &gt; H13 &gt; H14 &gt; H15
+        </div>
+      </div>
+      <div class="race-round">
+        <div class="r-label">Vòng 4: Đua các quán quân</div>
+        <div class="r-content">
+          Đua H1, H6, H11 → Giả sử: H1 &gt; H6 &gt; H11<br>
+          → Loại H12, H13 (vì H11 đứng thứ 3 → không ai cùng nhóm H11 vào top 3)<br>
+          → Loại H8 (vì H6 đứng thứ 2 → H8 tối đa hạng 4)<br>
+          → H1 chắc chắn là #1 (không cần đua nữa)
+        </div>
+      </div>
+      <div class="race-round">
+        <div class="r-label">Vòng 5: Xác định hạng 2 và 3</div>
+        <div class="r-content">
+          Còn lại: H2, H3, H6, H7, H11 → Đua 5 con này<br>
+          → Hạng 1 và 2 trong cuộc đua này = hạng 2 và 3 tổng thể<br>
+          (Cùng với H1 đã biết = Top 3)
+        </div>
+      </div>
+    </div>
+
+    <div class="recommend-box">
+      <div class="rec-label">Đáp án</div>
+      <p>Tổng cộng <strong>5 cuộc đua</strong>. Dù kết quả vòng 5 thay đổi thế nào (ví dụ: H6 &gt; H11 &gt; H7 &gt; H2 &gt; H3), hai vị trí đầu trong vòng 5 luôn là hạng 2 và 3 toàn cuộc.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 8 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 08</div>
+    <div class="ex-title">Đua 16 con ngựa thì sao?</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Câu hỏi tiếp theo: Nếu có 16 con ngựa thay vì 15, cần bao nhiêu cuộc đua?</p>
+    </div>
+
+    <h3>Đáp án: Vẫn là 5 cuộc đua</h3>
+    <p>Trong vòng 4 (đua các quán quân), lần trước chỉ có 3 ngựa → còn chỗ trống. Thêm con ngựa thứ 16 vào vòng 4 (tổng 4 ngựa).</p>
+
+    <ul>
+      <li>Nếu H16 về hạng 4 → loại ngay (không thể vào top 3)</li>
+      <li>Nếu H16 không về cuối → loại ngựa về cuối, giữ H16 trong danh sách ứng viên top 3</li>
+    </ul>
+
+    <div class="insight-box">
+      <p>Bài toán 15 ngựa và 16 ngựa đều giải được trong 5 cuộc đua nhờ tận dụng "slot trống" trong vòng 4. Đây là bài toán kinh điển về phân tích tư duy logic — PM giỏi cần biết phân tách vấn đề thành các bước nhỏ và nhận ra mẫu hình có thể tái sử dụng.</p>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Tổng kết chương 24</div>
+  <p>Câu hỏi kỹ thuật trong phỏng vấn PM không kiểm tra kỹ năng code — chúng kiểm tra khả năng tư duy có hệ thống, làm rõ yêu cầu, và trình bày giải pháp từng bước. Load balancer, Trie, Bayesian, Google Search, hay bài toán đua ngựa — đều có thể được tiếp cận bằng framework: xác định ràng buộc → đề xuất giải pháp đơn giản → phân tích đánh đổi → cải thiện dần. Thừa nhận giới hạn của mình (như "tôi biết về Level 4/7 load balancer nhưng chưa đi sâu") là hoàn toàn chấp nhận được và thể hiện sự trung thực.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch23.html"><span class="lbl">Chương trước</span>Chương 23: Chiến lược: Các Vấn đề Khác</a>
+  <a href="pm_interview_ch25.html"><span class="lbl">Chương sau</span>Chương 25: Câu hỏi Truyền thống</a>
+</nav>
+</body>
+</html>

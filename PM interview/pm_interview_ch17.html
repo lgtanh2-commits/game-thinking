@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 17 – Metrics: Số liệu Sụt giảm | The Product Manager Interview</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.chapter-header{margin-bottom:48px;}
+.chapter-tag{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:32px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;}
+.chapter-subtitle{font-size:17px;color:var(--text-secondary);font-style:italic;margin-bottom:20px;}
+.chapter-intro{font-size:15px;color:var(--text-secondary);line-height:1.7;padding:20px 24px;background:var(--surface);border-left:3px solid var(--accent-line);border-radius:0 6px 6px 0;margin-bottom:8px;}
+.exercise{border:1px solid var(--border);border-radius:8px;margin-bottom:36px;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:16px 24px;border-bottom:1px solid var(--border);}
+.exercise-number{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-title{font-size:17px;font-weight:600;color:var(--text);}
+.exercise-body{padding:24px;}
+.question-block{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;border-radius:0 6px 6px 0;margin-bottom:20px;font-style:italic;color:var(--text-secondary);}
+.answer-section{margin-bottom:20px;}
+.answer-section:last-child{margin-bottom:0;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+p{margin-bottom:12px;color:var(--text-secondary);}
+p:last-child{margin-bottom:0;}
+.funnel{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:8px;}
+.funnel-title{padding:12px 18px;background:var(--surface-dark);font-size:13px;font-weight:600;color:var(--text);border-bottom:1px solid var(--border);}
+.funnel-step{display:flex;align-items:flex-start;padding:10px 18px;border-bottom:1px solid var(--border);gap:14px;}
+.funnel-step:last-child{border-bottom:none;}
+.step-num{min-width:24px;height:24px;background:var(--surface-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text-muted);flex-shrink:0;margin-top:2px;}
+.step-content{flex:1;}
+.step-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.step-detail{font-size:13px;color:var(--text-secondary);}
+.key-insight{background:var(--surface);border-left:3px solid var(--accent-line);padding:14px 18px;border-radius:0 6px 6px 0;margin-top:14px;font-size:14px;color:var(--text-secondary);}
+.key-insight strong{color:var(--text);}
+.conclusion-box{margin-top:64px;padding:28px 32px;border:1px solid var(--border-strong);border-radius:8px;background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+.conclusion-box p{color:var(--text-secondary);margin-bottom:10px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 17</div>
+
+<div class="chapter-header">
+  <div class="chapter-tag">Chương 17</div>
+  <h1>Metrics: Số liệu Sụt giảm</h1>
+  <div class="chapter-subtitle">Metric Declined — Chẩn đoán nguyên nhân khi một chỉ số đi xuống</div>
+  <div class="chapter-intro">
+    Dạng câu hỏi "Metric Declined" yêu cầu ứng viên phân tích nguyên nhân khi một số liệu quan trọng bị sụt giảm bất thường. Phương pháp tiếp cận: <strong>phân tầng dữ liệu theo funnel</strong> — từ nguồn lưu lượng → hành vi người dùng → chuyển đổi → kỹ thuật, để thu hẹp phạm vi nguyên nhân một cách có hệ thống.
+  </div>
+</div>
+
+<!-- BÀI TẬP 1 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 1</div>
+    <div class="exercise-title">Tỷ lệ chuyển đổi giỏ hàng giảm</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Tỷ lệ chuyển đổi từ giỏ hàng sang đơn hàng hoàn thành của một trang eCommerce đột ngột giảm. Bạn sẽ điều tra như thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Funnel Chẩn đoán</div>
+
+      <div class="funnel">
+        <div class="funnel-title">Bước 1 — Phân tầng theo Địa lý</div>
+        <div class="funnel-step">
+          <div class="step-num">→</div>
+          <div class="step-content">
+            <div class="step-name">Trong nước vs. Quốc tế</div>
+            <div class="step-detail">Xác định giảm chỉ ở một thị trường hay toàn cầu. Nếu chỉ một vùng → vấn đề cục bộ (thanh toán, vận chuyển, ngôn ngữ).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="funnel" style="margin-top:12px;">
+        <div class="funnel-title">Bước 2 — Phân tầng theo Thiết bị & Trình duyệt</div>
+        <div class="funnel-step">
+          <div class="step-num">→</div>
+          <div class="step-content">
+            <div class="step-name">Desktop / Mobile / Tablet</div>
+            <div class="step-detail">Nếu chỉ mobile giảm → có thể lỗi giao diện thanh toán trên điện thoại.</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">→</div>
+          <div class="step-content">
+            <div class="step-name">Chrome / Safari / Firefox / Edge</div>
+            <div class="step-detail">Nếu chỉ một trình duyệt giảm → lỗi JavaScript hoặc CSS trên trình duyệt đó.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="funnel" style="margin-top:12px;">
+        <div class="funnel-title">Bước 3 — Phân tầng theo Nguồn lưu lượng</div>
+        <div class="funnel-step">
+          <div class="step-num">→</div>
+          <div class="step-content">
+            <div class="step-name">Google Organic / Trả phí / Trực tiếp / Mạng xã hội / Email</div>
+            <div class="step-detail">Nếu chỉ một kênh giảm → vấn đề ở chất lượng traffic từ kênh đó (ví dụ: chiến dịch quảng cáo không đúng đối tượng).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="funnel" style="margin-top:12px;">
+        <div class="funnel-title">Bước 4 — Phân tích hành vi trên site</div>
+        <div class="funnel-step">
+          <div class="step-num">→</div>
+          <div class="step-content">
+            <div class="step-name">Lượt xem trang / Landing page / Thời gian trên trang / Tốc độ tải</div>
+            <div class="step-detail">Tốc độ tải chậm → người dùng bỏ cuộc trước khi vào giỏ hàng.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="funnel" style="margin-top:12px;">
+        <div class="funnel-title">Bước 5 — Phân tích trang sản phẩm</div>
+        <div class="funnel-step">
+          <div class="step-num">→</div>
+          <div class="step-content">
+            <div class="step-name">Tỷ lệ "Thêm vào giỏ" / Lượt nhấp gợi ý sản phẩm</div>
+            <div class="step-detail">Giảm tỷ lệ thêm vào giỏ → vấn đề ở nội dung sản phẩm hoặc giá cả.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="funnel" style="margin-top:12px;">
+        <div class="funnel-title">Bước 6 — Phân tích quá trình thanh toán</div>
+        <div class="funnel-step">
+          <div class="step-num">→</div>
+          <div class="step-content">
+            <div class="step-name">Phương thức thanh toán không được hỗ trợ / Giao dịch bị từ chối do kiểm tra gian lận</div>
+            <div class="step-detail">Kiểm tra xem có thay đổi nào trong cổng thanh toán hoặc ngưỡng phát hiện gian lận không.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 2 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 2</div>
+    <div class="exercise-title">Điểm đánh giá ứng dụng di động giảm</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Điểm đánh giá sao của ứng dụng di động trên App Store đột ngột giảm. Bạn sẽ điều tra như thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Funnel Chẩn đoán</div>
+
+      <div class="funnel">
+        <div class="funnel-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-name">Nguồn tải về</div>
+            <div class="step-detail">Google Search / Mạng xã hội / Lời mời từ bạn bè → Nhóm người dùng mới có kỳ vọng khác nhau không?</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-name">Cài đặt & Đăng ký</div>
+            <div class="step-detail">Tổng lượt cài đặt / Tỷ lệ đăng ký tài khoản → Người dùng mới gặp khó khăn ngay từ bước đầu?</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-name">Sử dụng thực tế</div>
+            <div class="step-detail">DAU / Thời gian trong app → Người dùng có thực sự dùng app không hay chỉ cài rồi gỡ?</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-name">Loại đánh giá</div>
+            <div class="step-detail">Đánh giá tự nhiên (Earned) / Đánh giá được khuyến khích (Paid/Prompted) / Đánh giá ảo (Fake) → Kiểm tra xem có sự thay đổi trong cơ cấu đánh giá không.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 3 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 3</div>
+    <div class="exercise-title">Tỷ lệ chuyển đổi email CRM giảm 7% tuần qua tuần</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Tỷ lệ chuyển đổi từ chiến dịch email CRM giảm 7% so với tuần trước. Bạn sẽ điều tra như thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Funnel Gửi Email → Chuyển đổi</div>
+
+      <div class="funnel">
+        <div class="funnel-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-name">Server-side Throttling</div>
+            <div class="step-detail">Email server của bạn có bị giới hạn tốc độ gửi không? → Giảm tổng số email được gửi đi.</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-name">Địa chỉ Không hợp lệ</div>
+            <div class="step-detail">Tỷ lệ email bounce (hard bounce) tăng → Danh sách email bị ô nhiễm bởi địa chỉ không tồn tại.</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-name">Lọc phía Máy chủ nhận</div>
+            <div class="step-detail">Danh tiếng người gửi (Sender reputation) / Nội dung bị đánh dấu spam → Email vào thẳng hòm spam.</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-name">Lọc phía Client</div>
+            <div class="step-detail">Bộ lọc spam cục bộ / Tên người gửi bị blacklist → Email bị lọc trước khi vào hộp thư đến.</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-name">Email Không được Mở</div>
+            <div class="step-detail">Tỷ lệ mở (Open rate) giảm → Tiêu đề email (Subject line) không hấp dẫn hoặc gửi sai giờ.</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-name">Hủy Đăng ký</div>
+            <div class="step-detail">Tỷ lệ unsubscribe tăng → Nội dung email không còn phù hợp hoặc gửi quá nhiều.</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">7</div>
+          <div class="step-content">
+            <div class="step-name">Không Nhấp vào Link</div>
+            <div class="step-detail">CTR trong email giảm → CTA (call-to-action) không rõ ràng hoặc offer không hấp dẫn.</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">8</div>
+          <div class="step-content">
+            <div class="step-name">Không Hoàn thành Mục tiêu Chuyển đổi</div>
+            <div class="step-detail">Người dùng click vào nhưng không mua → Trang đích (landing page) có vấn đề, hoặc offer không đủ sức thuyết phục.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 4 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 4</div>
+    <div class="exercise-title">Tốc độ tăng trưởng bài đăng Reddit chậm lại</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Số lượng bài đăng mới trên Reddit tăng trưởng chậm lại đáng kể. Bạn sẽ điều tra như thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Funnel Chẩn đoán</div>
+
+      <div class="funnel">
+        <div class="funnel-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-name">Nguồn lưu lượng</div>
+            <div class="step-detail">Google / Mạng xã hội / Email chia sẻ → Lưu lượng tổng có giảm không? Hay chỉ giảm tỷ lệ chuyển đổi từ người xem sang người đăng bài?</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-name">Thông tin Khách truy cập</div>
+            <div class="step-detail">Thời gian ở lại / Địa lý / Thiết bị / Trình duyệt → Nhóm người dùng nào thay đổi hành vi?</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-name">Người dùng Quay lại</div>
+            <div class="step-detail">Đăng ký / Bình chọn / Bình luận / Tạo bài đăng → Xem xét từng tầng: người dùng có đăng ký nhưng không tạo bài không?</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-name">Vấn đề Kỹ thuật khi Tạo bài</div>
+            <div class="step-detail">
+              Người dùng có truy cập được trang tạo bài không? → Bài có gửi thành công không? → Chỉ ảnh hưởng một số subreddit cụ thể? → Ảnh hưởng loại bài nhất định (Link / Ảnh / Văn bản)?
+            </div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-name">Vấn đề Kỹ thuật Lớn hơn?</div>
+            <div class="step-detail">Kiểm tra xem có lỗi hệ thống nào ảnh hưởng toàn bộ platform không.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="key-insight">
+        <strong>Lưu ý quan trọng:</strong> Khi điều tra, luôn phân biệt giữa <em>vấn đề người dùng</em> (họ không muốn đăng bài nữa) và <em>vấn đề kỹ thuật</em> (họ muốn nhưng không thể đăng được). Hai nguyên nhân này dẫn đến giải pháp hoàn toàn khác nhau.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Tổng kết Chương 17</div>
+  <p>Khi một số liệu sụt giảm, đừng đoán mò — hãy <strong>phân tầng dữ liệu có hệ thống</strong>. Bắt đầu từ phân khúc rộng (địa lý, thiết bị, nguồn traffic) để khoanh vùng vấn đề, sau đó đi sâu vào từng bước của funnel để tìm điểm gãy.</p>
+  <p>Nguyên tắc vàng: <em>Thu hẹp phạm vi trước khi đề xuất giải pháp.</em> Một PM giỏi không bao giờ nhảy thẳng từ "số liệu giảm" sang "đây là giải pháp" mà không qua bước chẩn đoán — đó chính là sự khác biệt giữa phỏng đoán và quyết định dựa trên dữ liệu.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch16.html"><span class="lbl">Chương trước</span>Chương 16: Metrics: Số liệu Quan trọng Nhất</a>
+  <a href="pm_interview_ch18.html"><span class="lbl">Chương sau</span>Chương 18: Metrics: Sản phẩm Yêu thích</a>
+</nav>
+</body>
+</html>

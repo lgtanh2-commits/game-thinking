@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 8: Analytics — Định giá sản phẩm mới · The Product Manager Interview</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:860px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:8px;color:var(--text);}
+.subtitle{font-size:1rem;color:var(--text-muted);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--accent-line);}
+h2{font-size:1.1rem;font-weight:700;margin:36px 0 10px;color:var(--text);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.intro-box{background:var(--surface);border-left:3px solid var(--accent-line);padding:18px 22px;margin:24px 0;font-size:1rem;color:var(--text);}
+.framework-box{background:var(--surface);border:1px solid var(--border-strong);padding:18px 22px;margin:20px 0;}
+.framework-title{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+.framework-row{display:flex;gap:16px;margin:8px 0;align-items:flex-start;}
+.framework-key{font-size:.88rem;font-weight:700;color:var(--text);min-width:180px;}
+.framework-val{font-size:.88rem;color:var(--text-secondary);flex:1;}
+.exercise-block{border:1px solid var(--border);margin:36px 0;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:14px 20px;border-bottom:1px solid var(--border);}
+.exercise-num{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-title{font-size:1.08rem;font-weight:700;color:var(--text);}
+.exercise-body{padding:20px 24px;}
+.question-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin-bottom:18px;font-size:.95rem;color:var(--text);font-style:italic;}
+.section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:18px 0 8px;}
+.tip-list{list-style:none;margin:8px 0 14px;padding:0;}
+.tip-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+.tip-list li:last-child{border-bottom:none;}
+.tip-list li::before{content:"→";position:absolute;left:0;color:var(--text-muted);font-size:.82rem;}
+.mistake-list{list-style:none;margin:8px 0 14px;padding:0;}
+.mistake-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+.mistake-list li:last-child{border-bottom:none;}
+.mistake-list li::before{content:"✗";position:absolute;left:0;color:#888;font-size:.82rem;}
+.dialog-block{margin:12px 0;}
+.dialog-row{margin:6px 0;font-size:.88rem;}
+.dialog-role{font-weight:700;color:var(--text);}
+.dialog-text{color:var(--text-secondary);}
+.numbered-list{list-style:none;margin:8px 0 14px;padding:0;counter-reset:item;}
+.numbered-list li{padding:6px 0 6px 28px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);counter-increment:item;}
+.numbered-list li:last-child{border-bottom:none;}
+.numbered-list li::before{content:counter(item);position:absolute;left:0;top:6px;width:20px;height:20px;background:var(--accent-line);color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:2px;}
+.answer-box{background:var(--accent-line);color:#fff;padding:10px 18px;margin-top:14px;display:flex;align-items:center;gap:16px;}
+.answer-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.7;white-space:nowrap;}
+.answer-value{font-size:1rem;font-weight:700;}
+.segment-box{background:var(--surface);border:1px solid var(--border);padding:14px 18px;margin:12px 0;}
+.seg-row{display:flex;gap:12px;margin:6px 0;font-size:.87rem;}
+.seg-name{font-weight:700;color:var(--text);min-width:200px;}
+.seg-desc{color:var(--text-secondary);}
+.divider{border:none;border-top:1px solid var(--border);margin:40px 0;}
+.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--accent-line);background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:12px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+@media(max-width:600px){body{padding:36px 20px 60px;}h1{font-size:1.8rem;}}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 8</div>
+<h1>Analytics: Định giá Sản phẩm Mới</h1>
+<div class="subtitle">3 bài tập định giá sản phẩm lần đầu ra mắt thị trường</div>
+
+<div class="intro-box">
+  Định giá sản phẩm mới là một trong những quyết định khó nhất của PM — không có dữ liệu lịch sử, không có price elasticity đã biết. Ba yếu tố nền tảng luôn phải xem xét: <strong>Giá trị với khách hàng</strong> (willingness to pay), <strong>Giá của đối thủ cạnh tranh</strong> và <strong>Chi phí sản xuất</strong>. Mục tiêu tối đa hóa lợi nhuận và mục tiêu chiếm thị phần dẫn đến hai chiến lược định giá khác nhau.
+</div>
+
+<div class="framework-box">
+  <div class="framework-title">Framework định giá sản phẩm mới</div>
+  <div class="framework-row">
+    <span class="framework-key">1. Customer Value</span>
+    <span class="framework-val">Khách hàng sẵn sàng trả bao nhiêu? (utility, willingness to pay)</span>
+  </div>
+  <div class="framework-row">
+    <span class="framework-key">2. Competitors' Prices</span>
+    <span class="framework-val">Sản phẩm thay thế gần nhất giá bao nhiêu? Đặc biệt khi đối thủ bán sản phẩm có thể thay thế.</span>
+  </div>
+  <div class="framework-row">
+    <span class="framework-key">3. Cost of Goods Sold</span>
+    <span class="framework-val">Chi phí sản xuất là bao nhiêu? Giá sàn để vẫn có lãi.</span>
+  </div>
+  <div class="framework-row">
+    <span class="framework-key">Tối đa lợi nhuận</span>
+    <span class="framework-val">Đặt giá cao hơn đối thủ nếu sản phẩm tốt hơn đáng kể</span>
+  </div>
+  <div class="framework-row">
+    <span class="framework-key">Tối đa thị phần</span>
+    <span class="framework-val">Đặt giá thấp hơn đối thủ; chấp nhận margin thấp để tăng volume</span>
+  </div>
+</div>
+
+<!-- Bài 1 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 1</div>
+    <div class="exercise-title">Định giá xe tự lái Google</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Google nên định giá xe tự lái bao nhiêu?</div>
+
+    <div class="section-label">Điều cần cân nhắc</div>
+    <ul class="tip-list">
+      <li>Đánh giá theo 3 điểm giá: Customer Value, Competitive Price, COGS</li>
+      <li>Nếu mục tiêu tối đa lợi nhuận: đặt giá trên đối thủ</li>
+      <li>Nếu mục tiêu chiếm thị phần: đặt giá dưới đối thủ (chấp nhận margin thấp bù bằng volume)</li>
+    </ul>
+
+    <div class="section-label">Lỗi thường gặp</div>
+    <ul class="mistake-list">
+      <li>Đề xuất chiến lược giá mà không có giải thích thuyết phục</li>
+      <li>Dùng khung price elasticity để giải bài định giá sản phẩm mới</li>
+    </ul>
+
+    <div class="section-label">Đối thoại mẫu</div>
+    <div class="dialog-block">
+      <div class="dialog-row"><span class="dialog-role">CANDIDATE:</span> <span class="dialog-text">Google bán xe hay bán dịch vụ đi xe?</span></div>
+      <div class="dialog-row"><span class="dialog-role">INTERVIEWER:</span> <span class="dialog-text">Bán xe.</span></div>
+      <div class="dialog-row"><span class="dialog-role">CANDIDATE:</span> <span class="dialog-text">Thanh toán một lần hay trả góp?</span></div>
+      <div class="dialog-row"><span class="dialog-role">INTERVIEWER:</span> <span class="dialog-text">Một lần.</span></div>
+      <div class="dialog-row"><span class="dialog-role">CANDIDATE:</span> <span class="dialog-text">Google tự sản xuất hay hợp tác với OEM?</span></div>
+      <div class="dialog-row"><span class="dialog-role">INTERVIEWER:</span> <span class="dialog-text">Tùy bạn quyết định và giải thích lý do.</span></div>
+    </div>
+
+    <div class="section-label">Lý do tự sản xuất (4 lý do)</div>
+    <ul class="numbered-list">
+      <li><strong>Khả thi về mặt thực tế:</strong> Tesla đã chứng minh công ty công nghệ có thể sản xuất xe mà không có kinh nghiệm trước</li>
+      <li><strong>Ra thị trường nhanh hơn:</strong> Phối hợp với OEM mất nhiều thời gian, gây trễ hẹn</li>
+      <li><strong>Bảo toàn trải nghiệm end-to-end:</strong> Apple kiểm soát từng layer → trải nghiệm liền mạch; Google nên làm tương tự</li>
+      <li><strong>Giảm phân mảnh sản phẩm:</strong> Hệ sinh thái mở (như Android) dẫn đến trải nghiệm không đồng nhất</li>
+    </ul>
+
+    <div class="section-label">Chiến lược phân khúc và định giá</div>
+    <div class="segment-box">
+      <div class="seg-row"><span class="seg-name">Giai đoạn 1 — Luxury</span><span class="seg-desc">Nhắm người giàu; đổi mới kỹ thuật thường được người giàu tiên phong (Google Glass, Android đầu tiên). Tương tự Tesla Model S.</span></div>
+      <div class="seg-row"><span class="seg-name">Giai đoạn 2 — Mainstream</span><span class="seg-desc">Sau khi kinh tế quy mô cải thiện, mở rộng sang thị trường đại trà với mức giá phù hợp tầng lớp trung lưu</span></div>
+    </div>
+
+    <div class="section-label">Lý giải mức giá</div>
+    <p style="font-size:.88rem;color:var(--text-secondary);">Tesla Model S giá cơ sở ~$70,000. Đặt giá tương đương $70K vì: nếu cao hơn phải chứng minh tính năng tốt hơn 100–200%; nếu thấp hơn đáng kể, khách hàng luxury giàu có sẽ không thay đổi quyết định mua do chênh lệch vài ngàn USD.</p>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~$70,000 — ngang Tesla Model S, nhắm phân khúc luxury trước</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 2 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 2</div>
+    <div class="exercise-title">Định giá UberX</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Bạn sẽ định giá UberX như thế nào?</div>
+
+    <div class="section-label">Điều cần cân nhắc</div>
+    <ul class="tip-list">
+      <li>Xem xét cả customer value, competitive pricing và COGS</li>
+      <li>Thừa nhận rằng trong thực tế bạn sẽ chạy pricing survey trước</li>
+      <li>Interviewer có thể hỏi thêm về doanh thu tiềm năng với mức giá mới</li>
+    </ul>
+
+    <div class="section-label">Lỗi thường gặp</div>
+    <ul class="mistake-list">
+      <li>Quên tính các phương tiện thay thế như đi bộ, tàu điện ngầm là đối thủ cạnh tranh</li>
+    </ul>
+
+    <div class="section-label">4 biến số định giá UberX</div>
+    <ul class="numbered-list">
+      <li><strong>Chi phí cung ứng (Supplier Costs):</strong> Nhà cung cấp chính là tài xế. Chi phí cơ hội của tài xế = lương công việc khác + chi phí xăng + bảo dưỡng xe</li>
+      <li><strong>Sẵn sàng trả của khách hàng:</strong> Khách có lựa chọn đi bộ, lái xe riêng, taxi, hoặc phương tiện công cộng</li>
+      <li><strong>Hoa hồng Uber:</strong> Uber tạo giá trị bằng cách kết nối tài xế và khách → đề xuất 30% hoa hồng</li>
+      <li><strong>Tỷ lệ bonus:</strong> Giờ cao điểm hay ngày lễ có thể không đủ xe → surge pricing x2 hoặc x3</li>
+    </ul>
+
+    <div class="section-label">Tính toán giá cơ sở</div>
+    <p style="font-size:.88rem;color:var(--text-secondary);">Xăng: $3/gallon, 30 mpg → $0.10/dặm. Cộng thêm chi phí bảo dưỡng và thời gian tài xế → ~$1.50/dặm là cận dưới. Chuyến trung bình ~10 dặm = ~30 phút (gồm thời gian chờ). Với 1.5 chuyến/giờ × $1.50/dặm × 20 dặm = $45/chuyến. Uber 30% = $31.50 cho tài xế, $13.50 cho Uber. Đây là mức tối thiểu — đắt hơn Caltrain nhưng có lý.</p>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">$1.50/dặm + phí khởi hành $5 tối thiểu mỗi chuyến</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 3 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 3</div>
+    <div class="exercise-title">Google phát minh thiết bị dịch chuyển tức thì</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Giả sử Google tạo ra thiết bị dịch chuyển tức thì (teleportation): phân khúc thị trường nào sẽ nhắm đến? Định giá bao nhiêu?</div>
+
+    <div class="section-label">Điều cần cân nhắc</div>
+    <ul class="tip-list">
+      <li>Cho phân khúc: phát triển tiêu chí trước (nhu cầu khách hàng, khả năng chi trả, quy mô thị trường)</li>
+      <li>Cho định giá: xem xét customer value, competitive pricing, COGS</li>
+      <li>Đừng quên tính cả phương tiện thay thế (máy bay) là đối thủ cạnh tranh</li>
+    </ul>
+
+    <div class="section-label">Lỗi thường gặp</div>
+    <ul class="mistake-list">
+      <li>Không xem xét sản phẩm thay thế trong phân tích giá</li>
+      <li>Lý do lựa chọn phân khúc không thuyết phục</li>
+    </ul>
+
+    <div class="section-label">Làm rõ thông số sản phẩm (đối thoại mẫu)</div>
+    <div class="dialog-block">
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Có độ trễ khi dịch chuyển không? → Không, tức thì.</span></div>
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Chi phí mỗi lần dịch chuyển? → $200,000/lần, không phân biệt khoảng cách hay trọng lượng.</span></div>
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Giới hạn kích thước? → Không lớn hơn người bình thường.</span></div>
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Dịch chuyển sinh vật sống? → Không, chỉ vật vô sinh.</span></div>
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Cần thiết bị ở cả hai đầu? → Có.</span></div>
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Số lượng thiết bị và cooldown? → Chỉ 1 thiết bị, cooldown 5 phút.</span></div>
+    </div>
+
+    <div class="section-label">Đặc điểm cần thiết của phân khúc mục tiêu</div>
+    <p style="font-size:.88rem;color:var(--text-secondary);">Hàng hóa nhỏ, giá trị cao, vô sinh, cần vận chuyển tức thì đến địa điểm cố định — không quan tâm chi phí.</p>
+
+    <div class="section-label">4 phân khúc tiềm năng</div>
+    <ul class="numbered-list">
+      <li><strong>Quân đội:</strong> Chuyển vũ khí, vật tư giữa các căn cứ — nhanh hơn và bảo mật hơn các phương án khác</li>
+      <li><strong>Cứu trợ thảm họa:</strong> Gửi vật tư thiết yếu đến nơi hạ tầng giao thông bị phá hủy</li>
+      <li><strong>Chính phủ-to-Chính phủ:</strong> Tài liệu mật cần chuyển an toàn và tức thì</li>
+      <li><strong>Luxury:</strong> Người giàu muốn gây ấn tượng hoặc gửi quà đặc biệt</li>
+    </ul>
+
+    <div class="section-label">Định giá</div>
+    <p style="font-size:.88rem;color:var(--text-secondary);">Đặt giá $1,000,000/lần (profit margin ~80%). Chi phí thực tế Google: ~$200,000/lần. Mức giá $1M phù hợp với: tính độc nhất tuyệt đối (chỉ 1 thiết bị), giá trị bảo mật và tức thì vượt trội, và khả năng chi trả của quân đội/chính phủ với ngân sách hàng nghìn tỷ USD.</p>
+    <p style="font-size:.88rem;color:var(--text-secondary);">Mức $1M loại khỏi phân khúc luxury vì gửi quà với giá $1M là lãng phí với người siêu giàu — nhưng lại hoàn toàn hợp lý với chính phủ và quân đội khi bảo mật là ưu tiên tuyệt đối.</p>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">$1,000,000/lần dịch chuyển — nhắm phân khúc Quân đội &amp; Chính phủ</span>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận Chương 8</div>
+  <p>Định giá sản phẩm mới không có "đáp án đúng" duy nhất — nhưng luôn phải dẫn dắt bằng <strong>ba trụ cột: customer value, competitive price, và COGS</strong>. Câu hỏi làm rõ ngay từ đầu (bán xe hay bán dịch vụ? thanh toán một lần hay trả góp?) thể hiện tư duy PM trưởng thành và giúp hướng bài giải đúng chiều.</p>
+  <p>Lưu ý quan trọng: "đối thủ cạnh tranh" bao gồm cả sản phẩm thay thế — UberX cạnh tranh không chỉ với Lyft mà còn với đi bộ, xe bus, tàu điện ngầm; teleportation cạnh tranh với máy bay, tàu hỏa, xe tải.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch7.html"><span class="lbl">Chương trước</span>Chương 7: Analytics — Data Science</a>
+  <a href="pm_interview_ch9.html"><span class="lbl">Chương sau</span>Chương 9: Analytics — Định giá Sản phẩm Hiện có</a>
+</nav>
+</body>
+</html>

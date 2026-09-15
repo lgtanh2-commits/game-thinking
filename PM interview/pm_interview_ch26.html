@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 26 – Hành vi</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+h1{font-size:2rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+h3{font-size:1.05rem;font-weight:700;margin:24px 0 10px;color:var(--text-secondary);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+ul,ol{margin:10px 0 16px 22px;}
+li{margin-bottom:6px;color:var(--text-secondary);}
+strong{color:var(--text);font-weight:700;}
+.book-label{font-size:0.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;}
+.chapter-intro{background:var(--surface);border-left:3px solid var(--accent-line);padding:18px 22px;margin:24px 0 40px;border-radius:0 4px 4px 0;}
+.chapter-intro p{margin:0;font-size:0.95rem;}
+.exercise-block{border:1px solid var(--border);border-radius:6px;margin:36px 0;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:14px 22px;border-bottom:1px solid var(--border);}
+.exercise-header .ex-num{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-header .ex-title{font-size:1.1rem;font-weight:700;color:var(--text);}
+.exercise-body{padding:22px;}
+.question-box{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px 20px;margin-bottom:20px;}
+.question-box .q-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.question-box p{margin:0;font-style:italic;color:var(--text-secondary);}
+.tips-box{background:var(--surface-dark);border:1px solid var(--border-strong);border-radius:4px;padding:16px 20px;margin:0 0 16px;}
+.tips-box .t-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.tips-box ul{margin:0 0 0 18px;padding:0;}
+.tips-box li{font-size:0.9rem;color:var(--text-secondary);margin-bottom:4px;}
+.story-block{background:var(--surface);border-left:3px solid var(--border-strong);padding:16px 20px;margin:16px 0;border-radius:0 4px 4px 0;}
+.story-block .s-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.story-block p{margin:0 0 8px;font-size:0.92rem;color:var(--text-secondary);}
+.story-block p:last-child{margin:0;}
+.insight-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin:16px 0;border-radius:0 4px 4px 0;}
+.insight-box p{margin:0;font-size:0.92rem;color:var(--text-secondary);}
+.lesson-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0;}
+.lesson-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;}
+.lesson-card .lc-title{font-size:0.78rem;font-weight:700;color:var(--text);margin-bottom:6px;}
+.lesson-card .lc-desc{font-size:0.88rem;color:var(--text-secondary);}
+.priority-list{list-style:none;margin:0;padding:0;}
+.priority-list li{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:0.92rem;color:var(--text-secondary);}
+.priority-list li:last-child{border-bottom:none;}
+.priority-list li .p-num{width:22px;height:22px;border:1.5px solid var(--border-strong);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;flex-shrink:0;color:var(--text);}
+.resource-card{border:1px solid var(--border);border-radius:4px;padding:14px 16px;margin:10px 0;}
+.resource-card .rc-name{font-weight:700;color:var(--text);margin-bottom:4px;}
+.resource-card .rc-value{font-size:0.91rem;color:var(--text-secondary);}
+.conclusion-box{margin-top:60px;padding:28px 30px;border:2px solid var(--accent-line);border-radius:4px;background:var(--surface);}
+.conclusion-label{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+.conclusion-box p{margin-bottom:10px;font-size:0.95rem;}
+.conclusion-box p:last-child{margin-bottom:0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 26</div>
+<h1>Hành vi</h1>
+
+<div class="chapter-intro">
+  <p>Câu hỏi hành vi (Behavioral) yêu cầu bạn kể câu chuyện thực tế từ kinh nghiệm của mình. Phương pháp DIGS™ (Dramatic story, Insightful, Goal-oriented, Succinct) giúp cấu trúc câu trả lời: tạo ra sự căng thẳng, thiết lập nhân vật phản diện, và bạn là người hùng giải quyết vấn đề. Chi tiết cụ thể tạo ra độ tin cậy.</p>
+</div>
+
+<!-- BÀI TẬP 1 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 01</div>
+    <div class="ex-title">Tương tác khó khăn nhất tại nơi làm việc</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Kể về tương tác khó khăn nhất bạn từng trải qua tại nơi làm việc.</p>
+    </div>
+
+    <div class="tips-box">
+      <div class="t-label">Yếu tố tạo nên câu chuyện tốt</div>
+      <ul>
+        <li>Người nghe phải <em>cảm nhận được</em> sự căng thẳng trong câu chuyện</li>
+        <li>Đặt tên cho nhân vật để câu chuyện dễ theo dõi hơn</li>
+        <li>Bạn phải là người hùng — không đổ lỗi hoàn toàn lên người khác</li>
+        <li>Tránh: không nhận trách nhiệm về hành động của mình</li>
+      </ul>
+    </div>
+
+    <div class="story-block">
+      <div class="s-label">Mẫu câu chuyện mạnh</div>
+      <p>Vào tháng 11, CEO — Ines — thông báo rằng nhà đầu tư không hài lòng với tiến độ. Họ muốn công ty chuyển từ xây dựng casino game sang sports game. Tôi sốc — hai thể loại này hoàn toàn khác nhau, hầu như không thể tái sử dụng code. Tôi phản đối, nhưng Ines nói chúng tôi không có lựa chọn: nhà đầu tư sẽ giữ lại $2M nếu chúng tôi không làm theo. Ines ra đi với câu: "Em có 3 ngày để tìm cách thông báo với đội kỹ thuật."</p>
+      <p>Tôi đánh giá 3 lựa chọn: (1) Thông báo thẳng không cảnh báo trước, (2) Giả vờ xây sports game không khác casino, (3) Làm họ <em>nóng lòng muốn</em> xây game mới. Lựa chọn 1 và 2 đều sẽ phá hoại tinh thần hoặc xúc phạm đội. Tôi chọn lựa chọn 3.</p>
+      <p>Tôi tổ chức một buổi team bonding gọi là "Game of the Day" — chia kỹ sư thành nhóm 3 người, mỗi nhóm chơi và đánh giá một sports game được chọn ngẫu nhiên. Sau 2 ngày, họ bắt đầu thực sự thích thể loại này. Tôi cũng gặp riêng từng thành viên để hỏi cảm xúc về việc thử xây sports game. Đến ngày thứ 3, khi tôi thông báo, phản ứng tốt hơn tôi mong đợi — họ thất vọng nhưng hứng khởi muốn thử thách mới.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 2 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 02</div>
+    <div class="ex-title">Giúp khách hàng qua quy trình khó</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Kể về lần bạn giúp khách hàng vượt qua một quy trình khó khăn.</p>
+    </div>
+
+    <div class="story-block">
+      <div class="s-label">Mẫu câu chuyện mạnh</div>
+      <p>Khách hàng Willie phàn nàn rằng anh ta không nhận được tiền ảo trong game dù đã thanh toán nhiều lần. Đây là dịp Tết, toàn bộ developer đang nghỉ phép. Chúng tôi chưa có customer support dashboard, phải pull data thủ công từ database. Willie là người chi tiêu nhiều — chúng tôi không thể để mất anh ta.</p>
+      <p>Tôi yêu cầu ngày và giờ giao dịch — anh ta không nhớ vì có nhiều giao dịch liên tiếp. Tôi nhắc rằng Apple gửi email receipt — anh ta nói quên mật khẩu email. Tôi hỗ trợ anh ta qua "Quên mật khẩu". Sau khi vào được email, tôi hướng dẫn lọc theo email của Apple, sau đó lọc theo game của chúng tôi — còn 20 giao dịch. Anh ta xem từng cái và xác định những lần không nhận được tiền ảo. Tôi đối chiếu với database và xác nhận đó là giao dịch lỗi.</p>
+      <p>Bất ngờ là anh ta <em>xin lỗi</em> vì đã làm mất thời gian tôi. Tôi nói thật sự vui khi tìm ra sự thật và thưởng thêm tiền ảo cho sự thông cảm và kiên nhẫn của anh ta.</p>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Yếu tố tạo nên câu chuyện xuất sắc:</strong> Bối cảnh khó (Tết, không có tool), khách hàng khó tính (không nhớ thông tin), giải pháp sáng tạo (dùng email receipt), kết thúc bất ngờ (khách hàng xin lỗi). Đây là câu chuyện về sự kiên nhẫn, sáng tạo, và lấy khách hàng làm trung tâm.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 3 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 03</div>
+    <div class="ex-title">Xử lý tình huống bận rộn với nhiều yêu cầu cùng lúc</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Mô tả cách bạn xử lý tình huống bận rộn khi 3 người đang chờ sự giúp đỡ của bạn.</p>
+    </div>
+
+    <h3>Bước 1: Làm rõ kênh liên lạc</h3>
+    <p>Trước tiên, xác định đây là giao tiếp in-person, email, hay live chat — mỗi kênh có cách xử lý khác nhau. Ví dụ: live chat.</p>
+
+    <h3>Bước 2: Acknowledge tất cả, ưu tiên theo tiêu chí</h3>
+    <ul>
+      <li>Gửi "Xin chào {TÊN}" cho tất cả để họ biết được nhận ra, không cảm thấy bị bỏ qua</li>
+      <li>Ưu tiên theo: (1) Mức độ nghiêm trọng, (2) Tầm quan trọng của khách hàng, (3) Thời gian giải quyết ước tính</li>
+    </ul>
+
+    <h3>Bước 3: Thiết lập kỳ vọng rõ ràng</h3>
+    <p>Với những người phải chờ: "Cho tôi 30 phút nghiên cứu vấn đề này. Tôi có thể gọi lại khi có giải pháp không?" — Tốt hơn là để họ chờ trong im lặng.</p>
+
+    <h3>Bước 4: Giải quyết song song nếu có thể</h3>
+    <p>Nếu yêu cầu đơn giản, có thể đa nhiệm. Nếu yêu cầu cần tập trung hoàn toàn, xử lý từng cái theo thứ tự ưu tiên.</p>
+
+    <h3>Bước 5: Phòng ngừa tái diễn</h3>
+    <ul class="priority-list">
+      <li><div class="p-num">1</div><span><strong>Thiết lập kỳ vọng:</strong> Đảm bảo mọi người biết bạn không luôn available ngay lập tức</span></li>
+      <li><div class="p-num">2</div><span><strong>Quy trình yêu cầu:</strong> Tất cả request cần ít nhất 1 tuần lead time</span></li>
+      <li><div class="p-num">3</div><span><strong>Phối hợp với sếp:</strong> Làm rõ ưu tiên công việc để tránh conflict</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- BÀI TẬP 4 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 04</div>
+    <div class="ex-title">Rủi ro đã chấp nhận và thất bại</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Cho tôi ví dụ về lần bạn chấp nhận rủi ro và thất bại.</p>
+    </div>
+
+    <div class="story-block">
+      <div class="s-label">Mẫu câu chuyện mạnh (3 thất bại → 1 thành công)</div>
+      <p>Năm 2011, tôi quyết định khởi nghiệp. Thời điểm đó Groupon và Living Social đang bùng nổ, tôi xây dựng công ty daily deals. Sau 9 tháng, thị trường daily deals sụp đổ — tôi pivot sang giao hàng thức ăn địa phương. Sau thêm 9 tháng, công ty thứ hai cũng đóng cửa. Tôi sa thải hơn 50 người và mất $5 triệu USD — một phần của tôi, một phần của nhà đầu tư bao gồm gia đình và bạn bè. Đến nay vẫn có thành viên gia đình không nói chuyện với tôi.</p>
+      <p>Nhìn lại, tôi rút ra 3 bài học đau đớn:</p>
+    </div>
+
+    <div class="lesson-grid">
+      <div class="lesson-card">
+        <div class="lc-title">Không có kế hoạch</div>
+        <div class="lc-desc">Tôi nhảy vào hai cơ hội kinh doanh mà không có kế hoạch rõ ràng hay nghiên cứu thực sự.</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lc-title">Không có cam kết</div>
+        <div class="lc-desc">Tôi bỏ cuộc sau 9 tháng. Tôi chưa bao giờ thực sự tin vào sứ mệnh của cả hai công ty.</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lc-title">Không hiểu khách hàng</div>
+        <div class="lc-desc">Tôi sao chép đối thủ, tin rằng có thể thực thi và marketing tốt hơn — sai lầm cơ bản.</div>
+      </div>
+    </div>
+
+    <div class="story-block">
+      <div class="s-label">Và rồi thành công</div>
+      <p>Lần thứ ba, tôi bắt đầu bằng nghiên cứu khách hàng chuyên sâu, kế hoạch 3 năm, và cam kết cá nhân 30 năm. Năm 2014, tôi ra mắt đối thủ của Craigslist trên mobile. 18 tháng sau: 10 triệu listings, hơn $10 tỷ giao dịch, bán công ty với giá $1.3 tỷ USD.</p>
+    </div>
+
+    <div class="insight-box">
+      <p>Câu chuyện thất bại tốt nhất phải: (1) Thực sự là rủi ro lớn — không phải "tôi không được thăng chức rồi được", (2) Cho thấy bạn học được bài học thực sự, (3) Tốt nhất nếu có phần "vì vậy tôi đã thành công sau đó". Câu chuyện của Lewis Lin trên hoàn hảo vì nó minh họa sự trưởng thành từ thất bại đến thành công lớn.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 5 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 05</div>
+    <div class="ex-title">Vượt qua trở ngại và đạt kết quả</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Kể về lần bạn vượt qua trở ngại và đạt được kết quả.</p>
+    </div>
+
+    <div class="story-block">
+      <div class="s-label">Mẫu câu chuyện mạnh</div>
+      <p>Thời sinh viên, tôi trong nhóm 4 kỹ sư xây e-commerce bằng MySQL, Java, JavaScript và HTML trong 2 tuần. Bất ngờ 2 thành viên rời khóa, người còn lại phải thi nhiều môn. Nếu tôi không làm gì, dự án sẽ thất bại hoàn toàn.</p>
+      <p>Trước tiên, tôi ngồi với thành viên còn lại để hiểu điểm mạnh của anh ta — anh ta đã làm front-end trước đó. Tôi phân công JavaScript và HTML cho anh ta, và tìm kiếm template e-commerce có thể tùy chỉnh để tiết kiệm thời gian thiết kế từ đầu.</p>
+      <p>Tôi tạo GitHub repository với danh sách task rõ ràng trong readme. Tự đặt mục tiêu hàng ngày. Gặp giáo viên mỗi tuần tại office hours — vừa để gỡ vướng, vừa cho thấy tôi nghiêm túc với dự án.</p>
+      <p>Kết quả: nhóm đạt điểm A-. Không hoàn hảo, nhưng cao hơn mức trung bình và cao hơn nhiều so với những gì tôi kỳ vọng khi một nửa team ra đi. Bài học lớn nhất: ràng buộc buộc tôi tập trung vào tính năng cốt lõi thực sự quan trọng.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 6 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 06</div>
+    <div class="ex-title">Sáng tạo ra sản phẩm đột phá</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Kể về lần bạn tạo ra một sản phẩm đột phá.</p>
+    </div>
+
+    <div class="story-block">
+      <div class="s-label">Mẫu câu chuyện mạnh</div>
+      <p>Tôi làm PM tại công ty global với nhiều apps từ Phần Lan. Vấn đề: khó theo dõi app nào đang dùng ad network nào. Tôi hỏi các PM khác — họ cũng gặp vấn đề tương tự. Sau khi nói chuyện với marketing, tôi thấy nếu có platform tổng hợp với phân quyền phù hợp, cả 3 team (product, marketing, engineering) đều có thể theo dõi được.</p>
+      <p>Tôi làm việc với in-house developer trong 1 tháng để xây platform nội bộ. Kết quả: dễ dùng, dễ tùy chỉnh. Cả marketing và product team đều có thể tự thêm sản phẩm và ad network mới — giảm thời gian cập nhật xuống 30%. Quan trọng hơn, chúng tôi không còn phải phụ thuộc vào junior Tony mỗi khi cần thông tin ad network.</p>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Điều làm cho đây là "sáng tạo":</strong> Không phải cải tiến nhỏ mà là nền tảng mới — thay đổi cách 3 team phối hợp. Kết quả đo lường được (giảm 30% thời gian cập nhật). Và quan trọng nhất: ý tưởng xuất phát từ PM quan sát pain point thực tế, không phải từ trên xuống.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 7 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 07</div>
+    <div class="ex-title">Học hỏi ngoài công việc</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Bạn tìm thời gian để duy trì cảm hứng, học kiến thức mới và tìm ý tưởng đổi mới như thế nào?</p>
+    </div>
+
+    <div class="tips-box">
+      <div class="t-label">Nguyên tắc: Rule of Three</div>
+      <ul>
+        <li>Đưa ra đúng 3 nguồn/hoạt động — không ít, không nhiều</li>
+        <li>Người phỏng vấn muốn cảm thấy "thông minh hơn" sau khi nghe — hãy chia sẻ ý tưởng thú vị</li>
+        <li>Tránh câu trả lời quá ngắn (dưới 30 giây)</li>
+      </ul>
+    </div>
+
+    <h3>3 nguồn học hỏi (mẫu)</h3>
+    <div class="resource-card">
+      <div class="rc-name">1. Quora — Góc nhìn từ PM thực chiến</div>
+      <div class="rc-value">Quora là mỏ vàng insight từ các PM và entrepreneur có kinh nghiệm. Tôi đọc trực tiếp từ những người đã đối mặt với thách thức PM tại Facebook, Google, Uber: đánh đổi giữa tốc độ và mục tiêu dài hạn; xây dựng team dynamics; xử lý product launch thất bại.</div>
+    </div>
+    <div class="resource-card">
+      <div class="rc-name">2. Coursera — Cập nhật công nghệ team đang dùng</div>
+      <div class="rc-value">Coursera giúp tôi theo kịp technology stack của team. Tôi không phải developer, nhưng học đủ HTML, CSS và JavaScript qua Coursera để tự thực hiện các thay đổi front-end nhỏ — không còn phụ thuộc vào engineering time cho mọi thứ nhỏ nhặt.</div>
+    </div>
+    <div class="resource-card">
+      <div class="rc-name">3. ProductHunt — Radar sản phẩm mới</div>
+      <div class="rc-value">Mỗi ngày ProductHunt post sản phẩm mới được upvote. Tôi có thể thử apps sớm, thấy cái nào trở thành hit, cái nào tàn. Phần comment của creator giúp tôi hiểu process phát triển sản phẩm thực tế.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 8 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 08</div>
+    <div class="ex-title">Phân tích dữ liệu sâu</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Kể về lần bạn phải phân tích dữ liệu sâu và kết quả đạt được.</p>
+    </div>
+
+    <div class="story-block">
+      <div class="s-label">Mẫu câu chuyện mạnh</div>
+      <p>Game của chúng tôi có 2 loại tiền ảo (hard currency), mỗi loại 6 tier giá — cộng thêm 2 loại tiền chỉ mua được khi hết tiền, tổng cộng 14 cách để người chơi chi tiền. Tôi cần tối ưu hóa doanh thu từ cơ cấu phức tạp này, và còn phải phân tích theo loại player (người chơi nhiều vs ít, người chỉ mua khi bắt buộc).</p>
+      <p>Tôi extract dữ liệu mua hàng tháng vừa qua từ soft launch, tạo nhiều góc nhìn: theo quốc gia, level người chơi, và hành động cuối cùng trước khi mua. Mẫu hình bắt đầu hiện rõ — có thể dự đoán khả năng mua dựa trên một tập hành vi nhất định.</p>
+      <p>Tôi tạo hàng loạt giả thuyết và validate bằng A/B test — thử các bundle khác nhau và mức giảm giá với các nhóm nhỏ người chơi. Ghi lại kết luận dựa trên conversion rate thực tế.</p>
+      <p>Sau 1 tháng dữ liệu, rollout cơ cấu giá và bundle mới trên platform → doanh thu tăng thêm ~$120,000.</p>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Lưu ý quan trọng về data analysis story:</strong> Kinh nghiệm thực sự là khi bạn phải <em>tìm kiếm và làm sạch</em> data — đó là 90% công việc. 10% còn lại là phân tích. Tránh kể chuyện chỉ review Google Analytics hay AdWords — quá đơn giản. Câu chuyện tốt cần: data phức tạp, giả thuyết rõ ràng, insight có thể hành động.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 9 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 09</div>
+    <div class="ex-title">Hai cơ hội kinh doanh kết nối với nhau</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Kể về lần bạn nhận ra hai cơ hội kinh doanh có liên quan đến nhau và cách xác định mối liên hệ đó.</p>
+    </div>
+
+    <div class="story-block">
+      <div class="s-label">Mẫu câu chuyện mạnh</div>
+      <p>Khi ra mắt game tại Đài Loan, tôi phải quyết định: tích hợp SDK của app store địa phương thứ ba, hay tích hợp carrier billing (thanh toán qua nhà mạng điện thoại). Nhìn bề ngoài đây là 2 quyết định riêng biệt.</p>
+      <p>Rồi tôi nhận ra: App store địa phương đó có thẻ prepaid bán ở tiệm convenience store khắp nơi tại Đài Loan. Đây thực ra là carrier billing dưới dạng khác! Điểm chung: đều phục vụ người dùng dưới 18 tuổi không có thẻ tín dụng — thứ mà chúng tôi phải cho phép họ thanh toán.</p>
+      <p>Sau khi hiểu mối liên hệ, câu hỏi không còn là "cái nào?" mà là "cái nào trước?" Chúng tôi triển khai cả hai → doanh thu Đài Loan tăng 60%.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 10 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 10</div>
+    <div class="ex-title">Xây dựng niềm tin với một nhóm</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Kể về lần bạn xây dựng được niềm tin với một nhóm.</p>
+    </div>
+
+    <div class="tips-box">
+      <div class="t-label">Điều cần tránh</div>
+      <ul>
+        <li>Câu chuyện về việc mất niềm tin rồi xin lỗi để lấy lại — phần lớn người phỏng vấn không thích</li>
+        <li>Câu chuyện về việc mất niềm tin vì nói dối, gossiping, hay chơi politics — không bao giờ kể những chuyện này</li>
+      </ul>
+    </div>
+
+    <div class="story-block">
+      <div class="s-label">Mẫu câu chuyện mạnh</div>
+      <p>Khi bắt đầu làm PM mới, tôi tiếp nhận dự án với team partner ở Madrid đang khó chịu. Team Mỹ muốn thay đổi UX vì sản phẩm ban đầu thành công ở Tây Ban Nha — nhưng người dùng Mỹ có thói quen khác. Team Madrid chưa bao giờ làm việc với chúng tôi và không tin tưởng.</p>
+      <p>Để thuyết phục họ hợp tác, tôi viết một báo cáo chi tiết bao gồm: phân tích metrics họ quan tâm theo mục tiêu của họ, đề xuất cải tiến UX cụ thể, ước tính impact của từng cải tiến, và trích dẫn các nguồn uy tín cho mỗi đề xuất.</p>
+      <p>Báo cáo thôi chưa đủ — tôi ngồi trực tiếp với PM Madrid, review từng dòng, từng tính năng. Cuối cùng chúng tôi thống nhất soft launch với một số bổ sung. Khi team Madrid đến văn phòng chúng tôi, tôi chủ động đưa họ đi ăn tối và dẫn đi tham quan — trong khi đồng nghiệp về nhà nghỉ ngơi.</p>
+      <p>Sau 2-3 tháng, sản phẩm cải thiện đáng kể. Team Madrid tin tưởng vào quy trình và phán đoán của tôi. Đỉnh điểm: công ty trao cho team Madrid và tôi giải thưởng Internal Excellence Award — kèm $5,000 tiền thưởng cho mỗi thành viên.</p>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Công thức xây dựng niềm tin:</strong> Thêm giá trị trước khi yêu cầu bất cứ điều gì → Tìm hiểu nhu cầu của nhóm trước khi áp đặt quan điểm → Duy trì nhất quán và cam kết → Nhận ra kết quả của nhóm, không chỉ của cá nhân.</p>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Tổng kết chương 26 — và toàn bộ cuốn sách</div>
+  <p>Câu hỏi hành vi không có câu trả lời đúng/sai — chúng đánh giá khả năng kể chuyện, tự nhận thức, và học hỏi từ kinh nghiệm. Phương pháp DIGS™ và Rule of Three là công cụ giúp cấu trúc câu trả lời thuyết phục. Điều quan trọng nhất: chi tiết cụ thể (tên người, con số, ngày tháng) tạo ra độ tin cậy — không phải lời nói chung chung.</p>
+  <p>Sau 26 chương, bộ kỹ năng PM đầy đủ bao gồm: phân tích metrics, thiết kế sản phẩm, chiến lược thị trường, ước lượng, phân tích dữ liệu, kỹ thuật cơ bản, và kỹ năng soft. Thành công trong phỏng vấn PM đến từ sự kết hợp của tư duy có cấu trúc, lập luận dựa trên dữ liệu, và khả năng kể câu chuyện thuyết phục.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch25.html"><span class="lbl">Chương trước</span>Chương 25: Câu hỏi Truyền thống</a>
+</nav>
+</body>
+</html>

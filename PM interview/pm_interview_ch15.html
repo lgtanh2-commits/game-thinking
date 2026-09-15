@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 15 – Metrics: Đề xuất Số liệu | The Product Manager Interview</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.chapter-header{margin-bottom:48px;}
+.chapter-tag{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:32px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;}
+.chapter-subtitle{font-size:17px;color:var(--text-secondary);font-style:italic;margin-bottom:20px;}
+.chapter-intro{font-size:15px;color:var(--text-secondary);line-height:1.7;padding:20px 24px;background:var(--surface);border-left:3px solid var(--accent-line);border-radius:0 6px 6px 0;margin-bottom:8px;}
+.exercise{border:1px solid var(--border);border-radius:8px;margin-bottom:36px;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:16px 24px;border-bottom:1px solid var(--border);}
+.exercise-number{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-title{font-size:17px;font-weight:600;color:var(--text);}
+.exercise-body{padding:24px;}
+.question-block{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;border-radius:0 6px 6px 0;margin-bottom:20px;font-style:italic;color:var(--text-secondary);}
+.answer-section{margin-bottom:20px;}
+.answer-section:last-child{margin-bottom:0;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.aarm-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;}
+.aarm-card{border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.aarm-card-header{padding:8px 14px;background:var(--surface-dark);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-secondary);}
+.aarm-card-body{padding:12px 14px;}
+.metric-list{list-style:none;padding:0;margin:0;}
+.metric-list li{font-size:14px;color:var(--text-secondary);padding:3px 0;padding-left:14px;position:relative;line-height:1.5;}
+.metric-list li::before{content:'–';position:absolute;left:0;color:var(--text-muted);}
+.metric-note{font-size:13px;color:var(--text-muted);font-style:italic;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);}
+.two-side{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:12px;}
+.side-block{border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.side-header{padding:10px 14px;background:var(--surface-dark);font-size:13px;font-weight:600;color:var(--text);}
+.side-body{padding:14px;}
+.category-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin:10px 0 4px;}
+.category-label:first-child{margin-top:0;}
+p{margin-bottom:12px;color:var(--text-secondary);}
+p:last-child{margin-bottom:0;}
+.conclusion-box{margin-top:64px;padding:28px 32px;border:1px solid var(--border-strong);border-radius:8px;background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+.conclusion-box p{color:var(--text-secondary);margin-bottom:10px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 15</div>
+
+<div class="chapter-header">
+  <div class="chapter-tag">Chương 15</div>
+  <h1>Metrics: Đề xuất Số liệu</h1>
+  <div class="chapter-subtitle">Brainstorming các chỉ số theo khung AARM™</div>
+  <div class="chapter-intro">
+    Trong nhóm câu hỏi này, ứng viên được yêu cầu liệt kê các số liệu phù hợp cho một loại sản phẩm hoặc dịch vụ nhất định. Khung <strong>AARM™</strong> — <strong>A</strong>cquisition (Thu hút), <strong>A</strong>ctivation (Kích hoạt), <strong>R</strong>etention (Giữ chân), <strong>M</strong>onetization (Kiếm tiền) — là công cụ cốt lõi để brainstorm toàn diện và có cấu trúc.
+  </div>
+</div>
+
+<!-- BÀI TẬP 1 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 1</div>
+    <div class="exercise-title">Số liệu cho Thương mại điện tử (eCommerce)</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Hãy liệt kê các số liệu bạn sẽ theo dõi cho một trang thương mại điện tử.
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Phân tích theo khung AARM™</div>
+      <div class="aarm-grid">
+        <div class="aarm-card">
+          <div class="aarm-card-header">A — Thu hút (Acquisition)</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Phiên truy cập hàng ngày (Daily sessions)</li>
+              <li>Chi phí mỗi lượt mua (CPA)</li>
+              <li>Chi phí mỗi lượt nhấp (CPC)</li>
+              <li>Chi phí mỗi nghìn lần hiển thị (CPM)</li>
+              <li>Từ khóa tìm kiếm hàng đầu</li>
+              <li>CTR / tỷ lệ mở / tỷ lệ chuyển đổi email</li>
+              <li>Lượt tải ứng dụng di động</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">A — Kích hoạt (Activation)</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Người dùng mới đăng ký</li>
+              <li>Số lần mở ứng dụng di động</li>
+              <li>Lượt tìm kiếm sản phẩm</li>
+              <li>Giỏ hàng mới được tạo</li>
+              <li>Người dùng đã cung cấp thông tin thanh toán</li>
+              <li>Khách hàng mới có đơn hàng đầu tiên</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">R — Giữ chân (Retention)</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Tỷ lệ chuyển đổi (Conversion rate)</li>
+              <li>Tỷ lệ chuyển đổi từ gợi ý sản phẩm</li>
+              <li>Tỷ lệ bỏ giỏ hàng (Cart abandonment)</li>
+              <li>Kích thước giỏ hàng trung bình</li>
+              <li>Số lượt truy cập/tháng từ người dùng đã kích hoạt</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">M — Kiếm tiền (Monetization)</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Doanh thu mỗi khách hàng</li>
+              <li>Khách hàng đã rời bỏ (Lapsed customers)</li>
+              <li>Số lần mua/năm</li>
+              <li>Doanh thu mỗi lượt nhấp</li>
+              <li>Chi phí bán hàng (Cost of sale)</li>
+              <li>Giá trị vòng đời khách hàng (CLV)</li>
+              <li>Chi phí vận chuyển</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p class="metric-note">Ngoài ra: Vị trí Google SERP, giá vốn hàng bán (COGS), thời gian giao hàng, tình trạng hết hàng, tỷ lệ hoàn trả, lỗi thanh toán, số lượng đánh giá, hệ số lan truyền, thị phần, tương tác mạng xã hội, biên lợi nhuận gộp/ròng.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 2 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 2</div>
+    <div class="exercise-title">Số liệu cho Thị trường Hai chiều (Two-sided Marketplace)</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Liệt kê các số liệu cho một thị trường hai chiều (ví dụ: eBay, Airbnb, Upwork).
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Phân tích theo hai phía thị trường</div>
+      <div class="two-side">
+        <div class="side-block">
+          <div class="side-header">Phía Mua (Buy Side)</div>
+          <div class="side-body">
+            <div class="category-label">Thu hút</div>
+            <ul class="metric-list">
+              <li>Lượt tải ứng dụng di động</li>
+            </ul>
+            <div class="category-label">Kích hoạt</div>
+            <ul class="metric-list">
+              <li>% người dùng có ít nhất 1 lượt tìm kiếm</li>
+            </ul>
+            <div class="category-label">Giữ chân</div>
+            <ul class="metric-list">
+              <li>Lượt tìm kiếm</li>
+              <li>Lượt ghép đôi (matches)</li>
+              <li>Tỷ lệ nhấp (CTR)</li>
+              <li>% người dùng hài lòng</li>
+              <li>Điểm NPS</li>
+            </ul>
+            <div class="category-label">Kiếm tiền</div>
+            <ul class="metric-list">
+              <li>Doanh thu</li>
+              <li>Giá trị giao dịch trung bình</li>
+              <li>Số giao dịch</li>
+            </ul>
+          </div>
+        </div>
+        <div class="side-block">
+          <div class="side-header">Phía Bán (Sell Side)</div>
+          <div class="side-body">
+            <div class="category-label">Thu hút</div>
+            <ul class="metric-list">
+              <li>Số người bán đăng ký mới</li>
+              <li>Tốc độ tăng trưởng người bán</li>
+            </ul>
+            <div class="category-label">Kích hoạt</div>
+            <ul class="metric-list">
+              <li>% người bán có ít nhất 1 listing</li>
+            </ul>
+            <div class="category-label">Giữ chân</div>
+            <ul class="metric-list">
+              <li>Số listing mỗi người bán</li>
+              <li>Điểm NPS của người bán</li>
+            </ul>
+            <div class="category-label">Kiếm tiền</div>
+            <ul class="metric-list">
+              <li>Tổng khối lượng giao dịch (GMV)</li>
+              <li>% giao dịch gian lận</li>
+            </ul>
+            <div class="category-label">Khác</div>
+            <ul class="metric-list">
+              <li>Mức độ tập trung người bán</li>
+              <li>% thị phần của marketplace</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 3 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 3</div>
+    <div class="exercise-title">Số liệu cho SaaS</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Liệt kê các số liệu quan trọng cho một sản phẩm SaaS (Software as a Service).
+    </div>
+
+    <div class="answer-section">
+      <div class="aarm-grid">
+        <div class="aarm-card">
+          <div class="aarm-card-header">A — Thu hút</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Số lượng lead</li>
+              <li>Hệ số lan truyền (Virality)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">A — Kích hoạt</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Người dùng mới đăng ký</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">R — Giữ chân</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>DAU (người dùng hoạt động hàng ngày)</li>
+              <li>Thời gian trên trang (Time on site)</li>
+              <li>Khoảng cách giữa các lần đăng nhập</li>
+              <li>Tỷ lệ rời bỏ (Churn rate)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">M — Kiếm tiền</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Tỷ lệ chuyển đổi sang gói trả phí</li>
+              <li>Số hợp đồng ký mới</li>
+              <li>Tỷ lệ gia hạn (Renewal rate)</li>
+              <li>MRR (Doanh thu định kỳ hàng tháng)</li>
+              <li>Doanh thu trên mỗi người dùng</li>
+              <li>LTV (Giá trị vòng đời)</li>
+              <li>Uptime hệ thống</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 4 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 4</div>
+    <div class="exercise-title">Số liệu cho Ứng dụng Di động</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Liệt kê các số liệu quan trọng cho một ứng dụng di động.
+    </div>
+
+    <div class="answer-section">
+      <div class="aarm-grid">
+        <div class="aarm-card">
+          <div class="aarm-card-header">A — Thu hút</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Số lượt cài đặt (# installs)</li>
+              <li>Chi phí mỗi lượt cài đặt (CPI)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">A — Kích hoạt</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Số tài khoản được tạo sau khi cài đặt</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">R — Giữ chân</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>DAU/MAU (tỷ lệ người dùng hoạt động)</li>
+              <li>Thời gian trong ứng dụng</li>
+              <li>Điểm đánh giá sao (Star rating)</li>
+              <li>Độ dài phiên (Session length)</li>
+              <li>% người dùng để lại đánh giá</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">M — Kiếm tiền</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>% người dùng trả phí</li>
+              <li>LTV (Giá trị vòng đời)</li>
+              <li>ARPU (Doanh thu trung bình mỗi người dùng)</li>
+              <li>Tỷ lệ rời bỏ (Churn rate)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 5 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 5</div>
+    <div class="exercise-title">Số liệu cho Nhà xuất bản Nội dung (Publishers)</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Liệt kê các số liệu quan trọng cho một trang xuất bản nội dung như New York Times, ESPN, Reddit, Quora hoặc Medium.
+    </div>
+
+    <div class="answer-section">
+      <div class="aarm-grid">
+        <div class="aarm-card">
+          <div class="aarm-card-header">A — Thu hút</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Khách truy cập duy nhất/tháng</li>
+              <li>Phiên truy cập/tháng</li>
+              <li>Lượt xem trang/tháng</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">A — Kích hoạt</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Số đăng ký tài khoản</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">R — Giữ chân</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Số trang/phiên (Pages per session)</li>
+              <li>Thời gian mỗi phiên</li>
+              <li>Số phút truy cập/tháng</li>
+              <li>DAU / WAU / MAU</li>
+              <li>Tỷ lệ DAU/MAU</li>
+              <li>Tỷ lệ rời bỏ (Churn)</li>
+              <li>Tỷ lệ thoát (Bounce rate)</li>
+              <li>Tỷ lệ thoát trang (Exit rate)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">M — Kiếm tiền</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>CPM quảng cáo hiển thị (Display ad rates)</li>
+              <li>Số banner quảng cáo mỗi trang</li>
+              <li>Quảng cáo CPC (chi phí mỗi click)</li>
+              <li>Tỷ lệ nhấp quảng cáo (CTR)</li>
+              <li>Quảng cáo CPA và tổng lượt chuyển đổi</li>
+              <li>Doanh thu trung bình mỗi giao dịch</li>
+              <li>Giá trị mỗi lượt truy cập</li>
+              <li>Chi phí thu hút lưu lượng (TAC)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 6 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 6</div>
+    <div class="exercise-title">Số liệu cho Nội dung do Người dùng Tạo (UGC)</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Liệt kê các số liệu quan trọng cho một nền tảng nội dung do người dùng tạo (User-Generated Content) như Wikipedia, YouTube, hay Stack Overflow.
+    </div>
+
+    <div class="answer-section">
+      <div class="aarm-grid">
+        <div class="aarm-card">
+          <div class="aarm-card-header">A — Thu hút</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Tổng lượt truy cập (Visitors)</li>
+              <li>Lượt truy cập quay lại (Returning visitors)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">A — Kích hoạt</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Số người dùng đã đăng ký tài khoản</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">R — Giữ chân</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Người dùng bình chọn / gắn cờ nội dung</li>
+              <li>Người dùng để lại bình luận</li>
+              <li>Người dùng đăng bài (Posters)</li>
+              <li>Người kiểm duyệt nội dung (Moderators)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">M — Kiếm tiền</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Tương tự số liệu của nhà xuất bản (Publisher metrics)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p class="metric-note">Lưu ý: Nền tảng UGC cần đặc biệt chú ý đến funnel đóng góp nội dung — từ người xem → người bình luận → người đăng bài → người kiểm duyệt. Sức khỏe của cộng đồng phụ thuộc vào tỷ lệ này.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 7 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 7</div>
+    <div class="exercise-title">Số liệu cho Hệ thống Phiếu hỗ trợ (Support Tickets)</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Liệt kê các số liệu quan trọng cho một hệ thống hỗ trợ khách hàng.
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Các chỉ số cốt lõi</div>
+      <ul class="metric-list" style="padding-left:0;margin-bottom:12px;">
+        <li style="padding-left:14px;position:relative;font-size:14px;color:var(--text-secondary);padding:4px 0 4px 14px;">Tổng số phiếu hỗ trợ (# tickets)</li>
+        <li style="padding-left:14px;position:relative;font-size:14px;color:var(--text-secondary);padding:4px 0 4px 14px;">Số phiếu phân theo kênh: email / điện thoại / chat trực tuyến</li>
+        <li style="padding-left:14px;position:relative;font-size:14px;color:var(--text-secondary);padding:4px 0 4px 14px;">Thời gian giải quyết trung bình (Avg resolution time)</li>
+        <li style="padding-left:14px;position:relative;font-size:14px;color:var(--text-secondary);padding:4px 0 4px 14px;">Phân loại vấn đề (Concern classification)</li>
+        <li style="padding-left:14px;position:relative;font-size:14px;color:var(--text-secondary);padding:4px 0 4px 14px;">Điểm NPS sau khi hỗ trợ</li>
+        <li style="padding-left:14px;position:relative;font-size:14px;color:var(--text-secondary);padding:4px 0 4px 14px;">Tỷ lệ giải quyết ngay lần đầu (First call resolution rate)</li>
+        <li style="padding-left:14px;position:relative;font-size:14px;color:var(--text-secondary);padding:4px 0 4px 14px;">Số cuộc liên hệ trung bình để giải quyết 1 vấn đề</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 8 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 8</div>
+    <div class="exercise-title">Chỉ số KPI của Uber</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Liệt kê các chỉ số KPI quan trọng cho Uber.
+    </div>
+
+    <div class="answer-section">
+      <div class="aarm-grid">
+        <div class="aarm-card">
+          <div class="aarm-card-header">A — Thu hút</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Tổng lượt tải ứng dụng</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">A — Kích hoạt</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Tổng đăng ký tài khoản</li>
+              <li>% người dùng có thông tin thanh toán</li>
+              <li>% đã yêu cầu ít nhất 1 chuyến</li>
+              <li>% người dùng smartphone đã thử Uber</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">R — Giữ chân</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Số "zeroes" — mở app, không thấy xe</li>
+              <li>Số yêu cầu đặt xe</li>
+              <li>Số chuyến hoàn thành</li>
+              <li>Tỷ lệ hoàn thành / yêu cầu</li>
+              <li>Số chuyến/tháng/khách hàng</li>
+              <li>DAU / WAU / MAU</li>
+              <li>Quãng đường trung bình mỗi chuyến</li>
+              <li>% hủy chuyến</li>
+              <li>Điểm đánh giá tài xế trung bình</li>
+              <li>% áp dụng giá surge</li>
+              <li>Thời gian đến đón trung bình</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aarm-card">
+          <div class="aarm-card-header">M — Kiếm tiền</div>
+          <div class="aarm-card-body">
+            <ul class="metric-list">
+              <li>Tổng doanh thu theo thị trường</li>
+              <li>Giá cước trung bình/chuyến</li>
+              <li>Giá cước trung bình/giờ tài xế</li>
+              <li>Số tài xế đang hoạt động</li>
+              <li>Số giờ phục vụ (Service hours)</li>
+              <li>Giờ phục vụ/tài xế/ngày</li>
+              <li>Tổng số chuyến</li>
+              <li>Số chuyến/tài xế/ngày</li>
+              <li>% phí dịch vụ của Uber</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Tổng kết Chương 15</div>
+  <p>Khung <strong>AARM™</strong> là công cụ mạnh giúp brainstorm số liệu một cách có hệ thống cho bất kỳ loại sản phẩm nào. Mỗi loại hình sản phẩm — eCommerce, Marketplace, SaaS, Mobile App, Publisher, UGC — có trọng tâm số liệu riêng, nhưng đều tuân theo logic chung: <em>Thu hút người dùng → Kích hoạt hành vi đầu tiên → Giữ chân họ quay lại → Kiếm tiền từ sự gắn kết đó.</em></p>
+  <p>Trong phỏng vấn, việc phân loại số liệu theo AARM không chỉ giúp bạn liệt kê đầy đủ mà còn thể hiện tư duy có cấu trúc — điều mà nhà tuyển dụng đánh giá cao ở một Product Manager.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch14.html"><span class="lbl">Chương trước</span>Chương 14: Thiết kế Sản phẩm: Tổng hợp</a>
+  <a href="pm_interview_ch16.html"><span class="lbl">Chương sau</span>Chương 16: Metrics: Số liệu Quan trọng Nhất</a>
+</nav>
+</body>
+</html>

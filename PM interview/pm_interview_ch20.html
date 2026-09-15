@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 20 – Hypothetical: Giải quyết Vấn đề | The Product Manager Interview</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.chapter-header{margin-bottom:48px;}
+.chapter-tag{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:32px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;}
+.chapter-subtitle{font-size:17px;color:var(--text-secondary);font-style:italic;margin-bottom:20px;}
+.chapter-intro{font-size:15px;color:var(--text-secondary);line-height:1.7;padding:20px 24px;background:var(--surface);border-left:3px solid var(--accent-line);border-radius:0 6px 6px 0;margin-bottom:8px;}
+.exercise{border:1px solid var(--border);border-radius:8px;margin-bottom:36px;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:16px 24px;border-bottom:1px solid var(--border);}
+.exercise-number{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-title{font-size:17px;font-weight:600;color:var(--text);}
+.exercise-body{padding:24px;}
+.question-block{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;border-radius:0 6px 6px 0;margin-bottom:20px;font-style:italic;color:var(--text-secondary);}
+.answer-section{margin-bottom:20px;}
+.answer-section:last-child{margin-bottom:0;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+p{margin-bottom:12px;color:var(--text-secondary);}
+p:last-child{margin-bottom:0;}
+.item-list{list-style:none;padding:0;margin:0 0 12px;}
+.item-list li{font-size:14px;color:var(--text-secondary);padding:6px 0 6px 20px;position:relative;line-height:1.6;}
+.item-list li::before{content:'→';position:absolute;left:0;color:var(--text-muted);font-size:12px;}
+.item-list li strong{color:var(--text);}
+.step-list{list-style:none;padding:0;margin:0 0 12px;}
+.step-list li{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-secondary);line-height:1.6;}
+.step-list li:last-child{border-bottom:none;}
+.step-num{font-weight:700;color:var(--text);min-width:24px;}
+.step-content strong{color:var(--text);}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
+.pro-box,.con-box{padding:8px 12px;border-radius:4px;font-size:13px;}
+.pro-box{background:#f0f4f0;border:1px solid #c8d8c8;color:var(--text-secondary);}
+.con-box{background:#f4f0f0;border:1px solid #d8c8c8;color:var(--text-secondary);}
+.pro-box::before{content:'✓ ';color:#4a7a4a;font-weight:700;}
+.con-box::before{content:'✗ ';color:#7a4a4a;font-weight:700;}
+.alloc-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;}
+.alloc-table th{background:var(--surface-dark);color:var(--text);padding:8px 12px;text-align:left;border:1px solid var(--border);font-size:12px;letter-spacing:0.05em;}
+.alloc-table td{padding:8px 12px;border:1px solid var(--border);color:var(--text-secondary);}
+.alloc-table tr:nth-child(odd) td{background:var(--surface);}
+.alloc-table td.highlight{font-weight:600;color:var(--text);}
+.note-box{font-size:13px;color:var(--text-secondary);background:var(--surface);padding:12px 16px;border-radius:6px;border-left:3px solid var(--border-strong);margin-top:12px;font-style:italic;}
+.dialog-block{border-left:2px solid var(--border);padding-left:16px;margin-bottom:16px;}
+.dialog-row{margin-bottom:8px;font-size:14px;color:var(--text-secondary);line-height:1.6;}
+.dialog-row .speaker{font-weight:700;color:var(--text);font-size:12px;letter-spacing:0.05em;text-transform:uppercase;margin-right:8px;}
+.conclusion-box{margin-top:64px;padding:28px 32px;border:1px solid var(--border-strong);border-radius:8px;background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+.conclusion-box p{color:var(--text-secondary);margin-bottom:10px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 20</div>
+
+<div class="chapter-header">
+  <div class="chapter-tag">Chương 20</div>
+  <h1>Hypothetical: Giải quyết Vấn đề</h1>
+  <div class="chapter-subtitle">Problem Solving — Phân tích tình huống và đưa ra giải pháp có cấu trúc</div>
+  <div class="chapter-intro">
+    Câu hỏi giải quyết vấn đề yêu cầu ứng viên <strong>phân tích tình huống phức tạp</strong>, đặt câu hỏi làm rõ, và đề xuất giải pháp có lý luận rõ ràng. Điều nhà phỏng vấn đánh giá không phải là câu trả lời "đúng" mà là <em>quá trình tư duy có cấu trúc và khả năng cân bằng nhiều yếu tố cạnh tranh nhau</em>.
+  </div>
+</div>
+
+<!-- BÀI TẬP 1 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 1</div>
+    <div class="exercise-title">Thuyết phục CEO bán hàng trên Amazon</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn đang trong thang máy với CEO một công ty đèn chiếu sáng. Bạn sẽ nói gì để thuyết phục bà ấy niêm yết sản phẩm trên Amazon?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Làm rõ vấn đề trước</div>
+      <div class="dialog-block">
+        <div class="dialog-row"><span class="speaker">Ứng viên:</span> Tại sao bà ấy không muốn bán trên Amazon?</div>
+        <div class="dialog-row"><span class="speaker">Phỏng vấn viên:</span> Bà lo ngại rằng bán trên Amazon sẽ "ăn thịt" các kênh phân phối khác — cửa hàng của bà và các đối tác như Home Depot, Lowe's.</div>
+      </div>
+      <p>Với thông tin này, có 4 luận điểm để phản bác:</p>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">4 Luận điểm thuyết phục</div>
+      <ul class="item-list">
+        <li><strong>Thị phần Amazon:</strong> Amazon có tệp khách hàng toàn cầu khổng lồ — những người không thể hoặc không có thói quen đến cửa hàng truyền thống. Bà sẽ tiếp cận được thị trường mà hiện tại bà bỏ lỡ.</li>
+        <li><strong>Khách hàng khác nhau:</strong> Người mua trực tuyến trên Amazon không phải là cùng người mua tại cửa hàng brick-and-mortar hay Home Depot. Đây là kênh bổ sung, không phải kênh thay thế — rủi ro "cannibalization" thực tế thấp hơn nhiều so với lo ngại.</li>
+        <li><strong>Kênh phân phối thêm:</strong> Bà đã có chiến lược đa kênh với 3 điểm bán. Thêm Amazon chỉ là thêm một kênh nữa — cannibalization đã tồn tại giữa 3 kênh cũ và mức độ không đáng kể. Câu hỏi quan trọng hơn là bà có đủ nguồn lực để quản lý kênh mới không.</li>
+        <li><strong>Sức hút cảm xúc (FOMO):</strong> Nếu bà không lên Amazon trước, đối thủ sẽ chiếm lợi thế người đi đầu — được xếp hạng cao hơn trên Amazon Search dựa vào lịch sử bán hàng. Một khi đối thủ đã đóng chỗ, bà sẽ rất khó chen vào.</li>
+      </ul>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Khuyến nghị cuối</div>
+      <p>Đề xuất thử nghiệm <strong>pilot 1 năm</strong> trên Amazon Marketplace. Sau đó đánh giá: lợi nhuận tăng thêm từ Amazon có bù đắp được rủi ro cannibalization và chi phí quản lý thêm một kênh không? Nếu có, tiếp tục. Nếu không, chấm dứt hợp đồng.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 2 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 2</div>
+    <div class="exercise-title">Phân bổ 100.000 máy Kindle vào dịp Giáng sinh</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn có 100.000 máy Kindle. Còn 3 tuần đến Giáng sinh. Các đối tác bán lẻ thường bán được số lượng sau mỗi tuần: Best Buy 20K, Walmart 10K, Staples 1K, Fred Meyer 2K, Amazon 50K. Bạn sẽ phân bổ 100K máy như thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Ước tính nhu cầu 3 tuần</div>
+      <table class="alloc-table">
+        <thead>
+          <tr><th>Đối tác</th><th>Nhu cầu/tuần</th><th>Nhu cầu 3 tuần</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Best Buy</td><td>20K</td><td>60K</td></tr>
+          <tr><td>Walmart</td><td>10K</td><td>30K</td></tr>
+          <tr><td>Staples</td><td>1K</td><td>3K</td></tr>
+          <tr><td>Fred Meyer</td><td>2K</td><td>6K</td></tr>
+          <tr><td>Amazon.com</td><td>50K</td><td>150K</td></tr>
+          <tr><td class="highlight">Tổng</td><td class="highlight">83K</td><td class="highlight">249K >> 100K</td></tr>
+        </tbody>
+      </table>
+      <p>Tổng nhu cầu 249K lớn hơn nhiều so với 100K khả dụng → phải ưu tiên và phân bổ có chiến lược.</p>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">4 tiêu chí phân bổ</div>
+      <ul class="item-list">
+        <li><strong>Tổng lợi nhuận (ưu tiên cao nhất):</strong> Tập trung vào kênh mang lại lợi nhuận đơn vị cao nhất.</li>
+        <li><strong>Nhận thức khách hàng:</strong> Nếu Kindle có ở một kênh nhưng hết hàng ở Amazon.com, khách hàng sẽ thấy lạ và phàn nàn trên mạng xã hội.</li>
+        <li><strong>Quan hệ kênh phân phối:</strong> Các đối tác có thể trả đũa nếu không nhận đủ hàng — loại sản phẩm của ta khỏi kệ mùa sau.</li>
+        <li><strong>Chi phí vận chuyển:</strong> Khoảng cách địa lý và độ phức tạp phối hợp với từng đối tác.</li>
+      </ul>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Kinh tế đơn vị & Chiến lược phân bổ</div>
+      <p>Sau khi làm rõ: giá bán lẻ $10/đơn vị. Staples và Fred Meyer nhận lợi nhuận <strong>$15/đơn vị</strong> (không có chiết khấu). Best Buy, Walmart và Amazon.com nhận lợi nhuận <strong>$12/đơn vị</strong> (chiết khấu sản lượng lớn 20%).</p>
+      <p><strong>Chiến lược:</strong> Ưu tiên lấp đầy nhu cầu của Staples và Fred Meyer trước (lợi nhuận cao nhất). Phân bổ phần còn lại cho Best Buy, Walmart và Amazon theo tỷ lệ nhu cầu (2:1:5).</p>
+      <table class="alloc-table">
+        <thead>
+          <tr><th>Đối tác</th><th>Lợi nhuận/đơn vị</th><th>Nhu cầu 3 tuần</th><th>Phân bổ đề xuất</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Staples</td><td>$15</td><td>3K</td><td class="highlight">3K (lấp đầy)</td></tr>
+          <tr><td>Fred Meyer</td><td>$15</td><td>6K</td><td class="highlight">6K (lấp đầy)</td></tr>
+          <tr><td>Best Buy</td><td>$12</td><td>60K</td><td class="highlight">≈23K</td></tr>
+          <tr><td>Walmart</td><td>$12</td><td>30K</td><td class="highlight">≈11K</td></tr>
+          <tr><td>Amazon.com</td><td>$12</td><td>150K</td><td class="highlight">≈57K</td></tr>
+        </tbody>
+      </table>
+      <div class="note-box">Lý do không dồn toàn bộ 91K còn lại cho Amazon: Best Buy và Walmart là đối tác kênh quan trọng — họ có thể không bán hàng của ta mùa sau nếu bị bỏ qua hoàn toàn.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 3 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 3</div>
+    <div class="exercise-title">Xử lý sách tồn kho tại Amazon</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Giả sử Amazon không có hệ thống theo dõi và quản lý tồn kho sách (thực tế là có). Bạn sẽ tiếp cận bài toán sách tồn kho như thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Các giải pháp brainstorm</div>
+      <ul class="item-list">
+        <li><strong>Giảm giá:</strong> Kéo nhu cầu tăng thêm — thu hút khách hàng mới và thúc đẩy mua theo cảm xúc (impulse buy). Có thể ghép sách ế với sản phẩm phổ biến.</li>
+        <li><strong>Bán kèm (Bundling):</strong> Mua 2 tặng 1 — giải phóng nhiều tồn kho cùng lúc.</li>
+        <li><strong>Tặng miễn phí:</strong> Tặng kèm khi mua sản phẩm khác — gắn kết với hành vi mua có sẵn.</li>
+        <li><strong>Từ thiện:</strong> Quyên tặng sách → tạo PR tích cực, xây dựng thương hiệu có trách nhiệm cộng đồng.</li>
+        <li><strong>Marketing qua newsletter:</strong> Tăng nhận thức và nhu cầu thông qua email Amazon.</li>
+        <li><strong>Goodreads:</strong> Quảng bá sách trên mạng xã hội đọc sách — tiếp cận đúng tệp khách hàng yêu sách.</li>
+        <li><strong>Kênh phân phối thay thế:</strong> Bán cho đối thủ cạnh tranh hoặc công ty thanh lý hàng tồn kho.</li>
+      </ul>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Khuyến nghị</div>
+      <p><strong>Giảm giá</strong> là phương án tốt nhất: thu hút cả khách hàng Amazon hiện tại lẫn khách hàng mới chưa từng mua sách trên Amazon. Có thể kích thích mua theo cảm xúc trong quá trình thanh toán. Ghép sách ế với sản phẩm bán chạy để giải phóng nhanh hơn. Mặc dù giảm biên lợi nhuận/cuốn, nhưng lợi ích dài hạn (khách hàng mới, dữ liệu mua hàng) bù đắp cho điều đó.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 4 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 4</div>
+    <div class="exercise-title">Nhà cung cấp thất bại vào mùa lễ</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn xử lý thế nào khi nhà cung cấp không giao được hàng theo hợp đồng lớn vào mùa lễ?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Phân tích tác động (ví dụ: Sony PlayStation)</div>
+      <p>Vấn đề không chỉ dừng ở việc mất doanh thu sản phẩm X. Hiệu ứng lan rộng gồm:</p>
+      <ul class="item-list">
+        <li>Khách hàng muốn mua sản phẩm X → hết hàng → doanh thu bỏ lỡ + khách hàng thất vọng + PR xấu</li>
+        <li>Doanh thu bỏ lỡ từ sản phẩm Y, Z mua kèm với X</li>
+        <li>Mất doanh thu từ những mặt hàng khách mua theo cảm xúc trong lúc vào cửa hàng vì X</li>
+      </ul>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">7 giải pháp ứng phó</div>
+      <ol class="step-list">
+        <li><span class="step-num">1</span><div class="step-content"><strong>Không giảm giá sản phẩm X:</strong> Giữ giá cao hơn → ít người mua hơn → kéo dài thời gian trước khi hết hàng hoàn toàn.</div></li>
+        <li><span class="step-num">2</span><div class="step-content"><strong>Không quảng bá sản phẩm X:</strong> Không đẩy trang chủ, không chạy quảng cáo → giảm tốc độ cạn kiệt tồn kho.</div></li>
+        <li><span class="step-num">3</span><div class="step-content"><strong>Giới hạn số lượng mua mỗi tài khoản:</strong> Hạn chế tích trữ — đảm bảo nhiều khách hàng có cơ hội mua ít nhất một sản phẩm.</div></li>
+        <li><span class="step-num">4</span><div class="step-content"><strong>Yêu cầu nhà cung cấp chịu trách nhiệm:</strong> Theo dõi liên tục, leo thang cấp lãnh đạo, thậm chí cảnh báo pháp lý. Đe dọa không mang hàng của họ mùa sau hoặc cắt ngân sách marketing hợp tác.</div></li>
+        <li><span class="step-num">5</span><div class="step-content"><strong>Tìm nhà cung cấp thay thế hoặc người bán lại:</strong> Tìm nhà sản xuất tương đương hoặc người bán lại trên chính sàn Amazon.</div></li>
+        <li><span class="step-num">6</span><div class="step-content"><strong>Đề xuất sản phẩm thay thế:</strong> Một số sản phẩm tương tự có thể đáp ứng nhu cầu tương đương của khách hàng.</div></li>
+        <li><span class="step-num">7</span><div class="step-content"><strong>Mua hàng từ nhà bán lẻ khác:</strong> Chiến thuật đặc biệt — Jeff Bezos từng yêu cầu nhân viên mua 100 món đồ chơi hot nhất từ Toys R Us để đảm bảo hàng có trên kệ.</div></li>
+      </ol>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Thứ tự ưu tiên</div>
+      <p>Trước tiên yêu cầu nhà cung cấp chịu trách nhiệm → tìm nguồn cung thay thế → theo dõi nhu cầu và điều chỉnh quảng cáo, khuyến mãi, và giới hạn mua theo tình hình thực tế.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 5 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 5</div>
+    <div class="exercise-title">Không đạt deadline — chỉ có 5 kỹ sư thay vì 10</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn cần 10 kỹ sư để hoàn thành tính năng X đúng hạn nhưng chỉ có 5. Bạn làm gì?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">6-Point Framework (Khung 6 điểm)</div>
+      <ol class="step-list">
+        <li>
+          <span class="step-num">1</span>
+          <div class="step-content">
+            <strong>Tuyển dụng kỹ sư bên ngoài:</strong> Thuê thêm từ thị trường
+            <div class="pros-cons">
+              <div class="pro-box">Giải quyết hoàn toàn bài toán nhân lực</div>
+              <div class="con-box">Mất thời gian tuyển + onboarding. Khó sa thải sau deadline</div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <div class="step-content">
+            <strong>Điều phối kỹ sư nội bộ:</strong> Mượn người từ nhóm khác
+            <div class="pros-cons">
+              <div class="pro-box">Nhanh hơn tuyển ngoài, hiểu codebase sẵn</div>
+              <div class="con-box">Ảnh hưởng đến dự án của nhóm khác, leader nhóm đó không vui</div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <div class="step-content">
+            <strong>Thay đổi cách triển khai:</strong> Tìm giải pháp đơn giản hơn
+            <div class="pros-cons">
+              <div class="pro-box">Có thể phát hiện giải pháp tốt hơn khi nhìn lại</div>
+              <div class="con-box">Người dùng/stakeholder có thể không thích phương án thay thế</div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <div class="step-content">
+            <strong>Cắt giảm phạm vi (Scope):</strong> Ra phiên bản rút gọn trước
+            <div class="pros-cons">
+              <div class="pro-box">Thu thập feedback thực tế sớm hơn từ người dùng</div>
+              <div class="con-box">Ra mắt 2 lần → tốn effort của marketing, support</div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">5</span>
+          <div class="step-content">
+            <strong>Lùi deadline:</strong> Xin thêm thời gian
+            <div class="pros-cons">
+              <div class="pro-box">Giải quyết hoàn toàn áp lực thời gian</div>
+              <div class="con-box">Tạo cơ hội cho đối thủ. Ảnh hưởng các dự án phụ thuộc</div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">6</span>
+          <div class="step-content">
+            <strong>Làm thêm giờ (Overtime):</strong> Yêu cầu đội làm thêm
+            <div class="pros-cons">
+              <div class="pro-box">Giải quyết vấn đề mà không cần thêm người</div>
+              <div class="con-box">Ảnh hưởng tinh thần đội, tạo tiền lệ xấu</div>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Xử lý tình huống làm thêm giờ</div>
+      <p>Khi bị yêu cầu cho đội làm thêm giờ: trước tiên đàm phán với cấp trên về việc đền bù (nghỉ phép thêm sau deadline). Nếu cấp trên từ chối → đứng về phía đội. Lý do: nếu đội mất lòng tin vào PM, tôi không thể làm việc hiệu quả. Đây không phải nhượng bộ mà là quyết định có cân nhắc kỹ lưỡng.</p>
+      <div class="note-box">Sau khủng hoảng: phân tích nguyên nhân tại sao xảy ra việc này (ước lượng sai? scope thay đổi giữa chừng?) và xây dựng hệ thống phòng ngừa cho lần sau.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 6 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 6</div>
+    <div class="exercise-title">Nửa người dùng gặp vấn đề này, nửa kia gặp vấn đề khác</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Một nửa người dùng gặp vấn đề A. Nửa kia gặp vấn đề B. Bạn giải quyết thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Quy trình điều tra</div>
+      <p><strong>Bước 1 — Kiểm tra kết nối:</strong> Liệu hai vấn đề này có phải là triệu chứng của cùng một nguyên nhân gốc rễ không? Nếu có, giải quyết nguyên nhân gốc sẽ xử lý cả hai.</p>
+      <p><strong>Bước 2 — Hiểu hai nhóm người dùng:</strong> Tìm đặc điểm phân biệt giữa hai nhóm. Ví dụ: Windows vs Mac, iOS vs Android.</p>
+      <p><strong>Bước 3 — Nếu hai nhóm không liên quan:</strong> Điều tra các yếu tố sau để tìm nguyên nhân:</p>
+      <ul class="item-list">
+        <li>Thiết bị: Mobile vs desktop</li>
+        <li>Hệ điều hành: iOS vs Android, Windows vs Mac</li>
+        <li>Trình duyệt: Chrome vs Edge</li>
+        <li>A/B test: Có nhóm nào đang trong thử nghiệm không?</li>
+        <li>Hành vi: Một nhóm mua game, nhóm kia mua điện tử</li>
+        <li>Địa lý: Nhật Bản vs Mỹ</li>
+        <li>Ngôn ngữ: Tiếng Nhật vs tiếng Anh</li>
+        <li>Thanh toán: Thẻ tín dụng vs PayPal</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 7 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 7</div>
+    <div class="exercise-title">Kindle mới bị trễ deadline từ tháng 9 sang tháng 1</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Hiện tại là tháng 3. Bạn đang trong nhóm Kindle. Kỹ sư thông báo Kindle mới dự kiến ra tháng 9 sẽ bị lùi sang tháng 1 năm sau. Bạn làm gì?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Điều tra nguyên nhân (Five Whys)</div>
+      <div class="dialog-block">
+        <div class="dialog-row"><span class="speaker">Ứng viên:</span> Tính năng nào bị thiếu?</div>
+        <div class="dialog-row"><span class="speaker">Kỹ sư:</span> Whispersync — đồng bộ sách nói và sách điện tử.</div>
+        <div class="dialog-row"><span class="speaker">Ứng viên:</span> Đây là tính năng mới hay đã có trên Kindle cũ?</div>
+        <div class="dialog-row"><span class="speaker">Kỹ sư:</span> Tính năng hoàn toàn mới, chưa từng có.</div>
+        <div class="dialog-row"><span class="speaker">Ứng viên:</span> 40% trong 50.000 người dùng khảo sát yêu cầu tính năng này. Đây là software hay hardware?</div>
+        <div class="dialog-row"><span class="speaker">Kỹ sư:</span> Software. Có thể cập nhật sau khi xuất xưởng.</div>
+        <div class="dialog-row"><span class="speaker">Ứng viên:</span> Chúng ta đã công bố tính năng này chưa?</div>
+        <div class="dialog-row"><span class="speaker">Kỹ sư:</span> Rồi, vừa thông báo gần đây.</div>
+      </div>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Khuyến nghị: Ra mắt tháng 9, vá tháng 1</div>
+      <p>Với các thông tin trên: <strong>ra mắt đúng hạn tháng 9</strong>, cập nhật Whispersync qua phần mềm vào tháng 1.</p>
+      <ul class="item-list">
+        <li>Không trễ deadline → không bỏ lỡ nhu cầu mua sắm mùa lễ (ước tính ~4 triệu máy tháng đầu)</li>
+        <li>Whispersync là software → có thể patch sau, không phải phần cứng không thể thay đổi</li>
+        <li>Tính năng này chưa tồn tại trên Kindle cũ → khách hàng không bị "thụt lùi", chỉ chờ thêm vài tháng</li>
+        <li>PR frame: "Đưa Kindle mới đến tay người dùng sớm hơn — Whispersync sẽ được cập nhật tháng 1"</li>
+        <li>Thuyết phục kỹ sư trưởng: Chia sẻ ví dụ Tesla — thành công với xe phụ thuộc nhiều vào cập nhật phần mềm hậu ra mắt</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Tổng kết Chương 20</div>
+  <p>Câu hỏi giải quyết vấn đề đánh giá khả năng <strong>đặt câu hỏi làm rõ trước khi giải quyết</strong>, phân tích tác động đa chiều, và đề xuất giải pháp có tính thực thi. Bài thi Kindle phân bổ cho thấy tư duy định lượng — ưu tiên lợi nhuận đơn vị, sau đó cân nhắc quan hệ kênh. Bài deadline thiếu người cho thấy khả năng cân bằng giữa lợi ích ngắn hạn (giao đúng hạn) và dài hạn (tinh thần đội). Điểm chung: <em>luôn hỏi rõ tình huống trước khi đưa ra giải pháp</em>.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch19.html"><span class="lbl">Chương trước</span>Chương 19: Hypothetical: Opinion</a>
+  <a href="pm_interview_ch21.html"><span class="lbl">Chương sau</span>Chương 21: Strategy: Thâm nhập Thị trường Mới</a>
+</nav>
+</body>
+</html>

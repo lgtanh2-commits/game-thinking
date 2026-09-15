@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 11 – Thiết kế Sản phẩm: Bản đồ Hành trình Khách hàng</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:32px;}
+h1{font-size:32px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;line-height:1.2;}
+.chapter-subtitle{font-size:18px;color:var(--text-secondary);margin-bottom:48px;font-weight:400;}
+h2{font-size:20px;font-weight:700;margin:48px 0 6px;border-left:4px solid var(--accent-line);padding-left:14px;}
+h3{font-size:16px;font-weight:700;margin:24px 0 8px;color:var(--text-secondary);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.exercise-block{background:#fff;border:1px solid var(--border);border-radius:4px;padding:28px 32px;margin:32px 0;}
+.exercise-header{display:flex;align-items:baseline;gap:14px;margin-bottom:12px;}
+.exercise-num{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);white-space:nowrap;}
+.exercise-title{font-size:18px;font-weight:700;color:var(--text);}
+.exercise-body{color:var(--text-secondary);margin-bottom:16px;}
+.hint-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:12px 16px;margin:12px 0;font-size:14px;}
+.hint-label{font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:4px;}
+.mistake-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:12px 16px;margin:12px 0;font-size:14px;}
+.answer-section{margin-top:20px;}
+.answer-label{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;}
+/* 5Es Journey Table */
+.journey-table{width:100%;border-collapse:collapse;margin:12px 0;}
+.journey-table th{background:#444;color:#fff;font-size:13px;font-weight:600;text-align:center;padding:10px 8px;border:1px solid var(--border);}
+.journey-table td{vertical-align:top;padding:10px 10px;border:1px solid var(--border);font-size:13px;line-height:1.6;background:#fff;}
+.journey-table td ul{list-style:disc;padding-left:16px;}
+.journey-table td ul li{margin-bottom:4px;}
+.answer-case{font-weight:700;margin:16px 0 8px;font-size:14px;}
+ul.pain-list{padding-left:20px;margin:8px 0;}
+ul.pain-list li{margin-bottom:4px;font-size:14px;color:var(--text-secondary);}
+ol.pain-list{padding-left:24px;margin:8px 0;}
+ol.pain-list li{margin-bottom:4px;font-size:14px;color:var(--text-secondary);}
+.conclusion-box{background:var(--surface-dark);border-left:4px solid var(--accent-line);padding:24px 28px;margin-top:64px;}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 11</div>
+
+<h1>Thiết kế Sản phẩm</h1>
+<div class="chapter-subtitle">Bài tập Bản đồ Hành trình Khách hàng</div>
+
+<p>Framework 5Es — <strong>Entice (Thu hút) → Enter (Tham gia) → Engage (Tương tác) → Exit (Thoát) → Extend (Mở rộng)</strong> — là công cụ chính để vẽ bản đồ hành trình khách hàng. Lỗi phổ biến là áp dụng framework một cách máy móc, không bám sát tình huống cụ thể, hoặc bỏ sót bước kiểm tra từng giai đoạn trải nghiệm.</p>
+
+<!-- Bài 1: Expedia -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 01</span>
+    <span class="exercise-title">Hành trình Expedia</span>
+  </div>
+  <div class="exercise-body">Vẽ bản đồ hành trình khách hàng của Expedia khi mua vé máy bay.</div>
+  <div class="hint-box">
+    <div class="hint-label">Lưu ý khi trả lời</div>
+    Framework 5Es: entice, enter, engage, exit, extend.
+  </div>
+  <div class="mistake-box">
+    <div class="hint-label">Lỗi thường gặp</div>
+    <ul class="pain-list">
+      <li>Không điều chỉnh framework theo tình huống cụ thể.</li>
+      <li>Áp dụng framework theo kiểu chung chung, gượng ép.</li>
+      <li>Không kiểm tra từng bước trải nghiệm của khách hàng.</li>
+    </ul>
+  </div>
+  <div class="answer-section">
+    <div class="answer-label">Đáp án</div>
+    <table class="journey-table">
+      <thead>
+        <tr>
+          <th>Nghiên cứu & Lên kế hoạch</th>
+          <th>Tìm kiếm</th>
+          <th>Đặt vé</th>
+          <th>Trước chuyến đi</th>
+          <th>Chuyến đi</th>
+          <th>Sau chuyến đi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><ul>
+            <li>Hỏi bạn bè</li>
+            <li>Tìm kiếm trên Internet</li>
+            <li>Xem ảnh điểm đến</li>
+          </ul></td>
+          <td><ul>
+            <li>Tra lịch bay</li>
+            <li>Tra giá vé</li>
+            <li>Thử các tuyến bay khác</li>
+            <li>So sánh giá</li>
+          </ul></td>
+          <td><ul>
+            <li>Mua trực tuyến</li>
+            <li>Kiểm tra có thể dùng điểm thưởng không</li>
+          </ul></td>
+          <td><ul>
+            <li>In vé hoặc tải vé vào thiết bị di động</li>
+          </ul></td>
+          <td><ul>
+            <li>Liên hệ dịch vụ khách hàng khi cần hỗ trợ</li>
+            <li>Đăng nội dung du lịch lên mạng xã hội</li>
+          </ul></td>
+          <td><ul>
+            <li>Chia sẻ trải nghiệm với bạn bè</li>
+            <li>Phàn nàn trên mạng xã hội</li>
+          </ul></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Bài 2: Airbnb -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 02</span>
+    <span class="exercise-title">Hành trình Airbnb</span>
+  </div>
+  <div class="exercise-body">Vẽ bản đồ hành trình khách hàng cho cả hai nhóm người dùng của Airbnb: khách du lịch (traveler) và chủ nhà (host).</div>
+  <div class="hint-box">
+    <div class="hint-label">Lưu ý khi trả lời</div>
+    Hầu hết người tiêu dùng đặt phòng khách sạn hay vé máy bay trước? Khách đặt ngay hay cần suy nghĩ? Airbnb là marketplace — khách hàng tương tác với chủ nhà, không phải với dịch vụ trực tiếp.
+  </div>
+  <div class="mistake-box">
+    <div class="hint-label">Lỗi thường gặp</div>
+    <ul class="pain-list">
+      <li>Bỏ qua các lựa chọn truyền thống như khách sạn.</li>
+      <li>Quên mất Airbnb là marketplace và khách hàng tương tác với chủ nhà.</li>
+      <li>Không thừa nhận rằng người dùng mới có thể chưa tự tin với mô hình Airbnb.</li>
+    </ul>
+  </div>
+  <div class="answer-section">
+    <div class="answer-label">Đáp án: Khách du lịch (Traveler)</div>
+    <table class="journey-table">
+      <thead>
+        <tr><th>Entice</th><th>Enter</th><th>Engage</th><th>Exit</th><th>Extend</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><ul>
+            <li>Khuyến khích đi du lịch</li>
+            <li>Xem các điểm đến tiềm năng</li>
+            <li>Lên kế hoạch chuyến đi</li>
+            <li>Mua vé máy bay</li>
+            <li>Khuyến khích dùng Airbnb</li>
+          </ul></td>
+          <td><ul>
+            <li>Duyệt các lựa chọn Airbnb</li>
+          </ul></td>
+          <td><ul>
+            <li>So sánh Airbnb với các lựa chọn khác</li>
+            <li>Hỏi chủ nhà các câu hỏi</li>
+            <li>Đặt phòng Airbnb</li>
+            <li>Khởi hành</li>
+            <li>Check-in tại phòng Airbnb</li>
+            <li>Tận hưởng chuyến đi</li>
+          </ul></td>
+          <td><ul>
+            <li>Điền khảo sát sau chuyến đi</li>
+            <li>Đánh giá chủ nhà</li>
+          </ul></td>
+          <td><ul>
+            <li>Nhận thông báo đặt phòng tương lai</li>
+            <li>Tạo danh sách các điểm đến muốn đến</li>
+            <li>Trở thành chủ nhà Airbnb</li>
+          </ul></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="answer-label" style="margin-top:20px;">Đáp án: Chủ nhà (Host)</div>
+    <table class="journey-table">
+      <thead>
+        <tr><th>Entice</th><th>Enter</th><th>Engage</th><th>Exit</th><th>Extend</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><ul>
+            <li>Nghe về hosting Airbnb qua bạn bè hoặc quảng cáo</li>
+            <li>Đọc về các dịch vụ cho chủ nhà</li>
+            <li>Tính toán thu nhập tiềm năng</li>
+          </ul></td>
+          <td><ul>
+            <li>Đăng ký làm chủ nhà</li>
+            <li>Tạo listing cho bất động sản</li>
+          </ul></td>
+          <td><ul>
+            <li>Thêm hình ảnh và thông tin khu phố</li>
+            <li>Đặt giá khác nhau cho mùa cao/thấp điểm</li>
+            <li>Nhận yêu cầu đặt phòng đầu tiên</li>
+            <li>Chuẩn bị phòng cho khách</li>
+          </ul></td>
+          <td><ul>
+            <li>Nhận phản hồi từ khách</li>
+            <li>Để lại phản hồi cho khách</li>
+            <li>Dọn dẹp phòng</li>
+          </ul></td>
+          <td><ul>
+            <li>Mở thêm ngày cho thuê</li>
+            <li>Kể với bạn bè về trải nghiệm làm host</li>
+            <li>Dựa trên phản hồi khách để cải thiện</li>
+          </ul></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Bài 3: Job Search Journey -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 03</span>
+    <span class="exercise-title">Hành trình Tìm kiếm Việc làm</span>
+  </div>
+  <div class="exercise-body">Vẽ bản đồ hành trình cho người tìm việc trên Indeed.com vừa tốt nghiệp đại học.</div>
+  <div class="hint-box">
+    <div class="hint-label">Lưu ý khi trả lời</div>
+    Sử dụng framework 5Es.
+  </div>
+  <div class="mistake-box">
+    <div class="hint-label">Lỗi thường gặp</div>
+    <ul class="pain-list">
+      <li>Vẽ nhầm hành trình nhà tuyển dụng thay vì ứng viên.</li>
+      <li>Không tính đến cấp độ nghề nghiệp của người tìm việc.</li>
+      <li>Không xét đến việc người tìm việc có thể sẽ nghỉ việc sau khi tìm được.</li>
+    </ul>
+  </div>
+  <div class="answer-section">
+    <div class="answer-label">Đáp án</div>
+    <table class="journey-table">
+      <thead>
+        <tr><th>Entice</th><th>Enter</th><th>Engage</th><th>Exit</th><th>Extend</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><ul>
+            <li>Tốt nghiệp đại học</li>
+            <li>Chuẩn bị CV và thư xin việc</li>
+          </ul></td>
+          <td><ul>
+            <li>Tìm công việc cụ thể trên Indeed.com</li>
+            <li>Duyệt các tin đăng tuyển</li>
+          </ul></td>
+          <td><ul>
+            <li>Điền hồ sơ ứng tuyển trên Indeed.com</li>
+            <li>(Tùy chọn) Liên kết hồ sơ mạng xã hội</li>
+            <li>(Tùy chọn) Chia sẻ tin tuyển dụng với bạn bè cùng tốt nghiệp</li>
+          </ul></td>
+          <td><ul>
+            <li>Chờ thư mời phỏng vấn</li>
+            <li>Tham gia phỏng vấn</li>
+            <li>Chờ kết quả</li>
+            <li>Nhận/từ chối offer</li>
+          </ul></td>
+          <td><ul>
+            <li>Nghỉ công việc hiện tại</li>
+            <li>(Tùy chọn) Nghỉ phép</li>
+            <li>(Tùy chọn) Chuẩn bị chuyển nơi ở</li>
+            <li>(Tùy chọn) Sẵn sàng cho công việc mới</li>
+          </ul></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Bài 4: Home Improvement Journey -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 04</span>
+    <span class="exercise-title">Hành trình Cải tạo Nhà</span>
+  </div>
+  <div class="exercise-body">Vẽ bản đồ hành trình khách hàng khi thực hiện một dự án cải tạo nhà.</div>
+  <div class="answer-section">
+    <div class="answer-label">Đáp án</div>
+    <table class="journey-table">
+      <thead>
+        <tr><th>Entice</th><th>Enter</th><th>Engage</th><th>Exit</th><th>Extend</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><ul>
+            <li>Xác định hạng mục cần sửa</li>
+            <li>Nghiên cứu trên Google, đọc bài viết, xem YouTube</li>
+            <li>Đánh giá nên tự làm hay thuê ngoài</li>
+          </ul></td>
+          <td><ul>
+            <li>Lập danh sách nhà thầu tiềm năng qua Google</li>
+            <li>Hỏi hàng xóm gợi ý</li>
+            <li>Đăng yêu cầu trên mạng xã hội khu phố</li>
+          </ul></td>
+          <td><ul>
+            <li>Lấy báo giá và thẩm định nhà thầu</li>
+            <li>Rút gọn danh sách theo chất lượng, giá, tiến độ</li>
+            <li>Chọn nhà thầu và thanh toán đặt cọc</li>
+            <li>Khởi động dự án</li>
+            <li>Theo dõi tiến độ</li>
+            <li>Thanh toán theo giai đoạn</li>
+            <li>Nghiệm thu cuối</li>
+            <li>Yêu cầu sửa đổi nếu cần</li>
+          </ul></td>
+          <td><ul>
+            <li>Kết thúc dự án, thanh toán cuối</li>
+            <li>Giới thiệu nhà thầu cho người khác</li>
+          </ul></td>
+          <td><ul>
+            <li>Nhận phiếu giảm giá cho công việc tiếp theo</li>
+            <li>Nhận yêu cầu testimonial từ nhà thầu</li>
+            <li>Liên hệ nhà thầu cho dự án tiếp theo</li>
+          </ul></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Bài 5: Customer Service Journey -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 05</span>
+    <span class="exercise-title">Hành trình Dịch vụ Khách hàng</span>
+  </div>
+  <div class="exercise-body">Vẽ bản đồ hành trình khách hàng khi liên hệ dịch vụ khách hàng về vấn đề hóa đơn.</div>
+  <div class="answer-section">
+    <div class="answer-label">Đáp án — Trường hợp 1: Dịch vụ kém</div>
+    <table class="journey-table">
+      <thead>
+        <tr><th>Entice</th><th>Enter</th><th>Engage</th><th>Exit</th><th>Extend</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><ul><li>Nhận hóa đơn</li></ul></td>
+          <td><ul>
+            <li>Mở và đọc hóa đơn</li>
+            <li>Thấy khoản phí lạ</li>
+          </ul></td>
+          <td><ul>
+            <li>Gọi dịch vụ khách hàng</li>
+            <li>Nói chuyện với nhân viên</li>
+            <li>Nhân viên không giúp được</li>
+            <li>Nổi giận</li>
+          </ul></td>
+          <td><ul>
+            <li>Kết thúc cuộc gọi</li>
+            <li>Phàn nàn trên Facebook, Twitter</li>
+            <li>Khiếu nại lên CEO</li>
+            <li>Tìm nhà cung cấp khác</li>
+          </ul></td>
+          <td><ul>
+            <li>Nhận email tự động yêu cầu đánh giá dịch vụ</li>
+            <li>Để lại đánh giá kém hoặc đánh dấu spam</li>
+          </ul></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="answer-label" style="margin-top:20px;">Trường hợp 2: Dịch vụ tốt</div>
+    <table class="journey-table">
+      <thead>
+        <tr><th>Entice</th><th>Enter</th><th>Engage</th><th>Exit</th><th>Extend</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><ul><li>Nhận hóa đơn</li></ul></td>
+          <td><ul>
+            <li>Mở và đọc hóa đơn</li>
+            <li>Thấy khoản phí lạ</li>
+          </ul></td>
+          <td><ul>
+            <li>Gọi dịch vụ khách hàng</li>
+            <li>Nhân viên lắng nghe</li>
+            <li>Nhân viên giải thích lý do phí</li>
+            <li>Nhân viên điều chỉnh phí</li>
+          </ul></td>
+          <td><ul>
+            <li>Kết thúc cuộc gọi</li>
+            <li>Đánh giá tích cực trên Yelp/Facebook</li>
+            <li>Chia sẻ trải nghiệm với bạn bè/đồng nghiệp</li>
+          </ul></td>
+          <td><ul>
+            <li>Nhận email tự động yêu cầu đánh giá dịch vụ</li>
+            <li>Để lại đánh giá tốt</li>
+            <li>Tiếp tục mua hàng từ nhà cung cấp</li>
+          </ul></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Bài 6: Online Course Journey -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 06</span>
+    <span class="exercise-title">Hành trình Khóa học Trực tuyến</span>
+  </div>
+  <div class="exercise-body">Vẽ bản đồ hành trình khách hàng cho một khóa học đại học trực tuyến miễn phí.</div>
+  <div class="answer-section">
+    <div class="answer-label">Đáp án</div>
+    <table class="journey-table">
+      <thead>
+        <tr><th>Entice</th><th>Enter</th><th>Engage</th><th>Exit</th><th>Extend</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><ul>
+            <li>Nghe về khóa học qua marketing, bạn bè, đồng nghiệp</li>
+            <li>Phân tích nội dung khóa học</li>
+            <li>Quyết định tham gia</li>
+          </ul></td>
+          <td><ul>
+            <li>Tìm ngày học phù hợp</li>
+            <li>Đăng ký khóa học</li>
+            <li>Chia sẻ tin đăng ký</li>
+          </ul></td>
+          <td><ul>
+            <li>Giới thiệu bản thân với học viên khác</li>
+            <li>Nghe giảng</li>
+            <li>Làm bài tập về nhà</li>
+            <li>Làm bài kiểm tra</li>
+            <li>Hỏi mentor hoặc học viên khác</li>
+          </ul></td>
+          <td><ul>
+            <li>Điền khảo sát cuối khóa</li>
+            <li>Nhận chứng chỉ hoàn thành</li>
+            <li>Chia sẻ chứng chỉ</li>
+          </ul></td>
+          <td><ul>
+            <li>Lưu tài liệu, ghi chú</li>
+            <li>Giữ liên lạc với bạn học và giảng viên</li>
+            <li>Xem xét đăng ký khóa tiếp theo</li>
+          </ul></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Bài 7: UX Candidate Recruiting -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 07</span>
+    <span class="exercise-title">Tuyển dụng Tham gia Nghiên cứu UX</span>
+  </div>
+  <div class="exercise-body">Vẽ bản đồ hành trình tuyển dụng người tham gia nghiên cứu UX.</div>
+  <div class="answer-section">
+    <div class="answer-label">Đáp án</div>
+    <table class="journey-table">
+      <thead>
+        <tr><th>Entice</th><th>Enter</th><th>Engage</th><th>Exit</th><th>Extend</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><ul>
+            <li>Người dùng cân nhắc tham gia nghiên cứu UX</li>
+          </ul></td>
+          <td><ul>
+            <li>Người dùng đăng ký tình nguyện cho một nghiên cứu cụ thể</li>
+          </ul></td>
+          <td><ul>
+            <li>Researcher xem xét đề xuất tham gia</li>
+            <li>Researcher chấp nhận hoặc từ chối</li>
+            <li>Researcher liên hệ người dùng để đặt lịch hẹn</li>
+            <li>Người dùng xác nhận thời gian</li>
+            <li>Người dùng hoàn thành tác vụ UX</li>
+          </ul></td>
+          <td><ul>
+            <li>Người dùng chọn phần thưởng tham gia</li>
+            <li>Người dùng trả lời khảo sát hài lòng sau nghiên cứu</li>
+          </ul></td>
+          <td><ul>
+            <li>Researcher ghi chép kết quả về người tham gia</li>
+            <li>Researcher đánh giá có nên mời người dùng tham gia nghiên cứu tương lai không</li>
+          </ul></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận Chương 11</div>
+  <p>Framework 5Es (Entice → Enter → Engage → Exit → Extend) là nền tảng để vẽ bản đồ hành trình khách hàng trong phỏng vấn PM. Điểm mấu chốt là phải <strong>điều chỉnh framework theo từng sản phẩm và đối tượng người dùng cụ thể</strong> — với Airbnb cần vẽ riêng cho traveler và host; với Customer Service cần phân biệt trường hợp dịch vụ tốt và kém. Tránh áp dụng máy móc, chung chung.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch10.html"><span class="lbl">Chương trước</span>Chương 10: Analytics — ROI</a>
+  <a href="pm_interview_ch12.html"><span class="lbl">Chương sau</span>Chương 12: Thiết kế Sản phẩm: Pain Point Exercises</a>
+</nav>
+</body>
+</html>

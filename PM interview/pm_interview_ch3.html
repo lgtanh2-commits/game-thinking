@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 3: Study Guides cho các Công ty Tech Hàng đầu — The Product Manager Interview</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:8px;color:var(--text);}
+.subtitle{font-size:1rem;color:var(--text-muted);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--accent-line);}
+h2{font-size:1.5rem;font-weight:700;margin:48px 0 6px;color:var(--text);padding-top:8px;}
+.guide-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;}
+h3{font-size:1.05rem;font-weight:700;margin:28px 0 10px;color:var(--text);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.intro-box{background:var(--surface);border-left:3px solid var(--accent-line);padding:20px 24px;margin:24px 0;font-size:1.05rem;line-height:1.7;color:var(--text);}
+.guide-divider{border:none;border-top:2px solid var(--accent-line);margin:56px 0 0;}
+.day-block{margin:0 0 4px;}
+.day-title{font-size:1rem;font-weight:700;color:var(--text);margin:24px 0 8px;}
+.day-sub{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin:14px 0 6px;}
+.task-list{list-style:none;margin:6px 0 12px;padding:0;}
+.task-list li{padding:6px 0 6px 20px;position:relative;font-size:.92rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+.task-list li:last-child{border-bottom:none;}
+.task-list li::before{content:"→";position:absolute;left:0;color:var(--text-muted);font-size:.85rem;}
+.task-list li.sub{padding-left:36px;}
+.task-list li.sub::before{content:"·";}
+.exercise-list{list-style:none;margin:6px 0 12px;padding:0;}
+.exercise-list li{padding:5px 0 5px 20px;position:relative;font-size:.92rem;color:var(--text-secondary);}
+.exercise-list li::before{content:"▸";position:absolute;left:0;color:var(--text-muted);font-size:.8rem;top:7px;}
+.numbered-list{margin:8px 0 12px;padding-left:22px;}
+.numbered-list li{font-size:.92rem;color:var(--text-secondary);margin-bottom:4px;}
+.goal-box{background:var(--surface);border-left:2px solid var(--border-strong);padding:12px 16px;margin:10px 0 16px;font-size:.92rem;color:var(--text-secondary);line-height:1.7;}
+.note-italic{font-style:italic;font-size:.88rem;color:var(--text-muted);margin:8px 0;}
+.amazon-table{width:100%;border-collapse:collapse;margin:16px 0;}
+.amazon-table th{background:var(--surface-dark);padding:10px 12px;text-align:left;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--accent-line);}
+.amazon-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:.88rem;color:var(--text-secondary);vertical-align:top;}
+.amazon-table td:first-child{font-weight:700;color:var(--text);width:200px;}
+.amazon-table tr:last-child td{border-bottom:none;}
+.amazon-table tr:nth-child(even) td{background:var(--surface);}
+.source-note{font-size:.78rem;color:var(--text-muted);font-style:italic;text-align:right;margin-top:4px;}
+.highlight-box{background:var(--surface);border:1px solid var(--border-strong);padding:16px 20px;margin:16px 0;}
+.highlight-box p{font-size:.93rem;margin-bottom:8px;color:var(--text);}
+.highlight-box p:last-child{margin-bottom:0;}
+.proficiency-list{list-style:none;margin:8px 0;padding:0;}
+.proficiency-list li{padding:8px 0 8px 20px;position:relative;font-size:.9rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+.proficiency-list li:last-child{border-bottom:none;}
+.proficiency-list li::before{content:"▸";position:absolute;left:0;color:var(--text-muted);font-size:.8rem;top:10px;}
+.divider{border:none;border-top:1px solid var(--border);margin:32px 0;}
+.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--accent-line);background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:12px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+@media(max-width:600px){body{padding:36px 20px 60px;}h1{font-size:1.8rem;}.amazon-table td:first-child{width:auto;}}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 3</div>
+<h1>Study Guides cho các Công ty Tech Hàng đầu</h1>
+<div class="subtitle">Lộ trình chuẩn bị 30–36 ngày dành riêng cho Google, Facebook và Amazon</div>
+
+<div class="intro-box">
+  Phỏng vấn PM đã đủ khó rồi — bạn không cần tốn thêm sức lực để tự xây dựng kế hoạch ôn tập từ đầu. Chương này cung cấp lộ trình chuẩn bị sẵn có cho ba công ty được săn đón nhất: Google (30 ngày), Facebook (30 ngày) và Amazon (36 ngày). Mỗi lộ trình đều có thể điều chỉnh theo kỹ năng, kinh nghiệm và thời gian của từng ứng viên.
+</div>
+
+<!-- ===================== GOOGLE ===================== -->
+<hr class="guide-divider">
+<h2>30-Day Google PM Study Guide</h2>
+<div class="guide-label">Lộ trình 30 ngày</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 1 — Làm quen với phỏng vấn PM tại Google</div>
+  <div class="day-sub">Nhiệm vụ</div>
+  <ul class="task-list">
+    <li>Đọc tài liệu chuẩn bị chính thức của Google gửi cho ứng viên PM: bit.ly/GOOGPMIntNote</li>
+    <li>Tìm kiếm trên Google bài blog của Lewis: "Google Product Manager Interview: What to Expect and How to Prepare"</li>
+  </ul>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Nắm được phạm vi và tính chất của phỏng vấn PM tại Google.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 2 — Làm quen với câu hỏi Product Design</div>
+  <div class="day-sub">Đọc nền</div>
+  <ul class="task-list">
+    <li>Đọc về phương pháp thiết kế CIRCLES trong <em>Decode and Conquer</em></li>
+    <li>Xem lại các ví dụ product design trong <em>Decode and Conquer</em> để thấy CIRCLES được áp dụng như thế nào</li>
+  </ul>
+  <div class="day-sub">Bài tập Pain Point</div>
+  <ul class="exercise-list">
+    <li>Child's 1st Birthday Party</li>
+    <li>Best Handyman</li>
+    <li>Job Search Pain Points</li>
+    <li>Finding Someone to Do Taxes</li>
+  </ul>
+  <div class="day-sub">Bài tập Customer Journey Map</div>
+  <ul class="exercise-list">
+    <li>Expedia Journey</li>
+    <li>Airbnb Journey</li>
+    <li>Job Search Journey</li>
+    <li>Home Improvement Journey</li>
+    <li>Customer Service Journey</li>
+    <li>Online Course Journey</li>
+  </ul>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Học về câu hỏi product design; hiểu framework CIRCLES; quan sát người khác trả lời với CIRCLES; luyện hai phần: liệt kê giải pháp (brainstorm) và báo cáo nhu cầu khách hàng (customer journey map).</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 3 — Kết hợp câu hỏi Product Design với CIRCLES Method™</div>
+  <div class="day-sub">Bài tập</div>
+  <ul class="exercise-list">
+    <li>Improving Google Hangouts</li>
+    <li>Disney Experience with Your Phone</li>
+  </ul>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Như người thử rượu sành sỏi, phát hiện điểm khác biệt giữa câu trả lời của bạn và đáp án mẫu. Đừng lo chất lượng hay tốc độ — bắt đầu thực hành là đã thắng một nửa.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 4–10 — Luyện một câu Product Design mỗi ngày</div>
+  <p>Hoàn thành một ví dụ mỗi ngày trong bảy ngày, chọn từ danh sách sau:</p>
+  <ol class="numbered-list">
+    <li>Improving Google Play Store</li>
+    <li>Monetizing Google Maps</li>
+    <li>Mobile App Design for Nest</li>
+    <li>Favorite Product</li>
+    <li>Favorite Website</li>
+    <li>People You May Know</li>
+    <li>Car for the Blind</li>
+    <li>ATM for the Elderly</li>
+  </ol>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Giải thích dễ dàng tại sao CIRCLES dẫn đến câu trả lời phỏng vấn tốt hơn; hiểu khi nào và tại sao cần thích nghi CIRCLES.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 11–13 — CIRCLES trong cuộc sống thực</div>
+  <div class="day-sub">Bài tập</div>
+  <p>Cải thiện kỹ năng product design bằng cách áp dụng CIRCLES Method™ vào cuộc sống thực. Trong ba ngày liên tiếp:</p>
+  <ol class="numbered-list">
+    <li>Đi dạo quanh khu phố</li>
+    <li>Khi đi, dùng CIRCLES Method™ để cải thiện các đồ vật thông thường</li>
+  </ol>
+  <p>Một số vấn đề thiết kế có thể suy nghĩ: cải thiện vỉa hè? đèn đường hiệu quả hơn? sản phẩm nào giải quyết vấn đề phân chó? sản phẩm nào ngăn xẹp lốp xe? đổi mới gì giúp làm vườn bớt nhàm chán? sản phẩm nào làm cho buổi gặp gỡ tại công viên thân thiện hơn?</p>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Hình thành tư duy product design 24 giờ một ngày, cả trong phỏng vấn lẫn cuộc sống hàng ngày.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 14* — Tìm partner luyện tập Product Design</div>
+  <div class="day-sub">Bài tập</div>
+  <ul class="task-list">
+    <li>Đăng ký nhóm luyện phỏng vấn trên Slack: bit.ly/PMInterviewGroup</li>
+    <li>Đăng yêu cầu tìm partner trong kênh #req-practice-ptr</li>
+    <li>Luân phiên vai: Partner A (người phỏng vấn) cho Partner B một câu, rồi đổi lại</li>
+    <li>Phối hợp trước câu hỏi — người được phỏng vấn nên nhận câu chưa quen để mô phỏng thực tế</li>
+  </ul>
+  <div class="note-italic">* Lặp lại hoạt động này nhiều lần tùy ý. Ứng viên giỏi nhất đã luyện ít nhất 20 câu product design.</div>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Làm chủ câu hỏi product design — đây là lý do hàng đầu khiến ứng viên trượt phỏng vấn PM tại Google.</div>
+
+  <div class="highlight-box">
+    <p><strong>Novice vs. Expert — Thước đo trình độ Product Design:</strong></p>
+    <ul class="proficiency-list">
+      <li>Người mới đề xuất tính năng hiển nhiên hoặc copy đối thủ. Chuyên gia đề xuất ý tưởng mới lạ và đáng nhớ — loại khiến người phỏng vấn nghĩ "Hmm, tôi ước mình nghĩ ra điều đó."</li>
+      <li>Người mới bỏ qua insight về người dùng. Chuyên gia liên tục đặt câu hỏi về hành vi con người, dễ dàng chỉ ra insight sâu sắc và bất ngờ.</li>
+      <li>Người mới bám chặt CIRCLES như công thức nấu ăn. Chuyên gia hiểu CIRCLES là checklist, không phải công thức — dùng để ngăn thiếu sót, không để làm câu trả lời rập khuôn.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 15 — Làm quen với câu hỏi Metrics</div>
+  <div class="day-sub">Đọc nền</div>
+  <ul class="task-list">
+    <li>Đọc về framework AARM trong <em>Decode and Conquer</em></li>
+    <li>Xem lại các ví dụ metrics trong <em>Decode and Conquer</em></li>
+  </ul>
+  <div class="day-sub">Bài tập Brainstorming Metrics</div>
+  <ul class="exercise-list">
+    <li>Metrics for eCommerce</li>
+    <li>Metrics for Two-sided Marketplaces</li>
+    <li>Metrics for SaaS</li>
+    <li>Metrics for Mobile Apps</li>
+    <li>Metrics for Publishers</li>
+    <li>Metrics for User-Generated Website</li>
+    <li>Metrics for Support Tickets</li>
+  </ul>
+  <div class="day-sub">Bài tập Prioritization Metrics</div>
+  <ul class="exercise-list">
+    <li>Most Important Metric: eCommerce</li>
+    <li>Most Important Metric: Two-Sided Marketplace</li>
+    <li>Most Important Metric: Mobile App</li>
+  </ul>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Làm quen với việc đề xuất và xác định các metric phù hợp.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 16 — Chẩn đoán vấn đề Metrics</div>
+  <div class="day-sub">Bài tập</div>
+  <ul class="exercise-list">
+    <li>Shopping Cart Conversions</li>
+    <li>Mobile App Ratings</li>
+    <li>Reddit Posts</li>
+  </ul>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Thành thạo brainstorm danh sách đầy đủ và toàn diện các vấn đề khi khắc phục một metric.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 17–18 — Ghép toàn bộ bài toán Metrics lại</div>
+  <div class="day-sub">Bài tập (mỗi ngày một ví dụ, tự luyện và với partner)</div>
+  <ul class="exercise-list">
+    <li>Your Favorite Google Product</li>
+    <li>Drop in Hits</li>
+    <li>Declining Users</li>
+    <li>Metrics for Uber Pick-up</li>
+    <li>Slow Download on Kindle</li>
+    <li>Pinterest Metrics</li>
+    <li>Go-to-Market and Success</li>
+  </ul>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Xây dựng sự thành thạo trong việc xác định, ưu tiên và chẩn đoán các vấn đề metrics.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 19 — Làm quen với câu hỏi Estimation</div>
+  <div class="day-sub">Nhiệm vụ</div>
+  <ul class="task-list">
+    <li>Đọc về câu hỏi estimation trong <em>Interview Math</em></li>
+    <li>Đọc các ví dụ: Women's Rain Boot Market, Smartphone Case Market, Subway's Sales, Netflix Subscription Sales</li>
+  </ul>
+  <div class="day-sub">Mục tiêu học</div>
+  <ol class="numbered-list">
+    <li>Hiểu cấu trúc câu hỏi estimation</li>
+    <li>Học cách dùng issue tree để thiết lập bài toán</li>
+    <li>Học cách đặt giả định</li>
+    <li>Thử: Cars in Seattle, How Many G Suite Users, Revenue from YouTube Red</li>
+  </ol>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 20 — Luyện câu hỏi Estimation</div>
+  <p>Hoàn thành một ví dụ mỗi ngày trong bảy ngày:</p>
+  <ol class="numbered-list">
+    <li>Planes in the Air</li>
+    <li>Gmail Ads Revenue</li>
+    <li>Google Buses</li>
+    <li>Gmail Costs</li>
+    <li>Driverless Car Purchases 2020</li>
+    <li>Storing Google Maps</li>
+    <li>Facebook's Ad Revenue</li>
+  </ol>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Làm chủ câu hỏi estimation — chất lượng trả lời quan trọng, nhưng đồng thời cần hoàn thành hầu hết câu estimation trong khoảng 10–15 phút.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 22 — Tìm hiểu câu hỏi Strategy</div>
+  <div class="day-sub">Nhiệm vụ</div>
+  <p>Đọc các chương sau trong <em>Decode and Conquer</em>: Strategizing: Tradeoffs, Strategizing: New Market Entry, Strategizing: CEO-Level Issues</p>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Học các loại câu hỏi strategy phổ biến; tìm hiểu cách tiếp cận bằng framework; xem cách áp dụng framework vào câu hỏi strategy thực tế.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 23 — Luyện câu hỏi Strategy</div>
+  <div class="day-sub">Bài tập</div>
+  <ol class="numbered-list">
+    <li>Google's Cable TV Service</li>
+    <li>iPhone Exclusive Partnership</li>
+  </ol>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Đưa ra câu trả lời thấu đáo, logic và giải quyết được mục tiêu của công ty. Tham khảo blog stratechery.com để xem thêm ví dụ strategy chất lượng cao.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 24 — Tìm hiểu câu hỏi Pricing</div>
+  <div class="day-sub">Nhiệm vụ</div>
+  <p>Đọc chương "Pricing" trong <em>Rise Above the Noise</em></p>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Học về câu hỏi pricing — sự khác nhau khi định giá sản phẩm mới vs. hiện tại; cách tiếp cận bằng framework; áp dụng framework vào câu hỏi phổ biến.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 25 — Luyện câu hỏi Pricing</div>
+  <div class="day-sub">Pricing sản phẩm mới</div>
+  <ul class="exercise-list">
+    <li>Google Driverless Car Pricing</li>
+    <li>Google and Teleportation</li>
+  </ul>
+  <div class="day-sub">Pricing sản phẩm hiện tại</div>
+  <ul class="exercise-list">
+    <li>Kindle Pricing at Target</li>
+    <li>AWS Price Reduction</li>
+  </ul>
+  <div class="day-sub">Câu hỏi chiến lược bổ sung</div>
+  <ol class="numbered-list">
+    <li>Google's Strategy</li>
+    <li>Google vs. Microsoft</li>
+    <li>Google Moonshot Projects</li>
+    <li>Google Maps in Mongolia</li>
+    <li>Google Store</li>
+  </ol>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 26 — Câu hỏi Traditional và Behavioral</div>
+  <div class="day-sub">Nhiệm vụ</div>
+  <ul class="task-list">
+    <li>Đọc chương "Winning the Behavioral Interview" trong <em>Decode and Conquer</em></li>
+    <li>Soạn và hoàn thiện câu trả lời cho: Tell me about yourself / Why Google? / Influencing your team</li>
+    <li>Luyện và nhận phản hồi từ partner</li>
+  </ul>
+  <div class="goal-box"><strong>Lưu ý:</strong> Mặc dù Google ưu tiên câu hỏi case, bạn vẫn cần chuẩn bị câu hỏi behavioral. Từ năm 2013, bộ phận HR của Google yêu cầu người phỏng vấn hỏi nhiều câu behavioral hơn.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 27 — Làm quen với câu hỏi Technical</div>
+  <div class="day-sub">Nhiệm vụ</div>
+  <p>Xem lại các chủ đề technical được gợi ý tại: bit.ly/PMPrepPlan</p>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Làm quen với các khái niệm và câu hỏi technical. Google dành câu hỏi technical cho ứng viên on-site đã trả lời tốt product design, analytics và strategy.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 28 — Thử lần đầu câu hỏi Technical</div>
+  <div class="day-sub">Bài tập</div>
+  <ul class="exercise-list">
+    <li>Racing 15 Horses (câu hỏi thuật toán)</li>
+    <li>Reducing Bandwidth Consumption (câu hỏi technical architecture)</li>
+  </ul>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Tiếp cận câu hỏi technical với sự bình tĩnh và tò mò thay vì lo lắng.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 29–30* — Thử lần hai câu hỏi Technical</div>
+  <div class="day-sub">Bài tập</div>
+  <ul class="exercise-list">
+    <li>Load Balancer for google.com</li>
+    <li>Dictionary for Scrabble</li>
+    <li>Google Search Service</li>
+    <li>Bayesian vs. AI</li>
+  </ul>
+  <div class="note-italic">* Lặp lại thực hành câu hỏi technical tùy theo nhu cầu.</div>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Xây dựng sự tự tin khi đối mặt với câu hỏi technical phỏng vấn.</div>
+</div>
+
+<hr class="divider">
+
+<h3>Cách điều chỉnh lộ trình Google cho Uber và LinkedIn</h3>
+<p>Không như Google, hầu hết các công ty không hỏi câu technical khó trong phỏng vấn PM. Nhiều nhất, họ hỏi bạn giải thích một khái niệm technical, ví dụ: "Điều gì xảy ra khi bạn gõ facebook.com vào Chrome?" hay "Kể một lần bạn phải đánh giá tradeoff kỹ thuật."</p>
+<p>Để điều chỉnh lộ trình Google cho Uber và LinkedIn: bỏ phần chuẩn bị câu hỏi technical, đọc bài tổng quan của Lewis về quy trình phỏng vấn PM tại Uber (bit.ly/uber-pm-int-tips) và LinkedIn (bit.ly/lnkd-pm-int-tips), và thay các ví dụ Google bằng ví dụ phù hợp hơn với Uber/LinkedIn.</p>
+
+<!-- ===================== FACEBOOK ===================== -->
+<hr class="guide-divider">
+<h2>30-Day Facebook PM Study Guide</h2>
+<div class="guide-label">Lộ trình 30 ngày</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 1 — Làm quen với phỏng vấn PM tại Facebook</div>
+  <div class="day-sub">Nhiệm vụ</div>
+  <ul class="task-list">
+    <li>Đọc bài blog của Lewis: "Facebook Product Manager Interview: What to Expect and How to Prepare" (bit.ly/fb-pm-int-tips)</li>
+  </ul>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Nắm được phạm vi và tính chất của phỏng vấn PM tại Facebook.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 2 — Product Sense Interview: Làm quen</div>
+  <div class="day-sub">Đọc nền</div>
+  <ul class="task-list">
+    <li>Đọc về CIRCLES trong <em>Decode and Conquer</em></li>
+    <li>Xem lại ví dụ product design trong <em>Decode and Conquer</em></li>
+  </ul>
+  <div class="day-sub">Bài tập (Ch. 12 — Pain Point &amp; Ch. 11 — Customer Journey Map)</div>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Học về câu hỏi product sense; hiểu framework CIRCLES; luyện hai phần của CIRCLES: liệt kê giải pháp và báo cáo nhu cầu khách hàng.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 3 — Product Sense: Kết hợp câu hỏi với CIRCLES Method™</div>
+  <div class="day-sub">Bài tập</div>
+  <ul class="exercise-list">
+    <li>Improving Facebook for the Web</li>
+    <li>Improving Facebook Mobile</li>
+  </ul>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Phát hiện điểm khác biệt giữa câu trả lời của bạn và đáp án mẫu; bắt đầu thực hành là đã nửa phần chiến thắng.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 4–10 — Product Sense: Luyện một câu mỗi ngày</div>
+  <p>Chọn từ danh sách sau (một câu mỗi ngày):</p>
+  <ol class="numbered-list">
+    <li>People You May Know</li>
+    <li>Instagram UX</li>
+    <li>Improving Facebook Login</li>
+    <li>Favorite Product</li>
+    <li>Favorite Website</li>
+    <li>Car for the Blind</li>
+    <li>ATM for the Elderly</li>
+    <li>Physical Product</li>
+  </ol>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Giải thích dễ dàng tại sao CIRCLES dẫn đến câu trả lời tốt hơn; hiểu khi nào và tại sao cần thích nghi CIRCLES.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 11–13 — Product Sense: CIRCLES trong cuộc sống thực</div>
+  <p>Áp dụng CIRCLES Method™ vào cuộc sống thực trong ba ngày liên tiếp — đi dạo và tư duy thiết kế về mọi thứ xung quanh.</p>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Hình thành tư duy product design 24/7.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 14* — Product Sense: Tìm partner luyện tập</div>
+  <p>Đăng ký Slack tại bit.ly/PMInterviewGroup, đăng yêu cầu tìm partner trong kênh #req-practice-ptr. Luân phiên vai và phối hợp câu hỏi trước.</p>
+  <div class="note-italic">* Ứng viên giỏi nhất đã luyện ít nhất 20 câu product sense.</div>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Làm chủ phỏng vấn product sense — đây là lý do phổ biến khiến ứng viên trượt phỏng vấn PM tại Facebook.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 15 — Execution Interview: Làm quen (Metrics)</div>
+  <div class="day-sub">Ví dụ câu hỏi Facebook thực tế</div>
+  <p>Bạn là PM phụ trách tính năng Reactions trên Facebook (love, haha, wow, sad, angry). Bạn dự đoán số lượng reactions không phải "like" mỗi bài đăng sẽ thấp hơn số lượng like hiện tại. Success looks like gì về số lượng non-like reactions mỗi bài khi ra mắt? Con số này có khác nhau theo từng loại reaction không? Tại sao?</p>
+  <div class="day-sub">Cách tiếp cận</div>
+  <ol class="numbered-list">
+    <li>Brainstorm danh sách metrics</li>
+    <li>Xác định 2–3 metric tiềm năng, thảo luận ưu và nhược điểm</li>
+    <li>Đưa ra khuyến nghị cuối cùng</li>
+  </ol>
+  <div class="day-sub">Bài tập (Ch. 15 — Brainstorming &amp; Ch. 16 — Prioritization)</div>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Làm quen với việc đề xuất và xác định các metric phù hợp.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 16–18 — Execution Interview: Chẩn đoán vấn đề</div>
+  <div class="day-sub">Ví dụ câu hỏi</div>
+  <ul class="task-list">
+    <li>Weekly active usage giảm trên Android. Tại sao?</li>
+    <li>Facebook signups giảm. Tại sao?</li>
+  </ul>
+  <div class="day-sub">Cách tiếp cận</div>
+  <ol class="numbered-list">
+    <li>Xây dựng issue tree (diagnostic map)</li>
+    <li>Khám phá từng nhánh một cách hệ thống</li>
+    <li>Suy luận vấn đề bằng cách loại trừ</li>
+  </ol>
+  <div class="day-sub">Bài tập (Ch. 17 — Diagnose Exercises)</div>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Thành thạo brainstorm danh sách đầy đủ các vấn đề khi khắc phục metric.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 19–21 — Execution Interview: Giải quyết vấn đề Metric</div>
+  <div class="day-sub">Ví dụ câu hỏi</div>
+  <p>Bạn là PM của Facebook Ads. Tỷ lệ hoàn tiền quảng cáo giảm 5%. Bạn sẽ làm gì?</p>
+  <div class="day-sub">Cách tiếp cận (6 bước)</div>
+  <ol class="numbered-list">
+    <li>Xây dựng issue tree</li>
+    <li>Khám phá từng nhánh hệ thống</li>
+    <li>Suy luận root cause bằng loại trừ</li>
+    <li>Brainstorm ít nhất 10 giải pháp</li>
+    <li>Thảo luận ưu/nhược điểm cho top 2–3 giải pháp</li>
+    <li>Đề xuất một giải pháp duy nhất</li>
+  </ol>
+  <div class="day-sub">Bài tập (Ch. 18 — Metrics: Putting it Together)</div>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Thành thạo giải quyết vấn đề metrics — xác định, ưu tiên và chẩn đoán.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 22–23 — Execution Interview: Đưa ra ý kiến chiến lược</div>
+  <div class="day-sub">Giới thiệu</div>
+  <p>Đôi khi người phỏng vấn hỏi ý kiến chiến lược của bạn — để kiểm tra khả năng suy luận về hướng hành động.</p>
+  <div class="day-sub">Ví dụ</div>
+  <p>Trade-off giữa việc có quảng cáo và không có quảng cáo trên Facebook là gì?</p>
+  <div class="day-sub">Bài tập (Ch. 19 — Hypothetical: Opinion, Ch. 20 — Problem Solving, Ch. 23 — Strategy: Other)</div>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Chứng minh bạn hiểu tình huống (mục tiêu, ràng buộc, rủi ro); phát triển kế hoạch hoặc tiêu chí đánh giá; phân tích và đưa ra khuyến nghị.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 24–26 — Execution Interview: Tính toán số liệu</div>
+  <div class="day-sub">Giới thiệu</div>
+  <p>Facebook tìm kiếm PM có tư duy data-driven — mọi quyết định điều hành phải được hậu thuẫn bởi số liệu. Người phỏng vấn muốn ứng viên thực hiện back-of-the-envelope calculation khi đưa ra khuyến nghị.</p>
+  <div class="day-sub">Ví dụ câu hỏi</div>
+  <ul class="task-list">
+    <li>Bạn sẽ quyết định như thế nào giữa việc hiển thị thêm quảng cáo trên News Feed vs. widget "People You May Know"?</li>
+    <li>Chúng ta đã outsource một mobile app quan trọng cho developer bên thứ ba. Làm thế nào quyết định khi nào nên đưa việc này về in-house?</li>
+  </ul>
+  <div class="day-sub">Bài tập (Ch. 6, 8, 9, 10 — Analytics)</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 27–29 — Execution Interview: Revisiting Product Sense với Execution Emphasis</div>
+  <div class="day-sub">Giới thiệu</div>
+  <p>Đôi khi Facebook hỏi câu tập trung vào chi tiết implementation (thực thi) của một sản phẩm.</p>
+  <div class="day-sub">Ví dụ câu hỏi</div>
+  <ul class="task-list">
+    <li>Dựa trên báo cáo đã thu thập, two-factor authentication (2FA) có vẻ là lựa chọn tốt để implement. Bạn sẽ cần xem xét những gì để phát triển và áp dụng 2FA thành công?</li>
+    <li>Hãy tưởng tượng bạn là PM đứng sau việc ra mắt tính năng Safety Check. Hãy trình bày các tradeoff giữa product design và software engineering khi xác định MVP.</li>
+  </ul>
+  <div class="day-sub">Cách tiếp cận (LES — ba bước cuối CIRCLES)</div>
+  <ol class="numbered-list">
+    <li>Diagram hoặc wireframe cách tính năng hoạt động</li>
+    <li>Thảo luận điểm mạnh, yếu và tradeoff của implementation</li>
+    <li>Đề xuất phương án thay thế nếu phù hợp</li>
+    <li>Đưa ra khuyến nghị về kế hoạch phát triển cuối cùng</li>
+  </ol>
+  <div class="day-sub">Bài tập (Ch. 14 — Product Design: Putting It Together với emphasis wireframing)</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 30 — Leadership Interview: Làm quen</div>
+  <div class="day-sub">Giới thiệu</div>
+  <p>Facebook tin tưởng rằng PM giỏi là những nhà lãnh đạo mạnh. Họ đánh giá ứng viên theo bốn tiêu chí:</p>
+  <ol class="numbered-list">
+    <li><strong>Introspection</strong> — Ứng viên có nhận thức về bản thân, đặc biệt về điểm yếu của mình không?</li>
+    <li><strong>Emotional Intelligence</strong> — Ứng viên có hòa đồng tốt với người khác không?</li>
+    <li><strong>Leadership &amp; team building</strong> — Ứng viên có thích lãnh đạo và xây dựng team không?</li>
+    <li><strong>Vision</strong> — Ứng viên có hứng khởi với công nghệ? Có thể đặt ra tầm nhìn táo bạo không?</li>
+  </ol>
+  <div class="day-sub">Ví dụ câu hỏi</div>
+  <ul class="exercise-list">
+    <li>What's a self-development area that needs improvement?</li>
+    <li>Tell me a time when you disagreed with an engineer. How did you convince him or her?</li>
+    <li>What's your favorite project where you played a leadership role?</li>
+    <li>What's a technology trend that you're excited about?</li>
+  </ul>
+  <div class="day-sub">Bài tập (Ch. 19 — Hypothetical: Opinion &amp; Ch. 26 — Behavioral)</div>
+</div>
+
+<!-- ===================== AMAZON ===================== -->
+<hr class="guide-divider">
+<h2>36-Day Amazon PM Study Guide</h2>
+<div class="guide-label">Lộ trình 36 ngày</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 1 — Làm quen với phỏng vấn PM tại Amazon</div>
+  <div class="day-sub">Nhiệm vụ</div>
+  <p>Tìm kiếm trên Google và đọc bài tổng quan của Lewis về quy trình phỏng vấn PM tại Amazon: "How to Prepare for the Amazon Product Manager Interview"</p>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Nắm được phạm vi và tính chất của phỏng vấn PM tại Amazon.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 2 — Câu hỏi Traditional và Behavioral</div>
+  <div class="day-sub">Nhiệm vụ</div>
+  <ul class="task-list">
+    <li>Đọc chương "Winning the Behavioral Interview" trong <em>Decode and Conquer</em></li>
+    <li>Xem lại Amazon Leadership Principles: www.amazon.jobs/principles</li>
+    <li>Soạn và hoàn thiện câu trả lời cho: Tell me about yourself, Why Amazon?</li>
+    <li>Luyện và nhận phản hồi từ partner</li>
+  </ul>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Amazon là công ty tech gắn kết nhất với văn hóa doanh nghiệp, thể hiện qua 14 Leadership Principles. Ít nhất nửa câu hỏi phỏng vấn sẽ là behavioral, tập trung vào các nguyên tắc này. Hãy thấm nhuần giá trị Amazon sâu sắc.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 3–7 — Soạn câu trả lời Behavioral theo Amazon Leadership Principles</div>
+  <div class="day-sub">Nhiệm vụ</div>
+  <p>Dùng DIGS Method™ để chuẩn bị câu trả lời behavioral cho từng Leadership Principle. Template soạn câu trả lời: bit.ly/AMZNInterviewStories</p>
+  <table class="amazon-table">
+    <tr>
+      <th>Amazon Principle</th>
+      <th>Câu hỏi gợi ý</th>
+      <th>Câu trả lời mẫu*</th>
+    </tr>
+    <tr>
+      <td>Customer Obsession</td>
+      <td>Dẫn dắt chúng tôi qua một thời điểm bạn giúp khách hàng vượt qua quy trình khó khăn</td>
+      <td>Helping a Customer</td>
+    </tr>
+    <tr>
+      <td>Ownership</td>
+      <td>Cho tôi ví dụ về lần bạn chấp nhận rủi ro và thất bại</td>
+      <td>Risk and Failure</td>
+    </tr>
+    <tr>
+      <td>Invent and Simplify</td>
+      <td>Kể về lần bạn tạo ra sản phẩm sáng tạo</td>
+      <td>Creating an Innovative Product</td>
+    </tr>
+    <tr>
+      <td>Are Right, A Lot</td>
+      <td>Kể về lần bạn phát hiện hai cơ hội kinh doanh để cải thiện ROI và cách bạn xác định chúng có liên quan</td>
+      <td>Connected ROI</td>
+    </tr>
+    <tr>
+      <td>Learn and Be Curious</td>
+      <td>Bạn tìm thời gian để cập nhật kiến thức và đổi mới trong công việc như thế nào?</td>
+      <td>Learning Outside of Work</td>
+    </tr>
+    <tr>
+      <td>Hire and Develop The Best</td>
+      <td>Kể về lần bạn phải xử lý một nhân viên kém hiệu suất</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td>Insist on the Highest Standards</td>
+      <td>Kể về lần bạn có thể ngừng làm một việc nhưng vẫn tiếp tục</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td>Think Big</td>
+      <td>Kể về lần bạn đề xuất một mô hình kinh doanh mới</td>
+      <td>Xem chương Strategy: New Market Entry để lấy cảm hứng</td>
+    </tr>
+    <tr>
+      <td>Bias for Action</td>
+      <td>Mô tả cách bạn xử lý tình huống bận rộn khi có ba người đang chờ giúp đỡ</td>
+      <td>Handling a Busy Situation</td>
+    </tr>
+    <tr>
+      <td>Frugality</td>
+      <td>Kể về lần bạn nghĩ ra cách thông minh để tiết kiệm tiền cho công ty</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td>Earn Trust</td>
+      <td>Kể về lần bạn xây dựng được sự tin tưởng của một nhóm người</td>
+      <td>Earning the Trust of a Group</td>
+    </tr>
+    <tr>
+      <td>Dive Deep</td>
+      <td>Kể về lần bạn phải đào sâu vào dữ liệu và kết quả bạn đạt được</td>
+      <td>Diving Deep into Data</td>
+    </tr>
+    <tr>
+      <td>Have Backbone; Disagree and Commit</td>
+      <td>Kể về tương tác khó khăn nhất bạn từng có tại nơi làm việc</td>
+      <td>Most Difficult Interaction</td>
+    </tr>
+    <tr>
+      <td>Deliver Results</td>
+      <td>Kể về lần bạn vượt qua trở ngại và hoàn thành kết quả</td>
+      <td>Overcoming an Obstacle</td>
+    </tr>
+  </table>
+  <p class="source-note">*Tham khảo mục lục để tìm phần phù hợp trong cuốn sách này. Nguồn: <em>The Product Manager Interview</em> và website Amazon.com</p>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Hoàn thành bản nháp câu trả lời cho từng Amazon Leadership Principle.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 8 — Nhận phản hồi cho câu trả lời Behavioral</div>
+  <div class="day-sub">Nhiệm vụ</div>
+  <p>Tìm partner và nhận phản hồi — có thể trình bày câu chuyện dạng outline hoặc trong buổi mock interview thực tế.</p>
+  <div class="goal-box"><strong>Mục tiêu — Câu trả lời cần:</strong> Dễ hiểu và dễ theo dõi; thể hiện sự suy nghĩ thấu đáo; làm rõ vai trò của bạn (owner hay participant); thể hiện thành tích xuất sắc, không chỉ "tốt".</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 9–10 — Làm quen với câu hỏi Lifetime Value (LTV)</div>
+  <div class="day-sub">Đọc nền</div>
+  <ul class="task-list">
+    <li>Đọc chương Lifetime Value trong <em>Interview Math</em></li>
+    <li>Theo dõi ví dụ LTV trong <em>Interview Math</em>: Starbucks' Lifetime Value</li>
+  </ul>
+  <div class="day-sub">Bài tập</div>
+  <ul class="task-list">
+    <li>Trong <em>The Product Manager Interview</em>: Apple iPhone LTV, Kindle Pricing Error</li>
+    <li>Trong <em>Interview Math</em>: AT&amp;T New iPhone Promotion, American Express I &amp; II, Crest Toothpaste, New York Times Website</li>
+  </ul>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Thấm nhuần framework LTV; thành thạo áp dụng LTV chi tiết vào nhiều dạng câu hỏi thử thách.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 11–12 — Làm quen với câu hỏi Pricing</div>
+  <div class="day-sub">Đọc nền</div>
+  <p>Làm quen với hai loại câu hỏi pricing (sản phẩm mới và hiện tại) bằng cách đọc chương Pricing trong <em>Rise Above the Noise</em>.</p>
+  <div class="day-sub">Bài tập</div>
+  <ul class="task-list">
+    <li>Existing Product Pricing (<em>Interview Math</em>): Google Nexus Phone, Star Wars 7 Ticket Price, Starbucks Coffee Latte</li>
+    <li>New Product Pricing (<em>The Product Manager Interview</em>): Google Driverless Car Pricing, Google and Teleportation, Pricing UberX</li>
+  </ul>
+  <div class="goal-box"><strong>Mục tiêu:</strong> Phân biệt pricing sản phẩm mới và hiện tại; biết framework phù hợp cho từng loại; thành thạo trả lời cả hai dạng.</div>
+</div>
+
+<div class="day-block">
+  <div class="day-title">Ngày 13–36 — Theo lộ trình Google từ Ngày 2 đến Ngày 25</div>
+  <p>Thay thế các bài tập Google-centric bằng ví dụ phù hợp với Amazon từ <em>The Product Manager Interview</em>. Amazon không hỏi câu coding hay technical architecture, do đó có thể bỏ qua phần chuẩn bị technical nếu thời gian hạn chế.</p>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận</div>
+  <p>Không có lộ trình chuẩn bị nào phù hợp với tất cả mọi người — nhưng lộ trình này cho bạn một điểm khởi đầu đã được kiểm chứng. Google yêu cầu bạn thành thạo cả product design, metrics, estimation, strategy, pricing và kỹ thuật. Facebook tập trung vào product sense, execution và leadership. Amazon đặt hàng đầu là behavioral theo 14 Leadership Principles, cộng với lifetime value và pricing.</p>
+  <p>Điều quan trọng nhất là bắt đầu thực hành sớm, luyện đều đặn mỗi ngày, tìm partner để có phản hồi chân thực và điều chỉnh lộ trình theo điểm mạnh/yếu riêng của bạn. Ứng viên xuất sắc nhất không phải là người thông minh nhất — mà là người luyện tập nhiều nhất và đúng cách nhất.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch4.html"><span class="lbl">Chương sau</span>Chương 4: Từ viết tắt, Thuật ngữ và Khái niệm</a>
+</nav>
+</body>
+</html>

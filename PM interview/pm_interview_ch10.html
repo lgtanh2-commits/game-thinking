@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 10: Analytics — ROI · The Product Manager Interview</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:860px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:8px;color:var(--text);}
+.subtitle{font-size:1rem;color:var(--text-muted);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--accent-line);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.intro-box{background:var(--surface);border-left:3px solid var(--accent-line);padding:18px 22px;margin:24px 0;font-size:1rem;color:var(--text);}
+.exercise-block{border:1px solid var(--border);margin:36px 0;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:14px 20px;border-bottom:1px solid var(--border);}
+.exercise-num{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-title{font-size:1.08rem;font-weight:700;color:var(--text);}
+.exercise-body{padding:20px 24px;}
+.question-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin-bottom:18px;font-size:.95rem;color:var(--text);font-style:italic;}
+.section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:18px 0 8px;}
+.tip-list{list-style:none;margin:8px 0 14px;padding:0;}
+.tip-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+.tip-list li:last-child{border-bottom:none;}
+.tip-list li::before{content:"→";position:absolute;left:0;color:var(--text-muted);font-size:.82rem;}
+.mistake-list{list-style:none;margin:8px 0 14px;padding:0;}
+.mistake-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+.mistake-list li:last-child{border-bottom:none;}
+.mistake-list li::before{content:"✗";position:absolute;left:0;color:#888;font-size:.82rem;}
+.dialog-block{margin:12px 0;}
+.dialog-row{margin:5px 0;font-size:.87rem;}
+.dialog-role{font-weight:700;color:var(--text);}
+.dialog-text{color:var(--text-secondary);}
+.calc-box{background:var(--surface);padding:14px 18px;margin:12px 0;font-size:.88rem;font-family:'Courier New',monospace;color:var(--text);line-height:1.9;}
+.pro-con{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0;}
+.fulfill-box,.cancel-box{border:1px solid var(--border);padding:14px;}
+.fulfill-box{border-top:3px solid #27ae60;}
+.cancel-box{border-top:3px solid #c0392b;}
+.pc-title{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.fulfill-box .pc-title{color:#27ae60;}
+.cancel-box .pc-title{color:#c0392b;}
+.pc-list{list-style:none;padding:0;margin:0;}
+.pc-list li{padding:4px 0 4px 14px;position:relative;font-size:.84rem;color:var(--text-secondary);}
+.pc-list li::before{content:"•";position:absolute;left:0;}
+.ltv-diagram{background:#fff;border:1px solid var(--border);padding:18px;margin:14px 0;}
+.ltv-formula{font-size:.9rem;font-family:'Courier New',monospace;color:var(--text);margin:6px 0;}
+.ltv-row{display:flex;gap:12px;margin:10px 0;align-items:flex-start;}
+.ltv-label{font-weight:700;color:var(--text);font-size:.88rem;min-width:160px;}
+.ltv-val{font-size:.87rem;color:var(--text-secondary);}
+.answer-box{background:var(--accent-line);color:#fff;padding:10px 18px;margin-top:14px;display:flex;align-items:center;gap:16px;}
+.answer-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.7;white-space:nowrap;}
+.answer-value{font-size:1rem;font-weight:700;}
+.result-box{background:var(--surface);border:2px solid var(--border-strong);padding:16px 20px;margin:14px 0;}
+.result-title{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.result-row{display:flex;justify-content:space-between;font-size:.9rem;margin:6px 0;padding:4px 0;border-bottom:1px solid var(--border);}
+.result-row:last-child{border-bottom:none;font-weight:700;color:var(--text);}
+.result-left{color:var(--text-secondary);}
+.result-right{color:var(--text);font-weight:600;}
+.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--accent-line);background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:12px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+@media(max-width:600px){body{padding:36px 20px 60px;}h1{font-size:1.8rem;}.pro-con{grid-template-columns:1fr;}}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 10</div>
+<h1>Analytics: ROI</h1>
+<div class="subtitle">2 bài tập tính toán lợi nhuận ròng và giá trị vòng đời khách hàng</div>
+
+<div class="intro-box">
+  ROI (Return on Investment) và LTV (Customer Lifetime Value) là hai công cụ tài chính PM dùng để đánh giá quyết định kinh doanh. ROI đo lợi nhuận ròng so với chi phí bỏ ra; LTV ước lượng tổng doanh thu một khách hàng mang lại suốt vòng đời của họ. Cả hai đều đòi hỏi PM phải xem xét cả chi phí trực tiếp lẫn tác động gián tiếp (shipping, brand, hệ sinh thái sản phẩm).
+</div>
+
+<!-- Bài 1 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 1</div>
+    <div class="exercise-title">Lỗi định giá Kindle $19</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Kindle thường có giá $199. Một lỗi định giá xảy ra và website Amazon hiển thị $19. Trước khi lỗi được sửa, Amazon bán được 300,000 chiếc. Hàng chưa giao. Bạn đề xuất Amazon làm gì?</div>
+
+    <div class="section-label">Điều cần cân nhắc</div>
+    <ul class="tip-list">
+      <li>Chi phí tài chính nếu thực hiện đơn hàng là bao nhiêu?</li>
+      <li>Tác động PR và thương hiệu?</li>
+      <li>Triết lý của công ty với vấn đề liên quan đến khách hàng?</li>
+    </ul>
+
+    <div class="section-label">Lỗi thường gặp</div>
+    <ul class="mistake-list">
+      <li>Không tính chi phí vận chuyển</li>
+      <li>Không tính lợi ích từ các giao dịch mua hàng liên quan (sách, phim, nhạc) sau khi khách có Kindle</li>
+    </ul>
+
+    <div class="section-label">Đối thoại làm rõ số liệu</div>
+    <div class="dialog-block">
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Chi phí sản xuất Kindle là bao nhiêu?</span></div>
+      <div class="dialog-row"><span class="dialog-role">I:</span> <span class="dialog-text">Khoảng $170.</span></div>
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Amazon có tiền lệ xử lý trường hợp tương tự không?</span></div>
+      <div class="dialog-row"><span class="dialog-role">I:</span> <span class="dialog-text">Giả sử không có, và cũng không có chính sách cụ thể cho tình huống này.</span></div>
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Ngoài lỗ trên sale, chúng ta cũng mất tiền vận chuyển.</span></div>
+      <div class="dialog-row"><span class="dialog-role">I:</span> <span class="dialog-text">Đúng — giải thích thêm.</span></div>
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Amazon Prime customers sẽ được giao miễn phí — đây là chi phí tăng thêm. Non-Prime không đủ điều kiện free shipping với $19. Giả sử 50% là Prime. Chi phí giao hàng từ SEC filings: ~5% net sales (~$100 average) = $5/đơn.</span></div>
+    </div>
+
+    <div class="section-label">Tính toán chi phí nếu thực hiện đơn hàng</div>
+    <div class="calc-box">
+Lỗ bán hàng = 300,000 × ($170 giá vốn − $19 giá bán)
+            = 300,000 × $151 = ~$45,300,000 ≈ $45M
+
+Lỗ vận chuyển (Prime customers):
+= 300,000 × 50% Prime × $5 vận chuyển/đơn
+= 150,000 × $5 = $750,000
+
+Tổng tổn thất = $45M + $750K = ~$45.75M</div>
+
+    <div class="section-label">Phân tích: Thực hiện hay hủy đơn?</div>
+    <div class="pro-con">
+      <div class="fulfill-box">
+        <div class="pc-title">Thực hiện đơn (+)</div>
+        <ul class="pc-list">
+          <li>Kindle dùng mô hình razor-and-razorblade → lợi nhuận thực sự từ sách/phim/nhạc sau đó</li>
+          <li>Thêm Kindle users → tăng word-of-mouth và engagement</li>
+          <li>PR tích cực: Kindle trở thành trending, tăng brand awareness</li>
+          <li>Phù hợp giá trị cốt lõi Amazon: "Customer Obsession", "Ownership", "Highest Standards"</li>
+          <li>$45.75M ≈ chỉ vài tháng lợi nhuận bán lẻ — không làm công ty sụp đổ</li>
+        </ul>
+      </div>
+      <div class="cancel-box">
+        <div class="pc-title">Hủy đơn (−)</div>
+        <ul class="pc-list">
+          <li>Khiến 300,000 khách hàng thất vọng</li>
+          <li>PR tiêu cực nặng nề trên mạng xã hội</li>
+          <li>Bộ phận hỗ trợ phải xử lý 300,000 khiếu nại</li>
+          <li>Fulfillment team phải hủy toàn bộ 300,000 đơn hàng</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án &amp; Khuyến nghị</span>
+      <span class="answer-value">Thực hiện đơn hàng — $45.75M tổn thất, nhưng giữ được lòng tin khách hàng và đúng với DNA của Amazon</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 2 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 2</div>
+    <div class="exercise-title">Lifetime Value của khách hàng iPhone Apple</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Tính giá trị vòng đời (Lifetime Value) của một khách hàng iPhone Apple.</div>
+
+    <div class="section-label">Điều cần cân nhắc</div>
+    <ul class="tip-list">
+      <li>Dùng công thức LTV chuẩn: A = B × C; C = D × E</li>
+      <li>Tính cả doanh thu một lần (bán điện thoại) và doanh thu định kỳ (app, nhạc, sách)</li>
+    </ul>
+
+    <div class="section-label">Lỗi thường gặp</div>
+    <ul class="mistake-list">
+      <li>Không biết công thức LTV chuẩn</li>
+      <li>Chỉ tính doanh thu một lần mà bỏ qua doanh thu định kỳ từ digital goods</li>
+      <li>Tính toán lộn xộn, khó theo dõi</li>
+    </ul>
+
+    <div class="section-label">Công thức LTV</div>
+    <div class="ltv-diagram">
+      <div class="ltv-formula">A (Lifetime Value) = B × C</div>
+      <div class="ltv-formula">B = Số năm là khách hàng</div>
+      <div class="ltv-formula">C (Customer Value/năm) = D × E</div>
+      <div class="ltv-formula">D = Contribution per Sale (doanh thu × gross margin)</div>
+      <div class="ltv-formula">E = Sales per Year (số lần mua mỗi năm)</div>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="tip-list">
+      <li>iPhone được thay mỗi 3 năm</li>
+      <li>iPhone trung bình giá $687; gross margin 69%</li>
+      <li>75% người dùng trung thành với iPhone cho lần mua tiếp (retention rate)</li>
+      <li>Khách hàng trung thành trung bình 12 năm</li>
+      <li>Chi tiêu digital goods: $5/tháng (app, nhạc, phim, sách)</li>
+      <li>Apple giữ 30% doanh thu từ digital goods</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="result-box">
+      <div class="result-title">LTV từ bán điện thoại</div>
+      <div class="result-row"><span class="result-left">Contribution per Sale</span><span class="result-right">$687 × 69% = $474.03</span></div>
+      <div class="result-row"><span class="result-left">Sales per Year</span><span class="result-right">1/3 (thay mỗi 3 năm)</span></div>
+      <div class="result-row"><span class="result-left">Customer Value/năm</span><span class="result-right">$474.03 × 1/3 = $158.01</span></div>
+      <div class="result-row"><span class="result-left">Số năm là khách hàng</span><span class="result-right">12 năm</span></div>
+      <div class="result-row"><span class="result-left">LTV điện thoại</span><span class="result-right">$158.01 × 12 = $1,896.12</span></div>
+    </div>
+
+    <div class="result-box">
+      <div class="result-title">LTV từ digital goods</div>
+      <div class="result-row"><span class="result-left">Contribution per Sale/tháng</span><span class="result-right">$5 × 30% = $1.50</span></div>
+      <div class="result-row"><span class="result-left">Transactions per Year</span><span class="result-right">12 lần (mỗi tháng)</span></div>
+      <div class="result-row"><span class="result-left">Customer Value/năm</span><span class="result-right">$1.50 × 12 = $18</span></div>
+      <div class="result-row"><span class="result-left">Số năm là khách hàng</span><span class="result-right">12 năm</span></div>
+      <div class="result-row"><span class="result-left">LTV digital goods</span><span class="result-right">$18 × 12 = $216</span></div>
+    </div>
+
+    <div class="calc-box">
+Total LTV = LTV điện thoại + LTV digital goods
+          = $1,896.12 + $216
+          = $2,112.12</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">LTV một khách hàng iPhone = $2,112.12</span>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận Chương 10</div>
+  <p>Phân tích ROI trong phỏng vấn PM đòi hỏi sự toàn diện: tính đủ cả chi phí trực tiếp, chi phí gián tiếp (như phí vận chuyển) và lợi ích dài hạn từ hệ sinh thái sản phẩm. Bài Kindle $19 minh họa rằng quyết định kinh doanh không bao giờ chỉ là toán học — giá trị thương hiệu, lòng tin khách hàng và văn hóa công ty cũng là những yếu tố "chi phí" cần tính vào.</p>
+  <p>LTV là công cụ quan trọng giúp PM biện minh cho quyết định đầu tư: biết một khách hàng iPhone mang lại $2,112 suốt vòng đời giúp Apple quyết định đầu tư bao nhiêu vào customer acquisition và retention. PM giỏi luôn phân tách LTV thành các nguồn doanh thu riêng biệt (hardware và digital goods) để hiểu rõ từng mảng kinh doanh.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch9.html"><span class="lbl">Chương trước</span>Chương 9: Analytics — Định giá Sản phẩm Hiện có</a>
+  <a href="pm_interview_ch11.html"><span class="lbl">Chương sau</span>Chương 11: Thiết kế Sản phẩm: Bản đồ Hành trình Khách hàng</a>
+</nav>
+</body>
+</html>

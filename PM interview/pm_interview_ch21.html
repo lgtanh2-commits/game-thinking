@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 21 – Strategy: Thâm nhập Thị trường Mới | The Product Manager Interview</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.chapter-header{margin-bottom:48px;}
+.chapter-tag{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:32px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;}
+.chapter-subtitle{font-size:17px;color:var(--text-secondary);font-style:italic;margin-bottom:20px;}
+.chapter-intro{font-size:15px;color:var(--text-secondary);line-height:1.7;padding:20px 24px;background:var(--surface);border-left:3px solid var(--accent-line);border-radius:0 6px 6px 0;margin-bottom:8px;}
+.exercise{border:1px solid var(--border);border-radius:8px;margin-bottom:36px;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:16px 24px;border-bottom:1px solid var(--border);}
+.exercise-number{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-title{font-size:17px;font-weight:600;color:var(--text);}
+.exercise-body{padding:24px;}
+.question-block{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;border-radius:0 6px 6px 0;margin-bottom:20px;font-style:italic;color:var(--text-secondary);}
+.answer-section{margin-bottom:20px;}
+.answer-section:last-child{margin-bottom:0;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+p{margin-bottom:12px;color:var(--text-secondary);}
+p:last-child{margin-bottom:0;}
+.item-list{list-style:none;padding:0;margin:0 0 12px;}
+.item-list li{font-size:14px;color:var(--text-secondary);padding:6px 0 6px 20px;position:relative;line-height:1.6;}
+.item-list li::before{content:'→';position:absolute;left:0;color:var(--text-muted);font-size:12px;}
+.item-list li strong{color:var(--text);}
+.numbered-list{list-style:none;padding:0;margin:0 0 12px;}
+.numbered-list li{display:flex;gap:12px;padding:8px 0;border-bottom:1px dashed var(--border);font-size:14px;color:var(--text-secondary);line-height:1.6;}
+.numbered-list li:last-child{border-bottom:none;}
+.num{font-weight:700;color:var(--text);min-width:20px;}
+.pro-con-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+.pro-col,.con-col{padding:14px;border-radius:6px;}
+.pro-col{background:#f0f4f0;border:1px solid #c8d8c8;}
+.con-col{background:#f4f0f0;border:1px solid #d8c8c8;}
+.col-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+.pro-col .col-label{color:#3a6a3a;}
+.con-col .col-label{color:#6a3a3a;}
+.col-item{font-size:13px;color:var(--text-secondary);padding:3px 0;line-height:1.5;}
+.framework-box{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0;}
+.framework-header{background:var(--surface-dark);padding:10px 16px;font-size:13px;font-weight:600;color:var(--text);}
+.framework-body{padding:16px;}
+.framework-row{display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px dashed var(--border);font-size:14px;color:var(--text-secondary);}
+.framework-row:last-child{border-bottom:none;}
+.framework-key{font-weight:600;color:var(--text);min-width:160px;}
+.note-box{font-size:13px;color:var(--text-secondary);background:var(--surface);padding:12px 16px;border-radius:6px;border-left:3px solid var(--border-strong);margin-top:12px;font-style:italic;}
+.conclusion-box{margin-top:64px;padding:28px 32px;border:1px solid var(--border-strong);border-radius:8px;background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+.conclusion-box p{color:var(--text-secondary);margin-bottom:10px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 21</div>
+
+<div class="chapter-header">
+  <div class="chapter-tag">Chương 21</div>
+  <h1>Strategy: Thâm nhập Thị trường Mới</h1>
+  <div class="chapter-subtitle">New Market Entry — Phân tích cơ hội, rào cản và chiến lược mở rộng</div>
+  <div class="chapter-intro">
+    Câu hỏi chiến lược thâm nhập thị trường đòi hỏi ứng viên <strong>phân tích cơ hội từ năng lực cốt lõi</strong> của công ty, nhận diện các rào cản và thách thức thực tế, đồng thời đưa ra khuyến nghị rõ ràng. Khung SWOT và phân tích Ưu/Nhược thường được sử dụng. Luôn kết thúc bằng một <em>khuyến nghị dứt khoát</em>.
+  </div>
+</div>
+
+<!-- BÀI TẬP 1 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 1</div>
+    <div class="exercise-title">Thị trường tiếp theo cho Amazon</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn là PM mới tại Amazon. Hãy cho tôi biết bạn sẽ xác định "điều lớn tiếp theo" cho Amazon như thế nào, và trình bày ý tưởng của bạn về nó.
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Điểm mạnh cốt lõi của Amazon</div>
+      <ul class="item-list">
+        <li><strong>Nguồn lực & Quy mô khổng lồ:</strong> Nhân lực, khách hàng, vốn và hệ thống phân phối đã được kiểm chứng ở quy mô lớn.</li>
+        <li><strong>Văn hóa chấp nhận rủi ro:</strong> Thử nghiệm ý tưởng táo bạo — Kindle thành công, Amazon Phone thất bại — nhưng chỉ thử mới biết.</li>
+        <li><strong>DNA kinh doanh chiến lược:</strong> Kết hợp tư duy MBA + sản phẩm tốt. Hiểu rằng sản phẩm tuyệt vời không đủ — cần hào kinh tế (moat) bền vững.</li>
+        <li><strong>Lấy khách hàng làm trung tâm:</strong> Trải nghiệm mua sắm xuất sắc, hỗ trợ thế giới, chuyển tiết kiệm về tay người dùng.</li>
+      </ul>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Cơ hội đang thành công: Ecommerce, Cloud (AWS), E-books</div>
+      <p>Amazon đã dẫn đầu trong bán lẻ trực tuyến, hạ tầng cloud và sách điện tử. Cần tìm khoảng trống thị trường chưa được phục vụ tốt.</p>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">3 Cơ hội mới tiềm năng</div>
+      <div class="framework-box">
+        <div class="framework-header">Phân tích cơ hội mới</div>
+        <div class="framework-body">
+          <div class="framework-row">
+            <div class="framework-key">Amazon Games</div>
+            <div>Khai thác Twitch để phân phối và stream game. Với xu hướng game ngày càng phổ biến và VR bùng nổ, 10 năm nữa các game thủ chuyên nghiệp có thể được công nhận ngang vận động viên thể thao. Amazon đã bán game trên Amazon.com — Games là bước tự nhiên tiếp theo.</div>
+          </div>
+          <div class="framework-row">
+            <div class="framework-key">Amazon Browser</div>
+            <div>Google là mối đe dọa — search engine và trình duyệt của Google có thể "bắt cóc" khách hàng Amazon. Một trình duyệt riêng giúp Amazon hiểu rõ hơn ý định người dùng, cải thiện nhắm quảng cáo, và thu thập dữ liệu thay vì để Google thu. Có thể đặt làm trình duyệt mặc định trên Kindle.</div>
+          </div>
+          <div class="framework-row">
+            <div class="framework-key">Amazon Capital</div>
+            <div>Amazon có dữ liệu độc đáo về hiệu suất thực tế của các startup thông qua AWS và Amazon.com. Dùng dữ liệu này để đầu tư vào startup tiềm năng (vốn vay hoặc vốn cổ phần). Tương tự CapitalG của Google — đã đầu tư thành công vào Uber, Lyft, Airbnb. Amazon hiểu business hơn Google → lợi thế đầu tư lớn hơn.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Phân tích sâu: Amazon Capital</div>
+      <p>Hai hình thức đầu tư: cho vay để mở rộng, hoặc đầu tư đổi lấy cổ phần. Rủi ro chính: startup thất bại mất vốn. Rủi ro phụ: adverse selection (nhà đầu tư không đủ thông tin). Amazon giải quyết rủi ro này bằng cách kiểm tra dữ liệu AWS/Amazon.com của startup để đánh giá hiệu suất thực tế — lợi thế dữ liệu không ai có được.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 2 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 2</div>
+    <div class="exercise-title">Dropbox thâm nhập thị trường mới</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Dropbox đang lên kế hoạch ra mắt lớn tại một thị trường mới. Bạn sẽ đánh giá những gì? Những vấn đề gì sẽ gặp phải?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Làm rõ mục tiêu & bối cảnh</div>
+      <p>Mục tiêu: giành thị phần tối đa trước khi đối thủ vào thị trường. Kế hoạch marketing chuẩn: blog, phỏng vấn báo chí, mạng xã hội, offline marketing, gặp gỡ quan chức chính phủ. Hạ tầng kỹ thuật: dùng AWS (latency + security đã được kiểm tra).</p>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">8 Vấn đề cần đánh giá</div>
+      <ol class="numbered-list">
+        <li><span class="num">1</span><div><strong>Số lượng máy tính:</strong> Bao nhiêu người thực sự có máy tính? Dropbox cần thiết bị để hoạt động.</div></li>
+        <li><span class="num">2</span><div><strong>Hạ tầng Internet:</strong> Tỷ lệ có Internet là bao nhiêu? Dropbox yêu cầu kết nối Internet ổn định. Chất lượng ISP, độ trễ, băng thông đều ảnh hưởng đến trải nghiệm.</div></li>
+        <li><span class="num">3</span><div><strong>Nhu cầu đồng bộ cloud:</strong> Người dùng có thực sự cần đồng bộ dữ liệu trên đám mây không? Cách tốt nhất để tiếp cận họ là gì?</div></li>
+        <li><span class="num">4</span><div><strong>Đối thủ cạnh tranh địa phương:</strong> Ai đang phục vụ thị trường này? Họ nhắm vào phân khúc nào? Làm thế nào để value proposition của Dropbox khác biệt?</div></li>
+        <li><span class="num">5</span><div><strong>Máy chủ cục bộ:</strong> Có cần server địa phương không? Lý do: giảm băng thông, cải thiện hiệu suất (giảm latency), đảm bảo tính sẵn sàng khi có firewall chính phủ.</div></li>
+        <li><span class="num">6</span><div><strong>Ngôn ngữ & Hỗ trợ khách hàng:</strong> Website, phần mềm, và đội hỗ trợ cần được bản địa hóa. Không làm điều này gây ấn tượng: "dịch vụ nước ngoài không quan tâm đến chúng ta".</div></li>
+        <li><span class="num">7</span><div><strong>Định giá:</strong> Điều chỉnh giá theo sức mua địa phương. Người dùng có thể thích trả một lần (one-time fee) hơn là thuê bao hàng tháng.</div></li>
+        <li><span class="num">8</span><div><strong>Phương thức thanh toán:</strong> Thẻ tín dụng và PayPal không phải là phổ biến ở mọi thị trường. Có thể cần hỗ trợ: thanh toán qua nhà mạng, thẻ trả trước, hoặc thậm chí tiền mặt.</div></li>
+      </ol>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Top 3 ưu tiên giải quyết trước</div>
+      <ul class="item-list">
+        <li><strong>Hạ tầng Internet:</strong> Ảnh hưởng trực tiếp đến hiệu suất sản phẩm — cần hiểu rõ trước khi đưa ra bất kỳ cam kết nào với người dùng.</li>
+        <li><strong>Phương thức thanh toán:</strong> Nếu người dùng muốn trả tiền mà không thể → thất bại ngay từ đầu.</li>
+        <li><strong>Ngôn ngữ & Hỗ trợ:</strong> Không bản địa hóa = gửi thông điệp "chúng tôi không quan tâm đến thị trường này" — phá hủy niềm tin ngay từ đầu.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 3 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 3</div>
+    <div class="exercise-title">Amazon mở marketplace cho bên bán thứ ba — quyết định tốt hay xấu?</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Amazon ban đầu chỉ cho phép "mua" hàng. Tại một thời điểm, họ quyết định cho phép người dùng "bán" hàng của mình. Đây là quyết định tốt hay xấu? Tại sao?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Tốt — 5 lý do ủng hộ</div>
+      <div class="pro-con-grid">
+        <div class="pro-col">
+          <div class="col-label">Ưu điểm</div>
+          <div class="col-item"><strong>Nhiều traffic hơn:</strong> Nhiều sản phẩm → nhiều người mua hơn truy cập.</div>
+          <div class="col-item"><strong>Đa dạng hóa:</strong> Giảm rủi ro phụ thuộc nhà cung cấp độc quyền.</div>
+          <div class="col-item"><strong>Lợi nhuận thêm:</strong> Amazon thu hoa hồng từ mỗi giao dịch.</div>
+          <div class="col-item"><strong>Phòng thủ & Tấn công:</strong> Người bán lên Amazon → họ không bán trên eBay hay đối thủ khác.</div>
+          <div class="col-item"><strong>Dữ liệu & Giám sát:</strong> Amazon thấy giá thị trường thực tế, xu hướng mua hàng, và khoảng trống sản phẩm.</div>
+        </div>
+        <div class="con-col">
+          <div class="col-label">Nhược điểm</div>
+          <div class="col-item"><strong>Làm yếu thương hiệu:</strong> Người bán xấu = khách hàng đổ lỗi cho Amazon.</div>
+          <div class="col-item"><strong>Chi phí phối hợp:</strong> Quản lý hàng triệu người bán — đội hỗ trợ phải làm trung gian phức tạp.</div>
+          <div class="col-item"><strong>Gây nhầm lẫn người dùng:</strong> Nút "Apply to be a Seller" có thể confuse người mua.</div>
+        </div>
+      </div>
+      <div class="note-box">Về vấn đề biên lợi nhuận thấp hơn: Amazon ưu tiên thị phần → chiến lược người bán thứ ba phù hợp với DNA đó. Dài hạn: thêm sản phẩm → giữ chân khách hàng → doanh thu cao hơn. Và thương hiệu "cửa hàng lớn nhất thế giới" được củng cố.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 4 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 4</div>
+    <div class="exercise-title">Dịch vụ siêu sang của Uber (Rolls Royce, Bentley)</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Uber có nên ra mắt dịch vụ đưa đón bằng xe siêu sang (Rolls Royce, Bentley, Ferrari) không?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">6 Yếu tố cần đánh giá</div>
+      <ol class="numbered-list">
+        <li><span class="num">1</span><div><strong>Thị trường tiềm năng:</strong> Chỉ ở các thành phố có tầng lớp giàu có cao (NYC, SF, Dubai, Hồng Kông). Người giàu muốn sự uy tín khi xuất hiện hoặc gặp đối tác; thành phố tắc đường → họ thích không lái xe.</div></li>
+        <li><span class="num">2</span><div><strong>Đủ tài xế có xe sang:</strong> Tài xế Uber thường tự mang xe. Liệu có đủ người sở hữu Rolls Royce muốn làm tài xế Uber? Động lực không hẳn là tiền — có thể là gặp gỡ người thú vị hoặc khoe xe. Cần xem xét các doanh nghiệp cho thuê xe hạng sang có muốn hợp tác không.</div></li>
+        <li><span class="num">3</span><div><strong>Mô hình không tài xế:</strong> Một góc nhìn thú vị — có thể chính khách hàng muốn tự lái siêu xe (Ferrari) chứ không phải ngồi sau. Uber giao xe → khách lái → trả xe. Đây là mô hình kinh doanh hoàn toàn mới.</div></li>
+        <li><span class="num">4</span><div><strong>Đối thủ cạnh tranh:</strong> Ai đang cung cấp dịch vụ tương tự? Biên lợi nhuận và thị phần của họ như thế nào? Học hỏi từ người đi trước.</div></li>
+        <li><span class="num">5</span><div><strong>Gây nhầm lẫn cho khách hàng:</strong> Uber đã có UberX, UberPool, UberBlack — thêm nhiều tier nữa có thể làm UI phức tạp và khiến người dùng bối rối khi chọn.</div></li>
+        <li><span class="num">6</span><div><strong>Thử nghiệm tại một vài thành phố:</strong> Dự báo và mô hình chỉ là giả thuyết — chỉ có dữ liệu thực tế mới xác nhận. Chạy pilot tại NYC, Dubai trước khi mở rộng toàn cầu.</div></li>
+      </ol>
+      <div class="note-box">Vấn đề phát sinh: Tài xế có "ý đồ ẩn" (networking với khách VIP)? Hệ thống đánh giá và chính sách của Uber đủ mạnh để xử lý các hành vi không phù hợp.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 5 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 5</div>
+    <div class="exercise-title">Quốc gia tiếp theo để Amazon mở rộng</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn sẽ xác định quốc gia tiếp theo cho Amazon mở rộng như thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Khung 3 yếu tố</div>
+      <div class="framework-box">
+        <div class="framework-header">Tiêu chí lựa chọn thị trường</div>
+        <div class="framework-body">
+          <div class="framework-row">
+            <div class="framework-key">1. Thị trường tiềm năng</div>
+            <div>
+              <strong>Thu nhập bình quân đầu người</strong> (GDP/capita) — sức mua tổng thể<br>
+              <strong>Tăng trưởng</strong> — thu nhập đang tăng nhanh không?<br>
+              <strong>Thói quen chi tiêu</strong> — nền kinh tế định hướng tiêu dùng chưa?<br>
+              <strong>Cạnh tranh</strong> — đối thủ trong nước mạnh đến đâu?<br>
+              <strong>Lao động & Bất động sản</strong> — chi phí vận hành hợp lý không?<br>
+              <strong>Quy định pháp lý</strong> — giấy phép, thuế, quy định tài chính<br>
+              <strong>Sức mạnh nhà cung cấp</strong> — các nhà bán lẻ địa phương có đòn bẩy đàm phán lớn không?
+            </div>
+          </div>
+          <div class="framework-row">
+            <div class="framework-key">2. Tính khả thi</div>
+            <div>
+              <strong>Vị trí địa lý</strong> — gần thị trường hiện tại → logistics dễ hơn (Belarus khi đã có Nga)<br>
+              <strong>Nhân tài địa phương</strong> — có đủ người để thành lập văn phòng không?<br>
+              <strong>Ngân sách</strong> — thị trường lớn với cạnh tranh mạnh đòi hỏi nguồn lực lớn
+            </div>
+          </div>
+          <div class="framework-row">
+            <div class="framework-key">3. Chi phí cơ hội</div>
+            <div>Đầu tư vào thị trường này có tốt hơn đầu tư vào thị trường khác hoặc cải thiện thị trường hiện tại không?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Ghi chú về cạnh tranh</div>
+      <p>Cạnh tranh có thể đọc theo hai hướng: tránh thị trường có đối thủ mạnh đã chiếm lĩnh (khó chen vào), HOẶC tấn công thị trường đang là "cash cow" của đối thủ — làm họ phân tâm và tốn nguồn lực để bảo vệ, dù đó không phải thị trường tối ưu về lợi nhuận cho Amazon.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 6 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 6</div>
+    <div class="exercise-title">Google có nên xây dựng dịch vụ truyền hình cáp kiểu Comcast?</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Google có nên xây dựng dịch vụ truyền hình cáp (TV truyền thống, không phải Internet TV) như Comcast không?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">3 Hướng nội dung tiềm năng</div>
+      <ul class="item-list">
+        <li><strong>Phân phối nội dung YouTube (tốt nhất):</strong> Đưa YouTube lên TV truyền thống — mở rộng fan base. Rủi ro: phần lớn người xem YouTube đã là người dùng Google.</li>
+        <li><strong>Nội dung gốc (Original Content):</strong> "Content makes the network" — tạo sự khác biệt với Netflix, Amazon Prime. Thách thức lớn vì Google chưa có kinh nghiệm.</li>
+        <li><strong>Streaming game:</strong> YouTube đang ngày càng có nhiều nội dung game — nhưng đây là phục vụ cùng tệp khách hàng YouTube hiện tại.</li>
+      </ul>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">5 Thách thức lớn</div>
+      <ol class="numbered-list">
+        <li><span class="num">1</span><div><strong>Truyền hình cáp đang chết dần:</strong> Xu hướng "cắt dây cáp" — người dùng chuyển sang Netflix, YouTube qua Internet. Việc xây dựng TV cáp truyền thống đi ngược chiều thị trường.</div></li>
+        <li><span class="num">2</span><div><strong>Cannibalization YouTube:</strong> Nếu người dùng chuyển từ YouTube sang xem kênh TV của Google, lưu lượng YouTube giảm. Chỉ giải quyết được bằng nội dung gốc độc quyền không có trên YouTube.</div></li>
+        <li><span class="num">3</span><div><strong>Doanh thu quảng cáo thấp hơn:</strong> YouTube cho phép đo lường quảng cáo chính xác. TV truyền thống khó attribution hơn → hiệu quả quảng cáo thấp hơn.</div></li>
+        <li><span class="num">4</span><div><strong>Chi phí thiết lập cao:</strong> Xây dựng hạ tầng mạng TV là bài toán hoàn toàn mới — không thể mua off-the-shelf. Học phí rất đắt.</div></li>
+        <li><span class="num">5</span><div><strong>Cạnh tranh thiếu vũ khí:</strong> Không có nội dung gốc = rất khó thu hút. Hơn nữa, thương hiệu Google gắn với "công nghệ" — không phải "giải trí TV".</div></li>
+      </ol>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Khuyến nghị</div>
+      <p>Không nên xây dựng TV cáp truyền thống. Thay vào đó: <strong>tập trung vào Android TV</strong> (Internet TV box) — thị trường đang tăng trưởng, đối thủ (Fire TV, Apple TV) đã xác nhận nhu cầu, và Google tránh được chi phí thiết lập hạ tầng TV khổng lồ. Android TV vẫn gặp một số thách thức tương tự nhưng không có rào cản gia nhập quá cao.</p>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Tổng kết Chương 21</div>
+  <p>Khi phân tích thị trường mới, luôn bắt đầu từ <strong>năng lực cốt lõi</strong> của công ty — những gì họ giỏi tốt nhất — rồi tìm cơ hội có thể xây dựng trên nền tảng đó. Amazon Capital thú vị vì tận dụng lợi thế dữ liệu độc nhất. Dropbox nhắc nhở rằng rào cản thực tế (thanh toán, hạ tầng) thường bị bỏ sót. Câu hỏi Google/Comcast là ví dụ điển hình về việc <em>xu hướng thị trường đi ngược lại ý tưởng</em> — đưa ra khuyến nghị dứt khoát thay vì chỉ liệt kê ưu nhược điểm.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch20.html"><span class="lbl">Chương trước</span>Chương 20: Hypothetical: Giải quyết Vấn đề</a>
+  <a href="pm_interview_ch22.html"><span class="lbl">Chương sau</span>Chương 22: Kế hoạch Ra mắt</a>
+</nav>
+</body>
+</html>

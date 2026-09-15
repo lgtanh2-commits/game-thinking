@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 23 – Chiến lược: Các Vấn đề Khác</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+h1{font-size:2rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+h2{font-size:1.25rem;font-weight:700;margin:48px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--accent-line);}
+h3{font-size:1.05rem;font-weight:700;margin:28px 0 10px;color:var(--text-secondary);}
+h4{font-size:0.95rem;font-weight:700;margin:20px 0 8px;color:var(--text-secondary);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+ul,ol{margin:10px 0 16px 22px;}
+li{margin-bottom:6px;color:var(--text-secondary);}
+strong{color:var(--text);font-weight:700;}
+.book-label{font-size:0.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;}
+.chapter-intro{background:var(--surface);border-left:3px solid var(--accent-line);padding:18px 22px;margin:24px 0 40px;border-radius:0 4px 4px 0;}
+.chapter-intro p{margin:0;font-size:0.95rem;}
+.exercise-block{border:1px solid var(--border);border-radius:6px;margin:36px 0;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:14px 22px;border-bottom:1px solid var(--border);}
+.exercise-header .ex-num{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-header .ex-title{font-size:1.1rem;font-weight:700;color:var(--text);}
+.exercise-body{padding:22px;}
+.question-box{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px 20px;margin-bottom:20px;}
+.question-box .q-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.question-box p{margin:0;font-style:italic;color:var(--text-secondary);}
+.reason-item{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);}
+.reason-item:last-child{border-bottom:none;}
+.reason-item .r-num{width:28px;height:28px;border-radius:50%;background:var(--surface-dark);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;flex-shrink:0;color:var(--text);}
+.reason-item .r-body .r-title{font-weight:700;color:var(--text);margin-bottom:4px;}
+.reason-item .r-body .r-desc{font-size:0.92rem;color:var(--text-secondary);}
+.verdict-box{padding:16px 20px;border-radius:4px;margin:16px 0;border:1px solid var(--border-strong);}
+.verdict-box.cut{border-left:4px solid #555;}
+.verdict-box.keep{border-left:4px solid #888;}
+.verdict-box .v-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.verdict-box p{margin:0;font-size:0.93rem;}
+.diff-table{width:100%;border-collapse:collapse;margin:16px 0;}
+.diff-table th{background:var(--surface-dark);padding:10px 14px;text-align:left;font-size:0.82rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);}
+.diff-table td{padding:10px 14px;border:1px solid var(--border);font-size:0.92rem;color:var(--text-secondary);vertical-align:top;}
+.diff-table tr:nth-child(even) td{background:var(--surface);}
+.priority-badge{display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--text);color:var(--bg);padding:2px 7px;border-radius:2px;margin-left:6px;vertical-align:middle;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;}
+.compare-col{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;}
+.compare-col .col-title{font-size:0.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.compare-col ul{margin:0 0 0 16px;padding:0;}
+.compare-col li{font-size:0.9rem;color:var(--text-secondary);margin-bottom:5px;}
+.insight-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin:16px 0;border-radius:0 4px 4px 0;}
+.insight-box p{margin:0;font-size:0.92rem;color:var(--text-secondary);}
+.threat-item{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);}
+.threat-item:last-child{border-bottom:none;}
+.threat-item .t-icon{width:36px;height:36px;border:1px solid var(--border-strong);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--text);flex-shrink:0;}
+.threat-item .t-body .t-title{font-weight:700;color:var(--text);margin-bottom:3px;}
+.threat-item .t-body .t-desc{font-size:0.91rem;color:var(--text-secondary);}
+.cost-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
+.cost-row:last-child{border-bottom:none;}
+.cost-row .cost-label{font-size:0.93rem;color:var(--text-secondary);}
+.cost-row .cost-value{font-weight:700;color:var(--text);font-size:0.95rem;}
+.recommendation-box{background:var(--surface-dark);border:2px solid var(--border-strong);border-radius:4px;padding:18px 22px;margin:20px 0;}
+.recommendation-box .rec-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.recommendation-box p{margin:0;font-size:0.95rem;color:var(--text);}
+.conclusion-box{margin-top:60px;padding:28px 30px;border:2px solid var(--accent-line);border-radius:4px;background:var(--surface);}
+.conclusion-label{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+.conclusion-box p{margin-bottom:10px;font-size:0.95rem;}
+.conclusion-box p:last-child{margin-bottom:0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 23</div>
+<h1>Chiến lược: Các Vấn đề Khác</h1>
+
+<div class="chapter-intro">
+  <p>Chương này bao gồm các câu hỏi chiến lược đa dạng — từ quyết định cắt giảm sản phẩm, chiến lược thị trường quốc tế, đến phân tích mua hay tự xây dựng (build vs. buy). Mỗi bài toán kiểm tra khả năng tư duy phân tích và đưa ra lập luận thuyết phục của PM.</p>
+</div>
+
+<!-- BÀI TẬP 1 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 01</div>
+    <div class="ex-title">Cắt sản phẩm Microsoft nào?</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Bạn là PM tại Microsoft. Hãy đề xuất một sản phẩm Microsoft nên cắt giảm và lý giải tại sao.</p>
+    </div>
+
+    <h3>Đề xuất: Cắt Microsoft Project</h3>
+    <p>Microsoft Project là phần mềm quản lý dự án truyền thống, nhưng thị trường đã thay đổi đáng kể.</p>
+
+    <div style="padding:8px 0;">
+      <div class="reason-item">
+        <div class="r-num">1</div>
+        <div class="r-body">
+          <div class="r-title">Tăng trưởng hạn chế</div>
+          <div class="r-desc">Phương pháp quản lý dự án chuyển từ Waterfall sang Agile. Các công cụ như Trello và Asana đang chiếm thị phần với giao diện trực quan và chi phí thấp hơn. Nhu cầu Microsoft Project trong các tổ chức mới thành lập ngày càng giảm.</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="r-num">2</div>
+        <div class="r-body">
+          <div class="r-title">Giữ lại cản trở đổi mới</div>
+          <div class="r-desc">Sản phẩm tạo ra dòng tiền ổn định nhưng không còn tăng trưởng sẽ trở thành "cash cow" — tạo ra sức ỳ tổ chức và ngăn đội ngũ tập trung vào cơ hội mới. Giữ Project vì thói quen, không phải vì chiến lược.</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="r-num">3</div>
+        <div class="r-body">
+          <div class="r-title">Chi phí cơ hội cao</div>
+          <div class="r-desc">Nguồn lực phân bổ cho Project (đội ngũ kỹ thuật, hỗ trợ, marketing) có thể được tái phân bổ vào Windows, Office, Azure — những sản phẩm có tiềm năng tăng trưởng lớn hơn nhiều và phù hợp hơn với chiến lược dài hạn.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 2 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 02</div>
+    <div class="ex-title">Bảo vệ sản phẩm Microsoft nào?</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Bạn là PM tại Microsoft. Hãy bảo vệ lý do tại sao Microsoft nên giữ lại Microsoft Project.</p>
+    </div>
+
+    <h3>Lập luận: Giữ Microsoft Project</h3>
+
+    <div style="padding:8px 0;">
+      <div class="reason-item">
+        <div class="r-num">1</div>
+        <div class="r-body">
+          <div class="r-title">Tiện lợi cho người dùng (Pre-installed Convenience)</div>
+          <div class="r-desc">Project được tích hợp sẵn trong bộ Office — người dùng doanh nghiệp không cần học thêm công cụ mới hay lo ngại vấn đề tương thích. Với các tổ chức lớn, chi phí chuyển đổi sang công cụ khác rất cao.</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="r-num">2</div>
+        <div class="r-body">
+          <div class="r-title">Truy cập offline (Offline Access)</div>
+          <div class="r-desc">Là ứng dụng desktop, Project hoạt động không cần internet — điều quan trọng với ngành xây dựng, kỹ thuật, và các công việc thực địa nơi kết nối mạng không ổn định.</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="r-num">3</div>
+        <div class="r-body">
+          <div class="r-title">Gia tăng giá trị gói Office</div>
+          <div class="r-desc">Việc bao gồm Project trong gói Office làm tăng giá trị cảm nhận của toàn bộ bộ phần mềm — ngay cả khi người dùng không dùng Project thường xuyên, sự hiện diện của nó biện minh cho mức giá gói cao hơn.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <p>Bài tập 1 và 2 minh họa rằng cùng một quyết định có thể có lập luận thuyết phục từ cả hai phía. Trong phỏng vấn PM, điều quan trọng không phải là đúng hay sai — mà là khả năng lập luận có cấu trúc và thuyết phục dựa trên dữ liệu.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 3 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 03</div>
+    <div class="ex-title">Dropbox: Khác biệt giữa thị trường Mỹ và EU</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Bạn là PM tại Dropbox. Hãy phân tích sự khác biệt chính giữa thị trường Mỹ và châu Âu và xác định 3 ưu tiên hàng đầu khi mở rộng sang EU.</p>
+    </div>
+
+    <h3>8 điểm khác biệt chính: Mỹ vs. EU</h3>
+    <table class="diff-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Yếu tố</th>
+          <th>Thị trường Mỹ</th>
+          <th>Thị trường EU</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>Ngôn ngữ</strong></td>
+          <td>Tiếng Anh duy nhất</td>
+          <td>24 ngôn ngữ chính thức, cần bản địa hóa</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>Quy mô dân số</strong></td>
+          <td>330 triệu, thị trường đồng nhất</td>
+          <td>450 triệu, phân mảnh theo quốc gia</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>Hạ tầng</strong></td>
+          <td>Kết nối internet tốt, đồng nhất</td>
+          <td>Chênh lệch lớn giữa các nước</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>Phần mềm phổ biến</strong></td>
+          <td>Google Docs, Slack, Zoom</td>
+          <td>Nhiều công cụ địa phương, tích hợp SAP/Oracle</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>Thói quen người dùng</strong></td>
+          <td>Nhanh chóng áp dụng sản phẩm mới</td>
+          <td>Thận trọng hơn, ưu tiên quyền riêng tư (GDPR)</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><strong>Định giá</strong></td>
+          <td>Giá USD đồng nhất</td>
+          <td>Tỷ giá EUR biến động, chênh lệch sức mua giữa các nước</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><strong>Quan hệ kinh doanh</strong></td>
+          <td>Hợp đồng thẳng thắn, quyết định nhanh</td>
+          <td>Quan hệ lâu dài, phức tạp về pháp lý, quy trình ra quyết định chậm hơn</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td><strong>Thu hút khách hàng</strong></td>
+          <td>Viral growth, freemium hiệu quả</td>
+          <td>Cần chiến lược tiếp cận khác nhau theo từng thị trường</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>3 ưu tiên hàng đầu khi mở rộng sang EU</h3>
+    <div style="padding:8px 0;">
+      <div class="reason-item">
+        <div class="r-num">1</div>
+        <div class="r-body">
+          <div class="r-title">Thu hút khách hàng (Customer Acquisition) <span class="priority-badge">Ưu tiên 1</span></div>
+          <div class="r-desc">Không có khách hàng, mọi thứ đều vô nghĩa. Cần chiến lược acquisition phù hợp từng thị trường EU — partnership với đơn vị địa phương, freemium với storage cao hơn để khuyến khích dùng thử.</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="r-num">2</div>
+        <div class="r-body">
+          <div class="r-title">Bản địa hóa (Localization) <span class="priority-badge">Ưu tiên 2</span></div>
+          <div class="r-desc">Giao diện, tài liệu hỗ trợ, và hợp đồng cần được dịch sang các ngôn ngữ chính. Đây là rào cản tâm lý quan trọng — người dùng EU ưu tiên sản phẩm "hiểu họ".</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="r-num">3</div>
+        <div class="r-body">
+          <div class="r-title">Hạ tầng (Infrastructure) <span class="priority-badge">Ưu tiên 3</span></div>
+          <div class="r-desc">Data center tại EU để tuân thủ GDPR (data residency), đảm bảo tốc độ, và xây dựng niềm tin. Người dùng EU nhạy cảm về việc dữ liệu của họ được lưu trữ ở đâu.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 4 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 04</div>
+    <div class="ex-title">Chiến lược sản phẩm Microsoft: Ra mắt sớm hay chờ hoàn thiện?</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Bạn là PM tại Microsoft. CEO hỏi: "Chúng ta nên ra mắt sản phẩm chưa hoàn chỉnh để nhanh hơn, hay chờ đến khi hoàn thiện?" Lập luận của bạn là gì?</p>
+    </div>
+
+    <h3>Triết lý: "Hoàn hảo là kẻ thù của Hoàn thành"</h3>
+    <div class="insight-box">
+      <p>Mark Zuckerberg từng nói: <em>"Done is better than perfect."</em> Trong nhiều trường hợp, ra mắt sớm để thu thập phản hồi thực tế quan trọng hơn chờ đợi sản phẩm hoàn hảo trên lý thuyết.</p>
+    </div>
+
+    <h3>Phân tích theo loại sản phẩm</h3>
+    <div class="compare-grid">
+      <div class="compare-col">
+        <div class="col-title">✓ Ra mắt sớm phù hợp: Web &amp; Mobile</div>
+        <ul>
+          <li>Cập nhật liên tục, không cần người dùng thao tác</li>
+          <li>Bug nhỏ có thể patch nhanh trong vài giờ</li>
+          <li>Thu thập dữ liệu thực tế → cải thiện nhanh</li>
+          <li>Rủi ro tổn hại thấp</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <div class="col-title">✗ Cần hoàn thiện: Phần cứng &amp; Shrink-wrapped</div>
+        <ul>
+          <li>Không thể tự cập nhật — người dùng phải hành động</li>
+          <li>Bug lan rộng trước khi có bản vá</li>
+          <li>Thiệt hại PR khó phục hồi</li>
+          <li>Bài học: Vista — ra mắt quá sớm, người dùng ở lại XP</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Sản phẩm Microsoft cần ra mắt "đã hoàn thiện"</h3>
+    <ul>
+      <li><strong>Windows 10:</strong> Hệ điều hành — lỗi ảnh hưởng hàng triệu máy cùng lúc</li>
+      <li><strong>Office:</strong> Phần mềm văn phòng doanh nghiệp — đòi hỏi độ tin cậy cao</li>
+      <li><strong>Xbox Console:</strong> Phần cứng — không thể recall như phần mềm</li>
+    </ul>
+
+    <div class="recommendation-box">
+      <div class="rec-label">Khuyến nghị</div>
+      <p>Phân loại sản phẩm trước khi quyết định. Với web và dịch vụ cloud: ưu tiên tốc độ ra thị trường. Với phần cứng và phần mềm cài đặt: đầu tư thêm thời gian để đảm bảo chất lượng — một thất bại như Vista có thể tốn nhiều năm để phục hồi niềm tin.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 5 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 05</div>
+    <div class="ex-title">Microsoft nên xây dựng App gì cho Apple TV?</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Bạn là PM tại Microsoft. Hãy đề xuất ứng dụng Microsoft nào nên ra mắt trên Apple TV và lý giải.</p>
+    </div>
+
+    <h3>Đề xuất: 2 ứng dụng</h3>
+    <div class="compare-grid">
+      <div class="compare-col">
+        <div class="col-title">Ứng dụng 1: Xbox Games</div>
+        <ul>
+          <li>Halo, Forza, Minecraft — thương hiệu mạnh</li>
+          <li>Cloud gaming qua Xbox Game Pass</li>
+          <li>Không cần console — giảm rào cản</li>
+          <li>Tăng doanh thu Game Pass subscription</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <div class="col-title">Ứng dụng 2: Skype</div>
+        <ul>
+          <li>Video call trên màn hình lớn — use case rõ ràng</li>
+          <li>Phòng khách là trung tâm gia đình</li>
+          <li>Cạnh tranh với FaceTime của Apple</li>
+          <li>Tăng user base Skype tại hộ gia đình</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Lý do ưu tiên Xbox Games</h3>
+    <div style="padding:8px 0;">
+      <div class="reason-item">
+        <div class="r-num">1</div>
+        <div class="r-body">
+          <div class="r-title">Thị trường lớn</div>
+          <div class="r-desc">Người Mỹ xem TV trung bình 5 giờ/ngày — đây là thời gian có thể chuyển thành giờ chơi game. Apple TV hiện diện trong hàng triệu phòng khách.</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="r-num">2</div>
+        <div class="r-body">
+          <div class="r-title">Kênh phân phối mới</div>
+          <div class="r-desc">Tiếp cận người dùng không sở hữu Xbox — giảm rào cản gia nhập hệ sinh thái Microsoft Gaming.</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="r-num">3</div>
+        <div class="r-body">
+          <div class="r-title">Phân khúc khách hàng mới</div>
+          <div class="r-desc">Người chơi casual (không hardcore) trên Apple TV có thể trở thành subscriber Game Pass — sau đó nâng cấp lên Xbox console.</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="r-num">4</div>
+        <div class="r-body">
+          <div class="r-title">Thị trường đang tăng trưởng</div>
+          <div class="r-desc">Tỷ lệ thâm nhập Apple TV vào hộ gia đình Mỹ đạt ~25% và tiếp tục tăng. Đây là nền tảng phát triển.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Rủi ro cần thừa nhận:</strong> Ra mắt trên Apple TV có thể "quảng bá" cho đối thủ. Tuy nhiên, cạnh tranh lành mạnh thúc đẩy đổi mới — và lợi ích tiếp cận thị trường lớn hơn rủi ro này.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 6 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 06</div>
+    <div class="ex-title">3 Mối đe dọa lớn nhất cho Microsoft</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Bạn là PM tại Microsoft. Hãy xác định 3 mối đe dọa lớn nhất đối với công ty.</p>
+    </div>
+
+    <div style="padding:8px 0;">
+      <div class="threat-item">
+        <div class="t-icon">01</div>
+        <div class="t-body">
+          <div class="t-title">Trình duyệt (Browser War)</div>
+          <div class="t-desc">Chrome chiếm 42-52% thị phần trình duyệt — Internet Explorer/Edge mất dần vị thế. Điều này không chỉ là mất thị phần trình duyệt mà còn là mất điểm tiếp cận với người dùng mỗi ngày, ảnh hưởng đến khả năng quảng bá dịch vụ Microsoft khác (Bing, Office 365, OneDrive).</div>
+        </div>
+      </div>
+      <div class="threat-item">
+        <div class="t-icon">02</div>
+        <div class="t-body">
+          <div class="t-title">Di động (Mobile)</div>
+          <div class="t-desc">Windows Phone chỉ đạt thị phần một con số. Microsoft bỏ lỡ thị trường 5 tỷ smartphone — không có nền tảng di động mạnh đồng nghĩa với việc mất 30% doanh thu app store tiềm năng và không tiếp cận được người dùng trẻ.</div>
+        </div>
+      </div>
+      <div class="threat-item">
+        <div class="t-icon">03</div>
+        <div class="t-body">
+          <div class="t-title">Console Gaming</div>
+          <div class="t-desc">PlayStation của Sony đang dẫn trước Xbox trong nhiều thị trường. Tuy nhiên Xbox không chỉ là sản phẩm — nó là kênh xây dựng thương hiệu với thế hệ trẻ (18-25 tuổi). Mất console market share = mất tệp khách hàng trung thành tương lai.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 7 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 07</div>
+    <div class="ex-title">Mua hay Tự xây OfferUp?</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Bạn là PM tại Facebook. OfferUp — ứng dụng mua bán đồ cũ trên di động — đang phát triển mạnh. Nên mua lại hay tự xây dựng tính năng tương tự?</p>
+    </div>
+
+    <h3>Bối cảnh: OfferUp là gì?</h3>
+    <div class="insight-box">
+      <p>OfferUp = Craigslist trên mobile. Cho phép người dùng đăng bán và mua đồ cũ qua smartphone với giao diện hiện đại và tích hợp tin nhắn nội bộ.</p>
+    </div>
+
+    <h3>So sánh chi phí</h3>
+    <div style="padding:8px 0;">
+      <div class="cost-row">
+        <span class="cost-label">Mua lại OfferUp</span>
+        <span class="cost-value">~$200 triệu</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">Tự xây dựng — Đội ngũ 6 tháng</span>
+        <span class="cost-value">$600,000</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">Tự xây dựng — Quảng cáo 1M người dùng (CPI $3)</span>
+        <span class="cost-value">$3,000,000</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">Tự xây dựng — Duy trì 6 tháng tiếp theo</span>
+        <span class="cost-value">$600,000</span>
+      </div>
+      <div class="cost-row" style="border-top:2px solid var(--border-strong);">
+        <span class="cost-label"><strong>Tổng chi phí tự xây dựng</strong></span>
+        <span class="cost-value"><strong>~$4.2 triệu</strong></span>
+      </div>
+    </div>
+
+    <h3>Phân tích ưu nhược điểm</h3>
+    <div class="compare-grid">
+      <div class="compare-col">
+        <div class="col-title">Mua ($200M) — Ưu điểm</div>
+        <ul>
+          <li>Tiết kiệm thời gian ra thị trường</li>
+          <li>Mang theo tệp người dùng hiện có</li>
+          <li>Đội ngũ đã có kinh nghiệm domain</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <div class="col-title">Tự xây ($4.2M) — Ưu điểm</div>
+        <ul>
+          <li>Chi phí thấp hơn gần 50 lần</li>
+          <li>Tùy chỉnh đúng theo spec của Facebook</li>
+          <li>Tích hợp chặt hơn với Facebook account</li>
+          <li>Không rủi ro văn hóa M&amp;A</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="recommendation-box">
+      <div class="rec-label">Khuyến nghị: Tự xây dựng (BUILD)</div>
+      <p>Với chênh lệch chi phí ~50 lần ($4.2M vs $200M), Facebook hoàn toàn có thể tự xây dựng tính năng marketplace tốt hơn. Lợi thế lớn nhất: tích hợp sâu với tài khoản Facebook thực — tăng độ tin cậy giao dịch (người mua/bán đều có danh tính thật). Đây là thứ OfferUp không có và không thể sao chép.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 8 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="ex-num">Bài tập 08</div>
+    <div class="ex-title">iPhone độc quyền AT&amp;T — Quyết định đúng hay sai?</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">
+      <div class="q-label">Câu hỏi</div>
+      <p>Bạn là PM tại Apple. Quyết định làm iPhone độc quyền với AT&amp;T năm 2007 có phải là quyết định đúng không?</p>
+    </div>
+
+    <h3>Lập luận: Đây là quyết định sai</h3>
+
+    <div style="padding:8px 0;">
+      <div class="reason-item">
+        <div class="r-num">1</div>
+        <div class="r-body">
+          <div class="r-title">Thu hẹp thị phần ngay từ đầu</div>
+          <div class="r-desc">AT&T chỉ chiếm ~35% thị phần mạng di động Mỹ. Nghĩa là ngay lúc ra mắt, 65% người dùng Mỹ không thể mua iPhone — một sản phẩm đang tạo ra cơn sốt. Đây là sự lãng phí cơ hội khổng lồ.</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="r-num">2</div>
+        <div class="r-body">
+          <div class="r-title">Kích thích đối thủ phản công</div>
+          <div class="r-desc">Verizon (nhà mạng lớn nhất bị loại) đã tài trợ cho sự phát triển của Android và các thiết bị Motorola/Samsung chạy Android. Quyết định độc quyền AT&T trực tiếp thúc đẩy sự lớn mạnh của đối thủ lớn nhất ngày nay của iPhone.</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="r-num">3</div>
+        <div class="r-body">
+          <div class="r-title">Tạo động lực cho AT&amp;T "ỷ lại"</div>
+          <div class="r-desc">Được bảo đảm độc quyền, AT&T giảm động lực cải thiện mạng và dịch vụ. Kết quả: người dùng iPhone gặp vô số vấn đề về sóng và chất lượng mạng — ảnh hưởng trực tiếp đến trải nghiệm và hình ảnh iPhone.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Lập luận phản bác: Đôi khi độc quyền là win-win</h3>
+    <div class="insight-box">
+      <p>Mô hình nhượng quyền McDonald's là ví dụ về độc quyền thành công: McDonald's chỉ cấp phép cho một cơ sở duy nhất tại mỗi vị trí, đảm bảo chất lượng kiểm soát và loại bỏ cạnh tranh nội bộ. Cả hai bên đều hưởng lợi.</p>
+    </div>
+
+    <h3>Điểm khác biệt quan trọng</h3>
+    <div class="insight-box">
+      <p>Mô hình McDonald's là "tất cả hoặc không có gì" — không có nhà hàng nào bán hamburger McDonald's ngoài chuỗi chính thức. Nhưng với Apple năm 2007, các nhà mạng (Verizon, Sprint, T-Mobile) vẫn đang bán điện thoại — chỉ là không bán iPhone. Vì vậy độc quyền AT&T không ngăn được Verizon cạnh tranh; nó chỉ khuyến khích Verizon tìm và tài trợ cho vũ khí đối phó: Android.</p>
+    </div>
+
+    <div class="recommendation-box">
+      <div class="rec-label">Kết luận</div>
+      <p>Quyết định độc quyền AT&T là sai về mặt chiến lược dài hạn. Apple đánh đổi thị phần rộng lớn và vô tình thúc đẩy sự phát triển của Android — đối thủ chiếm hơn 70% thị trường smartphone toàn cầu hiện nay.</p>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Tổng kết chương 23</div>
+  <p>Các bài toán chiến lược trong chương này đều đòi hỏi cùng một kỹ năng cốt lõi: phân tích đa chiều trước khi kết luận. Cắt hay giữ sản phẩm, mua hay tự xây, ra mắt sớm hay chờ — không có câu trả lời đúng tuyệt đối. PM giỏi là người có thể lập luận thuyết phục từ cả hai phía, sau đó đưa ra khuyến nghị dựa trên dữ liệu và bối cảnh cụ thể. Bài học từ OfferUp (xây rẻ hơn mua 50 lần) và iPhone AT&T (độc quyền kích thích đối thủ) là những ví dụ điển hình về tư duy chiến lược tầm xa.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch22.html"><span class="lbl">Chương trước</span>Chương 22: Kế hoạch Ra mắt</a>
+  <a href="pm_interview_ch24.html"><span class="lbl">Chương sau</span>Chương 24: Kỹ thuật</a>
+</nav>
+</body>
+</html>

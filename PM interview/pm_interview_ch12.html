@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 12 – Thiết kế Sản phẩm: Pain Point Exercises</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:32px;}
+h1{font-size:32px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;line-height:1.2;}
+.chapter-subtitle{font-size:18px;color:var(--text-secondary);margin-bottom:48px;font-weight:400;}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.exercise-block{background:#fff;border:1px solid var(--border);border-radius:4px;padding:28px 32px;margin:32px 0;}
+.exercise-header{display:flex;align-items:baseline;gap:14px;margin-bottom:12px;}
+.exercise-num{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);white-space:nowrap;}
+.exercise-title{font-size:18px;font-weight:700;color:var(--text);}
+.exercise-body{color:var(--text-secondary);margin-bottom:16px;}
+.answer-label{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;}
+.group-title{font-weight:700;font-size:14px;margin:20px 0 8px;color:var(--text);}
+ol.pain-list{padding-left:24px;margin:8px 0;}
+ol.pain-list li{margin-bottom:5px;font-size:14px;color:var(--text-secondary);}
+ul.pain-list{padding-left:24px;margin:8px 0;}
+ul.pain-list li{margin-bottom:5px;font-size:14px;color:var(--text-secondary);}
+ol.pain-list li ol{padding-left:20px;margin-top:4px;}
+ol.pain-list li ul{padding-left:20px;margin-top:4px;}
+.conclusion-box{background:var(--surface-dark);border-left:4px solid var(--accent-line);padding:24px 28px;margin-top:64px;}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 12</div>
+
+<h1>Thiết kế Sản phẩm</h1>
+<div class="chapter-subtitle">Bài tập Điểm Đau (Pain Point Exercises)</div>
+
+<p>Bài tập điểm đau yêu cầu ứng viên <em>phàn nàn (rant)</em> về một trải nghiệm quen thuộc trong cuộc sống — mục tiêu là khả năng đồng cảm với người dùng, nhận diện vấn đề sâu sắc và trình bày một cách có cấu trúc. Câu trả lời tốt là câu trả lời thể hiện rõ quan điểm cá nhân, có chiều sâu và không chỉ liệt kê bề mặt.</p>
+
+<!-- Bài 1: Child's 1st Birthday Party -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 01</span>
+    <span class="exercise-title">Tiệc sinh nhật đầu tiên của bé</span>
+  </div>
+  <div class="exercise-body">Hãy phàn nàn về việc tổ chức tiệc sinh nhật lần đầu tiên cho một đứa trẻ.</div>
+  <div class="answer-label">Đáp án</div>
+
+  <div class="group-title">Phàn nàn liên quan đến khâu lên kế hoạch</div>
+  <ol class="pain-list">
+    <li>Lập danh sách khách mời thật sự rất phiền:
+      <ol>
+        <li>Phải mời cả bố/mẹ lẫn trẻ em.</li>
+        <li>Không biết mời bao nhiêu người — ít quá thì bị cho là cô lập, nhiều quá thì phức tạp.</li>
+        <li>Những người không được mời sẽ tự ái.</li>
+      </ol>
+    </li>
+    <li>Điều phối đồ ăn thức uống không hề dễ:
+      <ol>
+        <li>Một số người có dị ứng thực phẩm.</li>
+        <li>Có người muốn đồ có cồn, có người không — sẽ bị phán xét.</li>
+        <li>Đồ trẻ em thích ăn thường người lớn không thích.</li>
+      </ol>
+    </li>
+    <li>Tìm địa điểm khó:
+      <ol>
+        <li>Có thân thiện với trẻ em không?</li>
+        <li>Có không gian cho bé bú, thay tã không?</li>
+        <li>Bãi đỗ xe có đủ không?</li>
+      </ol>
+    </li>
+    <li>Chọn ngày tổ chức như chăn mèo — ai cũng bận khác ngày.</li>
+    <li>Nghĩ trò chơi hoặc giải trí mới mẻ rất áp lực.</li>
+  </ol>
+
+  <div class="group-title">Phàn nàn liên quan đến ngày diễn ra tiệc</div>
+  <ol class="pain-list">
+    <li>Thức ăn, bánh sinh nhật, dịch vụ giải trí có thể không đến đúng giờ.</li>
+    <li>Trẻ em sẽ khóc tại tiệc.</li>
+    <li>Trẻ em sẽ tạo ra mớ hỗn độn.</li>
+    <li>Trẻ dễ chán và mất tập trung.</li>
+    <li>Không biết mua quà gì cho bé.</li>
+    <li>Bố mẹ khác có thể nhận xét tiệc nhàm chán.</li>
+  </ol>
+
+  <div class="group-title">Phàn nàn khác</div>
+  <ol class="pain-list">
+    <li>Tổ chức tiệc khi bé còn quá nhỏ để nhớ thì có ý nghĩa gì?</li>
+    <li>Nhiều người đăng ký nhưng rồi không đến.</li>
+    <li>Thời tiết có thể xấu.</li>
+    <li>Phải van nài khách chụp ảnh rồi chia sẻ thật bực.</li>
+  </ol>
+</div>
+
+<!-- Bài 2: Best Handyman -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 02</span>
+    <span class="exercise-title">Tìm thợ sửa nhà tốt nhất</span>
+  </div>
+  <div class="exercise-body">Hãy phàn nàn về việc tìm người sửa chữa nhà tốt nhất.</div>
+  <div class="answer-label">Đáp án</div>
+  <ol class="pain-list">
+    <li>Khó tìm được đánh giá thực sự chất lượng về thợ sửa nhà.</li>
+    <li>Người đánh giá có tiêu chí và gu khác mình — liệu có phù hợp không?</li>
+    <li>Họ sống ở loại nhà khác — đánh giá của họ có áp dụng được không?</li>
+    <li>Phải chỉ đường đến nhà — thợ sẽ bị lạc.</li>
+    <li>Họ có thể không tìm được chỗ đỗ xe.</li>
+    <li>Phải sắp xếp thời gian ở nhà — họ không bao giờ rảnh khi mình rảnh.</li>
+    <li>Không thể làm gì thoải mái khi họ đang làm việc — mất vài tiếng.</li>
+    <li>Không tin tưởng để một mình trong nhà.</li>
+    <li>Không tin tưởng ở phòng khác dù đang ở nhà.</li>
+    <li>Họ đi giày vào — dù sau đó lau thảm nhưng mình vẫn không thích.</li>
+    <li>Phải tip dù họ làm không tốt.</li>
+    <li>Nhiều khả năng phải trả tiền mặt — mình không mang tiền mặt.</li>
+    <li>Có thể yêu cầu đặt cọc — mình không thích.</li>
+    <li>Có thể bị tính thêm vì mình không biết công việc mất bao nhiêu thời gian.</li>
+    <li>Phải dọn nhà trước vì sợ bị đánh giá.</li>
+    <li>Họ có thể thấy mình lạ vì đồ đạc và phải giấu đi.</li>
+    <li>Không thích người lạ vào phòng riêng.</li>
+    <li>Phải mua nước mời họ — phải ra mua cốc nhựa.</li>
+    <li>Họ dùng nhà vệ sinh của mình — rất khó chịu.</li>
+    <li>Họ làm việc khi mình đi vắng và không bắt máy khi mình nhắn tin.</li>
+    <li>Có thể lãng phí thời gian tại chỗ — bực vì mình có deadline gấp.</li>
+    <li>Họ có thể hút thuốc hoặc chửi tục — không được phép ở nhà mình.</li>
+    <li>Họ có thể làm kém — và mình không chuyên nên không biết.</li>
+    <li>Họ có thể lấy tiền rồi biến mất.</li>
+    <li>Họ có thể vô tình làm hỏng thứ khác.</li>
+    <li>Họ có thể tự làm mình bị thương hoặc gây hư hỏng nghiêm trọng cho nhà.</li>
+    <li>Họ có thể đến trễ — không trao chìa khóa để đi tiếp.</li>
+    <li>Có thể mất lâu hơn dự kiến — để lại công việc dở dang.</li>
+    <li>Có thể không có đủ kinh nghiệm nhưng vẫn nhận việc.</li>
+    <li>Họ có thể không làm đúng như hợp đồng.</li>
+  </ol>
+</div>
+
+<!-- Bài 3: Job Search Pain Points -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 03</span>
+    <span class="exercise-title">Tìm kiếm Việc làm</span>
+  </div>
+  <div class="exercise-body">Hãy phàn nàn về quá trình tìm kiếm việc làm.</div>
+  <div class="answer-label">Đáp án</div>
+  <ol class="pain-list">
+    <li>Không biết chính xác công việc mình muốn.</li>
+    <li>Không biết cách làm CV tốt hơn.</li>
+    <li>Không có thời gian cải thiện CV.</li>
+    <li>Không có thời gian viết CV và thư xin việc riêng cho từng vị trí.</li>
+    <li>Không biết có nên viết thư xin việc không.</li>
+    <li>Không biết nên liên kết mạng xã hội nào.</li>
+    <li>Không biết bố cục CV nào hiệu quả hơn.</li>
+    <li>Không biết cách viết CV qua được hệ thống ATS.</li>
+    <li>Không biết công ty có tuyển lao động nhập cư không.</li>
+    <li>Không biết nên ứng tuyển bao nhiêu vị trí để có kết quả.</li>
+    <li>Không biết có nên ứng tuyển khi không đáp ứng 100% yêu cầu không.</li>
+    <li>Khó kết nối với hiring manager qua network.</li>
+    <li>Không quen ai làm việc tại công ty muốn apply.</li>
+    <li>Không biết nên kết nối với ai.</li>
+    <li>Không biết có nên chờ có referral mới nộp không.</li>
+    <li>Không biết mình có phù hợp văn hóa công ty không.</li>
+    <li>Khả năng phỏng vấn kém.</li>
+    <li>Hay ấp úng khi được hỏi câu hỏi phỏng vấn.</li>
+    <li>Không biết nên luyện gì trước phỏng vấn.</li>
+    <li>Không biết nên mặc gì đi phỏng vấn.</li>
+    <li>Không biết buổi phỏng vấn đi tốt hay kém.</li>
+    <li>Không biết trạng thái hồ sơ đang ở đâu.</li>
+    <li>Không biết có nên email lại nhà tuyển dụng không.</li>
+    <li>Không biết mức lương của vị trí đang apply.</li>
+    <li>Không biết lịch làm việc của vị trí đang apply.</li>
+    <li>Không biết phúc lợi của vị trí đang apply.</li>
+    <li>Không chịu được sự chờ đợi và bất ổn của quá trình tìm việc.</li>
+    <li>Không biết tại sao bị từ chối.</li>
+    <li>Không biết cải thiện gì cho các lần phỏng vấn sau.</li>
+    <li>Tìm việc mới và nộp hồ sơ tốn rất nhiều thời gian.</li>
+  </ol>
+</div>
+
+<!-- Bài 4: Finding Someone to Do Taxes -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 04</span>
+    <span class="exercise-title">Tìm người làm Thuế</span>
+  </div>
+  <div class="exercise-body">Hãy phàn nàn về việc tìm người hỗ trợ kê khai thuế.</div>
+  <div class="answer-label">Đáp án</div>
+  <ol class="pain-list">
+    <li>Phải làm thuế sớm; nếu không, có thể không kịp thời hạn.</li>
+    <li>Phải ngồi đó trả lời hàng loạt câu hỏi "cái này là gì?" "cái kia là gì?"</li>
+    <li>Họ biết toàn bộ giao dịch tài chính của mình — mình muốn giữ bí mật chuyện tài chính.</li>
+    <li>Không nhớ hết mọi thu nhập và chi phí được khấu trừ.</li>
+    <li>Không tin tưởng giao thông tin tài chính cho họ.</li>
+    <li>Họ sẽ cố bán thêm dịch vụ khác.</li>
+    <li>Mình sẽ có nhiều câu hỏi — họ sẽ thiếu kiên nhẫn trả lời.</li>
+    <li>Họ bắt mình làm tất cả công việc dù mình đang trả tiền cho họ.</li>
+    <li>Không biết họ có tìm được nhiều khoản khấu trừ hơn mình không.</li>
+    <li>Họ sẽ nhớ mình và nhắc nhở quay lại vào năm sau.</li>
+    <li>Nếu họ làm chưa tốt, phải nghĩ cách từ chối.</li>
+    <li>Dịch vụ kê khai thuế khá đắt.</li>
+    <li>Có thể không hiểu đúng lĩnh vực kinh doanh của mình.</li>
+    <li>Có thể mắc lỗi thủ công — dẫn đến nộp thuế thừa hoặc phải nộp lại.</li>
+    <li>Có thể làm theo hướng dễ nhất cho họ chứ không phải tốt nhất cho mình.</li>
+    <li>Có thể tính thêm phí cho các hạng mục không đề cập từ đầu.</li>
+    <li>Có thể làm mọi thứ phức tạp hơn để tăng sự phụ thuộc vào họ.</li>
+  </ol>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận Chương 12</div>
+  <p>Bài tập phàn nàn (pain point / rant) kiểm tra khả năng <strong>đồng cảm sâu</strong> với người dùng và tư duy có hệ thống. Câu trả lời xuất sắc không chỉ liệt kê bề mặt mà còn đào sâu vào các vấn đề tiềm ẩn, phân tầng theo nhóm (lên kế hoạch, ngày thực tế, hậu quả lâu dài), và thể hiện sự tinh tế trong cách nhìn nhận trải nghiệm người dùng.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch11.html"><span class="lbl">Chương trước</span>Chương 11: Thiết kế Sản phẩm: Bản đồ Hành trình Khách hàng</a>
+  <a href="pm_interview_ch13.html"><span class="lbl">Chương sau</span>Chương 13: Thiết kế Sản phẩm: Bài tập Brainstorm</a>
+</nav>
+</body>
+</html>

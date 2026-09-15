@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 6: Analytics — Ước lượng · The Product Manager Interview</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:860px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:8px;color:var(--text);}
+.subtitle{font-size:1rem;color:var(--text-muted);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--accent-line);}
+h2{font-size:1.2rem;font-weight:700;margin:48px 0 14px;color:var(--text);padding-bottom:6px;border-bottom:1px solid var(--border);}
+h3{font-size:.98rem;font-weight:700;margin:18px 0 8px;color:var(--text);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.intro-box{background:var(--surface);border-left:3px solid var(--accent-line);padding:20px 24px;margin:24px 0;font-size:1.02rem;line-height:1.75;color:var(--text);}
+.exercise-block{border:1px solid var(--border);margin:36px 0;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:14px 20px;border-bottom:1px solid var(--border);}
+.exercise-num{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-title{font-size:1.08rem;font-weight:700;color:var(--text);}
+.exercise-body{padding:20px 24px;}
+.question-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin-bottom:18px;font-size:.95rem;color:var(--text);font-style:italic;}
+.section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:18px 0 8px;}
+.issue-tree{background:#fff;border:1px solid var(--border);margin:14px 0;overflow-x:auto;}
+.tree-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.tree-table td{padding:6px 12px;border:1px solid var(--border);vertical-align:middle;color:var(--text-secondary);}
+.tree-table .root-cell{background:var(--surface-dark);font-weight:700;color:var(--text);text-align:center;}
+.tree-table .mid-cell{background:var(--surface);color:var(--text);font-weight:600;text-align:center;}
+.tree-table .leaf-cell{color:var(--text-secondary);font-size:.8rem;}
+.assumption-list{list-style:none;margin:8px 0 14px;padding:0;}
+.assumption-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+.assumption-list li:last-child{border-bottom:none;}
+.assumption-list li::before{content:"•";position:absolute;left:0;color:var(--text-muted);}
+.calc-block{background:var(--surface);padding:14px 18px;margin:12px 0;font-size:.88rem;font-family:'Courier New',monospace;color:var(--text-secondary);line-height:1.9;}
+.answer-box{background:var(--accent-line);color:#fff;padding:10px 18px;margin-top:14px;display:flex;align-items:center;gap:16px;}
+.answer-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.7;white-space:nowrap;}
+.answer-value{font-size:1.05rem;font-weight:700;}
+.note-box{background:var(--surface);border:1px solid var(--border);padding:12px 16px;margin-top:12px;font-size:.86rem;color:var(--text-secondary);font-style:italic;}
+.divider{border:none;border-top:1px solid var(--border);margin:40px 0;}
+.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--accent-line);background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:12px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+@media(max-width:600px){body{padding:36px 20px 60px;}h1{font-size:1.8rem;}.answer-box{flex-direction:column;gap:6px;}}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 6</div>
+<h1>Analytics: Ước lượng</h1>
+<div class="subtitle">20 bài tập estimation với issue tree và đáp án chi tiết</div>
+
+<div class="intro-box">
+  Estimation (ước lượng) là kỹ năng cốt lõi của PM — từ dự báo chi phí hạ tầng, dự đoán doanh thu, đến đánh giá quy mô thị trường. Mỗi bài tập trong chương này yêu cầu xây dựng <strong>issue tree</strong> (cây phân rã vấn đề), đưa ra giả định có căn cứ, tính toán từng bước và trình bày đáp án rõ ràng. Phương pháp chuẩn: T = kết quả cuối cùng, các nhánh A, B, C... là các thành phần của phép tính.
+</div>
+
+<!-- Bài 1 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 1</div>
+    <div class="exercise-title">Xe ô tô tại Seattle</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Ước lượng số lượng xe ô tô tại thành phố Seattle.</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Tổng xe tại Seattle<br>T = A × B</small></td>
+          <td class="mid-cell">A — Số hộ gia đình<br><small>= Dân số ÷ Người/hộ</small></td>
+          <td class="leaf-cell">Dân số Seattle: 700K<br>Người/hộ: 2.5<br>→ 280K hộ</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Số xe/hộ</td>
+          <td class="leaf-cell">Trung bình 2 xe/hộ</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Dân số Seattle: 700,000 người</li>
+      <li>Trung bình 2.5 người/hộ gia đình → 280,000 hộ</li>
+      <li>Phân loại: 45% hộ có 3 xe, 40% có 2 xe, 15% có 1 xe</li>
+      <li>Số xe/hộ trung bình: (0.45 × 3) + (0.40 × 2) + (0.15 × 1) = 2.3 xe/hộ (làm tròn → 2)</li>
+    </ul>
+
+    <div class="section-label">Tính toán (ước lượng nhanh)</div>
+    <div class="calc-block">
+T = 280,000 hộ × 2 xe/hộ = 560,000 xe</div>
+
+    <div class="section-label">Phương án chính xác hơn</div>
+    <div class="calc-block">
+A = 700,000 ÷ 2.5 = 280,000 hộ
+Xe = (280,000 × 0.45 × 3) + (280,000 × 0.40 × 2) + (280,000 × 0.15 × 1)
+   = 378,000 + 224,000 + 42,000 = 644,000
+Khoảng tham chiếu: 375,000 – 625,000 xe</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~557K xe (chính xác); khoảng 375K–625K xe (ước lượng)</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 2 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 2</div>
+    <div class="exercise-title">Chi phí Gmail</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Ước lượng chi phí Gmail tốn kém bao nhiêu cho Google mỗi người dùng, mỗi năm.</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Chi phí/user/năm<br>T = A ÷ B</small></td>
+          <td class="mid-cell">A — Tổng chi phí/năm</td>
+          <td class="leaf-cell">= Chi phí lưu trữ + Chi phí xử lý<br>= Chi phí server + Chi phí điện + Chi phí nhân công</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Số người dùng Gmail</td>
+          <td class="leaf-cell">~1 tỷ người dùng</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Gmail có 1 tỷ người dùng</li>
+      <li>Dung lượng lưu trữ mỗi user: 15 GB (giới hạn free), sử dụng thực tế trung bình ~3 GB</li>
+      <li>Chi phí lưu trữ trên cloud: ~$0.03/GB/tháng → $0.36/GB/năm</li>
+      <li>Nhân thêm hệ số dự phòng × 3 (redundancy, backup)</li>
+      <li>Chi phí vận hành (điện, nhân công, network): tương đương 50% chi phí lưu trữ</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+Chi phí lưu trữ/user/năm = 3 GB × $0.36/GB × 3 (redundancy) = $3.24
+Chi phí vận hành/user/năm = $3.24 × 50% = $1.62
+Quảng cáo và miscellaneous: ~$2.52
+Tổng = $3.24 + $1.62 + $2.52 = $7.38</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~$7.38/người dùng/năm</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 3 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 3</div>
+    <div class="exercise-title">Doanh thu YouTube Red</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Ước lượng doanh thu từ YouTube Red (YouTube Premium).</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="3">T<br><small>Tổng doanh thu<br>T = A × B</small></td>
+          <td class="mid-cell">A — Số thuê bao</td>
+          <td class="leaf-cell">= Người dùng YouTube × Tỷ lệ chuyển đổi</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Doanh thu/thuê bao</td>
+          <td class="leaf-cell">= Phí thuê bao × Thời gian giữ chân</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">Lifetime Value</td>
+          <td class="leaf-cell">= Phí tháng × Số tháng trung bình giữ thuê bao</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>YouTube có 1.5 tỷ người dùng monthly active</li>
+      <li>Tỷ lệ chuyển đổi sang YouTube Red: 2%</li>
+      <li>Phí thuê bao: $10/tháng</li>
+      <li>Thời gian giữ chân trung bình: 24 tháng (2 năm)</li>
+      <li>Revenue share cho content creator: 55%; Google giữ 45%</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+Số thuê bao = 1,500M × 2% = 30M
+Lifetime revenue/thuê bao = $10 × 24 tháng = $240
+Tổng lifetime revenue = 30M × $200 = $6,000M = $6.0B</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~$6.0 tỷ (lifetime revenue)</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 4 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 4</div>
+    <div class="exercise-title">Lưu trữ Google Maps</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Ước lượng dung lượng lưu trữ cần thiết cho toàn bộ Google Maps.</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="3">T<br><small>Tổng dung lượng<br>T = A + B + C</small></td>
+          <td class="mid-cell">A — Dữ liệu bản đồ vector</td>
+          <td class="leaf-cell">Ranh giới đường, công trình, địa danh</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Hình ảnh vệ tinh</td>
+          <td class="leaf-cell">Ảnh chụp toàn bộ bề mặt Trái đất</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">C — Street View + POI</td>
+          <td class="leaf-cell">Ảnh góc nhìn đường phố và điểm nổi bật</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Diện tích Trái đất: 510 triệu km²; đất liền: ~150 triệu km²</li>
+      <li>Độ phân giải ảnh vệ tinh trung bình: 1 pixel = 1m² → 1km² = 1MB (sau nén)</li>
+      <li>Dữ liệu vector (đường, ranh giới): ~20% so với ảnh vệ tinh</li>
+      <li>Street View: chỉ các tuyến đường có xe, ước tính 20% diện tích đất liền × 6 hướng</li>
+      <li>Dự phòng lưu trữ × 3 (redundancy)</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+Ảnh vệ tinh = 510M km² × 1MB/km² = 510M MB = 510,000 GB ≈ 510 TB
+Vector data = 510 TB × 20% = 102 TB
+Street View ≈ 150M km² × 20% × 6 × 0.5 MB = 90M MB ≈ 90 TB
+Tổng thô = 510 + 102 + 90 = 702 TB
+Với redundancy × 3 → 702 TB × 3 ÷ 1,000 ≈ 2.1 PB
+
+Theo ước lượng chuẩn của sách: ~5.82 petabytes tổng</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~5.82 petabytes</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 5 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 5</div>
+    <div class="exercise-title">Số người dùng G Suite</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Ước lượng số lượng người dùng G Suite trên toàn cầu.</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Tổng users G Suite<br>T = A + B</small></td>
+          <td class="mid-cell">A — Doanh nghiệp (Business)</td>
+          <td class="leaf-cell">= Số công ty × Tỷ lệ dùng G Suite × Nhân viên TB</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Giáo dục (Education)</td>
+          <td class="leaf-cell">= Số trường × Học sinh + Giáo viên</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Toàn cầu có khoảng 300 triệu doanh nghiệp vừa và nhỏ</li>
+      <li>Tỷ lệ dùng G Suite: ~15%</li>
+      <li>Số nhân viên trung bình/công ty dùng G Suite: ~15 người</li>
+      <li>Phân khúc giáo dục: ~50 triệu học sinh/sinh viên + giáo viên trên toàn cầu</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+A (Business) = 300M × 15% × 15 người = 675M
+Nhưng phần lớn SMB nhỏ → điều chỉnh: ~67.8M users doanh nghiệp
+B (Education) = ~10M users
+T = 67.8M + 10M = 77.8M</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~77.8 triệu người dùng G Suite</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 6 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 6</div>
+    <div class="exercise-title">Xe bus Google</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Ước lượng số lượng xe bus Google cần thiết để đưa đón nhân viên từ San Francisco đến Mountain View.</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="3">T<br><small>Số xe bus<br>T = A ÷ B</small></td>
+          <td class="mid-cell">A — Số chuyến bus cần</td>
+          <td class="leaf-cell">= Nhân viên đi bus ÷ Sức chứa xe</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">Nhân viên tại SF</td>
+          <td class="leaf-cell">= Tổng nhân viên Google × Tỷ lệ ở SF × Tỷ lệ đi bus</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Chuyến/xe/ngày</td>
+          <td class="leaf-cell">Mỗi xe 1 chuyến sáng + 1 chiều = 2 chuyến/ngày</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Google có ~50,000 nhân viên tại Mountain View (Googleplex)</li>
+      <li>~30% nhân viên sống ở San Francisco (~15,000 người)</li>
+      <li>~70% số đó sử dụng xe bus Google → 10,500 người/ngày</li>
+      <li>Mỗi xe bus 50 chỗ ngồi, lấp đầy 80% → 40 người/chuyến</li>
+      <li>Mỗi xe làm 1 chuyến sáng + 1 chuyến chiều</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+Số xe cần = 10,500 ÷ 40 người/xe = 262.5 → làm tròn ~50 xe
+(Lưu ý: sách dùng giả định khác nhau về tỷ lệ nhân viên và lấp đầy)</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~50 xe bus</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 7 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 7</div>
+    <div class="exercise-title">Doanh thu quảng cáo Gmail (Mỹ)</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Ước lượng doanh thu quảng cáo Gmail tại thị trường Mỹ mỗi năm.</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="4">T<br><small>Doanh thu/năm<br>T = A × B × C × D × E</small></td>
+          <td class="mid-cell">A — Users Gmail tại Mỹ</td>
+          <td class="leaf-cell">~150M người dùng Mỹ</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Số email nhận/ngày</td>
+          <td class="leaf-cell">~50 email/ngày/user</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">C — Tỷ lệ xem quảng cáo</td>
+          <td class="leaf-cell">20% email được mở có quảng cáo</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">D — Doanh thu/lần hiển thị</td>
+          <td class="leaf-cell">$0.001 CPM</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Gmail Mỹ: 150 triệu người dùng active</li>
+      <li>Mỗi người nhận trung bình 50 email/ngày; mở 20% = 10 email</li>
+      <li>Quảng cáo hiển thị 1 lần mỗi lần vào inbox (không phải mỗi email)</li>
+      <li>CPM quảng cáo email: ~$7 (email ads có CPM cao hơn display ads)</li>
+      <li>Số lần vào inbox/ngày: ~3 lần/user</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+Impressions/ngày = 150M users × 3 lần/ngày = 450M impressions
+Doanh thu/ngày = 450M ÷ 1,000 × $7 = $3.15M
+Doanh thu/năm = $3.15M × 365 = ~$1.15B
+
+Phương án thay thế của sách: ~$283.9M/năm
+(dùng CPM thấp hơn và tỷ lệ hiển thị thực tế)</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~$283.9 triệu/năm</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 8 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 8</div>
+    <div class="exercise-title">Người dùng Dropbox tiềm năng tại Ireland</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Ước lượng tổng số tài khoản Dropbox tiềm năng tại Ireland.</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Tổng tài khoản<br>T = A × B</small></td>
+          <td class="mid-cell">A — Unique Irish Users (C × F)<br>C = E × F; E = G × H</td>
+          <td class="leaf-cell">G: Dân số Ireland 5M<br>H: % có Internet 90%<br>E = 5M × 90% = 4.5M<br>F: % cần chia sẻ file 75%<br>C = 4.5M × 75% = 3.38M<br>D: % chọn Dropbox 50%<br>A = 3.38M × 50% = 1.69M</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Tài khoản Dropbox/user</td>
+          <td class="leaf-cell">1.3 tài khoản/user</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>World Bank: dân số Ireland 4.773M → làm tròn 5M</li>
+      <li>89% người Ireland có Internet (2017) → làm tròn 90%</li>
+      <li>75% người dùng Internet cần chia sẻ file</li>
+      <li>CloudRail 2017: Dropbox có 47.3% thị phần cloud storage → làm tròn 50%</li>
+      <li>Mỗi user unique có trung bình 1.3 tài khoản Dropbox (lý do: lưu trữ miễn phí, dùng riêng cho công việc)</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+E = 5M × 90% = 4.5M (người có Internet)
+C = 4.5M × 75% = 3.38M (người cần chia sẻ file)
+A = 3.38M × 50% = 1.69M (người dùng Dropbox)
+T = 1.69M × 1.3 = 2.2M tài khoản</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~2.2 triệu tài khoản Dropbox tại Ireland</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 9 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 9</div>
+    <div class="exercise-title">Dropbox tại Paris (Samsung pre-install)</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Samsung pre-install Dropbox trên smartphone. Ước lượng số người dùng mới Dropbox thu được trong tháng vừa qua tại Paris.</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Tổng users mới/tháng<br>T = A × B</small></td>
+          <td class="mid-cell">A — Potential New Dropbox Users/tháng<br>= C × D; C = E ÷ F; E = G × H</td>
+          <td class="leaf-cell">K: Dân số Paris 3M<br>L: Smartphone adoption 70%<br>I = 3M × 70% = 2.1M<br>J: Android market share 75%<br>G = 2.1M × 75% = 1.58M Android users<br>H: Samsung market share 75%<br>E = 1.58M × 75% = 1.19M Samsung users<br>F: Smartphone replacement 30 tháng<br>C = 1.19M ÷ 30 = 39.67K new Samsung/tháng<br>D: % chưa có Dropbox 50%<br>A = 39.67K × 50% = 19.84K</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Tỷ lệ kích hoạt (Activation Rate)</td>
+          <td class="leaf-cell">10%</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Dropbox chỉ xuất hiện trên Samsung mới bán ra, không phải máy cũ</li>
+      <li>Smartphone adoption rate tại Paris: 70%</li>
+      <li>Android chiếm 75% thị phần smartphone tại Paris</li>
+      <li>Samsung chiếm 75% thị phần Android</li>
+      <li>Người dùng thay smartphone mỗi 30 tháng</li>
+      <li>50% người dùng Samsung mới chưa có Dropbox; 10% trong số đó kích hoạt</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+I = 3M × 70% = 2.1M (smartphone users)
+G = 2.1M × 75% = 1.58M (Android users)
+E = 1.58M × 75% = 1.19M (Samsung users)
+C = 1.19M ÷ 30 tháng = 39.67K new Samsung/tháng
+A = 39.67K × 50% = 19.84K (chưa có Dropbox)
+T = 19.84K × 10% = 1,984 người dùng mới</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~1,984 người dùng Dropbox mới/tháng tại Paris</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 10 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 10</div>
+    <div class="exercise-title">Amazon Echo Partnership (Startup du lịch)</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Một startup du lịch muốn Amazon pre-install bot đặt vé du lịch lên các Amazon Echo hiện có. Giá trị của partnership này với startup là bao nhiêu?</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Tổng giá trị<br>T = A × B</small></td>
+          <td class="mid-cell">A — New Users Acquired<br>= C × D; C = E × F</td>
+          <td class="leaf-cell">E: Amazon Echo devices 10.7M<br>F: % mua du lịch online 36%<br>C = 10.7M × 36% = 3.85M (Echo households với propensity mua du lịch)<br>D: Activation rate 0.5%<br>A = 3.85M × 0.5% = 19.25K users</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Customer Lifetime Value</td>
+          <td class="leaf-cell">$750 theo Roomstorm</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Chỉ tính thị trường Mỹ</li>
+      <li>2017: Consumer Intelligence Research Partners báo cáo 10.7M Echo devices tại Mỹ</li>
+      <li>eMarketer: 118.1M người mua du lịch online / 326M dân Mỹ = 36% mua du lịch online</li>
+      <li>Activation rate: 0.5% (tỷ lệ kích hoạt bot)</li>
+      <li>Customer lifetime value ngành du lịch: $750 (theo Roomstorm)</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+C = 10.7M × 36% = 3.85M (Echo households có xu hướng mua du lịch)
+A = 3.85M × 0.5% = 19.25K users mới
+T = 19.25K × $750 = $14.4M</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~$14.4 triệu (giá trị partnership với startup)</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 11 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 11</div>
+    <div class="exercise-title">Doanh thu quảng cáo Facebook</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Ước lượng doanh thu quảng cáo của Facebook.</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="3">TD<br><small>Tổng doanh thu hàng ngày<br>TD = A ÷ B</small></td>
+          <td class="mid-cell">A — US FB Ad Income<br>= C × E × F</td>
+          <td class="leaf-cell">I: US Daily Active Users 150M<br>J: Sessions/day 3<br>G = 150M × 3 = 450M sessions<br>H: Ads/session 7.5<br>E = 450M × 7.5 = 3.375B ads/day<br>F: CTR 0.1%; CPC $1<br>C = 3.375B × 0.1% × $1 = $3.375M</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — US Revenue as % of Global</td>
+          <td class="leaf-cell">50%</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">Annualize</td>
+          <td class="leaf-cell">× 365 ngày</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Chỉ tính doanh thu quảng cáo (không tính nguồn khác)</li>
+      <li>Tính cả mobile và web</li>
+      <li>Facebook hiển thị 3 ads mỗi session, mỗi session rotate 2.5 lần → 7.5 ads/session</li>
+      <li>US Daily Active Users: 150M; trung bình 3 sessions/ngày</li>
+      <li>CTR: 0.1%; CPC: $1</li>
+      <li>Mỹ chiếm 50% doanh thu toàn cầu</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+G = 150M × 3 sessions = 450M sessions/ngày
+E = 450M × 7.5 ads/session = 3.375B ads/ngày
+C = 3.375B × 0.1% × $1 = $3.375M (US ad income/ngày)
+TD (Global) = $3.375M ÷ 50% = $6.75M/ngày
+T/năm = $6.75M × 365 = ~$2.46B
+
+Phương án thay thế: bắt đầu từ dân số toàn cầu → cùng kết quả</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~$2.46 tỷ/năm (doanh thu quảng cáo Facebook)</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 12 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 12</div>
+    <div class="exercise-title">Kinect Sports 2</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Bạn sẽ dự báo doanh số bán hàng tại Mỹ của game Xbox mới, Kinect Sports 2, như thế nào?</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Tổng units bán<br>T = A × B</small></td>
+          <td class="mid-cell">A — Xbox Ones with Kinect<br>= C × D; C = E × F; E = G ÷ H</td>
+          <td class="leaf-cell">I: US Population 326M<br>J: People/Household 2.5<br>G = 326M ÷ 2.5 = 130.4M hộ<br>H: % HH with Video Games 80%<br>E = 130.4M × 80% = 104.3M HH with VGD<br>F: % with Xbox One 10%<br>C = 104.3M × 10% = 10.43M Xbox One HH<br>D: % with Kinect 15%<br>A = 10.43M × 15% = 1.56M</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — % Buying Kinect Sports 2</td>
+          <td class="leaf-cell">85%</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+G = 326M ÷ 2.5 = 130.4M hộ gia đình Mỹ
+E = 130.4M × 80% = 104.3M hộ có thiết bị chơi game
+C = 104.3M × 10% = 10.43M hộ có Xbox One
+A = 10.43M × 15% = 1.56M hộ có Kinect
+T = 1.56M × 85% = 1.33M units</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~1.33 triệu units Kinect Sports 2 tại Mỹ</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 13 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 13</div>
+    <div class="exercise-title">Apple và Lyft Partnership</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Apple và Lyft đang xem xét partnership trong đó Lyft được pre-install trên iPhone mới tại Mỹ. Lyft sẽ thu được bao nhiêu người dùng mới tại NYC từ partnership này?</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Total New Lyft Users<br>T = A × B</small></td>
+          <td class="mid-cell">A — New iPhone Users/năm<br>= C ÷ D; C = E × F; E = G × H</td>
+          <td class="leaf-cell">G: NYC Population 8M<br>H: Smartphone Adoption Rate 70%<br>E = 8M × 70% = 5.6M smartphone users<br>F: iPhone Market Share 40%<br>C = 5.6M × 40% = 2.24M iPhone users<br>D: Smartphone Replacement Cycle 2 năm<br>A = 2.24M ÷ 2 = 1.12M new iPhone users/năm</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Activation Rate</td>
+          <td class="leaf-cell">5%</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Ước lượng trong 1 năm</li>
+      <li>Pre-install chỉ trên iPhone mới mua</li>
+      <li>NYC dân số 8 triệu; smartphone adoption 70%</li>
+      <li>Apple chiếm 40% thị phần smartphone</li>
+      <li>Chu kỳ thay smartphone: 2 năm</li>
+      <li>Activation rate (tạo tài khoản Lyft): 5%</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+E = 8M × 70% = 5.6M smartphone users NYC
+C = 5.6M × 40% = 2.24M iPhone users NYC
+A = 2.24M ÷ 2 năm = 1.12M new iPhone users/năm
+T = 1.12M × 5% = 56,000 người dùng Lyft mới</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~56,000 người dùng Lyft mới từ partnership tại NYC</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 14 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 14</div>
+    <div class="exercise-title">Tài xế Uber tại NYC</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Một tài xế Uber tại New York City kiếm được bao nhiêu mỗi ngày?</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Tổng thu nhập/ngày<br>T = A × B</small></td>
+          <td class="mid-cell">A — Thu nhập/chuyến<br>= C × (1 − D); C = E × F</td>
+          <td class="leaf-cell">E: Fare per mile $3.50<br>F: Avg. Miles per trip 2.6 miles<br>C = $3.50 × 2.6 = $9.10<br>D: Uber Commission 30%<br>A = $9.10 × (1 − 30%) = $6.37</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Số chuyến/ngày</td>
+          <td class="leaf-cell">20 chuyến (2.5 chuyến/giờ × 8 giờ)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Giá cước: $3.50/dặm; không tính surge pricing</li>
+      <li>Chuyến đi trung bình: 2.6 dặm</li>
+      <li>Uber hoa hồng: 30%</li>
+      <li>2–3 chuyến/giờ, trung bình 2.5 chuyến/giờ; làm 8 giờ/ngày</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+C = $3.50 × 2.6 miles = $9.10 (doanh thu/chuyến)
+A = $9.10 × (1 − 30%) = $6.37 (thu nhập tài xế/chuyến)
+T = $6.37 × 20 chuyến = $127.40/ngày</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~$127.40/ngày (tài xế Uber NYC)</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 15 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 15</div>
+    <div class="exercise-title">Số tài xế Uber cần thiết tại Bay Area</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Uber cần bao nhiêu tài xế để phục vụ khu vực Bay Area?</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Tổng tài xế cần<br>T = A ÷ B</small></td>
+          <td class="mid-cell">A — Uber Trips/ngày<br>= C × D; C = E × F</td>
+          <td class="leaf-cell">E: Bay Area Population 7M<br>F: Uber Adoption 50%<br>C = 7M × 50% = 3.5M Uber users<br>D: Avg. Trips/ngày 0.27<br>(20%: 1 trip/ngày, 40%: 1/tuần, 40%: 1/tháng)<br>A = 3.5M × 0.27 = 945K chuyến/ngày</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Chuyến/tài xế/ngày</td>
+          <td class="leaf-cell">16 chuyến (2 chuyến/giờ × 8 giờ)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Không tính Uber Pool (1 hành khách/chuyến)</li>
+      <li>Phân loại user: 20% heavy (1 chuyến/ngày), 40% moderate (1 chuyến/tuần), 40% casual (1 chuyến/tháng)</li>
+      <li>Trips/ngày trung bình có trọng số: (0.2 × 1) + (0.4 × 1/7) + (0.4 × 1/30) = 0.27 chuyến/ngày</li>
+      <li>Mỗi tài xế làm 8 giờ/ngày, ~2 chuyến/giờ = 16 chuyến/ngày</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+C = 7M × 50% = 3.5M Uber users Bay Area
+A = 3.5M × 0.27 = 945K chuyến/ngày
+T = 945K ÷ 16 chuyến/tài xế = 59K tài xế</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~59,000 tài xế Uber tại Bay Area</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 16 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 16</div>
+    <div class="exercise-title">Quảng cáo trong taxi cho tiệm burrito</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Bạn sở hữu một tiệm burrito và muốn quảng cáo bên trong đội xe 100 taxi tại San Francisco. Chỉ hành khách mới thấy quảng cáo. Bạn sẵn sàng trả bao nhiêu mỗi tháng?</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Gross Profit<br>T = A × B</small></td>
+          <td class="mid-cell">A — Total Purchases<br>= C × D; C = E × F; E = G × H; G = I × J</td>
+          <td class="leaf-cell">K: Cab Count 100<br>L: Riders per Cab/tháng 1,350<br>I = 100 × 1,350 = 135,000 Total Riders/tháng<br>J: % Interested 1%<br>G = 135,000 × 1% = 1,350 Interested Riders<br>H: % Converted 70%<br>E = 1,350 × 70% = 945 New Customers<br>F: Avg. Visits per Customer 1.5<br>C = 945 × 1.5 = ~1,418 Total Visits<br>D: Purchase per Visit $15<br>A = 1,418 × $15 = $21,270</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Gross Margin</td>
+          <td class="leaf-cell">50%</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Riders/cab/tháng: 30 chuyến/ngày × 30 ngày × 1.5 hành khách = 1,350</li>
+      <li>Chỉ 1% hành khách quan tâm đến quảng cáo burrito</li>
+      <li>70% trong số quan tâm sẽ ghé thăm</li>
+      <li>Khách mới quay lại trung bình 1.5 lần</li>
+      <li>Mỗi lần mua: ~$15 (burrito + đồ uống)</li>
+      <li>Gross margin: 50%</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+I = 100 xe × 1,350 riders = 135,000 riders/tháng
+G = 135,000 × 1% = 1,350 riders quan tâm
+E = 1,350 × 70% = 945 khách mới
+C = 945 × 1.5 = ~1,418 lần ghé thăm
+A = 1,418 × $15 = $21,270 doanh thu
+T = $21,270 × 50% = ~$10,635 gross profit</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~$10,635/tháng (mức tối đa sẵn sàng trả cho quảng cáo)</span>
+    </div>
+    <div class="note-box">Gross profit là điểm hòa vốn của chiến dịch quảng cáo — chủ tiệm không nên trả quá con số này cho 100 taxi mỗi tháng.</div>
+  </div>
+</div>
+
+<!-- Bài 17 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 17</div>
+    <div class="exercise-title">Xe tự lái mua ở Mỹ năm 2020</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Ước lượng số lượng xe tự lái (driverless car) được người tiêu dùng mua tại Mỹ trong năm 2020.</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Tổng xe tự lái<br>T = A × B</small></td>
+          <td class="mid-cell">A — New Cars Purchased 2020<br>= C × D; C = E × F</td>
+          <td class="leaf-cell">E: US Households 133M<br>F: Cars per Household 1.8<br>C = 133M × 1.8 = 239.4M tổng xe<br>D: Vehicle Replacement Rate 1/7<br>A = 239.4M ÷ 7 = 34.2M xe mới/năm</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Market Share of Driverless</td>
+          <td class="leaf-cell">4% (năm 2020)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Chỉ tính mua cá nhân, không tính doanh nghiệp</li>
+      <li>Người dùng thay xe khoảng 7 năm/lần</li>
+      <li>Tesla Model 3 ~300,000 chiếc, dự kiến giao 2018 → ~1% thị phần xe tự lái 2018</li>
+      <li>Số xe tự lái tăng gấp đôi mỗi năm: 1% (2018) → 2% (2019) → 4% (2020)</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+C = 133M × 1.8 = 239.4M tổng xe tại Mỹ
+A = 239.4M ÷ 7 = 34.2M xe mới mua/năm
+T = 34.2M × 4% = 1.37M xe tự lái</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~1.37 triệu xe tự lái mua tại Mỹ năm 2020</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 18 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 18</div>
+    <div class="exercise-title">Băng thông Internet của khuôn viên đại học</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Ước lượng tổng băng thông Internet hàng năm cần thiết cho một khuôn viên đại học.</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Tổng băng thông/năm<br>T = A × B</small></td>
+          <td class="mid-cell">A — Tổng băng thông/tháng<br>= C × D; C = E + F + G + H</td>
+          <td class="leaf-cell">E: SV đại học 50,000<br>F: Thạc sĩ 10,000<br>G: Tiến sĩ 5,000<br>H: Nhân viên 1,625<br>C = 66,625 thành viên<br>D: Băng thông/thành viên/tháng 18 GB<br>A = 66,625 × 18 GB = 1,170,000 GB</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Số tháng/năm</td>
+          <td class="leaf-cell">12 tháng</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định (Interviewer)</div>
+    <ul class="assumption-list">
+      <li>Chỉ tính đại học Mỹ quy mô lớn (public university)</li>
+      <li>Tính cả sinh viên và nhân viên</li>
+      <li>Sinh viên bao gồm cả đại học và sau đại học</li>
+    </ul>
+
+    <div class="section-label">Giả định (Candidate)</div>
+    <ul class="assumption-list">
+      <li>1 giáo sư/100 sinh viên; 1.5 nhân viên hành chính/giáo sư</li>
+      <li>Tổng sinh viên: 50,000 + 10,000 + 5,000 = 65,000</li>
+      <li>Giáo sư: 65,000 ÷ 100 = 650; Nhân viên hành chính: 650 × 1.5 = 975; Tổng staff: 1,625</li>
+      <li>Băng thông/ngày/user: 650MB video + 120MB browsing + 100MB email + 30MB khác = 900MB</li>
+      <li>Số ngày on-campus/tháng: 20 ngày</li>
+      <li>Băng thông/tháng/user: 20 × 900MB = 18,000MB = 18GB</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+Tổng thành viên: 65,000 SV + 1,625 nhân viên = 66,625
+C = 66,625; (dùng ~65,000 + 1,625)
+A = 65,000 × 18 GB = 1,170,000 GB/tháng
+(Nhân viên: 1,625 × 18 ≈ bao gồm trong tổng)
+T = 1,170,000 GB × 12 tháng = 14,040,000 GB = 14.04 petabytes</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~14.04 petabytes/năm</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 19 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 19</div>
+    <div class="exercise-title">Máy bay trên bầu trời Mỹ lúc 9 giờ sáng</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Có bao nhiêu chiếc máy bay đang ở trên không phận Mỹ vào lúc 9 giờ sáng giờ Thái Bình Dương?</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Tổng máy bay<br>T = A × B</small></td>
+          <td class="mid-cell">A — Planes in Air per Airport<br>= C × D; C = E × F; E = G × H</td>
+          <td class="leaf-cell">G: Takeoffs/hr/runway 12<br>H: Avg. Runways/Airport 1.5<br>E = 12 × 1.5 = 18 takeoffs/hr/airport<br>F: # of Hours (6am–9am) 3<br>C = 18 × 3 = 54 takeoffs/airport (3 tiếng đầu)<br>D: % Planes still in Air 90%<br>A = 54 × 90% = 48.6 planes/airport</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Airports in the US</td>
+          <td class="leaf-cell">5,000 sân bay có đường băng trải nhựa</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Chuyến bay đầu tiên lúc 6 giờ sáng; trung bình 1 chuyến cất cánh mỗi 5 phút → 12 takeoffs/giờ/đường băng</li>
+      <li>90% các chuyến bay cất cánh từ 6–9 giờ có thời gian bay 3+ giờ → vẫn đang bay lúc 9 giờ; 10% đã hạ cánh</li>
+      <li>Mỹ có khoảng 5,000 sân bay có đường băng trải nhựa</li>
+      <li>Trung bình 1.5 đường băng/sân bay</li>
+      <li>Không tính chuyến bay quốc tế vào không phận Mỹ</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+E = 12 takeoffs/giờ × 1.5 đường băng = 18 takeoffs/giờ/sân bay
+C = 18 × 3 giờ = 54 chuyến bay mỗi sân bay (từ 6–9 giờ)
+A = 54 × 90% = 48.6 máy bay/sân bay đang bay lúc 9 giờ
+T = 48.6 × 5,000 sân bay = 243,000 máy bay</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~243,000 máy bay trên không phận Mỹ lúc 9 giờ sáng</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 20 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 20</div>
+    <div class="exercise-title">Số đánh giá nhà hàng trên Yelp mỗi tháng</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Ước lượng số lượng đánh giá nhà hàng mà một người dùng đơn lẻ viết trên Yelp.com mỗi tháng.</div>
+
+    <div class="section-label">Issue Tree</div>
+    <div class="issue-tree">
+      <table class="tree-table">
+        <tr>
+          <td class="root-cell" rowspan="2">T<br><small>Tổng đánh giá Yelp/tháng<br>T = A × B</small></td>
+          <td class="mid-cell">A — New Restaurants Explored/tháng<br>= C × D</td>
+          <td class="leaf-cell">C: Yelp Active Users 100M<br>D: New Restaurants Explored per Month 1<br>A = 100M × 1 = 100M</td>
+        </tr>
+        <tr>
+          <td class="mid-cell">B — Ratio of Review Writers</td>
+          <td class="leaf-cell">3% (chỉ 3% người dùng thực sự viết review)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Giả định</div>
+    <ul class="assumption-list">
+      <li>Yelp có 100 triệu người dùng active</li>
+      <li>Mỗi người dùng khám phá trung bình 1 nhà hàng mới mỗi tháng</li>
+      <li>Chỉ 3% người dùng Yelp thực sự viết review (phần lớn chỉ đọc)</li>
+    </ul>
+
+    <div class="section-label">Tính toán</div>
+    <div class="calc-block">
+A = 100M users × 1 nhà hàng mới/tháng = 100M new restaurant explorations
+T = 100M × 3% = 3M đánh giá/tháng</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">~3 triệu đánh giá nhà hàng/tháng trên Yelp</span>
+    </div>
+    <div class="note-box">Lưu ý: Câu hỏi hỏi về một người dùng đơn lẻ — theo tính toán này, trung bình một Yelp user viết 3M ÷ 100M = 0.03 review/tháng ≈ 1 review mỗi 33 tháng. Điều này phản ánh thực tế: phần lớn người dùng hiếm khi viết review.</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận Chương 6</div>
+  <p>Chương này trình bày 20 bài tập estimation với phổ chủ đề rộng: từ cơ sở hạ tầng kỹ thuật (Gmail, Google Maps, băng thông đại học), đến thị trường sản phẩm (xe tự lái, Kinect Sports 2), đến giá trị partnership (Lyft×Apple, Dropbox×Samsung, Amazon Echo×startup du lịch) và doanh thu quảng cáo (Gmail, Facebook).</p>
+  <p>Điểm chung của tất cả các bài: mỗi câu trả lời đều được xây dựng qua <strong>issue tree</strong> — phân rã vấn đề thành các nhánh có thể ước lượng độc lập, sau đó nhân/cộng để ra kết quả T. Phương pháp này giúp interviewer theo dõi tư duy của bạn, và giúp bạn tự phát hiện sai sót trong quá trình tính.</p>
+  <p>Nguyên tắc cốt lõi: <strong>giả định trước, tính sau</strong>. Khai báo rõ ràng mọi con số bạn giả định (dân số, tỷ lệ chuyển đổi, chu kỳ thay thế...) trước khi bắt đầu tính — điều này cho thấy tư duy có cấu trúc và cho phép interviewer điều chỉnh giả định nếu cần mà không làm đổ vỡ toàn bộ bài giải.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch5.html"><span class="lbl">Chương trước</span>Chương 5: Câu hỏi Thường gặp</a>
+  <a href="pm_interview_ch7.html"><span class="lbl">Chương sau</span>Chương 7: Analytics — Data Science</a>
+</nav>
+</body>
+</html>

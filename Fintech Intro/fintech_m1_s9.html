@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phần 9: Giới thiệu Học máy — Giới thiệu Fintech Module 1</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.module-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:8px;color:var(--text);}
+.subtitle{font-size:1rem;color:var(--text-muted);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--accent-line);}
+h2{font-size:1.3rem;font-weight:700;margin:48px 0 16px;color:var(--text);}
+p{margin-bottom:16px;color:var(--text-secondary);}
+.intro-box{background:var(--surface);border-left:3px solid var(--accent-line);padding:20px 24px;margin:24px 0;font-size:1.05rem;line-height:1.7;color:var(--text);}
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.concept-item{background:var(--surface);border:1px solid var(--border);padding:18px 20px;}
+.concept-num{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px;}
+.concept-title{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:8px;}
+.concept-desc{font-size:.87rem;color:var(--text-secondary);line-height:1.65;}
+.ml-type-block{border:1px solid var(--border);margin-bottom:18px;overflow:hidden;}
+.ml-type-header{background:var(--surface-dark);padding:14px 20px;}
+.ml-type-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:4px;}
+.ml-type-subtitle{font-size:.82rem;color:var(--text-muted);font-style:italic;}
+.ml-type-body{padding:16px 20px 18px;}
+.ml-type-desc{font-size:.9rem;color:var(--text-secondary);line-height:1.75;margin-bottom:12px;}
+.ml-example-row{display:grid;grid-template-columns:110px 1fr;gap:0;border-top:1px solid var(--border);}
+.ml-example-label{font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);padding:9px 12px;border-right:1px solid var(--border);background:var(--surface);}
+.ml-example-text{font-size:.87rem;color:var(--text-secondary);padding:9px 14px;line-height:1.65;}
+.app-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:24px 0;}
+.app-item{background:var(--surface);border:1px solid var(--border);padding:16px 18px;}
+.app-title{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:6px;}
+.app-desc{font-size:.83rem;color:var(--text-secondary);line-height:1.6;}
+.challenge-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.challenge-item{background:var(--surface);border-left:3px solid var(--border-strong);padding:16px 18px;}
+.challenge-title{font-size:.93rem;font-weight:700;color:var(--text);margin-bottom:7px;}
+.challenge-desc{font-size:.86rem;color:var(--text-secondary);line-height:1.65;}
+.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--accent-line);background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:12px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+@media(max-width:600px){body{padding:36px 20px 60px;}h1{font-size:1.8rem;}.concept-grid{grid-template-columns:1fr;}.app-grid{grid-template-columns:1fr 1fr;}.challenge-row{grid-template-columns:1fr;}.ml-example-row{grid-template-columns:1fr;}.ml-example-label{border-right:none;border-bottom:1px solid var(--border);}}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/fintech-intro">← Về mục lục</a></p>
+
+
+<div class="module-label">Giới thiệu Fintech — Module 1 · Dr. Mohan Cherian · Phần 9</div>
+<h1>Giới thiệu Học máy</h1>
+<div class="subtitle">Slide 104–113 &nbsp;|&nbsp; Khái niệm Cốt lõi, Ba Loại hình ML &amp; Ứng dụng trong Tài chính</div>
+
+<div class="intro-box">
+  Học máy (Machine Learning — ML) là nhánh của Trí tuệ Nhân tạo cho phép hệ thống máy tính tự học và cải thiện từ kinh nghiệm mà không cần được lập trình tường minh cho từng tình huống. Trong lĩnh vực Fintech, ML đã trở thành công nghệ nền tảng — từ phát hiện gian lận tức thì, chấm điểm tín dụng thông minh đến tư vấn tài chính cá nhân hóa.
+</div>
+
+<h2>Sáu Khái niệm Cốt lõi của Học máy</h2>
+<div class="concept-grid">
+  <div class="concept-item">
+    <div class="concept-num">01</div>
+    <div class="concept-title">Thuật toán (Algorithm)</div>
+    <div class="concept-desc">Tập hợp các quy tắc và phép tính toán học mà mô hình ML sử dụng để học từ dữ liệu. Các thuật toán phổ biến bao gồm Hồi quy Tuyến tính, Cây Quyết định, Rừng Ngẫu nhiên (Random Forest), Mạng Nơ-ron và Gradient Boosting.</div>
+  </div>
+  <div class="concept-item">
+    <div class="concept-num">02</div>
+    <div class="concept-title">Dữ liệu Huấn luyện (Training Data)</div>
+    <div class="concept-desc">Tập dữ liệu lịch sử được dùng để dạy mô hình ML nhận ra các mẫu và mối quan hệ. Chất lượng và tính đại diện của dữ liệu huấn luyện trực tiếp quyết định hiệu suất của mô hình.</div>
+  </div>
+  <div class="concept-item">
+    <div class="concept-num">03</div>
+    <div class="concept-title">Đặc trưng (Features)</div>
+    <div class="concept-desc">Các biến đầu vào mà mô hình ML sử dụng để đưa ra dự đoán. Trong chấm điểm tín dụng, đặc trưng có thể là thu nhập, lịch sử thanh toán, tỷ lệ sử dụng tín dụng và lịch sử giao dịch di động.</div>
+  </div>
+  <div class="concept-item">
+    <div class="concept-num">04</div>
+    <div class="concept-title">Mô hình (Model)</div>
+    <div class="concept-desc">Kết quả toán học của quá trình huấn luyện — biểu diễn các mẫu mà thuật toán đã học được từ dữ liệu. Mô hình sau đó được áp dụng trên dữ liệu mới để đưa ra dự đoán hoặc phân loại.</div>
+  </div>
+  <div class="concept-item">
+    <div class="concept-num">05</div>
+    <div class="concept-title">Quá khớp (Overfitting)</div>
+    <div class="concept-desc">Vấn đề xảy ra khi mô hình học quá chi tiết từ dữ liệu huấn luyện đến mức không thể tổng quát hóa tốt trên dữ liệu mới. Đây là thách thức phổ biến cần được quản lý bằng kỹ thuật regularization và xác thực chéo.</div>
+  </div>
+  <div class="concept-item">
+    <div class="concept-num">06</div>
+    <div class="concept-title">Đánh giá Mô hình (Model Evaluation)</div>
+    <div class="concept-desc">Quy trình kiểm tra hiệu suất mô hình bằng các chỉ số như độ chính xác (accuracy), precision, recall, F1-score và AUC-ROC — giúp xác định mô hình có đáng tin cậy để triển khai thực tế hay không.</div>
+  </div>
+</div>
+
+<h2>Ba Loại hình Học máy</h2>
+
+<div class="ml-type-block">
+  <div class="ml-type-header">
+    <div class="ml-type-title">Học có Giám sát (Supervised Learning)</div>
+    <div class="ml-type-subtitle">Học từ dữ liệu đã được gán nhãn</div>
+  </div>
+  <div class="ml-type-body">
+    <div class="ml-type-desc">Trong học có giám sát, mô hình được huấn luyện trên tập dữ liệu có cả đầu vào lẫn đầu ra đúng (nhãn). Mô hình học cách ánh xạ từ đầu vào sang đầu ra, sau đó có thể dự đoán đầu ra cho dữ liệu mới chưa thấy. Đây là loại hình ML phổ biến nhất trong Fintech nhờ tính giải thích được và hiệu quả đã được chứng minh.</div>
+    <div class="ml-example-row">
+      <div class="ml-example-label">Ứng dụng</div>
+      <div class="ml-example-text">Chấm điểm tín dụng (phân loại: vỡ nợ/không vỡ nợ), phát hiện gian lận (giao dịch bất thường/bình thường), dự báo giá cổ phiếu (hồi quy), phân loại hồ sơ vay (rủi ro cao/thấp/trung bình).</div>
+    </div>
+    <div class="ml-example-row">
+      <div class="ml-example-label">Thuật toán</div>
+      <div class="ml-example-text">Hồi quy Logistic, Cây Quyết định, Rừng Ngẫu nhiên, XGBoost, Mạng Nơ-ron — mỗi loại phù hợp với cấu trúc dữ liệu và yêu cầu bài toán khác nhau.</div>
+    </div>
+  </div>
+</div>
+
+<div class="ml-type-block">
+  <div class="ml-type-header">
+    <div class="ml-type-title">Học không Giám sát (Unsupervised Learning)</div>
+    <div class="ml-type-subtitle">Khám phá cấu trúc ẩn trong dữ liệu không nhãn</div>
+  </div>
+  <div class="ml-type-body">
+    <div class="ml-type-desc">Trong học không giám sát, mô hình làm việc với dữ liệu không có nhãn, tự tìm kiếm cấu trúc, mẫu và nhóm tự nhiên trong dữ liệu. Đây là công cụ mạnh để khám phá thông tin ẩn mà con người chưa biết mình cần tìm.</div>
+    <div class="ml-example-row">
+      <div class="ml-example-label">Ứng dụng</div>
+      <div class="ml-example-text">Phân khúc khách hàng theo hành vi tài chính, phát hiện bất thường trong giao dịch (anomaly detection), phân tích mạng lưới gian lận, cá nhân hóa đề xuất sản phẩm tài chính.</div>
+    </div>
+    <div class="ml-example-row">
+      <div class="ml-example-label">Thuật toán</div>
+      <div class="ml-example-text">K-Means Clustering, DBSCAN, Phân tích Thành phần Chính (PCA), Autoencoder — giúp nhóm khách hàng tương tự lại để phục vụ tốt hơn.</div>
+    </div>
+  </div>
+</div>
+
+<div class="ml-type-block">
+  <div class="ml-type-header">
+    <div class="ml-type-title">Học Tăng cường (Reinforcement Learning)</div>
+    <div class="ml-type-subtitle">Học thông qua thử nghiệm và phần thưởng</div>
+  </div>
+  <div class="ml-type-body">
+    <div class="ml-type-desc">Tác nhân (agent) học cách hành động trong môi trường bằng cách thử các hành động khác nhau và nhận phần thưởng hoặc hình phạt tương ứng. Qua nhiều vòng lặp, tác nhân tối ưu hóa chiến lược để tối đa hóa tổng phần thưởng dài hạn.</div>
+    <div class="ml-example-row">
+      <div class="ml-example-label">Ứng dụng</div>
+      <div class="ml-example-text">Giao dịch thuật toán tự động (algorithmic trading), tối ưu hóa danh mục đầu tư theo thời gian thực, cá nhân hóa trải nghiệm giao diện ứng dụng tài chính dựa trên hành vi người dùng.</div>
+    </div>
+    <div class="ml-example-row">
+      <div class="ml-example-label">Đặc điểm</div>
+      <div class="ml-example-text">Phức tạp hơn hai loại trên, đòi hỏi nhiều dữ liệu và tính toán hơn, nhưng phù hợp đặc biệt với các bài toán tối ưu hóa quyết định liên tiếp trong môi trường biến động.</div>
+    </div>
+  </div>
+</div>
+
+<h2>Ứng dụng ML trong Tài chính</h2>
+
+<div class="app-grid">
+  <div class="app-item">
+    <div class="app-title">Phát hiện Gian lận</div>
+    <div class="app-desc">Phân tích giao dịch theo thời gian thực, phát hiện hành vi bất thường trong mili giây và ngăn chặn gian lận trước khi hoàn tất.</div>
+  </div>
+  <div class="app-item">
+    <div class="app-title">Chấm điểm Tín dụng</div>
+    <div class="app-desc">Đánh giá rủi ro tín dụng sử dụng dữ liệu thay thế, phục vụ người vay thiếu lịch sử tín dụng truyền thống.</div>
+  </div>
+  <div class="app-item">
+    <div class="app-title">Giao dịch Thuật toán</div>
+    <div class="app-desc">Thực hiện lệnh giao dịch tự động dựa trên tín hiệu thị trường, tối ưu hóa thời điểm và giá giao dịch.</div>
+  </div>
+  <div class="app-item">
+    <div class="app-title">Chatbot Tài chính</div>
+    <div class="app-desc">Trợ lý ảo xử lý câu hỏi khách hàng, hỗ trợ giao dịch và cung cấp tư vấn tài chính cơ bản 24/7.</div>
+  </div>
+  <div class="app-item">
+    <div class="app-title">Phân tích Rủi ro</div>
+    <div class="app-desc">Đánh giá rủi ro thị trường, rủi ro thanh khoản và rủi ro vận hành theo thời gian thực để hỗ trợ quyết định chiến lược.</div>
+  </div>
+  <div class="app-item">
+    <div class="app-title">Cá nhân hóa Sản phẩm</div>
+    <div class="app-desc">Đề xuất sản phẩm tài chính phù hợp từng người dùng dựa trên lịch sử hành vi, mục tiêu tài chính và khả năng rủi ro.</div>
+  </div>
+</div>
+
+<h2>Thách thức của ML trong Tài chính</h2>
+
+<div class="challenge-row">
+  <div class="challenge-item">
+    <div class="challenge-title">Chất lượng &amp; Thiên lệch Dữ liệu</div>
+    <div class="challenge-desc">Dữ liệu huấn luyện lịch sử có thể phản ánh thiên lệch xã hội, dẫn đến quyết định phân biệt đối xử trong cấp tín dụng hoặc bảo hiểm. Đảm bảo dữ liệu sạch, đại diện và công bằng là thách thức kỹ thuật và đạo đức cốt lõi.</div>
+  </div>
+  <div class="challenge-item">
+    <div class="challenge-title">Khả năng Giải thích (Explainability)</div>
+    <div class="challenge-desc">Mô hình "hộp đen" phức tạp như mạng nơ-ron sâu không giải thích được tại sao đưa ra quyết định từ chối vay — vấn đề pháp lý nghiêm trọng ở nhiều quốc gia yêu cầu tổ chức tài chính phải giải thích được quyết định tín dụng.</div>
+  </div>
+  <div class="challenge-item">
+    <div class="challenge-title">Bảo mật &amp; Quyền riêng tư</div>
+    <div class="challenge-desc">Mô hình ML tài chính xử lý dữ liệu cực kỳ nhạy cảm. Tấn công đối địch (adversarial attacks), rò rỉ dữ liệu qua mô hình và bảo vệ thông tin cá nhân trong quá trình huấn luyện là các mối quan tâm hàng đầu.</div>
+  </div>
+  <div class="challenge-item">
+    <div class="challenge-title">Trôi dạt Mô hình (Model Drift)</div>
+    <div class="challenge-desc">Hiệu suất mô hình suy giảm theo thời gian khi điều kiện thị trường và hành vi người dùng thay đổi. Yêu cầu giám sát liên tục, tái huấn luyện định kỳ và cơ chế phát hiện drift tự động.</div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận</div>
+  <p>Học máy không chỉ là một công nghệ — đó là lớp trí tuệ nền tảng đang thay đổi bản chất của quyết định tài chính. Từ việc chấm điểm tín dụng trong vài giây thay vì vài ngày, đến phát hiện gian lận trước khi thiệt hại xảy ra, đến cá nhân hóa tư vấn đầu tư ở quy mô hàng triệu người — ML đang làm cho hệ thống tài chính thông minh hơn và hiệu quả hơn theo từng chiều.</p>
+  <p>Tuy nhiên, sức mạnh của ML đi kèm với trách nhiệm. Thiên lệch trong dữ liệu, thiếu khả năng giải thích và rủi ro bảo mật là những thách thức thực sự mà cộng đồng Fintech phải giải quyết — không chỉ vì lý do kỹ thuật mà vì lý do đạo đức và pháp lý. ML tốt nhất là ML được thiết kế có trách nhiệm, minh bạch và công bằng.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="fintech_m1_s8.html"><span class="lbl">Phần trước</span>Phần 8: Startup Fintech, Kỳ lân & Mô hình Kinh doanh</a>
+  <a href="fintech_m1_s10.html"><span class="lbl">Phần sau</span>Phần 10: Giới thiệu Điện toán Đám mây</a>
+</nav>
+</body>
+</html>

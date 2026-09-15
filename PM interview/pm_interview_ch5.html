@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 5: Câu hỏi Thường gặp — The Product Manager Interview</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:8px;color:var(--text);}
+.subtitle{font-size:1rem;color:var(--text-muted);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--accent-line);}
+.faq-block{margin-bottom:40px;border-bottom:1px solid var(--border);padding-bottom:36px;}
+.faq-block:last-of-type{border-bottom:none;}
+.faq-q{font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:14px;line-height:1.4;}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.highlight-box{background:var(--surface);border-left:3px solid var(--accent-line);padding:16px 20px;margin:16px 0;font-size:.95rem;color:var(--text);line-height:1.7;}
+.tip-list{list-style:none;margin:10px 0;padding:0;}
+.tip-list li{padding:8px 0 8px 22px;position:relative;font-size:.92rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+.tip-list li:last-child{border-bottom:none;}
+.tip-list li::before{content:"→";position:absolute;left:0;color:var(--text-muted);font-size:.85rem;}
+.tip-list li strong{color:var(--text);}
+.alloc-section{margin:20px 0;}
+.alloc-company{font-size:.95rem;font-weight:700;color:var(--text);margin:20px 0 6px;}
+.alloc-table{width:100%;border-collapse:collapse;margin-bottom:6px;}
+.alloc-table th{background:var(--surface-dark);padding:8px 10px;text-align:center;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--accent-line);}
+.alloc-table th:first-child{text-align:left;}
+.alloc-table td{padding:8px 10px;border-bottom:1px solid var(--border);font-size:.85rem;color:var(--text-secondary);text-align:center;}
+.alloc-table td:first-child{text-align:left;font-weight:700;color:var(--text);}
+.alloc-table tr.phone-row td{background:var(--surface);}
+.alloc-table tr:last-child td{border-bottom:none;}
+.alloc-note{font-size:.78rem;color:var(--text-muted);font-style:italic;margin-top:4px;}
+.quote-box{background:var(--surface);border:1px solid var(--border-strong);padding:18px 22px;margin:16px 0;font-style:italic;font-size:.95rem;color:var(--text);}
+.quote-box cite{display:block;margin-top:8px;font-style:normal;font-size:.85rem;color:var(--text-muted);}
+.divider{border:none;border-top:1px solid var(--border);margin:20px 0;}
+.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--accent-line);background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:12px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+@media(max-width:600px){body{padding:36px 20px 60px;}h1{font-size:1.8rem;}.alloc-table{font-size:.78rem;}.alloc-table th,.alloc-table td{padding:6px 6px;}}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 5</div>
+<h1>Câu hỏi Thường gặp</h1>
+<div class="subtitle">Những băn khoăn phổ biến nhất của ứng viên — và câu trả lời thực tế</div>
+
+<div class="faq-block">
+  <div class="faq-q">Đáp án mẫu nào cũng có vẻ như ứng viên tình cờ biết rất sâu về sản phẩm đó. Làm sao mà biết được tất cả những thứ đó?</div>
+  <p>Bạn không phải là người duy nhất cảm thấy vậy. Có thể bạn không biết thuế doanh nghiệp hoạt động như thế nào, YouTube API bao gồm gì, hay celiac disease là bệnh gì.</p>
+  <p>Tuy nhiên, điều "có vẻ vô lý" khi không có mô tả công việc lại hoàn toàn hợp lý khi có nó. Một MBA mới tốt nghiệp ứng tuyển vào vai trò tài chính doanh nghiệp nên biết thuế doanh nghiệp. Một PM kỳ cựu ứng tuyển vào team YouTube API không nên ngạc nhiên khi được hỏi về chi tiết API đó.</p>
+  <p>Điều quan trọng cần nhớ: người phỏng vấn có quyền hỏi bất cứ điều gì họ muốn. Họ có thể hỏi câu đòi bạn phải biết về celiac disease — dù không liên quan đến vai trò. Điều đó có vẻ không công bằng, nhưng trong tình huống khó xử này, bạn phải phản ứng mà không tỏ ra sốc, sợ hãi, thất vọng hoặc tức giận.</p>
+  <div class="highlight-box">
+    Môi trường làm việc đầy những tình huống khiến bạn cảm thấy bất tiện vì thiếu kiến thức. Người phỏng vấn có thể dùng những câu hỏi như vậy để kiểm tra sự bình tĩnh và phong thái dưới áp lực của bạn.
+  </div>
+</div>
+
+<div class="faq-block">
+  <div class="faq-q">Tôi phải phản ứng như thế nào khi người phỏng vấn hỏi về thứ tôi hoàn toàn không biết?</div>
+  <p>Buổi phỏng vấn không phải là cuộc thẩm vấn. Nói cách khác, bạn — ứng viên — cũng có quyền đặt câu hỏi.</p>
+  <p>Trong một ví dụ trong <em>Decode and Conquer</em>, người phỏng vấn hỏi ứng viên: "Bạn là CEO của dịch vụ taxi Yellow Cab. Bạn phản ứng thế nào với Uber?" — câu hỏi khó nếu ứng viên chưa dùng Uber bao giờ.</p>
+  <p>Nhưng trong đáp án mẫu, ứng viên xử lý tình huống một cách khéo léo bằng cách hỏi thẳng: <em>"Xin lỗi, tôi chưa dùng dịch vụ Uber. Anh/chị có thể cho tôi biết thêm về nó không?"</em> — Và người phỏng vấn đồng ý, cung cấp thông tin ứng viên cần.</p>
+  <div class="highlight-box">
+    Nếu người phỏng vấn khó tính và từ chối cung cấp ngữ cảnh, bạn cần có sự tự nhận thức và dũng khí để kiên trì, dù người phỏng vấn kháng cự. Cơ hội của bạn đang bị đe dọa — hãy tự tạo cơ hội tốt nhất có thể cho bản thân.
+  </div>
+</div>
+
+<div class="faq-block">
+  <div class="faq-q">Tôi làm thế nào để biết mình đã chuẩn bị đủ?</div>
+  <p>Đừng lo về việc chuẩn bị quá mức — không có cái gọi là "chuẩn bị quá nhiều". Tác giả đã làm PM gần 20 năm và vẫn chưa biết tất cả. Mỗi phút bạn đầu tư vào kỹ năng PM là đầu tư vào sự nghiệp — dù bạn định làm PM một thập kỷ hay nhiều hơn.</p>
+  <p>Khi người phỏng vấn nói ứng viên "chuẩn bị quá mức", điều họ thực sự muốn nói là ứng viên nghe có vẻ máy móc hoặc đang học thuộc lòng câu trả lời. Cả hai đều không tốt — nhưng đó không phải là triệu chứng của việc chuẩn bị quá nhiều. Đó là triệu chứng của việc chuẩn bị sai cách.</p>
+  <div class="highlight-box">
+    Đừng trở thành robot. Đừng học thuộc lòng. Sự tương tác tự nhiên và rapport với người phỏng vấn rất quan trọng. Chuẩn bị kỹ để <em>tự tin</em>, không phải để <em>đọc thuộc</em>.
+  </div>
+</div>
+
+<div class="faq-block">
+  <div class="faq-q">Làm thế nào để chuẩn bị cho công ty X?</div>
+  <p>Lộ trình chuẩn bị đã được cung cấp cho ba công ty PM được săn đón nhất: Google, Facebook và Amazon. Nếu bạn phỏng vấn ở công ty khác, hãy tự xây dựng kế hoạch bằng ba nguồn tài nguyên sau:</p>
+  <ul class="tip-list">
+    <li><strong>Job Description</strong> — Mô tả công việc, đặc biệt phần trách nhiệm, cung cấp manh mối về các loại câu hỏi người phỏng vấn có thể hỏi</li>
+    <li><strong>Glassdoor.com</strong> — Ứng viên chia sẻ câu hỏi phỏng vấn họ đã nhận được — nguồn tình báo quý giá</li>
+    <li><strong>Nhân viên nội bộ</strong> — Kết bạn (hoặc mở rộng mạng lưới) với nhân viên tại công ty mục tiêu. Hỏi họ thường hỏi gì trong phỏng vấn. Một PM tại Hive — Sebastian Sabouné — nhận xét: "Tôi rất thích khi ứng viên quan tâm đến sản phẩm của chúng tôi. Nếu bạn đến với bất kỳ câu hỏi nào về nó, điều đó sẽ tạo ấn tượng tốt."</li>
+  </ul>
+  <p>Sau khi nghiên cứu, sử dụng template chuẩn bị tại bit.ly/PMPrepPlan để xây dựng kế hoạch riêng.</p>
+</div>
+
+<div class="faq-block">
+  <div class="faq-q">Nếu tôi chỉ có ít ngày để chuẩn bị thì nên làm gì?</div>
+  <p>Tác giả tin vào câu nói: "Thành công đến khi sự chuẩn bị gặp cơ hội." Tuy nhiên, cuộc sống không lúc nào cũng cho bạn đủ thời gian. Bảng dưới đây giúp bạn phân bổ thời gian chuẩn bị hiệu quả nhất theo từng công ty và vòng phỏng vấn:</p>
+
+  <div class="alloc-section">
+    <div class="alloc-company">Google</div>
+    <table class="alloc-table">
+      <tr>
+        <th></th>
+        <th>Product Design</th>
+        <th>Metrics</th>
+        <th>Estimation</th>
+        <th>Pricing/LTV</th>
+        <th>Strategy</th>
+        <th>Traditional</th>
+        <th>Behavioral*</th>
+        <th>Technical**</th>
+      </tr>
+      <tr class="phone-row">
+        <td>Phone</td>
+        <td>50%</td><td>10%</td><td>20%</td><td>5%</td><td>10%</td><td>2.5%</td><td>2.5%</td><td>0%</td>
+      </tr>
+      <tr>
+        <td>Onsite</td>
+        <td>30%</td><td>10%</td><td>15%</td><td>5%</td><td>10%</td><td>2.5%</td><td>2.5%</td><td>25%</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="alloc-section">
+    <div class="alloc-company">Facebook</div>
+    <table class="alloc-table">
+      <tr>
+        <th></th>
+        <th>Product Design</th>
+        <th>Metrics</th>
+        <th>Estimation</th>
+        <th>Pricing/LTV</th>
+        <th>Strategy</th>
+        <th>Traditional</th>
+        <th>Behavioral*</th>
+        <th>Technical</th>
+      </tr>
+      <tr class="phone-row">
+        <td>Phone</td>
+        <td>50%</td><td>10%</td><td>15%</td><td>5%</td><td>10%</td><td>5%</td><td>5%</td><td>0%</td>
+      </tr>
+      <tr>
+        <td>Onsite</td>
+        <td>50%</td><td>20%</td><td>10%</td><td>10%</td><td>7%</td><td>1%</td><td>2%</td><td>0%</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="alloc-section">
+    <div class="alloc-company">Amazon</div>
+    <table class="alloc-table">
+      <tr>
+        <th></th>
+        <th>Product Design</th>
+        <th>Metrics</th>
+        <th>Estimation</th>
+        <th>Pricing/LTV</th>
+        <th>Strategy</th>
+        <th>Traditional</th>
+        <th>Behavioral*</th>
+        <th>Technical</th>
+      </tr>
+      <tr class="phone-row">
+        <td>Phone</td>
+        <td>20%</td><td>10%</td><td>7%</td><td>15%</td><td>7%</td><td>1%</td><td>40%</td><td>0%</td>
+      </tr>
+      <tr>
+        <td>Onsite</td>
+        <td>20%</td><td>10%</td><td>7%</td><td>15%</td><td>7%</td><td>1%</td><td>40%</td><td>0%</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="alloc-section">
+    <div class="alloc-company">Uber</div>
+    <table class="alloc-table">
+      <tr>
+        <th></th>
+        <th>Product Design</th>
+        <th>Metrics</th>
+        <th>Estimation</th>
+        <th>Pricing/LTV</th>
+        <th>Strategy</th>
+        <th>Traditional</th>
+        <th>Behavioral*</th>
+        <th>Technical</th>
+      </tr>
+      <tr class="phone-row">
+        <td>Phone</td>
+        <td>50%</td><td>20%</td><td>10%</td><td>3%</td><td>14%</td><td>1%</td><td>2%</td><td>0%</td>
+      </tr>
+      <tr>
+        <td>Onsite</td>
+        <td>50%</td><td>20%</td><td>10%</td><td>3%</td><td>14%</td><td>1%</td><td>2%</td><td>0%</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="alloc-section">
+    <div class="alloc-company">Microsoft</div>
+    <table class="alloc-table">
+      <tr>
+        <th></th>
+        <th>Product Design</th>
+        <th>Metrics</th>
+        <th>Estimation</th>
+        <th>Pricing/LTV</th>
+        <th>Strategy</th>
+        <th>Traditional</th>
+        <th>Behavioral*</th>
+        <th>Technical**</th>
+      </tr>
+      <tr class="phone-row">
+        <td>Phone</td>
+        <td>40%</td><td>5%</td><td>15%</td><td>5%</td><td>5%</td><td>15%</td><td>15%</td><td>0%</td>
+      </tr>
+      <tr>
+        <td>Onsite</td>
+        <td>20%</td><td>10%</td><td>10%</td><td>5%</td><td>5%</td><td>15%</td><td>15%</td><td>20%</td>
+      </tr>
+    </table>
+    <div class="alloc-note">* Behavioral bao gồm câu hỏi hypothetical</div>
+    <div class="alloc-note">** Chỉ chuẩn bị câu hỏi technical nếu bạn có vòng phỏng vấn onsite cuối. Câu hỏi technical hiếm khi xuất hiện ở vòng phone. Nếu có onsite, dành gần bằng thời gian chuẩn bị technical như chuẩn bị product design.</div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>Nguyên tắc phân bổ:</strong> Với thời gian hạn chế, ưu tiên theo tỷ lệ phần trăm bảng trên. Ví dụ, nếu chỉ có 10 giờ cho Google phone screen, dành ~5 giờ cho product design, ~2 giờ cho estimation, ~1 giờ cho metrics và strategy.
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận</div>
+  <p>Ba điều quan trọng nhất cần ghi nhớ từ chương này: thứ nhất, bạn có quyền hỏi ngược lại khi người phỏng vấn đặt câu hỏi về thứ bạn không biết — đừng chịu trận trong im lặng. Thứ hai, không có khái niệm "chuẩn bị quá nhiều" — chỉ có chuẩn bị sai cách. Thứ ba, khi thời gian hạn chế, phân bổ thông minh theo bảng tỷ lệ, ưu tiên loại câu hỏi chiếm tỷ trọng cao nhất tại công ty mục tiêu.</p>
+  <p>Phong thái tự tin, chân thực và khả năng xử lý áp lực đôi khi quan trọng hơn câu trả lời hoàn hảo. Người phỏng vấn không chỉ kiểm tra kiến thức — họ kiểm tra liệu bạn có phải là người mà họ muốn làm việc cùng hàng ngày không.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch4.html"><span class="lbl">Chương trước</span>Chương 4: Từ viết tắt, Thuật ngữ và Khái niệm</a>
+  <a href="pm_interview_ch6.html"><span class="lbl">Chương sau</span>Chương 6: Analytics — Ước lượng</a>
+</nav>
+</body>
+</html>

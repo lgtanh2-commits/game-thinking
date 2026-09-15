@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 7: Analytics — Data Science · The Product Manager Interview</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:860px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:8px;color:var(--text);}
+.subtitle{font-size:1rem;color:var(--text-muted);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--accent-line);}
+h2{font-size:1.15rem;font-weight:700;margin:40px 0 12px;color:var(--text);}
+h3{font-size:.95rem;font-weight:700;margin:16px 0 8px;color:var(--text);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.intro-box{background:var(--surface);border-left:3px solid var(--accent-line);padding:18px 22px;margin:24px 0;font-size:1rem;color:var(--text);}
+.exercise-block{border:1px solid var(--border);margin:36px 0;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:14px 20px;border-bottom:1px solid var(--border);}
+.exercise-num{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-title{font-size:1.08rem;font-weight:700;color:var(--text);}
+.exercise-body{padding:20px 24px;}
+.question-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin-bottom:18px;font-size:.95rem;color:var(--text);font-style:italic;}
+.section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:18px 0 8px;}
+.tip-list{list-style:none;margin:8px 0 14px;padding:0;}
+.tip-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+.tip-list li:last-child{border-bottom:none;}
+.tip-list li::before{content:"→";position:absolute;left:0;color:var(--text-muted);font-size:.82rem;}
+.mistake-list{list-style:none;margin:8px 0 14px;padding:0;}
+.mistake-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+.mistake-list li:last-child{border-bottom:none;}
+.mistake-list li::before{content:"✗";position:absolute;left:0;color:#888;font-size:.82rem;}
+.analysis-box{background:#fff;border:1px solid var(--border);padding:14px 18px;margin:12px 0;}
+.case-row{display:flex;gap:12px;margin:8px 0;font-size:.88rem;color:var(--text-secondary);}
+.case-n{font-weight:700;color:var(--text);min-width:80px;}
+.formula-box{background:var(--surface);padding:14px 18px;margin:12px 0;font-size:.9rem;font-family:'Courier New',monospace;color:var(--text);text-align:center;border:1px solid var(--border);}
+.table-wrapper{overflow-x:auto;margin:14px 0;}
+.data-table{width:100%;border-collapse:collapse;font-size:.85rem;}
+.data-table th{background:var(--surface-dark);padding:8px 12px;text-align:left;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--border-strong);}
+.data-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text-secondary);}
+.data-table tr:last-child td{font-weight:700;color:var(--text);background:var(--surface);}
+.answer-box{background:var(--accent-line);color:#fff;padding:10px 18px;margin-top:14px;display:flex;align-items:center;gap:16px;}
+.answer-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.7;white-space:nowrap;}
+.answer-value{font-size:1rem;font-weight:700;}
+.paradox-note{background:var(--surface);border:1px solid var(--border);padding:12px 16px;margin-top:12px;font-size:.88rem;color:var(--text-secondary);font-style:italic;}
+.divider{border:none;border-top:1px solid var(--border);margin:40px 0;}
+.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--accent-line);background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:12px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+@media(max-width:600px){body{padding:36px 20px 60px;}h1{font-size:1.8rem;}}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 7</div>
+<h1>Analytics: Data Science</h1>
+<div class="subtitle">5 bài tập tư duy logic, xác suất và phân tích dữ liệu</div>
+
+<div class="intro-box">
+  Chương này kiểm tra khả năng tư duy logic và phân tích dữ liệu của ứng viên PM — từ bài toán xác suất cơ bản đến nghịch lý thống kê và thuật toán đệ quy. Không cần kiến thức chuyên sâu về toán, nhưng cần khả năng suy luận có hệ thống và trình bày lộ trình tư duy rõ ràng.
+</div>
+
+<!-- Bài 1 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 1</div>
+    <div class="exercise-title">Buộc dây ngẫu nhiên</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Bạn có một túi chứa N sợi dây. Ngẫu nhiên, bạn rút ra một đầu dây, rồi rút thêm một đầu nữa và buộc chúng lại với nhau. Bạn tiếp tục cho đến khi không còn đầu dây nào lỏng. Số vòng tạo ra kỳ vọng là bao nhiêu?</div>
+
+    <div class="section-label">Điều cần cân nhắc</div>
+    <ul class="tip-list">
+      <li>Làm rõ câu hỏi: khi một đầu đã buộc, nó có còn ở trong túi không?</li>
+      <li>Thế nào là một "vòng" (loop)?</li>
+      <li>Giải base case đơn giản trước, rồi rút ra công thức tổng quát</li>
+    </ul>
+
+    <div class="section-label">Lỗi thường gặp</div>
+    <ul class="mistake-list">
+      <li>Không suy nghĩ to — không dẫn dắt interviewer theo từng bước</li>
+      <li>Bỏ qua cơ hội hỏi gợi ý từ interviewer</li>
+      <li>Không làm rõ câu hỏi → đáp án lệch</li>
+    </ul>
+
+    <div class="section-label">Phân tích: Số đầu dây mở</div>
+    <div class="analysis-box">
+      <div class="case-row"><span class="case-n">N = 1 dây:</span><span>2 đầu dây → sau buộc: 0 đầu mở → 1 vòng</span></div>
+      <div class="case-row"><span class="case-n">N = 2 dây:</span><span>4 đầu → sau buộc 2 đầu: 2 đầu mở còn lại → 1 hoặc 2 vòng</span></div>
+      <div class="case-row"><span class="case-n">N = 3 dây:</span><span>6 đầu → sau buộc 2 đầu: 4 đầu mở còn lại</span></div>
+      <p style="font-size:.86rem;color:var(--text-muted);margin:8px 0 0;"><strong>Takeaway #1:</strong> Mỗi lần buộc một đầu dây, số đầu mở giảm đi 2.</p>
+    </div>
+
+    <div class="section-label">Phân tích: Số vòng</div>
+    <div class="analysis-box">
+      <div class="case-row"><span class="case-n">N = 1 dây:</span><span>2 đầu mở. Rút 1 đầu → còn 1 đầu. P(tạo vòng) = 1/1 = 1</span></div>
+      <div class="case-row"><span class="case-n">N = 2 dây:</span><span>4 đầu. Rút 1 đầu → còn 3 đầu. P(tạo vòng ngay) = 1/3</span></div>
+      <div class="case-row"><span class="case-n">N = 3 dây:</span><span>6 đầu. Rút 1 đầu → còn 5 đầu. P(tạo vòng ngay) = 1/5</span></div>
+      <p style="font-size:.86rem;color:var(--text-muted);margin:8px 0 0;"><strong>Takeaway #2:</strong> Với N dây, có 2N đầu. P(tạo vòng ở lần đầu) = 1/(2N-1).</p>
+      <p style="font-size:.86rem;color:var(--text-muted);margin:4px 0 0;"><strong>Takeaway #3:</strong> Số vòng kỳ vọng = tổng xác suất qua từng bước:</p>
+    </div>
+
+    <div class="formula-box">E[vòng] = 1/(2N−1) + 1/(2N−3) + … + 1/5 + 1/3 + 1</div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">E = 1/(2N−1) + 1/(2N−3) + … + 1/3 + 1</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 2 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 2</div>
+    <div class="exercise-title">Tỷ lệ nhận học đại học</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Tỷ lệ nhận học tổng thể của một trường đại học cao hơn cho nam giới so với nữ giới, nhưng tỷ lệ nhận học của từng khoa thì nữ giới lại cao hơn nam giới. Tại sao lại như vậy?</div>
+
+    <div class="section-label">Điều cần cân nhắc</div>
+    <ul class="tip-list">
+      <li>Làm việc với một ví dụ đơn giản cụ thể</li>
+      <li>Giải thích rõ ràng, không dùng thuật ngữ kỹ thuật phức tạp</li>
+    </ul>
+
+    <div class="section-label">Lỗi thường gặp</div>
+    <ul class="mistake-list">
+      <li>Bị lung lay bởi một khái niệm không quen</li>
+      <li>Không đưa ra ví dụ minh họa cụ thể</li>
+      <li>Giải thích quá chuyên môn, khó hiểu</li>
+    </ul>
+
+    <div class="section-label">Ví dụ minh họa</div>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <tr>
+          <th>Khoa</th>
+          <th>Nam ứng tuyển</th>
+          <th>Nam được nhận</th>
+          <th>Nữ ứng tuyển</th>
+          <th>Nữ được nhận</th>
+        </tr>
+        <tr>
+          <td>Khoa học máy tính</td>
+          <td>90 (90%)</td>
+          <td>72 (80%)</td>
+          <td>10 (1%)</td>
+          <td>9 (90%)</td>
+        </tr>
+        <tr>
+          <td>Kinh doanh</td>
+          <td>10 (10%)</td>
+          <td>4 (40%)</td>
+          <td>1,000 (99%)</td>
+          <td>500 (50%)</td>
+        </tr>
+        <tr>
+          <td><strong>Tổng cộng</strong></td>
+          <td>100</td>
+          <td>76 (76%)</td>
+          <td>1,010</td>
+          <td>509 (~50%)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="paradox-note">
+      <strong>Nghịch lý Simpson (Simpson's Paradox):</strong> Trong mỗi khoa, nữ giới được nhận với tỷ lệ cao hơn (90% vs 80% ở KHMT; 50% vs 40% ở Kinh doanh). Nhưng tổng thể, nam cao hơn (76% vs 50%). Lý do: phần lớn nữ ứng tuyển vào Kinh doanh — khoa cạnh tranh hơn (chỉ 40–50% tỷ lệ nhận). Nam ứng tuyển nhiều hơn vào KHMT — khoa dễ nhận hơn (80–90%). Khi gộp nhóm, xu hướng trong từng nhóm nhỏ biến mất.
+    </div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">Đây là nghịch lý Simpson — xu hướng trong mỗi nhóm con biến mất khi gộp nhóm</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 3 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 3</div>
+    <div class="exercise-title">Thang N bậc</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Bạn có một cái thang N bậc. Bạn có thể đi lên bằng cách bước 1 hoặc 2 bậc một lần, theo bất kỳ tổ hợp nào. Có bao nhiêu cách khác nhau để leo lên hết thang?</div>
+
+    <div class="section-label">Điều cần cân nhắc</div>
+    <ul class="tip-list">
+      <li>Bắt đầu với base case đơn giản</li>
+      <li>Tìm mẫu chung cho các N khác nhau</li>
+      <li>Đặt công thức cho trường hợp tổng quát N</li>
+      <li>Đệ quy có thể hữu ích</li>
+    </ul>
+
+    <div class="section-label">Lỗi thường gặp</div>
+    <ul class="mistake-list">
+      <li>Tỏ ra căng thẳng, lo lắng</li>
+      <li>Coi 2+1 và 1+2 là như nhau (chúng là hai cách khác nhau)</li>
+    </ul>
+
+    <div class="section-label">Phân tích base case</div>
+    <div class="analysis-box">
+      <div class="case-row"><span class="case-n">N = 1:</span><span>1 cách: {1}</span></div>
+      <div class="case-row"><span class="case-n">N = 2:</span><span>2 cách: {1+1}, {2}</span></div>
+      <div class="case-row"><span class="case-n">N = 3:</span><span>3 cách: {1+1+1}, {1+2}, {2+1}</span></div>
+      <div class="case-row"><span class="case-n">N = 4:</span><span>5 cách: {1+1+1+1}, {2+1+1}, {1+2+1}, {1+1+2}, {2+2}</span></div>
+      <div class="case-row"><span class="case-n">N = 5:</span><span>8 cách: Ways(4) + Ways(3) = 5 + 3 = 8</span></div>
+    </div>
+
+    <div class="section-label">Công thức đệ quy (Fibonacci)</div>
+    <div class="formula-box">Ways(N) = Ways(N−1) + Ways(N−2)</div>
+    <p style="font-size:.88rem;color:var(--text-secondary);">Giải thích: Để leo đến bậc N, bạn hoặc đến từ bậc N−1 (bước 1 bậc cuối) hoặc từ bậc N−2 (bước 2 bậc cuối). Tổng số cách đến N = số cách đến N−1 cộng số cách đến N−2. Đây chính là dãy Fibonacci.</p>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">Ways(N) = Ways(N−1) + Ways(N−2); N=1→1, N=2→2, N=3→3, N=4→5, N=5→8…</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 4 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 4</div>
+    <div class="exercise-title">Đếm số lần bắt tay</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Trong một căn phòng có 10 người, mỗi người phải bắt tay với tất cả những người còn lại. Tổng cộng có bao nhiêu cái bắt tay?</div>
+
+    <div class="section-label">Điều cần cân nhắc</div>
+    <ul class="tip-list">
+      <li>Làm base case nhỏ trước để tăng sự hiểu biết (2 người, 3 người, 4 người)</li>
+      <li>Hỏi interviewer có muốn bạn đưa ra công thức tổng quát cho N người không</li>
+    </ul>
+
+    <div class="section-label">Lỗi thường gặp</div>
+    <ul class="mistake-list">
+      <li>Nói ngay đáp án đầu tiên nảy ra trong đầu mà không giải thích</li>
+    </ul>
+
+    <div class="section-label">Giải theo từng bước (đối thoại mẫu)</div>
+    <div class="analysis-box">
+      <div class="case-row"><span class="case-n">N = 1:</span><span>0 bắt tay (chỉ 1 người)</span></div>
+      <div class="case-row"><span class="case-n">N = 2:</span><span>1 bắt tay</span></div>
+      <div class="case-row"><span class="case-n">N = 3:</span><span>3 = 1 + 2 (người thứ 3 bắt với 2 người trước)</span></div>
+      <div class="case-row"><span class="case-n">N = 4:</span><span>6 = 1 + 2 + 3 (người thứ 4 bắt với 3 người trước)</span></div>
+      <p style="font-size:.86rem;color:var(--text-muted);margin:8px 0 0;">Mỗi người mới đến bắt tay với tất cả những người đã có mặt → số bắt tay tăng thêm N−1.</p>
+    </div>
+
+    <div class="formula-box">Tổng = 1 + 2 + 3 + … + (N−1) = N*(N−1)/2</div>
+
+    <p style="font-size:.88rem;color:var(--text-secondary);">Với N = 10: Tổng = 1+2+3+4+5+6+7+8+9 = 45 bắt tay. Hoặc: 10 × 9 / 2 = 45 (mỗi người bắt 9 cái, chia 2 vì mỗi cái bắt được tính 2 lần).</p>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">45 cái bắt tay (công thức: N×(N−1)/2)</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 5 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 5</div>
+    <div class="exercise-title">Cân 27 quả bóng</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Có 27 quả bóng. Một quả nặng hơn những quả còn lại. Bạn cần bao nhiêu lần cân (dùng cân hai đĩa) để tìm ra quả đó?</div>
+
+    <div class="section-label">Điều cần cân nhắc</div>
+    <ul class="tip-list">
+      <li>Nếu câu hỏi quá phức tạp, hãy xin thời gian để suy nghĩ</li>
+      <li>Hỏi làm rõ nếu không hiểu tình huống</li>
+    </ul>
+
+    <div class="section-label">Lỗi thường gặp</div>
+    <ul class="mistake-list">
+      <li>Cảm thấy căng thẳng và bỏ cuộc</li>
+    </ul>
+
+    <div class="section-label">Lời giải từng bước</div>
+    <div class="analysis-box">
+      <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:8px;"><strong>Lần cân 1:</strong> Chia 27 quả thành 3 nhóm 9. Cân nhóm A vs nhóm B.</p>
+      <ul style="list-style:none;padding:0;font-size:.86rem;color:var(--text-secondary);">
+        <li style="padding:3px 0 3px 16px;position:relative;">→ Nếu A nặng hơn: quả nặng ở nhóm A</li>
+        <li style="padding:3px 0 3px 16px;position:relative;">→ Nếu B nặng hơn: quả nặng ở nhóm B</li>
+        <li style="padding:3px 0 3px 16px;position:relative;">→ Nếu bằng nhau: quả nặng ở nhóm C (không cân)</li>
+      </ul>
+      <p style="font-size:.88rem;color:var(--text-secondary);margin:10px 0 8px;"><strong>Lần cân 2:</strong> Từ nhóm 9 quả đã xác định, chia thành 3 nhóm 3. Cân nhóm 3 vs nhóm 3 → tìm ra nhóm 3 chứa quả nặng.</p>
+      <p style="font-size:.88rem;color:var(--text-secondary);margin:6px 0 8px;"><strong>Lần cân 3:</strong> Từ nhóm 3 quả, cân 1 vs 1 → tìm ra quả nặng.</p>
+    </div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">3 lần cân (chia 3 nhóm mỗi lần → loại 2/3 số bóng mỗi bước)</span>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận Chương 7</div>
+  <p>Các bài tập Data Science không đòi hỏi bằng toán học hay lý thuyết xác suất sâu — chúng kiểm tra khả năng <strong>tư duy có hệ thống từ ví dụ nhỏ đến công thức tổng quát</strong>. Nghịch lý Simpson nhắc nhở rằng dữ liệu tổng hợp có thể che giấu xu hướng quan trọng trong từng phân khúc — đây là bẫy phân tích mà PM cần nhận ra.</p>
+  <p>Phương pháp thống nhất: <strong>làm base case → phát hiện pattern → đặt công thức → verify</strong>. Đừng ngại nói to quá trình suy nghĩ — interviewer thường đánh giá cao quá trình hơn kết quả cuối cùng.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch6.html"><span class="lbl">Chương trước</span>Chương 6: Analytics — Ước lượng</a>
+  <a href="pm_interview_ch8.html"><span class="lbl">Chương sau</span>Chương 8: Analytics — Định giá Sản phẩm Mới</a>
+</nav>
+</body>
+</html>

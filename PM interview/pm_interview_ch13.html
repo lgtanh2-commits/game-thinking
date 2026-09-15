@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 13 – Thiết kế Sản phẩm: Bài tập Brainstorm</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:32px;}
+h1{font-size:32px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;line-height:1.2;}
+.chapter-subtitle{font-size:18px;color:var(--text-secondary);margin-bottom:48px;font-weight:400;}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.exercise-block{background:#fff;border:1px solid var(--border);border-radius:4px;padding:28px 32px;margin:32px 0;}
+.exercise-header{display:flex;align-items:baseline;gap:14px;margin-bottom:12px;}
+.exercise-num{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);white-space:nowrap;}
+.exercise-title{font-size:18px;font-weight:700;color:var(--text);}
+.exercise-body{color:var(--text-secondary);margin-bottom:16px;font-style:italic;}
+.answer-label{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin:14px 0 10px;}
+.group-title{font-weight:700;font-size:14px;margin:18px 0 8px;color:var(--text);}
+ol.idea-list{padding-left:24px;margin:8px 0;}
+ol.idea-list li{margin-bottom:5px;font-size:14px;color:var(--text-secondary);}
+ol.idea-list li ol{padding-left:20px;margin-top:4px;list-style-type:lower-alpha;}
+ul.idea-list{padding-left:24px;margin:8px 0;}
+ul.idea-list li{margin-bottom:5px;font-size:14px;color:var(--text-secondary);}
+.dialogue{background:var(--surface);border-left:3px solid var(--border-strong);padding:12px 16px;margin:10px 0;font-size:14px;color:var(--text-secondary);}
+.dialogue strong{color:var(--text);}
+.conclusion-box{background:var(--surface-dark);border-left:4px solid var(--accent-line);padding:24px 28px;margin-top:64px;}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 13</div>
+
+<h1>Thiết kế Sản phẩm</h1>
+<div class="chapter-subtitle">Bài tập Brainstorm</div>
+
+<p>Bài tập brainstorm kiểm tra khả năng sáng tạo và tư duy mở. Mục tiêu không phải là tìm ra "một đáp án đúng" mà là tạo ra <strong>nhiều ý tưởng đa dạng, phân loại có hệ thống</strong>, và thể hiện tư duy vượt ra ngoài những giải pháp hiển nhiên.</p>
+
+<!-- Bài 1 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 01</span>
+    <span class="exercise-title">Xác thực Newsfeed (Facebook)</span>
+  </div>
+  <div class="exercise-body">Hãy tưởng tượng bạn là PM phụ trách newsfeed Facebook. Nghiên cứu cho thấy người dùng thèm khát sự xác nhận — khi đăng bài hay chia sẻ ảnh/video, họ muốn được like. Brainstorm ít nhất 10 giải pháp cho vấn đề này.</div>
+  <div class="answer-label">Đáp án</div>
+  <ol class="idea-list">
+    <li>Đưa các bài đăng mới lên đầu newsfeed của bạn bè, tăng khả năng được like.</li>
+    <li>Tạo marketplace để người dùng mua like.</li>
+    <li>Hiển thị bài đăng của người dùng trong widget "nội dung tương tự" — tăng xác suất được like.</li>
+    <li>Tương tự ý trên, tạo tính năng "người dùng thích nội dung đó cũng thích cái này" để tăng lượt like tiềm năng.</li>
+    <li>Cung cấp phản hồi dự đoán khả năng bài đăng được like, kèm gợi ý cải thiện:
+      <ol>
+        <li>Dùng giọng văn tích cực hoặc tiêu cực hơn.</li>
+        <li>Dùng ngôn ngữ sinh động hơn.</li>
+        <li>Khai thác cảm xúc của người đọc.</li>
+        <li>Giảm thiểu lỗi đánh máy và ngữ pháp.</li>
+      </ol>
+    </li>
+    <li>Tạo bot Facebook giả lập người dùng — tự động like khi nội dung xứng đáng.</li>
+    <li>Dùng nhận diện khuôn mặt: bot tự like khi phát hiện nụ cười trong ảnh.</li>
+    <li>Tổ chức cuộc thi like với bạn bè — tất cả tham gia có thể thấy bài và like.</li>
+    <li>Tạo hộp tìm kiếm cho phép tìm bài dựa theo tiêu chí.</li>
+    <li>Tính năng "hiển thị một bài ngẫu nhiên" — tăng cơ hội bài của người dùng được xem và like.</li>
+    <li>Biểu đồ theo dõi nội dung được like nhiều nhất — làm nổi bật bài, tăng khả năng được like hơn.</li>
+    <li>Gắn nhãn/sticker cho bài dựa theo tiêu chí (ví dụ: icon lửa nếu nhiều lượt xem) — thu hút thêm sự chú ý.</li>
+    <li>Tự động tag nhóm người trong ảnh — người được tag sẽ nhận thông báo và có khả năng like cao hơn.</li>
+    <li>Tạo tùy chọn "Super Like" — gửi tín hiệu xác nhận mạnh mẽ hơn cho bạn bè.</li>
+    <li>Đếm tổng số like mà người dùng từng nhận được và chỉ hiển thị riêng cho họ.</li>
+  </ol>
+</div>
+
+<!-- Bài 2 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 02</span>
+    <span class="exercise-title">Xe hơi kết nối Internet</span>
+  </div>
+  <div class="exercise-body">Google đang nghĩ đến việc tạo ra một chiếc xe có kết nối Internet. Brainstorm ít nhất 10 trường hợp sử dụng thú vị.</div>
+  <div class="answer-label">Đáp án</div>
+  <ol class="idea-list">
+    <li>Tự động thanh toán phí cầu đường qua Google Wallet.</li>
+    <li>GPS Google Maps tích hợp sẵn — định vị và theo dõi.</li>
+    <li>Hoạt động như điểm phát Wi-Fi di động.</li>
+    <li>Khóa/mở xe bằng mật khẩu — không cần chìa khóa.</li>
+    <li>Trả tiền cho người dùng cài đặt camera tự động tải ảnh Google Street View.</li>
+    <li>Kết nối với các xe khác có Internet để tránh va chạm.</li>
+    <li>Nút hoảng loạn — gửi tin nhắn đến danh bạ chọn trước qua email và Hangouts.</li>
+    <li>Livestream hành trình của bạn trên YouTube.</li>
+    <li>Gọi điện hoặc video call qua Google Voice tích hợp.</li>
+    <li>So sánh giá xăng qua Google Shopping.</li>
+    <li>Phát nhạc qua Google Music và YouTube Music.</li>
+    <li>Phát sách nói qua Google và YouTube.</li>
+    <li>Lướt Internet bằng giọng nói của người dùng.</li>
+    <li>Cho phép xe tự bán khi xe trở nên lỗi thời.</li>
+    <li>Cho phép xe tự cho thuê lại khi không dùng đến.</li>
+    <li>Nếu xe tự lái, có thể tự giao đồ ăn và hàng hóa.</li>
+    <li>Tìm kiếm Google bằng giọng nói.</li>
+    <li>Cập nhật lịch bằng giọng nói qua Google Calendar.</li>
+    <li>Đọc to suy nghĩ qua Google Docs.</li>
+    <li>Giám sát môi trường như hệ thống CCTV — tương tự 1,85 triệu camera CCTV ở Vương quốc Anh.</li>
+  </ol>
+</div>
+
+<!-- Bài 3 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 03</span>
+    <span class="exercise-title">Giao diện Giọng nói cho Tìm kiếm Việc làm</span>
+  </div>
+  <div class="exercise-body">Siri (Apple) và Echo (Amazon) đã phổ biến hóa giao diện giọng nói. Brainstorm 10 giải pháp giải quyết vấn đề tìm kiếm việc làm bằng giao diện giọng nói.</div>
+  <div class="answer-label">Đáp án</div>
+  <div class="group-title">Phía ứng viên</div>
+  <ol class="idea-list">
+    <li>Điền đơn xin việc bằng giọng nói.</li>
+    <li>Nhờ Siri hoặc Alexa góp ý cải thiện CV và thư xin việc.</li>
+    <li>Lên lịch phỏng vấn bằng giọng nói.</li>
+    <li>Duyệt các vị trí tuyển dụng mới bằng giọng nói.</li>
+    <li>Chỉ định sở thích công việc bằng giọng nói.</li>
+    <li>Thay thế CV giấy bằng CV giọng nói.</li>
+    <li>Hỏi thông tin chi tiết về công việc bằng giọng nói.</li>
+    <li>Trả lời câu hỏi sàng lọc phỏng vấn bằng giọng nói.</li>
+    <li>Dùng giọng nói để nhờ đồng nghiệp giới thiệu (referral) cho bạn.</li>
+  </ol>
+  <div class="group-title">Phía nhà tuyển dụng</div>
+  <ol class="idea-list" start="10">
+    <li>Tìm kiếm ứng viên theo tiêu chí bằng giọng nói.</li>
+    <li>Chấp nhận hoặc từ chối CV bằng giọng nói.</li>
+    <li>Hỏi Siri hoặc Alexa thông tin về ứng viên.</li>
+    <li>Xóa CV đã xem bằng giọng nói.</li>
+    <li>Yêu cầu ứng viên bằng giọng nói.</li>
+    <li>Để hệ thống đọc CV cho nhà tuyển dụng nghe.</li>
+    <li>Phát lại phỏng vấn được ghi âm bằng giọng nói.</li>
+  </ol>
+</div>
+
+<!-- Bài 4 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 04</span>
+    <span class="exercise-title">Mood API</span>
+  </div>
+  <div class="exercise-body">Brainstorm các ý tưởng ứng dụng sử dụng Mood API — một API có cảm biến có thể đọc được tâm trạng của bạn.</div>
+  <div class="answer-label">Đáp án</div>
+  <ol class="idea-list">
+    <li>Đăng tâm trạng của mọi người lên newsfeed mạng xã hội — người dùng có thể so sánh tâm trạng và nhận cảnh báo về tâm trạng của người khác.</li>
+    <li>Hiển thị tâm trạng của khán giả tại hội nghị hoặc cuộc họp.</li>
+    <li>Hiển thị ảnh vui khi bạn buồn, hoặc ảnh bình tĩnh khi bạn tức giận.</li>
+    <li>Phát nhạc phù hợp tâm trạng.</li>
+    <li>Gợi ý phim/chương trình TV phù hợp tâm trạng.</li>
+    <li>Gợi ý trò chơi phù hợp tâm trạng.</li>
+    <li>Gợi ý đồ mua để cân bằng hoặc tăng cường tâm trạng.</li>
+    <li>Gợi ý địa điểm ghé thăm để cân bằng hoặc tăng cường tâm trạng.</li>
+    <li>Tự gọi cho nhà trị liệu khi bạn đang trầm cảm.</li>
+    <li>Tự gọi 911 khi bạn đang hoảng sợ hoặc bị đe dọa.</li>
+    <li>Ức chế hoặc cảnh báo khi bạn cố đăng lên mạng xã hội trong lúc tức giận hoặc tiêu cực.</li>
+    <li>Hiển thị tâm trạng của mọi người xung quanh bạn.</li>
+    <li>Gọi cho một người bạn đặc định tùy theo tâm trạng.</li>
+    <li>Gợi ý nên gọi cho ai dựa theo tâm trạng của bạn hoặc của họ.</li>
+    <li>Theo dõi tâm trạng hiện tại cho mục đích tự nhận thức.</li>
+    <li>Theo dõi tâm trạng theo thời gian để xác định tương quan — ví dụ: khi thức dậy, trước khi ngủ, hay khi gặp một số người nhất định.</li>
+    <li>Để API theo dõi cuộc trò chuyện của bạn với người khác, thông báo tâm trạng của họ và gợi ý cách phản hồi tốt nhất.</li>
+  </ol>
+</div>
+
+<!-- Bài 5 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 05</span>
+    <span class="exercise-title">Đánh giá Liên quan (TripAdvisor)</span>
+  </div>
+  <div class="exercise-body">Hãy tưởng tượng bạn là PM của TripAdvisor. Một số người dùng không chắc chắn có nên tin vào các đánh giá hay không vì lo tác giả có sở thích khách sạn khác họ. Ví dụ: tác giả thích khách sạn sang trọng nhưng người đọc thích hostel. Brainstorm 10 giải pháp cho vấn đề này.</div>
+  <div class="answer-label">Đáp án</div>
+  <ol class="idea-list">
+    <li>Cung cấp điểm số thể hiện mức độ tương đồng giữa bạn và người đánh giá, dựa trên hành vi trong quá khứ.</li>
+    <li>Hiển thị thông tin chi tiết chuyến đi (độ dài chuyến đi, ngân sách) trong mỗi bài đánh giá.</li>
+    <li>Hiển thị trang tóm tắt tất cả các khách sạn mà người đánh giá đã từng ở.</li>
+    <li>Tương tự ý trên nhưng cho khách sạn — hiển thị tóm tắt hồ sơ tất cả người đánh giá của khách sạn đó.</li>
+    <li>Bộ lọc xem đánh giá từ người thường ở các khách sạn tương tự hoặc giống bạn.</li>
+    <li>Hiển thị đánh giá từ người thường ở các khách sạn bạn đã thích trước đây.</li>
+    <li>Lọc lượt bình chọn "hữu ích" của người đánh giá theo sở thích khách sạn của người bình chọn.</li>
+    <li>Hiển thị các khách sạn thay thế và nổi bật trong khu vực để so sánh — có thể lọc theo loại khách sạn.</li>
+    <li>Cho phép lọc chỉ xem đánh giá có kèm ảnh — cung cấp thêm thông tin và cho phép người dùng tự đánh giá trực quan.</li>
+    <li>So sánh tất cả khách sạn gần đó và hiển thị tóm tắt đẹp về điểm trung bình và đánh giá nổi bật theo loại khách sạn.</li>
+  </ol>
+</div>
+
+<!-- Bài 6 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 06</span>
+    <span class="exercise-title">Tìm kiếm Ảnh cho Tuyển dụng</span>
+  </div>
+  <div class="exercise-body">Camera điện thoại thông minh và cải tiến nhận diện hình ảnh đã giúp tìm kiếm bằng ảnh dễ dàng hơn. Brainstorm ít nhất 10 giải pháp sử dụng tìm kiếm hình ảnh cho tuyển dụng.</div>
+  <div class="answer-label">Đáp án</div>
+  <ol class="idea-list">
+    <li>Chọn ảnh một kỹ sư giỏi và gợi ý ứng viên có kỹ năng, kinh nghiệm hoặc thành tích tương tự.</li>
+    <li>Xác định ứng viên tương tự bằng cách chọn video snippet 10 giây của ứng viên mà nhà tuyển dụng thích.</li>
+    <li>Xác định ứng viên bằng cách chọn logo của các kỹ năng mong muốn.</li>
+    <li>Xác định ứng viên bằng cách chọn logo của các công ty cũ mong muốn.</li>
+    <li>Xác định ứng viên bằng cách chọn logo của các trường đại học mong muốn.</li>
+    <li>Dùng logo công ty và trường đại học cũ để tìm các công ty/trường tương tự để tiếp cận tuyển dụng.</li>
+    <li>Lọc danh sách ứng viên dựa trên ngôn ngữ cơ thể tốt trong buổi phỏng vấn video.</li>
+    <li>Chụp ảnh một cuộc họp trong phòng hội nghị, cung cấp dữ liệu về ứng viên nào đáng mong muốn — tương tự tính năng Yelp Monocle.</li>
+    <li>Chụp ảnh hội nghị — xác định người tham dự nào là mục tiêu tuyển dụng tiềm năng.</li>
+    <li>Chụp ảnh nhân viên ở bãi đỗ xe của đối thủ cạnh tranh và xác định ứng viên tiềm năng.</li>
+    <li>Chụp ảnh portfolio (tài khoản GitHub của developer, tài khoản Dribbble của designer) và gợi ý ứng viên có chất lượng công việc tương tự.</li>
+    <li>Chụp ảnh một sản phẩm thú vị và lấy thông tin liên hệ của đội ngũ tạo ra nó.</li>
+    <li>Dùng ảnh ứng viên để quét web và tìm các tài khoản mạng xã hội khác nhau của họ.</li>
+  </ol>
+</div>
+
+<!-- Bài 7 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 07</span>
+    <span class="exercise-title">Giờ mở cửa Nhà hàng</span>
+  </div>
+  <div class="exercise-body">Chúng ta muốn thu thập giờ mở và đóng cửa của các nhà hàng. Brainstorm 10 cách sáng tạo để thực hiện điều này.</div>
+  <div class="answer-label">Đáp án</div>
+  <p style="font-size:14px;">Hai cách đơn giản nhất là: (1) Để người dùng điền vào; (2) Để chủ nhà hàng điền vào. Dưới đây là 11 cách độc đáo hơn:</p>
+  <ol class="idea-list">
+    <li>Suy luận giờ đóng cửa từ ảnh vệ tinh xem đèn có còn sáng không.</li>
+    <li>Suy luận giờ đóng cửa từ ảnh vệ tinh xem có còn xe ô tô trong bãi đỗ không.</li>
+    <li>Điều phái xe Google Street View đến kiểm tra giờ mở/đóng cửa.</li>
+    <li>Thu thập dữ liệu giờ mở/đóng cửa từ Yelp.</li>
+    <li>Thu thập dữ liệu từ website của nhà hàng.</li>
+    <li>Kiểm tra các website bên thứ ba như Eat24 về giờ mở cửa.</li>
+    <li>Tạo phần mềm tự động gọi điện cho doanh nghiệp và yêu cầu dữ liệu.</li>
+    <li>Xác định giờ dựa trên dữ liệu check-in từ FourSquare hoặc Facebook.</li>
+    <li>Xác định giờ dựa trên dữ liệu GPS Android hoặc iOS gần nhà hàng.</li>
+    <li>Thuê người chụp ảnh biển hiệu giờ mở/đóng cửa và tải lên.</li>
+    <li>Quét các ảnh công khai như Google Street View và Instagram để tìm thông tin giờ mở cửa.</li>
+  </ol>
+</div>
+
+<!-- Bài 8 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 08</span>
+    <span class="exercise-title">Pin Điện thoại Tốt hơn</span>
+  </div>
+  <div class="exercise-body">Giả sử một nhóm nhà khoa học tuyên bố pin điện thoại không thể tốt hơn được nữa. Với tư cách là người phản biện, bạn sẽ đề xuất gì để tạo ra pin điện thoại tốt hơn?</div>
+  <div class="answer-label">Đáp án</div>
+  <div class="dialogue">
+    <strong>Ứng viên:</strong> Khi nói "pin điện thoại tốt hơn", ý bạn là pin lâu hơn, sạc nhanh hơn, hay điều gì khác?<br>
+    <strong>Người phỏng vấn:</strong> Câu hỏi làm rõ rất tốt. Tôi chỉ đang kiểm tra tính sáng tạo của bạn. Bạn có thể gợi ý ý tưởng làm pin sạc nhanh hơn, dùng lâu hơn, v.v.
+  </div>
+
+  <div class="group-title">Ý tưởng yêu thích (sạc không dây / nguồn năng lượng mới)</div>
+  <ol class="idea-list">
+    <li>Sạc pin không dây.</li>
+    <li>Sạc pin dựa trên nhiệt lượng.</li>
+    <li>Sạc pin dựa trên chuyển động cơ học.</li>
+    <li>Phát triển công nghệ làm pin dễ dàng thay thế.</li>
+  </ol>
+
+  <div class="group-title">Sử dụng công nghệ pin hiện tại hiệu quả hơn</div>
+  <ol class="idea-list">
+    <li>Phần mềm quản lý tiêu thụ điện năng thông minh hơn — ví dụ: vào chế độ tiết kiệm điện khi người dùng đang ngủ hoặc lái xe.</li>
+    <li>Tạo sản phẩm cho phép sạc pin điện thoại dùng một lần (pin AA).</li>
+    <li>Dịch vụ phần mềm cho phép sao chép điện thoại sang thiết bị khác — khi pin hết, chuyển sang điện thoại dự phòng.</li>
+    <li>Cho phép người dùng đặt điện thoại ở chế độ hiển thị độ phân giải thấp — tiết kiệm chu kỳ tính toán và điện năng.</li>
+    <li>Tạo sạc điện thoại nhanh hơn.</li>
+  </ol>
+
+  <div class="group-title">Cải thiện quy trình và hoạt động tiêu hao pin</div>
+  <ol class="idea-list">
+    <li>Tự động cài đặt các bản cập nhật cải thiện hiệu suất pin — khuyến khích developer tối ưu hóa ứng dụng.</li>
+    <li>Trên app store, đánh dấu ứng dụng nào tốn nhiều điện — thúc đẩy developer cải thiện.</li>
+    <li>Nhà sản xuất điện thoại tài trợ tài chính cho đội phát triển cải thiện hiệu suất năng lượng; ứng dụng tốn nhiều điện bị phạt "carbon tax".</li>
+  </ol>
+
+  <div class="group-title">Ý tưởng truyền thống (tăng dung lượng pin)</div>
+  <ol class="idea-list">
+    <li>Dùng pin lớn hơn trên điện thoại.</li>
+    <li>Để có không gian pin lớn hơn, thu nhỏ kích thước các linh kiện khác.</li>
+  </ol>
+
+  <div class="group-title">Ý tưởng độc đáo (có thể không thực tế nhưng đáng khám phá)</div>
+  <ol class="idea-list">
+    <li>Dùng loại pin khác, như pin hạt nhân — giả định rủi ro sức khỏe đã được giải quyết.</li>
+    <li>Thêm tấm pin mặt trời vào điện thoại — điều kiện người dùng nhớ lấy điện thoại ra khỏi túi.</li>
+  </ol>
+</div>
+
+<!-- Bài 9 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <span class="exercise-num">Bài 09</span>
+    <span class="exercise-title">Nón Giao thông (Traffic Cones)</span>
+  </div>
+  <div class="exercise-body">Nón giao thông có thể dùng để làm gì ngoài việc kiểm soát giao thông thông thường?</div>
+  <div class="answer-label">Đáp án</div>
+  <ol class="idea-list">
+    <li>Mũ đội đầu.</li>
+    <li>Kim tự tháp.</li>
+    <li>Đài phun nước.</li>
+    <li>Thùng chứa đồ.</li>
+    <li>Chốt bowling.</li>
+    <li>Trang trí.</li>
+    <li>Bộ khuếch đại âm thanh.</li>
+    <li>Phễu đổ chất lỏng.</li>
+    <li>Dùng làm khung thành để ném bóng tennis.</li>
+    <li>Tạo đường cua luyện tập cho xe đạp hoặc ô tô.</li>
+    <li>Tháo rời và dùng làm thảm sàn.</li>
+    <li>Xếp chồng đủ nhiều có thể dùng làm cột đỡ.</li>
+  </ol>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận Chương 13</div>
+  <p>Bài tập brainstorm xuất sắc thể hiện <strong>tư duy vượt rào cản</strong> — không chỉ liệt kê giải pháp hiển nhiên mà còn phân loại có hệ thống, xem xét nhiều góc độ (người dùng, công nghệ, quy trình), và dám đưa ra những ý tưởng táo bạo. Câu hỏi làm rõ trước khi brainstorm (như trong bài pin điện thoại) cũng là dấu hiệu của PM giỏi.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch12.html"><span class="lbl">Chương trước</span>Chương 12: Thiết kế Sản phẩm: Pain Point Exercises</a>
+  <a href="pm_interview_ch14.html"><span class="lbl">Chương sau</span>Chương 14: Thiết kế Sản phẩm: Tổng hợp</a>
+</nav>
+</body>
+</html>

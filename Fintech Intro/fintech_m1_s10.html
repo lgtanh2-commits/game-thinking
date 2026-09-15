@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phần 10: Giới thiệu Điện toán Đám mây — Giới thiệu Fintech Module 1</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.module-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:8px;color:var(--text);}
+.subtitle{font-size:1rem;color:var(--text-muted);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--accent-line);}
+h2{font-size:1.3rem;font-weight:700;margin:48px 0 16px;color:var(--text);}
+p{margin-bottom:16px;color:var(--text-secondary);}
+.intro-box{background:var(--surface);border-left:3px solid var(--accent-line);padding:20px 24px;margin:24px 0;font-size:1.05rem;line-height:1.7;color:var(--text);}
+.char-list{margin:24px 0;}
+.char-item{display:grid;grid-template-columns:220px 1fr;gap:0;border:1px solid var(--border);margin-bottom:10px;overflow:hidden;}
+.char-label{background:var(--surface-dark);padding:14px 16px;font-size:.88rem;font-weight:700;color:var(--text);display:flex;align-items:center;}
+.char-desc{padding:14px 18px;font-size:.9rem;color:var(--text-secondary);line-height:1.7;}
+.service-block{border:1px solid var(--border);margin-bottom:18px;overflow:hidden;}
+.service-header{padding:16px 20px;border-bottom:1px solid var(--border);}
+.service-tag{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.service-title{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:4px;}
+.service-tagline{font-size:.88rem;color:var(--text-muted);font-style:italic;}
+.service-body{padding:16px 20px 18px;}
+.service-desc{font-size:.9rem;color:var(--text-secondary);line-height:1.75;margin-bottom:14px;}
+.service-sub-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.service-sub-item{background:var(--surface);padding:11px 13px;}
+.sub-label{font-size:.78rem;font-weight:700;color:var(--text-muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em;}
+.sub-text{font-size:.82rem;color:var(--text-secondary);line-height:1.55;}
+.deploy-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+.deploy-item{background:var(--surface);border:1px solid var(--border);padding:18px 20px;}
+.deploy-title{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:8px;}
+.deploy-desc{font-size:.87rem;color:var(--text-secondary);line-height:1.65;}
+.adv-challenge-table{width:100%;border-collapse:collapse;margin:24px 0;}
+.adv-challenge-table th{background:var(--surface-dark);padding:11px 16px;text-align:left;font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--accent-line);}
+.adv-challenge-table td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:.88rem;color:var(--text-secondary);line-height:1.65;vertical-align:top;}
+.adv-challenge-table tr:last-child td{border-bottom:none;}
+.adv-challenge-table .adv-col{border-right:1px solid var(--border);}
+.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--accent-line);background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:12px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+@media(max-width:600px){body{padding:36px 20px 60px;}h1{font-size:1.8rem;}.char-item{grid-template-columns:1fr;}.char-label{border-bottom:1px solid var(--border);}.service-sub-grid{grid-template-columns:1fr;}.deploy-grid{grid-template-columns:1fr;}}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/fintech-intro">← Về mục lục</a></p>
+
+
+<div class="module-label">Giới thiệu Fintech — Module 1 · Dr. Mohan Cherian · Phần 10</div>
+<h1>Giới thiệu Điện toán Đám mây</h1>
+<div class="subtitle">Slide 114–127 &nbsp;|&nbsp; Đặc điểm, Mô hình Dịch vụ, Triển khai &amp; Vai trò trong Fintech</div>
+
+<div class="intro-box">
+  Điện toán đám mây (Cloud Computing) là mô hình cung cấp tài nguyên máy tính — máy chủ, lưu trữ, cơ sở dữ liệu, mạng, phần mềm và phân tích — qua internet ("đám mây") theo nhu cầu, với cơ chế tính phí linh hoạt. Đối với Fintech, đám mây không chỉ là hạ tầng kỹ thuật — đó là yếu tố nền tảng cho phép startup với nguồn vốn nhỏ cạnh tranh bình đẳng với tập đoàn tài chính lớn về năng lực công nghệ.
+</div>
+
+<h2>Năm Đặc điểm Cốt lõi của Điện toán Đám mây</h2>
+
+<div class="char-list">
+  <div class="char-item">
+    <div class="char-label">Tự phục vụ theo Nhu cầu</div>
+    <div class="char-desc">Người dùng có thể cung cấp và quản lý tài nguyên máy tính (máy chủ, lưu trữ, mạng) tự động theo nhu cầu mà không cần tương tác với nhà cung cấp — thông qua cổng quản lý web hoặc API.</div>
+  </div>
+  <div class="char-item">
+    <div class="char-label">Truy cập Mạng Rộng rãi</div>
+    <div class="char-desc">Tài nguyên đám mây có thể truy cập từ bất kỳ thiết bị nào (máy tính, điện thoại, máy tính bảng) qua mạng chuẩn — loại bỏ ràng buộc địa lý và thiết bị của hạ tầng truyền thống.</div>
+  </div>
+  <div class="char-item">
+    <div class="char-label">Tổng hợp Tài nguyên</div>
+    <div class="char-desc">Nhà cung cấp đám mây tổng hợp tài nguyên vật lý để phục vụ nhiều khách hàng theo mô hình đa thuê bao (multi-tenant), với tài nguyên được phân bổ động theo nhu cầu thực tế.</div>
+  </div>
+  <div class="char-item">
+    <div class="char-label">Co giãn Linh hoạt</div>
+    <div class="char-desc">Tài nguyên có thể được mở rộng hoặc thu hẹp tự động và nhanh chóng — đôi khi trong vài giây — để phù hợp với nhu cầu biến động. Đây là đặc điểm quan trọng nhất đối với Fintech xử lý lưu lượng giao dịch đột biến.</div>
+  </div>
+  <div class="char-item">
+    <div class="char-label">Dịch vụ Đo lường được</div>
+    <div class="char-desc">Sử dụng tài nguyên được theo dõi, kiểm soát và báo cáo chi tiết — cho phép mô hình tính phí theo mức tiêu thụ thực tế (pay-as-you-go), loại bỏ chi phí đầu tư cơ sở hạ tầng cố định ban đầu.</div>
+  </div>
+</div>
+
+<h2>Ba Mô hình Dịch vụ Đám mây</h2>
+
+<div class="service-block">
+  <div class="service-header">
+    <div class="service-tag">IaaS</div>
+    <div class="service-title">Hạ tầng như một Dịch vụ</div>
+    <div class="service-tagline">Infrastructure as a Service — Kiểm soát tối đa, trách nhiệm cao nhất</div>
+  </div>
+  <div class="service-body">
+    <div class="service-desc">IaaS cung cấp tài nguyên hạ tầng ảo hóa cơ bản — máy chủ, mạng, lưu trữ — qua internet. Người dùng quản lý hệ điều hành, middleware, runtime và ứng dụng; nhà cung cấp quản lý phần cứng vật lý. Đây là lựa chọn phù hợp cho tổ chức muốn kiểm soát tối đa môi trường tính toán mà không cần đầu tư vào trung tâm dữ liệu vật lý.</div>
+    <div class="service-sub-grid">
+      <div class="service-sub-item">
+        <div class="sub-label">Nhà cung cấp</div>
+        <div class="sub-text">AWS EC2, Google Compute Engine, Microsoft Azure Virtual Machines</div>
+      </div>
+      <div class="service-sub-item">
+        <div class="sub-label">Phù hợp với</div>
+        <div class="sub-text">Tổ chức cần kiểm soát cấu hình môi trường, workload đặc thù hoặc tuân thủ quy định nghiêm ngặt</div>
+      </div>
+      <div class="service-sub-item">
+        <div class="sub-label">Trong Fintech</div>
+        <div class="sub-text">Ngân hàng lớn chạy core banking system trên IaaS để kiểm soát dữ liệu trong khi giảm chi phí vận hành</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="service-block">
+  <div class="service-header">
+    <div class="service-tag">PaaS</div>
+    <div class="service-title">Nền tảng như một Dịch vụ</div>
+    <div class="service-tagline">Platform as a Service — Tập trung vào phát triển ứng dụng</div>
+  </div>
+  <div class="service-body">
+    <div class="service-desc">PaaS cung cấp môi trường hoàn chỉnh để phát triển, kiểm thử, triển khai và quản lý ứng dụng — bao gồm hệ điều hành, cơ sở dữ liệu, middleware và công cụ phát triển. Đội ngũ kỹ thuật chỉ cần tập trung vào viết code và logic nghiệp vụ, không cần quản lý hạ tầng bên dưới.</div>
+    <div class="service-sub-grid">
+      <div class="service-sub-item">
+        <div class="sub-label">Nhà cung cấp</div>
+        <div class="sub-text">Google App Engine, Heroku, AWS Elastic Beanstalk, Microsoft Azure App Service</div>
+      </div>
+      <div class="service-sub-item">
+        <div class="sub-label">Phù hợp với</div>
+        <div class="sub-text">Startup và đội phát triển muốn ra mắt sản phẩm nhanh mà không mất thời gian vào vận hành hạ tầng</div>
+      </div>
+      <div class="service-sub-item">
+        <div class="sub-label">Trong Fintech</div>
+        <div class="sub-text">Startup Fintech xây dựng ứng dụng thanh toán và cho vay trên PaaS để rút ngắn time-to-market xuống vài tuần</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="service-block">
+  <div class="service-header">
+    <div class="service-tag">SaaS</div>
+    <div class="service-title">Phần mềm như một Dịch vụ</div>
+    <div class="service-tagline">Software as a Service — Sử dụng ngay, không cần cài đặt</div>
+  </div>
+  <div class="service-body">
+    <div class="service-desc">SaaS cung cấp ứng dụng phần mềm hoàn chỉnh qua trình duyệt web hoặc API — người dùng không cần cài đặt, cấu hình hay bảo trì bất kỳ thứ gì. Nhà cung cấp SaaS quản lý toàn bộ hạ tầng, bảo mật và cập nhật. Đây là mô hình phổ biến nhất đối với người dùng cuối.</div>
+    <div class="service-sub-grid">
+      <div class="service-sub-item">
+        <div class="sub-label">Ví dụ phổ biến</div>
+        <div class="sub-text">Salesforce, Google Workspace, Microsoft 365, Slack, Zoom</div>
+      </div>
+      <div class="service-sub-item">
+        <div class="sub-label">Phù hợp với</div>
+        <div class="sub-text">Doanh nghiệp muốn áp dụng nhanh phần mềm tiêu chuẩn mà không cần đội IT vận hành</div>
+      </div>
+      <div class="service-sub-item">
+        <div class="sub-label">Trong Fintech</div>
+        <div class="sub-text">Phần mềm kế toán, CRM khách hàng, nền tảng tuân thủ quy định và công cụ phân tích rủi ro được cung cấp dưới dạng SaaS</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Bốn Mô hình Triển khai Đám mây</h2>
+
+<div class="deploy-grid">
+  <div class="deploy-item">
+    <div class="deploy-title">Đám mây Công cộng (Public Cloud)</div>
+    <div class="deploy-desc">Tài nguyên được chia sẻ giữa nhiều tổ chức trên hạ tầng của nhà cung cấp (AWS, Azure, GCP). Chi phí thấp nhất, co giãn tốt nhất — phù hợp với startup Fintech giai đoạn đầu và workload không nhạy cảm.</div>
+  </div>
+  <div class="deploy-item">
+    <div class="deploy-title">Đám mây Riêng (Private Cloud)</div>
+    <div class="deploy-desc">Hạ tầng đám mây dành riêng cho một tổ chức — có thể tại trung tâm dữ liệu nội bộ hoặc do nhà cung cấp vận hành. Kiểm soát tối đa, bảo mật cao — phù hợp với ngân hàng lớn và tổ chức có yêu cầu tuân thủ nghiêm ngặt.</div>
+  </div>
+  <div class="deploy-item">
+    <div class="deploy-title">Đám mây Lai (Hybrid Cloud)</div>
+    <div class="deploy-desc">Kết hợp đám mây công cộng và riêng với kết nối được quản lý. Dữ liệu nhạy cảm và workload cốt lõi chạy trên private cloud; workload biến động và ít nhạy cảm hơn chạy trên public cloud. Đây là mô hình phổ biến nhất trong ngân hàng.</div>
+  </div>
+  <div class="deploy-item">
+    <div class="deploy-title">Đám mây Cộng đồng (Community Cloud)</div>
+    <div class="deploy-desc">Hạ tầng đám mây chia sẻ giữa các tổ chức trong cùng ngành hoặc cùng yêu cầu tuân thủ. Ví dụ: các ngân hàng trong khu vực chia sẻ hạ tầng đám mây tuân thủ quy định tài chính địa phương.</div>
+  </div>
+</div>
+
+<h2>Lợi ích &amp; Thách thức của Đám mây trong Fintech</h2>
+
+<table class="adv-challenge-table">
+  <tr>
+    <th style="width:50%">Lợi ích</th>
+    <th>Thách thức</th>
+  </tr>
+  <tr>
+    <td class="adv-col">Chi phí thấp hơn: không cần đầu tư vốn cố định vào hạ tầng; chỉ trả cho những gì sử dụng thực tế.</td>
+    <td>Bảo mật dữ liệu: lưu trữ dữ liệu tài chính nhạy cảm trên hạ tầng bên ngoài đặt ra câu hỏi về kiểm soát và bảo mật.</td>
+  </tr>
+  <tr>
+    <td class="adv-col">Co giãn tức thì: xử lý lưu lượng giao dịch đột biến (Black Friday, IPO lớn) mà không cần dự phòng hạ tầng tốn kém.</td>
+    <td>Tuân thủ quy định: nhiều quốc gia yêu cầu dữ liệu tài chính phải lưu trú trong biên giới quốc gia (data residency), giới hạn lựa chọn nhà cung cấp.</td>
+  </tr>
+  <tr>
+    <td class="adv-col">Tăng tốc đổi mới: đội phát triển tập trung vào sản phẩm, không phải vận hành hạ tầng; triển khai tính năng mới trong giờ, không phải tuần.</td>
+    <td>Phụ thuộc nhà cung cấp (Vendor lock-in): di chuyển sang nhà cung cấp khác sau khi đã tích hợp sâu vào hệ sinh thái của một nhà cung cấp là tốn kém và phức tạp.</td>
+  </tr>
+  <tr>
+    <td class="adv-col">Phục hồi thảm họa: nhà cung cấp đám mây cung cấp sao lưu phân tán, khôi phục nhanh — tốt hơn đáng kể so với giải pháp nội bộ của hầu hết tổ chức.</td>
+    <td>Gián đoạn dịch vụ: sự cố của nhà cung cấp đám mây có thể ảnh hưởng đồng thời đến hàng nghìn khách hàng; kế hoạch dự phòng đa đám mây là cần thiết.</td>
+  </tr>
+</table>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận</div>
+  <p>Điện toán đám mây đã dân chủ hóa khả năng tiếp cận hạ tầng công nghệ tiên tiến — điều trước đây chỉ các tập đoàn lớn mới có thể chi trả. Với Fintech, đây là yếu tố thay đổi cuộc chơi: một startup với vài người có thể triển khai hệ thống xử lý hàng triệu giao dịch mỗi ngày trên cùng loại hạ tầng với ngân hàng hàng nghìn nhân viên.</p>
+  <p>Hiểu rõ ba mô hình dịch vụ — IaaS, PaaS, SaaS — và bốn mô hình triển khai — công cộng, riêng, lai và cộng đồng — là nền tảng để đưa ra quyết định kiến trúc đúng đắn cho từng bài toán Fintech cụ thể. Không có mô hình nào phù hợp với tất cả — lựa chọn chiến lược đám mây phải cân bằng giữa chi phí, kiểm soát, bảo mật và yêu cầu tuân thủ của từng tổ chức.</p>
+  <p>Module 1 — Giới thiệu Fintech — đã đặt nền tảng toàn diện: từ định nghĩa Fintech, chuỗi giá trị BFSI, tác động của Fintech, bức tranh hệ sinh thái, các công nghệ cốt lõi, xu hướng tương lai, ứng dụng thực tiễn, đến hạ tầng nền tảng là ML và đám mây. Đây là bản đồ định hướng cho mọi hành trình khám phá sâu hơn trong thế giới Fintech.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="fintech_m1_s9.html"><span class="lbl">Phần trước</span>Phần 9: Giới thiệu Học máy</a>
+</nav>
+</body>
+</html>

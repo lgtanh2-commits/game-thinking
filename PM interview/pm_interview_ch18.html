@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 18 – Metrics: Sản phẩm Yêu thích | The Product Manager Interview</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.chapter-header{margin-bottom:48px;}
+.chapter-tag{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:32px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px;}
+.chapter-subtitle{font-size:17px;color:var(--text-secondary);font-style:italic;margin-bottom:20px;}
+.chapter-intro{font-size:15px;color:var(--text-secondary);line-height:1.7;padding:20px 24px;background:var(--surface);border-left:3px solid var(--accent-line);border-radius:0 6px 6px 0;margin-bottom:8px;}
+.exercise{border:1px solid var(--border);border-radius:8px;margin-bottom:36px;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:16px 24px;border-bottom:1px solid var(--border);}
+.exercise-number{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-title{font-size:17px;font-weight:600;color:var(--text);}
+.exercise-body{padding:24px;}
+.question-block{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;border-radius:0 6px 6px 0;margin-bottom:20px;font-style:italic;color:var(--text-secondary);}
+.answer-section{margin-bottom:20px;}
+.answer-section:last-child{margin-bottom:0;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+p{margin-bottom:12px;color:var(--text-secondary);}
+p:last-child{margin-bottom:0;}
+.metric-list{list-style:none;padding:0;margin:0;}
+.metric-list li{font-size:14px;color:var(--text-secondary);padding:4px 0 4px 18px;position:relative;line-height:1.6;}
+.metric-list li::before{content:'–';position:absolute;left:0;color:var(--text-muted);}
+.metric-list li strong{color:var(--text);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;}
+.col-block{border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.col-header{padding:10px 14px;background:var(--surface-dark);font-size:13px;font-weight:600;color:var(--text);border-bottom:1px solid var(--border);}
+.col-body{padding:14px;}
+.cat-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin:10px 0 4px;}
+.cat-label:first-child{margin-top:0;}
+.highlight-answer{background:var(--surface-dark);border:1px solid var(--border-strong);border-radius:6px;padding:14px 18px;margin:12px 0;}
+.highlight-answer .metric-name{font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.highlight-answer .metric-desc{font-size:13px;color:var(--text-secondary);}
+.funnel{border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-top:8px;}
+.funnel-step{display:flex;align-items:flex-start;padding:10px 16px;border-bottom:1px solid var(--border);gap:12px;}
+.funnel-step:last-child{border-bottom:none;}
+.step-num{min-width:22px;height:22px;background:var(--surface-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text-muted);flex-shrink:0;margin-top:3px;}
+.step-content{flex:1;}
+.step-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.step-detail{font-size:13px;color:var(--text-secondary);}
+.key-insight{background:var(--surface);border-left:3px solid var(--accent-line);padding:12px 16px;border-radius:0 6px 6px 0;margin-top:12px;font-size:14px;color:var(--text-secondary);}
+.key-insight strong{color:var(--text);}
+.phase-block{border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:12px;}
+.phase-header{padding:10px 16px;background:var(--surface-dark);font-size:13px;font-weight:600;color:var(--text);}
+.phase-body{padding:14px;}
+.conclusion-box{margin-top:64px;padding:28px 32px;border:1px solid var(--border-strong);border-radius:8px;background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+.conclusion-box p{color:var(--text-secondary);margin-bottom:10px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 18</div>
+
+<div class="chapter-header">
+  <div class="chapter-tag">Chương 18</div>
+  <h1>Metrics: Sản phẩm Yêu thích &amp; Tình huống Thực tế</h1>
+  <div class="chapter-subtitle">Áp dụng tư duy đo lường vào các sản phẩm cụ thể</div>
+  <div class="chapter-intro">
+    Chương này tổng hợp các câu hỏi metrics yêu cầu ứng viên lựa chọn sản phẩm cụ thể và phân tích sâu — từ chẩn đoán sụt giảm, đề xuất chỉ số mới, đến đánh giá hiệu suất nhân viên và đo lường kết quả xã hội phi kỹ thuật. Đây là những câu hỏi kiểm tra sự kết hợp giữa hiểu biết sản phẩm và tư duy định lượng.
+  </div>
+</div>
+
+<!-- BÀI TẬP 1 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 1</div>
+    <div class="exercise-title">Số liệu cho Sản phẩm Google Yêu thích — Google Hangouts</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn là một PM tại Google. Hãy chọn một sản phẩm Google mà bạn yêu thích và đề xuất các số liệu để theo dõi sức khỏe của nó.
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Sản phẩm được chọn: Google Hangouts — Tính năng Nhắn tin</div>
+      <p>Hangouts là ứng dụng nhắn tin/gọi video của Google, cạnh tranh trực tiếp với WhatsApp, Skype và WeChat.</p>
+
+      <div class="section-label">Các số liệu theo dõi</div>
+      <ul class="metric-list">
+        <li><strong>Tin nhắn được gửi</strong> — chỉ số cốt lõi của engagement</li>
+        <li><strong>Tin nhắn được nhận</strong> — đo lường chiều kia của cuộc trò chuyện</li>
+        <li><strong>Tần suất phiên</strong> — người dùng mở app bao nhiêu lần/ngày</li>
+        <li><strong>Độ dài phiên</strong> — thời gian sử dụng mỗi lần</li>
+        <li><strong>Retention (DAU)</strong> — người dùng hoạt động hàng ngày</li>
+        <li><strong>Push notifications</strong> — tỷ lệ kích hoạt thông báo và phản hồi</li>
+      </ul>
+
+      <div class="key-insight">
+        <strong>Định nghĩa thành công:</strong> Hangouts cần cạnh tranh ngang bằng WhatsApp, Skype và WeChat về số tin nhắn gửi và nhận trên mỗi người dùng — đây là benchmark thực sự, không phải số liệu nội bộ.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 2 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 2</div>
+    <div class="exercise-title">Lượt truy cập google.com giảm 8%</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Larry Page gọi điện cho bạn lúc 7 giờ sáng và nói: "Lượt truy cập vào google.com giảm 8% đêm qua." Bạn sẽ điều tra như thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Chuỗi câu hỏi chẩn đoán</div>
+      <ul class="metric-list">
+        <li>Giảm ở quốc gia/khu vực cụ thể không? Có thể do kiểm duyệt internet, sự cố mạng, hoặc server bị down.</li>
+        <li>Giảm trên desktop hay mobile? Trên nền tảng cụ thể (iOS, Android, Windows Phone)?</li>
+        <li>Trình duyệt cụ thể: Chrome, Edge, Safari, Opera?</li>
+        <li>Hệ điều hành cụ thể?</li>
+        <li>Kiểm tra phần mềm theo dõi lưu lượng — có lỗi tracking không?</li>
+        <li>Có thay đổi UI/UX nào gần đây không? Người dùng có bị nhầm lẫn?</li>
+        <li>Đối thủ cạnh tranh có ra mắt tính năng mới thu hút người dùng?</li>
+        <li>Lượng truy cập từ các kênh liên kết (Gmail, YouTube) có giảm không?</li>
+        <li>Thỏa thuận phân phối với đối tác có thay đổi?</li>
+        <li>Tùy chọn công cụ tìm kiếm mặc định trên trình duyệt có thay đổi?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 3 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 3</div>
+    <div class="exercise-title">Số liệu cho AWS tại Sydney</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn là PM phụ trách AWS tại khu vực Sydney, Úc. Hãy đề xuất các số liệu để theo dõi sức khỏe của dịch vụ.
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Phân tích theo AARM™</div>
+      <div class="two-col">
+        <div class="col-block">
+          <div class="col-header">Thu hút &amp; Kích hoạt</div>
+          <div class="col-body">
+            <ul class="metric-list">
+              <li>Số tài khoản AWS mới đăng ký tại AU/NZ</li>
+              <li>Số tài khoản đang trong trial period</li>
+              <li>% tài khoản chuyển từ trial sang trả phí</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-block">
+          <div class="col-header">Giữ chân</div>
+          <div class="col-body">
+            <ul class="metric-list">
+              <li>DAU trên tất cả dịch vụ AWS tại Sydney</li>
+              <li>% tổng request AWS được thực hiện tại Sydney</li>
+              <li>Uptime SLA — % thời gian đạt mục tiêu</li>
+              <li>Thời gian phản hồi trung bình</li>
+              <li>Tỷ lệ churn</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="two-col" style="margin-top:12px;">
+        <div class="col-block">
+          <div class="col-header">Kiếm tiền</div>
+          <div class="col-body">
+            <ul class="metric-list">
+              <li>Doanh thu từ region Sydney</li>
+              <li>Doanh thu trung bình mỗi tài khoản</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-block">
+          <div class="col-header">Thị trường</div>
+          <div class="col-body">
+            <ul class="metric-list">
+              <li>Thị phần AWS tại AU/NZ (vs Azure, GCP)</li>
+              <li>Số enterprise account mới</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">3 Số liệu Quan trọng Nhất (theo dõi hàng ngày)</div>
+      <div class="highlight-answer">
+        <div class="metric-name">1. Thị phần AWS tại AU/NZ</div>
+        <div class="metric-desc">Proxy tốt nhất cho mục tiêu dài hạn — vị thế dẫn đầu thị trường cloud tại khu vực</div>
+      </div>
+      <div class="highlight-answer">
+        <div class="metric-name">2. % Tổng request AWS thực hiện tại Sydney</div>
+        <div class="metric-desc">Chỉ số sức khỏe của region Sydney so với các region khác — phát hiện bất thường sớm</div>
+      </div>
+      <div class="highlight-answer">
+        <div class="metric-name">3. DAU trên tất cả dịch vụ AWS tại Sydney</div>
+        <div class="metric-desc">Chỉ số tiến độ hàng ngày chi tiết nhất</div>
+      </div>
+      <div class="key-insight">
+        <strong>Lý do không chọn Monetization làm top 3:</strong> Triết lý Amazon là tăng trưởng trước, tối ưu doanh thu sau. Chi phí chuyển đổi cao khiến khách hàng ít nhạy cảm với giá một khi đã dùng AWS.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 4 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 4</div>
+    <div class="exercise-title">Đánh giá Hiệu suất Nhân viên Amazon Operations</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn sẽ đo hiệu suất của một nhân viên trong bộ phận Operations của Amazon như thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Các chiều đánh giá</div>
+      <ul class="metric-list">
+        <li><strong>Chi phí</strong> — Chi phí duy trì nhân viên (lương, benefit, đào tạo)</li>
+        <li><strong>Doanh thu tạo ra</strong> — So sánh với chi phí → đo hiệu quả thực chất</li>
+        <li><strong>Khối lượng công việc hoàn thành</strong> — Gói hàng vận chuyển, bugs đã fix, v.v.</li>
+        <li><strong>Đánh giá từ đồng nghiệp</strong> — 1-5 sao, bao gồm cả phản hồi text</li>
+        <li><strong>Đánh giá từ quản lý</strong> — 1-5 sao</li>
+        <li><strong>Đánh giá từ nhân viên được quản lý</strong> — 1-5 sao (áp dụng cho manager)</li>
+      </ul>
+
+      <div class="key-insight">
+        <strong>Lưu ý:</strong> Một manager được đánh giá thấp từ nhân viên nhưng hiệu quả cao = "slave driver" — nguy hiểm cho retention dài hạn. Kết quả kinh doanh tốt <em>không</em> biện minh cho việc làm kiệt sức nhóm.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 5 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 5</div>
+    <div class="exercise-title">Người dùng Facebook giảm 20% tuần qua tuần</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Người dùng Facebook đã giảm 20% tuần qua tuần. Hãy chẩn đoán nguyên nhân và đề xuất giải pháp.
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Hành trình Chẩn đoán (qua đối thoại)</div>
+      <div class="funnel">
+        <div class="funnel-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-name">Thiết bị — Mobile hay Desktop?</div>
+            <div class="step-detail">Phân phối đều → không phải vấn đề thiết bị</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-name">Phần cứng / Server?</div>
+            <div class="step-detail">Không phải → vấn đề đã xuất hiện từ trước</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-name">Xu hướng ngành?</div>
+            <div class="step-detail">Không — chỉ Facebook giảm</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-name">Quốc gia / Khu vực?</div>
+            <div class="step-detail">Toàn cầu → không phải vấn đề địa lý cục bộ</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-name">Người dùng mới hay hiện tại?</div>
+            <div class="step-detail">→ Người dùng hiện tại: kiểm tra redesign, feed, chat, search nội bộ</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-name">Nội dung hay hệ thống?</div>
+            <div class="step-detail">→ Người dùng mới: ngân sách marketing, giá CPA, chất lượng đối tượng mục tiêu</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">7</div>
+          <div class="step-content">
+            <div class="step-name">Kết luận: Nguồn user mới từ Referral Ads</div>
+            <div class="step-detail">Người dùng mới từ quảng cáo tham chiếu bị giảm. Nguyên nhân: chất lượng đối tượng mục tiêu kém, hết "first-rate audiences".</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Giải pháp — Tối ưu Referral Ads</div>
+      <p>Lưu lượng từ referral ads = Ad Clicks = <strong>Ad Impressions × CTR</strong></p>
+      <div class="two-col">
+        <div class="col-block">
+          <div class="col-header">Tăng CTR</div>
+          <div class="col-body">
+            <ul class="metric-list">
+              <li>Thử nghiệm copy quảng cáo và CTA khác nhau</li>
+              <li>Thử nghiệm hình ảnh quảng cáo mới</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-block">
+          <div class="col-header">Tăng Ad Impressions</div>
+          <div class="col-body">
+            <ul class="metric-list">
+              <li>Tăng bid quảng cáo</li>
+              <li>Tăng ngân sách, bao gồm điều chỉnh theo giờ (daypart)</li>
+              <li>Mở rộng từ khóa — chuyển từ exact match sang phrase/broad</li>
+              <li>Mở rộng đối tượng, thêm phân khúc nhân khẩu học</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 6 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 6</div>
+    <div class="exercise-title">Số liệu Engagement của Dropbox</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn sẽ dùng những số liệu nào để theo dõi mức độ engagement của người dùng Dropbox?
+    </div>
+
+    <div class="answer-section">
+      <div class="two-col">
+        <div class="col-block">
+          <div class="col-header">Số liệu Sử dụng (Usage)</div>
+          <div class="col-body">
+            <ul class="metric-list">
+              <li>Số file mới được tải lên/ngày</li>
+              <li>Số file được tải xuống/ngày</li>
+              <li>Số lần lưu file hiện có/ngày</li>
+              <li>Số thiết bị trung bình mỗi người dùng</li>
+              <li>Đăng nhập qua web (cơ hội khuyến khích cài app)</li>
+              <li>% tổng file trên Dropbox so với tổng dung lượng máy</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-block">
+          <div class="col-header">Số liệu Chia sẻ (Sharing)</div>
+          <div class="col-body">
+            <ul class="metric-list">
+              <li>Số cộng tác viên trung bình mỗi file</li>
+              <li>Số cộng tác viên trung bình mỗi thư mục</li>
+              <li>Số lần chỉnh sửa trung bình mỗi thành viên nhóm</li>
+              <li>% nhân viên trong một công ty dùng Dropbox</li>
+              <li>Số lời mời dùng Dropbox mỗi người dùng</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Số liệu Quan trọng Nhất</div>
+      <div class="highlight-answer">
+        <div class="metric-name">Số file mới được tải lên mỗi ngày</div>
+        <div class="metric-desc">Không chỉ thúc đẩy engagement cá nhân — còn có hiệu ứng viral khi kéo cộng tác viên khác vào Dropbox.</div>
+      </div>
+      <p>Mô hình engagement Dropbox rất đơn giản: <em>tải file lên → mời cộng tác → người mới cũng tải file lên → vòng lặp tiếp tục.</em></p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 7 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 7</div>
+    <div class="exercise-title">Số liệu Hỗ trợ Khách hàng Dropbox</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Nếu bạn là Support Manager của Dropbox, bạn sẽ theo dõi những số liệu nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Danh sách số liệu</div>
+      <ul class="metric-list">
+        <li><strong>Số vấn đề khách hàng theo ngày/tuần/tháng/quý/năm</strong> — giúp phân bổ nhân lực; cũng là chỉ báo chất lượng sản phẩm sau release mới</li>
+        <li><strong>Các vấn đề lặp lại nhiều nhất</strong> — phát hiện lỗi phổ biến ảnh hưởng số đông, ưu tiên roadmap sản phẩm</li>
+        <li><strong>Tóm tắt danh mục theo số lượng phiếu</strong> — xác định khu vực vấn đề chung</li>
+        <li><strong>Thời gian phản hồi trung bình và tổng</strong> — khách hàng không có đủ agent phục vụ sẽ chờ lâu hơn mong muốn</li>
+        <li><strong>Tỷ lệ phiếu đã giải quyết vs. chưa giải quyết</strong> — đo hiệu quả xử lý hàng đợi</li>
+        <li><strong>Điểm NPS sau tương tác</strong> — đo hài lòng khách hàng</li>
+        <li><strong>Cảm xúc khách hàng đầu và cuối cuộc gọi</strong> — đo hiệu quả xoa dịu; khách venting được giải thoát cảm xúc</li>
+        <li><strong>Số phiếu mỗi thành viên nhóm</strong> — đo hiệu quả cá nhân</li>
+        <li><strong>Số phiếu mở lại / chưa giải quyết mỗi agent</strong> — đo chất lượng giải quyết lần đầu</li>
+        <li><strong>Tính năng được yêu cầu nhiều nhất</strong> — phản hồi trực tiếp cho team phát triển sản phẩm</li>
+      </ul>
+
+      <div class="highlight-answer">
+        <div class="metric-name">Số liệu Quan trọng Nhất: Thời gian Phản hồi</div>
+        <div class="metric-desc">Khách hàng cần biết có người đang xử lý vấn đề của họ ngay lập tức — sự chú ý tạo cảm giác được tôn trọng, ngay cả trước khi vấn đề được giải quyết.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 8 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 8</div>
+    <div class="exercise-title">Số liệu Thành công cho UberPool</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Số liệu thành công chính cho UberPool nên là gì?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Phân tích theo AARM + Driver Metrics</div>
+      <div class="two-col">
+        <div class="col-block">
+          <div class="col-header">Thu hút (Adoption)</div>
+          <div class="col-body">
+            <ul class="metric-list">
+              <li>Số người đã thực hiện ≥1 chuyến UberPool</li>
+              <li>% hành khách UberX cũng đã thử UberPool</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-block">
+          <div class="col-header">Sử dụng (Usage)</div>
+          <div class="col-body">
+            <ul class="metric-list">
+              <li>Tỷ lệ UberPool vs. non-UberPool</li>
+              <li>Số lần chọn UberPool rồi chuyển sang UberX</li>
+              <li>Số người trung bình mỗi UberPool</li>
+              <li>Giá cước UberPool vs. non-UberPool</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-block">
+          <div class="col-header">Giữ chân (Retention)</div>
+          <div class="col-body">
+            <ul class="metric-list">
+              <li>Chênh lệch đánh giá UberPool vs. UberX</li>
+              <li>Số chuyến UberPool/tháng của người dùng lặp lại</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-block">
+          <div class="col-header">Tài xế &amp; Kiếm tiền</div>
+          <div class="col-body">
+            <ul class="metric-list">
+              <li>Số tài xế chấp nhận chuyến UberPool</li>
+              <li>Thu nhập/giờ: UberPool vs. non-UberPool</li>
+              <li>Doanh thu UberPool / Doanh thu mỗi giờ</li>
+              <li>Thay đổi số người/xe do UberPool</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Số liệu Quan trọng Nhất</div>
+      <div class="highlight-answer">
+        <div class="metric-name">Số người đã thực hiện ít nhất 1 chuyến UberPool</div>
+        <div class="metric-desc">Adoption là ưu tiên số 1 vì UberPool là dịch vụ mới thay đổi hoàn toàn giá trị cốt lõi của Uber: từ thay thế taxi → thay thế phương tiện công cộng.</div>
+      </div>
+      <p>UberPool phải kiểm chứng hai giả thuyết khác biệt: (1) Người dùng có sẵn sàng đánh đổi tốc độ để tiết kiệm tiền? (2) Người dùng có sẵn sàng đi chung xe với người lạ — điều họ vẫn làm khi đi xe buýt?</p>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 9 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 9</div>
+    <div class="exercise-title">Số liệu cho Trải nghiệm Đón khách Uber</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Nếu Uber muốn cải thiện trải nghiệm đón khách (pick-up experience), bạn sẽ theo dõi những số liệu nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Phân tích theo giai đoạn</div>
+
+      <div class="phase-block">
+        <div class="phase-header">Trước khi Đón (Before Pickup)</div>
+        <div class="phase-body">
+          <ul class="metric-list">
+            <li>Thời gian từ lúc mở app đến khi được ghép xe</li>
+            <li>Số lần áp dụng giá surge — tần suất cao = thiếu tài xế</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-header">Trong quá trình Đón (Pickup)</div>
+        <div class="phase-body">
+          <ul class="metric-list">
+            <li>Thời gian tài xế đến điểm đón</li>
+            <li>Số lần tài xế/hành khách phải gọi/nhắn tin để tìm nhau</li>
+            <li>Số lần tài xế rời đi mà không đón được khách</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-header">Sau Chuyến đi (After Trip)</div>
+        <div class="phase-body">
+          <ul class="metric-list">
+            <li>Điểm đánh giá tài xế trung bình</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Số liệu Quan trọng Nhất</div>
+      <div class="two-col">
+        <div class="col-block" style="border-left:3px solid var(--accent-line);">
+          <div class="col-header">Nếu đánh giá toàn bộ trải nghiệm</div>
+          <div class="col-body">
+            <p style="font-size:14px;"><strong>Thời gian từ lúc mở app đến khi được ghép xe</strong> — không ai chờ 1 tiếng để có Uber.</p>
+          </div>
+        </div>
+        <div class="col-block" style="border-left:3px solid var(--accent-line);">
+          <div class="col-header">Nếu chỉ đánh giá pickup</div>
+          <div class="col-body">
+            <p style="font-size:14px;"><strong>Số lần tài xế rời đi mà không đón khách</strong> — đây là sự cố nghiêm trọng cần điều tra ngay.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 10 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 10</div>
+    <div class="exercise-title">Xử lý sự cố Tải chậm trên Kindle</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn sẽ xử lý sự cố tải nội dung chậm trên thiết bị Kindle như thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Chuỗi câu hỏi phân tầng</div>
+      <div class="funnel">
+        <div class="funnel-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-name">Phạm vi địa lý</div>
+            <div class="step-detail">Vấn đề toàn cầu hay chỉ một quốc gia/khu vực? → Nếu một vùng: hạ tầng hoặc internet khu vực đó.</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-name">Thiết bị cụ thể</div>
+            <div class="step-detail">Nếu toàn cầu, có phải model thiết bị cụ thể không? → Vấn đề phần cứng hay phần mềm.</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-name">Server phân phối</div>
+            <div class="step-detail">Distribution server có vấn đề không? Amazon sẽ phát hiện ngay nếu có lỗi nghiêm trọng.</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-name">Loại nội dung</div>
+            <div class="step-detail">Ảnh hưởng sách, video, hay tất cả nội dung? → Phân biệt vấn đề theo format file.</div>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-name">Danh mục nội dung</div>
+            <div class="step-detail">Danh mục phim hoặc video trên một độ dài nhất định? → Vấn đề về kích thước file lớn.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 11 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 11</div>
+    <div class="exercise-title">Số liệu Pinterest (VP of Product)</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Hãy tưởng tượng bạn là VP of Product tại Pinterest. Bạn sẽ theo dõi những số liệu nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Bộ số liệu toàn diện</div>
+      <ul class="metric-list">
+        <li><strong>Số người dùng</strong> — tăng trưởng user, bao gồm quốc tế và phân khúc mới</li>
+        <li><strong>DAU / WAU / MAU</strong> — đo lường engagement chủ động</li>
+        <li><strong>Pins hàng ngày</strong> — ai cũng muốn pin content trong kho hình ảnh phong phú</li>
+        <li><strong>Nội dung được pin nhiều nhất</strong> — phân tích theo loại người dùng để hiểu nội dung nào được coi là desirable nhất</li>
+        <li><strong>Re-pins và tỷ lệ pin mới / re-pin</strong> — tỷ lệ re-pin cao quá = thiếu nội dung mới</li>
+        <li><strong>Pins mới mỗi ngày</strong> — tốc độ tạo nội dung mới</li>
+        <li><strong>Số lượt tìm kiếm/ngày</strong> — người dùng dùng Pinterest để tìm kiếm cũng như upload</li>
+        <li><strong>Thời gian tìm kiếm trung bình</strong> — tìm kiếm quá lâu → người dùng bỏ sang đối thủ</li>
+        <li><strong>Tỷ lệ chuyển đổi mua hàng</strong> — % Buyable Pins dẫn đến giao dịch</li>
+        <li><strong>Doanh thu quảng cáo</strong> — tổng revenue từ advertising</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 12 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 12</div>
+    <div class="exercise-title">Đo lường Tỷ lệ Cải tạo tù nhân tại Ireland</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn sẽ đo tỷ lệ cải tạo (rehabilitation rate) tại các nhà tù Ireland như thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Định nghĩa cải tạo</div>
+      <p>Cải tạo = tái hòa nhập xã hội của người đã từng bị kết án — không còn phạm tội và có khả năng tự lo cho bản thân.</p>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Các số liệu đo lường</div>
+      <ul class="metric-list">
+        <li>Số người <strong>không còn ở trong tù</strong> — chỉ số cơ bản nhất</li>
+        <li>Số người <strong>có việc làm</strong> sau khi ra tù</li>
+        <li>Số người <strong>đang tích cực tìm việc</strong></li>
+        <li>Số người <strong>bị bắt vì tội mới</strong> sau khi ra tù — chỉ số quan trọng nhất của tái phạm</li>
+        <li>Số người <strong>có sức khỏe tâm thần ổn định</strong> — sức khỏe tâm thần là yếu tố dự báo tái phạm</li>
+        <li>Số người <strong>không còn nghiện ma túy / rượu</strong></li>
+      </ul>
+
+      <div class="key-insight">
+        <strong>Lý do theo dõi sức khỏe tâm thần:</strong> Trầm cảm và rối loạn cảm xúc có thể làm tăng khả năng phạm tội. Cải thiện sức khỏe tâm thần là chỉ báo sớm của việc cải tạo thành công — trước khi thể hiện qua hành vi bên ngoài.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BÀI TẬP 13 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <div class="exercise-number">Bài tập 13</div>
+    <div class="exercise-title">Đo lường Thành công Chiến lược Go-To-Market</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-block">
+      Bạn sẽ đo lường thành công của một chiến lược go-to-market như thế nào?
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Định nghĩa Go-To-Market</div>
+      <p>Go-to-market là quá trình marketing từ xác định đối tượng → tạo chiến dịch tiếp cận → tạo điều kiện mua hàng (ký hợp đồng hoặc thanh toán trực tiếp).</p>
+    </div>
+
+    <div class="answer-section">
+      <div class="section-label">Các số liệu thành công</div>
+      <ul class="metric-list">
+        <li><strong>Tiếp cận (Reach)</strong> — Đã tiếp cận bao nhiêu khách hàng tiềm năng?</li>
+        <li><strong>Tỷ lệ chuyển đổi (Conversion rate)</strong> — Trong số những người được tiếp cận, bao nhiêu người mua?</li>
+        <li><strong>Chi phí thu hút khách hàng (CAC)</strong> — Chi phí marketing tính theo sản phẩm, địa lý, và kênh bán hàng</li>
+        <li><strong>Doanh thu và lợi nhuận</strong> — Tech companies có fixed costs lớn (R&amp;D) nên tracking profitability là thách thức nhưng cần thiết</li>
+        <li><strong>Thị phần</strong> — Đặc biệt quan trọng với thị trường winner-take-all như marketplace (Airbnb, Uber, eBay)</li>
+        <li><strong>Word-of-mouth (K-factor)</strong> — Bao nhiêu khách hàng đến vì được khách hàng khác giới thiệu?</li>
+      </ul>
+
+      <div class="key-insight">
+        <strong>Lưu ý khi phỏng vấn:</strong> Nhiều ứng viên bỏ qua việc làm rõ định nghĩa "go-to-market" trước khi trả lời. Đây là từ mang nhiều nghĩa khác nhau — hãy xác nhận với phỏng vấn viên trước khi đề xuất số liệu.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Tổng kết Chương 18</div>
+  <p>Chương này minh họa rằng tư duy metrics không chỉ giới hạn trong sản phẩm công nghệ — bạn có thể được hỏi về nhà tù Ireland, hiệu suất nhân viên kho hàng, hay chiến lược marketing. Nguyên tắc xuyên suốt là: <strong>định nghĩa rõ mục tiêu → phân tầng vấn đề → chọn số liệu đo lường trực tiếp → ưu tiên theo giai đoạn và chiến lược.</strong></p>
+  <p>Điểm nổi bật: với các sản phẩm mới (UberPool), adoption đi trước monetization. Với sản phẩm trưởng thành (AWS), thị phần là la bàn chiến lược. Với sản phẩm cần sửa chữa (Dropbox support), response time đánh bại mọi số liệu kỹ thuật vì nó chạm đến cảm xúc khách hàng — điều mà mọi dữ liệu kỹ thuật không thể thay thế được.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch17.html"><span class="lbl">Chương trước</span>Chương 17: Metrics: Số liệu Sụt giảm</a>
+  <a href="pm_interview_ch19.html"><span class="lbl">Chương sau</span>Chương 19: Hypothetical: Opinion</a>
+</nav>
+</body>
+</html>

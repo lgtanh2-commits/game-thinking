@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phần 1: Fintech là gì? — Giới thiệu Fintech Module 1</title>
+<style>
+:root {
+  --bg: #fafafa; --text: #111111; --text-secondary: #333333;
+  --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
+  --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px; line-height: 1.8; color: var(--text);
+  background: var(--bg); max-width: 820px;
+  margin: 0 auto; padding: 60px 40px 100px;
+}
+.module-label { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+h1 { font-size: 2.4rem; font-weight: 700; line-height: 1.2; margin-bottom: 8px; color: var(--text); }
+.subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 48px; padding-bottom: 32px; border-bottom: 2px solid var(--accent-line); }
+h2 { font-size: 1.3rem; font-weight: 700; margin: 48px 0 16px; color: var(--text); }
+p { margin-bottom: 16px; color: var(--text-secondary); }
+.definition-box { background: var(--surface); border-left: 3px solid var(--accent-line); padding: 20px 24px; margin: 24px 0; font-size: 1.05rem; line-height: 1.7; color: var(--text); }
+.component-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+.component-item { background: var(--surface); border: 1px solid var(--border); padding: 18px 20px; }
+.component-number { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 6px; }
+.component-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.component-desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+.aim-block { background: var(--surface-dark); border: 1px solid var(--border); padding: 24px 28px; margin: 28px 0; }
+.conclusion-box { margin-top: 64px; padding: 32px 36px; border: 2px solid var(--accent-line); background: var(--surface); }
+.conclusion-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+.conclusion-box p { font-size: 1.0rem; line-height: 1.8; color: var(--text); margin-bottom: 12px; }
+.conclusion-box p:last-child { margin-bottom: 0; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+@media (max-width: 600px) { body { padding: 36px 20px 60px; } .component-grid { grid-template-columns: 1fr; } h1 { font-size: 1.8rem; } }
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/fintech-intro">← Về mục lục</a></p>
+
+
+<div class="module-label">Giới thiệu Fintech — Module 1 · Dr. Mohan Cherian · Phần 1</div>
+<h1>Fintech là gì?</h1>
+<div class="subtitle">Slide 1–6 &nbsp;|&nbsp; Định nghĩa, Các thành phần &amp; Mục tiêu của Công nghệ Tài chính</div>
+
+<h2>Định nghĩa</h2>
+<div class="definition-box">
+  Fintech, viết tắt của <strong>Financial Technology (Công nghệ Tài chính)</strong>, là việc ứng dụng công nghệ một cách sáng tạo để cung cấp các dịch vụ tài chính và nâng cao hiệu quả của các giao dịch tài chính.
+</div>
+<p>Fintech là sự giao thoa giữa tài chính và công nghệ — một hệ sinh thái ngày càng phát triển gồm các công ty, nền tảng và sản phẩm đang căn bản tái định hình cách chúng ta quản lý, chuyển giao, đầu tư và bảo vệ tiền bạc. Thay vì chỉ dựa vào các ngân hàng và tổ chức tài chính truyền thống, Fintech tận dụng hạ tầng kỹ thuật số để làm cho dịch vụ tài chính trở nên nhanh hơn, rẻ hơn, dễ tiếp cận hơn và cá nhân hóa hơn.</p>
+
+<hr class="divider">
+
+<h2>Fintech bao gồm những gì?</h2>
+<p>Fintech là một lĩnh vực rộng lớn trải rộng trên bảy lĩnh vực cốt lõi, mỗi lĩnh vực giải quyết một khía cạnh khác nhau của dịch vụ tài chính:</p>
+
+<div class="component-grid">
+  <div class="component-item">
+    <div class="component-number">01</div>
+    <div class="component-title">Thanh toán Kỹ thuật số</div>
+    <div class="component-desc">Các dịch vụ như ví điện tử, ứng dụng chuyển tiền ngang hàng và hệ thống thanh toán không tiếp xúc. Giảm thiểu ma sát trong giao dịch hàng ngày, loại bỏ nhu cầu sử dụng tiền mặt hoặc đến chi nhánh ngân hàng.</div>
+  </div>
+  <div class="component-item">
+    <div class="component-number">02</div>
+    <div class="component-title">Ngân hàng Trực tuyến</div>
+    <div class="component-desc">Ngân hàng truyền thống và neobank cung cấp dịch vụ qua nền tảng kỹ thuật số. Khách hàng có thể mở tài khoản, chuyển tiền, vay vốn và quản lý tài chính hoàn toàn qua giao diện web hoặc di động.</div>
+  </div>
+  <div class="component-item">
+    <div class="component-number">03</div>
+    <div class="component-title">Nền tảng Cho vay</div>
+    <div class="component-desc">Cho vay ngang hàng (P2P) và dịch vụ cho vay trực tuyến giúp đơn giản hóa quy trình vay vốn. Sử dụng dữ liệu thay thế và chấm điểm tín dụng bằng AI để mở rộng tín dụng cho các phân khúc chưa được phục vụ đầy đủ.</div>
+  </div>
+  <div class="component-item">
+    <div class="component-number">04</div>
+    <div class="component-title">Quản lý Đầu tư</div>
+    <div class="component-desc">Robo-advisor và các nền tảng cung cấp tư vấn đầu tư tự động. Sử dụng thuật toán để tạo và tái cân bằng danh mục với chi phí bằng một phần so với quản lý tài sản truyền thống.</div>
+  </div>
+  <div class="component-item">
+    <div class="component-number">05</div>
+    <div class="component-title">Blockchain &amp; Tiền mã hóa</div>
+    <div class="component-desc">Công nghệ cho phép giao dịch an toàn và hệ thống tài chính phi tập trung. Blockchain là nền tảng cho tiền mã hóa, hợp đồng thông minh và các ứng dụng DeFi (Tài chính phi tập trung).</div>
+  </div>
+  <div class="component-item">
+    <div class="component-number">06</div>
+    <div class="component-title">Insurtech</div>
+    <div class="component-desc">Đổi mới trong lĩnh vực bảo hiểm, bao gồm quản lý hợp đồng kỹ thuật số và xử lý khiếu nại. Sử dụng IoT, AI và telematics để cung cấp sản phẩm bảo hiểm cá nhân hóa, theo nhu cầu thực tế.</div>
+  </div>
+  <div class="component-item">
+    <div class="component-number">07</div>
+    <div class="component-title">Regtech</div>
+    <div class="component-desc">Công nghệ giúp các công ty tuân thủ quy định tài chính một cách hiệu quả. Tự động hóa KYC (Xác minh khách hàng), AML (Chống rửa tiền) và báo cáo quy định, giảm đáng kể chi phí tuân thủ.</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<h2>Mục tiêu của Fintech</h2>
+<div class="aim-block">
+  <p>Fintech hướng đến việc <strong>nâng cao trải nghiệm người dùng, giảm chi phí và cải thiện khả năng tiếp cận</strong> các dịch vụ tài chính cho cả cá nhân lẫn doanh nghiệp.</p>
+  <p style="margin-bottom:0;">Fintech đã biến đổi cách chúng ta quản lý tiền bạc, đầu tư và thực hiện giao dịch — đưa thế giới tài chính từ mô hình dựa trên giấy tờ và chi nhánh sang hệ sinh thái ưu tiên kỹ thuật số, luôn sẵn sàng và có thể truy cập từ bất kỳ thiết bị nào.</p>
+</div>
+<p>Bằng cách loại bỏ các rào cản truyền thống — địa lý, số dư tài khoản tối thiểu, thủ tục giấy tờ phức tạp — Fintech đã dân chủ hóa quyền tiếp cận các dịch vụ tài chính. Doanh nghiệp nhỏ ở vùng nông thôn giờ có thể tiếp cận tín dụng qua nền tảng cho vay kỹ thuật số. Nhà đầu tư lần đầu có thể xây dựng danh mục với số vốn rất nhỏ. Người lao động di cư có thể gửi tiền xuyên biên giới trong vài phút, không phải vài ngày, với chi phí thấp hơn đáng kể.</p>
+<p>Sự chuyển đổi này đã được đẩy nhanh trên toàn cầu, và đặc biệt tại Ấn Độ — nơi sự kết hợp giữa việc phổ biến điện thoại thông minh, Giao diện Thanh toán Thống nhất (UPI) và lượng lớn dân số chưa có tài khoản ngân hàng đã tạo ra môi trường lý tưởng cho đổi mới Fintech ở quy mô lớn.</p>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận</div>
+  <p>Fintech không đơn thuần là tập hợp các công cụ công nghệ — đó là sự tái tưởng tượng căn bản về cách các dịch vụ tài chính được thiết kế, cung cấp và trải nghiệm. Bằng cách đặt công nghệ vào trung tâm của tài chính, Fintech đang làm cho hệ thống hiệu quả hơn, toàn diện hơn và đáp ứng tốt hơn nhu cầu của người tiêu dùng và doanh nghiệp hiện đại.</p>
+  <p>Bảy thành phần — thanh toán kỹ thuật số, ngân hàng trực tuyến, nền tảng cho vay, quản lý đầu tư, blockchain và tiền mã hóa, insurtech và regtech — cùng nhau tạo nên một hệ sinh thái hoàn chỉnh thách thức các mô hình tài chính truyền thống và mở ra những cơ hội đổi mới mới. Khi Fintech tiếp tục phát triển, tác động của nó sẽ ngày càng sâu rộng hơn, định hình lại mọi thứ từ thanh toán hàng ngày đến các chiến lược đầu tư phức tạp.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="fintech_m1_s2.html"><span class="lbl">Phần sau</span>Phần 2: BFSI & Chuỗi giá trị BFSI</a>
+</nav>
+</body>
+</html>

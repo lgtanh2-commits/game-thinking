@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 14 – Thiết kế Sản phẩm: Tổng hợp</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:48px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.chapter-header{margin-bottom:56px;}
+.chapter-number{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:32px;font-weight:700;line-height:1.25;letter-spacing:-0.02em;margin-bottom:16px;}
+.chapter-subtitle{font-size:18px;color:var(--text-secondary);line-height:1.5;padding-top:12px;border-top:3px solid var(--accent-line);}
+.exercise{margin-bottom:64px;padding-bottom:64px;border-bottom:1px solid var(--border);}
+.exercise:last-of-type{border-bottom:none;}
+.exercise-meta{display:flex;align-items:baseline;gap:12px;margin-bottom:20px;}
+.exercise-number{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap;}
+.exercise-title{font-size:22px;font-weight:700;letter-spacing:-0.01em;}
+.question-block{background:var(--surface);border-left:3px solid var(--accent-line);padding:20px 24px;margin-bottom:28px;font-size:17px;font-style:italic;color:var(--text-secondary);line-height:1.6;}
+.section-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;margin-top:28px;}
+.tip-box{background:var(--surface);border:1px solid var(--border);padding:16px 20px;margin-bottom:8px;}
+.tip-box ul,.note-box ul{padding-left:20px;}
+.tip-box li,.note-box li{margin-bottom:6px;color:var(--text-secondary);}
+.note-box{background:#fff;border:1px dashed var(--border-strong);padding:16px 20px;margin-bottom:8px;}
+.note-box li{color:var(--text-muted);}
+h3{font-size:18px;font-weight:700;margin-top:28px;margin-bottom:12px;}
+h4{font-size:15px;font-weight:700;margin-top:20px;margin-bottom:8px;color:var(--text-secondary);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+ul,ol{padding-left:22px;margin-bottom:14px;}
+li{margin-bottom:6px;color:var(--text-secondary);}
+.dialog-block{border-left:2px solid var(--border);padding-left:16px;margin:12px 0;}
+.dialog-candidate{color:var(--text);font-weight:500;}
+.dialog-interviewer{color:var(--text-muted);}
+.dialog-action{color:var(--text-muted);font-style:italic;}
+.highlight-box{background:var(--surface-dark);padding:16px 20px;margin:16px 0;border-radius:2px;}
+.calc-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);}
+.calc-row:last-child{border-bottom:none;font-weight:700;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;}
+th{background:var(--surface-dark);padding:10px 12px;text-align:left;font-weight:700;border:1px solid var(--border);}
+td{padding:9px 12px;border:1px solid var(--border);color:var(--text-secondary);}
+tr:nth-child(even) td{background:var(--surface);}
+.conclusion-box{margin-top:72px;padding:32px 36px;border:2px solid var(--accent-line);background:#fff;}
+.conclusion-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.conclusion-box h2{font-size:22px;font-weight:700;margin-bottom:16px;}
+.conclusion-box p{color:var(--text-secondary);}
+.tag{display:inline-block;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;background:var(--surface-dark);padding:3px 8px;margin-right:6px;margin-bottom:4px;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 14</div>
+
+<div class="chapter-header">
+  <div class="chapter-number">Chương 14</div>
+  <h1>Thiết kế Sản phẩm: Tổng hợp</h1>
+  <div class="chapter-subtitle">Vận dụng toàn diện Phương pháp CIRCLES™ và các kỹ năng thiết kế sản phẩm qua 28 tình huống thực tế</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 1 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 01</span>
+    <span class="exercise-title">Những người bạn có thể biết – Facebook</span>
+  </div>
+  <div class="question-block">Thiết kế tính năng "People You May Know" (Những người bạn có thể biết) cho Facebook.</div>
+
+  <h3>Đáp án</h3>
+  <p>Bài toán này liên quan đến bài toán đồ thị xã hội: <strong>A</strong> là người dùng hiện tại, <strong>B</strong> là người dùng có thể quen.</p>
+
+  <h4>Tiêu chí đề xuất kết bạn</h4>
+  <ul>
+    <li>Có nhiều bạn chung</li>
+    <li>Cùng nhóm, sự kiện, trang fanpage</li>
+    <li>Cùng trường học hoặc nơi làm việc</li>
+    <li>A biết B qua email hoặc mạng xã hội khác</li>
+    <li>Cùng chuyên ngành</li>
+    <li>Sống gần nhau hoặc đã sống tại cùng địa điểm</li>
+  </ul>
+
+  <h4>Hệ thống điểm</h4>
+  <p>Gán điểm cho từng tiêu chí (ví dụ: bạn chung = 5 điểm, cùng trường = 3 điểm...). Sắp xếp B theo tổng điểm giảm dần.</p>
+
+  <h4>Thuật toán cho sinh viên đại học</h4>
+  <p>B được đề xuất nếu: cùng trường + cùng độ tuổi + tỷ lệ bạn chung &gt; X%. Tỷ lệ ngưỡng X được tối ưu hóa bằng A/B test.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 2 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 02</span>
+    <span class="exercise-title">Thiết kế Menu Cửa hàng Trong trò chơi</span>
+  </div>
+  <div class="question-block">Thiết kế menu cửa hàng trong game (in-game store). Vẽ wireframe và giải thích lý do.</div>
+
+  <h3>Đáp án – Ba phương án wireframe</h3>
+
+  <h4>Phương án A: Tab ngang (Horizontal Tabs)</h4>
+  <div class="highlight-box">
+    <p><strong>Bố cục:</strong> Tab ngang gồm Đá quý / Vàng / Vật phẩm / VIP. Mỗi tab hiển thị gói mua với % bonus nổi bật. Không có nút X để thoát (buộc người dùng nhìn qua offer).</p>
+    <p><strong>Ưu điểm:</strong> Tập trung vào chuyển đổi, tỷ lệ mua cao hơn.</p>
+  </div>
+
+  <h4>Phương án B: Cuộn dọc với quảng cáo động</h4>
+  <div class="highlight-box">
+    <p><strong>Bố cục:</strong> Danh sách cuộn dọc xen kẽ banner quảng cáo có hiệu ứng động. Gợi mắt, tạo cảm giác "phải mua ngay".</p>
+    <p><strong>Hạn chế:</strong> Có thể gây phân tâm, UX rối.</p>
+  </div>
+
+  <h4>Phương án C: Metro Design</h4>
+  <div class="highlight-box">
+    <p><strong>Bố cục:</strong> 4 ô vuông lớn phân theo danh mục → nhấn vào → lưới sản phẩm chi tiết. Gọn gàng, dễ điều hướng.</p>
+    <p><strong>Ưu điểm:</strong> Phù hợp mobile, trực quan.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 3 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 03</span>
+    <span class="exercise-title">Amazon Chiếu sáng & Nội thất Nhà</span>
+  </div>
+  <div class="question-block">Bạn là PM tại Amazon. Hãy thiết kế trải nghiệm mua đèn và đồ chiếu sáng cho nhà ở.</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul><li>Sử dụng phương pháp CIRCLES™ đầy đủ</li><li>Chú ý đến cả trải nghiệm vật lý lẫn kỹ thuật số</li></ul></div>
+
+  <h3>Đáp án – Phương pháp CIRCLES™</h3>
+
+  <h4>C – Xác định tình huống (Comprehend)</h4>
+  <p>Mục tiêu: tăng doanh thu từ danh mục đèn và chiếu sáng nhà.</p>
+
+  <h4>I – Xác định người dùng (Identify)</h4>
+  <table>
+    <tr><th>Phân khúc</th><th>Nhu cầu chính</th></tr>
+    <tr><td>Chuyên gia trẻ bận rộn</td><td>Thiết kế đẹp, phù hợp không gian nhỏ, đặt hàng nhanh</td></tr>
+    <tr><td>Chủ nhà trưởng thành</td><td>Thay thế đèn cũ, an toàn điện, giá hợp lý</td></tr>
+    <tr><td>Doanh nghiệp vừa và nhỏ</td><td>Mua số lượng lớn, hóa đơn VAT</td></tr>
+  </table>
+  <p><strong>Ưu tiên:</strong> Chuyên gia trẻ bận rộn – phân khúc phát triển nhanh, ngân sách cao, mua online thường xuyên.</p>
+
+  <h4>R – Điểm đau (Report)</h4>
+  <ul>
+    <li>Không biết đèn có phù hợp với nội thất phòng không (màu sắc, kích thước)</li>
+    <li>Khó hình dung ánh sáng thực tế khi nhìn ảnh 2D</li>
+  </ul>
+
+  <h4>C – Các giải pháp (Cut)</h4>
+
+  <h4>Giải pháp 1: Gợi ý thông minh</h4>
+  <p>Dựa trên lịch sử mua, phong cách nội thất đã chọn, gợi ý đèn phù hợp.</p>
+
+  <h4>Giải pháp 2: Thử tại nhà (Try at Home)</h4>
+  <p>Giao đèn dùng thử 7 ngày, miễn phí trả lại nếu không hài lòng.</p>
+
+  <h4>Giải pháp 3: Panorama AR ⭐ (Khuyến nghị)</h4>
+  <div class="highlight-box">
+    <p>Người dùng chụp ảnh panorama căn phòng → kéo và thả mẫu đèn vào ảnh → xem cách đèn trông như thế nào dưới ánh sáng bình minh, ban ngày, hoàng hôn, và ban đêm.</p>
+    <p><strong>Lý do chọn:</strong> Không tốn chi phí vật lý như Try at Home, xây dựng lợi thế cạnh tranh độc đáo, trải nghiệm vượt trội.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 4 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 04</span>
+    <span class="exercise-title">Thêm tính năng mới cho Amazon Prime</span>
+  </div>
+  <div class="question-block">Bạn sẽ thêm tính năng gì vào Amazon Prime? Phân tích tác động kinh doanh.</div>
+
+  <h3>Đáp án – Tính năng Nội dung Độc quyền (Exclusives)</h3>
+  <p>Amazon phát hành sản phẩm độc quyền chỉ dành cho thành viên Prime trong 90 ngày đầu.</p>
+
+  <h4>Ước tính doanh thu</h4>
+  <table>
+    <tr><th>Hạng mục</th><th>Tính toán</th><th>Kết quả</th></tr>
+    <tr><td>Đăng ký Prime mới</td><td>50 triệu khách hàng không-Prime × 3% × $100</td><td>$150 triệu</td></tr>
+    <tr><td>Doanh thu mua hàng tăng thêm</td><td>105.000 khách hàng × $40 × 365 ngày</td><td>~$1,5 tỷ</td></tr>
+    <tr><td><strong>Tổng doanh thu</strong></td><td></td><td><strong>$1,65 tỷ</strong></td></tr>
+  </table>
+
+  <h4>Ước tính chi phí</h4>
+  <table>
+    <tr><th>Hạng mục</th><th>Tính toán</th><th>Kết quả</th></tr>
+    <tr><td>Chi phí trợ giá sản phẩm độc quyền</td><td>105.000 × $40 × 90 ngày</td><td>$378 triệu</td></tr>
+    <tr><td>Chi phí vận chuyển</td><td>105.000 × $12 × 365 ngày</td><td>$459,9 triệu</td></tr>
+    <tr><td><strong>Tổng chi phí</strong></td><td></td><td><strong>$837,9 triệu</strong></td></tr>
+  </table>
+
+  <div class="highlight-box">
+    <p><strong>Lợi nhuận ròng:</strong> $1,65 tỷ − $837,9 triệu ≈ <strong>$812 triệu</strong> — đây là cơ hội kinh doanh hấp dẫn.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 5 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 05</span>
+    <span class="exercise-title">Thuật toán Đề xuất cho Amazon Video</span>
+  </div>
+  <div class="question-block">Thiết kế thuật toán đề xuất nội dung cho Amazon Video.</div>
+
+  <h3>Đáp án</h3>
+  <p>Mô hình học máy (ML) sử dụng tổ hợp các biến đầu vào:</p>
+  <ul>
+    <li>Thể loại tương tự (Similar Genre)</li>
+    <li>Độ dài tương tự (Similar Length)</li>
+    <li>Nội dung đang xem phổ biến (What Others Are Watching)</li>
+    <li>Nhân khẩu học (Demography)</li>
+    <li>Vị trí địa lý (Geography)</li>
+    <li>Thiết bị đang dùng (Device)</li>
+    <li>Thời điểm trong ngày (Time of Day)</li>
+  </ul>
+
+  <h4>Lộ trình triển khai</h4>
+  <ol>
+    <li>Xác nhận biến nào có tác động lớn nhất qua A/B test</li>
+    <li>Bắt đầu với phim hài – dễ đo lường satisfaction</li>
+    <li>Mở rộng sang thể loại khác sau khi có kết quả tốt</li>
+  </ol>
+
+  <h4>Chỉ số đánh giá</h4>
+  <ul>
+    <li>Tỷ lệ nhấp vào video được đề xuất (CTR)</li>
+    <li>Thời gian xem thực tế</li>
+    <li>Điểm hài lòng của người dùng</li>
+    <li>Mức độ hội tụ nội dung (convergence)</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 6 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 06</span>
+    <span class="exercise-title">Thay đổi Amazon Prime như thế nào?</span>
+  </div>
+  <div class="question-block">Nếu bạn là CEO Amazon, bạn sẽ thay đổi Amazon Prime như thế nào?</div>
+
+  <h3>Đáp án</h3>
+  <h4>Các yếu tố cần phân tích</h4>
+  <ul>
+    <li>Chi phí vận chuyển miễn phí và vận chuyển 2 ngày</li>
+    <li>Số lượng thành viên Prime và không-Prime</li>
+    <li>Số kiện hàng trung bình mỗi người, giá trị đơn hàng, tần suất mua</li>
+    <li>Biên lợi nhuận, mua sắm kỹ thuật số, phí thành viên hiện tại</li>
+    <li>Các quyền lợi khác (streaming, đọc sách, cloud...)</li>
+  </ul>
+
+  <h4>Hướng hành động</h4>
+  <ul>
+    <li><strong>Tăng doanh thu:</strong> Thêm quyền lợi premium để nâng phí thành viên</li>
+    <li><strong>Quản lý chi phí:</strong> Áp đặt giá trị đơn hàng tối thiểu để hưởng miễn phí vận chuyển</li>
+    <li><strong>Mở rộng đối tượng:</strong> Gói Prime Student, Prime Senior với quyền lợi phù hợp</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 7 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 07</span>
+    <span class="exercise-title">Cải thiện Đăng nhập Facebook</span>
+  </div>
+  <div class="question-block">Cải thiện trải nghiệm đăng nhập Facebook trên mobile. Chỉ số mục tiêu là activation.</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul><li>Phân biệt hai nhóm: người dùng hiện tại và người dùng mới</li><li>Chỉ số activation là trọng tâm</li></ul></div>
+
+  <h3>Đáp án</h3>
+
+  <h4>Người dùng hiện tại</h4>
+  <ul>
+    <li><strong>1-click login:</strong> Đồng bộ trình duyệt lưu mật khẩu, đăng nhập tự động</li>
+    <li>Xác minh bổ sung qua số điện thoại (bảo mật)</li>
+  </ul>
+
+  <h4>Người dùng mới</h4>
+  <ul>
+    <li>Đăng ký bằng Apple ID hoặc Google ID</li>
+    <li>Tự động điền thông tin (Auto Fill)</li>
+    <li><strong>Kiểm tra tài khoản trùng lặp sớm</strong> ⭐ (Khuyến nghị)</li>
+  </ul>
+
+  <div class="highlight-box">
+    <p><strong>Đề xuất:</strong> Ưu tiên kiểm tra tài khoản trùng lặp ngay từ đầu luồng đăng ký — "quả treo thấp nhất", giảm ma sát ngay lập tức mà không cần phát triển phức tạp.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 8 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 08</span>
+    <span class="exercise-title">Trải nghiệm UX cho Instagram Video</span>
+  </div>
+  <div class="question-block">Thiết kế UX cho video dài không giới hạn trên Instagram, tối ưu cho người xem trên web.</div>
+
+  <h3>Đáp án</h3>
+
+  <h4>Thông tin mới cần hiển thị</h4>
+  <ul>
+    <li>Mức độ phổ biến (Popularity)</li>
+    <li>Độ dài video (Length)</li>
+    <li>Thời gian còn lại (Time Remaining)</li>
+  </ul>
+
+  <h4>Điều khiển mới</h4>
+  <ul>
+    <li>Nút Play / Pause</li>
+    <li>Tua nhanh / Tua lại</li>
+  </ul>
+
+  <h4>Thiết kế các trạng thái UX</h4>
+  <table>
+    <tr><th>Trạng thái</th><th>Hiển thị</th></tr>
+    <tr><td>Di chuột qua (Hover)</td><td>Nút Play lớn ở trung tâm</td></tr>
+    <tr><td>Bình thường (Neutral)</td><td>Icon độ dài + icon mức độ phổ biến</td></tr>
+    <tr><td>Tạm dừng (Paused)</td><td>Thanh tiến trình + đếm ngược thời gian</td></tr>
+    <tr><td>Đang phát (Playing)</td><td>Thanh tiến trình + các điều khiển đầy đủ</td></tr>
+  </table>
+
+  <div class="highlight-box">
+    <p><strong>Triết lý thiết kế:</strong> Giữ giao diện đơn giản tối đa → tối đa hóa engagement. Người dùng web xem video để giải trí, không cần quá nhiều tùy chọn.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 9 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 09</span>
+    <span class="exercise-title">Tính năng Bing dành cho Nhân viên Kinh doanh</span>
+  </div>
+  <div class="question-block">Thiết kế tính năng Bing hỗ trợ nhân viên kinh doanh chuẩn bị cho cuộc họp bán hàng 30 phút.</div>
+
+  <h3>Đáp án</h3>
+  <p>Tập trung vào "mạng lưới ẩn" (hidden network) — xác định người có ảnh hưởng trong tổ chức khách hàng.</p>
+
+  <h4>6 phương pháp xác định người có ảnh hưởng</h4>
+  <table>
+    <tr><th>Phương pháp</th><th>Trạng thái</th><th>Lý do</th></tr>
+    <tr><td>Khảo sát ẩn danh</td><td>✓ Giữ lại</td><td>Phản hồi trung thực</td></tr>
+    <tr><td>Phỏng vấn 1-1</td><td>✓ Giữ lại</td><td>Thông tin chiều sâu</td></tr>
+    <tr><td>Computer Vision</td><td>✗ Loại bỏ</td><td>Vấn đề quyền riêng tư</td></tr>
+    <tr><td>Phân tích email</td><td>✗ Loại bỏ</td><td>Vấn đề quyền truy cập</td></tr>
+    <tr><td>Phân tích chat</td><td>✗ Loại bỏ</td><td>Vấn đề quyền truy cập</td></tr>
+    <tr><td>Thừa kế mặc định (org chart)</td><td>✓ Giữ lại</td><td>Dữ liệu có sẵn</td></tr>
+  </table>
+
+  <h4>Mô hình Quid Pro Quo (tương tự Glassdoor)</h4>
+  <p>Nhân viên kinh doanh chia sẻ thông tin tổ chức của mình để đổi lấy thông tin về tổ chức khách hàng → xây dựng cộng đồng chia sẻ lẫn nhau.</p>
+
+  <h4>Lợi ích</h4>
+  <ul>
+    <li>Gợi ý người ảnh hưởng nên gặp</li>
+    <li>Hỗ trợ xây dựng liên minh bên trong tổ chức khách hàng</li>
+    <li>Thu thập thông tin cạnh tranh từ các GM</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 10 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 10</span>
+    <span class="exercise-title">Cải thiện Facebook trên Web</span>
+  </div>
+  <div class="question-block">Cải thiện Facebook trên desktop web. Mục tiêu: tăng engagement.</div>
+
+  <h3>Đáp án</h3>
+
+  <h4>Phân khúc người dùng</h4>
+  <table>
+    <tr><th>Nhóm</th><th>Đặc điểm</th></tr>
+    <tr><td>Always-Ons</td><td>Dùng Facebook cả ngày, loyalty cao</td></tr>
+    <tr><td>Regulars ⭐</td><td>Vào Facebook vài lần/ngày, tiềm năng tăng engagement</td></tr>
+    <tr><td>Influencers</td><td>Tạo nội dung, ít cần cải thiện</td></tr>
+  </table>
+
+  <h4>Điểm đau của Regulars</h4>
+  <ul>
+    <li>Không thể lọc nội dung theo chủ đề/người</li>
+    <li>Không thể lưu bài đọc sau</li>
+    <li>Luồng bình luận dài và khó theo dõi</li>
+  </ul>
+
+  <h4>3 Giải pháp</h4>
+
+  <h4>1. Bộ lọc thông minh (Filtering)</h4>
+  <p>Cho phép lọc Newsfeed theo chủ đề, nhóm bạn, thời gian.</p>
+
+  <h4>2. SMCT – Hiển thị Luồng Bình luận Chính (Khuyến nghị cho desktop)</h4>
+  <div class="highlight-box">
+    <p>AI xác định nhánh bình luận quan trọng nhất và làm nổi bật. Phù hợp mục tiêu desktop vì desktop có không gian màn hình lớn để hiển thị.</p>
+  </div>
+
+  <h4>3. Lưu để đọc sau (Save For Later)</h4>
+  <p>Bookmark bài viết để đọc khi rảnh. Tác động toàn diện hơn nhưng không phải desktop-specific.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 11 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 11</span>
+    <span class="exercise-title">Cải thiện Facebook trên Mobile</span>
+  </div>
+  <div class="question-block">Cải thiện Facebook trên mobile.</div>
+
+  <h3>Đáp án</h3>
+
+  <h4>3 vấn đề lớn trên mobile</h4>
+  <ol>
+    <li>Quảng cáo gây phiền nhiễu</li>
+    <li>Ứng dụng Messenger tách rời</li>
+    <li>Tin tức giả mạo (fake news)</li>
+  </ol>
+  <p><strong>Ưu tiên:</strong> Quảng cáo — ảnh hưởng đến toàn bộ người dùng mobile.</p>
+
+  <h4>5 lý do quảng cáo gây khó chịu</h4>
+  <ul>
+    <li>Cản trở luồng đọc (obstacle)</li>
+    <li>Không liên quan đến người dùng (irrelevant)</li>
+    <li>Cảm giác bị theo dõi (creepy)</li>
+    <li>Gây bối rối trước mặt người khác (embarrassing)</li>
+    <li>Làm chậm ứng dụng (slow UX)</li>
+  </ul>
+
+  <h4>5 giải pháp</h4>
+  <ul>
+    <li><strong>Sticker/emoji dựa trên vị trí ⭐ (Khuyến nghị):</strong> Khi đăng ảnh tại địa điểm, Facebook gợi ý sticker thương hiệu địa phương — quảng cáo tự nhiên, người dùng chủ động dùng</li>
+    <li>Quảng cáo liên quan đến nội dung bài đăng</li>
+    <li>Coupon dựa trên vị trí (cửa hàng gần đó)</li>
+    <li>Coupon "Bạn có biết không?" (thông tin hữu ích)</li>
+    <li>Bài viết được tài trợ nhưng bạn sẽ thực sự đọc</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 12 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 12</span>
+    <span class="exercise-title">Cải thiện Pinterest</span>
+  </div>
+  <div class="question-block">Cải thiện Pinterest. Mục tiêu: tăng sự hài lòng của khách hàng (customer satisfaction).</div>
+
+  <h3>Đáp án</h3>
+
+  <h4>Phân khúc người dùng</h4>
+  <table>
+    <tr><th>Nhóm</th><th>Nhu cầu</th></tr>
+    <tr><td>Bươm bướm xã hội (Social Butterflies)</td><td>Chia sẻ và kết nối</td></tr>
+    <tr><td>Nhà thiết kế (Designers) ⭐</td><td>Tìm kiếm và lưu cảm hứng sáng tạo</td></tr>
+    <tr><td>Người sưu tập (Curators)</td><td>Tổ chức bộ sưu tập</td></tr>
+    <tr><td>Nhà tiếp thị (Marketers)</td><td>Quảng bá sản phẩm</td></tr>
+  </table>
+
+  <h4>Điểm đau của nhà thiết kế</h4>
+  <p><em>Khi tìm kiếm:</em> kết quả không liên quan, không đủ kết quả, không thể tìm theo loại, thiếu cảm giác xúc giác (can't pin/touch).</p>
+  <p><em>Khi lưu:</em> bảng pin cố định, ảnh phẳng 2D thiếu chiều sâu.</p>
+
+  <h4>4 Giải pháp</h4>
+  <ul>
+    <li><strong>Tìm kiếm đã lưu ⭐ (Khuyến nghị):</strong> Lưu chuỗi tìm kiếm, tự động cập nhật kết quả mới — mở rộng theo quy mô, xây dựng cộng đồng</li>
+    <li>Tìm kiếm ngôn ngữ tự nhiên (Natural Language Search)</li>
+    <li>Thuê thủ thư ảo (Hire a Librarian)</li>
+    <li>Mở rộng kết quả từ web bên ngoài</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 13 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 13</span>
+    <span class="exercise-title">Cải thiện Amazon</span>
+  </div>
+  <div class="question-block">Cải thiện Amazon. Mục tiêu: tăng tỷ lệ giữ chân khách hàng (retention).</div>
+
+  <h3>Đáp án – 3 tính năng</h3>
+
+  <h4>1. Items Just for You ⭐ (Khuyến nghị)</h4>
+  <div class="highlight-box">
+    <p>Mỗi vài ngày, Amazon gửi danh sách sản phẩm được cá nhân hóa dựa trên lịch sử mua, kèm ưu đãi giảm giá.</p>
+    <p><strong>Lý do chọn:</strong> Dữ liệu đã có sẵn, dễ triển khai, không cần thay đổi hành vi người dùng.</p>
+  </div>
+
+  <h4>2. Đánh giá hàng ngày (Daily Ratings)</h4>
+  <p>Mời người dùng đánh giá sản phẩm đang có xu hướng giảm số sao. Đổi lại nhận coupon giảm 3% (có thể cộng dồn).</p>
+
+  <h4>3. Coupon giữ chân (Retention Coupon)</h4>
+  <p>Tự động gửi coupon 10-15% cho người dùng không hoạt động trong 30-60 ngày.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 14 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 14</span>
+    <span class="exercise-title">Cải thiện Dropbox</span>
+  </div>
+  <div class="question-block">Cải thiện Dropbox.</div>
+
+  <h3>Đáp án</h3>
+
+  <h4>Phân khúc người dùng</h4>
+  <table>
+    <tr><th>Nhóm</th><th>Đặc điểm</th></tr>
+    <tr><td>Casual Consumer</td><td>Cá nhân, lưu trữ ảnh, tài liệu cá nhân</td></tr>
+    <tr><td>One-Woman/Man-Band</td><td>Freelancer, dùng một mình nhưng chuyên nghiệp</td></tr>
+    <tr><td>Business User ⭐</td><td>Nhóm làm việc, cộng tác thời gian thực, cần kiểm soát phiên bản</td></tr>
+  </table>
+
+  <h4>Nhu cầu của Business User</h4>
+  <ul>
+    <li>Cộng tác thời gian thực</li>
+    <li>"Git blame for Dropbox" (GBD) — biết ai đã thay đổi tập tin gì, khi nào</li>
+    <li>Nhắc nhở deadline / to-do</li>
+  </ul>
+
+  <h4>2 tính năng chính</h4>
+
+  <h4>1. Tính năng Chat</h4>
+  <p>Tích hợp chat trực tiếp trong Dropbox để thảo luận về tập tin. Giảm bước chuyển sang ứng dụng khác.</p>
+
+  <h4>2. GBD + Cộng tác thời gian thực ⭐ (Khuyến nghị)</h4>
+  <div class="highlight-box">
+    <p><strong>GBD:</strong> Mỗi thay đổi tập tin được ghi lại: ai thay đổi, thay đổi gì, lúc mấy giờ — giống git blame trong lập trình. Kết hợp với xem cùng lúc theo thời gian thực.</p>
+    <p><strong>Lý do:</strong> Chat là công cụ phổ thông (Slack, Teams đã làm tốt). GBD là lợi thế cạnh tranh đặc thù của Dropbox vì Dropbox xuất sắc về cộng tác tập tin — đây mới là thứ Dropbox làm tốt nhất.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 15 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 15</span>
+    <span class="exercise-title">Cải thiện Google Play Store</span>
+  </div>
+  <div class="question-block">Bạn sẽ thay đổi gì trong Google Play Store?</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Cân nhắc cả trải nghiệm người dùng lẫn nhà phát triển</li>
+    <li>Google Play có thể bao gồm: Ứng dụng, Nhạc, Phim, Sách</li>
+    <li>Khi thay đổi UX, cần vẽ wireframe cụ thể</li>
+  </ul></div>
+
+  <div class="section-label">Lỗi thường gặp</div>
+  <div class="note-box"><ul>
+    <li>Nghĩ rằng quy trình tư duy cấu trúc là đủ — câu trả lời cụ thể mới quan trọng</li>
+    <li>Đề xuất cải tiến bề mặt như "cải thiện thuật toán gợi ý"</li>
+    <li>Nói sẽ cải thiện UX mà không vẽ được wireframe</li>
+  </ul></div>
+
+  <h3>Đáp án</h3>
+  <p>Mục tiêu: tăng tỷ lệ tải xuống ứng dụng lặp lại (engagement + retention).</p>
+
+  <h4>3 ý tưởng</h4>
+
+  <h4>1. Khóa màn hình Screenshot (Screenshots)</h4>
+  <p>Google Play không khóa hướng màn hình khi hiển thị ảnh chụp màn hình ứng dụng. Người dùng phải nghiêng điện thoại để xem screenshot ngang. Cần tự động khóa hướng phù hợp — điều này tưởng nhỏ nhưng ảnh hưởng quyết định tải xuống.</p>
+
+  <h4>2. Tín dụng Giới thiệu Toàn Store (Referral Credits) ⭐ (Khuyến nghị)</h4>
+  <div class="highlight-box">
+    <p>Hiện tại nhiều app cho credit giới thiệu nhưng chỉ dùng được trong app đó. Ý tưởng: cho phép dùng credit trên toàn Google Play Store.</p>
+    <p><strong>Lợi ích cho nhà phát triển:</strong></p>
+    <ul>
+      <li><em>Hiển thị tốt hơn:</em> App có tính năng này được ưu tiên trong tìm kiếm và danh mục</li>
+      <li><em>Tăng giới thiệu:</em> Người dùng có động lực giới thiệu hơn vì credit dùng được rộng</li>
+      <li><em>Dễ triển khai:</em> API tương tự Google Analytics, nhà phát triển dễ tích hợp</li>
+    </ul>
+  </div>
+
+  <h4>3. UX Tối giản (Dead Simple UX)</h4>
+  <p>Giống trang chủ Google.com nổi tiếng tối giản. Hiện Google Play hiển thị quá nhiều gợi ý tải xuống ngay màn hình chính — có thể gây choáng ngợp. UX tối giản sẽ giúp người dùng đến nhanh hơn với thứ họ muốn.</p>
+
+  <div class="highlight-box">
+    <p><em>Lưu ý quan trọng về Dead Simple UX:</em> Nếu phần lớn tải xuống xung động xuất phát từ màn hình chính → ý tưởng này nguy hiểm. Nếu tải xuống xung động xuất phát từ trang sản phẩm → UX tối giản hợp lý (giúp người dùng đến trang sản phẩm nhanh hơn). Cần làm rõ trước khi quyết định.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 16 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 16</span>
+    <span class="exercise-title">Cải thiện Google Hangouts</span>
+  </div>
+  <div class="question-block">Bạn sẽ cải thiện Google Hangouts như thế nào?</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Đưa ra nhiều ý tưởng, không chỉ một</li>
+    <li>Đặt tên dễ nhớ cho mỗi ý tưởng</li>
+    <li>Giải thích rõ ý tưởng hoạt động thế nào và tại sao quan trọng</li>
+  </ul></div>
+
+  <h3>Đáp án</h3>
+  <p>Mục tiêu: tăng engagement — phù hợp khẩu hiệu Google "Focus on the user and all else will follow."</p>
+
+  <h4>3 ý tưởng</h4>
+
+  <h4>1. Tìm bạn mới (Find New Friends)</h4>
+  <p>Tính năng tìm kiếm bạn bè theo tiêu chí: tuổi, giới tính, vị trí địa lý. Giới thiệu bạn của bạn — giống mạng xã hội. Tăng engagement.</p>
+
+  <h4>2. Trạng thái gửi ảnh/video (Status during Image and Video Sending)</h4>
+  <p>Hiện khi gửi ảnh/video lớn, Hangouts chỉ hiện "Đang gửi…". Cần hiển thị % tiến trình upload để người dùng biết chờ bao lâu, giảm lo lắng.</p>
+
+  <h4>3. Trạng thái cá nhân (Personal Status) ⭐ (Khuyến nghị)</h4>
+  <div class="highlight-box">
+    <p>Học từ Tencent QQ và WeChat — thêm trạng thái ngắn (status message) như AIM ngày xưa. Cho phép người dùng chia sẻ một chút về bản thân và hoạt động hiện tại.</p>
+    <p><strong>Tại sao:</strong> Dễ triển khai nhất trong ba ý tưởng, tăng tính thân mật, là bước đầu tiên biến Hangouts thành mạng xã hội thực sự. Slack cũng dùng status, nhiều người Mỹ dùng "Remote" hay "Họp cả ngày" trong Slack.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 17 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 17</span>
+    <span class="exercise-title">Kiếm tiền từ Google Maps</span>
+  </div>
+  <div class="question-block">Bạn sẽ kiếm tiền từ Google Maps như thế nào?</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Sử dụng phương pháp CIRCLES™</li>
+    <li>Không ngại đề xuất ý tưởng táo bạo — Google thích "moonshot ideas"</li>
+  </ul></div>
+
+  <h3>Đáp án</h3>
+
+  <h4>Điểm đau khi dùng bản đồ</h4>
+  <ul>
+    <li>Không biết ứng dụng nào chỉ đường tốt nhất (Google Maps vs Waze vs Apple Maps)</li>
+    <li>Lái xe chán, đặc biệt chuyến đường dài</li>
+    <li>Muốn tìm hiểu về hồ, lâu đài, núi đang đi qua nhưng tay đang bận</li>
+    <li>Thấy địa điểm muốn ghé nhưng không nhớ sau</li>
+    <li>Không có dữ liệu di động, không kéo được chỉ đường</li>
+    <li>Cần bản đồ offline nhưng không biết tải trước lúc nào</li>
+    <li>Tìm xăng giá tốt nhất trên lộ trình</li>
+    <li>Lo bị phạt tốc độ</li>
+    <li>Muốn tìm hiểu thêm về nơi đang đến</li>
+  </ul>
+
+  <h4>3 ý tưởng kiếm tiền</h4>
+
+  <h4>1. Quảng cáo (Advertising)</h4>
+  <p>Nhà hàng, cửa hàng tài trợ xuất hiện trong kết quả tìm kiếm lân cận. Hoặc highlight biển quảng cáo trên GPS khi lái xe qua.</p>
+
+  <h4>2. Du lịch thám hiểm (Sightseeing) ⭐ (Khuyến nghị)</h4>
+  <div class="highlight-box">
+    <p>Trang web du lịch xây dựng ứng dụng hướng dẫn tham quan thành phố trên nền tảng Google Maps — như hướng dẫn viên cá nhân được tích hợp phần mềm.</p>
+    <p><strong>Lý do:</strong> Du lịch là thị trường hàng nghìn tỷ đô la chưa được khai thác. Airbnb đã chứng minh thế hệ millennial coi trọng trải nghiệm hơn vật chất. Đây là cơ hội mới hoàn toàn, không phải cải thiện điều đã có.</p>
+    <p><strong>Rủi ro:</strong> Chi phí xây dựng, chi phí cơ hội, cần đội outreach mới cho nhà phát triển du lịch.</p>
+  </div>
+
+  <h4>3. Trả trước dịch vụ xăng (Prepaying for Gas)</h4>
+  <p>Tích hợp Google Wallet để trả trước tiền xăng. Người dùng chọn điểm xăng trên lộ trình, thanh toán trước — tương tự đặt vé xe.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 18 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 18</span>
+    <span class="exercise-title">Trải nghiệm Disney với Điện thoại</span>
+  </div>
+  <div class="question-block">Tạo trải nghiệm xung quanh các công viên chủ đề Disney bằng điện thoại thông minh.</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Không bắt buộc phải dùng sản phẩm Google</li>
+    <li>Điểm đau gợi ý: Làm gì? Trẻ đang ở đâu? Ưu đãi ở đâu? Giảm thời gian chờ?</li>
+  </ul></div>
+
+  <h3>Đáp án</h3>
+
+  <h4>5 ý tưởng</h4>
+
+  <h4>1. Ảnh thông minh (Smart Photos) ⭐ (Khuyến nghị)</h4>
+  <div class="highlight-box">
+    <p>Khi chụp ảnh, app gợi ý chỉnh sửa ảnh và nhận diện nhân vật/địa điểm Disney trong ảnh. Ví dụ: chụp ở cung điện của Aladdin → Aladdin và thảm bay xuất hiện bên cạnh trong ảnh. Nhận diện trang phục Disney mà người đi cùng đang mặc.</p>
+    <p><strong>Tại sao:</strong> Du khách Disneyland luôn chụp ảnh, đặc biệt selfie. Nhiều người chỉ đến một lần — không muốn bỏ lỡ khoảnh khắc. Smart Photos tối thiểu hóa sự hối tiếc và tối đa hóa social sharing, tạo word-of-mouth marketing.</p>
+  </div>
+
+  <h4>2. Bộ lọc Snapchat/Instagram phong cách Disney</h4>
+  <p>Khi selfie, ghép nhân vật Disney lên khuôn mặt bạn và bạn bè.</p>
+
+  <h4>3. Thông tin tăng cường (Enhanced Info)</h4>
+  <p>Xem lại ảnh chụp tại Disneyland, bật chế độ Enhanced Info → app chú thích nhân vật/địa điểm trong ảnh kèm liên kết Wikipedia.</p>
+
+  <h4>4. Mickey đang gọi (Mickey is Calling)</h4>
+  <p>Khi bạn đi gần một địa điểm, bạn nhận cuộc gọi từ nhân vật chính liên quan. Ví dụ: đi gần cung điện Aladdin → Aladdin hoặc Thần Đèn gọi điện nói chuyện.</p>
+
+  <h4>5. Nâng cấp Xã hội (Social Upgrades)</h4>
+  <p>Chia sẻ ảnh lên Instagram/Snapchat để tích điểm → dùng để bỏ qua hàng chờ hoặc nhận quà lưu niệm miễn phí.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 19 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 19</span>
+    <span class="exercise-title">Thiết kế Ứng dụng Mobile cho Nest</span>
+  </div>
+  <div class="question-block">Thiết kế sản phẩm tiếp theo Nest nên ra mắt.</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Brainstorm ít nhất 3 ý tưởng để tăng cơ hội có ý tưởng ấn tượng</li>
+    <li>Giải thích lý do đề xuất từng ý tưởng</li>
+  </ul></div>
+
+  <h3>Đáp án</h3>
+
+  <h4>3 sản phẩm</h4>
+
+  <h4>1. Cửa Gara Thông minh (Smart Garage Door) ⭐ (Khuyến nghị)</h4>
+  <div class="highlight-box">
+    <p>App theo dõi vị trí điện thoại → kiểm tra giao thông → ước tính thời gian về nhà → tự động mở cửa gara khi xe vào lối lái. Ngược lại: tự động đóng khi xe ra khỏi lối lái. Khi điện thoại mất kết nối Wi-Fi nhà → cũng tính là rời đi.</p>
+    <p><strong>Lý do:</strong> Thị trường lớn (chủ nhà Mỹ rất quan tâm an toàn nhà cửa). Cửa gara mở/đóng sai là mối lo thường trực. Mang lại peace of mind tức thì.</p>
+  </div>
+
+  <h4>2. Bình đun nước nóng Thông minh (Smart Water Heater)</h4>
+  <p>Học thói quen dùng nước theo giờ trong ngày, kết hợp dữ liệu fitness tracker để biết khi nào người dùng vừa tập xong và cần nước nóng ngay. Tự động điều chỉnh nhiệt độ.</p>
+
+  <h4>3. Máy cho Thú cưng ăn Thông minh (Smart Pet Feeder)</h4>
+  <p>Đặt lịch ăn cho thú cưng. Nhận thông báo khi thú cưng đói và bắt đầu đập vào máy. Vuốt màn hình để bơm thức ăn từ xa.</p>
+
+  <div class="highlight-box">
+    <p><em>Chủ đề chung:</em> Giám sát và kiểm soát ngôi nhà khi bạn vắng mặt — mang lại sự yên tâm cho chủ nhà. Đây có lẽ chính là sứ mệnh của Nest.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 20 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 20</span>
+    <span class="exercise-title">Công cụ Gợi ý Dịch vụ Địa phương</span>
+  </div>
+  <div class="question-block">Thiết kế công cụ gợi ý dịch vụ địa phương tốt hơn Yelp — từ bác sĩ nhi đến thợ sửa ống nước. Góc độ người tiêu dùng, không phải doanh nghiệp nhỏ.</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Dùng framework thiết kế CIRCLES™</li>
+    <li>Xây dựng bản đồ hành trình khách hàng để khám phá điểm đau</li>
+    <li>Đưa ra ý tưởng lớn, đột phá</li>
+  </ul></div>
+
+  <h3>Đáp án</h3>
+
+  <h4>3 vấn đề của Yelp</h4>
+
+  <h4>1. Thiếu thông tin môi trường và chi phí</h4>
+  <p>Yelp không cho biết cụ thể môi trường: trang phục phù hợp? Chi phí thực tế bao nhiêu? (Dấu $$ có thể từ $11-$30, khoảng rất rộng.) → Giải pháp: yêu cầu cửa hàng/khách hàng điền thông tin chi tiết hơn.</p>
+
+  <h4>2. Thiếu thông tin bãi đậu xe và chỉ dẫn</h4>
+  <p>Người dùng phải đọc hàng chục comment để tìm nơi đậu xe. Bản đồ không đủ — cần ảnh Street View để biết nơi đậu xe và biết cửa hàng trông như thế nào từ ngoài đường. → Giải pháp: tích hợp Google Maps Street View.</p>
+
+  <h4>3. Không có gợi ý "Dịch vụ tương tự" ⭐ (Khuyến nghị)</h4>
+  <div class="highlight-box">
+    <p>Khi xem một cửa hàng không thích, người dùng phải quay lại kết quả và thử cái tiếp theo. Yelp không gợi ý "dịch vụ như thế này".</p>
+    <p><strong>Giải pháp:</strong> Thuật toán xếp hạng dựa trên: dịch vụ nào người dùng thích A cũng thích, trọng số theo khoảng cách địa lý, hiển thị dịch vụ đang quảng cáo (tăng doanh thu).</p>
+    <p><strong>Tại sao:</strong> Tăng doanh thu trực tiếp (quảng cáo) và tăng satisfaction tức thì. Không cần thay đổi hành vi người dùng — thuật toán tự chạy.</p>
+  </div>
+
+  <h4>Chỉ số đo lường thành công</h4>
+  <ul>
+    <li>Tỷ lệ click vào gợi ý tương tự</li>
+    <li>Khảo sát: gợi ý có hữu ích không?</li>
+    <li>Doanh thu quảng cáo tăng</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 21 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 21</span>
+    <span class="exercise-title">LEGO – Dòng sản phẩm mới</span>
+  </div>
+  <div class="question-block">Nếu bạn là CEO LEGO, bạn sẽ ra mắt dòng sản phẩm mới nào để tăng doanh thu? Tại sao? Đối tượng mục tiêu? Cách tiếp cận? Chức năng và giao diện (UX/UI)? Quy mô thị trường tiềm năng?</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Câu hỏi kết hợp: Phần 1 = Thiết kế sản phẩm. Phần 2 = Ước tính thị trường</li>
+    <li>Làm rõ với interviewer bạn sẽ làm từng phần</li>
+  </ul></div>
+
+  <h3>Đáp án</h3>
+
+  <h4>Phần 1: Thiết kế sản phẩm</h4>
+  <p>Mục tiêu: Khai thác cảm xúc hoài niệm (nostalgia). Đối tượng: Người trưởng thành 35-50 tuổi từng chơi LEGO khi còn nhỏ.</p>
+
+  <div class="highlight-box">
+    <p><strong>Bằng chứng:</strong> Phim <em>The Lego Movie</em> thu hút lớn từ khán giả trưởng thành — nostalgia có thể sinh lợi. Lego hiện có ~100 cửa hàng bán lẻ trên thế giới.</p>
+  </div>
+
+  <h4>3 dòng sản phẩm</h4>
+
+  <h4>1. Bộ lắp sẵn (Pre-built Sets)</h4>
+  <p>Người lớn không có thời gian lắp từng viên. Bán các bộ lắp sẵn mang tính hoài niệm đặt trong nhà như đồ trang trí.</p>
+
+  <h4>2. Lego-fy</h4>
+  <p>Bán miếng LEGO chức năng: giá giữ cốc, giá giữ đũa, đồ gia dụng phong cách LEGO. Đang thành trend trong giới người lớn thích DIY.</p>
+
+  <h4>3. Bộ Người lớn (Adult Sets) ⭐ (Khuyến nghị)</h4>
+  <div class="highlight-box">
+    <p>Bộ LEGO phức tạp hơn tiêu chuẩn, dành cho người trưởng thành muốn nhớ lại cảm giác xây dựng và hoàn thành. Kèm sách hướng dẫn chi tiết (kiểu IKEA) và video online.</p>
+    <p><strong>Lý do:</strong> Pre-built mất đi niềm vui. Lego-fy thú vị nhưng thị trường chưa rõ quy mô. Adult Sets giữ lại niềm vui cốt lõi của LEGO: cảm giác tự mình xây và hoàn thành.</p>
+  </div>
+
+  <h4>Chiến lược marketing</h4>
+  <p>Kỹ sư có xu hướng yêu thích LEGO. Quảng cáo tại: Reddit, Stack Overflow, Hacker News, TechCrunch, Wired, Gizmodo, Mashable, TheVerge + Instagram/Facebook/Snapchat với teaser video + 100 cửa hàng bán lẻ LEGO.</p>
+
+  <h4>Phần 2: Ước tính quy mô thị trường (Mỹ)</h4>
+  <table>
+    <tr><th>Thông số</th><th>Giá trị</th></tr>
+    <tr><td>Dân số Mỹ</td><td>320 triệu</td></tr>
+    <tr><td>Tuổi thọ trung bình</td><td>80 tuổi → phân phối đều</td></tr>
+    <tr><td>Nhóm mục tiêu (35-50 tuổi)</td><td>320 × (15/80) = 60 triệu</td></tr>
+    <tr><td>Tỷ lệ chấp nhận LEGO</td><td>30%</td></tr>
+    <tr><td><strong>Thị trường tiềm năng</strong></td><td><strong>60 × 30% = 18 triệu người</strong></td></tr>
+  </table>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 22 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 22</span>
+    <span class="exercise-title">Starbucks Tốt hơn</span>
+  </div>
+  <div class="question-block">Thiết kế một Starbucks tốt hơn.</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Sử dụng CIRCLES™, phân tích điểm đau sâu sắc</li>
+    <li>Brainstorm nhiều ý tưởng để tăng khả năng có ý tưởng đột phá</li>
+  </ul></div>
+
+  <div class="section-label">Lỗi thường gặp</div>
+  <div class="note-box"><ul>
+    <li>Trả lời vội "Làm cà phê ngon hơn" mà không phân tích kỹ</li>
+    <li>Đề xuất copy đổi mới của Blue Bottle Coffee — không sáng tạo</li>
+  </ul></div>
+
+  <h3>Đáp án – Phương pháp CIRCLES™</h3>
+  <p>Mục tiêu: tăng <strong>sự hài lòng của khách hàng</strong> — vòng tròn đức hạnh dẫn đến mua lặp lại và marketing truyền miệng, có lợi cho doanh thu dài hạn.</p>
+
+  <h4>Điểm đau của Starbucks</h4>
+  <ul>
+    <li><em>Hàng dài:</em> Mất khách tiềm năng, tốn thời gian</li>
+    <li><em>Quá đông người:</em> Khó tìm chỗ ngồi</li>
+    <li><em>Ít ổ điện:</em> Nhiều người mang laptop nhưng không đủ ổ cắm</li>
+    <li><em>Bàn ghế kém:</em> Ghế không thoải mái, bàn nhỏ</li>
+    <li><em>Phần ăn nhỏ:</em> Không đủ no</li>
+    <li><em>Giá cao:</em> Một ly Grande Frappuccino đắt bằng cả bữa ăn ở McDonald's</li>
+  </ul>
+
+  <p><strong>Ưu tiên:</strong> Hàng dài — ảnh hưởng trực tiếp đến lost sales. Mobile Order & Pay đã giúp nhưng vẫn còn dư địa cải thiện.</p>
+
+  <h4>3 giải pháp cho Hàng dài</h4>
+
+  <h4>1. Khu vực chờ thoải mái (Waiting Area)</h4>
+  <p>Sofa, TV, tạp chí — khách hàng thư giãn trong khi chờ đồ uống. Tuy nhiên: chiếm không gian khách đang ngồi → Loại bỏ.</p>
+
+  <h4>2. Trạng thái Cửa hàng (Store Status) ⭐ (Khuyến nghị)</h4>
+  <div class="highlight-box">
+    <p>App Starbucks hiển thị trạng thái từng cửa hàng gần bạn: thời gian chờ ước tính, tồn kho đồ uống/thực phẩm. Quyết định đến hay không ngay từ nhà.</p>
+    <p><strong>Triển khai:</strong> Dùng dữ liệu vị trí từ người dùng app để ước tính số người tại chỗ → thuật toán ML hiệu chỉnh liên tục. UPS và FedEx làm rất tốt việc thiết lập kỳ vọng giao hàng — Starbucks có thể làm điều tương tự.</p>
+    <p><strong>Chỉ số:</strong> Giảm thời gian chờ, tăng doanh thu ngày, tăng lượt ghé thăm, tăng NPS, giảm độ dài hàng đợi.</p>
+  </div>
+
+  <h4>3. Đặt chỗ (Reservation)</h4>
+  <p>Cho phép đặt chỗ theo giờ. Tuy nhiên: khách walk-in sẽ bực bội khi thấy bàn trống mà không ngồi được → Loại bỏ.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 23 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 23</span>
+    <span class="exercise-title">Sản phẩm yêu thích</span>
+  </div>
+  <div class="question-block">Hãy cho tôi biết sản phẩm yêu thích của bạn. Bạn sẽ cải thiện nó như thế nào?</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Chia sẻ tiêu chí "sản phẩm yêu thích" của bạn trước</li>
+    <li>So sánh với sản phẩm thay thế để interviewer hiểu tại sao bạn chọn cái đó</li>
+    <li>Nếu cần, giải thích sản phẩm là gì (interviewer có thể không quen)</li>
+  </ul></div>
+
+  <div class="section-label">Lỗi thường gặp</div>
+  <div class="note-box"><ul>
+    <li>Không đưa ra bảng điểm tiêu chí rõ ràng</li>
+    <li>Chọn sản phẩm quá quen thuộc như iPhone — nhàm và thiếu cá tính</li>
+  </ul></div>
+
+  <h3>Đáp án – Google Hangouts</h3>
+
+  <h4>Tiêu chí sản phẩm tốt</h4>
+  <ul>
+    <li>Hữu ích (Useful)</li>
+    <li>Đột phá/Sáng tạo (Innovative)</li>
+    <li>Dễ hiểu và dễ dùng (Easy to understand and use)</li>
+  </ul>
+
+  <h4>Tại sao Google Hangouts đáp ứng 3 tiêu chí</h4>
+  <p><em>Hữu ích:</em> Chat trực tiếp với toàn bộ danh bạ Gmail — người dùng email nhiều nhất thế giới.</p>
+  <p><em>Đột phá:</em> Xây dựng chat messenger trên nền email. Tận dụng user base khổng lồ của Gmail mà không cần xây dựng từ đầu.</p>
+  <p><em>Dễ dùng:</em> UI trực quan, có crawl-walk-run adoption path (từ chat trong Gmail → app di động).</p>
+
+  <h4>Cải thiện Hangouts</h4>
+  <p>Mục tiêu: tăng engagement lâu dài. Không đặt quảng cáo ngay — sẽ giảm engagement ngắn hạn → giảm lợi nhuận dài hạn.</p>
+
+  <div class="highlight-box">
+    <p><em>Vấn đề quảng cáo đa nền tảng:</em> Tại sao Google không chạy quảng cáo trên Facebook Messenger, WhatsApp? Vì (1) Đối thủ có ad network riêng, (2) Nền tảng có thể đổi ý đột ngột, (3) Phải chia sẻ doanh thu, (4) Hạn chế tại thị trường quốc tế.</p>
+  </div>
+
+  <h4>3 ý tưởng cải thiện</h4>
+  <ul>
+    <li><strong>Trạng thái gửi ảnh/video:</strong> Hiển thị % tiến trình upload thay vì chỉ "Đang gửi…"</li>
+    <li><strong>Tìm bạn mới:</strong> Tìm kiếm theo vị trí, tên, số điện thoại — không chỉ dựa vào Gmail contacts</li>
+    <li><strong>Trạng thái cá nhân (Status) ⭐:</strong> WeChat, QQ thành công nhờ tính năng này. Nhiều người Mỹ dùng Slack status "Remote" hay "Họp cả ngày". Đây là bước đầu biến Hangouts thành mạng xã hội thực sự.</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 24 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 24</span>
+    <span class="exercise-title">Trang web yêu thích</span>
+  </div>
+  <div class="question-block">Trang web yêu thích của bạn là gì? Tại sao?</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Thiết lập tiêu chí "trang web yêu thích" của bạn trước</li>
+    <li>Giải thích trang web làm gì (phòng trường hợp interviewer không biết)</li>
+    <li>Vẽ trang hiện tại hoặc đề xuất cải tiến nếu phù hợp</li>
+  </ul></div>
+
+  <h3>Đáp án – Splitwise</h3>
+
+  <h4>Tiêu chí trang web tốt</h4>
+  <ul>
+    <li>Hữu ích (Useful)</li>
+    <li>Đột phá/Sáng tạo (Innovative)</li>
+    <li>Dễ hiểu và dễ dùng (Easy to understand and use)</li>
+  </ul>
+
+  <h4>Splitwise là gì?</h4>
+  <p>Trang web giúp bạn bè và bạn cùng phòng theo dõi chi phí chung và công nợ lẫn nhau. Tích hợp với PayPal để thanh toán trực tiếp.</p>
+
+  <h4>Tại sao Splitwise đáp ứng 3 tiêu chí</h4>
+  <p><em>Hữu ích:</em> Rất khó nhớ ai nợ ai bao nhiêu sau nhiều tháng sống chung. Splitwise giải quyết vấn đề thực tế, phổ biến.</p>
+  <p><em>Đột phá:</em> Không có sản phẩm nào giải quyết vấn đề này tốt và đơn giản như vậy. Chọn làm tốt một thứ, không cố làm tất cả.</p>
+  <p><em>Dễ dùng:</em> Vào website, ngay lập tức thấy lịch sử thanh toán và nút "Thêm khoản chi". Không cần hướng dẫn, không có rào cản học tập.</p>
+
+  <div class="highlight-box">
+    <p><strong>Kết luận:</strong> Splitwise là trang web yêu thích vì đáp ứng cả ba tiêu chí: hữu ích, đột phá và dễ sử dụng. Đây là ví dụ hoàn hảo về "làm một thứ thật tốt".</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 25 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 25</span>
+    <span class="exercise-title">Xe hơi tự lái dành cho người khiếm thị</span>
+  </div>
+  <div class="question-block">Liệt kê và ưu tiên hóa các trường hợp sử dụng cho xe hơi tự lái dành cho người mù. Chứng minh bằng logic chặt chẽ.</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Làm rõ ý định: xe taxi tự lái cho người mù hay xe người mù tự lái?</li>
+    <li>Interviewer muốn: liệt kê các trường hợp dùng và ưu tiên hóa — không phải CIRCLES™ đầy đủ</li>
+  </ul></div>
+
+  <div class="section-label">Lỗi thường gặp</div>
+  <div class="note-box"><ul><li>Không đề cập đến vấn đề an toàn</li></ul></div>
+
+  <h3>Đáp án</h3>
+
+  <div class="dialog-block">
+    <p class="dialog-candidate">ỨNG VIÊN: Làm rõ: "xe tự lái cho người mù" — ý bạn là dịch vụ taxi tự lái (kiểu Uber) cho người mù? Hay bán xe để người mù tự lái (kiểu Tesla)?</p>
+    <p class="dialog-interviewer">INTERVIEWER: Cái sau — bán xe để người mù tự lái.</p>
+    <p class="dialog-candidate">ỨNG VIÊN: Rõ rồi. Tôi sẽ suy nghĩ về ràng buộc kỹ thuật/pháp lý trước, rồi liệt kê user và use cases, sau đó ưu tiên hóa.</p>
+    <p class="dialog-interviewer">INTERVIEWER: Được.</p>
+    <p class="dialog-candidate">ỨNG VIÊN: California hiện yêu cầu xe tự lái phải có người đặt tay lên vô lăng. Người mù không thể lái — đây là thách thức pháp lý. Hãy giả sử bạn đã giải quyết được vấn đề này.</p>
+    <p class="dialog-interviewer">INTERVIEWER: Được, giả sử không có vấn đề pháp lý hoặc kỹ thuật.</p>
+  </div>
+
+  <h4>Người dùng</h4>
+  <ul>
+    <li><strong>Chính:</strong> Người lái xe khiếm thị</li>
+    <li><strong>Phụ:</strong> Bạn bè, người thân, người chăm sóc</li>
+  </ul>
+
+  <h4>5 Trường hợp sử dụng</h4>
+
+  <h4>1. Lái xe (Drive)</h4>
+  <p>Xe xử lý toàn bộ: chuyển làn, dừng đèn đỏ, điều hướng. Công nghệ xe tự lái hiện đã có thể làm điều này. Thách thức: người mù không nhìn thấy tình huống xung quanh → cần phản hồi âm thanh liên tục (đang rẽ trái, đang dừng đèn đỏ...).</p>
+
+  <h4>2. Đỗ xe (Park)</h4>
+  <p>Xe tự đỗ. Cần phản hồi âm thanh về vị trí: "Xe bạn đỗ trước Starbucks đường Third Avenue" hoặc "Tầng 3, ô số 312".</p>
+
+  <h4>3. Thông tin vị trí (Location Information)</h4>
+  <p>Người dùng muốn chia sẻ vị trí khi gặp bạn bè. Cần tích hợp chia sẻ vị trí real-time.</p>
+
+  <h4>4. Thông tin bổ sung (Additional Information)</h4>
+  <p>Thông báo hướng tài xế đang nhìn về đâu (quan trọng khi ra khỏi xe), có vỉa hè gần không, có xe đang đến không khi mở cửa.</p>
+
+  <h4>5. An toàn (Safety) ⭐ (Ưu tiên cao nhất)</h4>
+  <div class="highlight-box">
+    <p>Khi xe hoặc người lái không thể tiếp tục vận hành an toàn → xe tự tấp vào lề đường và dừng. Hoặc cho phép điều khiển từ xa (như drone operator) để đảm bảo an toàn tuyệt đối cho người khác trên đường.</p>
+    <p><strong>Lý do ưu tiên:</strong> An toàn là yếu tố không thể thiếu — vi phạm an toàn = sản phẩm thất bại và gây hại cộng đồng.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 26 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 26</span>
+    <span class="exercise-title">Điện thoại dành cho người khiếm thính</span>
+  </div>
+  <div class="question-block">Thiết kế điện thoại dành cho người điếc.</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Interviewer kiểm tra khả năng đồng cảm với người dùng khác mình</li>
+    <li>Dành thời gian suy nghĩ thấu đáo về cuộc sống của người điếc</li>
+  </ul></div>
+
+  <h3>Đáp án</h3>
+
+  <div class="dialog-block">
+    <p class="dialog-candidate">ỨNG VIÊN: Điện thoại bàn hay di động?</p>
+    <p class="dialog-interviewer">INTERVIEWER: Di động.</p>
+    <p class="dialog-candidate">ỨNG VIÊN: Smartphone hay điện thoại phím bấm?</p>
+    <p class="dialog-interviewer">INTERVIEWER: Smartphone.</p>
+  </div>
+
+  <h4>Người dùng chính và phụ</h4>
+  <ul>
+    <li><strong>Chính:</strong> Người điếc</li>
+    <li><strong>Phụ:</strong> Người thân, bạn bè, nhân viên hỗ trợ</li>
+  </ul>
+
+  <h4>5 Trường hợp sử dụng và điểm yếu</h4>
+  <table>
+    <tr><th>#</th><th>Tình huống</th><th>Vấn đề hiện tại</th></tr>
+    <tr><td>1</td><td>Gọi điện cho ai đó</td><td>Người điếc không nghe được người kia nói</td></tr>
+    <tr><td>2</td><td>Nhận cuộc gọi</td><td>Không biết điện thoại đang đổ chuông</td></tr>
+    <tr><td>3</td><td>Nghe người kia nói</td><td>Không nghe được nội dung cuộc gọi</td></tr>
+    <tr><td>4</td><td>Báo thức</td><td>Không nghe được tiếng chuông báo thức</td></tr>
+    <tr><td>5</td><td>Ứng dụng</td><td>App yêu cầu âm thanh (nhạc, podcast) không dùng được</td></tr>
+  </table>
+
+  <h4>7 Giải pháp</h4>
+  <ol>
+    <li><strong>Rung đa dạng (Vibrations):</strong> Các kiểu rung khác nhau biểu thị các tình huống khác nhau (cuộc gọi đến ≠ báo thức)</li>
+    <li><strong>Haptics:</strong> Phản hồi xúc giác tinh tế hơn rung — lập trình viên có thể tùy chỉnh haptic pattern riêng cho app</li>
+    <li><strong>Đèn nhấp nháy (Lights):</strong> Màn hình sáng mạnh khi có cuộc gọi hoặc báo thức</li>
+    <li><strong>Phụ đề (Captioning):</strong> Chuyển giọng nói thành văn bản theo thời gian thực trong cuộc gọi</li>
+    <li><strong>Text-to-Voice:</strong> Phía người nghe (người không điếc) nhận văn bản mà người điếc gõ, được đọc thành giọng nói</li>
+    <li><strong>App Store chuyên biệt:</strong> Mục riêng cho app thân thiện với người điếc hoặc phiên bản deaf-friendly của app phổ thông</li>
+    <li><strong>Yêu cầu Video Call:</strong> Gợi ý chuyển sang video call để người điếc đọc môi</li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 27 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 27</span>
+    <span class="exercise-title">ATM dành cho Người cao tuổi</span>
+  </div>
+  <div class="question-block">Bạn sẽ thiết kế ATM dành cho người cao tuổi như thế nào?</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Sử dụng CIRCLES™</li>
+    <li>Phân tích điểm đau của người cao tuổi trước khi đưa ra giải pháp</li>
+  </ul></div>
+
+  <div class="section-label">Lỗi thường gặp</div>
+  <div class="note-box"><ul>
+    <li>Định nghĩa lại persona mặc dù interviewer đã xác định rõ</li>
+    <li>Đưa ra giải pháp ngay mà không phân tích điểm đau</li>
+  </ul></div>
+
+  <h3>Đáp án</h3>
+  <p>Lưu ý: ATM này cũng phục vụ người không cao tuổi — giải pháp cần không làm khó nhóm người dùng còn lại.</p>
+
+  <h4>Điểm đau của người cao tuổi khi dùng ATM</h4>
+  <ul>
+    <li>Không nhìn rõ chữ trên màn hình</li>
+    <li>Mỏi khi đứng lâu</li>
+    <li>Cần người hỗ trợ</li>
+    <li>Nhầm lẫn giữa vuốt thẻ và cắm thẻ</li>
+    <li>Giật mình khi máy kêu tiếng bíp hoặc chờ đợi lâu</li>
+    <li>Không hiểu tại sao ATM này nạp được tiền nhưng ATM kia thì không</li>
+    <li>Lo lắng khi có hàng dài phía sau</li>
+  </ul>
+
+  <h4>Giải pháp</h4>
+  <ul>
+    <li>Đặt <strong>trong nhà</strong> — tránh gió lạnh và mưa</li>
+    <li>Chữ màn hình <strong>to hơn</strong> cho người kém thị lực</li>
+    <li>Âm thanh <strong>to hơn</strong> cho người kém thính lực</li>
+    <li>ATM có <strong>ghế ngồi</strong> — không bắt đứng lâu</li>
+    <li>Thiết kế <strong>xe lăn</strong> có thể tiếp cận (wheelchair accessible)</li>
+    <li>Có <strong>ghế chờ</strong> gần đó cho người đang xếp hàng</li>
+    <li>Tay vịn hỗ trợ giữ thăng bằng</li>
+    <li>Nút <strong>gọi trợ giúp</strong> rõ ràng và dễ nhìn</li>
+    <li>Bảng hiệu ưu tiên người cao tuổi/khuyết tật — khuyến khích đi trước, như ghế ưu tiên trên xe buýt</li>
+  </ul>
+
+  <div class="highlight-box">
+    <p><em>Hiển nhiên:</em> ATM này vẫn có đầy đủ chức năng tiêu chuẩn: rút tiền, nạp tiền, kiểm tra số dư, in sao kê.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BÀI TẬP 28 -->
+<!-- ============================================================ -->
+<div class="exercise">
+  <div class="exercise-meta">
+    <span class="exercise-number">Bài 28</span>
+    <span class="exercise-title">Sản phẩm vật lý yêu thích</span>
+  </div>
+  <div class="question-block">Sản phẩm vật lý yêu thích của bạn là gì? Tại sao? Và cho tôi những ý tưởng lớn để tăng doanh thu gấp 3 lần.</div>
+
+  <div class="section-label">Điểm cần lưu ý</div>
+  <div class="tip-box"><ul>
+    <li>Câu hỏi kép: Phần 1 = sản phẩm yêu thích. Phần 2 = ý tưởng tăng 3x doanh thu</li>
+    <li>Dùng CIRCLES™ cho phần 2</li>
+    <li>Ý tưởng phải kết nối với mục tiêu 3x doanh thu</li>
+  </ul></div>
+
+  <h3>Đáp án – Bình đun nước điện</h3>
+
+  <h4>Tiêu chí sản phẩm tốt</h4>
+  <ol>
+    <li>Thiết kế tối giản nhất có thể</li>
+    <li>Dễ hiểu và dễ dùng</li>
+    <li>Hoàn hảo đến từng chi tiết nhỏ</li>
+  </ol>
+
+  <h4>Tại sao bình đun nước đáp ứng 3 tiêu chí</h4>
+  <p><em>Tối giản:</em> Chỉ một nút bấm. Không có menu, không có cài đặt phức tạp.</p>
+  <p><em>Dễ hiểu:</em> Dây điện cắm vào ổ → đổ nước vào bình → đặt lên đế → bấm nút → đèn sáng khi đang sôi, tắt khi xong. Không cần hướng dẫn.</p>
+  <p><em>Hoàn hảo từng chi tiết:</em>
+    <ul>
+      <li><strong>Tự ngắt (Auto shut-off):</strong> Giảm lo lắng, rảnh tay làm việc khác khi đợi nước sôi</li>
+      <li><strong>Tay cầm bình:</strong> Rót bằng một tay, không cần hai tay</li>
+      <li><strong>Đế tách rời:</strong> Dây điện chỉ kết nối với đế, không gắn vào bình. Không bị vướng khi rót</li>
+    </ul>
+  </p>
+
+  <h4>Phần 2: Ý tưởng tăng doanh thu 3x</h4>
+
+  <h4>1. Kiểm tra chất lượng nước (Water Quality Inspector)</h4>
+  <p>Cảm biến phát hiện nước có cần lọc không. Nhắc người dùng dùng nước lọc để pha cà phê ngon hơn. Tăng giá trị sản phẩm, mở thị trường người uống cà phê nhà.</p>
+
+  <h4>2. Giữ nhiệt độ nước (Water Temperature Keeper)</h4>
+  <p>Một số người thích nước sôi, một số thích nước ấm. Cho phép người dùng cài đặt và duy trì nhiệt độ mong muốn.</p>
+
+  <h4>3. SUDO: Tự pha đồ uống nóng ⭐ (Khuyến nghị)</h4>
+  <div class="highlight-box">
+    <p>Lấy cảm hứng từ lệnh SUDO trong Linux — "làm bất cứ điều gì tôi muốn". Thiết kế như máy Nespresso: máy có khoang đựng thực phẩm đóng gói sẵn. Người dùng chọn: trà, cà phê, súp ramen... Máy đun nước + trộn với nguyên liệu trong gói → phục vụ món ăn/uống hoàn chỉnh.</p>
+    <p><strong>Bằng chứng khả thi:</strong> Keurig và Nespresso đã làm điều này với cà phê. Người dùng đã biết công nghệ này. Mở rộng sang súp instant, mì gói... trong khi đi làm, khi mùa đông lạnh.</p>
+    <p><strong>Phản hồi của Interviewer:</strong> "Tôi rất thích súp, đặc biệt mùa đông lạnh. Đăng ký cho tôi một cái!"</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- HỘP KẾT LUẬN -->
+<!-- ============================================================ -->
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận Chương 14</div>
+  <h2>Tổng hợp Kỹ năng Thiết kế Sản phẩm</h2>
+  <p>Chương 14 trình bày 28 bài tập "Tổng hợp" — đây là dạng câu hỏi thiết kế sản phẩm hoàn chỉnh nhất trong phỏng vấn PM, đòi hỏi vận dụng đồng thời nhiều kỹ năng.</p>
+  <p>Bài học cốt lõi: <strong>Phương pháp CIRCLES™</strong> là khung tư duy, không phải công thức cứng nhắc. Interviewer đôi khi chỉ cần một phần của framework — hãy linh hoạt. Điều quan trọng nhất là <strong>luôn đặt câu hỏi làm rõ trước</strong>, <strong>phân tích điểm đau sâu</strong> trước khi đề xuất giải pháp, và <strong>đưa ra một đề xuất cụ thể có lý do</strong> thay vì liệt kê chung chung.</p>
+  <p>Những tình huống trong chương này — từ xe hơi tự lái cho người mù đến máy pha nước sôi đa năng — minh chứng rằng <em>sự đồng cảm thực sự với người dùng</em> mới là nguồn gốc của những ý tưởng sản phẩm xuất sắc.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch13.html"><span class="lbl">Chương trước</span>Chương 13: Thiết kế Sản phẩm: Bài tập Brainstorm</a>
+  <a href="pm_interview_ch15.html"><span class="lbl">Chương sau</span>Chương 15: Metrics: Đề xuất Số liệu</a>
+</nav>
+</body>
+</html>

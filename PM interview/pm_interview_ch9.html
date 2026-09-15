@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 9: Analytics — Định giá sản phẩm hiện có · The Product Manager Interview</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:860px;margin:0 auto;padding:60px 40px 100px;}
+.book-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+h1{font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:8px;color:var(--text);}
+.subtitle{font-size:1rem;color:var(--text-muted);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--accent-line);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.intro-box{background:var(--surface);border-left:3px solid var(--accent-line);padding:18px 22px;margin:24px 0;font-size:1rem;color:var(--text);}
+.exercise-block{border:1px solid var(--border);margin:36px 0;overflow:hidden;}
+.exercise-header{background:var(--surface-dark);padding:14px 20px;border-bottom:1px solid var(--border);}
+.exercise-num{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.exercise-title{font-size:1.08rem;font-weight:700;color:var(--text);}
+.exercise-body{padding:20px 24px;}
+.question-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin-bottom:18px;font-size:.95rem;color:var(--text);font-style:italic;}
+.section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:18px 0 8px;}
+.tip-list{list-style:none;margin:8px 0 14px;padding:0;}
+.tip-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+.tip-list li:last-child{border-bottom:none;}
+.tip-list li::before{content:"→";position:absolute;left:0;color:var(--text-muted);font-size:.82rem;}
+.mistake-list{list-style:none;margin:8px 0 14px;padding:0;}
+.mistake-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+.mistake-list li:last-child{border-bottom:none;}
+.mistake-list li::before{content:"✗";position:absolute;left:0;color:#888;font-size:.82rem;}
+.dialog-block{margin:12px 0;}
+.dialog-row{margin:5px 0;font-size:.88rem;}
+.dialog-role{font-weight:700;color:var(--text);}
+.dialog-text{color:var(--text-secondary);}
+.table-wrapper{overflow-x:auto;margin:14px 0;}
+.price-table{width:100%;border-collapse:collapse;font-size:.88rem;}
+.price-table th{background:var(--surface-dark);padding:9px 14px;text-align:left;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--border-strong);}
+.price-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text-secondary);}
+.price-table td.highlight{color:var(--text);font-weight:700;}
+.price-table td.negative{color:#c0392b;font-weight:700;}
+.price-table tr.total-row td{font-weight:700;color:var(--text);background:var(--surface);}
+.calc-box{background:var(--surface);padding:14px 18px;margin:12px 0;font-size:.88rem;font-family:'Courier New',monospace;color:var(--text-secondary);line-height:1.9;}
+.pro-con{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0;}
+.pro-box,.con-box{border:1px solid var(--border);padding:14px;}
+.pro-box{border-top:3px solid #27ae60;}
+.con-box{border-top:3px solid #c0392b;}
+.pc-title{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.pro-box .pc-title{color:#27ae60;}
+.con-box .pc-title{color:#c0392b;}
+.pc-list{list-style:none;padding:0;margin:0;}
+.pc-list li{padding:4px 0 4px 14px;position:relative;font-size:.84rem;color:var(--text-secondary);}
+.pc-list li::before{content:"•";position:absolute;left:0;}
+.framework-steps{list-style:none;margin:10px 0;padding:0;counter-reset:step;}
+.framework-steps li{padding:10px 0 10px 36px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);counter-increment:step;}
+.framework-steps li:last-child{border-bottom:none;}
+.framework-steps li::before{content:counter(step);position:absolute;left:0;top:10px;width:24px;height:24px;background:var(--surface-dark);color:var(--text);font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%;}
+.answer-box{background:var(--accent-line);color:#fff;padding:10px 18px;margin-top:14px;display:flex;align-items:center;gap:16px;}
+.answer-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.7;white-space:nowrap;}
+.answer-value{font-size:1rem;font-weight:700;}
+.divider{border:none;border-top:1px solid var(--border);margin:40px 0;}
+.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--accent-line);background:var(--surface);}
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:12px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+@media(max-width:600px){body{padding:36px 20px 60px;}h1{font-size:1.8rem;}.pro-con{grid-template-columns:1fr;}}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+
+
+<div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 9</div>
+<h1>Analytics: Định giá Sản phẩm Hiện có</h1>
+<div class="subtitle">2 bài tập điều chỉnh giá và đàm phán giá sản phẩm đang bán</div>
+
+<div class="intro-box">
+  Khác với định giá sản phẩm mới, định giá sản phẩm hiện có có thể tiếp cận bằng <strong>phân tích price elasticity định lượng</strong> — biết được dữ liệu bán hàng cũ, chi phí hiện tại và có thể ước lượng breakeven volume. Câu hỏi đầu tiên luôn phải hỏi: phân tích định tính hay định lượng?
+</div>
+
+<!-- Bài 1 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 1</div>
+    <div class="exercise-title">Target yêu cầu chiết khấu 20% Kindle</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">Target yêu cầu Amazon giảm 20% giá bán buôn Kindle. Amazon có nên chấp nhận không?</div>
+
+    <div class="section-label">Điều cần cân nhắc</div>
+    <ul class="tip-list">
+      <li>Interviewer có thể muốn thảo luận định tính hoặc định lượng — hỏi rõ trước</li>
+      <li>Phân tích định lượng: tiếp cận như bài price elasticity</li>
+      <li>Phân tích định tính: phân tích pro/con đơn giản</li>
+    </ul>
+
+    <div class="section-label">Lỗi thường gặp</div>
+    <ul class="mistake-list">
+      <li>Không hỏi xem khoản tiết kiệm có được chuyển đến người tiêu dùng không</li>
+      <li>Không nhận ra: giảm giá cho Target có thể buộc phải giảm giá cho tất cả nhà bán lẻ khác</li>
+    </ul>
+
+    <div class="section-label">Đối thoại làm rõ số liệu</div>
+    <div class="dialog-block">
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Giá bán lẻ và giá bán buôn Kindle tại Target là bao nhiêu?</span></div>
+      <div class="dialog-row"><span class="dialog-role">I:</span> <span class="dialog-text">Bán lẻ $80; Target mua buôn $54.</span></div>
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Tức là Target muốn mua với giá $43.20 ($54 × 80%)?</span></div>
+      <div class="dialog-row"><span class="dialog-role">I:</span> <span class="dialog-text">Đúng.</span></div>
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Target bán được bao nhiêu Kindle năm ngoái?</span></div>
+      <div class="dialog-row"><span class="dialog-role">I:</span> <span class="dialog-text">1 triệu chiếc.</span></div>
+      <div class="dialog-row"><span class="dialog-role">C:</span> <span class="dialog-text">Chi phí sản xuất mỗi Kindle?</span></div>
+      <div class="dialog-row"><span class="dialog-role">I:</span> <span class="dialog-text">30% giá bán lẻ = $24.</span></div>
+    </div>
+
+    <div class="section-label">Bảng phân tích lợi nhuận kênh Target</div>
+    <div class="table-wrapper">
+      <table class="price-table">
+        <tr>
+          <th>Chỉ số</th>
+          <th>Hiện tại (Old)</th>
+          <th>Sau chiết khấu (New)</th>
+          <th>Thay đổi</th>
+        </tr>
+        <tr>
+          <td>Doanh thu đơn vị (Unit Revenue)</td>
+          <td>$54</td>
+          <td class="highlight">$43.20</td>
+          <td class="negative">−$10.80</td>
+        </tr>
+        <tr>
+          <td>Chi phí đơn vị (Unit Cost)</td>
+          <td>$24</td>
+          <td>$24</td>
+          <td>$0</td>
+        </tr>
+        <tr>
+          <td>Lợi nhuận đơn vị (Unit Profit)</td>
+          <td>$30</td>
+          <td class="highlight">$19.20</td>
+          <td class="negative">−$10.80</td>
+        </tr>
+        <tr>
+          <td>Volume bán</td>
+          <td>1M</td>
+          <td>?</td>
+          <td>?</td>
+        </tr>
+        <tr class="total-row">
+          <td>Tổng lợi nhuận (Gross Profit)</td>
+          <td>$30M</td>
+          <td>$30M (cần đạt)</td>
+          <td>—</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-label">Tính breakeven volume</div>
+    <div class="calc-box">
+Breakeven: Gross Profit mới = Gross Profit cũ
+Unit Volume mới = $30M ÷ $19.20 = 1.562M
+→ Target cần bán thêm 562,000 chiếc (+56%) để hòa vốn</div>
+
+    <div class="section-label">Khuyến nghị: Không chấp nhận chiết khấu</div>
+    <div class="pro-con">
+      <div class="con-box">
+        <div class="pc-title">Lý do từ chối (4 lý do)</div>
+        <ul class="pc-list">
+          <li>Tăng 56% volume rất khó đạt được</li>
+          <li>Channel parity: không công bằng nếu chỉ Target được giảm giá</li>
+          <li>Domino effect: các nhà bán lẻ khác sẽ đòi giảm tương tự</li>
+          <li>Brand impact: giá thấp → người tiêu dùng nghĩ sản phẩm kém chất lượng</li>
+        </ul>
+      </div>
+      <div class="pro-box">
+        <div class="pc-title">Lý do chấp nhận (3 lý do)</div>
+        <ul class="pc-list">
+          <li>Word-of-mouth: thêm Kindle trong tay người dùng → lan truyền tự nhiên</li>
+          <li>Razor-and-razorblade: Kindle dùng để bán sách, phim, nhạc → lợi nhuận dài hạn</li>
+          <li>Showroom effect: Target cho phép khách thử Kindle trực tiếp — Amazon thiếu retail footprint</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">Không nên chấp nhận chiết khấu — cần tăng 56% volume là không thực tế</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bài 2 -->
+<div class="exercise-block">
+  <div class="exercise-header">
+    <div class="exercise-num">Bài 2</div>
+    <div class="exercise-title">AWS — Yêu cầu giảm giá từ Fortune 500</div>
+  </div>
+  <div class="exercise-body">
+    <div class="question-box">AWS có một khách hàng Fortune 500 đang đề nghị giảm giá. Bạn sẽ xem xét các yếu tố nào?</div>
+
+    <div class="section-label">Điều cần cân nhắc</div>
+    <ul class="tip-list">
+      <li>Coi đây là yêu cầu đàm phán — dùng checklist đàm phán</li>
+      <li>Checklist: giá trị với Fortune 500 (giá tối đa), chi phí AWS (giá tối thiểu), giá thị trường (giá đối thủ), chi phí chuyển đổi, giá trị vô hình (reference customer)</li>
+    </ul>
+
+    <div class="section-label">Lỗi thường gặp</div>
+    <ul class="mistake-list">
+      <li>Đánh giá sai đòn bẩy đàm phán của khách — chi phí chuyển đổi khỏi AWS rất lớn với Fortune 500</li>
+      <li>Quá xu hướng chiều khách hoặc ngược lại quá cứng nhắc</li>
+    </ul>
+
+    <div class="section-label">Framework 3 bước</div>
+    <ul class="framework-steps">
+      <li><strong>Đánh giá tác động đến AWS:</strong> Khách này chiếm bao nhiêu % doanh thu/lợi nhuận AWS? Nếu mất khách này, hậu quả như thế nào (cổ phiếu, vận hành)? Liệu khoản chiết khấu có còn profitable không?</li>
+      <li><strong>Đánh giá đòn bẩy đàm phán của khách:</strong> Vì sao họ yêu cầu giảm giá? Khó khăn tài chính hay đang xem xét Azure/IBM SoftLayer? Xem xét chi phí chuyển đổi — Fortune 500 chuyển khỏi AWS phải đào tạo lại nhân viên và di chuyển toàn bộ hạ tầng, không trivial. Khách có tăng trưởng tài khoản tiềm năng không? Có thể tham chiếu cho khách khác không?</li>
+      <li><strong>Đưa ra khuyến nghị:</strong> Nếu profitable và khách có referral value → chấp nhận. Nhưng cẩn thận: đừng tạo precedent xấu, NDA nên được đảm bảo, cân nhắc đạo đức (ai được giảm, ai không?).</li>
+    </ul>
+
+    <div class="section-label">Điểm quan trọng bổ sung</div>
+    <p style="font-size:.88rem;color:var(--text-secondary);">Fortune 500 rời AWS sẽ phải: (1) chuyển toàn bộ hạ tầng, (2) đào tạo lại nhân viên từ AWS sang Azure/GCP — chi phí này không trivial. Điều này làm giảm đòn bẩy đàm phán thực sự của họ → AWS có thể thương lượng mức chiết khấu thấp hơn mức họ yêu cầu.</p>
+
+    <div class="answer-box">
+      <span class="answer-label">Đáp án</span>
+      <span class="answer-value">Đánh giá qua 3 bước: tác động → đòn bẩy → khuyến nghị; Fortune 500 khó rời AWS do switching cost lớn</span>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Kết luận Chương 9</div>
+  <p>Định giá sản phẩm hiện có có hai hướng tiếp cận chính: <strong>định lượng</strong> (breakeven volume, price elasticity table) và <strong>định tính</strong> (pro/con, brand impact, channel dynamics). Câu hỏi đầu tiên với interviewer luôn là hỏi hướng nào được ưu tiên.</p>
+  <p>Yêu cầu giảm giá là bài toán đàm phán — không phải chỉ là toán học. Cần hiểu cả đòn bẩy của mình lẫn đòn bẩy của đối phương: switching cost cao, referral value, tác động precedent, và tác động thương hiệu đều là yếu tố quyết định quan trọng không kém con số tài chính.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="pm_interview_ch8.html"><span class="lbl">Chương trước</span>Chương 8: Analytics — Định giá Sản phẩm Mới</a>
+  <a href="pm_interview_ch10.html"><span class="lbl">Chương sau</span>Chương 10: Analytics — ROI</a>
+</nav>
+</body>
+</html>
