@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phần 4 – Nội dung (Nguyên tắc 23–28)</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+h1{font-size:2rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+h2{font-size:1.4rem;font-weight:700;margin:0 0 6px;color:var(--text);}
+h3{font-size:1.05rem;font-weight:700;margin:28px 0 10px;color:var(--text-secondary);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+ul,ol{margin:10px 0 16px 22px;}
+li{margin-bottom:6px;color:var(--text-secondary);}
+strong{color:var(--text);font-weight:700;}
+.book-label{font-size:0.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;}
+.chapter-intro{background:var(--surface);border-left:3px solid var(--accent-line);padding:18px 22px;margin:24px 0 40px;border-radius:0 4px 4px 0;}
+.chapter-intro p{margin:0;font-size:0.95rem;}
+.principle-block{border:1px solid var(--border);border-radius:6px;margin:36px 0;overflow:hidden;}
+.principle-header{background:var(--surface-dark);padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:16px;}
+.principle-number{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);flex-shrink:0;}
+.principle-title{font-size:1.15rem;font-weight:700;color:var(--text);line-height:1.3;}
+.principle-body{padding:24px 24px 8px;}
+.learning-box{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px 20px;margin:20px 0 8px;}
+.learning-box .l-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.learning-box ul{margin:0 0 0 18px;padding:0;}
+.learning-box li{font-size:0.92rem;color:var(--text-secondary);margin-bottom:5px;}
+.insight-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin:16px 0;border-radius:0 4px 4px 0;}
+.insight-box p{margin:0;font-size:0.92rem;color:var(--text-secondary);}
+.example-box{border:1px solid var(--border);border-radius:4px;padding:16px 20px;margin:16px 0;background:#fff;}
+.example-box .e-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.example-box p{margin:0;font-size:0.92rem;}
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;}
+.compare-col{border:1px solid var(--border);border-radius:4px;padding:14px 18px;}
+.compare-col .c-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.compare-col.bad .c-label{color:#c0392b;}
+.compare-col.good .c-label{color:#27ae60;}
+.compare-col p{margin:0;font-size:0.91rem;}
+.conclusion-box{margin-top:60px;padding:28px 30px;border:2px solid var(--accent-line);border-radius:4px;background:var(--surface);}
+.conclusion-label{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+.conclusion-box p{margin-bottom:10px;font-size:0.95rem;}
+.conclusion-box p:last-child{margin-bottom:0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/ux-principles">← Về mục lục</a></p>
+
+
+<div class="book-label">101 UX Principles · Will Grant · Phần 4: Nội dung</div>
+<h1>Nội dung</h1>
+<p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:4px;">Nguyên tắc 23–28</p>
+
+<div class="chapter-intro">
+  <p>Cách bạn tổ chức và trình bày nội dung ảnh hưởng trực tiếp đến khả năng người dùng tìm được thứ họ cần. Cuộn vô tận hay phân trang? Cho phép cookie hay dark pattern? Empty states ra sao? Onboarding như thế nào? Đây là những câu hỏi thiết yếu mà một UX tốt phải trả lời đúng.</p>
+</div>
+
+<!-- PRINCIPLE 23 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <span class="principle-number">#23</span>
+    <span class="principle-title">Cuộn vô tận chỉ dùng cho nội dung kiểu feed</span>
+  </div>
+  <div class="principle-body">
+    <p>Infinite scroll (cuộn vô tận) đã trở thành một trong những pattern phổ biến nhất trên web và ứng dụng — nhưng nó chỉ phù hợp với một loại nội dung cụ thể: <strong>feed theo thời gian thực</strong>, nơi không có điểm đầu hay điểm cuối rõ ràng.</p>
+
+    <div class="compare-row">
+      <div class="compare-col good">
+        <div class="c-label">✓ Phù hợp với cuộn vô tận</div>
+        <p>Newsfeed mạng xã hội, dòng thông báo, feed ảnh Instagram, Twitter timeline — nơi nội dung liên tục cập nhật và không có "trang cuối" thực sự.</p>
+      </div>
+      <div class="compare-col bad">
+        <div class="c-label">✗ Không phù hợp</div>
+        <p>Kết quả tìm kiếm, danh sách sản phẩm, kết quả lọc/sort, danh sách email — những nơi người dùng cần nhớ vị trí, quay lại, hoặc chia sẻ trang cụ thể.</p>
+      </div>
+    </div>
+
+    <h3>Vấn đề với infinite scroll trong danh sách hữu hạn</h3>
+    <p>Khi bạn áp dụng infinite scroll vào danh sách có số lượng cố định (ví dụ: 200 kết quả tìm kiếm), một loạt vấn đề UX xuất hiện:</p>
+    <ul>
+      <li><strong>Mất vị trí:</strong> Người dùng bấm vào một mục, xem xong, nhấn Back — và bị đưa về đầu trang, mất toàn bộ vị trí cuộn đã đạt được.</li>
+      <li><strong>Phá vỡ scrollbar:</strong> Scrollbar trở nên vô nghĩa — không thể biết đang ở đâu trong tổng số nội dung.</li>
+      <li><strong>Không thể đến cuối:</strong> Người dùng không bao giờ biết đã xem hết chưa.</li>
+      <li><strong>Khó chia sẻ:</strong> Không có URL tương ứng với vị trí trong danh sách.</li>
+    </ul>
+
+    <div class="insight-box">
+      <p><strong>Twitter "Smart Timeline" là ví dụ thất bại:</strong> Twitter từng thử tự động chèn tweets mới vào giữa dòng thời gian đang cuộn, khiến nội dung nhảy lung tung. Người dùng phản ứng dữ dội. Infinite scroll chỉ an toàn khi nội dung mới xuất hiện ở đầu, không phải ở giữa.</p>
+    </div>
+
+    <h3>Giải pháp thay thế khi dùng infinite scroll</h3>
+    <ul>
+      <li><strong>Lưu vị trí cuộn:</strong> Khi người dùng quay lại, đưa họ về đúng chỗ đã rời đi.</li>
+      <li><strong>Nút Back-to-Top:</strong> Luôn có nút "Về đầu trang" rõ ràng — đặc biệt quan trọng khi đã cuộn xuống xa.</li>
+      <li><strong>Phân trang thủ công:</strong> "Load more" (tải thêm) thay vì tự động cuộn — người dùng kiểm soát được tốc độ.</li>
+    </ul>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm ghi nhớ</div>
+      <ul>
+        <li>Chỉ dùng infinite scroll cho nội dung feed/dòng thời gian thực, không có điểm cuối</li>
+        <li>Với danh sách hữu hạn: dùng phân trang (xem nguyên tắc #24)</li>
+        <li>Nếu phải dùng infinite scroll, hãy lưu vị trí cuộn và thêm nút back-to-top</li>
+        <li>Không bao giờ chèn nội dung mới vào giữa danh sách đang cuộn</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- PRINCIPLE 24 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <span class="principle-number">#24</span>
+    <span class="principle-title">Nếu nội dung có đầu/giữa/cuối, dùng phân trang</span>
+  </div>
+  <div class="principle-body">
+    <p>Khi nội dung có cấu trúc hữu hạn và người dùng đang <strong>tìm kiếm có mục tiêu</strong> — như tìm sản phẩm, duyệt kết quả tìm kiếm, đọc danh sách email — phân trang là lựa chọn đúng đắn hơn cuộn vô tận.</p>
+
+    <h3>Tại sao phân trang hiệu quả hơn cho nội dung có cấu trúc</h3>
+    <ul>
+      <li><strong>Người dùng biết mình đang ở đâu:</strong> "Trang 3 của 12" truyền đạt ngữ cảnh, quy mô, và tiến trình.</li>
+      <li><strong>Nhớ vị trí:</strong> Người dùng có thể ghi nhớ "mình đã xem đến trang 4" và quay lại đúng chỗ.</li>
+      <li><strong>URL có thể bookmark/chia sẻ:</strong> Mỗi trang có URL riêng (ví dụ: `?page=3`), dễ chia sẻ và lưu lại.</li>
+      <li><strong>Cho biết tổng số kết quả:</strong> "1.243 kết quả" giúp người dùng đánh giá xem có cần lọc thêm không.</li>
+    </ul>
+
+    <h3>Thiết kế phân trang đúng cách</h3>
+    <div class="insight-box">
+      <p><strong>Nguyên tắc:</strong> Hiển thị trang hiện tại, một vài trang lân cận, và luôn có lối đến trang đầu và trang cuối. Ví dụ: <code>« 1 ... 3 [4] 5 ... 12 »</code>. Đừng hiển thị tất cả các số trang — với 100 trang, đó là thảm họa.</p>
+    </div>
+
+    <ul>
+      <li>Hiển thị trang hiện tại rõ ràng (in đậm, màu khác)</li>
+      <li>Hiển thị tổng số kết quả (ví dụ: "1.243 sản phẩm")</li>
+      <li>Cung cấp tùy chọn số mục mỗi trang (10, 25, 50)</li>
+      <li><strong>Bắt buộc có search/sort/filter</strong> khi danh sách dài — phân trang không thay thế được việc tìm kiếm</li>
+    </ul>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm ghi nhớ</div>
+      <ul>
+        <li>Phân trang phù hợp với nội dung mà người dùng duyệt có mục tiêu</li>
+        <li>Luôn cho người dùng biết họ đang ở đâu trong tổng thể</li>
+        <li>Cung cấp search, sort, filter bổ trợ cho phân trang trên danh sách dài</li>
+        <li>Mỗi trang phân trang nên có URL riêng để bookmark và chia sẻ</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- PRINCIPLE 25 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <span class="principle-number">#25</span>
+    <span class="principle-title">Cho phép người dùng chấp nhận hoặc từ chối cookie chỉ bằng một cú click</span>
+  </div>
+  <div class="principle-body">
+    <p>EU ePrivacy Directive (và sau đó là GDPR) yêu cầu người dùng được thông báo và đồng ý trước khi các cookie không thiết yếu được đặt trên thiết bị của họ. Đây là quy định hợp lý — nhưng cách nhiều website triển khai đã biến nó thành dark pattern tệ hại.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="c-label">✗ Dark Pattern phổ biến</div>
+        <p>Nút "Accept All" màu xanh to, nổi bật — và một đường link nhỏ li ti "Manage preferences" dẫn đến màn hình cấu hình với hàng chục toggle phức tạp. Từ chối cookie = tra tấn người dùng.</p>
+      </div>
+      <div class="compare-col good">
+        <div class="c-label">✓ Cách đúng</div>
+        <p>Hai nút rõ ràng, kích thước tương đương: <strong>"Chấp nhận tất cả"</strong> và <strong>"Từ chối tất cả"</strong>. Người dùng quyết định được ngay, không cần đọc hướng dẫn.</p>
+      </div>
+    </div>
+
+    <h3>Nguyên tắc thiết kế cookie consent đúng</h3>
+    <ul>
+      <li><strong>Cân bằng lựa chọn:</strong> Nút "Từ chối" phải có kích thước, màu sắc, vị trí tương đương nút "Chấp nhận" — không nhỏ hơn, không ẩn hơn.</li>
+      <li><strong>Không che khuất nội dung:</strong> Cookie banner không được chặn toàn bộ trang và buộc người dùng phải chọn trước khi xem nội dung.</li>
+      <li><strong>Nhớ lựa chọn:</strong> Không hiển thị lại banner mỗi lần truy cập.</li>
+      <li><strong>Dễ thay đổi:</strong> Người dùng phải có thể rút lại đồng ý bất cứ lúc nào, dễ dàng như khi đồng ý.</li>
+    </ul>
+
+    <div class="example-box">
+      <div class="e-label">Ví dụ thực tế tốt</div>
+      <p><strong>South Staffs Water và Red Hat</strong> — cả hai triển khai cookie consent đơn giản với hai nút rõ ràng, cùng kích thước, không có trick ẩn. Người dùng quyết định xong trong vòng 2 giây.</p>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Lưu ý pháp lý:</strong> Dark patterns trong cookie consent (thiết kế cố tình để người dùng khó từ chối) ngày càng bị các cơ quan quản lý châu Âu phạt nặng. Ngoài việc đúng về UX, đây còn là vấn đề tuân thủ pháp lý.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm ghi nhớ</div>
+      <ul>
+        <li>Cung cấp lựa chọn rõ ràng: "Chấp nhận tất cả" và "Từ chối tất cả" — không phức tạp hơn</li>
+        <li>Hai lựa chọn phải có trọng lượng thị giác tương đương</li>
+        <li>Không che khuất nội dung trang bằng cookie banner</li>
+        <li>Cho phép người dùng thay đổi quyết định bất cứ lúc nào</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- PRINCIPLE 26 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <span class="principle-number">#26</span>
+    <span class="principle-title">Giúp người dùng hiểu bước tiếp theo từ trạng thái trống</span>
+  </div>
+  <div class="principle-body">
+    <p><strong>Empty state</strong> (trạng thái trống) là màn hình người dùng nhìn thấy khi chưa có dữ liệu — lần đầu vào app, inbox trống, không có kết quả tìm kiếm. Đây là một trong những thời điểm quan trọng nhất trong hành trình người dùng — và thường bị bỏ qua nhất.</p>
+
+    <p>Một empty state tệ thường chỉ hiển thị... trống rỗng. Hoặc tệ hơn, một thông báo kỹ thuật lạnh lẽo như <em>"No data found"</em>. Đây là cơ hội bị lãng phí hoàn toàn.</p>
+
+    <h3>Một empty state tốt cần có</h3>
+    <ul>
+      <li><strong>Hình ảnh/icon thân thiện:</strong> Minh họa trực quan giúp người dùng hiểu ngữ cảnh, tránh cảm giác "có lỗi xảy ra".</li>
+      <li><strong>Giải thích tại sao trống:</strong> "Bạn chưa có dự án nào" thay vì "No projects".</li>
+      <li><strong>Gợi ý bước tiếp theo:</strong> Hướng dẫn cụ thể người dùng nên làm gì — không để họ đoán.</li>
+      <li><strong>Call-to-action rõ ràng:</strong> Nút hành động trực tiếp — "Tạo dự án đầu tiên", "Mời thành viên", "Khám phá tính năng".</li>
+    </ul>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="c-label">✗ Empty state tệ</div>
+        <p>Màn hình trắng hoàn toàn, hoặc dòng chữ lạnh lẽo "No items found. Please add an item to get started." — không icon, không CTA, không giải thích.</p>
+      </div>
+      <div class="compare-col good">
+        <div class="c-label">✓ Empty state tốt</div>
+        <p>Illustration vui vẻ + "Đây là nơi các dự án của bạn sẽ xuất hiện. Hãy bắt đầu bằng cách tạo dự án đầu tiên!" + nút "Tạo dự án" nổi bật.</p>
+      </div>
+    </div>
+
+    <div class="example-box">
+      <div class="e-label">Ví dụ thực tế</div>
+      <p><strong>Basecamp:</strong> Khi tạo tài khoản mới, hiển thị empty state với hình minh họa và hướng dẫn rõ ràng "Tạo project đầu tiên của bạn". <strong>Shopify:</strong> Trang sản phẩm trống có nút "Add your first product" ngay lập tức, kèm giải thích ngắn gọn về những gì người dùng có thể làm.</p>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Empty states là cơ hội onboarding:</strong> Đây thường là lần đầu người dùng thực sự tương tác sâu với sản phẩm. Một empty state tốt là bài học đầu tiên về cách dùng app — đừng bỏ lỡ.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm ghi nhớ</div>
+      <ul>
+        <li>Không bao giờ để empty state trống hoàn toàn — luôn có hướng dẫn</li>
+        <li>Kết hợp: hình minh họa + giải thích ngắn + CTA hành động cụ thể</li>
+        <li>Viết theo giọng điệu task-oriented: "Bắt đầu bằng cách..." thay vì "Không có dữ liệu"</li>
+        <li>Empty state là cơ hội onboarding — đầu tư thiết kế cho nó</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- PRINCIPLE 27 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <span class="principle-number">#27</span>
+    <span class="principle-title">Cho phép người dùng bỏ qua hướng dẫn "Bắt đầu" dễ dàng</span>
+  </div>
+  <div class="principle-body">
+    <p>Hầu hết các sản phẩm đều có tutorial hoặc màn hình "Getting started" để giúp người dùng mới. Đây là điều tốt — nhưng cách triển khai thường sai về cơ bản.</p>
+
+    <h3>Quy tắc bắt buộc cho màn hình onboarding</h3>
+    <ul>
+      <li><strong>Luôn có nút Skip:</strong> Người dùng phải có thể bỏ qua hoàn toàn bất cứ lúc nào. Buộc người dùng phải xem hướng dẫn là vi phạm quyền tự chủ của họ.</li>
+      <li><strong>Có thể xem lại:</strong> Người dùng phải có thể tìm lại tutorial sau này khi cần — đừng chỉ hiển thị một lần rồi biến mất mãi mãi.</li>
+      <li><strong>Tutorial về khái niệm sản phẩm, không phải về UI:</strong> Đừng hướng dẫn người dùng cách bấm nút — hãy giải thích khái niệm và giá trị của sản phẩm.</li>
+    </ul>
+
+    <div class="insight-box">
+      <p><strong>Định luật Larry Tesler về bảo toàn sự phức tạp:</strong> "Mọi ứng dụng đều có một lượng phức tạp nhất định không thể loại bỏ — chỉ có thể chuyển dịch." Nếu sản phẩm của bạn cần tutorial dài để giải thích UI, thì chính UI đó đang quá phức tạp. Tutorial nên giải thích giá trị sản phẩm, không phải cách dùng từng nút.</p>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="c-label">✗ Tutorial sai mục đích</div>
+        <p>"Bấm vào biểu tượng + để thêm. Vuốt sang trái để xóa. Nhấn giữ để sắp xếp lại." — Đây là hướng dẫn UI, không phải onboarding thực sự.</p>
+      </div>
+      <div class="compare-col good">
+        <div class="c-label">✓ Tutorial đúng mục đích</div>
+        <p>"Với [App], bạn có thể quản lý toàn bộ dự án nhóm tại một nơi, giao việc cho thành viên và theo dõi tiến độ real-time." — Giải thích giá trị, không giải thích UI.</p>
+      </div>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm ghi nhớ</div>
+      <ul>
+        <li>Luôn có nút Skip — không bao giờ buộc người dùng xem hết tutorial</li>
+        <li>Tutorial phải có thể truy cập lại từ menu/cài đặt</li>
+        <li>Hướng dẫn khái niệm và giá trị sản phẩm, không phải cách thao tác UI cơ bản</li>
+        <li>Nếu UI cần tutorial dài để giải thích, hãy đơn giản hóa UI trước</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- PRINCIPLE 28 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <span class="principle-number">#28</span>
+    <span class="principle-title">Khi người dùng làm mới feed, chuyển đến bài chưa đọc cuối cùng</span>
+  </div>
+  <div class="principle-body">
+    <p>Bạn đang cuộn Twitter, dừng giữa chừng và đặt điện thoại xuống. Khi mở lại, app tự động tải và đưa bạn về đầu feed — mất hết vị trí. Đây là một trong những vấn đề UX gây bực bội nhất với feed và timeline.</p>
+
+    <h3>Nguyên tắc xử lý refresh đúng cách</h3>
+
+    <div class="insight-box">
+      <p><strong>Twitter "X new Tweets" là mẫu chuẩn:</strong> Khi có nội dung mới, Twitter hiển thị thông báo "12 new Tweets" ở trên cùng — <em>nhưng không tự động cuộn</em>. Người dùng bấm để xem nội dung mới, và khi bấm, được đưa đến tweet mới nhất. Vị trí cuộn cũ được bảo toàn cho đến khi người dùng chủ động chọn xem mới.</p>
+    </div>
+
+    <ul>
+      <li><strong>Không tự động reload:</strong> Đừng bao giờ tự động tải lại feed và đưa người dùng về đầu.</li>
+      <li><strong>Lưu vị trí cuộn:</strong> Dù người dùng thoát app hay chuyển tab, hãy nhớ họ đang đọc đến đâu.</li>
+      <li><strong>Thông báo có nội dung mới:</strong> Hiển thị số lượng nội dung mới ("5 bài mới") nhưng để người dùng chủ động chọn xem.</li>
+      <li><strong>Khi người dùng chọn xem nội dung mới:</strong> Đưa họ đến mục cuối cùng chưa đọc, không phải mục mới nhất tuyệt đối — để tránh bỏ sót nội dung ở giữa.</li>
+    </ul>
+
+    <div class="example-box">
+      <div class="e-label">Vấn đề thực tế</div>
+      <p>Người dùng đang cuộn inbox email, thấy có 20 email chưa đọc, đang xử lý dần. Nếu app tự động reload sau 5 phút, toàn bộ danh sách email đã đọc/chưa đọc có thể thay đổi, và họ mất hoàn toàn ngữ cảnh đang xử lý. Đây là lý do Gmail và Outlook không bao giờ tự động reload khi bạn đang mở.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm ghi nhớ</div>
+      <ul>
+        <li>Không bao giờ tự động reload feed và mất vị trí cuộn của người dùng</li>
+        <li>Thông báo nội dung mới bằng badge/counter, để người dùng chủ động chọn xem</li>
+        <li>Khi người dùng chọn refresh, đưa họ đến mục cuối cùng chưa đọc (không phải đầu danh sách)</li>
+        <li>Lưu vị trí cuộn ngay cả khi người dùng thoát app và quay lại</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Tổng kết phần 4 — Nội dung</div>
+  <p>Sáu nguyên tắc nội dung này đều xoay quanh một chủ đề cốt lõi: <strong>tôn trọng ngữ cảnh và ý định của người dùng</strong>. Infinite scroll làm mất ngữ cảnh; phân trang bảo toàn nó. Cookie dark patterns cưỡng bức lựa chọn; hai nút rõ ràng trao quyền cho người dùng. Empty states tệ bỏ rơi người dùng; empty states tốt hướng dẫn họ. Tutorial bắt buộc cướp quyền kiểm soát; Skip button trả lại quyền đó. Auto-reload feed phá vỡ tập trung; thông báo chủ động bảo toàn nó.</p>
+  <p>Điểm chung: người dùng không cần bạn kiểm soát hành trình của họ — họ cần bạn hỗ trợ hành trình đó một cách tinh tế và tôn trọng.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="ux_principles_ch03.html"><span class="lbl">Phần trước</span>Phần 3: Controls</a>
+  <a href="ux_principles_ch05.html"><span class="lbl">Phần sau</span>Phần 5: Điều Hướng</a>
+</nav>
+</body>
+</html>

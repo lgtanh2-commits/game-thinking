@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controls – 101 UX Principles</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+h1{font-size:2rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+h3{font-size:1.05rem;font-weight:700;margin:28px 0 10px;color:var(--text-secondary);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+ul,ol{margin:10px 0 16px 22px;}
+li{margin-bottom:6px;color:var(--text-secondary);}
+strong{color:var(--text);font-weight:700;}
+code{font-family:'Menlo','Consolas','Monaco',monospace;font-size:0.88rem;background:var(--surface-dark);padding:2px 6px;border-radius:3px;color:var(--text);}
+.book-label{font-size:0.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;}
+.chapter-intro{background:var(--surface);border-left:3px solid var(--accent-line);padding:18px 22px;margin:24px 0 40px;border-radius:0 4px 4px 0;}
+.chapter-intro p{margin:0;font-size:0.95rem;}
+.principle-block{border:1px solid var(--border);border-radius:6px;margin:36px 0;overflow:hidden;}
+.principle-header{background:var(--surface-dark);padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px;}
+.principle-num{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);flex-shrink:0;}
+.principle-title{font-size:1.1rem;font-weight:700;color:var(--text);}
+.principle-body{padding:22px;}
+.principle-body p{margin-bottom:12px;}
+.principle-body p:last-child{margin-bottom:0;}
+.insight-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin:16px 0;border-radius:0 4px 4px 0;}
+.insight-box p{margin:0;font-size:0.92rem;color:var(--text-secondary);}
+.example-box{border:1px solid var(--border);border-radius:4px;padding:16px 20px;margin:16px 0;}
+.example-box .ex-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.example-box p{margin:0;font-size:0.93rem;}
+.learning-box{background:var(--surface-dark);border:1px solid var(--border-strong);border-radius:4px;padding:16px 20px;margin:20px 0;}
+.learning-box .l-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.learning-box ul{margin:0 0 0 18px;padding:0;}
+.learning-box li{font-size:0.91rem;color:var(--text-secondary);margin-bottom:5px;}
+.compare-row{display:flex;gap:16px;margin:14px 0;}
+.compare-col{flex:1;border:1px solid var(--border);border-radius:4px;padding:14px 16px;}
+.compare-col .c-label{font-size:0.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.compare-col.bad{border-color:#cc000033;background:#fff5f5;}
+.compare-col.good{border-color:#00660033;background:#f5fff5;}
+.compare-col p{margin:0;font-size:0.91rem;}
+.conclusion-box{margin-top:60px;padding:28px 30px;border:2px solid var(--accent-line);border-radius:4px;background:var(--surface);}
+.conclusion-label{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+.conclusion-box p{margin-bottom:10px;font-size:0.95rem;}
+.conclusion-box p:last-child{margin-bottom:0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/ux-principles">← Về mục lục</a></p>
+
+
+<div class="book-label">101 UX Principles · Will Grant · Controls</div>
+<h1>Controls</h1>
+
+<div class="chapter-intro">
+  <p>Controls là những thành phần tương tác cốt lõi của mọi giao diện: nút bấm, thanh trượt, ô tìm kiếm, menu thả xuống, ô nhập số... Chương này tập trung vào 11 nguyên tắc thiết kế control hiệu quả — từ cách làm nút đủ lớn để bấm, cách tổ chức tìm kiếm, đến cách cho phép người dùng hoàn tác hành động nguy hiểm, và cách tối ưu giao diện cho màn hình cảm ứng di động.</p>
+</div>
+
+<!-- NGUYÊN TẮC 12 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 12</div>
+    <div class="principle-title">Dùng dấu ba chấm (...) cho các bước tiếp theo</div>
+  </div>
+  <div class="principle-body">
+    <p>Đây là một convention đến từ thiết kế phần mềm desktop và vẫn còn nguyên giá trị: khi một hành động trong menu sẽ mở ra một hộp thoại hoặc màn hình mới để thu thập thêm thông tin trước khi thực hiện, hãy thêm dấu ba chấm (<strong>...</strong>) vào cuối tên hành động.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="c-label">❌ Không có gợi ý bước tiếp theo</div>
+        <p>"Xóa" — người dùng bấm vào và không biết sẽ xảy ra gì ngay lập tức. Họ do dự.</p>
+      </div>
+      <div class="compare-col good">
+        <div class="c-label">✓ Có dấu ba chấm</div>
+        <p>"Xóa..." — người dùng biết sẽ có thêm bước: xác nhận, chọn tùy chọn, hoặc nhập thêm thông tin. Họ bấm tự tin hơn.</p>
+      </div>
+    </div>
+
+    <div class="example-box">
+      <div class="ex-label">Ví dụ thực tế — Firefox menu</div>
+      <p>"New Tab" (không có ...) → thực hiện ngay, tạo tab mới. "Email Link..." (có ...) → mở ứng dụng email để soạn thảo. Sự phân biệt này giúp người dùng hiểu trước hành động nào tức thì và hành động nào cần thêm bước.</p>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Thiết kế vô hình (Invisible Design):</strong> Convention dấu ba chấm hoạt động tốt nhất khi người dùng <em>không nhận ra</em> nó — họ chỉ cảm thấy giao diện dễ dùng mà không biết tại sao. Đây là đặc điểm của thiết kế tốt: các quyết định nhỏ tạo ra sự tự tin mà không cần giải thích. Luôn xác nhận convention này bằng user testing.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm mấu chốt</div>
+      <ul>
+        <li>Thêm "..." vào hành động nào sẽ mở dialog hoặc màn hình thu thập thêm thông tin</li>
+        <li>Không dùng "..." cho hành động thực hiện ngay lập tức</li>
+        <li>Convention này giúp người dùng phân biệt "hành động tức thì" vs "bắt đầu một quy trình"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 13 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 13</div>
+    <div class="principle-title">Làm cho các phần tử tương tác hiển nhiên và dễ khám phá</div>
+  </div>
+  <div class="principle-body">
+    <p>Flat design — xu hướng thiết kế phẳng không có bóng đổ, gradient, hay texture — đã thống trị thiết kế UI trong nhiều năm. Tuy nhiên, các nghiên cứu về người dùng liên tục cho thấy: <strong>flat design khiến người dùng khó nhận ra đâu là phần tử tương tác được</strong>.</p>
+
+    <div class="example-box">
+      <div class="ex-label">Bài học từ Metro UI (Windows 8)</div>
+      <p>Metro UI của Microsoft là flat design thuần túy — chữ và màu sắc, không có affordance hình học. User testing cho thấy người dùng không biết đâu là nút bấm được, đâu chỉ là label tĩnh. Kết quả: nhiều người dùng không tìm được tính năng ẩn trong swipe gesture vì không có gợi ý thị giác nào cho thấy tính năng đó tồn tại.</p>
+    </div>
+
+    <h3>Affordance là gì?</h3>
+    <p><strong>Affordance</strong> (tính gợi dụng) là khái niệm do nhà tâm lý học James Gibson đề xuất, và Donald Norman đưa vào thiết kế UX: affordance là tính chất của vật thể gợi ý cách sử dụng nó. Một tay nắm cửa tròn gợi ý xoay; một tay nắm dẹt gợi ý đẩy. Nút bấm phải có affordance — trông như thứ có thể bấm được.</p>
+
+    <p>Trong UI, affordance được tạo ra bằng:</p>
+    <ul>
+      <li>Đường viền (border) xác định ranh giới của nút</li>
+      <li>Hiệu ứng pseudo-3D nhẹ (bóng đổ nhỏ, gradient tinh tế) tạo cảm giác vật thể có thể nhấn xuống</li>
+      <li>Màu nền tương phản với nền xung quanh</li>
+      <li>Con trỏ chuột thay đổi (hand pointer) khi hover</li>
+      <li>Trạng thái hover/active rõ ràng</li>
+    </ul>
+
+    <div class="insight-box">
+      <p><strong>Fitts' Law và real-world analogy:</strong> Kích thước và hình dạng của control nên phản ánh tầm quan trọng và tần suất sử dụng. Nút CTA chính phải lớn và rõ ràng. Accordion, slider, và form field phải có affordance rõ ràng để người dùng biết chúng có thể tương tác được. Nếu người dùng phải "thử xem có bấm được không" — thiết kế đã thất bại.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm mấu chốt</div>
+      <ul>
+        <li>Flat design hoàn toàn thiếu affordance — khó nhận ra phần tử tương tác</li>
+        <li>Nút bấm cần trông như nút bấm: border, background, hover state</li>
+        <li>Không bao giờ để người dùng "đoán" xem thứ gì có thể click được</li>
+        <li>Test với người dùng thực tế để kiểm tra discoverability</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 14 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 14</div>
+    <div class="principle-title">Làm nút đủ lớn và nhóm theo chức năng</div>
+  </div>
+  <div class="principle-body">
+    <p>Năm 1954, nhà tâm lý học Paul Fitts công bố một trong những nghiên cứu nền tảng nhất trong lịch sử HCI: <strong>Fitts' Law</strong>. Luật này phát biểu rằng thời gian để di chuyển đến một mục tiêu phụ thuộc vào khoảng cách đến mục tiêu và kích thước của mục tiêu. Dịch ra ngôn ngữ thiết kế: <em>nút càng lớn và càng gần người dùng, càng dễ bấm trúng.</em></p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="c-label">❌ Chống lại Fitts' Law</div>
+        <p>Nút "Gửi" 80px rộng, "Hủy" 80px rộng, cạnh nhau, cùng màu. Người dùng phải đọc kỹ trước khi bấm, dễ bấm nhầm, đặc biệt trên mobile.</p>
+      </div>
+      <div class="compare-col good">
+        <div class="c-label">✓ Áp dụng Fitts' Law</div>
+        <p>Nút "Gửi" lớn, nổi bật (màu chính). Nút "Hủy" nhỏ hơn, màu muted. Khoảng cách đủ để không bấm nhầm. CTA chính dễ tìm và dễ bấm nhất.</p>
+      </div>
+    </div>
+
+    <div class="example-box">
+      <div class="ex-label">Anti-pattern điển hình</div>
+      <p>Nút X đóng pop-up modal kích thước 16×16px ở góc trên phải, trong khi modal chiếm 80% màn hình. Người dùng phải nhắm kỹ mới bấm đúng — đặc biệt trên màn hình cảm ứng. Giải pháp: tăng kích thước vùng bấm lên tối thiểu 44×44px (iOS) hoặc 48×48dp (Android).</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm mấu chốt</div>
+      <ul>
+        <li>Fitts' Law: kích thước lớn + khoảng cách gần = dễ bấm hơn</li>
+        <li>Nút CTA chính phải lớn và nổi bật nhất trong nhóm</li>
+        <li>Nút nguy hiểm (Xóa, Hủy) nên nhỏ hơn hoặc ít nổi bật hơn nút CTA chính</li>
+        <li>Kích thước vùng bấm tối thiểu: 44px (iOS), 48dp (Android)</li>
+        <li>Nhóm các nút liên quan lại với nhau, đặt xa các nút không liên quan</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 15 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 15</div>
+    <div class="principle-title">Làm toàn bộ nút bấm được, không chỉ text</div>
+  </div>
+  <div class="principle-body">
+    <p>Một lỗi hay gặp: nút được implement với vùng bấm chỉ bao phủ phần text bên trong, không phải toàn bộ diện tích nút. Người dùng bấm vào phần padding — không có phản hồi. Họ nghĩ: "Mình có bấm không? Sao không thấy phản ứng?"</p>
+
+    <p>Trải nghiệm đúng: <strong>toàn bộ diện tích thấy được của nút phải là vùng bấm được</strong>. Và thường thì vùng bấm nên còn lớn hơn diện tích thấy được (dùng padding ẩn) để dễ bấm hơn trên mobile.</p>
+
+    <h3>Các trạng thái nút cần thiết kế đủ</h3>
+    <p>Một nút không chỉ có trạng thái mặc định. Thiết kế đầy đủ cần có:</p>
+    <ul>
+      <li><strong>Default:</strong> Trạng thái bình thường, chưa tương tác</li>
+      <li><strong>Hover:</strong> Khi chuột lướt qua (desktop) — thay đổi màu, background, hoặc box-shadow nhẹ</li>
+      <li><strong>Active/Pressed:</strong> Khi đang bấm — "nhấn xuống" về mặt thị giác (màu tối hơn, hoặc transform: scale nhỏ hơn)</li>
+      <li><strong>Disabled:</strong> Khi nút không thể bấm — màu muted, cursor: not-allowed, không có hover effect</li>
+      <li><strong>Loading:</strong> Sau khi bấm, trong khi chờ kết quả — spinner, hoặc text thay đổi ("Đang gửi...")</li>
+    </ul>
+
+    <div class="insight-box">
+      <p><strong>Con trỏ chuột:</strong> Thêm <code>cursor: pointer</code> vào tất cả phần tử tương tác (nút, link). Người dùng desktop kỳ vọng con trỏ biến thành hình bàn tay khi hover qua thứ gì đó có thể click. Thiếu điều này khiến người dùng không chắc thứ họ đang hover có tương tác được không.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm mấu chốt</div>
+      <ul>
+        <li>Vùng bấm phải bao phủ toàn bộ diện tích thấy được của nút, không chỉ text</li>
+        <li>Thiết kế đủ 5 trạng thái: default, hover, active, disabled, loading</li>
+        <li>Thêm <code>cursor: pointer</code> cho mọi phần tử tương tác</li>
+        <li>Phản hồi thị giác khi bấm (active state) giúp người dùng biết hành động được ghi nhận</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 16 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 16</div>
+    <div class="principle-title">Đừng phát minh các control tùy ý mới</div>
+  </div>
+  <div class="principle-body">
+    <p>Người dùng đến giao diện của bạn với kiến thức và kỳ vọng từ hàng trăm ứng dụng và trang web họ đã dùng trước đó. Khi bạn phát minh một interaction pattern hoàn toàn mới, bạn đang yêu cầu người dùng học một thứ mà không ai dạy họ.</p>
+
+    <p>Có những interaction đã trở thành mental model toàn cầu:</p>
+    <ul>
+      <li><strong>Pull-to-refresh:</strong> Kéo màn hình xuống để làm mới (phát minh bởi Loren Brichter cho Tweetie, 2008 — sau đó được Twitter mua và phổ biến toàn cầu)</li>
+      <li><strong>Swipe right/left:</strong> Lật qua lại giữa các item (Tinder đưa vào mainstream)</li>
+      <li><strong>Double-tap to like:</strong> Instagram 2012</li>
+      <li><strong>Long press for context menu:</strong> Pattern phổ biến trên Android và iOS</li>
+    </ul>
+
+    <p>Những pattern này mất nhiều năm và hàng triệu người dùng để trở thành convention. <strong>Bạn không thể tạo ra convention mới chỉ trong một sản phẩm.</strong> Nếu interaction mới của bạn không đủ hấp dẫn để người dùng chủ động khám phá, họ sẽ không bao giờ tìm thấy nó.</p>
+
+    <div class="insight-box">
+      <p>Ngoại lệ duy nhất: nếu sản phẩm của bạn <em>là</em> sản phẩm đầu tiên trong một category hoàn toàn mới, bạn buộc phải dạy người dùng một pattern mới. Nhưng ngay cả khi đó, hãy xây dựng pattern từ những thứ người dùng đã biết — đừng phát minh hoàn toàn từ đầu.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm mấu chốt</div>
+      <ul>
+        <li>Tận dụng platform conventions — người dùng đã biết cách dùng chúng</li>
+        <li>Đừng "sáng tạo" interaction mới chỉ để khác biệt — cost cho người dùng quá cao</li>
+        <li>Nếu phải dùng pattern mới, hãy onboard người dùng rõ ràng và khám phá được</li>
+        <li>Pull-to-refresh, swipe, double-tap là convention — tận dụng, đừng thay thế</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 17 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 17</div>
+    <div class="principle-title">Tìm kiếm = Ô text + Nút "Tìm kiếm"</div>
+  </div>
+  <div class="principle-body">
+    <p>Search là một trong những tính năng phổ biến nhất trong mọi sản phẩm, nhưng cũng là một trong những tính năng hay bị implement sai nhất. Công thức đúng rất đơn giản: <strong>một ô nhập text + một nút "Tìm kiếm" hoặc icon kính lúp</strong>.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="c-label">❌ Anti-pattern: Search ẩn</div>
+        <p>Chỉ có icon kính lúp nhỏ không kèm ô text. Người dùng phải bấm vào icon mới thấy ô nhập. Thêm một bước ma sát không cần thiết — tìm kiếm là tính năng quan trọng, không được ẩn.</p>
+      </div>
+      <div class="compare-col good">
+        <div class="c-label">✓ Search luôn hiển thị</div>
+        <p>Ô nhập text với placeholder "Tìm kiếm..." luôn hiển thị. Người dùng thấy ngay và có thể bắt đầu gõ. Kính lúp hoặc nút "Tìm kiếm" đi kèm để rõ ràng chức năng.</p>
+      </div>
+    </div>
+
+    <h3>Best practices cho Search</h3>
+    <ul>
+      <li><strong>Placeholder text:</strong> Mô tả bạn có thể tìm gì, không chỉ "Tìm kiếm...". Ví dụ: "Tìm sản phẩm, thương hiệu..." gợi ý scope của search</li>
+      <li><strong>Instant search:</strong> Hiển thị kết quả ngay khi gõ (không cần bấm Enter) là tốt hơn — giảm bước ma sát và cho phép người dùng điều chỉnh từ khóa thời gian thực</li>
+      <li><strong>Trên mobile:</strong> Auto-focus ô search khi màn hình search mở — keyboard xuất hiện ngay, không cần bấm vào ô text thêm một lần nữa</li>
+      <li><strong>Ví dụ — Spotify:</strong> Search bar luôn hiển thị ở bottom nav, bấm vào là focus ngay và có suggestions gợi ý</li>
+    </ul>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm mấu chốt</div>
+      <ul>
+        <li>Search = ô text + kính lúp/nút "Tìm" — không bao giờ chỉ là icon ẩn</li>
+        <li>Placeholder text nên mô tả scope của search</li>
+        <li>Instant search tốt hơn chờ Enter nếu có thể implement</li>
+        <li>Mobile: auto-focus khi mở search screen</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 18 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 18</div>
+    <div class="principle-title">Slider chỉ dùng cho giá trị không định lượng được</div>
+  </div>
+  <div class="principle-body">
+    <p>Slider (thanh trượt) là control phù hợp cho những giá trị mà người dùng cảm nhận theo dải liên tục, không cần số chính xác: âm lượng, độ sáng màn hình, mức độ blur, tốc độ animation. Người dùng không cần biết âm lượng đang là 73% hay 74% — họ chỉ cần "to hơn một chút".</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="c-label">❌ Sai — Slider cho số chính xác</div>
+        <p>Slider để chọn "số lượng sản phẩm muốn đặt" từ 1-100. Người dùng muốn đặt đúng 37 sản phẩm nhưng không thể kéo slider chính xác đến vị trí đó. Cực kỳ bực bội.</p>
+      </div>
+      <div class="compare-col good">
+        <div class="c-label">✓ Đúng — Slider cho cảm nhận</div>
+        <p>Slider điều chỉnh âm lượng, độ sáng, hoặc mức độ lọc kết quả tìm kiếm theo khoảng giá. Không cần số chính xác — cảm nhận "nhiều hơn/ít hơn" là đủ.</p>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Kích thước handle:</strong> Handle của slider (phần kéo được) phải đủ lớn để bấm/kéo dễ dàng trên cả desktop và mobile. Handle nhỏ → người dùng miss, frustration. Áp dụng Fitts' Law: handle lớn hơn = dễ tương tác hơn.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm mấu chốt</div>
+      <ul>
+        <li>Slider: phù hợp cho giá trị cảm nhận (âm lượng, độ sáng, mức lọc khoảng)</li>
+        <li>Slider: không phù hợp cho số nguyên chính xác</li>
+        <li>Handle slider phải đủ lớn để tương tác được (tối thiểu 44px)</li>
+        <li>Cân nhắc hiển thị giá trị hiện tại bên cạnh slider nếu số vẫn cần thấy</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 19 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 19</div>
+    <div class="principle-title">Dùng ô nhập số cho giá trị nguyên chính xác</div>
+  </div>
+  <div class="principle-body">
+    <p>Khi người dùng cần nhập một số nguyên cụ thể (số lượng sản phẩm, số ngày, số điện thoại, năm sinh), hãy dùng <code>&lt;input type="number"&gt;</code>. Trình duyệt và thiết bị sẽ tự động cung cấp keyboard phù hợp (bàn phím số trên mobile) và nút tăng/giảm (spin buttons).</p>
+
+    <p>Tại sao điều này quan trọng? Vì <strong>form là một trong những điểm gây bỏ giở cao nhất trong UX</strong>. Mỗi bước ma sát — phải chuyển keyboard, phải gõ thêm ký tự, phải scroll — tăng khả năng người dùng bỏ dở. Dùng đúng input type giảm ma sát đến mức tối thiểu.</p>
+
+    <div class="insight-box">
+      <p><strong>Tối thiểu hóa số trường:</strong> Mỗi trường form thêm vào là một lý do để người dùng bỏ dở. Chỉ hỏi những gì thực sự cần thiết cho bước đó. Nếu có thể trì hoãn thu thập thông tin đến bước sau (khi người dùng đã đầu tư hơn), hãy làm vậy. Progressive disclosure của form fields giảm anxiety và tăng completion rate.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm mấu chốt</div>
+      <ul>
+        <li>Dùng <code>input type="number"</code> cho số nguyên — hiện keyboard số trên mobile</li>
+        <li>Tương tự: <code>type="email"</code>, <code>type="tel"</code>, <code>type="date"</code> — mỗi type tối ưu UX cho loại dữ liệu đó</li>
+        <li>Tối thiểu hóa số trường trong form — chỉ hỏi điều thực sự cần</li>
+        <li>Form bị abandon khi quá dài hoặc quá phức tạp</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 20 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 20</div>
+    <div class="principle-title">Đừng dùng dropdown nếu chỉ có vài lựa chọn</div>
+  </div>
+  <div class="principle-body">
+    <p>Dropdown (menu thả xuống) là control có chi phí tương tác cao: người dùng phải bấm để mở, scroll qua danh sách, rồi bấm chọn — ba bước để hoàn thành một lựa chọn. Khi số lượng lựa chọn ít (2-4 options), chi phí này không xứng đáng.</p>
+
+    <div class="example-box">
+      <div class="ex-label">Ví dụ — Nhóm máu</div>
+      <p>Dropdown với 8 nhóm máu (A+, A-, B+, B-, AB+, AB-, O+, O-). Vấn đề: người dùng bấm để mở dropdown, phải đọc qua 8 options, rồi chọn. Thay thế tốt hơn: radio buttons hiển thị sẵn cả 8 options — người dùng nhìn thấy ngay và chọn trong một thao tác.</p>
+    </div>
+
+    <h3>Khi nào dùng dropdown?</h3>
+    <p>Dropdown phù hợp khi:</p>
+    <ul>
+      <li>Có nhiều hơn 7-8 lựa chọn (thay thế cho radio buttons chiếm quá nhiều không gian)</li>
+      <li>Danh sách rất dài (50+ options như danh sách quốc gia) — cần search/filter trong dropdown</li>
+      <li>Không gian màn hình hạn chế (mobile) — native picker của iOS/Android hoạt động tốt</li>
+    </ul>
+
+    <p>Khi dùng dropdown, hãy luôn sắp xếp theo thứ tự hợp lý: chữ cái (danh sách tên), số (danh sách năm), hoặc tần suất sử dụng (phổ biến nhất lên trên).</p>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm mấu chốt</div>
+      <ul>
+        <li>2-4 options: cân nhắc radio buttons thay dropdown</li>
+        <li>5-7 options: dropdown hoặc segmented control tùy không gian</li>
+        <li>8+ options: dropdown; 50+ options: dropdown có search/filter</li>
+        <li>Sắp xếp danh sách theo logic (chữ cái, số, tần suất)</li>
+        <li>Mobile: tận dụng native picker của iOS/Android</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 21 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 21</div>
+    <div class="principle-title">Cho phép người dùng hoàn tác hành động nguy hiểm</div>
+  </div>
+  <div class="principle-body">
+    <p>Có một khái niệm trong UX gọi là <strong>"ohnosecond"</strong> — giây kinh hoàng ngay sau khi bạn nhận ra mình vừa làm điều gì đó không thể thu hồi. Xóa nhầm email quan trọng, xóa nhầm file, gửi nhầm tin nhắn. Thiết kế tốt tạo ra cơ chế để phục hồi từ sai lầm.</p>
+
+    <div class="example-box">
+      <div class="ex-label">Ví dụ xuất sắc — Gmail Undo Send</div>
+      <p>Gmail cho phép cấu hình "undo send" với window 20 giây. Sau khi bấm Gửi, email không được gửi ngay — thay vào đó một banner xuất hiện với nút "Hoàn tác". Nếu không tương tác trong 20 giây, email mới thực sự được gửi. Đây là thiết kế xuất sắc: người dùng cảm thấy email được gửi ngay, nhưng vẫn có cơ hội thu hồi.</p>
+    </div>
+
+    <h3>Phân loại mức độ nguy hiểm và phản hồi phù hợp</h3>
+    <ul>
+      <li><strong>Mức độ nhỏ</strong> (xóa email, archive item): Toast notification ngắn với nút "Hoàn tác" — không cản trở workflow, nhưng cho cơ hội phục hồi</li>
+      <li><strong>Mức độ vừa</strong> (xóa file, hủy đơn hàng): Modal xác nhận với mô tả rõ hành động và hậu quả — hai nút: xác nhận và hủy</li>
+      <li><strong>Mức độ lớn</strong> (xóa tài khoản, xóa toàn bộ dự án): Yêu cầu người dùng gõ lại tên/từ khóa để xác nhận — friction có chủ đích giúp người dùng nhận thức rõ hành động không thể đảo ngược</li>
+    </ul>
+
+    <div class="insight-box">
+      <p><strong>Triết lý tha thứ:</strong> UX tốt thiết kế cho sự tha thứ — người dùng làm sai, hệ thống cho phép sửa. "Làm khó để xóa" không phải bảo vệ dữ liệu — đó là thiết kế tốt. Mọi hành động nguy hiểm đều phải có cơ chế phục hồi tương xứng với mức độ của nó.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm mấu chốt</div>
+      <ul>
+        <li>"Ohnosecond": giây kinh hoàng sau hành động không thể thu hồi — hãy cho người dùng cơ hội phục hồi</li>
+        <li>Nhỏ: undo toast (Gmail, Material Design pattern)</li>
+        <li>Vừa: modal xác nhận với mô tả hậu quả</li>
+        <li>Lớn: yêu cầu gõ lại để xác nhận</li>
+        <li>Luôn rõ ràng về hành động nào không thể đảo ngược</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 22 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 22</div>
+    <div class="principle-title">Tối ưu giao diện cho di động</div>
+  </div>
+  <div class="principle-body">
+    <p>Trải nghiệm dùng app di động (và web mobile-optimized) có thể là niềm vui hoặc nỗi thất vọng sâu sắc. Nguyên tắc này tổng hợp các best practice từ khắp cuốn sách thành một "bảng cheat sheet UX cho mobile".</p>
+
+    <h3>1. Tận dụng tính năng device-native</h3>
+    <p>iOS và Android đã đầu tư rất nhiều vào các thành phần UI native tối ưu cho màn hình cảm ứng: tab bar (iOS), navigation drawer (Android), date picker, number picker, phone number input. Hãy dùng chúng thay vì phát minh lại — người dùng đã quen và kỳ vọng chúng hoạt động đúng cách. Navigation bar nên theo phong cách của hệ điều hành chủ để người dùng cảm thấy quen thuộc ngay lập tức.</p>
+
+    <h3>2. Nút bấm đủ lớn cho ngón tay người</h3>
+    <p>Màn hình cảm ứng không có hover state và không có chuột chính xác. Ngón tay có diện tích tiếp xúc lớn hơn nhiều so với con trỏ chuột. Tap nhầm là một trong những nguồn frustration lớn nhất trên mobile. Apple HIG khuyến nghị kích thước nút tối thiểu <strong>44×44 display points</strong>; Android Material Design khuyến nghị <strong>48×48dp</strong>. Đừng "copy" giao diện desktop xuống mobile và scale nhỏ lại — không hoạt động.</p>
+
+    <h3>3. Nhập liệu trên mobile</h3>
+    <p>Form trên mobile là nguồn abandon rate cao nhất. Hai cải tiến đơn giản tạo ra khác biệt lớn:</p>
+    <ul>
+      <li>Khi người dùng chọn xong một dropdown hay toggle, tự động move focus sang trường tiếp theo</li>
+      <li>Chia form dài thành nhiều bước nhỏ, lưu từng bước — người dùng chỉ thấy vài trường mỗi lần</li>
+    </ul>
+
+    <h3>4. Trang dọc, không ngang</h3>
+    <p>Desktop có màn hình ngang dọc; điện thoại dùng chủ yếu theo chiều dọc (portrait). Responsive design giải quyết phần lớn vấn đề, nhưng cần làm cẩn thận. Người dùng sẵn sàng scroll dọc — đó là hành vi tự nhiên trên mobile. Nhưng <strong>scroll ngang là vấn đề lớn</strong>: không tự nhiên, cản trở cử chỉ "back" của trình duyệt mobile, gây confusion. Hãy tránh hoàn toàn.</p>
+
+    <div class="learning-box">
+      <div class="l-label">Bảng tóm tắt UX Mobile</div>
+      <ul>
+        <li>Dùng UI components native của iOS/Android — đừng phát minh lại</li>
+        <li>Kích thước nút tối thiểu 44px (iOS) hoặc 48dp (Android)</li>
+        <li>Auto-advance form sau khi chọn; chia form dài thành nhiều bước</li>
+        <li>Tận dụng native keyboard types (number, email, tel, date)</li>
+        <li>Scroll dọc OK; scroll ngang — tuyệt đối tránh</li>
+        <li>Responsive design từ framework có sẵn tốt hơn tự xây từ đầu</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Tổng kết — Controls</div>
+  <p>11 nguyên tắc về Controls trong chương này đề cập đến những quyết định thiết kế rất cụ thể: dấu ba chấm, affordance của nút, Fitts' Law, slider vs number input, undo mechanism, và tối ưu mobile. Mỗi nguyên tắc riêng lẻ trông có vẻ nhỏ, nhưng cộng lại chúng tạo ra sự khác biệt lớn giữa giao diện "gây bực bội" và giao diện "cảm giác đúng".</p>
+  <p>Chủ đề xuyên suốt của Controls: <em>đừng làm người dùng phải suy nghĩ về cách dùng control</em>. Nút phải trông như nút. Slider phải dễ kéo. Search phải luôn thấy. Hành động nguy hiểm phải cho cơ hội thu hồi. Khi control hoạt động đúng kỳ vọng, người dùng tập trung vào nhiệm vụ của họ — không phải vào giao diện.</p>
+  <p>Chương tiếp theo đi vào Content — cách hiển thị, tổ chức, và tương tác với nội dung người dùng: feed, danh sách, trạng thái trống, tutorial, và cookie consent.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="ux_principles_ch02.html"><span class="lbl">Phần trước</span>Phần 2: Typography</a>
+  <a href="ux_principles_ch04.html"><span class="lbl">Phần sau</span>Phần 4: Nội Dung</a>
+</nav>
+</body>
+</html>

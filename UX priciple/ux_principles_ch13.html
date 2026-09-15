@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phần 13: Ngôn Ngữ & Thuật Ngữ — 101 UX Principles</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+h1{font-size:2rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+h2{font-size:1.35rem;font-weight:700;margin-bottom:16px;letter-spacing:-0.2px;}
+h3{font-size:1.05rem;font-weight:600;margin-bottom:10px;color:var(--text-secondary);}
+p{margin-bottom:16px;color:var(--text-secondary);}
+.book-label{font-size:0.78rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:32px;display:block;}
+.chapter-intro{font-size:1.1rem;color:var(--text-secondary);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--accent-line);}
+.principle-block{border:1px solid var(--border);border-radius:4px;margin-bottom:40px;overflow:hidden;}
+.principle-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:16px;}
+.principle-num{font-size:0.78rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);white-space:nowrap;}
+.principle-title{font-size:1.15rem;font-weight:700;color:var(--text);}
+.principle-body{padding:24px;}
+.principle-body p{margin-bottom:14px;}
+.principle-body p:last-child{margin-bottom:0;}
+.insight-box{background:var(--surface);border-left:3px solid var(--accent-line);padding:16px 20px;margin:20px 0;border-radius:0 4px 4px 0;}
+.insight-box p{margin:0;color:var(--text-secondary);font-size:0.95rem;}
+.example-box{border:1px solid var(--border);border-radius:4px;padding:16px 20px;margin:20px 0;background:#fff;}
+.example-box .ex-label{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.learning-box{background:var(--surface);border-radius:4px;padding:20px 24px;margin-top:24px;}
+.learning-box .lb-title{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+.learning-box ul{list-style:none;padding:0;}
+.learning-box ul li{padding:5px 0 5px 20px;position:relative;color:var(--text-secondary);font-size:0.95rem;}
+.learning-box ul li::before{content:'→';position:absolute;left:0;color:var(--text-muted);}
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+.compare-col{border-radius:4px;padding:16px 18px;}
+.compare-col.bad{background:#f5f5f5;border:1px solid var(--border);}
+.compare-col.good{background:#f0f0f0;border:1px solid var(--border-strong);}
+.compare-col .col-label{font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.compare-col p{margin:0;color:var(--text-secondary);font-size:0.93rem;}
+.conclusion-box{border-top:2px solid var(--accent-line);margin-top:48px;padding-top:32px;}
+.conclusion-box h2{margin-bottom:16px;}
+/* auth-wireframe */
+.auth-wire{border:1px solid var(--border);border-radius:4px;padding:24px;margin:20px 0;background:#fff;font-family:'Helvetica Neue',Arial,sans-serif;}
+.auth-wire-cols{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.auth-wire-col{background:#fff;padding:20px;}
+.auth-wire-col h4{font-size:0.85rem;font-weight:700;color:var(--text);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.auth-wire-col .field-mock{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:8px 10px;margin-bottom:8px;font-size:0.85rem;color:var(--text-muted);}
+.auth-wire-col .btn-mock{display:block;width:100%;background:var(--text);color:#fff;border:none;border-radius:3px;padding:10px;font-size:0.85rem;font-weight:600;text-align:center;margin-top:4px;cursor:pointer;}
+.auth-wire-col .btn-mock.secondary{background:#fff;color:var(--text);border:1px solid var(--border);}
+/* terminology-demo */
+.term-demo{border:1px solid var(--border);border-radius:4px;overflow:hidden;margin:20px 0;}
+.term-demo-row{display:grid;grid-template-columns:80px 1fr 1fr;align-items:center;gap:0;}
+.term-demo-row.header{background:var(--surface-dark);}
+.term-demo-cell{padding:12px 16px;font-size:0.87rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.term-demo-cell:last-child{border-right:none;}
+.term-demo-row.header .term-demo-cell{font-weight:700;font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);}
+.term-demo-row:last-child .term-demo-cell{border-bottom:none;}
+.tag-bad{display:inline-block;padding:2px 8px;background:var(--surface-dark);border-radius:2px;font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-right:6px;}
+.tag-good{display:inline-block;padding:2px 8px;background:var(--accent-line);border-radius:2px;font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-right:6px;}
+/* password reset flow */
+.reset-flow{display:flex;align-items:center;gap:0;margin:20px 0;overflow-x:auto;}
+.reset-step{flex:1;min-width:120px;text-align:center;padding:16px 10px;background:#fff;border:1px solid var(--border);position:relative;}
+.reset-step:not(:last-child)::after{content:'→';position:absolute;right:-16px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:1.1rem;z-index:1;}
+.reset-step:not(:first-child){border-left:none;}
+.reset-step .step-icon{font-size:1.4rem;margin-bottom:6px;}
+.reset-step .step-name{font-size:0.75rem;font-weight:600;color:var(--text);}
+.reset-step .step-note{font-size:0.68rem;color:var(--text-muted);margin-top:4px;}
+/* active-passive transform */
+.transform-box{border:1px solid var(--border);border-radius:4px;overflow:hidden;margin:20px 0;}
+.transform-row{display:grid;grid-template-columns:1fr 48px 1fr;align-items:center;gap:0;border-bottom:1px solid var(--border);}
+.transform-row:last-child{border-bottom:none;}
+.transform-cell{padding:14px 16px;font-size:0.9rem;}
+.transform-cell.passive{background:#f5f5f5;color:var(--text-secondary);}
+.transform-cell.arrow{background:var(--surface-dark);text-align:center;font-weight:700;color:var(--text-muted);font-size:0.9rem;border-left:1px solid var(--border);border-right:1px solid var(--border);}
+.transform-cell.active-verb{background:#fff;color:var(--text);font-weight:500;}
+@media(max-width:600px){.compare-row{grid-template-columns:1fr;}.auth-wire-cols{grid-template-columns:1fr;}.term-demo-row{grid-template-columns:1fr;}.transform-row{grid-template-columns:1fr;}.transform-cell.arrow{display:none;}}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/ux-principles">← Về mục lục</a></p>
+
+
+<span class="book-label">101 UX Principles · Will Grant · Ngôn Ngữ &amp; Thuật Ngữ</span>
+
+<h1>Ngôn Ngữ &amp; Thuật Ngữ</h1>
+<p class="chapter-intro">Ngôn ngữ trong sản phẩm không chỉ là nhãn và nút bấm — đó là giọng nói của sản phẩm với người dùng. Một sản phẩm nhất quán về thuật ngữ, viết theo lối con người, và dùng động từ chủ động sẽ tạo cảm giác thân thiện và chuyên nghiệp hơn hẳn sản phẩm dùng ngôn ngữ kỹ thuật, thụ động hoặc mâu thuẫn với chính mình.</p>
+
+<!-- #89 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <span class="principle-num">#89</span>
+    <span class="principle-title">Nhất quán về thuật ngữ</span>
+  </div>
+  <div class="principle-body">
+    <p>Khi sản phẩm gọi một thứ bằng nhiều tên khác nhau ở các màn hình khác nhau, người dùng mất phương hướng — họ tự hỏi liệu "giỏ hàng" và "cart" có phải là cùng một thứ không, liệu "xóa" và "remove" có khác nhau không.</p>
+
+    <p>Nguyên tắc đơn giản: chọn một thuật ngữ và dùng nó ở mọi nơi. Nếu bạn gọi là "giỏ hàng", thì tất cả màn hình, tooltip, email xác nhận, và thông báo lỗi đều phải gọi là "giỏ hàng". Không phải "basket", không phải "bag", không phải "cart".</p>
+
+    <div class="term-demo">
+      <div class="term-demo-row header">
+        <div class="term-demo-cell">Màn hình</div>
+        <div class="term-demo-cell"><span class="tag-bad">Không nhất quán</span></div>
+        <div class="term-demo-cell"><span class="tag-good">Nhất quán</span></div>
+      </div>
+      <div class="term-demo-row">
+        <div class="term-demo-cell">Header nav</div>
+        <div class="term-demo-cell">Giỏ hàng (3)</div>
+        <div class="term-demo-cell">Giỏ hàng (3)</div>
+      </div>
+      <div class="term-demo-row">
+        <div class="term-demo-cell">Nút sản phẩm</div>
+        <div class="term-demo-cell">Thêm vào cart</div>
+        <div class="term-demo-cell">Thêm vào giỏ hàng</div>
+      </div>
+      <div class="term-demo-row">
+        <div class="term-demo-cell">Email xác nhận</div>
+        <div class="term-demo-cell">Các mặt hàng trong basket của bạn…</div>
+        <div class="term-demo-cell">Các mặt hàng trong giỏ hàng của bạn…</div>
+      </div>
+      <div class="term-demo-row">
+        <div class="term-demo-cell">Thông báo lỗi</div>
+        <div class="term-demo-cell">Không thể thêm item vào bag</div>
+        <div class="term-demo-cell">Không thể thêm sản phẩm vào giỏ hàng</div>
+      </div>
+    </div>
+
+    <p>Vấn đề thuật ngữ không nhất quán thường bắt nguồn từ việc nhiều người hoặc team khác nhau viết copy cho từng màn hình riêng lẻ mà không có hướng dẫn phong cách chung. Giải pháp là tạo <strong>glossary (từ điển thuật ngữ)</strong> và đưa vào design system.</p>
+
+    <div class="insight-box">
+      <p><strong>Giọng điệu phù hợp ngữ cảnh:</strong> Tính nhất quán về thuật ngữ không có nghĩa là giọng điệu không thay đổi. Một ứng dụng y tế có thể dùng giọng nghiêm túc và chính thống. Một app mua sắm thời trang có thể dùng giọng trẻ trung, thân thiện. Điều quan trọng là giọng điệu nhất quán trong toàn bộ sản phẩm — không thể nghiêm túc ở trang chủ rồi bỗng nhiên vui nhộn ở trang lỗi.</p>
+    </div>
+
+    <p>Một kỹ thuật hữu ích là tạo "voice and tone guide" — tài liệu mô tả nhân cách của sản phẩm, các ví dụ về ngôn ngữ nên dùng và không nên dùng trong các tình huống khác nhau. Tài liệu này giúp toàn bộ team — cả designer, developer, và content writer — nói cùng một tiếng.</p>
+
+    <div class="learning-box">
+      <div class="lb-title">Điểm học được</div>
+      <ul>
+        <li>Chọn một thuật ngữ cho mỗi khái niệm và dùng nhất quán ở mọi nơi</li>
+        <li>Tạo glossary thuật ngữ và đưa vào design system</li>
+        <li>Giọng điệu phù hợp ngữ cảnh nhưng nhất quán xuyên suốt sản phẩm</li>
+        <li>Viết voice and tone guide để cả team có cùng tiêu chuẩn</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- #90 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <span class="principle-num">#90</span>
+    <span class="principle-title">Dùng "Sign In" / "Sign Out" — không dùng "Log In" / "Log Out"</span>
+  </div>
+  <div class="principle-body">
+    <p>Đây là quy ước ngôn ngữ tưởng như nhỏ nhặt nhưng có lý do lịch sử thuyết phục. Thuật ngữ "log" bắt nguồn từ <strong>ship's log (nhật ký tàu)</strong> — thủy thủ thế kỷ 18 ghi chép hành trình vào cuốn nhật ký trên tàu. Khi máy tính xuất hiện, các kỹ sư dùng "log in" theo nghĩa đó — ghi tên vào hệ thống như ghi vào sổ.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="col-label">❌ Tránh</div>
+        <p>Log in &nbsp;·&nbsp; Log out &nbsp;·&nbsp; Login &nbsp;·&nbsp; Logout</p>
+      </div>
+      <div class="compare-col good">
+        <div class="col-label">✓ Nên dùng</div>
+        <p>Sign in &nbsp;·&nbsp; Sign out &nbsp;·&nbsp; Sign In &nbsp;·&nbsp; Sign Out</p>
+      </div>
+    </div>
+
+    <p>"Sign in" có nghĩa hiện đại hơn và phổ biến hơn trong ngôn ngữ thường ngày — người ta "sign in" vào khách sạn, vào sự kiện. Apple, Google, và hầu hết các sản phẩm công nghệ lớn đã chuyển sang dùng "Sign in" / "Sign out" từ lâu.</p>
+
+    <div class="insight-box">
+      <p><strong>Lưu ý về "Login" viết liền:</strong> "Login" (liền, không dấu cách) là danh từ hoặc tính từ — "your login credentials", "the login page". Còn hành động thì phải viết tách: "Sign in" hoặc "Log in". Dù vậy, tốt nhất vẫn nên dùng "Sign in" toàn bộ để tránh nhầm lẫn.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="lb-title">Điểm học được</div>
+      <ul>
+        <li>"Sign in" / "Sign out" là chuẩn ngôn ngữ hiện đại, được Apple, Google dùng</li>
+        <li>"Log in" xuất phát từ nhật ký tàu thủy thế kỷ 18 — lỗi thời về mặt ngữ cảnh</li>
+        <li>"Login" viết liền chỉ dùng như danh từ/tính từ, không dùng như động từ</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- #91 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <span class="principle-num">#91</span>
+    <span class="principle-title">Làm rõ khi nào người dùng đăng ký — khi nào đăng nhập</span>
+  </div>
+  <div class="principle-body">
+    <p>Một trong những điểm gây nhầm lẫn nhất trong luồng xác thực người dùng: người dùng không biết họ đang <em>tạo tài khoản mới</em> hay <em>đăng nhập tài khoản cũ</em>. Nhiều sản phẩm chỉ hiển thị một form với nút "Tiếp tục" — không rõ hành động đó là gì.</p>
+
+    <p>Giải pháp tốt nhất là chia rõ hai luồng ngay trên cùng một màn hình:</p>
+
+    <div class="auth-wire">
+      <div class="auth-wire-cols">
+        <div class="auth-wire-col">
+          <h4>Lần đầu dùng? Đăng ký</h4>
+          <div class="field-mock">Họ và tên</div>
+          <div class="field-mock">Email</div>
+          <div class="field-mock">Mật khẩu</div>
+          <div class="field-mock">Xác nhận mật khẩu</div>
+          <div class="btn-mock">Tạo tài khoản</div>
+        </div>
+        <div class="auth-wire-col">
+          <h4>Đã có tài khoản? Đăng nhập</h4>
+          <div class="field-mock">Email</div>
+          <div class="field-mock">Mật khẩu</div>
+          <div class="btn-mock">Đăng nhập</div>
+          <div class="btn-mock secondary" style="margin-top:8px;">Quên mật khẩu?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Bẫy conversion optimization:</strong> Một số team A/B test việc ẩn form đăng nhập đi và chỉ hiển thị nút "Đăng ký" lớn — với hy vọng tăng số user mới. Kết quả là những user cũ bị nhầm và thất vọng. Luôn luôn cung cấp lối vào rõ ràng cho cả hai hành động: đăng ký mới và đăng nhập lại.</p>
+    </div>
+
+    <p>Headings rõ ràng như "Lần đầu dùng?" và "Đã có tài khoản?" giúp người dùng tự định hướng trước khi điền bất kỳ thứ gì. Điều này giảm đáng kể tỷ lệ người cố đăng nhập bằng form đăng ký và ngược lại.</p>
+
+    <div class="learning-box">
+      <div class="lb-title">Điểm học được</div>
+      <ul>
+        <li>Phân biệt rõ "đăng ký" (tạo tài khoản mới) và "đăng nhập" (trở lại)</li>
+        <li>Không ẩn form đăng nhập để đẩy người dùng vào luồng đăng ký</li>
+        <li>Dùng heading mô tả ngữ cảnh ("Lần đầu dùng?") thay vì chỉ label kỹ thuật</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- #92 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <span class="principle-num">#92</span>
+    <span class="principle-title">Chuẩn hóa quy trình đặt lại mật khẩu</span>
+  </div>
+  <div class="principle-body">
+    <p>Quên mật khẩu là một trong những điểm đau phổ biến nhất của người dùng. Một quy trình đặt lại mật khẩu được thiết kế tốt có thể biến trải nghiệm bực bội thành trải nghiệm trơn tru.</p>
+
+    <p>Quy trình chuẩn gồm 4 bước:</p>
+
+    <div class="reset-flow">
+      <div class="reset-step">
+        <div class="step-icon">🔑</div>
+        <div class="step-name">Quên mật khẩu?</div>
+        <div class="step-note">Label rõ ràng, dễ tìm</div>
+      </div>
+      <div class="reset-step">
+        <div class="step-icon">📧</div>
+        <div class="step-name">Nhập email</div>
+        <div class="step-note">Pre-fill nếu đã có</div>
+      </div>
+      <div class="reset-step">
+        <div class="step-icon">✉️</div>
+        <div class="step-name">Kiểm tra email</div>
+        <div class="step-note">Link có hạn hợp lý</div>
+      </div>
+      <div class="reset-step">
+        <div class="step-icon">🔒</div>
+        <div class="step-name">Tạo mật khẩu mới</div>
+        <div class="step-note">Đăng nhập ngay</div>
+      </div>
+    </div>
+
+    <h3>Các quy tắc quan trọng:</h3>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="col-label">❌ Sai</div>
+        <p>Label là "Reset password" — quá kỹ thuật, người dùng chưa muốn nghĩ đến việc "reset".</p>
+      </div>
+      <div class="compare-col good">
+        <div class="col-label">✓ Đúng</div>
+        <p>Label là "Forgot password?" hoặc "Quên mật khẩu?" — mô tả cảm giác của người dùng, không phải hành động hệ thống.</p>
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="col-label">❌ Sai</div>
+        <p>Link đặt lại hết hạn ngay sau khi nhấp một lần — nếu tab bị đóng, người dùng phải làm lại từ đầu.</p>
+      </div>
+      <div class="compare-col good">
+        <div class="col-label">✓ Đúng</div>
+        <p>Link có thể nhấp nhiều lần, nhưng hết hạn sau một khoảng thời gian hợp lý (ví dụ: 24 giờ hoặc 1 tiếng).</p>
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="col-label">❌ Sai</div>
+        <p>Người dùng phải nhập lại email từ đầu dù đã nhập ở bước đăng nhập.</p>
+      </div>
+      <div class="compare-col good">
+        <div class="col-label">✓ Đúng</div>
+        <p>Pre-fill trường email nếu người dùng vừa nhập ở form đăng nhập — ít bước hơn, ít lỗi hơn.</p>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Session length và mật khẩu yếu:</strong> Nếu người dùng phải đăng nhập lại thường xuyên, họ sẽ tạo mật khẩu đơn giản để dễ nhớ — hoặc ghi ra giấy. Mở rộng thời gian session hợp lý (đặc biệt trên thiết bị tin cậy) giúp người dùng dùng mật khẩu phức tạp hơn vì họ không cần nhớ nó thường xuyên.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="lb-title">Điểm học được</div>
+      <ul>
+        <li>Dùng "Forgot password?" — không dùng "Reset password" làm label</li>
+        <li>Pre-fill email vào form đặt lại mật khẩu nếu đã có</li>
+        <li>Link đặt lại: nhấp được nhiều lần nhưng hết hạn theo thời gian</li>
+        <li>Session dài hơn → người dùng tạo mật khẩu mạnh hơn</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- #93 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <span class="principle-num">#93</span>
+    <span class="principle-title">Viết như con người — không viết như máy</span>
+  </div>
+  <div class="principle-body">
+    <p>Phần lớn copy trong phần mềm được viết từ góc nhìn của hệ thống — những gì <em>hệ thống làm</em> — thay vì từ góc nhìn của người dùng — những gì <em>người dùng muốn làm</em>. Kết quả là những label lạnh lùng, quan liêu và khó hiểu.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="col-label">❌ Góc nhìn hệ thống</div>
+        <p>Edit customer</p>
+      </div>
+      <div class="compare-col good">
+        <div class="col-label">✓ Góc nhìn người dùng</div>
+        <p>Edit a customer's details</p>
+      </div>
+    </div>
+
+    <p>Sự khác biệt tưởng nhỏ nhưng thực ra rất lớn. "Edit customer" nghe như bạn đang chỉnh sửa bản thân người khách hàng. "Edit a customer's details" giải thích đúng những gì sắp xảy ra — bạn sẽ thay đổi thông tin chi tiết của một khách hàng.</p>
+
+    <div class="example-box">
+      <div class="ex-label">Thêm ví dụ — góc nhìn tổ chức vs người dùng</div>
+      <div class="compare-row" style="margin:0;">
+        <div class="compare-col bad">
+          <div class="col-label">❌ Tổ chức làm trung tâm</div>
+          <p>Create employee record<br>Delete user account<br>Submit ticket<br>Process payment</p>
+        </div>
+        <div class="compare-col good">
+          <div class="col-label">✓ Người dùng làm trung tâm</div>
+          <p>Add a new team member<br>Close your account<br>Get help<br>Pay now</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Guerilla usability testing cho copy:</strong> In ra màn hình, che đi logo, và nhờ người không biết gì về sản phẩm đọc. Hỏi họ: "Nút này sẽ làm gì?" Nếu họ ngần ngại hoặc sai — copy cần viết lại. Kỹ thuật này cực kỳ hiệu quả để phát hiện ngôn ngữ quá kỹ thuật hoặc mơ hồ.</p>
+    </div>
+
+    <p>Nguyên tắc cốt lõi: <strong>viết về những gì người dùng đạt được, không phải những gì hệ thống thực hiện.</strong> Người dùng không quan tâm đến kiến trúc hệ thống — họ chỉ muốn hoàn thành mục tiêu của mình.</p>
+
+    <div class="learning-box">
+      <div class="lb-title">Điểm học được</div>
+      <ul>
+        <li>Viết copy từ góc nhìn người dùng — những gì họ đạt được, không phải hệ thống làm gì</li>
+        <li>Dùng guerilla testing để phát hiện copy khó hiểu</li>
+        <li>Label phải mô tả hành động hoàn chỉnh, không chỉ lệnh đơn lẻ</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- #94 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <span class="principle-num">#94</span>
+    <span class="principle-title">Dùng động từ chủ động — không dùng câu bị động</span>
+  </div>
+  <div class="principle-body">
+    <p>Câu bị động xuất hiện trong phần mềm vì nhiều lý do: nhiều stakeholder cùng góp ý vào copy, các bộ phận pháp lý muốn giảm trách nhiệm, hoặc đơn giản là thói quen viết trong môi trường doanh nghiệp. Kết quả là ngôn ngữ trở nên quan liêu, mơ hồ và thiếu thân thiện.</p>
+
+    <p><strong>Plain English Campaign</strong> — tổ chức Anh Quốc vận động cho ngôn ngữ rõ ràng — trao chứng nhận <em>"Crystal Mark"</em> cho các tài liệu viết bằng tiếng Anh đơn giản, trực tiếp. Nguyên tắc cốt lõi của họ: dùng câu chủ động, ngắn gọn.</p>
+
+    <div class="transform-box">
+      <div class="transform-row">
+        <div class="transform-cell passive">This matter will be considered by our team.</div>
+        <div class="transform-cell arrow">→</div>
+        <div class="transform-cell active-verb">We will consider this.</div>
+      </div>
+      <div class="transform-row">
+        <div class="transform-cell passive">Your request has been received and is being processed.</div>
+        <div class="transform-cell arrow">→</div>
+        <div class="transform-cell active-verb">We received your request and are processing it.</div>
+      </div>
+      <div class="transform-row">
+        <div class="transform-cell passive">An error was encountered during submission.</div>
+        <div class="transform-cell arrow">→</div>
+        <div class="transform-cell active-verb">Something went wrong. Please try again.</div>
+      </div>
+      <div class="transform-row">
+        <div class="transform-cell passive">Your account may be subject to deletion if terms are violated.</div>
+        <div class="transform-cell arrow">→</div>
+        <div class="transform-cell active-verb">We may delete accounts that break our rules.</div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <p><strong>Tại sao câu bị động xuất hiện nhiều trong phần mềm doanh nghiệp?</strong> Khi nhiều người (legal, marketing, PM, execs) cùng chỉnh sửa một đoạn copy, mỗi người thêm một từ "có thể" hay "tùy thuộc vào điều kiện" — và câu chủ động dần biến thành câu bị động dài lê thê. Giải pháp: có một người chịu trách nhiệm cuối cùng về copy, không phải cả hội đồng.</p>
+    </div>
+
+    <p>Câu chủ động tạo cảm giác sản phẩm <em>đang nói chuyện với bạn</em>, không phải phát thông báo cho bạn. "We saved your changes" thân thiện hơn nhiều so với "Your changes have been saved." Cả hai đều đúng ngữ pháp — nhưng cái trước có cá tính, cái sau lạnh lùng như máy.</p>
+
+    <div class="learning-box">
+      <div class="lb-title">Điểm học được</div>
+      <ul>
+        <li>Dùng câu chủ động: "We saved" thay vì "has been saved"</li>
+        <li>Câu bị động xuất hiện khi nhiều người cùng chỉnh sửa copy — chỉ định một người phụ trách</li>
+        <li>Plain English Campaign và "Crystal Mark" là chuẩn mực tốt để tham khảo</li>
+        <li>Câu ngắn, động từ rõ ràng, chủ ngữ cụ thể: "chúng tôi" hoặc "bạn"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <h2>Tổng kết: Ngôn ngữ là giao diện vô hình</h2>
+  <p>Mọi từ trong sản phẩm đều là giao diện. Nhãn, thông báo lỗi, xác nhận, tooltip — tất cả đều giao tiếp với người dùng, dù bạn có chú ý thiết kế chúng hay không. Sự khác biệt giữa "Edit customer" và "Edit a customer's details" không phải là sự khác biệt về ngữ pháp — đó là sự khác biệt về triết lý: sản phẩm này xây dựng cho con người hay cho hệ thống?</p>
+  <p>Nguyên tắc của phần này đều có điểm chung: nhất quán, rõ ràng, và viết bằng giọng người thật. Không cần văn phong hoa mỹ — chỉ cần trung thực, đơn giản, và đúng với những gì người dùng đang cảm nhận ở khoảnh khắc đó.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="ux_principles_ch12.html"><span class="lbl">Phần trước</span>Phần 12: Hành Trình & Trạng Thái Sản Phẩm</a>
+  <a href="ux_principles_ch14.html"><span class="lbl">Phần sau</span>Phần 14: Kỳ Vọng Người Dùng</a>
+</nav>
+</body>
+</html>

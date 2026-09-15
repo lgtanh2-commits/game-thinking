@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phần 1 – Lĩnh vực UX (Nguyên tắc 1–7)</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+h1{font-size:2rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+h3{font-size:1.05rem;font-weight:700;margin:28px 0 10px;color:var(--text-secondary);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+ul,ol{margin:10px 0 16px 22px;}
+li{margin-bottom:6px;color:var(--text-secondary);}
+strong{color:var(--text);font-weight:700;}
+.book-label{font-size:0.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;}
+.chapter-intro{background:var(--surface);border-left:3px solid var(--accent-line);padding:18px 22px;margin:24px 0 40px;border-radius:0 4px 4px 0;}
+.chapter-intro p{margin:0;font-size:0.95rem;}
+.principle-block{border:1px solid var(--border);border-radius:6px;margin:36px 0;overflow:hidden;}
+.principle-header{background:var(--surface-dark);padding:14px 22px;border-bottom:1px solid var(--border);}
+.principle-header .p-num{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
+.principle-header .p-title{font-size:1.2rem;font-weight:700;color:var(--text);}
+.principle-body{padding:22px;}
+.principle-body p{margin-bottom:14px;}
+.principle-body p:last-child{margin-bottom:0;}
+.learning-box{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px 20px;margin-top:20px;}
+.learning-box .l-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.learning-box ul{margin:0 0 0 18px;padding:0;}
+.learning-box li{font-size:0.91rem;color:var(--text-secondary);margin-bottom:5px;}
+.insight-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin:16px 0;border-radius:0 4px 4px 0;}
+.insight-box p{margin:0;font-size:0.92rem;color:var(--text-secondary);}
+.example-box{border:1px dashed var(--border-strong);border-radius:4px;padding:16px 20px;margin:16px 0;background:var(--bg);}
+.example-box .e-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.example-box p{margin:0;font-size:0.92rem;}
+.step-list{counter-reset:step;list-style:none;margin:12px 0 16px 0;padding:0;}
+.step-list li{counter-increment:step;display:flex;align-items:flex-start;gap:14px;padding:10px 0;border-bottom:1px solid var(--border);}
+.step-list li:last-child{border-bottom:none;}
+.step-list li::before{content:counter(step);font-size:0.8rem;font-weight:700;min-width:26px;height:26px;border-radius:50%;background:var(--accent-line);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.conclusion-box{margin-top:60px;padding:28px 30px;border:2px solid var(--accent-line);border-radius:4px;background:var(--surface);}
+.conclusion-label{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+.conclusion-box p{margin-bottom:10px;font-size:0.95rem;}
+.conclusion-box p:last-child{margin-bottom:0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/ux-principles">← Về mục lục</a></p>
+
+
+<div class="book-label">101 UX Principles · Will Grant · Lĩnh vực UX</div>
+<h1>Phần 1: Lĩnh vực UX</h1>
+
+<div class="chapter-intro">
+  <p>Những nguyên tắc đầu tiên của UX đặt người dùng vào trung tâm tư duy của bạn. Phần này giới thiệu các nền tảng cần thiết để thiết kế sản phẩm lấy người dùng làm trọng tâm, đồng thời nhấn mạnh tầm quan trọng của kiểm thử và cải tiến liên tục. Từ tư duy cá nhân đến chiến lược tổ chức, 7 nguyên tắc đầu tiên này tạo nên bộ khung vận hành cho toàn bộ công việc UX của bạn.</p>
+</div>
+
+<!-- Nguyên tắc 1 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="p-num">Nguyên tắc 01</div>
+    <div class="p-title">Ai Cũng Có Thể Giỏi UX</div>
+  </div>
+  <div class="principle-body">
+    <p>Cuốn sách này dành cho bất kỳ ai thiết kế sản phẩm phần mềm — dù bạn là designer chuyên nghiệp, chuyên gia UX, hay người phải ra quyết định về UX trong tổ chức của mình. Bất kể vai trò, các nguyên tắc này sẽ giúp sản phẩm của bạn tốt hơn, phục vụ người dùng tốt hơn, và giữ chân khách hàng lâu hơn.</p>
+
+    <p>Các ví dụ trong sách bao trải nhiều nền tảng khác nhau — ứng dụng di động, website, web app, phần mềm desktop — nhưng tất cả các nguyên tắc đều có thể áp dụng cho mọi loại giao diện: từ UI ô tô, game di động, VR, cho đến giao diện máy giặt.</p>
+
+    <p>Để giỏi UX, bạn cần hai phẩm chất cốt lõi: <strong>đồng cảm (empathy)</strong> và <strong>khách quan (objectivity)</strong>. Đây không phải tài năng bẩm sinh — đây là kỹ năng có thể học và rèn luyện.</p>
+
+    <p><strong>Đồng cảm</strong> giúp bạn hiểu nhu cầu, mục tiêu và sự thất vọng của người dùng. Để "đi một dặm trong đôi giày của họ" đòi hỏi bạn tiếp cận vấn đề người dùng với sự tôn trọng — họ không ngu ngốc, phần mềm của bạn đang quá khó dùng. <strong>Khách quan</strong> giúp bạn nhìn sản phẩm bằng con mắt tươi mới, phát hiện lỗi và sửa chúng.</p>
+
+    <p>Kiểm thử người dùng là bước thiết yếu — nó sẽ phát lộ những lỗi mà bạn không bao giờ tưởng tượng ra. Hãy nói chuyện với người dùng sớm và thường xuyên. Sửa lỗi sản phẩm ở giai đoạn đầu dễ hơn gấp nhiều lần so với cuối dự án — thậm chí gần như không thể sửa khi đã ra mắt.</p>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm học chính</div>
+      <ul>
+        <li>UX không phải tài năng bẩm sinh — bạn hoàn toàn có thể học cách giỏi lĩnh vực này</li>
+        <li>Khách quan và đồng cảm là hai phẩm chất cốt lõi — vấn đề và nhu cầu của bạn không phải lúc nào cũng giống người dùng</li>
+        <li>Cuốn sách này cung cấp lối tắt đến thành công với 101 nguyên tắc đã được kiểm chứng</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Nguyên tắc 2 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="p-num">Nguyên tắc 02</div>
+    <div class="p-title">Hãy Chiến lược khi Áp dụng Các Nguyên tắc Này</div>
+  </div>
+  <div class="principle-body">
+    <p>Các nguyên tắc UX rất tốt, nhưng làm thế nào để đưa chúng vào thực tế công việc hằng ngày? Kể từ ấn bản đầu tiên năm 2018, câu hỏi được hỏi nhiều nhất là: <em>"Làm thế nào để áp dụng những nguyên tắc này vào công việc thực tế?"</em> Ý định tốt của một UX chuyên nghiệp có nguyên tắc là một chuyện, nhưng thực tế hỗn loạn của công việc kinh doanh hiện đại là chuyện hoàn toàn khác.</p>
+
+    <p>Đây là 5 chiến thuật đã được kiểm chứng qua thực chiến:</p>
+
+    <ol class="step-list">
+      <li><div><strong>Đấu tranh cho người dùng.</strong> Công việc kinh doanh hằng ngày là sự cạnh tranh giữa các phòng ban và ưu tiên. KPI và OKR là tốt cho marketing và sales, nhưng nhiệm vụ của bạn là chiến đấu cho người dùng — đặt nhu cầu của họ lên trước và trung tâm. Đôi khi bạn sẽ phải đối đầu với các nhóm khác, và bạn không thắng mọi trận — nhưng quan trọng là tiếng nói của bạn phải được nghe thấy.</div></li>
+      <li><div><strong>Xây dựng đồng minh trong tổ chức.</strong> Cách hiệu quả nhất để "làm UX" trong một tổ chức là xây dựng liên minh trên toàn doanh nghiệp. Product manager, developer, và các stakeholder cấp cao (kể cả "C-level suits") — tất cả đều cần phải hiểu giá trị của UX. Hãy đưa họ vào quy trình của bạn.</div></li>
+      <li><div><strong>Hiểu mục tiêu kinh doanh.</strong> Bạn là tiếng nói của người dùng, nhưng không thể làm việc trong bong bóng — bạn cần hiểu mục tiêu kinh doanh và kế hoạch sản phẩm. Bạn sẽ không tồn tại lâu nếu chỉ là tiếng nói của người dùng mà không tạo ra kết quả kinh doanh. Hãy tham gia với product manager và giúp định hình lộ trình sản phẩm.</div></li>
+      <li><div><strong>Xây dựng văn hóa nghiên cứu người dùng.</strong> Thu hút đồng nghiệp tham gia vào nghiên cứu người dùng, đưa họ đến các buổi kiểm thử, và phổ biến kết quả rộng rãi. Cả UX designer và product manager đều nên suy nghĩ về nhu cầu người dùng và kiểm thử ý tưởng với họ ở mọi bước. Không có gì mạnh hơn bằng việc trình bày cho CEO một kho kết quả nghiên cứu từ khách hàng thực tế.</div></li>
+      <li><div><strong>Ra quyết định dựa trên dữ liệu.</strong> Sử dụng dữ liệu để định hướng các quyết định cấp cao. Điểm này ít nói về dữ liệu định tính (mô tả bằng ngôn ngữ) từ kiểm thử người dùng, mà nhiều hơn về dữ liệu định lượng (đo bằng số) từ analytics và các chỉ số khác. Dùng dữ liệu này để đưa ra quyết định tốt hơn về tính năng, dịch vụ còn thiếu, và cách tiếp cận kinh doanh tổng thể.</div></li>
+    </ol>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm học chính</div>
+      <ul>
+        <li>Đấu tranh cho người dùng ngay cả khi phải đối đầu với các phòng ban khác</li>
+        <li>Xây dựng đồng minh trong tổ chức — UX không thể làm việc đơn độc</li>
+        <li>Hiểu mục tiêu kinh doanh, xây dựng văn hóa nghiên cứu người dùng, và ra quyết định dựa trên dữ liệu</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Nguyên tắc 3 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="p-num">Nguyên tắc 03</div>
+    <div class="p-title">Đừng Sợ Ra mắt Thứ Gì Đó Đơn giản...</div>
+  </div>
+  <div class="principle-body">
+    <p>Một trong những điều tuyệt vời nhất từ việc ngành phần mềm áp dụng phương pháp Agile vào đầu những năm 2000 là hành vi ra mắt sớm và thường xuyên. Tuyên ngôn Agile nêu rõ: <em>"Ưu tiên cao nhất của chúng tôi là làm hài lòng khách hàng thông qua việc cung cấp phần mềm có giá trị sớm và liên tục."</em></p>
+
+    <p>Bạn không chờ đợi để có bản ra mắt "bùng nổ"; bạn không hoàn thiện mọi khía cạnh của sản phẩm — bạn tung ra phần mềm <strong>có giá trị</strong> ngay khi nó sẵn sàng, và liên tục cập nhật. Nguyên tắc này thường bị vi phạm theo các cách sau:</p>
+
+    <ul>
+      <li>Bạn muốn thêm chỉ <em>một</em> tính năng nữa trước khi cho là sản phẩm sẵn sàng</li>
+      <li>Team marketing muốn chờ đến khi chiến dịch sẵn sàng để quảng bá tính năng</li>
+      <li>Đối thủ cạnh tranh có nhiều tính năng hơn và bạn cảm thấy cần phải theo kịp</li>
+    </ul>
+
+    <p>Người dùng không quan tâm đến những lý do này. Sản phẩm của bạn không cần phải là một danh mục sản phẩm hoàn toàn mới; nó chỉ cần giúp người dùng <em>hoàn thành việc của họ</em>. Ít tính năng nhưng tốt hơn sẽ tạo ra trải nghiệm người dùng tốt hơn so với việc cố nhồi quá nhiều thứ, kéo dài deadline và ép các developer — kết quả cuối cùng là 100 tính năng nửa vời thay vì 25 tính năng xuất sắc.</p>
+
+    <div class="insight-box">
+      <p>Hãy nhớ rằng trong hầu hết các trường hợp, người dùng chỉ dùng app của bạn khoảng 1% ngày của họ — bạn làm việc với nó suốt ngày nên dễ mất đi khả năng khách quan. Hãy tự hỏi: "Chúng ta có thực sự cần tính năng Y không? Người dùng có hạnh phúc hơn với một tính năng X tốt hơn không?"</p>
+    </div>
+
+    <p>Hãy tạo ra một phạm vi được nghiên cứu kỹ, được định nghĩa rõ ràng cho phiên bản đầu tiên của bạn. Khi các stakeholder không tránh khỏi lo lắng về việc thiếu tính năng so với đối thủ, bạn sẽ có lý do và chiến lược để tiếp tục với bản phát hành tối giản và lặp lại sau đó dựa trên những gì đã học.</p>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm học chính</div>
+      <ul>
+        <li>Giữ cho mọi thứ đơn giản; đừng phát minh lại bánh xe</li>
+        <li>Ra mắt sớm và thường xuyên, cung cấp các tính năng có giá trị</li>
+        <li>Đừng chạy theo danh sách tính năng của đối thủ; đôi khi ít hơn lại nhiều hơn</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Nguyên tắc 4 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="p-num">Nguyên tắc 04</div>
+    <div class="p-title">...Nhưng Sự Phức tạp Có thể Tốt cho Một số Người Dùng</div>
+  </div>
+  <div class="principle-body">
+    <p>Vài năm trước, tác giả đã làm việc cho một công ty bảo hiểm — phần mềm là UI web dùng cho nhân viên call center để quản lý các yêu cầu của khách hàng. Trong ứng dụng này, khách hàng gọi điện để thay đổi hợp đồng, lấy hợp đồng mới, hủy bảo hiểm, v.v., và nhân viên cần tìm kiếm, chỉnh sửa, lưu hoặc xóa thông tin.</p>
+
+    <p>Hệ thống vừa được thiết kế lại với giao diện sạch, hiện đại, thoáng đãng — dựa trên <strong>Material Design</strong>, với nhiều khoảng trắng và font chữ rõ nét lớn. Kết quả: tất cả người dùng đều ghét hệ thống mới. Mật độ thông tin quá thấp — thay vì nhìn thấy tất cả thông tin khách hàng trên một hoặc hai màn hình gọn gàng, họ phải điều hướng qua nhiều màn hình, cuộn liên tục để xem chi tiết cần thiết.</p>
+
+    <p>Không ai hỏi người dùng: "Điều gì không ổn với hệ thống hiện tại?" Thay vào đó, họ tối ưu hóa thiết kế mới cho những nhu cầu người dùng không tồn tại.</p>
+
+    <div class="insight-box">
+      <p><strong>Nhiều người dùng lành nghề làm việc trong môi trường doanh nghiệp dựa vào phần mềm để làm một lượng lớn công việc lặp đi lặp lại.</strong> Làm cho phần mềm doanh nghiệp quá đơn giản — bằng cách cố làm cho nó trông giống phần mềm tiêu dùng hơn — chỉ che giấu các chức năng cần thiết khỏi người dùng và làm cho nó khó chịu, chậm chạp hơn, tăng tải nhận thức.</p>
+    </div>
+
+    <p>Ví dụ điển hình: buồng lái máy bay dày đặc và phức tạp — nhưng cần phải như vậy, vì sự phức tạp đó tốt cho những người dùng này. Tương tự, công cụ âm thanh chuyên nghiệp Ableton Live có giao diện dày đặc, phức tạp, nhưng các nhạc sĩ làm việc với nó suốt ngày và yêu thích năng suất mà nó mang lại.</p>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm học chính</div>
+      <ul>
+        <li>Hãy cẩn thận khi làm cho sản phẩm phức tạp trông quá "giống tiêu dùng" và đơn giản</li>
+        <li>Đừng chạy theo xu hướng thiết kế; hãy tập trung vào những gì người dùng thực sự cần</li>
+        <li>Sự phức tạp không phải lúc nào cũng đồng nghĩa với trải nghiệm người dùng tệ</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Nguyên tắc 5 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="p-num">Nguyên tắc 05</div>
+    <div class="p-title">Dùng A/B Testing để Kiểm thử Ý tưởng</div>
+  </div>
+  <div class="principle-body">
+    <p>Chúng ta có thể học được rất nhiều từ người dùng thông qua phỏng vấn và nghiên cứu phản hồi, nhưng khó đạt được quy mô lớn với các kỹ thuật này — quá tốn thời gian khi nói chuyện với 1.000 hay 100.000 người dùng. A/B testing (so sánh hai thiết kế) và kiểm thử đa biến (thay đổi nhiều yếu tố thiết kế), là cách tuyệt vời để thu thập kết quả và kiểm thử thiết kế với lượng khán giả lớn vì chúng có thể được chạy bởi robot, không cần người.</p>
+
+    <p><strong>A/B testing</strong> là kỹ thuật chia nhóm người dùng thành hai nhóm và hiển thị hai thiết kế khác nhau ("A" và "B") cho mỗi nhóm để xem thiết kế nào hoạt động tốt hơn. A/B testing cho kết quả tốt nhất với lượng người dùng lớn hơn — trên 1.000 người là mức tối thiểu hợp lý để có kết quả có ý nghĩa.</p>
+
+    <div class="example-box">
+      <div class="e-label">Ví dụ thực tế</div>
+      <p>Giả thuyết kiểm thử: "Chúng tôi nghi ngờ rằng việc làm cho hành động mua hàng trực tiếp hơn và trình bày tùy chọn với màu sắc sáng hơn sẽ tạo ra nhiều lượt chuyển đổi thanh toán hơn." → Tạo hai phiên bản: Phiên bản A với nút "MUA NGAY" màu xanh, Phiên bản B với nút "THÊM VÀO GIỎ" màu xám. Chạy cả hai với 1.000+ người dùng và đo kết quả.</p>
+    </div>
+
+    <p>Thiết lập và chạy: tạo hai phiên bản giao diện khác nhau, dùng phần mềm (nhiều dịch vụ miễn phí và trả phí có sẵn) để phân phối đồng đều cho khách truy cập. Gắn nhãn mỗi nhóm trong phần mềm analytics và bạn có thể dễ dàng thấy thiết kế nào hoạt động tốt hơn theo chỉ số chuyển đổi bạn chọn.</p>
+
+    <p>Một lưu ý cuối về đạo đức — hãy đảm bảo bạn đang giúp người dùng, không chỉ tối ưu hóa cho nhu cầu công ty. Con đường đó dẫn đến <strong>các mẫu lừa dối (deceptive patterns)</strong>.</p>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm học chính</div>
+      <ul>
+        <li>Dùng A/B testing để xác định thiết kế nào hoạt động tốt hơn với lượng người dùng lớn</li>
+        <li>Đảm bảo "hoạt động tốt hơn" có nghĩa là thiết kế tốt hơn cho người dùng, không chỉ cho công ty</li>
+        <li>A/B testing hiệu quả nhất với hai thiết kế khác biệt rõ ràng, không chỉ là những thay đổi nhỏ</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Nguyên tắc 6 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="p-num">Nguyên tắc 06</div>
+    <div class="p-title">Kiểm thử với Người Dùng Thực</div>
+  </div>
+  <div class="principle-body">
+    <p>Không có gì trong cuốn sách này có ý nghĩa trừ khi bạn kiểm thử với người thật. Hơn nữa, bạn cần kiểm thử với <em>người dùng thực</em>: không phải đồng nghiệp, không phải sếp, và không phải đối tác của bạn. Bạn cần kiểm thử với một nhóm đa dạng những người, từ phần đông nhất của xã hội mà bạn có thể tiếp cận được (trong phạm vi đối tượng mục tiêu của bạn, tất nhiên).</p>
+
+    <p>Kiểm thử người dùng là bước thiết yếu để hiểu không chỉ sản phẩm của bạn, mà còn hiểu những người dùng bạn đang kiểm thử — mục tiêu thực sự của họ là gì, họ muốn đạt được chúng như thế nào, và sản phẩm của bạn đáp ứng hay không đáp ứng ở đâu. Bạn sẽ hiểu người dùng tốt hơn và rút ngắn thời gian phát triển bằng cách phát hiện và sửa vấn đề sớm hơn trong vòng đời sản phẩm.</p>
+
+    <p>Không bao giờ là quá sớm để bắt đầu kiểm thử — ngay cả một prototype chưa hoàn thiện hoặc prototype giấy (thẻ hoặc ghi chú di chuyển trên bàn) cũng có thể mang lại những hiểu biết quý giá. Ba phương pháp kiểm thử khả dụng phổ biến nhất:</p>
+
+    <ul>
+      <li><strong>Guerilla testing:</strong> Không chính thức và ad hoc — tiếp cận một người ngẫu nhiên và yêu cầu họ thực hiện một nhiệm vụ trong app. Phương pháp này rẻ, nhanh và tốt cho việc định hướng sớm về các giải pháp đề xuất</li>
+      <li><strong>Lab tests:</strong> Thực hiện trong điều kiện có kiểm soát với người điều phối. Phương pháp này cung cấp hiểu biết sâu hơn về động lực của người dùng, nhưng tốn kém và chậm cho kết quả</li>
+      <li><strong>Remote testing:</strong> Thực hiện không có người điều phối, người dùng tự thực hiện. Phương pháp này không cung cấp độ sâu phản hồi tương tự, nhưng bạn có thể mở rộng quy mô lên đến hàng nghìn người tham gia</li>
+    </ul>
+
+    <div class="insight-box">
+      <p><strong>Nghiên cứu cho thấy kiểm thử với chỉ 5 người dùng sẽ phát hiện 85% vấn đề khả năng sử dụng trong một lần kiểm thử duy nhất</strong> — con số đáng kinh ngạc này được tính toán dựa trên phân phối Poisson. Điều này có nghĩa là ngay cả nhóm kiểm thử rất nhỏ (dưới 10 người) cũng có thể cung cấp những hiểu biết cực kỳ có giá trị.</p>
+    </div>
+
+    <p>Người dùng thường không nói cho bạn biết những gì họ không thích — họ chỉ rời đi. Với sự lựa chọn gần như vô tận của các sản phẩm và dịch vụ trên web, người dùng không có động lực để ở lại, phàn nàn và giúp bạn cải thiện sản phẩm — nó sẽ đơn giản là thất bại. Chi phí chuyển sang một đối thủ cạnh tranh của người dùng gần như bằng không — một tìm kiếm Google nhanh và họ đã biến mất mãi mãi.</p>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm học chính</div>
+      <ul>
+        <li>Kiểm thử sản phẩm của bạn sớm và với người dùng thực trong nhóm đối tượng mục tiêu của bạn</li>
+        <li>Kiểm thử với nhóm đa dạng người từ các dân tộc, độ tuổi, giới tính và nền tảng khác nhau</li>
+        <li>Bạn chỉ cần kiểm thử với một nhóm nhỏ để thu được lợi ích khổng lồ</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Nguyên tắc 7 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="p-num">Nguyên tắc 07</div>
+    <div class="p-title">Không Ai Quan Tâm Đến Thương Hiệu của Bạn</div>
+  </div>
+  <div class="principle-body">
+    <p>Tác giả không nói về thương hiệu theo nghĩa nhận diện thị giác — logo, wordmark, hay tagline tốt là ý hay. Ý ở đây là "thương hiệu" theo nghĩa hiện đại — định nghĩa mơ hồ đã trở nên phổ biến trong 10 năm gần đây, ám chỉ đến công ty hay toàn bộ nhân cách của một tập đoàn hoặc sản phẩm.</p>
+
+    <p>Vấn đề với cách tiếp cận này, được phát triển trong hơn một thập kỷ bởi các tập đoàn thương hiệu đa quốc gia và đại lý quảng cáo, là: <em>chúng ta đã có một ngành cho điều này rồi: UX</em>. Bằng cách tạo ra sản phẩm tuân thủ thương hiệu, chúng ta chuyển giao quyền kiểm soát UX cho các nhóm marketing và thương hiệu, không phải các chuyên gia UX.</p>
+
+    <div class="insight-box">
+      <p>Điều này không áp dụng cho các megabrand với hàng tỷ khách hàng như Apple, Google, Coca-Cola, Microsoft, Nike — thương hiệu của họ đủ mạnh để tạo ra sự khác biệt trong cách thiết kế sản phẩm. Nhưng với thương hiệu của bạn, với vài nghìn hay vài chục nghìn khách hàng, hoặc công ty nhỏ, sản phẩm mới khởi nghiệp — <strong>không ai quan tâm</strong>. Khắc nghiệt nhưng đúng.</p>
+    </div>
+
+    <p>Không có người dùng nào quan tâm đến thương hiệu của bạn. Họ quan tâm đến những gì sản phẩm hoặc dịch vụ của bạn <em>cho phép họ làm</em>. Họ quan tâm đến cách sản phẩm cải thiện cuộc sống và năng suất của họ.</p>
+
+    <p>Trải nghiệm sản phẩm của bạn <em>chính là</em> thương hiệu — và nó không nên được thiết kế bởi nhóm marketing, mà bởi những người UX. Đừng để brand guide làm hỏng sản phẩm của bạn với:</p>
+
+    <ul>
+      <li><strong>Font chữ thương hiệu không đọc được:</strong> Chỉ cần dùng native system font stack</li>
+      <li><strong>Màn hình splash có thương hiệu:</strong> Chỉ cần cho tôi thấy damn app</li>
+      <li><strong>Controls UI tự chế kinh dị:</strong> Ôi những thứ tôi đã thấy…</li>
+      <li><strong>Tỷ lệ tương phản tệ hại:</strong> Đừng bám vào bảng màu thương hiệu nếu nó không hoạt động trong sản phẩm</li>
+      <li><strong>Copy kỳ quặc không cần thiết:</strong> Sự hài hước ngớ ngẩn trên chai sinh tố — hãy đi thẳng vào vấn đề!</li>
+    </ul>
+
+    <p>Một thương hiệu có thể giúp thực thi tính nhất quán, nhưng nếu bạn là designer giỏi, bạn không cần brand guide để xây dựng UI nhất quán. Hãy tập trung vào UX và trải nghiệm sẽ <em>trở thành</em> thương hiệu.</p>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm học chính</div>
+      <ul>
+        <li>Không ai quan tâm đến thương hiệu của bạn — họ chỉ quan tâm đến những gì sản phẩm cho phép họ làm</li>
+        <li>UX tốt còn tốt hơn thương hiệu tốt</li>
+        <li>Đấu tranh cho người dùng, không phải brand guide</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Tổng kết Phần 1 – Lĩnh vực UX</div>
+  <p>Bảy nguyên tắc đầu tiên đặt nền móng cho toàn bộ tư duy UX. Mọi người đều có thể giỏi UX với đồng cảm và khách quan — đây là kỹ năng, không phải tài năng. Để đưa các nguyên tắc vào thực tế, bạn cần chiến lược: đấu tranh cho người dùng, xây dựng đồng minh trong tổ chức, và ra quyết định dựa trên dữ liệu.</p>
+  <p>Ra mắt sớm và đơn giản thường đúng đắn hơn — nhưng với người dùng chuyên nghiệp, sự phức tạp đôi khi là lợi thế. A/B testing và kiểm thử với người dùng thực (ngay cả chỉ 5 người) là công cụ không thể thiếu để xác nhận quyết định thiết kế. Và cuối cùng: không ai quan tâm đến thương hiệu của bạn — họ chỉ quan tâm đến trải nghiệm sản phẩm, chính là UX mà bạn tạo ra.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="ux_principles_ch02.html"><span class="lbl">Phần sau</span>Phần 2: Typography</a>
+</nav>
+</body>
+</html>

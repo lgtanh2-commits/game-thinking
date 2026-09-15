@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typography – 101 UX Principles</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+h1{font-size:2rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+h3{font-size:1.05rem;font-weight:700;margin:28px 0 10px;color:var(--text-secondary);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+ul,ol{margin:10px 0 16px 22px;}
+li{margin-bottom:6px;color:var(--text-secondary);}
+strong{color:var(--text);font-weight:700;}
+code{font-family:'Menlo','Consolas','Monaco',monospace;font-size:0.88rem;background:var(--surface-dark);padding:2px 6px;border-radius:3px;color:var(--text);}
+pre{background:var(--surface-dark);border:1px solid var(--border);border-radius:4px;padding:14px 18px;margin:14px 0;overflow-x:auto;}
+pre code{background:none;padding:0;font-size:0.85rem;}
+.book-label{font-size:0.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;}
+.chapter-intro{background:var(--surface);border-left:3px solid var(--accent-line);padding:18px 22px;margin:24px 0 40px;border-radius:0 4px 4px 0;}
+.chapter-intro p{margin:0;font-size:0.95rem;}
+.principle-block{border:1px solid var(--border);border-radius:6px;margin:36px 0;overflow:hidden;}
+.principle-header{background:var(--surface-dark);padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px;}
+.principle-num{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);flex-shrink:0;}
+.principle-title{font-size:1.1rem;font-weight:700;color:var(--text);}
+.principle-body{padding:22px;}
+.principle-body p{margin-bottom:12px;}
+.principle-body p:last-child{margin-bottom:0;}
+.insight-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin:16px 0;border-radius:0 4px 4px 0;}
+.insight-box p{margin:0;font-size:0.92rem;color:var(--text-secondary);}
+.example-box{border:1px solid var(--border);border-radius:4px;padding:16px 20px;margin:16px 0;}
+.example-box .ex-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.example-box p{margin:0;font-size:0.93rem;}
+.learning-box{background:var(--surface-dark);border:1px solid var(--border-strong);border-radius:4px;padding:16px 20px;margin:20px 0;}
+.learning-box .l-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.learning-box ul{margin:0 0 0 18px;padding:0;}
+.learning-box li{font-size:0.91rem;color:var(--text-secondary);margin-bottom:5px;}
+.compare-row{display:flex;gap:16px;margin:14px 0;}
+.compare-col{flex:1;border:1px solid var(--border);border-radius:4px;padding:14px 16px;}
+.compare-col .c-label{font-size:0.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.compare-col.bad{border-color:#cc000033;background:#fff5f5;}
+.compare-col.good{border-color:#00660033;background:#f5fff5;}
+.compare-col p{margin:0;font-size:0.91rem;}
+.conclusion-box{margin-top:60px;padding:28px 30px;border:2px solid var(--accent-line);border-radius:4px;background:var(--surface);}
+.conclusion-label{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+.conclusion-box p{margin-bottom:10px;font-size:0.95rem;}
+.conclusion-box p:last-child{margin-bottom:0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/ux-principles">← Về mục lục</a></p>
+
+
+<div class="book-label">101 UX Principles · Will Grant · Typography</div>
+<h1>Typography</h1>
+
+<div class="chapter-intro">
+  <p>Typography không chỉ là chọn font chữ đẹp — đó là nghệ thuật tổ chức thông tin bằng chữ để người đọc hiểu ngay, không cần cố gắng. Bốn nguyên tắc typography dưới đây giải quyết những lỗi phổ biến nhất mà designer mắc phải: dùng quá nhiều typeface, tải font nặng gây chậm trang, bố cục chữ đồng đều không có thứ bậc, và chọn cỡ chữ body quá nhỏ.</p>
+</div>
+
+<!-- NGUYÊN TẮC 8 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 08</div>
+    <div class="principle-title">Đừng dùng nhiều hơn 2 typeface</div>
+  </div>
+  <div class="principle-body">
+    <p>Trước khi đi vào nguyên tắc, cần phân biệt hai khái niệm hay bị nhầm lẫn: <strong>typeface</strong> là tên họ font (như "Helvetica", "Georgia", "Times New Roman"), còn <strong>font</strong> là một phiên bản cụ thể trong họ đó (như "Helvetica Bold 14pt" hay "Georgia Italic 12pt"). Khi nói "đừng dùng nhiều hơn 2 typeface", tức là không dùng quá 2 họ font khác nhau trong cùng một giao diện.</p>
+
+    <p>Lý do giới hạn này quan trọng: mỗi typeface mang một "cá tính" riêng — nhịp điệu, cân nặng, độ tương phản. Khi có quá nhiều typeface trên cùng một trang, mắt người dùng phải liên tục điều chỉnh để tiếp nhận từng loại chữ, gây ra cảm giác hỗn loạn và thiếu nhất quán. Giao diện trông không chuyên nghiệp, bất kể nội dung tốt đến đâu.</p>
+
+    <h3>Cách áp dụng đúng</h3>
+    <p>Quy tắc vàng: <strong>một typeface cho tiêu đề, một typeface cho nội dung</strong>. Thường là một sans-serif sắc nét cho heading và một serif dễ đọc cho body text — hoặc ngược lại tùy phong cách thương hiệu.</p>
+
+    <p>Trong phạm vi một typeface, bạn có thể khai thác toàn bộ hệ thống biến thể mà không cần thêm typeface mới:</p>
+    <ul>
+      <li><strong>Weight (độ đậm):</strong> Light, Regular, Medium, SemiBold, Bold, ExtraBold — mỗi mức tạo ra cảm giác nhấn mạnh khác nhau</li>
+      <li><strong>Style (kiểu):</strong> Italic để trích dẫn, chú thích, hoặc nhấn mạnh tinh tế</li>
+      <li><strong>Size (cỡ chữ):</strong> Scale chữ tạo ra thứ bậc thông tin mà không cần thêm typeface</li>
+      <li><strong>Letter spacing:</strong> Giãn ký tự cho label, tag, caption tạo ra sự phân biệt mà vẫn dùng cùng typeface</li>
+    </ul>
+
+    <div class="insight-box">
+      <p><strong>Về font thương hiệu (custom brand typefaces):</strong> Nhiều công ty lớn đầu tư thiết kế typeface riêng (Google Sans, Apple SF Pro, Netflix's custom type). Những typeface này thường được tối ưu cho tính nhận diện thương hiệu và tính độc đáo thị giác, <em>không nhất thiết</em> cho khả năng đọc lâu dài. Nếu thương hiệu của bạn dùng typeface tùy chỉnh, hãy đánh giá xem nó có đủ dễ đọc trong body text không — và cân nhắc dùng nó cho heading, kết hợp với system font cho nội dung chính.</p>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="c-label">❌ Sai — Quá nhiều typeface</div>
+        <p>Trang web dùng Playfair Display cho tiêu đề, Lato cho body, Oswald cho CTA, Courier New cho code, và Satisfy cho slogan. 5 typeface — hỗn loạn thị giác, không chuyên nghiệp.</p>
+      </div>
+      <div class="compare-col good">
+        <div class="c-label">✓ Đúng — Tối đa 2 typeface</div>
+        <p>Inter (sans-serif) cho mọi heading và UI label, Georgia (serif) cho body text dài. Tất cả sự đa dạng đến từ weight và size, không phải từ việc thêm typeface mới.</p>
+      </div>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm mấu chốt</div>
+      <ul>
+        <li>Typeface ≠ font: typeface là họ font, font là phiên bản cụ thể</li>
+        <li>Tối đa 2 typeface: 1 cho heading, 1 cho body</li>
+        <li>Đa dạng hóa trong cùng typeface bằng weight, size, italic — không thêm typeface mới</li>
+        <li>Custom brand typeface thường phục vụ nhận diện thương hiệu, không phải khả năng đọc</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 9 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 09</div>
+    <div class="principle-title">Người dùng đã có sẵn font trên máy — hãy dùng chúng</div>
+  </div>
+  <div class="principle-body">
+    <p>Khi một trang web tải font tùy chỉnh từ server (web font như Google Fonts hay Typekit), trình duyệt phải tải file font đó trước khi hiển thị chữ. Điều này gây ra hai vấn đề nổi tiếng:</p>
+    <ul>
+      <li><strong>FOUT (Flash of Unstyled Text):</strong> Chữ hiển thị với font mặc định của hệ thống, sau đó nhảy sang font tùy chỉnh khi file font tải xong — người dùng thấy chữ "giật" một cái.</li>
+      <li><strong>FOIT (Flash of Invisible Text):</strong> Trình duyệt ẩn chữ hoàn toàn cho đến khi font tải xong — người dùng thấy khoảng trống rồi chữ xuất hiện.</li>
+    </ul>
+    <p>Cả hai hiện tượng này đều gây cảm giác trang web chậm và không chuyên nghiệp, kể cả khi nội dung và chức năng hoàn toàn ổn.</p>
+
+    <h3>Giải pháp: System Font Stack</h3>
+    <p>Mỗi hệ điều hành đi kèm với bộ font hệ thống chất lượng cao, được tối ưu cho màn hình thiết bị đó: Apple SF Pro trên macOS/iOS, Segoe UI trên Windows, Roboto trên Android. Những font này không chỉ đẹp — chúng render hoàn hảo vì được thiết kế riêng cho từng màn hình, và có đầy đủ ký tự quốc tế.</p>
+
+    <p>Thay vì tải font nặng từ mạng, hãy dùng <strong>system font stack</strong> — một chuỗi khai báo CSS ưu tiên font hệ thống của từng thiết bị:</p>
+
+    <pre><code>/* Sans-serif system stack */
+font-family: -apple-system, BlinkMacSystemFont, 'avenir next',
+  avenir, 'segoe ui', 'helvetica neue', helvetica,
+  Ubuntu, roboto, noto, arial, sans-serif;
+
+/* Serif system stack */
+font-family: 'Iowan Old Style', 'Apple Garamond',
+  'Baskerville', 'Times New Roman', 'Droid Serif',
+  Times, 'Source Serif Pro', serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol';
+
+/* Monospace system stack */
+font-family: Menlo, Consolas, Monaco, 'Liberation Mono',
+  'Lucida Console', monospace;</code></pre>
+
+    <p>Trình duyệt sẽ đọc danh sách này từ trái sang phải và dùng font đầu tiên có sẵn trên thiết bị của người dùng. Không có file nào cần tải — font hiển thị ngay lập tức.</p>
+
+    <div class="insight-box">
+      <p><strong>Khi nào nên dùng web font?</strong> Nếu thương hiệu đòi hỏi một typeface cụ thể mà system stack không thể cung cấp, hãy cân nhắc kỹ chi phí hiệu năng. Dùng <code>font-display: swap</code> trong CSS để tránh FOIT. Subset hóa font để chỉ tải ký tự cần thiết. Và luôn tự hỏi: sự khác biệt thị giác có đáng đánh đổi với thời gian tải thêm không?</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Lợi ích của system font stack</div>
+      <ul>
+        <li>Tải tức thì — không FOUT, không FOIT</li>
+        <li>Render sắc nét hơn vì được tối ưu cho từng màn hình</li>
+        <li>Hỗ trợ đầy đủ ký tự quốc tế (tiếng Việt, tiếng Trung, tiếng Ả Rập...)</li>
+        <li>Người dùng đã quen với font hệ thống, giảm nhận thức tải trang</li>
+        <li>Không phụ thuộc vào dịch vụ bên thứ ba (Google Fonts, Typekit)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 10 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 10</div>
+    <div class="principle-title">Dùng cỡ chữ và độ đậm để tạo thứ bậc thông tin</div>
+  </div>
+  <div class="principle-body">
+    <p>Khi mọi văn bản trên trang đều có cùng cỡ chữ và cùng độ đậm, người dùng không biết bắt đầu đọc từ đâu, thông tin gì quan trọng hơn, và phần nào có thể bỏ qua. Đây là lỗi typography phổ biến nhất trong giao diện: <strong>thiếu thứ bậc thị giác (visual hierarchy)</strong>.</p>
+
+    <div class="example-box">
+      <div class="ex-label">Ví dụ điển hình — Calendar pop-over</div>
+      <p>Một lịch pop-over hiển thị ngày, giờ, tên sự kiện, địa điểm, người tham dự — tất cả với cùng cỡ chữ 14px regular. Người dùng mất vài giây để xác định tên sự kiện nằm ở đâu, giờ nào, địa điểm là gì. Phiên bản cải thiện: tên sự kiện 18px bold, giờ 16px medium, địa điểm và người tham dự 13px regular muted — người dùng hiểu ngay trong một lần nhìn.</p>
+    </div>
+
+    <h3>Hai công cụ chính để tạo thứ bậc</h3>
+
+    <p><strong>1. Cỡ chữ (Type size):</strong> Thông tin quan trọng nhất hiển thị với cỡ chữ lớn nhất. Scale dần xuống cho các thông tin phụ. Nguyên tắc: dùng tối đa 3 cỡ chữ khác nhau trong một component — nhiều hơn thì loạn.</p>
+
+    <p><strong>2. Độ đậm (Weight):</strong> Khi cỡ chữ không đủ tạo sự phân biệt (ví dụ trong một block text dài), dùng bold/regular/light để tạo nhịp. Ví dụ thẻ khách sạn: "KHÁCH SẠN HILTON" (bold, lớn) → "Bữa sáng bao gồm" (regular, nhỏ hơn) → "7:00 – 10:30 AM" (light, cùng cỡ với dòng trên) — ba cấp độ thông tin rõ ràng mà không cần màu sắc hay icon.</p>
+
+    <div class="insight-box">
+      <p><strong>Khi mọi thứ đều quan trọng, không có gì quan trọng cả.</strong> Đây là nguyên lý cốt lõi của thứ bậc thị giác. Nếu bạn muốn nhấn mạnh tất cả, kết quả là không nhấn mạnh được gì. Hãy có can đảm để nội dung phụ trông "ít quan trọng hơn" — đó là điều đúng đắn cho người dùng.</p>
+    </div>
+
+    <div class="example-box">
+      <div class="ex-label">Tham khảo — A List Apart</div>
+      <p>Blog thiết kế A List Apart là một ví dụ mẫu về thứ bậc typography: tiêu đề bài viết rất lớn và đậm, tên tác giả và ngày nhỏ hơn ở muted color, đoạn mở đầu (lede) hơi lớn hơn body text, sau đó body text đều đặn. Người đọc biết ngay đây là tiêu đề, đây là ai viết, đây là nội dung — mà không cần đọc từng chữ.</p>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Quy tắc áp dụng</div>
+      <ul>
+        <li>Xác định thông tin nào quan trọng nhất trong component — đó là điểm neo của thứ bậc</li>
+        <li>Dùng tối đa 2–3 cỡ chữ trong một component; tối đa 4–5 trên toàn trang</li>
+        <li>Kết hợp size + weight để tạo thứ bậc phong phú mà không cần thêm màu</li>
+        <li>Text muted (gray) cho thông tin phụ — không cần làm nhỏ nếu đã làm mờ</li>
+        <li>Kiểm tra bằng cách nhìn trang trong 2 giây: bạn biết ngay điểm nhìn đầu tiên không?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NGUYÊN TẮC 11 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-num">Nguyên tắc 11</div>
+    <div class="principle-title">Dùng cỡ chữ mặc định hợp lý cho body copy</div>
+  </div>
+  <div class="principle-body">
+    <p>Một trong những lỗi phổ biến nhất trong thiết kế web sớm là chọn cỡ chữ body quá nhỏ — 11px, 12px, thậm chí 10px — vì muốn "nhét" nhiều nội dung hơn trên màn hình, hoặc vì trông "gọn gàng" hơn trong mockup. Kết quả là người dùng phải nheo mắt, đặc biệt trên màn hình có độ phân giải cao hoặc khi đọc lâu.</p>
+
+    <h3>Tiêu chuẩn vàng: 16px với line-height 1.5</h3>
+    <p>Đây không phải con số ngẫu nhiên. <strong>16px</strong> là kích thước mặc định của trình duyệt — không phải vì lười biếng, mà vì đây là kết quả của hàng thập kỷ tối ưu hóa khả năng đọc trên màn hình. <strong>Line-height 1.5</strong> (tức là khoảng cách giữa các dòng bằng 1.5 lần cỡ chữ) tạo ra đủ "không khí" giữa các dòng để mắt dễ theo dõi.</p>
+
+    <pre><code>body {
+  font-size: 16px;
+  line-height: 1.5;
+}</code></pre>
+
+    <p>Chỉ cần hai dòng CSS này là đã có nền tảng typography tốt cho body text. Trình duyệt hiện đại sẽ scale toàn bộ relative units (em, rem, %) từ base này — nghĩa là khi người dùng zoom trình duyệt hoặc thay đổi cỡ chữ trong cài đặt hệ thống, toàn bộ trang sẽ scale theo một cách nhất quán.</p>
+
+    <h3>Tại sao không can thiệp thêm?</h3>
+    <p>Nhiều designer cố gắng "tinh chỉnh" typography bằng cách đặt <code>letter-spacing</code>, <code>word-spacing</code>, hay <code>font-stretch</code> tùy chỉnh. Trong hầu hết trường hợp, điều này gây hại hơn lợi. Các typeface được thiết kế với spacing tối ưu cho riêng chúng — can thiệp vào spacing thường làm giảm khả năng đọc, không tăng.</p>
+
+    <div class="insight-box">
+      <p><strong>Hãy để người dùng tự scale:</strong> Thiết kế responsive và linh hoạt luôn tốt hơn cố định cỡ chữ. Dùng <code>rem</code> thay vì <code>px</code> khi có thể, để người dùng có thể điều chỉnh cỡ chữ mà không phá vỡ layout. Đây là vấn đề accessibility: nhiều người dùng, đặc biệt người cao tuổi hoặc người có vấn đề thị lực, dựa vào khả năng tăng cỡ chữ của trình duyệt.</p>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="c-label">❌ Phổ biến nhưng sai</div>
+        <p>Body text 12px, line-height 1.2, letter-spacing 0.3px "cho đẹp". Kết quả: đọc mệt mỏi sau 2 phút, người dùng thoát sớm, bounce rate tăng.</p>
+      </div>
+      <div class="compare-col good">
+        <div class="c-label">✓ Tiêu chuẩn đúng</div>
+        <p>Body text 16px (hoặc 1rem), line-height 1.5. Cho phép trình duyệt và người dùng tự điều chỉnh. Đọc thoải mái trong thời gian dài.</p>
+      </div>
+    </div>
+
+    <div class="learning-box">
+      <div class="l-label">Điểm mấu chốt</div>
+      <ul>
+        <li>16px / line-height 1.5 là tiêu chuẩn vàng cho body text — không cần "cải tiến"</li>
+        <li>Trình duyệt mặc định 16px vì lý do chính đáng — đừng ghi đè nếu không có lý do rõ ràng</li>
+        <li>Dùng <code>rem</code> thay vì <code>px</code> cứng để hỗ trợ accessibility</li>
+        <li>Tránh can thiệp vào letter-spacing và word-spacing của body text</li>
+        <li>Cho phép người dùng zoom và scale — thiết kế cho sự linh hoạt</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <div class="conclusion-label">Tổng kết — Typography</div>
+  <p>Bốn nguyên tắc typography này giải quyết những lỗi cơ bản nhất mà ngay cả designer kinh nghiệm đôi khi mắc phải. Tóm lại: ít typeface hơn, font hệ thống là bạn, thứ bậc thông tin bằng size và weight, và đừng làm chữ body nhỏ hơn 16px.</p>
+  <p>Typography tốt là typography người dùng không nhận ra — họ chỉ thấy nội dung, không thấy font. Khi người dùng phải chú ý đến chữ (vì nó quá nhỏ, quá giật, hoặc quá rối), typography đã thất bại trong nhiệm vụ chính của mình: truyền đạt nội dung một cách trong suốt.</p>
+  <p>Nguyên tắc tiếp theo sẽ đi vào Controls — các thành phần tương tác như nút bấm, thanh trượt, dropdown, ô nhập liệu — nơi mà UX tốt hay xấu thể hiện rõ nhất qua từng hành động nhỏ của người dùng.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="ux_principles_ch01.html"><span class="lbl">Phần trước</span>Phần 1: Lĩnh Vực UX</a>
+  <a href="ux_principles_ch03.html"><span class="lbl">Phần sau</span>Phần 3: Controls</a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>101 UX Principles – Phần 8: Biểu mẫu</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+h1{font-size:2rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+h2{font-size:1.35rem;font-weight:700;margin-bottom:10px;color:var(--text);}
+h3{font-size:1.05rem;font-weight:600;margin-bottom:8px;color:var(--text-secondary);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.book-label{font-size:0.78rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:28px;display:block;}
+.section-intro{border-left:3px solid var(--accent-line);padding:18px 24px;background:var(--surface);margin:36px 0 40px;border-radius:0 6px 6px 0;}
+.section-intro p{margin-bottom:0;font-size:0.97rem;}
+.principle-block{border:1px solid var(--border);border-radius:8px;padding:32px;margin-bottom:32px;background:#fff;}
+.principle-header{display:flex;align-items:flex-start;gap:18px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.principle-number{font-size:1.6rem;font-weight:800;color:var(--text-muted);min-width:48px;line-height:1;}
+.principle-title-block{flex:1;}
+.principle-title-block h2{margin-bottom:4px;}
+.principle-subtitle{font-size:0.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);}
+.principle-body p{font-size:0.97rem;line-height:1.85;}
+.learning-box{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 22px;margin:20px 0;}
+.learning-box h3{font-size:0.8rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.insight-box{background:#fff;border:1px solid var(--border-strong);border-left:3px solid var(--accent-line);border-radius:0 6px 6px 0;padding:16px 20px;margin:20px 0;}
+.insight-box p{font-size:0.93rem;font-style:italic;color:var(--text-secondary);margin-bottom:0;}
+.example-box{background:var(--surface);border-radius:6px;padding:16px 20px;margin:20px 0;border:1px dashed var(--border-strong);}
+.example-box h3{font-size:0.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0;}
+.compare-col{border-radius:6px;padding:16px 18px;}
+.compare-col h3{font-size:0.75rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;}
+.compare-col.bad{background:#f9f9f9;border:1px solid var(--border);}
+.compare-col.bad h3{color:var(--text-muted);}
+.compare-col.good{background:var(--surface-dark);border:1px solid var(--border-strong);}
+.compare-col.good h3{color:var(--text);}
+.compare-col p{font-size:0.9rem;margin-bottom:0;color:var(--text-secondary);}
+.conclusion-box{background:var(--surface-dark);border-radius:8px;padding:28px 32px;margin:48px 0 24px;border:1px solid var(--border-strong);}
+.conclusion-box h2{font-size:1.1rem;margin-bottom:12px;}
+.conclusion-box p{font-size:0.95rem;margin-bottom:10px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+.code-block{background:var(--text);color:#f0f0f0;border-radius:6px;padding:16px 20px;margin:16px 0;font-family:'Courier New',monospace;font-size:0.88rem;line-height:1.6;overflow-x:auto;}
+.code-block span.comment{color:#888;}
+.code-block span.attr{color:#ccc;}
+.code-block span.val{color:#e0e0e0;}
+ul{margin:10px 0 14px 20px;color:var(--text-secondary);}
+ul li{margin-bottom:6px;font-size:0.96rem;line-height:1.75;}
+hr{border:none;border-top:1px solid var(--border);margin:48px 0;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/ux-principles">← Về mục lục</a></p>
+
+
+<span class="book-label">101 UX Principles · Will Grant · Biểu mẫu</span>
+<h1>Phần 8: Biểu mẫu</h1>
+<p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0;">Nguyên tắc 50 – 54</p>
+
+<div class="section-intro">
+  <p>Biểu mẫu (form) là điểm giao thoa quan trọng nhất giữa người dùng và sản phẩm — nơi người dùng phải "cho đi" thông tin để nhận lại giá trị. Một biểu mẫu được thiết kế tốt không chỉ thu thập dữ liệu hiệu quả mà còn tạo ra cảm giác tôn trọng người dùng. Một biểu mẫu tệ có thể phá hủy toàn bộ trải nghiệm của một sản phẩm xuất sắc. Phần này đi sâu vào các nguyên tắc thiết kế biểu mẫu — từ số lượng trường nhập liệu, thời điểm xác thực, cách hiển thị lỗi, đến việc chấp nhận đa dạng định dạng dữ liệu và lựa chọn loại control phù hợp.</p>
+</div>
+
+<!-- Principle 50 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">50</div>
+    <div class="principle-title-block">
+      <h2>Biểu mẫu tốt = Sản phẩm tốt</h2>
+      <span class="principle-subtitle">Chất lượng form phản ánh chất lượng sản phẩm</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Biểu mẫu là thước đo phản ánh chất lượng tổng thể của một sản phẩm kỹ thuật số. Nếu các form được thiết kế cẩn thận — ngắn gọn, rõ ràng, dễ điền — người dùng sẽ cảm nhận được sự tôn trọng từ phía nhóm sản phẩm. Ngược lại, một biểu mẫu dài dòng, hỏi quá nhiều, hoặc có UX kém sẽ tạo ấn tượng tiêu cực về toàn bộ tổ chức.</p>
+
+    <p>Nguyên tắc cốt lõi: <strong>Đừng hỏi nhiều hơn mức cần thiết.</strong> Mỗi trường nhập liệu trong biểu mẫu đều là một "yêu cầu" gửi tới người dùng — và mỗi yêu cầu đều có chi phí nhận thức (cognitive cost). Khi bạn hỏi quá nhiều, bạn đang nói với người dùng rằng thời gian và sự riêng tư của họ không quan trọng bằng nhu cầu dữ liệu của bạn.</p>
+
+    <div class="example-box">
+      <h3>Ví dụ thực tế: Square Enix</h3>
+      <p>Khi người dùng muốn mua game <em>Final Fantasy XIV</em> online, Square Enix yêu cầu họ điền vào một biểu mẫu đăng ký gồm hàng chục trường — bao gồm cả "tên mẹ khi chưa lập gia đình" và các câu hỏi bảo mật cực kỳ cụ thể. Kết quả: tỷ lệ bỏ cuộc (drop-off) rất cao. Một biểu mẫu phức tạp không chỉ làm giảm conversion rate mà còn gây ra ấn tượng tiêu cực về thương hiệu, khiến người dùng nghĩ "Nếu chỉ mua game mà đã rắc rối vậy, thì support sau này sẽ như thế nào?"</p>
+    </div>
+
+    <div class="insight-box">
+      <p>"Biểu mẫu đăng ký lý tưởng nhất chỉ cần hai trường: email và mật khẩu. Bất kỳ thứ gì thêm vào đều cần phải được biện hộ rõ ràng."</p>
+    </div>
+
+    <p>Trước khi thêm bất kỳ trường nào vào form, hãy tự hỏi:</p>
+    <ul>
+      <li>Thông tin này có thực sự cần thiết cho chức năng cốt lõi không?</li>
+      <li>Chúng ta có thể thu thập thông tin này ở bước sau (sau khi người dùng đã đăng ký) không?</li>
+      <li>Có thể tự động suy luận hoặc điền trước thông tin này không?</li>
+      <li>Nếu xóa trường này, điều gì xảy ra? Nếu câu trả lời là "không gì cả" — hãy xóa đi.</li>
+    </ul>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Biểu mẫu phức tạp</h3>
+        <p>Họ, Tên, Ngày sinh, Địa chỉ, Thành phố, Tỉnh/TP, Mã bưu điện, Số điện thoại, Tên công ty, Chức vụ, Ngành nghề, Giới tính, Thu nhập hàng năm, Câu hỏi bảo mật 1, Câu hỏi bảo mật 2...</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Biểu mẫu tối giản</h3>
+        <p>Email. Mật khẩu. Đăng ký.<br><br>Các thông tin khác có thể thu thập dần sau khi người dùng đã trải nghiệm giá trị sản phẩm.</p>
+      </div>
+    </div>
+
+    <div class="learning-box">
+      <h3>Bài học</h3>
+      <p>Trước khi thiết kế form mới, hãy làm bài tập "minimum viable form": liệt kê tất cả các trường, sau đó loại bỏ từng cái một và xem cái nào thực sự không thể thiếu. Kết quả thường bất ngờ — hầu hết các trường đều có thể bỏ hoặc đưa vào bước sau.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 51 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">51</div>
+    <div class="principle-title-block">
+      <h2>Xác thực sớm nhất có thể</h2>
+      <span class="principle-subtitle">Validate ASAP — không phải khi submit</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Xác thực biểu mẫu (form validation) nên xảy ra ngay khi người dùng rời khỏi một trường (on blur — khi trường mất focus), không phải khi người dùng bấm nút Submit. Phản hồi tức thì giúp người dùng sửa lỗi trong khi họ còn đang nhập liệu, thay vì phải quay lại và sửa sau khi đã điền xong toàn bộ form.</p>
+
+    <p>Xác thực khi Submit là mô hình xấu vì: người dùng phải điền xong toàn bộ form, bấm Submit, đọc thông báo lỗi tổng hợp, cuộn lên tìm trường lỗi, sửa, rồi Submit lại. Đây là luồng tốn kém nhất về mặt nhận thức và frustration.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Validate khi Submit</h3>
+        <p>Người dùng điền 10 trường, bấm Submit → trang hiện lỗi với 3 trường sai → người dùng phải tìm lại từng trường để sửa → cảm giác lãng phí thời gian.</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Validate on blur</h3>
+        <p>Người dùng nhập email "user@gmail" → rời khỏi trường → ngay lập tức thấy "Địa chỉ email không hợp lệ" → sửa ngay → tiếp tục điền trường tiếp theo.</p>
+      </div>
+    </div>
+
+    <p>Một tính năng xác thực đặc biệt hữu ích: <strong>gợi ý sửa lỗi chính tả email.</strong> Khi người dùng nhập "user@gmai.com", hệ thống có thể hiển thị: <em>"Bạn có muốn dùng user@gmail.com không?"</em> — đây là UX chủ động giúp người dùng thay vì chỉ báo lỗi thụ động.</p>
+
+    <div class="code-block">
+<span class="comment">// Validate on blur thay vì on submit</span>
+emailInput.addEventListener('blur', () => {
+  if (!isValidEmail(emailInput.value)) {
+    showError(emailInput, 'Email không hợp lệ');
+  }
+
+  <span class="comment">// Gợi ý sửa lỗi phổ biến</span>
+  const suggestions = checkCommonTypos(emailInput.value);
+  if (suggestions.length) {
+    showSuggestion(`Bạn có muốn dùng ${suggestions[0]}?`);
+  }
+});
+    </div>
+
+    <div class="learning-box">
+      <h3>Lưu ý quan trọng</h3>
+      <p>Đừng validate quá sớm — đừng hiển thị lỗi khi người dùng chỉ mới bắt đầu gõ (on input/on change) vì sẽ gây khó chịu. Thời điểm lý tưởng là on blur (khi người dùng rời trường) hoặc sau một khoảng debounce đủ dài (ví dụ: 800ms không gõ thêm).</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 52 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">52</div>
+    <div class="principle-title-block">
+      <h2>Chỉ rõ trường nào bị lỗi</h2>
+      <span class="principle-subtitle">Thông báo lỗi cụ thể, không chung chung</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Khi có lỗi xảy ra, giao diện phải chỉ rõ chính xác trường nào bị lỗi và lý do tại sao. Thông báo lỗi chung chung như "Vui lòng kiểm tra lại thông tin của bạn" là vô dụng — người dùng không biết phải nhìn vào đâu để sửa.</p>
+
+    <p>Đây cũng là một yêu cầu trong <strong>WCAG (Web Content Accessibility Guidelines)</strong> — tiêu chuẩn khả năng tiếp cận web quốc tế — nhằm đảm bảo người dùng khuyết tật (đặc biệt là người dùng screen reader) có thể hiểu và sửa lỗi form một cách độc lập.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Lỗi chung chung</h3>
+        <p>"Có lỗi xảy ra. Vui lòng kiểm tra lại và thử lại."<br><br>Người dùng không biết trường nào sai, sai ở đâu, và cần làm gì để sửa.</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Lỗi cụ thể, có ích</h3>
+        <p>"Số điện thoại không hợp lệ — vui lòng nhập đúng 10 chữ số, ví dụ: 0912345678"<br><br>Người dùng biết chính xác cần sửa gì và sửa như thế nào.</p>
+      </div>
+    </div>
+
+    <p>Các thành phần của một thông báo lỗi tốt:</p>
+    <ul>
+      <li><strong>Vị trí rõ ràng:</strong> Thông báo lỗi phải xuất hiện ngay cạnh trường bị lỗi, không phải ở trên đầu trang.</li>
+      <li><strong>Màu sắc + icon:</strong> Sử dụng màu đỏ kết hợp icon (không dùng màu đỏ đơn độc — xem Nguyên tắc 69 về color blindness).</li>
+      <li><strong>Ngôn ngữ rõ ràng:</strong> Nói rõ vấn đề là gì ("Email không chứa @") và cách sửa ("Ví dụ: ten@gmail.com").</li>
+      <li><strong>Focus management:</strong> Khi có lỗi sau submit, focus nên tự động chuyển đến trường đầu tiên bị lỗi.</li>
+    </ul>
+
+    <div class="code-block">
+<span class="attr">&lt;!-- Markup lỗi chuẩn accessibility --&gt;</span>
+&lt;div class="form-group"&gt;
+  &lt;label for="phone"&gt;Số điện thoại&lt;/label&gt;
+  &lt;input
+    id="phone"
+    type="tel"
+    <span class="attr">aria-describedby="phone-error"</span>
+    <span class="attr">aria-invalid="true"</span>
+  &gt;
+  &lt;span
+    id="phone-error"
+    class="error-msg"
+    <span class="attr">role="alert"</span>
+  &gt;
+    Số điện thoại không hợp lệ — nhập đủ 10 chữ số
+  &lt;/span&gt;
+&lt;/div&gt;
+    </div>
+
+    <div class="learning-box">
+      <h3>Bài học</h3>
+      <p>Đừng bao giờ xóa nội dung người dùng đã nhập khi có lỗi. Giữ lại nội dung của họ trong trường, chỉ highlight trường bị lỗi và hiển thị thông báo lỗi bên cạnh. Xóa nội dung người dùng đã nhập là một trong những lỗi UX gây frustration nhất.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 53 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">53</div>
+    <div class="principle-title-block">
+      <h2>Người dùng không quan tâm đến định dạng dữ liệu của bạn</h2>
+      <span class="principle-subtitle">Chấp nhận linh hoạt, xử lý phía server</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Người dùng không biết và không quan tâm đến định dạng dữ liệu nội bộ của hệ thống bạn. Họ chỉ muốn nhập thông tin theo cách tự nhiên với họ nhất. Nhiệm vụ của hệ thống là chấp nhận đa dạng định dạng đầu vào và chuẩn hóa chúng phía server, không phải bắt người dùng phải nhập đúng theo một format cứng nhắc.</p>
+
+    <div class="example-box">
+      <h3>Ví dụ: Tên người dùng và ký tự đặc biệt</h3>
+      <p>Nhiều hệ thống từ chối tên có ký tự đặc biệt như dấu tiếng Việt, ký tự Latin mở rộng (Ó, Ñ, ü), hay dấu gạch ngang và dấu nháy đơn (O'Brien, García-López). Đây là vấn đề phổ biến với người dùng quốc tế và là dấu hiệu của hệ thống được thiết kế chỉ nghĩ đến tên tiếng Anh.</p>
+    </div>
+
+    <p>Các trường hợp phổ biến cần chấp nhận linh hoạt:</p>
+    <ul>
+      <li><strong>Số điện thoại:</strong> Chấp nhận tất cả: "0912345678", "091 234 5678", "+84912345678", "(091) 234-5678" — xử lý chuẩn hóa phía server.</li>
+      <li><strong>Họ tên:</strong> Chấp nhận ký tự Unicode, dấu, gạch ngang, dấu nháy đơn — đừng chỉ cho phép A-Z.</li>
+      <li><strong>Mã bưu điện:</strong> Chấp nhận cả có và không có khoảng trắng, chữ hoa và chữ thường.</li>
+      <li><strong>Số thẻ tín dụng:</strong> Chấp nhận cả có và không có dấu cách giữa 4 chữ số.</li>
+    </ul>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Cứng nhắc với format</h3>
+        <p>Trường số điện thoại chỉ chấp nhận đúng 10 chữ số liền tiếp, không dấu cách, không dấu gạch ngang. Người dùng nhập "091 234 5678" bị từ chối.</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Linh hoạt và thân thiện</h3>
+        <p>Chấp nhận mọi format số điện thoại phổ biến. Khi submit, server tự strip ký tự không phải số và chuẩn hóa về format nội bộ.</p>
+      </div>
+    </div>
+
+    <div class="learning-box">
+      <h3>Nguyên tắc kỹ thuật</h3>
+      <p>Quy tắc Postel (Robustness Principle): "Be conservative in what you send, liberal in what you accept." Hệ thống nên rộng lượng trong việc chấp nhận đầu vào từ người dùng và nghiêm ngặt trong việc lưu trữ/truyền tải dữ liệu nội bộ. Validation phía client nên chỉ kiểm tra những trường hợp thực sự không thể xử lý được (ví dụ: trường rỗng), không phải kiểm tra format.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 54 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">54</div>
+    <div class="principle-title-block">
+      <h2>Chọn đúng loại control cho đầu vào</h2>
+      <span class="principle-subtitle">Đúng control = đúng trải nghiệm</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Việc lựa chọn loại control phù hợp cho mỗi loại đầu vào là yếu tố quyết định quan trọng đến trải nghiệm người dùng trong form. HTML5 cung cấp nhiều loại input có sẵn — hãy tận dụng chúng thay vì tự xây dựng component phức tạp không cần thiết.</p>
+
+    <p>Nguyên tắc cơ bản: <strong>Nếu HTML5 đã có input type phù hợp, hãy dùng nó.</strong> Browser native controls được tối ưu hóa cho từng nền tảng, có hỗ trợ accessibility tốt, và người dùng đã quen với chúng.</p>
+
+    <div class="example-box">
+      <h3>Các HTML5 input types hữu ích</h3>
+      <p><code>type="color"</code> — Mở color picker của hệ thống (thay vì tự xây dựng)<br>
+      <code>type="date"</code> — Mở date picker tối ưu cho platform (trên mobile = wheel picker)<br>
+      <code>type="range"</code> — Slider cho giá trị trong khoảng<br>
+      <code>type="number"</code> — Chỉ chấp nhận số, hiện bàn phím số trên mobile<br>
+      <code>type="tel"</code> — Hiện bàn phím số điện thoại trên mobile<br>
+      <code>type="email"</code> — Hiện bàn phím có @, kiểm tra basic email format</p>
+    </div>
+
+    <p>Ngoài input type, cũng cần chọn đúng loại control cho lựa chọn:</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Dùng dropdown cho lựa chọn ít</h3>
+        <p>Dropdown với 2-3 lựa chọn như "Nam / Nữ / Khác" — người dùng phải click để mở, click để chọn, đóng. Quá nhiều bước cho lựa chọn đơn giản.</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Dùng radio button / toggle</h3>
+        <p>Hiển thị tất cả 2-3 tùy chọn ngay lập tức dưới dạng radio button hoặc toggle group. Người dùng thấy tất cả options và chọn bằng một click.</p>
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Dùng radio button cho lựa chọn nhiều</h3>
+        <p>Dropdown với 50+ quốc gia, 100+ thành phố hoặc nhiều lựa chọn khác — radio button sẽ chiếm quá nhiều không gian màn hình.</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Dùng dropdown / searchable select</h3>
+        <p>Khi có nhiều hơn ~5 lựa chọn, dropdown (với tính năng search) là lựa chọn tốt hơn. Cho phép người dùng gõ để lọc thay vì cuộn qua danh sách dài.</p>
+      </div>
+    </div>
+
+    <div class="learning-box">
+      <h3>Hướng dẫn nhanh chọn control</h3>
+      <p>2–3 lựa chọn → Radio buttons hoặc Toggle group<br>
+      4–7 lựa chọn → Radio buttons hoặc Dropdown (tùy ngữ cảnh)<br>
+      8+ lựa chọn → Dropdown với search<br>
+      Bật/tắt → Toggle switch<br>
+      Nhiều lựa chọn đồng thời → Checkboxes<br>
+      Giá trị trong khoảng → Slider (range input)</p>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <h2>Kết luận Phần 8: Biểu mẫu</h2>
+  <p>Biểu mẫu là điểm giao thoa giữa người dùng và hệ thống — và đây là nơi nhiều sản phẩm đánh mất người dùng nhất. Năm nguyên tắc trong phần này tóm gọn lại thành một triết lý: <strong>tôn trọng thời gian và nỗ lực của người dùng.</strong></p>
+  <p>Hỏi ít nhất có thể. Xác thực sớm và cụ thể. Chỉ rõ lỗi để người dùng sửa dễ dàng. Chấp nhận đa dạng định dạng thay vì bắt người dùng theo format nội bộ. Và chọn đúng control để giảm thiểu số click cần thiết.</p>
+  <p>Một biểu mẫu được thiết kế tốt gần như "vô hình" — người dùng chỉ cảm thấy nó dễ và nhanh, không để ý đến bất kỳ chi tiết kỹ thuật nào. Đó chính là mục tiêu.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="ux_principles_ch07.html"><span class="lbl">Phần trước</span>Phần 7: Nhập Liệu</a>
+  <a href="ux_principles_ch09.html"><span class="lbl">Phần sau</span>Phần 9: Dữ Liệu Người Dùng</a>
+</nav>
+</body>
+</html>

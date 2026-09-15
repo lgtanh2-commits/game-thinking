@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>UX Principles – Ch06: Biểu tượng (Icons)</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+header{border-bottom:2px solid var(--accent-line);padding-bottom:32px;margin-bottom:56px;}
+.book-label{font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+h1{font-size:36px;font-weight:800;letter-spacing:-0.02em;line-height:1.15;color:var(--text);margin-bottom:12px;}
+.chapter-subtitle{font-size:18px;color:var(--text-secondary);font-weight:400;margin-bottom:20px;}
+.chapter-meta{font-size:13px;color:var(--text-muted);display:flex;gap:24px;flex-wrap:wrap;}
+.chapter-intro{background:var(--surface);border-left:3px solid var(--accent-line);padding:24px 28px;margin-bottom:52px;border-radius:0 4px 4px 0;}
+.chapter-intro p{color:var(--text-secondary);font-size:15px;line-height:1.8;}
+.principle-block{margin-bottom:64px;padding-bottom:64px;border-bottom:1px solid var(--border);}
+.principle-block:last-child{border-bottom:none;}
+.principle-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:24px;}
+.principle-number{font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);background:var(--surface-dark);padding:6px 12px;border-radius:3px;white-space:nowrap;margin-top:4px;flex-shrink:0;}
+.principle-title{font-size:24px;font-weight:700;letter-spacing:-0.01em;line-height:1.25;color:var(--text);}
+.principle-body{font-size:15px;line-height:1.85;color:var(--text-secondary);}
+.principle-body p{margin-bottom:16px;}
+.principle-body p:last-child{margin-bottom:0;}
+.principle-body strong{color:var(--text);font-weight:600;}
+.learning-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent-line);padding:20px 24px;margin:24px 0;border-radius:0 4px 4px 0;}
+.learning-box .label{font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.learning-box p{font-size:14px;color:var(--text-secondary);line-height:1.75;margin-bottom:10px;}
+.learning-box p:last-child{margin-bottom:0;}
+.insight-box{background:var(--surface-dark);border:1px solid var(--border-strong);padding:20px 24px;margin:24px 0;border-radius:4px;}
+.insight-box .label{font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.insight-box p{font-size:14px;color:var(--text-secondary);line-height:1.75;margin-bottom:10px;}
+.insight-box p:last-child{margin-bottom:0;}
+.example-box{border:1px solid var(--border);border-radius:4px;overflow:hidden;margin:24px 0;}
+.example-box .example-label{background:var(--surface-dark);padding:8px 16px;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+.example-box .example-content{padding:16px 20px;}
+.example-box .example-content p{font-size:14px;color:var(--text-secondary);line-height:1.75;margin-bottom:8px;}
+.example-box .example-content p:last-child{margin-bottom:0;}
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+.compare-col{border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.compare-col .compare-label{padding:8px 14px;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.compare-col.bad .compare-label{background:#f5f0f0;color:#888;}
+.compare-col.good .compare-label{background:#f0f5f0;color:#666;}
+.compare-col .compare-content{padding:14px 16px;font-size:13px;color:var(--text-secondary);line-height:1.7;}
+.conclusion-box{background:var(--text);color:#fff;padding:28px 32px;border-radius:4px;margin-top:32px;}
+.conclusion-box .label{font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px;}
+.conclusion-box p{font-size:15px;line-height:1.75;color:rgba(255,255,255,0.9);margin-bottom:8px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+.section-divider{text-align:center;padding:40px 0;color:var(--text-muted);font-size:13px;letter-spacing:0.1em;text-transform:uppercase;}
+ul.detail-list{margin:12px 0 16px 0;padding-left:20px;}
+ul.detail-list li{font-size:14px;color:var(--text-secondary);line-height:1.75;margin-bottom:6px;}
+ul.detail-list li strong{color:var(--text);}
+.quote-box{border-left:3px solid var(--border-strong);padding:16px 24px;margin:24px 0;background:var(--surface);}
+.quote-box blockquote{font-size:16px;font-style:italic;color:var(--text-secondary);line-height:1.7;}
+.quote-box cite{display:block;margin-top:10px;font-size:12px;color:var(--text-muted);font-style:normal;font-weight:600;letter-spacing:0.05em;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/ux-principles">← Về mục lục</a></p>
+
+
+<header>
+  <div class="book-label">101 UX Principles · Will Grant · Biểu tượng (Icons)</div>
+  <h1>Chương 6: Biểu tượng</h1>
+  <div class="chapter-subtitle">Nguyên tắc 34–38 — Nhất quán, lỗi thời, ý nghĩa, văn bản và nhãn</div>
+  <div class="chapter-meta">
+    <span>5 nguyên tắc</span>
+    <span>Nguyên tắc #34 → #38</span>
+    <span>101 UX Principles, 2nd Edition</span>
+  </div>
+</header>
+
+<div class="chapter-intro">
+  <p>Biểu tượng (icon) là ngôn ngữ hình ảnh của giao diện — một dấu hiệu trực quan mà người dùng chỉ cần nhìn qua vài mili giây là hiểu ngay mục đích của một nút hoặc chức năng. Khi được sử dụng đúng cách, icon giúp tăng tốc độ nhận diện và ghi nhớ đáng kể. Khi bị lạm dụng hoặc thiết kế kém, chúng trở thành câu đố gây bực bội và làm chậm mọi thao tác của người dùng.</p>
+</div>
+
+<!-- PRINCIPLE 34 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">Nguyên tắc 34</div>
+    <div class="principle-title">Sử dụng icon nhất quán trong toàn bộ sản phẩm</div>
+  </div>
+  <div class="principle-body">
+
+    <p>Icon là gì? Đó là <strong>ký hiệu hình ảnh rút gọn</strong> — một cách để người dùng nhìn lướt qua màn hình và trong vài mili giây, hiểu mục đích của một nút điều khiển. Người dùng sẽ không học cách sử dụng UI chỉ từ icon — nhưng một khi họ đã học, icon giúp tăng tốc độ nhận diện và ghi nhớ đáng kể.</p>
+
+    <p>Một giao diện nhồi nhét những icon trông như ngẫu nhiên và không liên quan nhau là thảm họa UX. Cách nó xảy ra thường rất quen: bạn bắt đầu với một bộ icon trông đẹp, rồi nhận ra bộ đó không có icon cho "upload" hoặc "download". Cuộc review sản phẩm sắp diễn ra, bạn cần một icon ngay lập tức. Vậy là bạn dùng ▲ và ▼ thay thế. Kết quả: chúng trông khác hẳn phần còn lại của ứng dụng, người dùng phải mất thêm vài giây nhận ra đây cũng là một phần của UI.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="compare-label">❌ Không nhất quán — Thảm họa</div>
+        <div class="compare-content">Mail: icon phong bì viền cong (3D style) · Calendar: icon lịch phẳng đen trắng · Contacts: icon thẻ in cũ kỹ — ba phong cách hoàn toàn khác nhau trong cùng một thanh menu.</div>
+      </div>
+      <div class="compare-col good">
+        <div class="compare-label">✓ Nhất quán — Chuyên nghiệp</div>
+        <div class="compare-content">Tất cả icon dùng cùng một phong cách: cùng độ dày nét, cùng mức chi tiết, cùng bảng màu. Người dùng nhận ra chúng như một "ngôn ngữ" thống nhất.</div>
+      </div>
+    </div>
+
+    <p><strong>Nguyên tắc vàng:</strong> Chọn một ẩn dụ hình ảnh và giữ nhất quán với nó. Điều này có thể đồng nghĩa với việc đầu tư thêm công sức minh họa để tạo ra các icon mới phù hợp với phong cách đã chọn. Đó là công sức xứng đáng — người dùng sẽ hưởng lợi từ một hệ thống icon gắn kết và dễ nhận diện.</p>
+
+    <div class="learning-box">
+      <div class="label">Thực tiễn tốt nhất</div>
+      <p>Sử dụng một bộ icon (icon set) thống nhất ngay từ đầu dự án — Material Icons (Google), SF Symbols (Apple), Phosphor Icons, Heroicons, hoặc bộ icon tự thiết kế riêng. Nếu bộ icon không có đủ, hãy tạo thêm theo đúng phong cách đã chọn thay vì pha trộn từ nhiều nguồn.</p>
+    </div>
+
+    <div class="conclusion-box">
+      <div class="label">Nguyên tắc cốt lõi</div>
+      <p>Đừng lười biếng với icon. Khi giao diện dùng icon từ nhiều nguồn khác nhau, người dùng cảm nhận được sự thiếu chú tâm đó — và nó làm giảm niềm tin vào chất lượng toàn bộ sản phẩm.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRINCIPLE 35 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">Nguyên tắc 35</div>
+    <div class="principle-title">Đừng dùng icon lỗi thời</div>
+  </div>
+  <div class="principle-body">
+
+    <p>Khoảng 20 năm nay, biểu tượng "đĩa mềm" (floppy diskette) mang nghĩa "lưu" và sự liên kết này vẫn tồn tại trong hầu hết phần mềm desktop và web. Đây từng là ẩn dụ hình ảnh xuất sắc — nhưng mọi thứ đã thay đổi. Nhiều người dùng dưới 20 tuổi chưa bao giờ nhìn thấy một chiếc đĩa mềm ngoài đời thực. Nếu họ biết gì về nó, đó là từ việc nhìn thấy icon này, không phải từ vật thật.</p>
+
+    <p>Những ví dụ tương tự: <strong>điện thoại bàn có dây xoắn và quay số</strong> cho chức năng gọi điện; <strong>máy ghi âm reel-to-reel thập niên 1950</strong> cho icon microphone; <strong>băng cuộn reel-to-reel</strong> cho "voicemail". Mười năm nữa, không ai còn biết những icon này là gì.</p>
+
+    <div class="example-box">
+      <div class="example-label">Vấn đề thực tế — Icon "Save" đang lỗi thời</div>
+      <div class="example-content">
+        <p>Ngày càng nhiều ứng dụng tự động lưu khi bạn làm việc (auto-save). Vì vậy, ngay cả nhu cầu icon "Save" cũng đang giảm dần. Nhưng khi cần thiết, chúng ta vẫn đang dùng icon đĩa mềm — vốn là ký hiệu của việc "lưu vào đĩa vật lý".</p>
+        <p>Ngày nay "lưu" thường có nghĩa là "gửi dữ liệu lên dịch vụ web". Cộng đồng thiết kế đang tìm kiếm một icon mới phù hợp — icon đám mây với mũi tên lên (☁↑) là ứng cử viên, nhưng chưa được chuẩn hóa đủ để thay thế hoàn toàn icon đĩa mềm.</p>
+      </div>
+    </div>
+
+    <p>Khi chọn icon, hãy suy nghĩ về <strong>ẩn dụ hình ảnh đó sẽ hoạt động như thế nào với các nhóm tuổi, văn hóa và ngôn ngữ khác nhau</strong>. Việc tìm ra icon phù hợp là công việc khó và tốn thời gian — nhưng người dùng sẽ hưởng lợi từ sự quen thuộc tăng lên theo thời gian.</p>
+
+    <div class="learning-box">
+      <div class="label">Kiểm tra icon với người dùng thật</div>
+      <p>Đây là lĩnh vực mà việc test với người dùng thật (Nguyên tắc #6) đặc biệt có giá trị. Hãy đưa icon đề xuất cho người dùng và hỏi: "Bạn nghĩ icon này có nghĩa là gì?" Nếu họ không trả lời đúng trong vài giây, icon đó cần được xem xét lại. Kiểm tra xem họ có thể nhớ icon đó sau khi đã học không (recall test).</p>
+    </div>
+
+    <div class="conclusion-box">
+      <div class="label">Nguyên tắc cốt lõi</div>
+      <p>Đừng dùng icon mô tả công nghệ hay vật thể mà người dùng trẻ chưa bao giờ nhìn thấy. Luôn đi kèm icon với nhãn văn bản để giảm thiểu sự mơ hồ — đặc biệt khi ẩn dụ hình ảnh có thể không rõ ràng với mọi người dùng.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRINCIPLE 36 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">Nguyên tắc 36</div>
+    <div class="principle-title">Đừng dùng icon hiện có để miêu tả ý tưởng mới</div>
+  </div>
+  <div class="principle-body">
+
+    <p>Thỉnh thoảng bạn cần phát minh một icon hoàn toàn mới. Nếu khái niệm bạn muốn truyền đạt là mới lạ, người dùng cần một icon không gây nhầm lẫn với ý nghĩa khác. Icon đó phải mới nhưng vẫn có thể nhận ra, và phải ánh xạ được đến một ví dụ trong thế giới thực. Thách thức này rất khó — và đó là sự thật.</p>
+
+    <p>May mắn thay, nhu cầu tạo icon hoàn toàn mới là hiếm, vì hầu hết các khái niệm trong ứng dụng đã được phục vụ tốt bởi các pattern UX và quy ước UI hiện có. Nhưng đôi khi bạn thực sự có một khái niệm mới.</p>
+
+    <p>Điều tồi tệ nhất là <strong>"vùng đất ở giữa": dùng icon hiện có để thể hiện khái niệm mới</strong>. Đây là giải pháp tệ nhất vì nó gây nhầm lẫn cho người dùng đã quen thấy icon đó trong các sản phẩm khác với ý nghĩa hoàn toàn khác.</p>
+
+    <div class="example-box">
+      <div class="example-label">Những icon bị lạm dụng nhiều nhất</div>
+      <div class="example-content">
+        <p><strong>Icon WiFi (hình quạt):</strong> Được dùng cho "upload", "save", "share", "email", "wireless payment" và nhiều thứ khác. Tệ nhất là thấy nó dùng cho "thanh toán không tiếp xúc" — hoàn toàn mất phương hướng.</p>
+        <p><strong>Icon đám mây (cloud):</strong> Tương tự — được dùng cho "lưu lên cloud", "sync", "upload", "download", "internet" và cả "thời tiết".</p>
+        <p><strong>Icon quả cầu (globe):</strong> "Internet", "language", "website", "global", "world" — quá nhiều ý nghĩa trong một hình.</p>
+        <p><strong>Icon xích liên kết (chain):</strong> "Share", "copy link", "connect", "URL" — khó phân biệt ngữ cảnh nào đang được dùng.</p>
+      </div>
+    </div>
+
+    <p>Trước khi tạo icon mới, hãy tìm kiếm trong các thư mục icon lớn như <strong>The Noun Project</strong> (thenounproject.com) — một kho icon miễn phí và trả phí khổng lồ. Sao chép pattern của người khác trong trường hợp này tốt cho người dùng: họ sẽ đã quen với icon đó từ các ứng dụng khác, tiết kiệm thời gian học.</p>
+
+    <div class="conclusion-box">
+      <div class="label">Nguyên tắc cốt lõi</div>
+      <p>Nếu cần icon cho khái niệm mới: tìm kiếm trước — có thể đã có icon phù hợp ngoài kia. Nếu không có, tạo icon mới thật sự mới. Đừng "tái chế" icon hiện có với ý nghĩa mới — đó là cách gây nhầm lẫn có hệ thống cho người dùng.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRINCIPLE 37 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">Nguyên tắc 37</div>
+    <div class="principle-title">Không bao giờ đặt văn bản bên trong icon</div>
+  </div>
+  <div class="principle-body">
+
+    <p>Icon được tạo ra để là <em>hình ảnh đơn giản mô tả một khái niệm</em>. Chúng là ký hiệu hình ảnh nhắc nhở người dùng rằng những gì họ sắp nhấn vào là thứ họ muốn. Đây là điều quan trọng: nguyên tắc này nói về <strong>văn bản BÊN TRONG thiết kế icon</strong>, không phải nhãn văn bản bên cạnh icon (nhãn bên cạnh là thiết yếu — xem Nguyên tắc #38).</p>
+
+    <p>Khi nhà thiết kế icon cảm thấy pictogram không đủ rõ ràng hoặc nhận dạng được, thay vì giải quyết vấn đề với hình ảnh, họ chọn cách thêm văn bản trực tiếp vào bản thiết kế icon. Ví dụ: icon database với chữ "Edit" bên trong, icon người dùng với chữ "ADMIN", icon quyển sách với chữ "NEWS".</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="compare-label">❌ Văn bản trong icon — Tệ</div>
+        <div class="compare-content">Icon database + chữ "Edit" bên dưới trong hình · Icon người + "ADMIN" · Icon sách + "NEWS" — các chữ này là một phần của file ảnh icon, không phải nhãn HTML bên ngoài.</div>
+      </div>
+      <div class="compare-col good">
+        <div class="compare-label">✓ Icon thuần hình ảnh + nhãn HTML</div>
+        <div class="compare-content">Icon database thuần · Nhãn "Chỉnh sửa" (Edit) là text HTML bên dưới · Được dịch tự động · Đọc được bởi screen reader · Có thể thay đổi font/size dễ dàng.</div>
+      </div>
+    </div>
+
+    <p>Có <strong>hai lý do nghiêm trọng</strong> để không đặt văn bản bên trong icon:</p>
+
+    <ul class="detail-list">
+      <li><strong>Không thể dịch tự động:</strong> Nếu website được dịch bởi Google Translate hoặc ứng dụng được quốc tế hóa (i18n), văn bản nhúng trong file ảnh icon sẽ không được dịch — người dùng ngôn ngữ khác thấy chữ English cứng nhắc trong icon.</li>
+      <li><strong>Vô hình với công nghệ trợ năng:</strong> Screen reader (phần mềm đọc màn hình cho người khiếm thị) không thể "đọc" văn bản bên trong ảnh icon. Người dùng cần trợ năng sẽ không biết icon đó có nghĩa gì. Luôn thêm thuộc tính `alt` mô tả cho icon ảnh.</li>
+    </ul>
+
+    <div class="learning-box">
+      <div class="label">Giải pháp đúng</div>
+      <p>Nếu icon pictogram của bạn không đủ rõ ràng mà không có văn bản — thì hãy cải thiện icon. Tìm icon tốt hơn, thiết kế lại, hoặc sử dụng icon đơn giản hơn đã được thiết lập rõ ràng hơn. Đừng "chắp vá" bằng cách nhúng chữ vào hình.</p>
+      <p>Nhãn văn bản bên cạnh icon là hoàn toàn khác — đó là HTML text, có thể dịch và đọc bởi screen reader. Đây là thực tiễn tốt (xem Nguyên tắc #38).</p>
+    </div>
+
+    <div class="conclusion-box">
+      <div class="label">Nguyên tắc cốt lõi</div>
+      <p>Icon phải tự nói lên ý nghĩa của nó bằng hình ảnh. Văn bản nhúng trong icon là giải pháp lười biếng phá vỡ khả năng dịch thuật và trợ năng. Thêm nhãn HTML bên cạnh — không bao giờ trong icon.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRINCIPLE 38 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">Nguyên tắc 38</div>
+    <div class="principle-title">Luôn đặt nhãn văn bản bên cạnh icon</div>
+  </div>
+  <div class="principle-body">
+
+    <p>Nguyên tắc này bổ sung cho #37: không đặt văn bản <em>trong</em> icon, nhưng <strong>luôn đặt nhãn văn bản <em>bên cạnh</em> icon</strong>. Những nút nhỏ, mờ nhạt, với icon bí ẩn là gần như vô dụng và liên tục cho kết quả tệ trong các bài kiểm tra người dùng.</p>
+
+    <div class="insight-box">
+      <div class="label">Quy tắc 5 giây của Nielsen Norman Group</div>
+      <p>"Nếu mất hơn 5 giây để nghĩ ra icon phù hợp cho một thứ gì đó, thì rất có thể không có icon nào truyền đạt được ý nghĩa đó một cách hiệu quả."</p>
+      <p>Đây là bài kiểm tra nhanh cho bất kỳ icon nào bạn đang thiết kế hoặc chọn lựa. Áp dụng cho cả chiều ngược lại: nếu người dùng không thể hiểu icon của bạn trong 5 giây, hãy thêm nhãn văn bản.</p>
+    </div>
+
+    <p>Icon bị lạm dụng và dùng sai quá nhiều, trong quá nhiều sản phẩm, đến mức <strong>bạn không thể dựa vào bất kỳ icon đơn lẻ nào để truyền đạt ý nghĩa dứt khoát</strong>. Ví dụ: nếu bạn đang cung cấp tính năng "lịch sử" (history), có cả một dải rộng icon có thể dùng — đồng hồ, mũi tên, đồng hồ trong mũi tên, đồng hồ cát, cuộn giấy cổ. Người dùng cần nhãn văn bản để hiểu đây là "Lịch sử" trong ngữ cảnh cụ thể của sản phẩm bạn.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="compare-label">❌ Icon thuần — Không nhãn</div>
+        <div class="compare-content">Nút upload (☁↑) · Nút share (↗) · Nút yêu thích (★) — ba icon không nhãn. Người dùng phải đoán hoặc hover để biết chức năng.</div>
+      </div>
+      <div class="compare-col good">
+        <div class="compare-label">✓ Icon + nhãn — Rõ ràng</div>
+        <div class="compare-content">☁↑ Upload · ↗ Chia sẻ · ★ Yêu thích — icon làm tín hiệu nhận diện nhanh, nhãn xác nhận chính xác chức năng. Không cần đoán.</div>
+      </div>
+    </div>
+
+    <p><strong>Lỗi phổ biến trên mobile:</strong> Nhà thiết kế quyết định hy sinh nhãn icon trên giao diện responsive để tiết kiệm không gian. <em>Đừng làm vậy.</em> Người dùng mobile cũng cần nhãn — có khi còn cần hơn vì họ đang sử dụng trong điều kiện xao nhãng, di chuyển, ánh sáng kém. Icon và nhãn cùng hoạt động song song: icon giúp nhận diện nhanh, nhãn xác nhận ý nghĩa.</p>
+
+    <div class="learning-box">
+      <div class="label">Khi nào icon có thể đứng một mình (ngoại lệ hiếm)</div>
+      <p><strong>Ngoại lệ 1 — Điều khiển được dùng thường xuyên:</strong> Các nút như Bold (B), Italic (I), Underline (U) trong text editor có thể không cần nhãn vì chúng đã quá quen thuộc với người dùng của loại phần mềm đó.</p>
+      <p><strong>Ngoại lệ 2 — Phần mềm chuyên gia:</strong> Nếu người dùng là chuyên gia dùng phần mềm nội bộ mỗi ngày trong nhiều giờ, họ có thể đã được đào tạo và quen với tất cả icon. Nhưng đây không phải tình huống phổ biến trong consumer software hay B2B SaaS.</p>
+      <p>Hai ngoại lệ này hiếm khi áp dụng cho phần mềm thông thường — đừng dùng chúng làm lý do để bỏ nhãn icon trong các sản phẩm thông thường.</p>
+    </div>
+
+    <div class="conclusion-box">
+      <div class="label">Nguyên tắc cốt lõi</div>
+      <p>Icon không có nhãn là nguồn gốc của vô số sự bực bội trong trải nghiệm người dùng. Luôn đặt nhãn văn bản bên cạnh icon — trên desktop và đặc biệt trên mobile. Nhãn không làm giao diện trở nên xấu hơn; nó làm giao diện trở nên hữu dụng hơn.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider">— Kết thúc Chương 6: Biểu tượng (Icons) —</div>
+
+<nav class="chapnav">
+  <a href="ux_principles_ch05.html"><span class="lbl">Phần trước</span>Phần 5: Điều Hướng</a>
+  <a href="ux_principles_ch07.html"><span class="lbl">Phần sau</span>Phần 7: Nhập Liệu</a>
+</nav>
+</body>
+</html>

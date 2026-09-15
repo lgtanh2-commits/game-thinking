@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>101 UX Principles – Phần 11: Thiết kế có thể tiếp cận</title>
+<style>
+:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
+h1{font-size:2rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px;}
+h2{font-size:1.35rem;font-weight:700;margin-bottom:10px;color:var(--text);}
+h3{font-size:1.05rem;font-weight:600;margin-bottom:8px;color:var(--text-secondary);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.book-label{font-size:0.78rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:28px;display:block;}
+.section-intro{border-left:3px solid var(--accent-line);padding:18px 24px;background:var(--surface);margin:36px 0 40px;border-radius:0 6px 6px 0;}
+.section-intro p{margin-bottom:0;font-size:0.97rem;}
+.principle-block{border:1px solid var(--border);border-radius:8px;padding:32px;margin-bottom:32px;background:#fff;}
+.principle-header{display:flex;align-items:flex-start;gap:18px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.principle-number{font-size:1.6rem;font-weight:800;color:var(--text-muted);min-width:48px;line-height:1;}
+.principle-title-block{flex:1;}
+.principle-title-block h2{margin-bottom:4px;}
+.principle-subtitle{font-size:0.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);}
+.principle-body p{font-size:0.97rem;line-height:1.85;}
+.learning-box{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 22px;margin:20px 0;}
+.learning-box h3{font-size:0.8rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.insight-box{background:#fff;border:1px solid var(--border-strong);border-left:3px solid var(--accent-line);border-radius:0 6px 6px 0;padding:16px 20px;margin:20px 0;}
+.insight-box p{font-size:0.93rem;font-style:italic;color:var(--text-secondary);margin-bottom:0;}
+.example-box{background:var(--surface);border-radius:6px;padding:16px 20px;margin:20px 0;border:1px dashed var(--border-strong);}
+.example-box h3{font-size:0.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0;}
+.compare-col{border-radius:6px;padding:16px 18px;}
+.compare-col h3{font-size:0.75rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;}
+.compare-col.bad{background:#f9f9f9;border:1px solid var(--border);}
+.compare-col.bad h3{color:var(--text-muted);}
+.compare-col.good{background:var(--surface-dark);border:1px solid var(--border-strong);}
+.compare-col.good h3{color:var(--text);}
+.compare-col p{font-size:0.9rem;margin-bottom:0;color:var(--text-secondary);}
+.conclusion-box{background:var(--surface-dark);border-radius:8px;padding:28px 32px;margin:48px 0 24px;border:1px solid var(--border-strong);}
+.conclusion-box h2{font-size:1.1rem;margin-bottom:12px;}
+.conclusion-box p{font-size:0.95rem;margin-bottom:10px;}
+.conclusion-box p:last-child{margin-bottom:0;}
+.code-block{background:var(--text);color:#f0f0f0;border-radius:6px;padding:16px 20px;margin:16px 0;font-family:'Courier New',monospace;font-size:0.88rem;line-height:1.6;overflow-x:auto;}
+.contrast-demo{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0;}
+.contrast-box{padding:12px 16px;border-radius:6px;font-weight:600;font-size:0.9rem;text-align:center;}
+ul{margin:10px 0 14px 20px;color:var(--text-secondary);}
+ul li{margin-bottom:6px;font-size:0.96rem;line-height:1.75;}
+
+.book-topline {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 12.5px;
+  margin-bottom: 32px;
+}
+.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+.chapnav {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.chapnav a {
+  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+}
+.chapnav a:hover { border-color: var(--text); }
+.chapnav a:last-child { text-align: right; margin-left: auto; }
+.chapnav .lbl {
+  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="../index.html#/book/ux-principles">← Về mục lục</a></p>
+
+
+<span class="book-label">101 UX Principles · Will Grant · Thiết kế có thể tiếp cận</span>
+<h1>Phần 11: Thiết kế có thể tiếp cận</h1>
+<p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0;">Nguyên tắc 64 – 73</p>
+
+<div class="section-intro">
+  <p>Là các nhà thiết kế, chúng ta có trách nhiệm đảm bảo sản phẩm của mình có thể được sử dụng bởi đông đảo nhất có thể trong xã hội. Phần này đề cập đến các nguyên tắc thiết kế có thể tiếp cận (accessible design) — không chỉ vì đây là điều đúng đắn cần làm, mà còn vì việc cải thiện khả năng tiếp cận thường cải thiện trải nghiệm cho tất cả người dùng, không chỉ riêng người khuyết tật. Một sản phẩm dễ dùng với người khiếm thị, người mù màu, người dùng bàn phím — sẽ là một sản phẩm dễ dùng hơn cho mọi người.</p>
+</div>
+
+<!-- Principle 64 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">64</div>
+    <div class="principle-title-block">
+      <h2>Tỷ lệ tương phản là người bạn của bạn</h2>
+      <span class="principle-subtitle">WCAG yêu cầu 4.5:1 tối thiểu — hướng đến 7.5:1</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Năm 1999, W3C (World Wide Web Consortium) — tổ chức tiêu chuẩn quốc tế cho web — công bố <strong>WCAG (Web Content Accessibility Guidelines)</strong>. Phiên bản 2.0 được cập nhật năm 2008. Một trong những hướng dẫn quan trọng nhất: văn bản trên giao diện phải có tỷ lệ tương phản ít nhất <strong>4.5:1</strong> so với màu nền. Hướng đến 7.5:1 để đạt khả năng đọc tối ưu.</p>
+
+    <div class="contrast-demo">
+      <div class="contrast-box" style="background:#111;color:#fff;">7.5:1 — Tốt nhất</div>
+      <div class="contrast-box" style="background:#444;color:#fff;">4.5:1 — Tối thiểu</div>
+      <div class="contrast-box" style="background:#888;color:#fff;">2.5:1 — Không đạt</div>
+    </div>
+
+    <p>Tỷ lệ tương phản thấp gây khó khăn cho người có thị lực kém — nhưng cũng làm khó đọc ngay cả với người có thị lực tốt, đặc biệt trên màn hình điện thoại nhỏ dưới ánh nắng mặt trời. Đây là ví dụ điển hình về cách cải thiện accessibility cũng cải thiện trải nghiệm đại trà.</p>
+
+    <div class="insight-box">
+      <p>Khi bộ phận marketing yêu cầu dùng màu chữ nhạt trên nền sáng vì lý do thẩm mỹ thương hiệu — hãy lịch sự nhưng kiên quyết: tỷ lệ tương phản 4.5:1 là yêu cầu tối thiểu, không phải tùy chọn. Có công cụ kiểm tra contrast ratio miễn phí trực tuyến — hãy chạy thử trước khi quyết định.</p>
+    </div>
+
+    <div class="learning-box">
+      <h3>Bài học</h3>
+      <p>4.5:1 là mức tối thiểu theo WCAG. Hướng đến 7.5:1 cho khả năng đọc tối ưu. Tìm "contrast ratio checker" trên Google để kiểm tra ngay. Cải thiện contrast tốt cho mọi người dùng, không chỉ người khuyết tật thị giác.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 65 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">65</div>
+    <div class="principle-title-block">
+      <h2>Flat design phải giữ affordances trực quan</h2>
+      <span class="principle-subtitle">Tối giản không có nghĩa là khó hiểu</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Phong trào "flat design" (thiết kế phẳng) — loại bỏ bóng đổ, độ nổi và các hiệu ứng 3D để đạt giao diện sạch sẽ, tối giản — về cơ bản là tốt. Nhưng khi đi quá xa, flat design có thể loại bỏ các "affordance" trực quan — các tín hiệu hình ảnh giúp người dùng nhận ra đâu là nút bấm, đâu là link, đâu là text thuần túy.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Flat design cực đoan (Brutalism)</h3>
+        <p>Craigslist: thiết kế không có style — tất cả trông như text và link giống nhau, không phân biệt được đâu là navigation, đâu là content. Ví dụ khác: Google Calendar iOS với flat design thuần khiết — rất khó biết element nào có thể tapped.</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Tối giản nhưng đủ affordance</h3>
+        <p>Stripe's control panel: clean và flat, nhưng buttons có subtle shadow nhỏ để trông "bấm được", sections có title rõ ràng, edit icons được label. Người dùng không phải đoán đâu là interactive.</p>
+      </div>
+    </div>
+
+    <p>Checklist affordance cho flat design:</p>
+    <ul>
+      <li>Buttons có đủ để trông khác với text thường không? (outline, subtle shadow, hay background color)</li>
+      <li>Links có underline hoặc màu sắc phân biệt không?</li>
+      <li>Interactive elements có nhất quán về visual style không?</li>
+      <li>Khi focus bằng bàn phím (Tab), có thấy focus indicator không?</li>
+    </ul>
+
+    <div class="learning-box">
+      <h3>Bài học</h3>
+      <p>Tối giản là tốt. Nhưng đừng đánh đổi affordances để đạt tính thẩm mỹ. Người dùng cần biết đâu là nút bấm, đâu là link, đâu là text. Nhất quán giữa các controls trong cùng sản phẩm giúp người dùng học interface nhanh hơn.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 66 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">66</div>
+    <div class="principle-title-block">
+      <h2>Tránh dùng biểu tượng mơ hồ</h2>
+      <span class="principle-subtitle">Icon phải có nghĩa rõ ràng và nhất quán</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Biểu tượng (icon) là ngôn ngữ hình ảnh — nhưng không phải mọi người đều nói cùng một "phương ngữ" biểu tượng. Một số icon đã trở thành chuẩn toàn cầu (💾 = lưu, 🏠 = trang chủ), nhưng nhiều icon có thể bị hiểu theo nhiều cách khác nhau gây nhầm lẫn.</p>
+
+    <div class="example-box">
+      <h3>Hai ví dụ icon mơ hồ phổ biến</h3>
+      <p><strong>@</strong> — Ký hiệu "at" này có thể có nghĩa là: địa chỉ email, link web, mention người dùng (như Twitter/X), hoặc hoàn toàn thứ khác tùy ngữ cảnh. Nếu dùng @ làm icon cho một chức năng, người dùng sẽ không biết nó làm gì.<br><br>
+      <strong>↗ (external link icon)</strong> — Icon mũi tên đi ra ngoài này được dùng để biểu thị: "share", "mở trong cửa sổ mới", "mở menu thêm", "quay lại"... tùy từng sản phẩm. Không có nghĩa nhất quán.</p>
+    </div>
+
+    <p>Câu hỏi cần đặt khi chọn icon:</p>
+    <ul>
+      <li>Có icon đã được thiết lập rõ ràng cho chức năng này chưa (theo iOS HIG, Material Design...)?</li>
+      <li>Icon này có xung đột với icon khác trong hệ thống của tôi không?</li>
+      <li>Nếu tôi phải giải thích icon này, liệu nó có đang hoạt động không? (Icons are like jokes: if you have to explain them, they've not worked.)</li>
+      <li>Icon có đủ khác biệt và dễ nhớ so với các icons khác trong cùng UI không?</li>
+    </ul>
+
+    <div class="insight-box">
+      <p>"Icon là như những câu đùa — nếu phải giải thích, chúng đã thất bại." Nếu icon cần tooltip để người dùng hiểu, hãy thêm label text bên cạnh icon thay vì chỉ icon đơn độc.</p>
+    </div>
+
+    <div class="learning-box">
+      <h3>Bài học</h3>
+      <p>Ưu tiên icons đã có chuẩn (platform HIG, Material Design, Bootstrap...). Kiểm tra xem icon đề xuất có nghĩa xung đột với patterns hiện có không. Khi có nghi ngờ, thêm text label bên cạnh icon. Đừng sáng chế icon mới cho chức năng đã có icon chuẩn.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 67 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">67</div>
+    <div class="principle-title-block">
+      <h2>Link phải có nghĩa khi đứng một mình</h2>
+      <span class="principle-subtitle">Không dùng "click here" — dùng text mô tả</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Người dùng dùng screen reader (đọc màn hình cho người khiếm thị) có thể điều hướng trang bằng cách nghe danh sách tất cả các links trên trang — tách rời khỏi ngữ cảnh xung quanh. Nếu link text của bạn là "click here" hoặc "read more", họ sẽ nghe một danh sách như: "click here... click here... click here... read more... read more..." — hoàn toàn vô nghĩa.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Link text mơ hồ</h3>
+        <p>"Để tải tài liệu hướng dẫn, <u>click here</u>."<br><br>"Blog post 1: <u>Read more</u>"<br>"Blog post 2: <u>Read more</u>"<br>"Blog post 3: <u>Read more</u>"</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Link text mô tả</h3>
+        <p>"<u>Tải tài liệu hướng dẫn sử dụng</u>"<br><br>"Blog post 1: <u>Đọc: Cách thiết kế form hiệu quả</u>"<br>"Blog post 2: <u>Đọc: 10 lỗi UX phổ biến nhất</u>"</p>
+      </div>
+    </div>
+
+    <p>Bonus: Link text mô tả rõ ràng cũng giúp SEO. Google và các search engines sử dụng anchor text (văn bản của link) để hiểu nội dung của trang đích. "Download User Guide" sẽ tốt hơn "click here" cả cho người dùng lẫn cho search ranking.</p>
+
+    <div class="learning-box">
+      <h3>Bài học</h3>
+      <p>Luôn viết link text đủ mô tả để hiểu được khi đọc một mình, ngoài ngữ cảnh. Tránh tuyệt đối "click here", "here", "read more" (không có ngữ cảnh). Mỗi blog post "Read more" nên gắn với tiêu đề bài viết. Bonus: cải thiện SEO.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 68 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">68</div>
+    <div class="principle-title-block">
+      <h2>Thêm link "Bỏ qua đến nội dung" ở đầu trang</h2>
+      <span class="principle-subtitle">Skip navigation cho người dùng bàn phím và screen reader</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Người dùng dùng bàn phím (không dùng chuột) để điều hướng web sẽ phải Tab qua từng item trong navigation menu mỗi khi tải trang mới — trước khi đến được nội dung chính. Trên một trang như Amazon với hàng chục link navigation, điều này cực kỳ bất tiện.</p>
+
+    <p>Giải pháp: thêm link <strong>"Skip to main content"</strong> (Bỏ qua đến nội dung) ở đầu trang, ngay trước navigation. Với người dùng thông thường, link này được ẩn bằng CSS. Nhưng khi người dùng bàn phím bấm Tab lần đầu, link này xuất hiện và cho phép họ nhảy thẳng đến nội dung chính bỏ qua navigation.</p>
+
+    <div class="code-block">
+<span class="attr">/* CSS: ẩn link skip nav với người dùng thường */</span>
+#skiptocontent {
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  top: -10px;
+}
+
+<span class="attr">/* HTML: link skip navigation */</span>
+&lt;div class="skipnav"&gt;
+  &lt;a href="#skiptocontent"&gt;Bỏ qua đến nội dung chính&lt;/a&gt;
+&lt;/div&gt;
+    </div>
+
+    <div class="learning-box">
+      <h3>Bài học</h3>
+      <p>Thêm "skip to content" link ở đầu trang (ẩn với CSS, visible khi focus). Đặt trong template để tự động xuất hiện trên mọi trang. Đây là một trong những cải tiến accessibility dễ implement nhất và có tác động lớn nhất với người dùng bàn phím.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 69 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">69</div>
+    <div class="principle-title-block">
+      <h2>Đừng dùng màu sắc làm tín hiệu duy nhất</h2>
+      <span class="principle-subtitle">8% đàn ông mù màu — 298 triệu người trên thế giới</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Mù màu (color blindness) ảnh hưởng đến khoảng <strong>8% đàn ông</strong> và 0.5% phụ nữ — tương đương khoảng 1 trong 12 đàn ông, và tổng cộng khoảng <strong>298 triệu người</strong> trên toàn thế giới. Dạng phổ biến nhất là không phân biệt được đỏ và xanh lá (red-green color blindness).</p>
+
+    <p>Vấn đề: Nhiều UI dùng màu đỏ = lỗi, màu xanh lá = thành công như tín hiệu DUY NHẤT. Với người mù màu đỏ-xanh lá, hai màu này trông giống nhau — họ không thể phân biệt được trạng thái thành công hay thất bại.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Chỉ dùng màu</h3>
+        <p>Field validation: viền đỏ = lỗi, viền xanh lá = hợp lệ. Không có icon, không có text label bổ sung. Người mù màu đỏ-xanh không thể phân biệt.</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Màu + Icon + Text</h3>
+        <p>Viền đỏ + icon ❌ + text "Email không hợp lệ" = lỗi. Viền xanh + icon ✓ + text xóa đi. Người dùng mọi khả năng thị giác đều hiểu được.</p>
+      </div>
+    </div>
+
+    <p>Nguyên tắc: <strong>Màu sắc không bao giờ được là tín hiệu DUY NHẤT.</strong> Luôn kết hợp màu với ít nhất một trong: icon, shape, pattern, hoặc text label.</p>
+
+    <div class="insight-box">
+      <p>298 triệu người mù màu trên thế giới — đây không phải là nhóm thiểu số nhỏ có thể bỏ qua. Khi thiết kế, hãy luôn tự hỏi: "Nếu tôi không nhìn thấy màu, tôi có hiểu được giao diện này không?"</p>
+    </div>
+
+    <div class="learning-box">
+      <h3>Bài học</h3>
+      <p>Màu sắc không bao giờ là tín hiệu duy nhất. Luôn kết hợp màu với icon, shape, hoặc text. Kiểm tra UI với công cụ giả lập mù màu (nhiều tool Figma/browser có sẵn). Nhóm người mù màu lớn hơn bạn nghĩ — 8% đàn ông.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 70 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">70</div>
+    <div class="principle-title-block">
+      <h2>Đừng tắt chức năng zoom</h2>
+      <span class="principle-subtitle">Người dùng cần quyền kiểm soát kích cỡ chữ</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Nhiều developer tắt chức năng pinch-to-zoom trên mobile bằng cách thêm <code>user-scalable=no</code> vào viewport meta tag, thường với lý do "muốn kiểm soát trải nghiệm" hoặc "layout của tôi được thiết kế hoàn hảo ở 100%". Đây là quyết định sai lầm.</p>
+
+    <p>Tắt zoom đặc biệt ảnh hưởng đến người lớn tuổi và người có thị lực kém — những người cần zoom để đọc nội dung nhỏ trên màn hình. Nhưng thực ra, ngay cả người có thị lực hoàn hảo cũng đôi khi cần zoom để đọc text nhỏ hoặc xem ảnh chi tiết.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Tắt zoom</h3>
+        <p><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"&gt;</code><br>Người dùng không thể phóng to để đọc text nhỏ.</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Cho phép zoom</h3>
+        <p><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code><br>Người dùng tự do zoom in/out theo nhu cầu của họ.</p>
+      </div>
+    </div>
+
+    <div class="learning-box">
+      <h3>Bài học</h3>
+      <p>Đừng bao giờ dùng <code>user-scalable=no</code> hoặc <code>maximum-scale=1</code>. Thiết kế responsive tốt cho phép zoom mà không phá vỡ layout. Người dùng có quyền kiểm soát kích thước chữ của họ.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 71 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">71</div>
+    <div class="principle-title-block">
+      <h2>Thứ tự Tab phải hợp lý</h2>
+      <span class="principle-subtitle">Logical tab order theo visual flow</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Người dùng điều hướng bằng bàn phím (gồm nhiều người có khuyết tật vận động và người dùng form chuyên nghiệp) dùng phím Tab để di chuyển giữa các interactive element trên trang. Thứ tự Tab mặc định theo thứ tự DOM (HTML) — nếu HTML và visual layout không khớp nhau, thứ tự Tab sẽ trở nên kỳ lạ và khó đoán.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Tab order không hợp lý</h3>
+        <p>Form có 3 cột. CSS grid đặt các field theo thứ tự: cột 1 hàng 1, cột 2 hàng 1, cột 3 hàng 1 (theo visual). Nhưng DOM order là: cột 1 hàng 1, 2, 3; rồi cột 2 hàng 1, 2, 3 — Tab nhảy lung tung.</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Tab order theo visual flow</h3>
+        <p>HTML được viết theo thứ tự người dùng sẽ điền từ trên xuống dưới, trái sang phải — khớp với visual layout. Tab flow tự nhiên và dễ đoán.</p>
+      </div>
+    </div>
+
+    <p>Ngoài ra, mọi interactive element khi nhận focus phải có <strong>visible focus indicator</strong> — đường viền hoặc highlight rõ ràng để người dùng biết cursor đang ở đâu. Đừng xóa focus outline bằng <code>outline: none</code> mà không cung cấp thay thế.</p>
+
+    <div class="learning-box">
+      <h3>Bài học</h3>
+      <p>Kiểm tra tab order bằng cách tắt chuột và dùng Tab điều hướng toàn bộ trang. Đảm bảo HTML DOM order khớp với visual order. Giữ visible focus indicator — đừng xóa <code>outline</code> mà không thay thế. Dùng <code>tabindex</code> cẩn thận khi cần can thiệp vào tab order.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 72 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">72</div>
+    <div class="principle-title-block">
+      <h2>Label rõ ràng cho mọi control</h2>
+      <span class="principle-subtitle">Mọi input đều cần label — placeholder không thay được</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Mọi control trên giao diện — input field, button, checkbox, radio button, dropdown — đều cần label văn bản rõ ràng. Label là tên của control, giúp người dùng (đặc biệt người dùng screen reader) hiểu chức năng của nó.</p>
+
+    <p>Lỗi phổ biến: Dùng <strong>placeholder text</strong> thay cho label. Placeholder text biến mất khi người dùng bắt đầu gõ — khiến họ quên mất trường đó đang yêu cầu thông tin gì. Và placeholder text không được đọc bởi tất cả screen readers.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Chỉ dùng placeholder</h3>
+        <p>Trường nhập liệu không có label, chỉ có placeholder "Email". Khi người dùng đã gõ một ký tự, placeholder biến mất — không còn biết trường đó hỏi gì. Screen reader có thể bỏ qua placeholder.</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Label + placeholder (tùy chọn)</h3>
+        <p>Label "Địa chỉ email" luôn hiển thị phía trên. Placeholder "ten@example.com" có thể thêm làm gợi ý format, nhưng không thay thế label. Rõ ràng ngay cả khi đang nhập.</p>
+      </div>
+    </div>
+
+    <div class="learning-box">
+      <h3>Bài học</h3>
+      <p>Mọi form field đều phải có visible label (<code>&lt;label&gt;</code> element liên kết với input qua <code>for</code>/<code>id</code>). Placeholder là tùy chọn, không phải thay thế label. Icon-only buttons cần <code>aria-label</code> hoặc tooltip text. Screen reader phải có thể đọc tên của mọi control.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Principle 73 -->
+<div class="principle-block">
+  <div class="principle-header">
+    <div class="principle-number">73</div>
+    <div class="principle-title-block">
+      <h2>Vùng có thể nhấn phải đủ lớn cho ngón tay</h2>
+      <span class="principle-subtitle">Tối thiểu 44×44px theo Apple HIG</span>
+    </div>
+  </div>
+  <div class="principle-body">
+    <p>Ngón tay người dùng không chính xác như con trỏ chuột. Khi thiết kế cho màn hình cảm ứng, vùng có thể nhấn (tap target) của mọi interactive element phải đủ lớn để ngón tay nhấn chính xác mà không vô tình chạm vào element khác.</p>
+
+    <p><strong>Apple Human Interface Guidelines</strong> khuyến nghị tối thiểu <strong>44×44 points</strong> cho tap target. Google's Material Design cũng có khuyến nghị tương tự (48×48dp). Đây không có nghĩa visual size của element phải là 44×44px — mà là vùng nhấn (hit area) phải đủ lớn, ngay cả nếu visual nhỏ hơn.</p>
+
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <h3>❌ Tap target quá nhỏ</h3>
+        <p>Checkbox 16×16px. Close button "×" chỉ 12×12px. Link text nhỏ trong đoạn văn. Người dùng phải nhấn chính xác vào một điểm nhỏ — rất dễ miss, đặc biệt với ngón tay to hoặc trên mobile.</p>
+      </div>
+      <div class="compare-col good">
+        <h3>✓ Tap target tối thiểu 44×44px</h3>
+        <p>Checkbox có vùng nhấn 44×44px ngay cả khi visual chỉ 20×20px (padding bù vào). Close button có padding đủ lớn. Link inline có padding trên/dưới để tăng tap area.</p>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <p>Tap target nhỏ không chỉ ảnh hưởng người khuyết tật — nó ảnh hưởng đến tất cả người dùng mobile, đặc biệt khi dùng điện thoại một tay, khi đang di chuyển, hoặc đơn giản là khi ngón tay to hơn target. Đây là một trong những lỗi UX mobile phổ biến nhất.</p>
+    </div>
+
+    <div class="learning-box">
+      <h3>Bài học</h3>
+      <p>Tối thiểu 44×44px (Apple) hoặc 48×48dp (Google) cho tap targets. Dùng padding để tăng vùng nhấn mà không thay đổi visual size. Kiểm tra trên thiết bị thật với ngón tay thật — simulator không đáng tin cậy cho việc này. Để đủ khoảng cách giữa các tap targets.</p>
+    </div>
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <h2>Kết luận Phần 11: Thiết kế có thể tiếp cận</h2>
+  <p>Mười nguyên tắc trong phần này chia sẻ một insight quan trọng: <strong>accessibility không phải là tính năng bổ sung — đó là chất lượng cơ bản của thiết kế tốt.</strong> Mỗi cải tiến accessibility đều cải thiện trải nghiệm cho mọi người dùng, không chỉ riêng người khuyết tật.</p>
+  <p>Contrast ratio tốt giúp mọi người đọc dễ hơn dưới ánh nắng. Tap target đủ lớn giúp người dùng tất cả kích cỡ ngón tay. Link text mô tả cũng cải thiện SEO. Skip navigation tiết kiệm thời gian cho keyboard power user. Không dùng màu làm tín hiệu duy nhất bảo vệ 298 triệu người mù màu.</p>
+  <p>Accessible design không phải là làm cho interface "bình thường hơn" hay "ít đẹp hơn" — đó là làm cho nó hoạt động tốt hơn cho nhiều người hơn. Đó là tiêu chuẩn của sản phẩm xuất sắc.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="ux_principles_ch10.html"><span class="lbl">Phần trước</span>Phần 10: Tiến Trình</a>
+  <a href="ux_principles_ch12.html"><span class="lbl">Phần sau</span>Phần 12: Hành Trình & Trạng Thái Sản Phẩm</a>
+</nav>
+</body>
+</html>
