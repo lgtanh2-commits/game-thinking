@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương {N}: {Tên chương} — {Tên sách}</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #111111;
+    --text-secondary: #333333;
+    --text-muted: #888888;
+    --border: #d8d8d8;
+    --border-strong: #999999;
+    --surface: #f2f2f2;
+    --surface-dark: #e0e0e0;
+    --accent-line: #111111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+  h2 { font-size: 1.3rem; font-weight: 700; margin: 40px 0 14px; }
+  h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 10px; color: var(--text-secondary); }
+  p { margin-bottom: 16px; color: var(--text-secondary); }
+  ul, ol { margin: 10px 0 16px 22px; }
+  li { margin-bottom: 6px; color: var(--text-secondary); }
+  strong { color: var(--text); }
+
+  .book-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .chapter-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--accent-line);
+  }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+  /* ── BẮT BUỘC: nav về mục lục + chuyển chương — KHÔNG được bỏ, KHÔNG được
+     thay bằng <span> giả (validate-books.yml sẽ fail PR nếu thiếu) ── */
+  .book-topline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    margin-bottom: 32px;
+  }
+  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+  .chapnav {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .chapnav a {
+    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
+  }
+  .chapnav a:hover { border-color: var(--text); }
+  .chapnav a:last-child { text-align: right; margin-left: auto; }
+  .chapnav .lbl {
+    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 36px 20px 60px; }
+    h1 { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sửa {slug} = đúng slug trong meta.json của sách này -->
+<p class="book-topline"><a href="../index.html#/book/{slug}">← Về mục lục</a></p>
+
+<div class="book-label">{Tên sách} · {Tác giả} · Chương {N}</div>
+<h1>{Tên chương}</h1>
+<p class="chapter-subtitle">{Phụ đề / tóm tắt ngắn 1 dòng — có thể để trống nếu không cần}</p>
+
+<!-- ═══════ Nội dung chương — viết tự do từ đây, giữ nguyên phần nav trên/dưới ═══════ -->
+
+<h2>{Tiêu đề mục 1}</h2>
+<p>{Nội dung...}</p>
+
+<hr class="divider">
+
+<h2>{Tiêu đề mục 2}</h2>
+<p>{Nội dung...}</p>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+
+<!-- BẮT BUỘC: nav chương trước/sau. Chương đầu tiên của sách thì bỏ link "Chương trước",
+     chương cuối thì bỏ link "Chương sau" (xem ví dụ thật trong bất kỳ sách nào khác trong Books/). -->
+<nav class="chapnav">
+  <a href="{ten-file-chuong-truoc}.html"><span class="lbl">Chương trước</span>Chương {N-1}: {Tên chương trước}</a>
+  <a href="{ten-file-chuong-sau}.html"><span class="lbl">Chương sau</span>Chương {N+1}: {Tên chương sau}</a>
+</nav>
+
+</body>
+</html>
