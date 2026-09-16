@@ -116,8 +116,40 @@
       max-width: 560px;
     }
 
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .category-tab {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, .25);
+      color: var(--color-fog);
+      font-family: var(--font-main);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 18px;
+      border-radius: var(--radius-buttons);
+      cursor: pointer;
+      transition: border-color .15s ease, color .15s ease, background .15s ease;
+    }
+
+    .category-tab:hover {
+      border-color: rgba(255, 255, 255, .5);
+      color: #ffffff;
+    }
+
+    .category-tab.active {
+      background: var(--color-sprout);
+      border-color: var(--color-sprout);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
     .search-wrap {
-      margin-top: 32px;
+      margin-top: 20px;
       max-width: 420px;
     }
 
@@ -522,7 +554,7 @@
 <body>
 
   <nav class="topnav">
-    <a class="brand" href="#/">Insight Product Management</a>
+    <a class="brand" href="/">Insight Product Management</a>
     <span class="crumb" id="crumb"></span>
   </nav>
 
@@ -539,7 +571,8 @@
     <div class="hero">
       <div class="hero-inner">
         <h1>Insight <span class="accent">trong Product Management</span></h1>
-        <p class="lead">Không tải được danh sách sách (manifest.json lỗi hoặc thiếu). Thử tải lại trang — nếu đang mở file trực tiếp (file://), cần chạy 1 local server thay vì double-click, xem CONTRIBUTING.md.</p>
+        <p class="lead">Không tải được danh sách sách (manifest.json lỗi hoặc thiếu). Thử tải lại trang — nếu đang mở
+          file trực tiếp (file://), cần chạy 1 local server thay vì double-click, xem CONTRIBUTING.md.</p>
       </div>
     </div>
   </div>
@@ -549,7 +582,8 @@
     <div class="hero">
       <div class="hero-inner">
         <h1>Insight <span class="accent">trong Product Management</span></h1>
-        <p class="lead">Được tổng hợp từ nhiều sách khác nhau.</p>
+        <p class="lead">Được tổng hợp từ nhiều đầu sách khác nhau.</p>
+        <div class="category-tabs" id="category-tabs"></div>
         <div class="search-wrap">
           <input type="text" id="search-input" class="search-input" placeholder="Tìm theo tên sách…" autocomplete="off">
         </div>
@@ -565,7 +599,7 @@
   <div id="view-detail" class="hidden">
     <div class="hero">
       <div class="hero-inner">
-        <a href="#/" class="back-btn">Quay lại trang trước</a>
+        <a href="/" class="back-btn">Quay lại trang trước</a>
         <h1 id="detail-title"></h1>
         <p class="lead" id="detail-author"></p>
         <div class="book-meta-row" id="detail-meta"></div>
@@ -590,9 +624,10 @@
      * ═══════════════════════════════════════════════════════════════
      */
     let LIBRARY = [];
-    
+
     const bookGrid = document.getElementById('book-grid');
     const pagination = document.getElementById('pagination');
+    const categoryTabs = document.getElementById('category-tabs');
     const searchInput = document.getElementById('search-input');
     const viewLoading = document.getElementById('view-loading');
     const viewError = document.getElementById('view-error');
@@ -631,8 +666,26 @@
     }
 
     const PAGE_SIZE = 20;
+    const CATEGORIES = ['BFSI', 'UX/UI', 'Game Design', 'Product Management'];
     let searchQuery = '';
+    let activeCategory = 'all';
     let currentPage = 1;
+
+    function renderCategoryTabs() {
+      const tabs = [{ value: 'all', label: 'Tất cả' }, ...CATEGORIES.map((c) => ({ value: c, label: c }))];
+      categoryTabs.innerHTML = tabs.map((t) =>
+        `<button type="button" class="category-tab${t.value === activeCategory ? ' active' : ''}" data-category="${escapeHtml(t.value)}">${escapeHtml(t.label)}</button>`
+      ).join('');
+    }
+
+    categoryTabs.addEventListener('click', (e) => {
+      const btn = e.target.closest('.category-tab');
+      if (!btn) return;
+      activeCategory = btn.dataset.category;
+      currentPage = 1;
+      renderCategoryTabs();
+      renderBookList();
+    });
 
     function escapeHtml(str) {
       return String(str)
@@ -685,7 +738,10 @@
 
     function renderBookList() {
       const q = searchQuery.trim().toLowerCase();
-      const filtered = LIBRARY.filter(b => b.title.toLowerCase().includes(q));
+      const filtered = LIBRARY.filter(b =>
+        (activeCategory === 'all' || b.category === activeCategory) &&
+        b.title.toLowerCase().includes(q)
+      );
 
       if (filtered.length === 0) {
         bookGrid.innerHTML = `<div class="empty-state">Không tìm thấy sách nào khớp với "${escapeHtml(searchQuery)}".</div>`;
@@ -705,7 +761,7 @@
         const allRead = readCount === total;
         const progressPct = total ? Math.round((readCount / total) * 100) : 0;
         return `
-    <a class="book-row" href="#/book/${b.slug}">
+    <a class="book-row" href="/${b.slug}">
       <div class="book-row-main">
         <div class="book-row-top">
           <span class="category-badge">${escapeHtml(b.tag)}</span>
@@ -748,7 +804,7 @@
     function renderDetail(slug) {
       const book = LIBRARY.find(b => b.slug === slug);
       if (!book) {
-        location.hash = '#/';
+        location.replace('/');
         return;
       }
 
@@ -775,7 +831,7 @@
         ${ch.sub ? `<div class="sub">${escapeHtml(ch.sub)}</div>` : ''}
       </div>
       <button type="button" class="read-toggle${read ? ' is-read' : ''}" data-n="${ch.n}"><span class="dot"></span>${read ? 'Đã đọc' : 'Đánh dấu đã đọc'}</button>
-      <a class="read-btn" href="${encodeURI(ch.file)}">Đọc →</a>
+      <a class="read-btn" href="/${encodeURIComponent(book.slug)}/${encodeURIComponent(ch.slug)}">Đọc →</a>
     </div>
   `;
       }).join('');
@@ -786,22 +842,21 @@
     document.getElementById('chapter-list').addEventListener('click', (e) => {
       const btn = e.target.closest('.read-toggle');
       if (!btn) return;
-      const bookMatch = (location.hash || '').match(/^#\/book\/(.+)$/);
-      if (!bookMatch) return;
-      const slug = decodeURIComponent(bookMatch[1]);
+      const segments = decodeURIComponent(location.pathname).split('/').filter(Boolean);
+      if (segments.length !== 1) return;
+      const slug = segments[0];
       const n = parseInt(btn.dataset.n, 10);
       toggleChapterRead(slug, n);
       renderDetail(slug);
     });
 
     function render() {
-      const hash = location.hash || '#/';
-      const bookMatch = hash.match(/^#\/book\/(.+)$/);
+      const segments = decodeURIComponent(location.pathname).split('/').filter(Boolean);
 
-      if (bookMatch) {
+      if (segments.length === 1) {
         viewLibrary.classList.add('hidden');
         viewDetail.classList.remove('hidden');
-        renderDetail(decodeURIComponent(bookMatch[1]));
+        renderDetail(segments[0]);
       } else {
         viewDetail.classList.add('hidden');
         viewLibrary.classList.remove('hidden');
@@ -818,11 +873,10 @@
       renderBookList();
     });
 
-    window.addEventListener('hashchange', render);
-
     loadLibrary()
       .then(() => {
         viewLoading.classList.add('hidden');
+        renderCategoryTabs();
         render();
       })
       .catch((err) => {
