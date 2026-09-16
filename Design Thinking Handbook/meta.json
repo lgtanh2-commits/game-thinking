@@ -1,0 +1,44 @@
+{
+  "slug": "design-thinking-handbook",
+  "title": "Design Thinking Handbook",
+  "author": "Eli Woolery · DesignBetter.Co by InVision",
+  "tag": "Quy trình 5 giai đoạn · Empathize → Test",
+  "chapters": [
+    {
+      "n": 1,
+      "title": "Tại Sao Chúng Ta Cần Design Thinking",
+      "sub": "Giải quyết những thách thức phức tạp",
+      "file": "ch1-dt-handbook.html"
+    },
+    {
+      "n": 2,
+      "title": "Thấu Cảm: Trái Tim Của Thiết Kế",
+      "sub": "",
+      "file": "ch2-dt-handbook.html"
+    },
+    {
+      "n": 3,
+      "title": "Định Nghĩa: Tái Định Khung Vấn Đề",
+      "sub": "",
+      "file": "ch3-dt-handbook.html"
+    },
+    {
+      "n": 4,
+      "title": "Ý Tưởng Hóa: Vượt Ra Ngoài Brainstorm Thông Thường",
+      "sub": "",
+      "file": "ch4-dt-handbook.html"
+    },
+    {
+      "n": 5,
+      "title": "Tạo Mẫu Thử: Học Thông Minh Hơn, Nhanh Hơn",
+      "sub": "",
+      "file": "ch5-dt-handbook.html"
+    },
+    {
+      "n": 6,
+      "title": "Kiểm Thử: Sớm Và Thường Xuyên",
+      "sub": "",
+      "file": "ch6-dt-handbook.html"
+    }
+  ]
+}

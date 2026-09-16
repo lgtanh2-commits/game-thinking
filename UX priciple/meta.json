@@ -1,0 +1,98 @@
+{
+  "slug": "ux-principles",
+  "title": "101 UX Principles",
+  "author": "Will Grant",
+  "tag": "UX Design · Pattern · Nguyên Tắc Thực Hành",
+  "chapters": [
+    {
+      "n": 1,
+      "title": "Lĩnh Vực UX",
+      "sub": "Nguyên tắc 1–7",
+      "file": "ux_principles_ch01.html"
+    },
+    {
+      "n": 2,
+      "title": "Typography",
+      "sub": "Nguyên tắc 8–11",
+      "file": "ux_principles_ch02.html"
+    },
+    {
+      "n": 3,
+      "title": "Controls",
+      "sub": "Nguyên tắc 12–22",
+      "file": "ux_principles_ch03.html"
+    },
+    {
+      "n": 4,
+      "title": "Nội Dung",
+      "sub": "Nguyên tắc 23–28",
+      "file": "ux_principles_ch04.html"
+    },
+    {
+      "n": 5,
+      "title": "Điều Hướng",
+      "sub": "Nguyên tắc 29–33 — Menu, liên kết, cài đặt và footer",
+      "file": "ux_principles_ch05.html"
+    },
+    {
+      "n": 6,
+      "title": "Biểu Tượng (Icons)",
+      "sub": "Nguyên tắc 34–38 — Nhất quán, lỗi thời, ý nghĩa, văn bản và nhãn",
+      "file": "ux_principles_ch06.html"
+    },
+    {
+      "n": 7,
+      "title": "Nhập Liệu (Input)",
+      "sub": "Nguyên tắc 39–49 — Từ bàn phím thông minh đến chatbot: cách thiết kế mọi thứ người dùng gõ vào sản phẩm",
+      "file": "ux_principles_ch07.html"
+    },
+    {
+      "n": 8,
+      "title": "Biểu Mẫu",
+      "sub": "Nguyên tắc 50–54",
+      "file": "ux_principles_ch08.html"
+    },
+    {
+      "n": 9,
+      "title": "Dữ Liệu Người Dùng",
+      "sub": "Nguyên tắc 55–60",
+      "file": "ux_principles_ch09.html"
+    },
+    {
+      "n": 10,
+      "title": "Tiến Trình",
+      "sub": "Nguyên tắc 61–63",
+      "file": "ux_principles_ch10.html"
+    },
+    {
+      "n": 11,
+      "title": "Thiết Kế Có Thể Tiếp Cận",
+      "sub": "Nguyên tắc 64–73",
+      "file": "ux_principles_ch11.html"
+    },
+    {
+      "n": 12,
+      "title": "Hành Trình & Trạng Thái Sản Phẩm",
+      "sub": "Nguyên tắc 74–88",
+      "file": "ux_principles_ch12.html"
+    },
+    {
+      "n": 13,
+      "title": "Ngôn Ngữ & Thuật Ngữ",
+      "sub": "Ngôn ngữ trong sản phẩm không chỉ là nhãn và nút bấm — đó là giọng nói của sản phẩm với người dùng",
+      "file": "ux_principles_ch13.html"
+    },
+    {
+      "n": 14,
+      "title": "Kỳ Vọng Người Dùng",
+      "sub": "Người dùng đến sản phẩm với một tập kỳ vọng sẵn có — công việc của UX designer là hiểu và thỏa mãn nó xuất sắc",
+      "file": "ux_principles_ch14.html"
+    },
+    {
+      "n": 15,
+      "title": "Triết Lý UX",
+      "sub": "Khi bạn có khả năng thiết kế hành vi của hàng triệu người, bạn chọn đứng về phía ai?",
+      "file": "ux_principles_ch15.html"
+    }
+  ]
+}

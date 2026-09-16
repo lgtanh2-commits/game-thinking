@@ -1,0 +1,80 @@
+{
+  "slug": "business-knowledge-it-retail-banking",
+  "title": "Business Knowledge for IT in Retail Banking",
+  "author": "Essvale Corporation Limited",
+  "tag": "Retail Banking · Cẩm nang cho IT",
+  "chapters": [
+    {
+      "n": 2,
+      "title": "Các Loại Sản Phẩm Ngân Hàng Bán Lẻ",
+      "sub": "",
+      "file": "ch2-bkrb.html"
+    },
+    {
+      "n": 3,
+      "title": "Môi Trường Kinh Doanh Trong Ngân Hàng Bán Lẻ",
+      "sub": "",
+      "file": "ch3-bkrb.html"
+    },
+    {
+      "n": 4,
+      "title": "Xu Hướng Ngân Hàng Bán Lẻ",
+      "sub": "",
+      "file": "ch4-bkrb.html"
+    },
+    {
+      "n": 5,
+      "title": "Mở Tài Khoản Trong Ngân Hàng Bán Lẻ",
+      "sub": "",
+      "file": "ch5-bkrb.html"
+    },
+    {
+      "n": 6,
+      "title": "Cho Vay Trong Ngân Hàng Bán Lẻ",
+      "sub": "",
+      "file": "ch6-bkrb.html"
+    },
+    {
+      "n": 7,
+      "title": "Thanh Toán Trong Ngân Hàng Bán Lẻ",
+      "sub": "",
+      "file": "ch7-bkrb.html"
+    },
+    {
+      "n": 8,
+      "title": "Các Hệ Thống Phổ Biến Trong Ngân Hàng Bán Lẻ",
+      "sub": "",
+      "file": "ch8-bkrb.html"
+    },
+    {
+      "n": 9,
+      "title": "Các Dự Án CNTT Trong Ngân Hàng Bán Lẻ",
+      "sub": "",
+      "file": "ch9-bkrb.html"
+    },
+    {
+      "n": 10,
+      "title": "Thuật Ngữ Thông Dụng Trong Ngân Hàng Bán Lẻ",
+      "sub": "",
+      "file": "ch10-bkrb.html"
+    },
+    {
+      "n": 11,
+      "title": "Phương Pháp Luận, Kỹ Năng và Công Cụ",
+      "sub": "",
+      "file": "ch11-bkrb.html"
+    },
+    {
+      "n": 12,
+      "title": "Tương Lai của Ngân Hàng Bán Lẻ",
+      "sub": "",
+      "file": "ch12-bkrb.html"
+    },
+    {
+      "n": 13,
+      "title": "Phụ Lục",
+      "sub": "",
+      "file": "ch13-bkrb-appendix.html"
+    }
+  ]
+}

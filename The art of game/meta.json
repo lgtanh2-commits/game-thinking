@@ -1,0 +1,212 @@
+{
+  "slug": "the-art-of-game-design",
+  "title": "The Art of Game Design",
+  "author": "Jesse Schell",
+  "tag": "Game Design · A Book of Lenses",
+  "chapters": [
+    {
+      "n": 1,
+      "title": "In the Beginning, There Is the Designer",
+      "sub": "Chapter One · Chương Một",
+      "file": "C1-The beginning.html"
+    },
+    {
+      "n": 2,
+      "title": "The Designer Creates an Experience",
+      "sub": "Jesse Schell • Câu hỏi căn bản nhất của game design: chúng ta thực sự đang tạo ra gì?",
+      "file": "C2-Create Experience.html"
+    },
+    {
+      "n": 3,
+      "title": "The Experience Takes Place in a Venue",
+      "sub": "Jesse Schell • Venue là lăng kính bất biến vượt qua mọi platform",
+      "file": "C3-The Experience Takes Place.html"
+    },
+    {
+      "n": 4,
+      "title": "Trải Nghiệm Nảy Sinh Từ Chính Game",
+      "sub": "Tìm hiểu game, đồ chơi, sự chơi và niềm vui — nền móng tư duy (Lens #4–#8)",
+      "file": "C4-The Experience Rises Out of a Game.html"
+    },
+    {
+      "n": 5,
+      "title": "The Game Consists of Elements",
+      "sub": "Jesse Schell · Mọi trò chơi đều được tạo nên từ bốn thành phần cốt lõi",
+      "file": "C5-Element of game.html"
+    },
+    {
+      "n": 6,
+      "title": "The Elements Support a Theme",
+      "sub": "Jesse Schell · Khi mọi thứ cùng hướng về một ý tưởng duy nhất",
+      "file": "C6-Theme.html"
+    },
+    {
+      "n": 7,
+      "title": "The Game Begins with an Idea",
+      "sub": "",
+      "file": "C7-Idea.html"
+    },
+    {
+      "n": 8,
+      "title": "The Game Improves Through Iteration",
+      "sub": "",
+      "file": "C8-Improve Game.html"
+    },
+    {
+      "n": 9,
+      "title": "The Player",
+      "sub": "Hiểu người chơi từ nhân khẩu học đến tâm lý (2 Lenses #19–20)",
+      "file": "C9-The Player.html"
+    },
+    {
+      "n": 10,
+      "title": "Trải Nghiệm Nằm Trong Tâm Trí Người Chơi",
+      "sub": "The Experience Is in the Player's Mind",
+      "file": "C10-Player Mind.html"
+    },
+    {
+      "n": 11,
+      "title": "Tâm Trí Người Chơi Bị Thúc Đẩy Bởi Động Lực của Người Chơi",
+      "sub": "The Player's Mind Is Driven by the Player's Motivation",
+      "file": "C11-Player's Motivation.html"
+    },
+    {
+      "n": 12,
+      "title": "Some Elements Are Game Mechanics",
+      "sub": "7 cơ chế game cơ bản — Space, Time, Objects & States, Actions, Rules, Skill, Chance (11 Lens #26–#36)",
+      "file": "C12-Mechanic.html"
+    },
+    {
+      "n": 13,
+      "title": "Game Mechanics Must Be in Balance",
+      "sub": "",
+      "file": "C13-Mechanic Balance.html"
+    },
+    {
+      "n": 14,
+      "title": "Game Mechanics Support Puzzles",
+      "sub": "Cơ chế trò chơi phục vụ thử thách tư duy — 10 Nguyên tắc Puzzle",
+      "file": "C14-Mechanic support puzzle.html"
+    },
+    {
+      "n": 15,
+      "title": "Players Play Games through an Interface",
+      "sub": "Người chơi chạm đến thế giới game qua lớp màng Interface (9 Lenses #59–#67)",
+      "file": "C15-Interface.html"
+    },
+    {
+      "n": 16,
+      "title": "Trải Nghiệm Được Đánh Giá Qua Đường Cong Hứng Thú",
+      "sub": "Không chỉ nội dung mà cả hình dạng trải nghiệm mới quyết định sức hút (5 Lenses mới)",
+      "file": "C16-Interest Curve.html"
+    },
+    {
+      "n": 17,
+      "title": "Một Loại Trải Nghiệm Là Story",
+      "sub": "Story và gameplay là hai biểu hiện của cùng một hiện tượng (6 Lenses mới)",
+      "file": "C17-Story.html"
+    },
+    {
+      "n": 18,
+      "title": "Story và Game Structures Có Thể Được Kết Hợp Khéo Léo Thông Qua Indirect Control",
+      "sub": "Khiến người chơi muốn làm đúng điều bạn muốn họ làm (4 Lenses #79–#82)",
+      "file": "C18-Indirect Control.html"
+    },
+    {
+      "n": 19,
+      "title": "Stories and Games Take Place in Worlds",
+      "sub": "Game mở ra cánh cửa vào một thế giới có thể tồn tại mãi mãi (2 Lenses #83–#84)",
+      "file": "C19-World.html"
+    },
+    {
+      "n": 20,
+      "title": "Worlds Contain Characters",
+      "sub": "Nhân vật là linh hồn của thế giới game — 10 kỹ thuật xây dựng nhân vật (7 Lenses #85–#91)",
+      "file": "C20-Characters.html"
+    },
+    {
+      "n": 21,
+      "title": "Worlds Contain Spaces",
+      "sub": "Thế Giới Chứa Đựng Không Gian",
+      "file": "C21-Game Space.html"
+    },
+    {
+      "n": 22,
+      "title": "The Look and Feel of a World Is Defined by Its Aesthetics",
+      "sub": "Jesse Schell · Bản dịch & phân tích tiếng Việt",
+      "file": "C22-Aesthetics.html"
+    },
+    {
+      "n": 23,
+      "title": "Some Games Are Played with Other Players",
+      "sub": "Jesse Schell · Bản dịch & phân tích tiếng Việt",
+      "file": "C23-Play Together.html"
+    },
+    {
+      "n": 24,
+      "title": "Other Players Sometimes Form Communities",
+      "sub": "Jesse Schell · Bản dịch & phân tích tiếng Việt",
+      "file": "C24-Communities.html"
+    },
+    {
+      "n": 25,
+      "title": "Nhà Thiết Kế Thường Làm Việc Cùng Đội Nhóm",
+      "sub": "The Designer Usually Works with a Team (2 Lenses mới)",
+      "file": "C25-Teamwork.html"
+    },
+    {
+      "n": 26,
+      "title": "Đội Nhóm Đôi Khi Giao Tiếp Qua Tài Liệu",
+      "sub": "The Team Sometimes Communicates through Documents (1 Lens mới)",
+      "file": "C26-Game Design Document.html"
+    },
+    {
+      "n": 27,
+      "title": "Good Games Are Created through Playtesting",
+      "sub": "Jesse Schell · Tóm tắt & phân tích tiếng Việt (1 Lens)",
+      "file": "C27-Playtesting.html"
+    },
+    {
+      "n": 28,
+      "title": "The Team Builds a Game with Technology",
+      "sub": "Jesse Schell · Tóm tắt & phân tích tiếng Việt (3 Lenses)",
+      "file": "C28-Tech.html"
+    },
+    {
+      "n": 29,
+      "title": "Your Game Will Probably Have a Client",
+      "sub": "Jesse Schell · Tóm tắt & phân tích tiếng Việt (1 Lens)",
+      "file": "C29-Client.html"
+    },
+    {
+      "n": 30,
+      "title": "The Designer Gives the Client a Pitch",
+      "sub": "Thuyết phục người ra quyết định bằng nghệ thuật — không phải may mắn",
+      "file": "C30-Pitching.html"
+    },
+    {
+      "n": 31,
+      "title": "The Designer and Client Want the Game to Make a Profit",
+      "sub": "Game thành công không chỉ về nghệ thuật — nó còn phải đứng vững trên thị trường",
+      "file": "C31-Make Profit.html"
+    },
+    {
+      "n": 32,
+      "title": "Games Transform Their Players",
+      "sub": "Game không chỉ giải trí — chúng thay đổi người chơi sâu sắc hơn ta nghĩ",
+      "file": "C32-Games Transform.html"
+    },
+    {
+      "n": 33,
+      "title": "Designers Have Certain Responsibilities",
+      "sub": "Game designer chịu trách nhiệm không chỉ với employer, mà với người chơi và xã hội",
+      "file": "C33-Responsibilities.html"
+    },
+    {
+      "n": 34,
+      "title": "Each Designer Has a Purpose",
+      "sub": "Đã học cách lắng nghe audience, team, client, game — giờ lắng nghe chính mình",
+      "file": "C34-End.html"
+    }
+  ]
+}

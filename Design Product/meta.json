@@ -1,0 +1,50 @@
+{
+  "slug": "designing-products-evolving-digital-users",
+  "title": "Designing Products for Evolving Digital Users",
+  "author": "Anastasia Utesheva · Apress · 2020",
+  "tag": "UX Research · Digital Identity & Trends",
+  "chapters": [
+    {
+      "n": 1,
+      "title": "Tiến Hóa Kỹ Thuật Số",
+      "sub": "Coevolution của Con Người và Công Nghệ",
+      "file": "ch1-dpfed.html"
+    },
+    {
+      "n": 2,
+      "title": "Tiến Hóa Bản Sắc",
+      "sub": "Identity Evolution — Từ Cái Tôi Tĩnh đến Bản Sắc Kỹ Thuật Số",
+      "file": "ch2-dpfed.html"
+    },
+    {
+      "n": 3,
+      "title": "Thiết Kế Cho Người Dùng Tiến Hóa",
+      "sub": "Designing for Evolving Users",
+      "file": "ch3-dpfed.html"
+    },
+    {
+      "n": 4,
+      "title": "Bộ Công Cụ Tư Duy Thiết Kế",
+      "sub": "The Design Thinking Toolkit",
+      "file": "ch4-dpfed.html"
+    },
+    {
+      "n": 5,
+      "title": "Thiết Kế Cho Thay Đổi",
+      "sub": "Design for Change",
+      "file": "ch5-dpfed.html"
+    },
+    {
+      "n": 6,
+      "title": "Xu Hướng Kỹ Thuật Số",
+      "sub": "Digital Trends",
+      "file": "ch6-dpfed.html"
+    },
+    {
+      "n": 7,
+      "title": "Nhà Thiết Kế Kỹ Thuật Số Được Trao Quyền",
+      "sub": "Kết luận — Empowered Digital Designers",
+      "file": "ch7-dpfed.html"
+    }
+  ]
+}

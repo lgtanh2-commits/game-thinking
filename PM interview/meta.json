@@ -1,0 +1,152 @@
+{
+  "slug": "product-manager-interview",
+  "title": "The Product Manager Interview",
+  "author": "Lewis C. Lin",
+  "tag": "PM Interview · Case Study · Framework",
+  "chapters": [
+    {
+      "n": 3,
+      "title": "Study Guides Cho Các Công Ty Tech Hàng Đầu",
+      "sub": "Lộ trình chuẩn bị 30–36 ngày dành riêng cho Google, Facebook và Amazon",
+      "file": "pm_interview_ch3.html"
+    },
+    {
+      "n": 4,
+      "title": "Từ Viết Tắt, Thuật Ngữ Và Khái Niệm",
+      "sub": "Bảng tra cứu nhanh các framework và khái niệm cốt lõi trong phỏng vấn PM",
+      "file": "pm_interview_ch4.html"
+    },
+    {
+      "n": 5,
+      "title": "Câu Hỏi Thường Gặp",
+      "sub": "Những băn khoăn phổ biến nhất của ứng viên — và câu trả lời thực tế",
+      "file": "pm_interview_ch5.html"
+    },
+    {
+      "n": 6,
+      "title": "Analytics: Ước Lượng",
+      "sub": "20 bài tập estimation với issue tree và đáp án chi tiết",
+      "file": "pm_interview_ch6.html"
+    },
+    {
+      "n": 7,
+      "title": "Analytics: Data Science",
+      "sub": "5 bài tập tư duy logic, xác suất và phân tích dữ liệu",
+      "file": "pm_interview_ch7.html"
+    },
+    {
+      "n": 8,
+      "title": "Analytics: Định Giá Sản Phẩm Mới",
+      "sub": "3 bài tập định giá sản phẩm lần đầu ra mắt thị trường",
+      "file": "pm_interview_ch8.html"
+    },
+    {
+      "n": 9,
+      "title": "Analytics: Định Giá Sản Phẩm Hiện Có",
+      "sub": "2 bài tập điều chỉnh giá và đàm phán giá sản phẩm đang bán",
+      "file": "pm_interview_ch9.html"
+    },
+    {
+      "n": 10,
+      "title": "Analytics: ROI",
+      "sub": "2 bài tập tính toán lợi nhuận ròng và giá trị vòng đời khách hàng",
+      "file": "pm_interview_ch10.html"
+    },
+    {
+      "n": 11,
+      "title": "Thiết Kế Sản Phẩm: Bản Đồ Hành Trình Khách Hàng",
+      "sub": "Bài tập Customer Journey Map",
+      "file": "pm_interview_ch11.html"
+    },
+    {
+      "n": 12,
+      "title": "Thiết Kế Sản Phẩm: Pain Point Exercises",
+      "sub": "Bài tập Điểm Đau",
+      "file": "pm_interview_ch12.html"
+    },
+    {
+      "n": 13,
+      "title": "Thiết Kế Sản Phẩm: Bài Tập Brainstorm",
+      "sub": "Rèn tư duy sáng tạo giải pháp sản phẩm",
+      "file": "pm_interview_ch13.html"
+    },
+    {
+      "n": 14,
+      "title": "Thiết Kế Sản Phẩm: Tổng Hợp",
+      "sub": "Vận dụng toàn diện phương pháp CIRCLES™ và các kỹ năng thiết kế sản phẩm qua 28 tình huống thực tế",
+      "file": "pm_interview_ch14.html"
+    },
+    {
+      "n": 15,
+      "title": "Metrics: Đề Xuất Số Liệu",
+      "sub": "Brainstorming các chỉ số theo khung AARM™",
+      "file": "pm_interview_ch15.html"
+    },
+    {
+      "n": 16,
+      "title": "Metrics: Số Liệu Quan Trọng Nhất",
+      "sub": "Most Important Metric — Chọn một chỉ số duy nhất để đo thành công",
+      "file": "pm_interview_ch16.html"
+    },
+    {
+      "n": 17,
+      "title": "Metrics: Số Liệu Sụt Giảm",
+      "sub": "Metric Declined — Chẩn đoán nguyên nhân khi một chỉ số đi xuống",
+      "file": "pm_interview_ch17.html"
+    },
+    {
+      "n": 18,
+      "title": "Metrics: Sản Phẩm Yêu Thích & Tình Huống Thực Tế",
+      "sub": "Áp dụng tư duy đo lường vào các sản phẩm cụ thể",
+      "file": "pm_interview_ch18.html"
+    },
+    {
+      "n": 19,
+      "title": "Hypothetical: Opinion",
+      "sub": "Câu hỏi Quan điểm — thể hiện tư duy và góc nhìn của PM",
+      "file": "pm_interview_ch19.html"
+    },
+    {
+      "n": 20,
+      "title": "Hypothetical: Giải Quyết Vấn Đề",
+      "sub": "Problem Solving — phân tích tình huống và đưa ra giải pháp có cấu trúc",
+      "file": "pm_interview_ch20.html"
+    },
+    {
+      "n": 21,
+      "title": "Strategy: Thâm Nhập Thị Trường Mới",
+      "sub": "New Market Entry — phân tích cơ hội, rào cản và chiến lược mở rộng",
+      "file": "pm_interview_ch21.html"
+    },
+    {
+      "n": 22,
+      "title": "Kế Hoạch Ra Mắt",
+      "sub": "Quyết định mở rộng dịch vụ và quy trình ra mắt tại thị trường mới",
+      "file": "pm_interview_ch22.html"
+    },
+    {
+      "n": 23,
+      "title": "Chiến Lược: Các Vấn Đề Khác",
+      "sub": "Cắt giảm sản phẩm, chiến lược thị trường quốc tế, build vs. buy",
+      "file": "pm_interview_ch23.html"
+    },
+    {
+      "n": 24,
+      "title": "Kỹ Thuật",
+      "sub": "Thảo luận kiến trúc hệ thống và đánh đổi kỹ thuật — không cần là kỹ sư phần mềm",
+      "file": "pm_interview_ch24.html"
+    },
+    {
+      "n": 25,
+      "title": "Câu Hỏi Truyền Thống",
+      "sub": "Traditional — đánh giá mức độ hiểu biết và đam mê của ứng viên với công ty",
+      "file": "pm_interview_ch25.html"
+    },
+    {
+      "n": 26,
+      "title": "Hành Vi",
+      "sub": "Behavioral — kể chuyện thực tế bằng phương pháp DIGS™",
+      "file": "pm_interview_ch26.html"
+    }
+  ]
+}

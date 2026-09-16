@@ -1,0 +1,38 @@
+{
+  "slug": "product-discovery-playbook",
+  "title": "The Product Discovery Playbook",
+  "author": "Productboard · 2020",
+  "tag": "Product Management · Discovery Playbook",
+  "chapters": [
+    {
+      "n": 1,
+      "title": "Nền Tảng Của Product Discovery",
+      "sub": "Tại sao lại phải chấp nhận rủi ro xây dựng sản phẩm hoặc tính năng sai?",
+      "file": "ch1-product-discovery.html"
+    },
+    {
+      "n": 2,
+      "title": "Hướng Dẫn Từng Bước Thực Hiện Product Discovery",
+      "sub": "",
+      "file": "ch2-product-discovery.html"
+    },
+    {
+      "n": 3,
+      "title": "Làm Sao Biết Product Discovery Đang Hiệu Quả?",
+      "sub": "",
+      "file": "ch3-product-discovery.html"
+    },
+    {
+      "n": 4,
+      "title": "Điều Chỉnh Product Discovery Cho Tổ Chức Của Bạn",
+      "sub": "",
+      "file": "ch4-product-discovery.html"
+    },
+    {
+      "n": 5,
+      "title": "Xây Dựng Sản Phẩm Tốt Hơn Qua Continuous Product Discovery",
+      "sub": "",
+      "file": "ch5-product-discovery.html"
+    }
+  ]
+}
