@@ -1,0 +1,25 @@
+name: Validate books
+
+on:
+  pull_request:
+    paths:
+      - '**/meta.json'
+      - '**/*.html'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate changed books
+        run: node scripts/validate-books.mjs --base "origin/${{ github.base_ref }}"
