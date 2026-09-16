@@ -1,8 +1,9 @@
 {
-  "slug": "Invalid Slug!",
+  "slug": "sach-test-ci",
   "title": "Sách Test CI",
+  "author": "Test",
   "tag": "Test",
   "chapters": [
-    { "n": 1, "title": "Chương thiếu file", "sub": "", "file": "khong-ton-tai.html" }
+    { "n": 1, "title": "Chương test", "sub": "", "file": "ch1-test.html" }
   ]
 }
