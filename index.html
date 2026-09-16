@@ -526,8 +526,26 @@
     <span class="crumb" id="crumb"></span>
   </nav>
 
+  <!-- ══════════════ LOADING / ERROR STATE ══════════════ -->
+  <div id="view-loading">
+    <div class="hero">
+      <div class="hero-inner">
+        <h1>Insight <span class="accent">trong Product Management</span></h1>
+        <p class="lead">Đang tải danh sách sách…</p>
+      </div>
+    </div>
+  </div>
+  <div id="view-error" class="hidden">
+    <div class="hero">
+      <div class="hero-inner">
+        <h1>Insight <span class="accent">trong Product Management</span></h1>
+        <p class="lead">Không tải được danh sách sách (manifest.json lỗi hoặc thiếu). Thử tải lại trang — nếu đang mở file trực tiếp (file://), cần chạy 1 local server thay vì double-click, xem CONTRIBUTING.md.</p>
+      </div>
+    </div>
+  </div>
+
   <!-- ══════════════ LIBRARY VIEW ══════════════ -->
-  <div id="view-library">
+  <div id="view-library" class="hidden">
     <div class="hero">
       <div class="hero-inner">
         <h1>Insight <span class="accent">trong Product Management</span></h1>
@@ -563,364 +581,54 @@
      * ═══════════════════════════════════════════════════════════════
      * CÁCH THÊM SÁCH / CHƯƠNG MỚI
      * ───────────────────────────────────────────────────────────────
-     * 1. Thêm 1 file HTML chương mới vào cùng folder này (hoặc folder
-     *    con), rồi thêm 1 object vào mảng `chapters` của book tương ứng
-     *    bên dưới: { n: <số chương>, title: '<tên chương>',
-     *    sub: '<phụ đề / tên chương ngôn ngữ còn lại>', file: '<tên file .html>' }.
-     * 2. Thêm 1 quyển sách mới: thêm 1 object vào mảng LIBRARY với
-     *    slug (kebab-case, duy nhất), title, author, tag, và chapters.
-     * 3. Không cần build/server — chỉ cần lưu file này, mở lại trình
-     *    duyệt (hoặc F5) là thấy ngay.
+     * Danh sách sách KHÔNG còn khai báo trong file này — mỗi sách có 1 file
+     * Books/{folder}/meta.json riêng, được liệt kê trong Books/manifest.json
+     * (tự sinh, đừng tay sửa). Trang này tự fetch() cả 2 thứ lúc tải trang.
+     *
+     * Xem CONTRIBUTING.md để biết cách thêm 1 sách mới (chỉ cần thêm 1 folder
+     * + meta.json + mở Pull Request — không đụng gì tới file này).
      * ═══════════════════════════════════════════════════════════════
      */
-    const LIBRARY = [
-      {
-        slug: 'game-thinking-blueprint',
-        title: 'Game Thinking Blueprint',
-        author: 'Amy Jo Kim · gamethinking.io · 2017',
-        tag: 'Framework · 14 trang · 3 Power-Tools',
-        chapters: [
-          {
-            n: 1,
-            title: 'Game Thinking Blueprint',
-            sub: 'Framework thiết kế sản phẩm lấy cảm hứng từ game design — 3 Power-Tools giúp xây MVP đúng người, đúng lúc, và giữ người dùng quay lại mãi mãi',
-            file: 'game-thinking-blueprint.html'
-          }
-        ]
-      },
-      {
-        slug: 'the-art-of-game-design',
-        title: 'The Art of Game Design',
-        author: 'Jesse Schell',
-        tag: 'Game Design · A Book of Lenses',
-        chapters: [
-          { n: 1, title: "In the Beginning, There Is the Designer", sub: "Chapter One · Chương Một", file: "The art of game/C1-The beginning.html" },
-          { n: 2, title: "The Designer Creates an Experience", sub: "Jesse Schell • Câu hỏi căn bản nhất của game design: chúng ta thực sự đang tạo ra gì?", file: "The art of game/C2-Create Experience.html" },
-          { n: 3, title: "The Experience Takes Place in a Venue", sub: "Jesse Schell • Venue là lăng kính bất biến vượt qua mọi platform", file: "The art of game/C3-The Experience Takes Place.html" },
-          { n: 4, title: "Trải Nghiệm Nảy Sinh Từ Chính Game", sub: "Tìm hiểu game, đồ chơi, sự chơi và niềm vui — nền móng tư duy (Lens #4–#8)", file: "The art of game/C4-The Experience Rises Out of a Game.html" },
-          { n: 5, title: "The Game Consists of Elements", sub: "Jesse Schell · Mọi trò chơi đều được tạo nên từ bốn thành phần cốt lõi", file: "The art of game/C5-Element of game.html" },
-          { n: 6, title: "The Elements Support a Theme", sub: "Jesse Schell · Khi mọi thứ cùng hướng về một ý tưởng duy nhất", file: "The art of game/C6-Theme.html" },
-          { n: 7, title: "The Game Begins with an Idea", sub: "", file: "The art of game/C7-Idea.html" },
-          { n: 8, title: "The Game Improves Through Iteration", sub: "", file: "The art of game/C8-Improve Game.html" },
-          { n: 9, title: "The Player", sub: "Hiểu người chơi từ nhân khẩu học đến tâm lý (2 Lenses #19–20)", file: "The art of game/C9-The Player.html" },
-          { n: 10, title: "Trải Nghiệm Nằm Trong Tâm Trí Người Chơi", sub: "The Experience Is in the Player's Mind", file: "The art of game/C10-Player Mind.html" },
-          { n: 11, title: "Tâm Trí Người Chơi Bị Thúc Đẩy Bởi Động Lực của Người Chơi", sub: "The Player's Mind Is Driven by the Player's Motivation", file: "The art of game/C11-Player's Motivation.html" },
-          { n: 12, title: "Some Elements Are Game Mechanics", sub: "7 cơ chế game cơ bản — Space, Time, Objects & States, Actions, Rules, Skill, Chance (11 Lens #26–#36)", file: "The art of game/C12-Mechanic.html" },
-          { n: 13, title: "Game Mechanics Must Be in Balance", sub: "", file: "The art of game/C13-Mechanic Balance.html" },
-          { n: 14, title: "Game Mechanics Support Puzzles", sub: "Cơ chế trò chơi phục vụ thử thách tư duy — 10 Nguyên tắc Puzzle", file: "The art of game/C14-Mechanic support puzzle.html" },
-          { n: 15, title: "Players Play Games through an Interface", sub: "Người chơi chạm đến thế giới game qua lớp màng Interface (9 Lenses #59–#67)", file: "The art of game/C15-Interface.html" },
-          { n: 16, title: "Trải Nghiệm Được Đánh Giá Qua Đường Cong Hứng Thú", sub: "Không chỉ nội dung mà cả hình dạng trải nghiệm mới quyết định sức hút (5 Lenses mới)", file: "The art of game/C16-Interest Curve.html" },
-          { n: 17, title: "Một Loại Trải Nghiệm Là Story", sub: "Story và gameplay là hai biểu hiện của cùng một hiện tượng (6 Lenses mới)", file: "The art of game/C17-Story.html" },
-          { n: 18, title: "Story và Game Structures Có Thể Được Kết Hợp Khéo Léo Thông Qua Indirect Control", sub: "Khiến người chơi muốn làm đúng điều bạn muốn họ làm (4 Lenses #79–#82)", file: "The art of game/C18-Indirect Control.html" },
-          { n: 19, title: "Stories and Games Take Place in Worlds", sub: "Game mở ra cánh cửa vào một thế giới có thể tồn tại mãi mãi (2 Lenses #83–#84)", file: "The art of game/C19-World.html" },
-          { n: 20, title: "Worlds Contain Characters", sub: "Nhân vật là linh hồn của thế giới game — 10 kỹ thuật xây dựng nhân vật (7 Lenses #85–#91)", file: "The art of game/C20-Characters.html" },
-          { n: 21, title: "Worlds Contain Spaces", sub: "Thế Giới Chứa Đựng Không Gian", file: "The art of game/C21-Game Space.html" },
-          { n: 22, title: "The Look and Feel of a World Is Defined by Its Aesthetics", sub: "Jesse Schell · Bản dịch & phân tích tiếng Việt", file: "The art of game/C22-Aesthetics.html" },
-          { n: 23, title: "Some Games Are Played with Other Players", sub: "Jesse Schell · Bản dịch & phân tích tiếng Việt", file: "The art of game/C23-Play Together.html" },
-          { n: 24, title: "Other Players Sometimes Form Communities", sub: "Jesse Schell · Bản dịch & phân tích tiếng Việt", file: "The art of game/C24-Communities.html" },
-          { n: 25, title: "Nhà Thiết Kế Thường Làm Việc Cùng Đội Nhóm", sub: "The Designer Usually Works with a Team (2 Lenses mới)", file: "The art of game/C25-Teamwork.html" },
-          { n: 26, title: "Đội Nhóm Đôi Khi Giao Tiếp Qua Tài Liệu", sub: "The Team Sometimes Communicates through Documents (1 Lens mới)", file: "The art of game/C26-Game Design Document.html" },
-          { n: 27, title: "Good Games Are Created through Playtesting", sub: "Jesse Schell · Tóm tắt & phân tích tiếng Việt (1 Lens)", file: "The art of game/C27-Playtesting.html" },
-          { n: 28, title: "The Team Builds a Game with Technology", sub: "Jesse Schell · Tóm tắt & phân tích tiếng Việt (3 Lenses)", file: "The art of game/C28-Tech.html" },
-          { n: 29, title: "Your Game Will Probably Have a Client", sub: "Jesse Schell · Tóm tắt & phân tích tiếng Việt (1 Lens)", file: "The art of game/C29-Client.html" },
-          { n: 30, title: "The Designer Gives the Client a Pitch", sub: "Thuyết phục người ra quyết định bằng nghệ thuật — không phải may mắn", file: "The art of game/C30-Pitching.html" },
-          { n: 31, title: "The Designer and Client Want the Game to Make a Profit", sub: "Game thành công không chỉ về nghệ thuật — nó còn phải đứng vững trên thị trường", file: "The art of game/C31-Make Profit.html" },
-          { n: 32, title: "Games Transform Their Players", sub: "Game không chỉ giải trí — chúng thay đổi người chơi sâu sắc hơn ta nghĩ", file: "The art of game/C32-Games Transform.html" },
-          { n: 33, title: "Designers Have Certain Responsibilities", sub: "Game designer chịu trách nhiệm không chỉ với employer, mà với người chơi và xã hội", file: "The art of game/C33-Responsibilities.html" },
-          { n: 34, title: "Each Designer Has a Purpose", sub: "Đã học cách lắng nghe audience, team, client, game — giờ lắng nghe chính mình", file: "The art of game/C34-End.html" }
-        ]
-      },
-      {
-        slug: 'rules-of-play',
-        title: 'Rules of Play',
-        author: 'Katie Salen & Eric Zimmerman',
-        tag: 'Game Design Fundamentals · MIT Press, 2004',
-        chapters: [
-          { n: 1, title: "What Is This Book About?", sub: "", file: "Rule of play/ch1-rules-of-play.html" },
-          { n: 2, title: "The Design Process", sub: "", file: "Rule of play/ch2-rules-of-play.html" },
-          { n: 3, title: "Meaningful Play", sub: "", file: "Rule of play/ch3-rules-of-play.html" },
-          { n: 4, title: "Design", sub: "", file: "Rule of play/ch4-rules-of-play.html" },
-          { n: 5, title: "Systems", sub: "", file: "Rule of play/ch5-rules-of-play.html" },
-          { n: 6, title: "Interactivity", sub: "", file: "Rule of play/ch6-rules-of-play.html" },
-          { n: 7, title: "Defining Games", sub: "", file: "Rule of play/ch07-rules-of-play.html" },
-          { n: 8, title: "Defining Digital Games", sub: "", file: "Rule of play/ch8-rules-of-play.html" },
-          { n: 9, title: "The Magic Circle", sub: "", file: "Rule of play/ch9-rules-of-play.html" },
-          { n: 10, title: "The Primary Schemas: Rules, Play, Culture", sub: "", file: "Rule of play/ch10-rules-of-play.html" },
-          { n: 11, title: "Defining Rules", sub: "What are rules — really? The formal, abstract structure that makes a game a game.", file: "Rule of play/ch11-rules-of-play.html" },
-          { n: 12, title: "Rules on Three Levels", sub: "Every game has three simultaneous layers of rules: Operational, Constituative, and Implicit.", file: "Rule of play/ch12-rules-of-play.html" },
-          { n: 13, title: "Rules of Digital Games", sub: "Code enforces rules automatically — but the three-level model still applies.", file: "Rule of play/ch13-rules-of-play.html" },
-          { n: 14, title: "Games as Emergent Systems", sub: "How simple rules generate unpredictable complexity — and why this is the engine of meaningful play.", file: "Rule of play/ch14-rules-of-play.html" },
-          { n: 15, title: "Games as Systems of Uncertainty", sub: "Chance, probability, and randomness — why uncertainty is not a flaw but the engine of meaningful play.", file: "Rule of play/ch15-rules-of-play.html" },
-          { n: 16, title: "Games as Information Theory Systems", sub: "Information is not meaning — it is a measure of uncertainty.", file: "Rule of play/ch16-rules-of-play.html" },
-          { n: 17, title: "Games as Systems of Information", sub: "Information as knowledge — hidden, revealed, and manipulated during play.", file: "Rule of play/ch17-rules-of-play.html" },
-          { n: 18, title: "Games as Cybernetic Systems", sub: "", file: "Rule of play/ch18-rules-of-play.html" },
-          { n: 19, title: "Games as Game Theory Systems", sub: "", file: "Rule of play/ch19-rules-of-play.html" },
-          { n: 20, title: "Games as Systems of Conflict", sub: "", file: "Rule of play/ch20-rules-of-play.html" },
-          { n: 21, title: "Breaking the Rules", sub: "Cheating, rule-bending, and the spoil-sport illuminate the edges of the magic circle.", file: "Rule of play/ch21-rules-of-play.html" },
-          { n: 22, title: "Defining Play", sub: "The experiential dimension of games — free movement within rigid structure", file: "Rule of play/ch22-rules-of-play.html" },
-          { n: 23, title: "Games as the Play of Experience", sub: "How formal game systems transform into experiential ones through the core mechanic", file: "Rule of play/ch23-rules-of-play.html" },
-          { n: 24, title: "Games as the Play of Pleasure", sub: "Constraint, flow, entrainment, and the architecture of desire in games", file: "Rule of play/ch24-rules-of-play.html" },
-          { n: 25, title: "Games as the Play of Meaning", sub: "How games generate meaning through signs, systems, frames, and metacommunication", file: "Rule of play/ch25-rules-of-play.html" },
-          { n: 26, title: "Games as Narrative Play", sub: "How games tell stories through structure, space, descriptors, and retelling", file: "Rule of play/ch26-rules-of-play.html" },
-          { n: 27, title: "Games as the Play of Simulation", sub: "Procedural representation, the immersive fallacy, and the double-consciousness of play", file: "Rule of play/ch27-rules-of-play.html" },
-          { n: 28, title: "Games as Social Play", sub: "How games create, shape, and are shaped by communities of players", file: "Rule of play/ch28-rules-of-play.html" },
-          { n: 29, title: "Defining Culture", sub: "", file: "Rule of play/ch29-rules-of-play.html" },
-          { n: 30, title: "Games as Cultural Rhetoric", sub: "", file: "Rule of play/ch30-rules-of-play.html" },
-          { n: 31, title: "Games as Open Culture", sub: "", file: "Rule of play/ch31-rules-of-play.html" },
-          { n: 32, title: "Games as Cultural Resistance", sub: "", file: "Rule of play/ch32-rules-of-play.html" },
-          { n: 33, title: "Games as Cultural Environment", sub: "", file: "Rule of play/ch33-rules-of-play.html" }
-        ]
-      },
-      {
-        slug: 'design-thinking-handbook',
-        title: 'Design Thinking Handbook',
-        author: 'Eli Woolery · DesignBetter.Co by InVision',
-        tag: 'Quy trình 5 giai đoạn · Empathize → Test',
-        chapters: [
-          { n: 1, title: "Tại Sao Chúng Ta Cần Design Thinking", sub: "Giải quyết những thách thức phức tạp", file: "Design Thinking Handbook/ch1-dt-handbook.html" },
-          { n: 2, title: "Thấu Cảm: Trái Tim Của Thiết Kế", sub: "", file: "Design Thinking Handbook/ch2-dt-handbook.html" },
-          { n: 3, title: "Định Nghĩa: Tái Định Khung Vấn Đề", sub: "", file: "Design Thinking Handbook/ch3-dt-handbook.html" },
-          { n: 4, title: "Ý Tưởng Hóa: Vượt Ra Ngoài Brainstorm Thông Thường", sub: "", file: "Design Thinking Handbook/ch4-dt-handbook.html" },
-          { n: 5, title: "Tạo Mẫu Thử: Học Thông Minh Hơn, Nhanh Hơn", sub: "", file: "Design Thinking Handbook/ch5-dt-handbook.html" },
-          { n: 6, title: "Kiểm Thử: Sớm Và Thường Xuyên", sub: "", file: "Design Thinking Handbook/ch6-dt-handbook.html" }
-        ]
-      },
-      {
-        slug: 'design-thinking-new-business-contexts',
-        title: 'Design Thinking for New Business Contexts',
-        author: 'Yujia Huang & David Hands · Palgrave Macmillan, 2022',
-        tag: 'Academic · Design & Business',
-        chapters: [
-          { n: 2, title: "Evolution of the Relationship Between Design and Business Activities", sub: "", file: "Design Thinking New Business Contexts/ch2-dt-nbc.html" },
-          { n: 3, title: "Crossing Boundaries: Design into Business and Management", sub: "", file: "Design Thinking New Business Contexts/ch3-dt-nbc.html" },
-          { n: 4, title: "Organisational Complexity and Change by Design", sub: "", file: "Design Thinking New Business Contexts/ch4-dt-nbc.html" },
-          { n: 5, title: "Tư Duy Kinh Doanh Qua Thiết Kế", sub: "", file: "Design Thinking New Business Contexts/ch5-dt-nbc.html" },
-          { n: 6, title: "Tư Duy Thiết Kế Vì Tương Lai Bền Vững", sub: "", file: "Design Thinking New Business Contexts/ch6-dt-nbc.html" },
-          { n: 7, title: "Tư Duy Thiết Kế cho Xây dựng Thương Hiệu", sub: "", file: "Design Thinking New Business Contexts/ch7-dt-nbc.html" },
-          { n: 8, title: "Tư Duy Thiết Kế Trong Thực Tiễn: Ba Nghiên Cứu Tình Huống", sub: "", file: "Design Thinking New Business Contexts/ch8-dt-nbc.html" },
-          { n: 9, title: "Định hướng Thiết kế & Tương lai Bất định", sub: "", file: "Design Thinking New Business Contexts/ch9-dt-nbc.html" },
-          { n: 10, title: "Tổng hợp: Năm Chiều kích của Tư duy Thiết kế", sub: "", file: "Design Thinking New Business Contexts/ch10-dt-nbc.html" }
-        ]
-      },
-      {
-        slug: 'product-discovery-playbook',
-        title: 'The Product Discovery Playbook',
-        author: 'Productboard · 2020',
-        tag: 'Product Management · Discovery Playbook',
-        chapters: [
-          { n: 1, title: "Nền Tảng Của Product Discovery", sub: "Tại sao lại phải chấp nhận rủi ro xây dựng sản phẩm hoặc tính năng sai?", file: "Product Discovery/ch1-product-discovery.html" },
-          { n: 2, title: "Hướng Dẫn Từng Bước Thực Hiện Product Discovery", sub: "", file: "Product Discovery/ch2-product-discovery.html" },
-          { n: 3, title: "Làm Sao Biết Product Discovery Đang Hiệu Quả?", sub: "", file: "Product Discovery/ch3-product-discovery.html" },
-          { n: 4, title: "Điều Chỉnh Product Discovery Cho Tổ Chức Của Bạn", sub: "", file: "Product Discovery/ch4-product-discovery.html" },
-          { n: 5, title: "Xây Dựng Sản Phẩm Tốt Hơn Qua Continuous Product Discovery", sub: "", file: "Product Discovery/ch5-product-discovery.html" }
-        ]
-      },
-      {
-        slug: 'business-knowledge-it-retail-banking',
-        title: 'Business Knowledge for IT in Retail Banking',
-        author: 'Essvale Corporation Limited',
-        tag: 'Retail Banking · Cẩm nang cho IT',
-        chapters: [
-          { n: 2, title: "Các Loại Sản Phẩm Ngân Hàng Bán Lẻ", sub: "", file: "Business Knowlegde for IT/ch2-bkrb.html" },
-          { n: 3, title: "Môi Trường Kinh Doanh Trong Ngân Hàng Bán Lẻ", sub: "", file: "Business Knowlegde for IT/ch3-bkrb.html" },
-          { n: 4, title: "Xu Hướng Ngân Hàng Bán Lẻ", sub: "", file: "Business Knowlegde for IT/ch4-bkrb.html" },
-          { n: 5, title: "Mở Tài Khoản Trong Ngân Hàng Bán Lẻ", sub: "", file: "Business Knowlegde for IT/ch5-bkrb.html" },
-          { n: 6, title: "Cho Vay Trong Ngân Hàng Bán Lẻ", sub: "", file: "Business Knowlegde for IT/ch6-bkrb.html" },
-          { n: 7, title: "Thanh Toán Trong Ngân Hàng Bán Lẻ", sub: "", file: "Business Knowlegde for IT/ch7-bkrb.html" },
-          { n: 8, title: "Các Hệ Thống Phổ Biến Trong Ngân Hàng Bán Lẻ", sub: "", file: "Business Knowlegde for IT/ch8-bkrb.html" },
-          { n: 9, title: "Các Dự Án CNTT Trong Ngân Hàng Bán Lẻ", sub: "", file: "Business Knowlegde for IT/ch9-bkrb.html" },
-          { n: 10, title: "Thuật Ngữ Thông Dụng Trong Ngân Hàng Bán Lẻ", sub: "", file: "Business Knowlegde for IT/ch10-bkrb.html" },
-          { n: 11, title: "Phương Pháp Luận, Kỹ Năng và Công Cụ", sub: "", file: "Business Knowlegde for IT/ch11-bkrb.html" },
-          { n: 12, title: "Tương Lai của Ngân Hàng Bán Lẻ", sub: "", file: "Business Knowlegde for IT/ch12-bkrb.html" },
-          { n: 13, title: "Phụ Lục", sub: "", file: "Business Knowlegde for IT/ch13-bkrb-appendix.html" }
-        ]
-      },
-      {
-        slug: 'designing-products-evolving-digital-users',
-        title: 'Designing Products for Evolving Digital Users',
-        author: 'Anastasia Utesheva · Apress · 2020',
-        tag: 'UX Research · Digital Identity & Trends',
-        chapters: [
-          { n: 1, title: "Tiến Hóa Kỹ Thuật Số", sub: "Coevolution của Con Người và Công Nghệ", file: "Design Product/ch1-dpfed.html" },
-          { n: 2, title: "Tiến Hóa Bản Sắc", sub: "Identity Evolution — Từ Cái Tôi Tĩnh đến Bản Sắc Kỹ Thuật Số", file: "Design Product/ch2-dpfed.html" },
-          { n: 3, title: "Thiết Kế Cho Người Dùng Tiến Hóa", sub: "Designing for Evolving Users", file: "Design Product/ch3-dpfed.html" },
-          { n: 4, title: "Bộ Công Cụ Tư Duy Thiết Kế", sub: "The Design Thinking Toolkit", file: "Design Product/ch4-dpfed.html" },
-          { n: 5, title: "Thiết Kế Cho Thay Đổi", sub: "Design for Change", file: "Design Product/ch5-dpfed.html" },
-          { n: 6, title: "Xu Hướng Kỹ Thuật Số", sub: "Digital Trends", file: "Design Product/ch6-dpfed.html" },
-          { n: 7, title: "Nhà Thiết Kế Kỹ Thuật Số Được Trao Quyền", sub: "Kết luận — Empowered Digital Designers", file: "Design Product/ch7-dpfed.html" }
-        ]
-      },
-      {
-        slug: 'user-research-practical-guide',
-        title: 'User Research: A Practical Guide to Designing Better Products and Services',
-        author: 'Stephanie Marsh · Kogan Page · 2018',
-        tag: 'UX Research · Practical Guide',
-        chapters: [
-          { n: 1, title: "Giới Thiệu: Tại Sao Nghiên Cứu Người Dùng Lại Quan Trọng?", sub: "Introduction: Why User Research Matters", file: "User research/ch1-urpg.html" },
-          { n: 2, title: "Lập Kế Hoạch, Mục Tiêu và Các Vấn Đề Pháp Lý", sub: "Planning, Goals and Legal Issues", file: "User research/ch2-urpg.html" },
-          { n: 3, title: "Thực Hành Tốt Nhất trong Nghiên Cứu Người Dùng", sub: "User Research Best Practice: Who, What, Why and How", file: "User research/ch3-urpg.html" },
-          { n: 4, title: "Quản Lý Logistics Nghiên Cứu Người Dùng", sub: "Managing User Research Logistics: Agencies, Facilities and Contracts", file: "User research/ch4-urpg.html" },
-          { n: 5, title: "Kiểm Tra Khả Năng Sử Dụng", sub: "Quan sát người dùng thực hiện nhiệm vụ để phát hiện vấn đề", file: "User research/ch5-urpg.html" },
-          { n: 6, title: "Kiểm Tra Nội Dung", sub: "Người dùng hiểu nội dung của bạn như thế nào?", file: "User research/ch6-urpg.html" },
-          { n: 7, title: "Card Sorting", sub: "Hiểu cách người dùng phân nhóm và liên kết thông tin", file: "User research/ch7-urpg.html" },
-          { n: 8, title: "Khảo Sát", sub: "Cách đo lường phản hồi người dùng trên diện rộng", file: "User research/ch8-urpg.html" },
-          { n: 9, title: "Phỏng Vấn Người Dùng", sub: "Hiểu thái độ, sở thích, hành vi và bối cảnh của người dùng qua đối thoại trực tiếp", file: "User research/ch9-urpg.html" },
-          { n: 10, title: "Nghiên Cứu Nhật Ký", sub: "Theo dõi trải nghiệm, hành vi và thái độ của người dùng theo thời gian qua nhật ký tự ghi", file: "User research/ch10-urpg.html" },
-          { n: 11, title: "Kiểm Định Kiến Trúc Thông Tin", sub: "Cấu trúc thông tin của bạn có hoạt động đúng với người dùng không?", file: "User research/ch11-urpg.html" },
-          { n: 12, title: "Dân Tộc Học", sub: "Quan sát con người trong môi trường tự nhiên của họ", file: "User research/ch12-urpg.html" },
-          { n: 13, title: "Nghiên Cứu Bối Cảnh", sub: "Phỏng vấn người dùng ngay trong môi trường của họ", file: "User research/ch13-urpg.html" },
-          { n: 14, title: "Kiểm Thử A/B", sub: "Kỹ thuật nghiên cứu người dùng để so sánh các phương án", file: "User research/ch14-urpg.html" },
-          { n: 15, title: "Workshop Với Stakeholder", sub: "Khai thác tối đa giá trị từ các buổi workshop", file: "User research/ch15-urpg.html" },
-          { n: 16, title: "Nghiên Cứu Gerilla", sub: "Thực hiện nghiên cứu nhanh trong thế giới thực", file: "User research/ch16-urpg.html" },
-          { n: 17, title: "Kết Hợp Các Phương Pháp Nghiên Cứu Người Dùng", sub: "", file: "User research/ch17-urpg.html" },
-          { n: 18, title: "Phân Tích Nội Dung", sub: "Mã hóa và phân loại dữ liệu định tính một cách có hệ thống", file: "User research/ch18-urpg.html" },
-          { n: 19, title: "Sơ Đồ Ái Lực", sub: "Hiểu dữ liệu thông qua việc xác định các chủ đề", file: "User research/ch19-urpg.html" },
-          { n: 20, title: "Ưu Tiên Hóa Vấn Đề và Nhu Cầu Người Dùng", sub: "Điều gì quan trọng và cần làm gì tiếp theo?", file: "User research/ch20-urpg.html" },
-          { n: 21, title: "Đưa Ra Khuyến Nghị", sub: "Cách biến kết quả nghiên cứu thành hành động có thể thực hiện được", file: "User research/ch21-urpg.html" },
-          { n: 22, title: "Tóm Tắt Điều Hành và Báo Cáo", sub: "Cách trình bày kết quả nghiên cứu một cách thực tế và hữu ích nhất", file: "User research/ch22-urpg.html" },
-          { n: 23, title: "Sử Dụng Video để Trình Bày Kết Quả Nghiên Cứu", sub: "Video là công cụ mạnh mẽ để truyền đạt phát hiện và tạo sự đồng cảm với người dùng", file: "User research/ch23-urpg.html" },
-          { n: 24, title: "Sử Dụng Persona để Truyền Đạt Đặc Điểm và Hành Vi Người Dùng", sub: "Đưa nhóm người dùng vào cuộc sống — giúp tổ chức xây dựng sản phẩm tốt hơn cho con người thực", file: "User research/ch24-urpg.html" },
-          { n: 25, title: "Sử Dụng Mô Hình Tư Duy để Trực Quan Hóa Cách Người Dùng Nghĩ và Xác Định Cơ Hội", sub: "Lấp đầy khoảng cách giữa cách người dùng nghĩ về sản phẩm và những gì sản phẩm thực sự cung cấp", file: "User research/ch25-urpg.html" },
-          { n: 26, title: "Sử Dụng Bản Đồ Hành Trình và Trải Nghiệm để Trực Quan Hóa Dữ Liệu Nghiên Cứu", sub: "Cung cấp cái nhìn tổng thể về trải nghiệm người dùng trên tất cả các kênh và điểm tiếp xúc", file: "User research/ch26-urpg.html" },
-          { n: 27, title: "Sử Dụng Kịch Bản và Storyboard để Đại Diện cho Hành Trình Người Dùng", sub: "Đặt người dùng vào trung tâm của quy trình thiết kế và phát triển", file: "User research/ch27-urpg.html" },
-          { n: 28, title: "Sử Dụng Infographic để Chuyển Đổi Dữ Liệu Số và Thống Kê", sub: "Biến dữ liệu phức tạp thành trực quan dễ hiểu và dễ nhớ", file: "User research/ch28-urpg.html" },
-          { n: 29, title: "Đề Xuất Thay Đổi Thiết Kế về Hình Ảnh, Tương Tác và Kiến Trúc Thông Tin", sub: "How to recommend changes to visual, interaction and information architecture design", file: "User research/ch29-urpg.html" }
-        ]
-      },
-      {
-        slug: 'design-of-everyday-things',
-        title: 'Thiết Kế Lấy Người Dùng Làm Trung Tâm',
-        author: 'Don Norman · The Design of Everyday Things · Phương Lan dịch',
-        tag: 'UX Design · Nguyên Lý Kinh Điển',
-        chapters: [
-          { n: 1, title: "Tâm Lý Học Trong Thiết Kế", sub: "The Psychopathology of Everyday Things", file: "Thiết kế lấy người dùng làm trung tâm/ch1-doet.html" },
-          { n: 2, title: "Tâm Lý Học Trong Các Hoạt Động Thường Ngày", sub: "The Psychology of Everyday Actions", file: "Thiết kế lấy người dùng làm trung tâm/ch2-doet.html" },
-          { n: 3, title: "Kiến Thức Trong Đầu Và Kiến Thức Thực Tế", sub: "Knowledge in the Head and in the World — Tại sao con người hành xử đúng dù kiến thức không hoàn toàn chính xác, và cách thiết kế khai thác điều đó", file: "Thiết kế lấy người dùng làm trung tâm/ch3-doet.html" },
-          { n: 4, title: "Biết Phải Làm Gì: Các Giới Hạn, Khả Năng Có Thể Được Khám Phá và Phản Hồi", sub: "Khi gặp vật dụng lạ, con người vẫn tìm được cách dùng đúng — nhờ bộ tứ giới hạn vật lý, văn hóa, ngữ nghĩa và lô-gic", file: "Thiết kế lấy người dùng làm trung tâm/ch4-doet.html" },
-          { n: 5, title: "Lỗi Của Con Người? Không, Lỗi Của Thiết Kế", sub: "Phân tích nguyên nhân gốc rễ, phân loại lỗi, và nguyên tắc thiết kế để đối phó với sai phạm của con người", file: "Thiết kế lấy người dùng làm trung tâm/ch5-doet.html" },
-          { n: 6, title: "Tư Duy Thiết Kế", sub: "Design Thinking — Từ việc xác định đúng vấn đề đến thiết kế lấy con người làm trung tâm", file: "Thiết kế lấy người dùng làm trung tâm/ch6-doet.html" },
-          { n: 7, title: "Thiết Kế Trong Thế Giới Kinh Doanh", sub: "Design in the World of Business — Từ cuồng tính năng đến công nghệ mới và bài học lịch sử", file: "Thiết kế lấy người dùng làm trung tâm/ch7-doet.html" }
-        ]
-      },
-      {
-        slug: 'the-mom-test',
-        title: 'The Mom Test',
-        author: 'Rob Fitzpatrick',
-        tag: 'Customer Development · Phỏng Vấn Khách Hàng',
-        chapters: [
-          { n: 0, title: "Giới Thiệu", sub: "Khi bạn nói chuyện với khách hàng về ý tưởng kinh doanh, họ thường nói những điều tốt đẹp. Nhưng sau đó sản phẩm được xây dựng xong, bạn cố gắng bán hàng — và không ai mua. Chuyện gì đã xảy ra?", file: "The Mom Test/ch00-gioi-thieu.html" },
-          { n: 1, title: "Bài Kiểm Tra Của Mẹ", sub: "Ba quy tắc cơ bản để đặt câu hỏi đúng khi phỏng vấn khách hàng", file: "The Mom Test/ch01-bai-kiem-tra-cua-me.html" },
-          { n: 2, title: "Tránh Thu Thập Dữ Liệu Sai", sub: "Ba loại phản hồi khiến bạn hiểu sai tình hình, dù đã đặt câu hỏi đúng", file: "The Mom Test/ch02-tranh-du-lieu-sai.html" },
-          { n: 3, title: "Đặt Câu Hỏi Quan Trọng", sub: "Sau khi biết cách hỏi đúng và tránh dữ liệu sai lệch — nên hỏi về điều gì?", file: "The Mom Test/ch03-cau-hoi-quan-trong.html" },
-          { n: 4, title: "Giữ Không Khí Thoải Mái", sub: "Không cần lịch hẹn chính thức để học từ khách hàng", file: "The Mom Test/ch04-khong-khi-thoai-mai.html" },
-          { n: 5, title: "Cam Kết và Tiến Triển", sub: "Kiểm tra xem ai thực sự sẽ mua — không phải ai chỉ nói tốt", file: "The Mom Test/ch05-cam-ket-tien-trien.html" },
-          { n: 6, title: "Tìm Người Để Nói Chuyện", sub: "Đã biết cách hỏi đúng — nhưng tìm người để hỏi ở đâu?", file: "The Mom Test/ch06-tim-nguoi-noi-chuyen.html" },
-          { n: 7, title: "Chọn Khách Hàng", sub: "Xác định nhóm khách hàng cụ thể nhất để bắt đầu", file: "The Mom Test/ch07-chon-khach-hang.html" },
-          { n: 8, title: "Thực Hiện Quy Trình", sub: "Quy trình đúng để tổ chức và chia sẻ những gì học được từ khách hàng", file: "The Mom Test/ch08-thuc-hien-quy-trinh.html" },
-          { n: 9, title: "Kết Luận và Tóm Tắt", sub: "Tổng hợp tất cả các khái niệm chính của cuốn sách dưới dạng bảng tham khảo nhanh", file: "The Mom Test/ch09-ket-luan.html" }
-        ]
-      },
-      {
-        slug: 'fintech-business-models',
-        title: 'Fintech Business Models',
-        author: 'Matthias Fischer · De Gruyter · 2021',
-        tag: 'Fintech · Business Model Canvas · Venture Capital',
-        chapters: [
-          { n: 1, title: "Thị Trường Và Các Tác Nhân Fintech", sub: "379 công ty fintech ở châu Âu và Mỹ, hơn 2.000 vòng tài trợ (2000–2020), phân tích qua Business Model Canvas và so sánh với GAFA, Big Tech Trung Quốc", file: "Fintech Business Modal/ch1-fbm.html" },
-          { n: 2, title: "Thanh Toán Thay Thế (APM)", sub: "Alternative Payment Methods — PayPal, Alipay, WeChat Pay dẫn đầu làn sóng thay thế ngân hàng và thẻ tín dụng truyền thống", file: "Fintech Business Modal/ch2-fbm.html" },
-          { n: 3, title: "Tại Sao Robo-Advisory Sẽ Thay Thế Nhiều Nhà Tư Vấn Đầu Tư", sub: "Why Robo-Advisory Will Replace Many Investment Advisors — Phân tích mô hình kinh doanh tư vấn đầu tư tự động", file: "Fintech Business Modal/ch3-fbm.html" },
-          { n: 4, title: "Nhu Cầu Về Social Trading", sub: "The Need for Social Trading — Giao dịch xã hội: khi cộng đồng trở thành nhà quản lý quỹ", file: "Fintech Business Modal/ch4-fbm.html" },
-          { n: 5, title: "Crowdfunding Có Thay Thế Vay Ngân Hàng Không?", sub: "Năm mô hình crowdfunding, bốn Business Model Canvas đại diện, và dữ liệu tài trợ VC toàn ngành", file: "Fintech Business Modal/ch5-fbm.html" },
-          { n: 6, title: "Cho Vay Bảng Cân Đối & Factoring", sub: "Balance-sheet lending và marketplace lending — hai mô hình cốt lõi của fintech lending", file: "Fintech Business Modal/ch6-fbm.html" },
-          { n: 7, title: "Tương Lai Của Quản Lý Tài Chính Cá Nhân (PFM)", sub: "Personal Finance Management — công cụ phân loại giao dịch, theo dõi ngân sách, và làn sóng PSD-2", file: "Fintech Business Modal/ch7-fbm.html" },
-          { n: 8, title: "Tác Động Của Công Nghệ Blockchain", sub: "Từ nền tảng Bitcoin đến ứng dụng mở rộng khắp ngành tài chính — một trong những công nghệ nền tảng của cách mạng fintech", file: "Fintech Business Modal/ch8-fbm.html" },
-          { n: 9, title: "Tiền Điện Tử Có Nghiêm Túc Không?", sub: "How Serious Are Cryptocurrencies?", file: "Fintech Business Modal/ch9-fbm.html" },
-          { n: 10, title: "Big Data Và Trí Tuệ Nhân Tạo Trong Ngân Hàng", sub: "Big Data and Artificial Intelligence in Banking", file: "Fintech Business Modal/ch10-fbm.html" },
-          { n: 11, title: "Tài Trợ Venture Capital Và Định Giá Fintech", sub: "$102 tỷ USD vốn VC qua 8.448 vòng tài trợ toàn cầu (4/1992–4/2020) — bức tranh định giá toàn ngành fintech", file: "Fintech Business Modal/ch11-fbm.html" },
-          { n: 12, title: "Kết Luận: Điều Chúng Ta Có Thể Và Không Thể Biết Về Tương Lai Fintech", sub: "Ba con đường chiến lược của ngân hàng truyền thống trước làn sóng fintech", file: "Fintech Business Modal/ch12-fbm.html" }
-        ]
-      },
-      {
-        slug: 'fintech-intro',
-        title: 'Giới Thiệu Fintech',
-        author: 'Dr. Mohan Cherian · Module 1',
-        tag: 'Fintech · Nhập Môn · Công Nghệ Nền Tảng',
-        chapters: [
-          { n: 1, title: "Fintech Là Gì?", sub: "Slide 1–6 · Định nghĩa, các thành phần & mục tiêu của Công nghệ Tài chính", file: "Fintech Intro/fintech_m1_s1.html" },
-          { n: 2, title: "BFSI & Chuỗi Giá Trị BFSI", sub: "Slide 7–19 · Tổng quan về Ngân hàng, Dịch vụ Tài chính & Bảo hiểm, và chuỗi giá trị của ngành", file: "Fintech Intro/fintech_m1_s2.html" },
-          { n: 3, title: "Tác Động Của Fintech Đối Với BFSI", sub: "Slide 20–29 · Công nghệ tài chính đang biến đổi Ngân hàng, Dịch vụ Tài chính & Bảo hiểm như thế nào", file: "Fintech Intro/fintech_m1_s3.html" },
-          { n: 4, title: "Giới Thiệu Bức Tranh Fintech", sub: "Slide 30–37 · Các thành phần cốt lõi, xu hướng mới nổi & hình dạng hệ sinh thái Fintech hiện đại", file: "Fintech Intro/fintech_m1_s4.html" },
-          { n: 5, title: "Công Nghệ Fintech", sub: "Slide 38–53 · Mười công nghệ cốt lõi thúc đẩy cuộc cách mạng Fintech", file: "Fintech Intro/fintech_m1_s5.html" },
-          { n: 6, title: "Xu Hướng Mới Nhất & Tương Lai Của Fintech", sub: "Slide 54–67 · Chín xu hướng định hình hiện tại & tám hướng đi cho tương lai", file: "Fintech Intro/fintech_m1_s6.html" },
-          { n: 7, title: "Ứng Dụng Fintech Trong Ngân Hàng", sub: "Slide 68–79 · Mười ca ứng dụng định hình lại dịch vụ ngân hàng hiện đại", file: "Fintech Intro/fintech_m1_s7.html" },
-          { n: 8, title: "Startup Fintech, Kỳ Lân & Mô Hình Kinh Doanh", sub: "Slide 80–103 · Hệ sinh thái startup, các kỳ lân Ấn Độ & sáu mô hình kinh doanh cốt lõi", file: "Fintech Intro/fintech_m1_s8.html" },
-          { n: 9, title: "Giới Thiệu Học Máy", sub: "Slide 104–113 · Khái niệm cốt lõi, ba loại hình ML & ứng dụng trong tài chính", file: "Fintech Intro/fintech_m1_s9.html" },
-          { n: 10, title: "Giới Thiệu Điện Toán Đám Mây", sub: "Slide 114–127 · Đặc điểm, mô hình dịch vụ, triển khai & vai trò trong Fintech", file: "Fintech Intro/fintech_m1_s10.html" }
-        ]
-      },
-      {
-        slug: 'product-manager-interview',
-        title: 'The Product Manager Interview',
-        author: 'Lewis C. Lin',
-        tag: 'PM Interview · Case Study · Framework',
-        chapters: [
-          { n: 3, title: "Study Guides Cho Các Công Ty Tech Hàng Đầu", sub: "Lộ trình chuẩn bị 30–36 ngày dành riêng cho Google, Facebook và Amazon", file: "PM interview/pm_interview_ch3.html" },
-          { n: 4, title: "Từ Viết Tắt, Thuật Ngữ Và Khái Niệm", sub: "Bảng tra cứu nhanh các framework và khái niệm cốt lõi trong phỏng vấn PM", file: "PM interview/pm_interview_ch4.html" },
-          { n: 5, title: "Câu Hỏi Thường Gặp", sub: "Những băn khoăn phổ biến nhất của ứng viên — và câu trả lời thực tế", file: "PM interview/pm_interview_ch5.html" },
-          { n: 6, title: "Analytics: Ước Lượng", sub: "20 bài tập estimation với issue tree và đáp án chi tiết", file: "PM interview/pm_interview_ch6.html" },
-          { n: 7, title: "Analytics: Data Science", sub: "5 bài tập tư duy logic, xác suất và phân tích dữ liệu", file: "PM interview/pm_interview_ch7.html" },
-          { n: 8, title: "Analytics: Định Giá Sản Phẩm Mới", sub: "3 bài tập định giá sản phẩm lần đầu ra mắt thị trường", file: "PM interview/pm_interview_ch8.html" },
-          { n: 9, title: "Analytics: Định Giá Sản Phẩm Hiện Có", sub: "2 bài tập điều chỉnh giá và đàm phán giá sản phẩm đang bán", file: "PM interview/pm_interview_ch9.html" },
-          { n: 10, title: "Analytics: ROI", sub: "2 bài tập tính toán lợi nhuận ròng và giá trị vòng đời khách hàng", file: "PM interview/pm_interview_ch10.html" },
-          { n: 11, title: "Thiết Kế Sản Phẩm: Bản Đồ Hành Trình Khách Hàng", sub: "Bài tập Customer Journey Map", file: "PM interview/pm_interview_ch11.html" },
-          { n: 12, title: "Thiết Kế Sản Phẩm: Pain Point Exercises", sub: "Bài tập Điểm Đau", file: "PM interview/pm_interview_ch12.html" },
-          { n: 13, title: "Thiết Kế Sản Phẩm: Bài Tập Brainstorm", sub: "Rèn tư duy sáng tạo giải pháp sản phẩm", file: "PM interview/pm_interview_ch13.html" },
-          { n: 14, title: "Thiết Kế Sản Phẩm: Tổng Hợp", sub: "Vận dụng toàn diện phương pháp CIRCLES™ và các kỹ năng thiết kế sản phẩm qua 28 tình huống thực tế", file: "PM interview/pm_interview_ch14.html" },
-          { n: 15, title: "Metrics: Đề Xuất Số Liệu", sub: "Brainstorming các chỉ số theo khung AARM™", file: "PM interview/pm_interview_ch15.html" },
-          { n: 16, title: "Metrics: Số Liệu Quan Trọng Nhất", sub: "Most Important Metric — Chọn một chỉ số duy nhất để đo thành công", file: "PM interview/pm_interview_ch16.html" },
-          { n: 17, title: "Metrics: Số Liệu Sụt Giảm", sub: "Metric Declined — Chẩn đoán nguyên nhân khi một chỉ số đi xuống", file: "PM interview/pm_interview_ch17.html" },
-          { n: 18, title: "Metrics: Sản Phẩm Yêu Thích & Tình Huống Thực Tế", sub: "Áp dụng tư duy đo lường vào các sản phẩm cụ thể", file: "PM interview/pm_interview_ch18.html" },
-          { n: 19, title: "Hypothetical: Opinion", sub: "Câu hỏi Quan điểm — thể hiện tư duy và góc nhìn của PM", file: "PM interview/pm_interview_ch19.html" },
-          { n: 20, title: "Hypothetical: Giải Quyết Vấn Đề", sub: "Problem Solving — phân tích tình huống và đưa ra giải pháp có cấu trúc", file: "PM interview/pm_interview_ch20.html" },
-          { n: 21, title: "Strategy: Thâm Nhập Thị Trường Mới", sub: "New Market Entry — phân tích cơ hội, rào cản và chiến lược mở rộng", file: "PM interview/pm_interview_ch21.html" },
-          { n: 22, title: "Kế Hoạch Ra Mắt", sub: "Quyết định mở rộng dịch vụ và quy trình ra mắt tại thị trường mới", file: "PM interview/pm_interview_ch22.html" },
-          { n: 23, title: "Chiến Lược: Các Vấn Đề Khác", sub: "Cắt giảm sản phẩm, chiến lược thị trường quốc tế, build vs. buy", file: "PM interview/pm_interview_ch23.html" },
-          { n: 24, title: "Kỹ Thuật", sub: "Thảo luận kiến trúc hệ thống và đánh đổi kỹ thuật — không cần là kỹ sư phần mềm", file: "PM interview/pm_interview_ch24.html" },
-          { n: 25, title: "Câu Hỏi Truyền Thống", sub: "Traditional — đánh giá mức độ hiểu biết và đam mê của ứng viên với công ty", file: "PM interview/pm_interview_ch25.html" },
-          { n: 26, title: "Hành Vi", sub: "Behavioral — kể chuyện thực tế bằng phương pháp DIGS™", file: "PM interview/pm_interview_ch26.html" }
-        ]
-      },
-      {
-        slug: 'ux-principles',
-        title: '101 UX Principles',
-        author: 'Will Grant',
-        tag: 'UX Design · Pattern · Nguyên Tắc Thực Hành',
-        chapters: [
-          { n: 1, title: "Lĩnh Vực UX", sub: "Nguyên tắc 1–7", file: "UX priciple/ux_principles_ch01.html" },
-          { n: 2, title: "Typography", sub: "Nguyên tắc 8–11", file: "UX priciple/ux_principles_ch02.html" },
-          { n: 3, title: "Controls", sub: "Nguyên tắc 12–22", file: "UX priciple/ux_principles_ch03.html" },
-          { n: 4, title: "Nội Dung", sub: "Nguyên tắc 23–28", file: "UX priciple/ux_principles_ch04.html" },
-          { n: 5, title: "Điều Hướng", sub: "Nguyên tắc 29–33 — Menu, liên kết, cài đặt và footer", file: "UX priciple/ux_principles_ch05.html" },
-          { n: 6, title: "Biểu Tượng (Icons)", sub: "Nguyên tắc 34–38 — Nhất quán, lỗi thời, ý nghĩa, văn bản và nhãn", file: "UX priciple/ux_principles_ch06.html" },
-          { n: 7, title: "Nhập Liệu (Input)", sub: "Nguyên tắc 39–49 — Từ bàn phím thông minh đến chatbot: cách thiết kế mọi thứ người dùng gõ vào sản phẩm", file: "UX priciple/ux_principles_ch07.html" },
-          { n: 8, title: "Biểu Mẫu", sub: "Nguyên tắc 50–54", file: "UX priciple/ux_principles_ch08.html" },
-          { n: 9, title: "Dữ Liệu Người Dùng", sub: "Nguyên tắc 55–60", file: "UX priciple/ux_principles_ch09.html" },
-          { n: 10, title: "Tiến Trình", sub: "Nguyên tắc 61–63", file: "UX priciple/ux_principles_ch10.html" },
-          { n: 11, title: "Thiết Kế Có Thể Tiếp Cận", sub: "Nguyên tắc 64–73", file: "UX priciple/ux_principles_ch11.html" },
-          { n: 12, title: "Hành Trình & Trạng Thái Sản Phẩm", sub: "Nguyên tắc 74–88", file: "UX priciple/ux_principles_ch12.html" },
-          { n: 13, title: "Ngôn Ngữ & Thuật Ngữ", sub: "Ngôn ngữ trong sản phẩm không chỉ là nhãn và nút bấm — đó là giọng nói của sản phẩm với người dùng", file: "UX priciple/ux_principles_ch13.html" },
-          { n: 14, title: "Kỳ Vọng Người Dùng", sub: "Người dùng đến sản phẩm với một tập kỳ vọng sẵn có — công việc của UX designer là hiểu và thỏa mãn nó xuất sắc", file: "UX priciple/ux_principles_ch14.html" },
-          { n: 15, title: "Triết Lý UX", sub: "Khi bạn có khả năng thiết kế hành vi của hàng triệu người, bạn chọn đứng về phía ai?", file: "UX priciple/ux_principles_ch15.html" }
-        ]
-      }
-    ];
-
+    let LIBRARY = [];
+    
     const bookGrid = document.getElementById('book-grid');
     const pagination = document.getElementById('pagination');
     const searchInput = document.getElementById('search-input');
+    const viewLoading = document.getElementById('view-loading');
+    const viewError = document.getElementById('view-error');
     const viewLibrary = document.getElementById('view-library');
     const viewDetail = document.getElementById('view-detail');
     const crumb = document.getElementById('crumb');
+
+    /* ── Tải danh sách sách lúc chạy: manifest.json (danh sách folder) rồi
+       từng Books/{folder}/meta.json song song. 1 sách lỗi thì bỏ qua, không
+       sập cả site. Xem CONTRIBUTING.md để biết cách thêm sách mới. ── */
+    async function loadLibrary() {
+      const manifestRes = await fetch('manifest.json');
+      if (!manifestRes.ok) {
+        throw new Error('Không tải được manifest.json (HTTP ' + manifestRes.status + ')');
+      }
+      const folders = await manifestRes.json();
+
+      const books = await Promise.all(folders.map(async (folder) => {
+        try {
+          const res = await fetch(encodeURI(folder + '/meta.json'));
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const meta = await res.json();
+          // meta.json lưu file KHÔNG kèm path folder — ráp lại path đầy đủ
+          // để khớp với những gì renderDetail() đang mong đợi.
+          return {
+            ...meta,
+            chapters: meta.chapters.map((c) => ({ ...c, file: folder + '/' + c.file })),
+          };
+        } catch (err) {
+          console.warn('Bỏ qua sách "' + folder + '": tải meta.json thất bại.', err);
+          return null;
+        }
+      }));
+
+      LIBRARY = books.filter(Boolean);
+    }
 
     const PAGE_SIZE = 20;
     let searchQuery = '';
@@ -1111,7 +819,17 @@
     });
 
     window.addEventListener('hashchange', render);
-    render();
+
+    loadLibrary()
+      .then(() => {
+        viewLoading.classList.add('hidden');
+        render();
+      })
+      .catch((err) => {
+        console.error('Lỗi tải thư viện sách:', err);
+        viewLoading.classList.add('hidden');
+        viewError.classList.remove('hidden');
+      });
   </script>
 
 </body>
