@@ -39,9 +39,15 @@ function main() {
 
   for (const folder of findBookFolders()) {
     const meta = JSON.parse(fs.readFileSync(path.join(ROOT, folder, 'meta.json'), 'utf8'));
-    lines.push(`/${meta.slug} /index.html 200`);
+    // Đích KHÔNG được kèm .html/index.html — Cloudflare Pages tự chuẩn hoá
+    // (strip .html, quy index.html về "/") RỒI MỚI áp status code, nên đích
+    // có .html sẽ biến rewrite "200" thành redirect 308 sai ý muốn. Dùng
+    // "/" (đã tự phục vụ index.html mặc định) và tên file không đuôi (đã
+    // xác nhận Cloudflare tự khớp {path}.html khi không có đuôi).
+    lines.push(`/${meta.slug} / 200`);
     for (const ch of meta.chapters) {
-      lines.push(`/${meta.slug}/${ch.slug} /${encodeURI(folder)}/${encodeURI(ch.file)} 200`);
+      const fileNoExt = ch.file.replace(/\.html$/, '');
+      lines.push(`/${meta.slug}/${ch.slug} /${encodeURI(folder)}/${encodeURI(fileNoExt)} 200`);
     }
   }
 
