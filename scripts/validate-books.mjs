@@ -93,9 +93,11 @@ function loadMeta(folder) {
   }
 }
 
+const VALID_CATEGORIES = ['BFSI', 'UX/UI', 'Game Design', 'Product Management'];
+
 function validateMetaShape(folder, meta) {
   const relFile = `${folder}/meta.json`;
-  const requiredFields = ['slug', 'title', 'author', 'tag', 'chapters'];
+  const requiredFields = ['slug', 'title', 'author', 'tag', 'category', 'chapters'];
   for (const field of requiredFields) {
     if (!(field in meta)) {
       annotate(relFile, `Thiếu field bắt buộc "${field}".`);
@@ -109,15 +111,26 @@ function validateMetaShape(folder, meta) {
       annotate(relFile, `"${field}" phải là chuỗi không rỗng.`);
     }
   }
+  if (meta.category !== undefined && !VALID_CATEGORIES.includes(meta.category)) {
+    annotate(relFile, `"category" phải là 1 trong: ${VALID_CATEGORIES.join(', ')}. Giá trị hiện tại: ${JSON.stringify(meta.category)}`);
+  }
   if (!Array.isArray(meta.chapters) || meta.chapters.length === 0) {
     annotate(relFile, '"chapters" phải là mảng có ít nhất 1 phần tử.');
     return;
   }
+  const seenChapterSlugs = new Set();
   meta.chapters.forEach((c, i) => {
     const ctx = `${relFile} chapters[${i}]`;
     if (typeof c.n !== 'number') annotate(ctx, '"n" phải là số.');
     if (typeof c.title !== 'string' || c.title.trim() === '') annotate(ctx, '"title" phải là chuỗi không rỗng.');
     if (typeof c.sub !== 'string') annotate(ctx, '"sub" phải là chuỗi (có thể rỗng "").');
+    if (typeof c.slug !== 'string' || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(c.slug)) {
+      annotate(ctx, `"slug" phải là kebab-case (a-z, 0-9, dấu -), dùng cho URL /${meta.slug}/{slug}. Giá trị hiện tại: ${JSON.stringify(c.slug)}`);
+    } else if (seenChapterSlugs.has(c.slug)) {
+      annotate(ctx, `"slug" chương bị trùng trong cùng sách: "${c.slug}"`);
+    } else {
+      seenChapterSlugs.add(c.slug);
+    }
     if (typeof c.file !== 'string' || c.file.trim() === '') {
       annotate(ctx, '"file" phải là chuỗi không rỗng.');
       return;

@@ -1,4 +1,4 @@
-name: Regenerate manifest
+name: Regenerate manifest + redirects
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
     paths:
       - '**/meta.json'
       - '!manifest.json'
+      - '!_redirects'
 
 permissions:
   contents: write
@@ -27,16 +28,19 @@ jobs:
       - name: Generate manifest.json
         run: node scripts/generate-manifest.mjs
 
+      - name: Generate _redirects
+        run: node scripts/generate-redirects.mjs
+
       - name: Commit + push if changed
         run: |
-          if git diff --quiet -- manifest.json; then
-            echo "manifest.json không đổi — bỏ qua commit."
+          if git diff --quiet -- manifest.json _redirects; then
+            echo "manifest.json / _redirects không đổi — bỏ qua commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add manifest.json
-          git commit -m "chore: regenerate manifest.json [skip ci]"
+          git add manifest.json _redirects
+          git commit -m "chore: regenerate manifest.json + _redirects [skip ci]"
 
           # Retry ngắn nếu có commit khác vừa push xen giữa lúc job này chạy.
           for i in 1 2 3; do

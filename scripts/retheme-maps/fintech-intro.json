@@ -1,0 +1,30 @@
+{
+  "removeSelectors": [
+    ":root",
+    "*",
+    "body",
+    "h1",
+    "h2",
+    "p",
+    ".divider",
+    ".book-topline",
+    ".book-topline a",
+    ".book-topline a:hover",
+    ".chapnav",
+    ".chapnav a",
+    ".chapnav a:hover",
+    ".chapnav a:last-child",
+    ".chapnav .lbl"
+  ],
+  "colorMap": {
+    "var(--bg)": "var(--color-parchment)",
+    "var(--text-secondary)": "var(--color-slate-ink)",
+    "var(--text-muted)": "var(--color-ash)",
+    "var(--text)": "var(--color-slate-ink)",
+    "var(--border-strong)": "var(--color-mist)",
+    "var(--border)": "var(--color-dew)",
+    "var(--surface-dark)": "var(--color-dew)",
+    "var(--surface)": "#ffffff",
+    "var(--accent-line)": "var(--color-sprout)"
+  }
+}

@@ -116,14 +116,30 @@ hr, .divider { border: none; border-top: 1px solid var(--color-dew); margin: 32p
   color: var(--color-sprout-dark);
 }
 
-/* ── Chuyển chương trước/sau — card giống .book-row ── */
+/* ── Chuyển chương trước/sau — card giống .book-row ──
+   Reset position/background/z-index tường minh: 1 số sách có CSS riêng
+   dùng selector thẻ `nav` trần (không class) cho thanh điều hướng sticky
+   của họ — nav.chapnav (element+class) có specificity cao hơn nên các
+   dòng dưới đây luôn thắng, tránh bị dính fixed/sticky ngoài ý muốn. */
 nav.chapnav {
+  position: static;
   display: flex;
   justify-content: space-between;
   gap: 16px;
   margin-top: 56px;
   padding-top: 28px;
+  padding-left: 0;
+  padding-right: 0;
   border-top: 1px solid var(--color-dew);
+  border-bottom: none;
+  background: none;
+  backdrop-filter: none;
+  height: auto;
+  z-index: auto;
+  overflow-x: visible;
+  top: auto;
+  left: auto;
+  right: auto;
 }
 nav.chapnav a {
   flex: 1;
@@ -136,10 +152,17 @@ nav.chapnav a {
   padding: 16px 20px;
   font-size: 14px;
   font-weight: 600;
+  letter-spacing: normal;
+  white-space: normal;
   color: var(--color-slate-ink);
   transition: border-color .15s ease;
 }
-nav.chapnav a:hover { border-color: var(--color-sprout); }
+nav.chapnav a:hover,
+nav.chapnav a.active {
+  border-color: var(--color-sprout);
+  background: #ffffff;
+  color: var(--color-slate-ink);
+}
 nav.chapnav a .lbl {
   font-size: 11px;
   font-weight: 700;

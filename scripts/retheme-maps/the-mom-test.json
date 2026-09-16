@@ -1,0 +1,27 @@
+{
+  "removeSelectors": [
+    "*",
+    "body",
+    "p",
+    "h3",
+    "h1.chapter-title",
+    ".book-topline",
+    ".book-topline a",
+    ".book-topline a:hover"
+  ],
+  "colorMap": {
+    "#f8f7f4": "var(--color-parchment)",
+    "#2c2c2c": "var(--color-slate-ink)",
+    "#1a1a2e": "var(--color-forest-floor)",
+    "#16213e": "var(--color-canopy-shadow)",
+    "#2a2a4a": "var(--color-canopy-shadow)",
+    "#7eb8f7": "var(--color-sage-whisper)",
+    "#e8e4d9": "var(--color-dew)",
+    "#e0dcd0": "var(--color-dew)",
+    "#888": "var(--color-ash)",
+    "#aaa": "var(--color-fog)",
+    "#bbb": "var(--color-fog)",
+    "#333": "var(--color-pine-border)",
+    "#ccc": "var(--color-mist)"
+  }
+}

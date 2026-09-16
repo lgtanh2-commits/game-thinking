@@ -11,8 +11,8 @@
 </head>
 <body>
 
-<!-- Sửa {slug} = đúng slug trong meta.json của sách này -->
-<p class="book-topline"><a href="../index.html#/book/{slug}">← Về mục lục</a></p>
+<!-- Sửa {slug-sach} = đúng slug trong meta.json của sách này -->
+<p class="book-topline"><a href="/{slug-sach}">← Về mục lục</a></p>
 
 <div class="book-label">{Tên sách} · {Tác giả} · Chương {N}</div>
 <h1>{Tên chương}</h1>
@@ -31,10 +31,12 @@
 <!-- ═══════════════════════════════════════════════════════════════════════════ -->
 
 <!-- BẮT BUỘC: nav chương trước/sau. Chương đầu tiên của sách thì bỏ link "Chương trước",
-     chương cuối thì bỏ link "Chương sau" (xem ví dụ thật trong bất kỳ sách nào khác trong Books/). -->
+     chương cuối thì bỏ link "Chương sau" (xem ví dụ thật trong bất kỳ sách nào khác trong Books/).
+     href dùng URL sạch /{slug-sách}/{slug-chương} (khớp field "slug" của chương đó
+     trong meta.json) — KHÔNG dùng tên file, KHÔNG kèm đuôi .html. -->
 <nav class="chapnav">
-  <a href="{ten-file-chuong-truoc}.html"><span class="lbl">Chương trước</span>Chương {N-1}: {Tên chương trước}</a>
-  <a href="{ten-file-chuong-sau}.html"><span class="lbl">Chương sau</span>Chương {N+1}: {Tên chương sau}</a>
+  <a href="/{slug-sach}/{slug-chuong-truoc}"><span class="lbl">Chương trước</span>Chương {N-1}: {Tên chương trước}</a>
+  <a href="/{slug-sach}/{slug-chuong-sau}"><span class="lbl">Chương sau</span>Chương {N+1}: {Tên chương sau}</a>
 </nav>
 
 </body>

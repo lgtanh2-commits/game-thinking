@@ -1,0 +1,26 @@
+{
+  "files": ["ch2-dt-nbc.html", "ch3-dt-nbc.html", "ch4-dt-nbc.html", "ch5-dt-nbc.html", "ch6-dt-nbc.html", "ch7-dt-nbc.html"],
+  "removeSelectors": [
+    ":root",
+    "*, *::before, *::after",
+    "body",
+    ".book-topline",
+    ".book-topline a",
+    ".book-topline a:hover",
+    ".chapnav",
+    ".chapnav a",
+    ".chapnav a:hover",
+    ".chapnav a:last-child",
+    ".chapnav .lbl"
+  ],
+  "colorMap": {
+    "var(--bg)": "var(--color-parchment)",
+    "var(--text-muted)": "var(--color-ash)",
+    "var(--text)": "var(--color-slate-ink)",
+    "var(--border-strong)": "var(--color-mist)",
+    "var(--border)": "var(--color-dew)",
+    "var(--surface)": "#ffffff",
+    "var(--accent)": "var(--color-sprout)",
+    "var(--rule)": "var(--color-dew)"
+  }
+}
