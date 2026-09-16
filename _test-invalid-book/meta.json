@@ -1,0 +1,8 @@
+{
+  "slug": "Invalid Slug!",
+  "title": "Sách Test CI",
+  "tag": "Test",
+  "chapters": [
+    { "n": 1, "title": "Chương thiếu file", "sub": "", "file": "khong-ton-tai.html" }
+  ]
+}
