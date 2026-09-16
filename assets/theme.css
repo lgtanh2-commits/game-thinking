@@ -1,0 +1,159 @@
+/*
+ * Theme dùng chung cho mọi trang chương sách — token + typography khớp 1:1
+ * với ../index.html (bảng màu Designmodo, font Inter). KHÔNG tự thêm màu
+ * mới ở đây; mọi sửa đổi theme phải đối chiếu lại index.html trước.
+ *
+ * CSS đặc thù của từng sách (card/diagram/box riêng) vẫn nằm trong <style>
+ * của từng file chương, nạp SAU file này nên có thể ghi đè khi cần.
+ */
+
+:root {
+  --color-forest-floor: #0e231c;
+  --color-canopy-shadow: #1a3029;
+  --color-pine-border: #233630;
+  --color-slate-ink: #313942;
+  --color-ash: #656a75;
+  --color-mist: #c3cecb;
+  --color-fog: #879b93;
+  --color-parchment: #f4f7f2;
+  --color-dew: #e4ebe2;
+  --color-sprout: #27ae60;
+  --color-sprout-dark: #1e8e4e;
+  --color-sage-whisper: #defaca;
+
+  --font-main: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --radius-buttons: 999px;
+  --radius-cards: 32px;
+  --radius-chapter-row: 16px;
+  --radius-badges: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+a { color: inherit; text-decoration: none; }
+
+body {
+  font-family: var(--font-main);
+  background: var(--color-parchment);
+  color: var(--color-slate-ink);
+  font-size: 16px;
+  line-height: 1.75;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 56px 40px 100px;
+  -webkit-font-feature-settings: "cv03", "cv04", "cv06", "cv09", "ss03";
+  font-feature-settings: "cv03", "cv04", "cv06", "cv09", "ss03";
+}
+
+h1 { font-size: 2rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.4px; margin-bottom: 10px; }
+h2 { font-size: 1.35rem; font-weight: 700; margin: 44px 0 16px; }
+h3 { font-size: 1.05rem; font-weight: 700; margin: 26px 0 12px; color: var(--color-ash); }
+p { margin-bottom: 16px; }
+ul, ol { margin: 10px 0 18px 22px; }
+li { margin-bottom: 7px; }
+strong { color: var(--color-slate-ink); font-weight: 700; }
+
+blockquote {
+  margin: 20px 0;
+  padding: 4px 20px;
+  border-left: 3px solid var(--color-sprout);
+  color: var(--color-ash);
+  font-style: italic;
+}
+
+table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 15px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--color-dew); }
+th { color: var(--color-ash); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: .03em; }
+
+code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  background: var(--color-dew);
+  color: var(--color-slate-ink);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: .9em;
+}
+pre { background: var(--color-dew); border-radius: var(--radius-chapter-row); padding: 18px 20px; overflow-x: auto; margin: 18px 0; }
+pre code { background: none; padding: 0; }
+
+img { max-width: 100%; border-radius: var(--radius-chapter-row); }
+hr, .divider { border: none; border-top: 1px solid var(--color-dew); margin: 32px 0; }
+
+.book-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--color-fog);
+  margin-bottom: 12px;
+}
+.chapter-subtitle {
+  font-size: 1rem;
+  color: var(--color-ash);
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--color-dew);
+}
+
+/* ── Nav quay lại mục lục — pill giống .back-btn của index.html, biến thể nền sáng ── */
+.book-topline { margin-bottom: 28px; }
+.book-topline a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid var(--color-dew);
+  color: var(--color-slate-ink);
+  border-radius: var(--radius-buttons);
+  padding: 7px 19px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: border-color .15s ease, color .15s ease;
+}
+.book-topline a:hover {
+  border-color: var(--color-sprout);
+  color: var(--color-sprout-dark);
+}
+
+/* ── Chuyển chương trước/sau — card giống .book-row ── */
+nav.chapnav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--color-dew);
+}
+nav.chapnav a {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: #ffffff;
+  border: 1px solid var(--color-dew);
+  border-radius: var(--radius-chapter-row);
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-slate-ink);
+  transition: border-color .15s ease;
+}
+nav.chapnav a:hover { border-color: var(--color-sprout); }
+nav.chapnav a .lbl {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-fog);
+}
+/* Chỉ áp khi có đủ 2 link (prev+next) — link "sau" (thứ 2) căn phải.
+   Chương chỉ có 1 link (đầu/cuối sách) giữ căn trái mặc định, tránh suy
+   đoán sai ý nghĩa prev/next khi DOM chỉ có 1 phần tử. */
+nav.chapnav a:nth-child(2) { text-align: right; align-items: flex-end; }
+
+@media (max-width: 640px) {
+  body { padding: 40px 20px 80px; }
+  h1 { font-size: 1.6rem; }
+  nav.chapnav { flex-direction: column; }
+}

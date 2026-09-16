@@ -19,7 +19,8 @@ Không đụng tới `index.html`, `Books/manifest.json`, hay folder của sách
 
 Copy từ [`templates/chapter-template.html`](templates/chapter-template.html), giữ nguyên:
 
-- `<style>` tự chứa trong file (không link CSS ngoài) — có thể đổi màu/font tuỳ ý cho sách của bạn, nhưng nên giữ các biến CSS chuẩn để đồng bộ: `--bg`, `--text`, `--text-secondary`, `--text-muted`, `--border`, `--border-strong`, `--surface`, `--surface-dark`, `--accent-line`.
+- **`<link rel="stylesheet" href="../assets/theme.css">`** trong `<head>` — đây là theme dùng chung của toàn site (màu sắc, font Inter, layout đọc chương, style `book-topline`/`chapnav`), khớp với giao diện trang chủ. KHÔNG được xoá link này, KHÔNG định nghĩa lại token màu/font trong file của bạn.
+- Chỉ thêm `<style>` riêng trong file nếu chương của bạn cần thành phần đặc thù (card, diagram, box minh hoạ...) — dùng token có sẵn trong `assets/theme.css` khi cần màu (`var(--color-slate-ink)`, `var(--color-parchment)`, `var(--color-sprout)`, `var(--color-dew)`...) thay vì tự đặt hex mới, để khi đổi theme sau này thành phần riêng của bạn cũng tự đổi theo.
 - **`<p class="book-topline"><a href="../index.html#/book/{slug}">← Về mục lục</a></p>`** ngay đầu `<body>` — sửa `{slug}` đúng slug trong `meta.json` của sách. Đây là link duy nhất quay lại trang chủ.
 - **`<nav class="chapnav">`** cuối file, chứa `<a href="{file-chương-trước}.html">`/`<a href="{file-chương-sau}.html">` — chương đầu tiên bỏ link "trước", chương cuối bỏ link "sau" (xem ví dụ thật ở bất kỳ file nào trong `Books/The Mom Test/`).
 - File phải kết thúc đúng `</body></html>` — không cắt cụt giữa chừng.
@@ -70,7 +71,7 @@ Field bắt buộc:
 1. Fork repo (hoặc tạo branch nếu bạn đã là collaborator).
 2. Thêm đúng 1 folder sách mới (hoặc sửa nội dung 1 sách đã có) — không chạm file/folder khác.
 3. Mở Pull Request. Đợi check **validate-books** chạy xong (vài chục giây) — nếu fail, đọc annotation trên tab "Files changed" để biết sai ở đâu, sửa rồi push tiếp vào cùng PR.
-4. Cloudflare Pages tự động comment 1 link **Preview Deployment** trên PR. Lưu ý: `manifest.json` chỉ tự sinh **sau khi merge**, nên sách mới của bạn **chưa hiện trong trang chủ/mục lục** của bản preview — để review, mở trực tiếp `{preview-url}/{folder-sách}/meta.json` và `{preview-url}/{folder-sách}/{file-chương}.html` theo URL (chương vẫn render đầy đủ CSS/nav vì mỗi file HTML tự chứa, không phụ thuộc `index.html`).
+4. Cloudflare Pages tự động comment 1 link **Preview Deployment** trên PR. Lưu ý: `manifest.json` chỉ tự sinh **sau khi merge**, nên sách mới của bạn **chưa hiện trong trang chủ/mục lục** của bản preview — để review, mở trực tiếp `{preview-url}/{folder-sách}/meta.json` và `{preview-url}/{folder-sách}/{file-chương}.html` theo URL (chương vẫn render đầy đủ theme/nav vì `assets/theme.css` là file dùng chung của cả site, không phụ thuộc `index.html`).
 5. Sau khi merge vào `main`: 1 GitHub Action khác tự quét lại toàn bộ sách và cập nhật `manifest.json` — **không cần bạn làm gì thêm**, site chính thức sẽ tự có sách mới (hiện trong mục lục, điều hướng đầy đủ) trong vài chục giây tới vài phút.
 
 ## 5. Automation kiểm tra gì
