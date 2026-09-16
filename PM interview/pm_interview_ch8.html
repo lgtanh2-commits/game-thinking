@@ -4,87 +4,144 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 8: Analytics — Định giá sản phẩm mới · The Product Manager Interview</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:860px;margin:0 auto;padding:60px 40px 100px;}
-.book-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
-h1{font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:8px;color:var(--text);}
-.subtitle{font-size:1rem;color:var(--text-muted);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--accent-line);}
-h2{font-size:1.1rem;font-weight:700;margin:36px 0 10px;color:var(--text);}
-p{margin-bottom:14px;color:var(--text-secondary);}
-.intro-box{background:var(--surface);border-left:3px solid var(--accent-line);padding:18px 22px;margin:24px 0;font-size:1rem;color:var(--text);}
-.framework-box{background:var(--surface);border:1px solid var(--border-strong);padding:18px 22px;margin:20px 0;}
-.framework-title{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+
+.book-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--color-ash);margin-bottom:12px;}
+
+
+.subtitle{font-size:1rem;color:var(--color-ash);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--color-sprout);}
+
+
+h2{font-size:1.1rem;font-weight:700;margin:36px 0 10px;color:var(--color-slate-ink);}
+
+
+.intro-box{background:#ffffff;border-left:3px solid var(--color-sprout);padding:18px 22px;margin:24px 0;font-size:1rem;color:var(--color-slate-ink);}
+
+
+.framework-box{background:#ffffff;border:1px solid var(--color-mist);padding:18px 22px;margin:20px 0;}
+
+
+.framework-title{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--color-ash);margin-bottom:12px;}
+
+
 .framework-row{display:flex;gap:16px;margin:8px 0;align-items:flex-start;}
-.framework-key{font-size:.88rem;font-weight:700;color:var(--text);min-width:180px;}
-.framework-val{font-size:.88rem;color:var(--text-secondary);flex:1;}
-.exercise-block{border:1px solid var(--border);margin:36px 0;overflow:hidden;}
-.exercise-header{background:var(--surface-dark);padding:14px 20px;border-bottom:1px solid var(--border);}
-.exercise-num{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;}
-.exercise-title{font-size:1.08rem;font-weight:700;color:var(--text);}
+
+
+.framework-key{font-size:.88rem;font-weight:700;color:var(--color-slate-ink);min-width:180px;}
+
+
+.framework-val{font-size:.88rem;color:var(--color-slate-ink);flex:1;}
+
+
+.exercise-block{border:1px solid var(--color-dew);margin:36px 0;overflow:hidden;}
+
+
+.exercise-header{background:var(--color-dew);padding:14px 20px;border-bottom:1px solid var(--color-dew);}
+
+
+.exercise-num{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-ash);margin-bottom:4px;}
+
+
+.exercise-title{font-size:1.08rem;font-weight:700;color:var(--color-slate-ink);}
+
+
 .exercise-body{padding:20px 24px;}
-.question-box{background:var(--surface);border-left:3px solid var(--border-strong);padding:14px 18px;margin-bottom:18px;font-size:.95rem;color:var(--text);font-style:italic;}
-.section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:18px 0 8px;}
+
+
+.question-box{background:#ffffff;border-left:3px solid var(--color-mist);padding:14px 18px;margin-bottom:18px;font-size:.95rem;color:var(--color-slate-ink);font-style:italic;}
+
+
+.section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-ash);margin:18px 0 8px;}
+
+
 .tip-list{list-style:none;margin:8px 0 14px;padding:0;}
-.tip-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+
+
+.tip-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--color-slate-ink);border-bottom:1px solid var(--color-dew);}
+
+
 .tip-list li:last-child{border-bottom:none;}
-.tip-list li::before{content:"→";position:absolute;left:0;color:var(--text-muted);font-size:.82rem;}
+
+
+.tip-list li::before{content:"→";position:absolute;left:0;color:var(--color-ash);font-size:.82rem;}
+
+
 .mistake-list{list-style:none;margin:8px 0 14px;padding:0;}
-.mistake-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+
+
+.mistake-list li{padding:5px 0 5px 18px;position:relative;font-size:.88rem;color:var(--color-slate-ink);border-bottom:1px solid var(--color-dew);}
+
+
 .mistake-list li:last-child{border-bottom:none;}
-.mistake-list li::before{content:"✗";position:absolute;left:0;color:#888;font-size:.82rem;}
+
+
+.mistake-list li::before{content:"✗";position:absolute;left:0;color:var(--color-ash);font-size:.82rem;}
+
+
 .dialog-block{margin:12px 0;}
+
+
 .dialog-row{margin:6px 0;font-size:.88rem;}
-.dialog-role{font-weight:700;color:var(--text);}
-.dialog-text{color:var(--text-secondary);}
+
+
+.dialog-role{font-weight:700;color:var(--color-slate-ink);}
+
+
+.dialog-text{color:var(--color-slate-ink);}
+
+
 .numbered-list{list-style:none;margin:8px 0 14px;padding:0;counter-reset:item;}
-.numbered-list li{padding:6px 0 6px 28px;position:relative;font-size:.88rem;color:var(--text-secondary);border-bottom:1px solid var(--border);counter-increment:item;}
+
+
+.numbered-list li{padding:6px 0 6px 28px;position:relative;font-size:.88rem;color:var(--color-slate-ink);border-bottom:1px solid var(--color-dew);counter-increment:item;}
+
+
 .numbered-list li:last-child{border-bottom:none;}
-.numbered-list li::before{content:counter(item);position:absolute;left:0;top:6px;width:20px;height:20px;background:var(--accent-line);color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:2px;}
-.answer-box{background:var(--accent-line);color:#fff;padding:10px 18px;margin-top:14px;display:flex;align-items:center;gap:16px;}
+
+
+.numbered-list li::before{content:counter(item);position:absolute;left:0;top:6px;width:20px;height:20px;background:var(--color-sprout);color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:2px;}
+
+
+.answer-box{background:var(--color-sprout);color:#fff;padding:10px 18px;margin-top:14px;display:flex;align-items:center;gap:16px;}
+
+
 .answer-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.7;white-space:nowrap;}
+
+
 .answer-value{font-size:1rem;font-weight:700;}
-.segment-box{background:var(--surface);border:1px solid var(--border);padding:14px 18px;margin:12px 0;}
+
+
+.segment-box{background:#ffffff;border:1px solid var(--color-dew);padding:14px 18px;margin:12px 0;}
+
+
 .seg-row{display:flex;gap:12px;margin:6px 0;font-size:.87rem;}
-.seg-name{font-weight:700;color:var(--text);min-width:200px;}
-.seg-desc{color:var(--text-secondary);}
-.divider{border:none;border-top:1px solid var(--border);margin:40px 0;}
-.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--accent-line);background:var(--surface);}
-.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
-.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:12px;}
+
+
+.seg-name{font-weight:700;color:var(--color-slate-ink);min-width:200px;}
+
+
+.seg-desc{color:var(--color-slate-ink);}
+
+
+.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--color-sprout);background:#ffffff;}
+
+
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--color-ash);margin-bottom:16px;}
+
+
+.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--color-slate-ink);margin-bottom:12px;}
+
+
 .conclusion-box p:last-child{margin-bottom:0;}
+
+
 @media(max-width:600px){body{padding:36px 20px 60px;}h1{font-size:1.8rem;}}
-
-.book-topline {
-  font-family: -apple-system, system-ui, sans-serif;
-  font-size: 12.5px;
-  margin-bottom: 32px;
-}
-.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-.chapnav {
-  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-  font-family: -apple-system, system-ui, sans-serif;
-}
-.chapnav a {
-  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-}
-.chapnav a:hover { border-color: var(--text); }
-.chapnav a:last-child { text-align: right; margin-left: auto; }
-.chapnav .lbl {
-  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-  color: var(--text-muted); margin-bottom: 4px;
-}
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+<p class="book-topline"><a href="/product-manager-interview">← Về mục lục</a></p>
 
 
 <div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 8</div>
@@ -275,8 +332,8 @@ p{margin-bottom:14px;color:var(--text-secondary);}
 </div>
 
 <nav class="chapnav">
-  <a href="pm_interview_ch7.html"><span class="lbl">Chương trước</span>Chương 7: Analytics — Data Science</a>
-  <a href="pm_interview_ch9.html"><span class="lbl">Chương sau</span>Chương 9: Analytics — Định giá Sản phẩm Hiện có</a>
+  <a href="/product-manager-interview/analytics-data-science"><span class="lbl">Chương trước</span>Chương 7: Analytics — Data Science</a>
+  <a href="/product-manager-interview/analytics-dinh-gia-san-pham-hien-co"><span class="lbl">Chương sau</span>Chương 9: Analytics — Định giá Sản phẩm Hiện có</a>
 </nav>
 </body>
 </html>

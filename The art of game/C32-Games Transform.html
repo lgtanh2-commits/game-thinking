@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 32 – Games Transform Their Players</title>
 <style>
+
  :root {
  --orange: #27ae60;
  --orange-light: #6cc999;
@@ -27,7 +28,11 @@
  --mint: #edf9f2;
  --sprout-d: #1c8a4c;}
 
+
+
  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+
 
  body {
  background: var(--bg);
@@ -37,11 +42,15 @@
  line-height: 1.75;
  }
 
+
+
  main {
  max-width: 880px;
  margin: 0 auto;
  padding: 60px 24px 120px;
  }
+
+
 
  /* ── HERO ── */
  .hero {
@@ -54,6 +63,8 @@
  position: relative;
  overflow: hidden;
  }
+
+
  .hero::before {
  content: '';
  position: absolute;
@@ -61,6 +72,8 @@
  height: 5px;
  background: #edf9f2;
  }
+
+
  .hero-badge {
  display: inline-block;
  background: rgba(39,174,96,0.12);
@@ -75,6 +88,8 @@
  text-transform: uppercase;
  margin-bottom: 20px;
  }
+
+
  .hero h1 {
  font-size: 32px;
  font-weight: 700;
@@ -82,12 +97,16 @@
  line-height: 1.25;
  margin-bottom: 10px;
  }
+
+
  .hero-sub {
  font-size: 17px;
  color: var(--gray);
  margin-bottom: 32px;
  font-style: italic;
  }
+
+
  .hero-stats {
  display: flex;
  gap: 32px;
@@ -95,7 +114,11 @@
  padding-top: 28px;
  border-top: 1px solid var(--card-border);
  }
+
+
  .hero-stat { display: flex; flex-direction: column; gap: 4px; }
+
+
  .hero-stat .label {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 11px;
@@ -104,12 +127,16 @@
  text-transform: uppercase;
  color: var(--gray-light);
  }
+
+
  .hero-stat .value {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 15px;
  font-weight: 700;
  color: var(--dark);
  }
+
+
 
  /* ── CHAPTER MAP ── */
  .chapter-map {
@@ -120,6 +147,8 @@
  margin-bottom: 56px;
  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
  }
+
+
  .chapter-map h2 {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px;
@@ -129,6 +158,8 @@
  color: var(--gray-light);
  margin-bottom: 32px;
  }
+
+
  .map-flow {
  display: flex;
  flex-wrap: wrap;
@@ -136,6 +167,8 @@
  gap: 0;
  row-gap: 20px;
  }
+
+
  .map-node {
  display: flex;
  flex-direction: column;
@@ -143,6 +176,8 @@
  gap: 8px;
  min-width: 80px;
  }
+
+
  .map-dot {
  width: 52px;
  height: 52px;
@@ -156,12 +191,26 @@
  color: var(--white);
  flex-shrink: 0;
  }
+
+
  .dot-orange { background: var(--orange); }
+
+
  .dot-teal { background: var(--accent-teal); }
+
+
  .dot-blue { background: var(--accent-blue); }
+
+
  .dot-purple { background: var(--accent-purple); }
+
+
  .dot-green { background: var(--accent-green); }
+
+
  .dot-gold { background: var(--accent-gold); }
+
+
 
  .map-label {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -172,6 +221,8 @@
  max-width: 80px;
  line-height: 1.3;
  }
+
+
  .map-arrow {
  font-size: 20px;
  color: var(--gray-light);
@@ -179,14 +230,20 @@
  margin-bottom: 24px;
  }
 
+
+
  /* ── SECTION ── */
  .section { margin-bottom: 64px; }
+
+
  .section-header {
  display: flex;
  align-items: center;
  gap: 18px;
  margin-bottom: 28px;
   scroll-margin-top: 108px;}
+
+
  .section-num {
  width: 52px;
  height: 52px;
@@ -200,12 +257,26 @@
  color: var(--white);
  flex-shrink: 0;
  }
+
+
  .sn-orange { background: var(--orange); }
+
+
  .sn-teal { background: var(--accent-teal); }
+
+
  .sn-blue { background: var(--accent-blue); }
+
+
  .sn-purple { background: var(--accent-purple); }
+
+
  .sn-green { background: var(--accent-green); }
+
+
  .sn-gold { background: var(--accent-gold); }
+
+
 
  .section-title {
  font-size: 24px;
@@ -213,6 +284,8 @@
  color: var(--dark);
  line-height: 1.2;
  }
+
+
  .section-title span {
  display: block;
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -224,6 +297,8 @@
  margin-bottom: 4px;
  }
 
+
+
  /* ── CARD ── */
  .card {
  background: var(--white);
@@ -233,8 +308,14 @@
  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
  margin-bottom: 20px;
  }
+
+
  .card p { margin-bottom: 14px; }
+
+
  .card p:last-child { margin-bottom: 0; }
+
+
 
  /* ── QUOTE ── */
  .quote-block {
@@ -248,6 +329,8 @@
  font-size: 16px;
  line-height: 1.7;
  }
+
+
  .quote-block .attr {
  font-style: normal;
  font-size: 13px;
@@ -257,12 +340,16 @@
  margin-top: 10px;
  }
 
+
+
  /* ── HIGHLIGHT BOXES ── */
  .hl-box {
  border-radius: 14px;
  padding: 22px 26px;
  margin: 18px 0;
  }
+
+
  .hl-box .hl-title {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px;
@@ -274,18 +361,44 @@
  align-items: center;
  gap: 8px;
  }
+
+
  .hl-orange { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.35); }
+
+
  .hl-orange .hl-title { color: var(--orange); }
+
+
  .hl-teal { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.3); }
+
+
  .hl-teal .hl-title { color: var(--accent-teal); }
+
+
  .hl-blue { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.3); }
+
+
  .hl-blue .hl-title { color: var(--accent-blue); }
+
+
  .hl-purple { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.3); }
+
+
  .hl-purple .hl-title { color: var(--accent-purple); }
+
+
  .hl-green { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.3); }
+
+
  .hl-green .hl-title { color: var(--accent-green); }
+
+
  .hl-gold { background: #edf9f2; border: 1.5px solid rgba(39,174,96,0.3); }
+
+
  .hl-gold .hl-title { color: var(--accent-gold); }
+
+
 
  /* ── LENS ── */
  .lens-box {
@@ -295,12 +408,16 @@
  padding: 32px 36px;
  margin: 28px 0;
  }
+
+
  .lens-header {
  display: flex;
  align-items: center;
  gap: 16px;
  margin-bottom: 22px;
  }
+
+
  .lens-icon {
  width: 56px;
  height: 56px;
@@ -312,6 +429,8 @@
  font-size: 24px;
  flex-shrink: 0;
  }
+
+
  .lens-title-block .lens-num {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 12px;
@@ -321,17 +440,29 @@
  color: var(--orange);
  margin-bottom: 3px;
  }
+
+
  .lens-title-block .lens-name {
  font-size: 20px;
  font-weight: 700;
  color: var(--dark);
  }
+
+
  .lens-questions { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+
  .lens-questions li { display: flex; gap: 12px; align-items: flex-start; }
+
+
  .lens-questions li::before { content: ''; font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+
+
 
  /* ── DIVIDER ── */
  .divider { border: none; border-top: 1px solid var(--card-border); margin: 48px 0; }
+
+
 
  /* ── SUB-HEADING (italic colored) ── */
  .sub-heading {
@@ -341,12 +472,26 @@
  padding-left: 14px;
  border-left: 3px solid;
  }
+
+
  .sub-teal { color: var(--accent-teal); border-color: var(--accent-teal); }
+
+
  .sub-green { color: var(--accent-green); border-color: var(--accent-green); }
+
+
  .sub-blue { color: var(--accent-blue); border-color: var(--accent-blue); }
+
+
  .sub-purple { color: var(--accent-purple); border-color: var(--accent-purple); }
+
+
  .sub-gold { color: var(--accent-gold); border-color: var(--accent-gold); }
+
+
  .sub-orange { color: var(--orange); border-color: var(--orange); }
+
+
 
  /* ── BENEFIT GRID (emotional maintenance) ── */
  .benefit-grid {
@@ -355,7 +500,11 @@
  gap: 14px;
  margin-top: 14px;
  }
+
+
  @media (max-width: 580px) { .benefit-grid { grid-template-columns: 1fr; } }
+
+
  .benefit-card {
  background: var(--white);
  border: 1px solid var(--card-border);
@@ -363,7 +512,11 @@
  padding: 18px 20px;
  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
  }
+
+
  .benefit-card .b-icon { font-size: 22px; margin-bottom: 8px; }
+
+
  .benefit-card .b-name {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px;
@@ -371,7 +524,11 @@
  color: var(--dark);
  margin-bottom: 6px;
  }
+
+
  .benefit-card p { font-size: 14px; color: var(--gray); line-height: 1.6; margin: 0; }
+
+
 
  /* ── EDU OBSTACLE CARDS ── */
  .obstacle-list {
@@ -380,6 +537,8 @@
  gap: 12px;
  margin-top: 14px;
  }
+
+
  .obstacle-item {
  background: var(--white);
  border: 1px solid var(--card-border);
@@ -390,6 +549,8 @@
  align-items: flex-start;
  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
  }
+
+
  .obstacle-num {
  width: 32px;
  height: 32px;
@@ -404,6 +565,8 @@
  justify-content: center;
  flex-shrink: 0;
  }
+
+
  .obstacle-content .obs-name {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px;
@@ -411,7 +574,11 @@
  color: var(--dark);
  margin-bottom: 4px;
  }
+
+
  .obstacle-content p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+
+
 
  /* ── MILLER PYRAMID ── */
  .pyramid-wrap {
@@ -426,6 +593,8 @@
  align-items: center;
  gap: 0;
  }
+
+
  .pyramid-wrap .pyramid-title {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px;
@@ -435,6 +604,8 @@
  color: var(--gray-light);
  margin-bottom: 20px;
  }
+
+
  .pyr-level {
  display: flex;
  align-items: center;
@@ -446,10 +617,20 @@
  border-radius: 6px;
  margin-bottom: 4px;
  }
+
+
  .pyr-1 { background: var(--accent-green); width: 120px; height: 42px; }
+
+
  .pyr-2 { background: var(--accent-teal); width: 200px; height: 42px; }
+
+
  .pyr-3 { background: var(--accent-blue); width: 280px; height: 42px; }
+
+
  .pyr-4 { background: var(--accent-purple); width: 360px; height: 42px; }
+
+
  .pyr-note {
  font-size: 13px;
  color: var(--gray);
@@ -458,6 +639,8 @@
  font-style: italic;
  max-width: 400px;
  }
+
+
 
  /* ── TIP CARDS ── */
  .tip-card {
@@ -469,6 +652,8 @@
  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
  border-left: 4px solid var(--accent-green);
  }
+
+
  .tip-card .tip-label {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 11px;
@@ -478,14 +663,22 @@
  color: var(--accent-green);
  margin-bottom: 6px;
  }
+
+
  .tip-card .tip-title {
  font-size: 17px;
  font-weight: 700;
  color: var(--dark);
  margin-bottom: 12px;
  }
+
+
  .tip-card p { font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 10px; }
+
+
  .tip-card p:last-child { margin-bottom: 0; }
+
+
 
  /* ── ASSESSMENT LEVELS ── */
  .assess-list {
@@ -494,6 +687,8 @@
  gap: 10px;
  margin-top: 14px;
  }
+
+
  .assess-item {
  background: var(--white);
  border: 1px solid var(--card-border);
@@ -504,6 +699,8 @@
  align-items: flex-start;
  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
  }
+
+
  .assess-num {
  min-width: 32px;
  height: 32px;
@@ -518,6 +715,8 @@
  justify-content: center;
  flex-shrink: 0;
  }
+
+
  .assess-content .assess-name {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px;
@@ -525,10 +724,16 @@
  color: var(--dark);
  margin-bottom: 4px;
  }
+
+
  .assess-content p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+
+
 
  /* ── READING CARDS ── */
  .reading-grid { display: flex; flex-direction: column; gap: 14px; }
+
+
  .reading-card {
  background: var(--white);
  border: 1px solid var(--card-border);
@@ -539,7 +744,11 @@
  align-items: flex-start;
  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
  }
+
+
  .reading-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+
+
  .reading-card .book-title {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 14px;
@@ -547,7 +756,11 @@
  color: var(--dark);
  margin-bottom: 5px;
  }
+
+
  .reading-card p { font-size: 14.5px; color: var(--gray); line-height: 1.6; margin: 0; }
+
+
 
  /* ── CASE STUDY ── */
  .case-study {
@@ -557,6 +770,8 @@
  padding: 28px 32px;
  margin: 20px 0;
  }
+
+
  .case-study .cs-header {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 12px;
@@ -566,12 +781,16 @@
  color: var(--accent-purple);
  margin-bottom: 6px;
  }
+
+
  .case-study .cs-title {
  font-size: 17px;
  font-weight: 700;
  color: var(--dark);
  margin-bottom: 14px;
  }
+
+
  .cs-point {
  display: flex;
  gap: 10px;
@@ -581,6 +800,8 @@
  color: var(--gray);
  line-height: 1.65;
  }
+
+
  .cs-point::before { content: '▸'; color: var(--accent-purple); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -588,6 +809,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+<p class="book-topline"><a href="/the-art-of-game-design">← Về mục lục</a></p>
+
 <style>
   .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
@@ -604,10 +827,80 @@
   .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
 
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+
+/* __FIX_CHAPNAV_LEAK_START__ */
+/* book-topline: sách này không link assets/theme.css nên cần style riêng ở đây */
+.book-topline {
+  display: block;
+  padding: 14px 24px;
+  background: var(--forest, #0e231c);
+}
+.book-topline a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 19px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color .15s ease;
+}
+.book-topline a:hover { border-color: #fff; }
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+/* __FIX_CHAPNAV_LEAK_END__ */
 </style>
 <nav class="topnav">
-  <a class="brand" href="../index.html">Tổng hợp insight</a>
-  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 32</b></span>
+  <a class="brand" href="/">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 32</b></span>
 </nav>
 
 <nav class="tocnav">
@@ -1135,7 +1428,7 @@
  </div>
 
 </main>
-<div class="chapnav-wrap"><div class="chapnav"><a href="C31-Make Profit.html"><span class="lbl">Chương trước</span>Chương 31: The Designer and Client Want the Game to Make a Profit</a><a href="C33-Responsibilities.html"><span class="lbl">Chương sau</span>Chương 33: Designers Have Certain Responsibilities</a></div></div>
+<div class="chapnav-wrap"><nav class="chapnav"><a href="/the-art-of-game-design/the-designer-and-client-want-the-game-to-make-a-profit"><span class="lbl">Chương trước</span>Chương 31: The Designer and Client Want the Game to Make a Profit</a><a href="/the-art-of-game-design/designers-have-certain-responsibilities"><span class="lbl">Chương sau</span>Chương 33: Designers Have Certain Responsibilities</a></nav></div>
 
 <script>
   (function(){

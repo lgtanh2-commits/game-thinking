@@ -4,104 +4,113 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 3 – Tại sao Robo-Advisory sẽ thay thế nhiều nhà tư vấn đầu tư</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa;
-    --text: #111111;
-    --text-secondary: #333333;
-    --text-muted: #888888;
-    --border: #d8d8d8;
-    --border-strong: #999999;
-    --surface: #f2f2f2;
-    --surface-dark: #e0e0e0;
-    --accent-line: #111111;
-  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.8;
-    color: var(--text);
-    background: var(--bg);
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 60px 40px 100px;
-  }
+
+
   /* NAV */
   .book-nav {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
     padding-bottom: 16px;
     margin-bottom: 48px;
   }
+
+
   /* CHAPTER HEADER */
   .chapter-label {
     font-size: 11px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 12px;
   }
+
+
   h1 {
     font-size: 28px;
     font-weight: 700;
     line-height: 1.3;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 8px;
   }
+
+
   .subtitle {
     font-size: 15px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin-bottom: 40px;
     padding-bottom: 40px;
-    border-bottom: 2px solid var(--accent-line);
+    border-bottom: 2px solid var(--color-sprout);
   }
+
+
   /* LEAD */
   .lead {
     font-size: 17px;
     line-height: 1.9;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin-bottom: 48px;
     padding: 24px 28px;
-    border-left: 3px solid var(--accent-line);
-    background: var(--surface);
+    border-left: 3px solid var(--color-sprout);
+    background: #ffffff;
   }
+
+
   /* SECTIONS */
   h2 {
     font-size: 20px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin: 56px 0 20px;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--border-strong);
+    border-bottom: 1px solid var(--color-mist);
   }
+
+
   h3 {
     font-size: 16px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin: 32px 0 12px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
+
+
   h4 {
     font-size: 15px;
     font-weight: 700;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin: 24px 0 8px;
   }
-  p { margin-bottom: 16px; color: var(--text-secondary); }
-  strong { color: var(--text); font-weight: 700; }
+
+
+  p { margin-bottom: 16px; color: var(--color-slate-ink); }
+
+
+  strong { color: var(--color-slate-ink); font-weight: 700; }
+
+
   /* TABLES */
   .table-wrap { overflow-x: auto; margin: 24px 0 32px; }
+
+
   table {
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;
   }
-  thead tr { background: var(--surface-dark); }
+
+
+  thead tr { background: var(--color-dew); }
+
+
   th {
     text-align: left;
     padding: 10px 14px;
@@ -109,18 +118,28 @@
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--text);
-    border-bottom: 2px solid var(--border-strong);
+    color: var(--color-slate-ink);
+    border-bottom: 2px solid var(--color-mist);
   }
+
+
   td {
     padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text-secondary);
+    border-bottom: 1px solid var(--color-dew);
+    color: var(--color-slate-ink);
     vertical-align: top;
   }
+
+
   tr:last-child td { border-bottom: none; }
-  tr:nth-child(even) { background: var(--surface); }
+
+
+  tr:nth-child(even) { background: #ffffff; }
+
+
   .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+
   /* KEY FIGURES */
   .figures-grid {
     display: grid;
@@ -128,132 +147,208 @@
     gap: 16px;
     margin: 24px 0 36px;
   }
+
+
   .fig-box {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 18px 16px;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   .fig-value {
     font-size: 26px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     line-height: 1.1;
     display: block;
     margin-bottom: 4px;
   }
+
+
   .fig-label {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
+
+
   /* COMPANY PROFILE */
   .company {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     margin: 24px 0;
     background: #fff;
   }
+
+
   .company-header {
-    background: var(--surface-dark);
+    background: var(--color-dew);
     padding: 14px 20px;
     display: flex;
     align-items: baseline;
     gap: 12px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
   .company-name {
     font-size: 15px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
   }
+
+
   .company-meta {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
+
+
   .company-body { padding: 16px 20px; }
+
+
   .company-body p { margin-bottom: 10px; font-size: 14px; }
+
+
   .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+
   .tag {
     font-size: 11px;
     padding: 3px 9px;
-    background: var(--surface-dark);
-    border: 1px solid var(--border);
-    color: var(--text-secondary);
+    background: var(--color-dew);
+    border: 1px solid var(--color-dew);
+    color: var(--color-slate-ink);
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
+
+
   /* BUSINESS MODEL CANVAS */
   .canvas-wrap { margin: 24px 0 36px; }
+
+
   .canvas-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: auto auto auto;
     gap: 6px;
   }
+
+
   .canvas-cell {
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     padding: 14px;
     background: #fff;
     min-height: 130px;
   }
+
+
   .canvas-cell.full-col { grid-column: span 2; }
+
+
   .canvas-cell.vp { grid-column: 3; grid-row: 1 / 3; }
+
+
   .canvas-cell.cr { grid-column: 4; }
+
+
   .canvas-cell.cs { grid-column: 5; grid-row: 1 / 3; }
+
+
   .canvas-cell.ch { grid-column: 4; }
+
+
   .canvas-cell.cost { grid-column: 1 / 4; }
+
+
   .canvas-cell.revenue { grid-column: 4 / 6; }
+
+
   .canvas-title {
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 8px;
   }
-  .canvas-content { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+
+  .canvas-content { font-size: 12px; color: var(--color-slate-ink); line-height: 1.6; }
+
+
   .canvas-content ul { padding-left: 14px; }
+
+
   .canvas-content li { margin-bottom: 3px; }
+
+
   /* CALLOUT */
   .callout {
-    border-left: 3px solid var(--border-strong);
+    border-left: 3px solid var(--color-mist);
     padding: 16px 20px;
-    background: var(--surface);
+    background: #ffffff;
     margin: 24px 0;
   }
+
+
   .callout-title {
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 8px;
   }
+
+
   .callout p { margin-bottom: 8px; font-size: 14px; }
+
+
   /* TIMELINE */
   .timeline { margin: 20px 0 32px; }
+
+
   .tl-item {
     display: grid;
     grid-template-columns: 60px 1fr;
     gap: 16px;
     padding: 10px 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
   .tl-year {
     font-weight: 700;
     font-size: 13px;
-    color: var(--text);
+    color: var(--color-slate-ink);
     padding-top: 2px;
   }
-  .tl-desc { font-size: 14px; color: var(--text-secondary); }
+
+
+  .tl-desc { font-size: 14px; color: var(--color-slate-ink); }
+
+
   /* BAR CHART */
   .bar-section { margin: 24px 0 36px; }
+
+
   .bar-item { margin-bottom: 10px; }
-  .bar-label { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; display: flex; justify-content: space-between; }
-  .bar-track { height: 20px; background: var(--surface-dark); position: relative; }
-  .bar-fill { height: 100%; background: var(--text); }
+
+
+  .bar-label { font-size: 12px; color: var(--color-slate-ink); margin-bottom: 4px; display: flex; justify-content: space-between; }
+
+
+  .bar-track { height: 20px; background: var(--color-dew); position: relative; }
+
+
+  .bar-fill { height: 100%; background: var(--color-slate-ink); }
+
+
   /* COMPARISON GRID */
   .compare-grid {
     display: grid;
@@ -261,63 +356,50 @@
     gap: 12px;
     margin: 20px 0 32px;
   }
+
+
   .compare-cell {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 16px;
     background: #fff;
   }
+
+
   .compare-title {
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 10px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
   }
-  .compare-cell ul { padding-left: 16px; font-size: 13px; color: var(--text-secondary); }
+
+
+  .compare-cell ul { padding-left: 16px; font-size: 13px; color: var(--color-slate-ink); }
+
+
   .compare-cell li { margin-bottom: 5px; }
+
+
   /* DIVIDER */
-  .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+  .divider { border: none; border-top: 1px solid var(--color-dew); margin: 48px 0; }
+
+
   /* FOOTER */
   footer {
     margin-top: 80px;
     padding-top: 24px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
     font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  .book-topline {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 12.5px;
-    margin-bottom: 32px;
-  }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
+    color: var(--color-ash);
   }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/fintech-business-models">← Về mục lục</a></p>
+<p class="book-topline"><a href="/fintech-business-models">← Về mục lục</a></p>
 
 
 <div class="book-nav">Fintech Business Models · Matthias Fischer · De Gruyter 2021</div>
@@ -919,8 +1001,8 @@
 </footer>
 
 <nav class="chapnav">
-  <a href="ch2-fbm.html"><span class="lbl">Chương trước</span>Chương 2: Thanh Toán Thay Thế (APM)</a>
-  <a href="ch4-fbm.html"><span class="lbl">Chương sau</span>Chương 4: Nhu Cầu Về Social Trading</a>
+  <a href="/fintech-business-models/thanh-toan-thay-the-apm"><span class="lbl">Chương trước</span>Chương 2: Thanh Toán Thay Thế (APM)</a>
+  <a href="/fintech-business-models/nhu-cau-ve-social-trading"><span class="lbl">Chương sau</span>Chương 4: Nhu Cầu Về Social Trading</a>
 </nav>
 </body>
 </html>

@@ -4,41 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chapter 4 — Organisational Complexity and Change by Design</title>
-  <style>
-    :root {
-      --bg: #ffffff;
-      --surface: #f7f7f7;
-      --border: #e0e0e0;
-      --border-strong: #999;
-      --text: #1a1a1a;
-      --text-muted: #555;
-      --accent: #1a1a1a;
-      --rule: #ccc;
-    }
+  <link rel="stylesheet" href="../assets/theme.css">
+<style>
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 17px;
-      line-height: 1.8;
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 60px 32px 100px;
-    }
 
     .book-meta {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 12px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-bottom: 48px;
       padding-bottom: 16px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--color-dew);
     }
+
+
 
     .chapter-number {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -46,9 +27,11 @@
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-bottom: 12px;
     }
+
+
 
     h1 {
       font-size: 2rem;
@@ -56,26 +39,32 @@
       line-height: 1.25;
       letter-spacing: -0.02em;
       margin-bottom: 8px;
-      color: var(--text);
+      color: var(--color-slate-ink);
     }
+
+
 
     .chapter-authors {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 13px;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-top: 10px;
       margin-bottom: 8px;
     }
 
+
+
     .keywords {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 12px;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-bottom: 32px;
       padding: 10px 14px;
-      background: var(--surface);
-      border-left: 2px solid var(--border-strong);
+      background: #ffffff;
+      border-left: 2px solid var(--color-mist);
     }
+
+
 
     h2 {
       font-size: 1.35rem;
@@ -84,8 +73,10 @@
       margin-top: 56px;
       margin-bottom: 16px;
       padding-bottom: 8px;
-      border-bottom: 2px solid var(--text);
+      border-bottom: 2px solid var(--color-slate-ink);
     }
+
+
 
     h3 {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -95,8 +86,10 @@
       text-transform: uppercase;
       margin-top: 32px;
       margin-bottom: 10px;
-      color: var(--text);
+      color: var(--color-slate-ink);
     }
+
+
 
     h4 {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -105,22 +98,32 @@
       letter-spacing: 0.08em;
       margin-top: 24px;
       margin-bottom: 8px;
-      color: var(--text);
+      color: var(--color-slate-ink);
     }
+
+
 
     p {
       margin-bottom: 16px;
-      color: var(--text);
+      color: var(--color-slate-ink);
     }
 
+
+
     p + p { text-indent: 1.5em; }
+
+
     p:first-of-type { text-indent: 0; }
 
+
+
     .objectives-box {
-      border: 1px solid var(--border-strong);
+      border: 1px solid var(--color-mist);
       padding: 24px 28px;
       margin-bottom: 40px;
     }
+
+
 
     .objectives-box .box-label {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -129,13 +132,17 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       margin-bottom: 14px;
-      color: var(--text-muted);
+      color: var(--color-ash);
     }
+
+
 
     .objectives-box ul {
       list-style: none;
       padding: 0;
     }
+
+
 
     .objectives-box ul li {
       padding-left: 1.2em;
@@ -145,21 +152,27 @@
       line-height: 1.65;
     }
 
+
+
     .objectives-box ul li::before {
       content: '—';
       position: absolute;
       left: 0;
-      color: var(--text-muted);
+      color: var(--color-ash);
     }
 
+
+
     .infobox {
-      background: var(--surface);
-      border-left: 3px solid var(--text);
+      background: #ffffff;
+      border-left: 3px solid var(--color-slate-ink);
       padding: 20px 24px;
       margin: 28px 0;
       font-size: 15.5px;
       line-height: 1.7;
     }
+
+
 
     .infobox-title {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -168,24 +181,32 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       margin-bottom: 12px;
-      color: var(--text);
+      color: var(--color-slate-ink);
     }
+
+
 
     ol.content-list {
       padding-left: 1.5em;
       margin: 16px 0 20px;
     }
 
+
+
     ol.content-list li {
       margin-bottom: 12px;
       line-height: 1.7;
     }
+
+
 
     ul.content-list {
       list-style: none;
       padding: 0;
       margin: 16px 0 20px;
     }
+
+
 
     ul.content-list li {
       padding-left: 1.4em;
@@ -194,50 +215,62 @@
       line-height: 1.7;
     }
 
+
+
     ul.content-list li::before {
       content: '·';
       position: absolute;
       left: 0;
       font-size: 1.4em;
       line-height: 1.2;
-      color: var(--text-muted);
+      color: var(--color-ash);
     }
 
+
+
     blockquote {
-      border-left: 2px solid var(--border-strong);
+      border-left: 2px solid var(--color-mist);
       margin: 20px 0;
       padding: 12px 20px;
-      color: var(--text-muted);
+      color: var(--color-ash);
       font-style: italic;
       font-size: 16px;
       line-height: 1.7;
     }
 
+
+
     .fig-caption {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 13px;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-top: 6px;
       margin-bottom: 20px;
       font-style: italic;
     }
 
+
+
     .diagram {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid var(--color-dew);
       padding: 24px;
       margin: 20px 0;
       font-family: 'Helvetica Neue', Arial, sans-serif;
     }
+
+
 
     .diagram-title {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-bottom: 16px;
     }
+
+
 
     .diagram-row {
       display: flex;
@@ -247,8 +280,10 @@
       margin-bottom: 8px;
     }
 
+
+
     .diagram-node {
-      border: 1.5px solid var(--text);
+      border: 1.5px solid var(--color-slate-ink);
       padding: 8px 14px;
       font-size: 13px;
       font-weight: 600;
@@ -256,20 +291,28 @@
       white-space: nowrap;
     }
 
+
+
     .diagram-node.shaded {
-      background: var(--border);
+      background: var(--color-dew);
     }
+
+
 
     .diagram-arrow {
       font-size: 18px;
-      color: var(--text-muted);
+      color: var(--color-ash);
     }
+
+
 
     .diagram-label {
       font-size: 12px;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-top: 4px;
     }
+
+
 
     /* Staircase diagram for Kotter */
     .staircase {
@@ -279,22 +322,28 @@
       margin: 16px 0;
       font-family: 'Helvetica Neue', Arial, sans-serif;
     }
+
+
     .stair-step {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
+
     .stair-num {
       font-size: 11px;
       font-weight: 700;
-      color: var(--text-muted);
+      color: var(--color-ash);
       min-width: 20px;
       text-align: right;
     }
+
+
     .stair-bar {
       height: 32px;
-      background: var(--surface);
-      border: 1px solid var(--border-strong);
+      background: #ffffff;
+      border: 1px solid var(--color-mist);
       display: flex;
       align-items: center;
       padding: 0 14px;
@@ -302,6 +351,8 @@
       font-weight: 600;
       flex: 1;
     }
+
+
 
     /* McKinsey 7S grid */
     .seven-s-grid {
@@ -311,87 +362,119 @@
       margin: 16px 0;
       font-family: 'Helvetica Neue', Arial, sans-serif;
     }
+
+
     .seven-s-item {
-      border: 1px solid var(--border-strong);
+      border: 1px solid var(--color-mist);
       padding: 12px 10px;
       font-size: 13px;
       text-align: center;
     }
+
+
     .seven-s-item.center {
-      background: var(--surface);
-      border: 2px solid var(--text);
+      background: #ffffff;
+      border: 2px solid var(--color-slate-ink);
       font-weight: 700;
     }
+
+
     .seven-s-item .s-label {
       font-weight: 700;
       display: block;
       font-size: 14px;
       margin-bottom: 4px;
     }
+
+
     .seven-s-item .s-desc {
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--color-ash);
     }
+
+
 
     /* Buchanan orders diagram */
     .orders-diagram {
-      border: 1px solid var(--border);
+      border: 1px solid var(--color-dew);
       padding: 20px;
       margin: 16px 0;
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 13px;
     }
+
+
     .orders-axis {
       display: flex;
       justify-content: space-between;
       font-size: 12px;
       font-weight: 700;
       margin-bottom: 12px;
-      color: var(--text-muted);
+      color: var(--color-ash);
     }
+
+
     .orders-row {
       display: flex;
       gap: 4px;
       margin-bottom: 8px;
     }
+
+
     .orders-cell {
       flex: 1;
-      border: 1px solid var(--border-strong);
+      border: 1px solid var(--color-mist);
       padding: 10px 8px;
       text-align: center;
     }
+
+
     .orders-cell .order-name { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
-    .orders-cell .order-ex { font-size: 11px; color: var(--text-muted); }
+
+
+    .orders-cell .order-ex { font-size: 11px; color: var(--color-ash); }
+
+
     .orders-complexity {
       display: flex;
       justify-content: space-between;
       font-size: 11px;
       margin-top: 8px;
-      color: var(--text-muted);
+      color: var(--color-ash);
     }
 
+
+
     .summary-box {
-      background: var(--surface);
-      border: 1px solid var(--border-strong);
+      background: #ffffff;
+      border: 1px solid var(--color-mist);
       padding: 28px 32px;
       margin-top: 48px;
     }
 
+
+
     .review-box {
-      border: 1px solid var(--border);
+      border: 1px solid var(--color-dew);
       padding: 24px 28px;
       margin-top: 32px;
     }
 
+
+
     .review-box ol {
       padding-left: 1.4em;
     }
+
+
 
     .review-box ol li {
       margin-bottom: 12px;
       line-height: 1.7;
       font-size: 15.5px;
     }
+
+
 
     .box-label {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -400,13 +483,17 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       margin-bottom: 14px;
-      color: var(--text-muted);
+      color: var(--color-ash);
     }
+
+
 
     .references-list {
       font-size: 14.5px;
       line-height: 1.7;
     }
+
+
 
     .references-list p {
       margin-bottom: 12px;
@@ -414,16 +501,22 @@
       padding-left: 1.6em;
     }
 
+
+
     hr {
       border: none;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid var(--color-dew);
       margin: 48px 0;
     }
+
+
 
     em.term {
       font-style: italic;
       font-weight: 600;
     }
+
+
   
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -431,30 +524,11 @@
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+<p class="book-topline"><a href="/design-thinking-new-business-contexts">← Về mục lục</a></p>
 
 <div class="book-meta">Design Thinking for New Business Contexts &nbsp;·&nbsp; Yujia Huang &amp; David Hands &nbsp;·&nbsp; Springer Nature 2022</div>
 
@@ -869,8 +943,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch3-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 3: Crossing Boundaries: Design into Business and Management</a>
-  <a href="ch5-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 5: Tư Duy Kinh Doanh Qua Thiết Kế</a>
+  <a href="/design-thinking-new-business-contexts/crossing-boundaries-design-into-business-and-management"><span class="lbl">Chương trước</span>Chương 3: Crossing Boundaries: Design into Business and Management</a>
+  <a href="/design-thinking-new-business-contexts/tu-duy-kinh-doanh-qua-thiet-ke"><span class="lbl">Chương sau</span>Chương 5: Tư Duy Kinh Doanh Qua Thiết Kế</a>
 </nav>
 </body>
 </html>

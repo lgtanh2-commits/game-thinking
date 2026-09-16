@@ -4,31 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 2: The Design Process — Rules of Play</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --bg: #f8f7f4;
-    --text: #1a1a1a;
-    --muted: #555;
-    --dim: #888;
-    --rule: #c8c4bc;
-    --pull-bg: #eeece8;
-    --pull-border: #1a1a1a;
-  }
 
-  html { background: var(--bg); }
+  html { background: var(--color-parchment); }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 17px;
-    line-height: 1.75;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 64px 28px 96px;
-  }
+
 
   /* ── header ── */
   .book-meta {
@@ -36,19 +18,23 @@
     font-size: 11.5px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--dim);
+    color: var(--color-fog);
     margin-bottom: 6px;
   }
+
+
 
   .chapter-number {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 11.5px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--color-ash);
     margin-bottom: 12px;
     display: block;
   }
+
+
 
   h1.chapter-title {
     font-family: Georgia, serif;
@@ -56,14 +42,18 @@
     font-weight: normal;
     line-height: 1.2;
     margin-bottom: 40px;
-    border-bottom: 2px solid var(--text);
+    border-bottom: 2px solid var(--color-slate-ink);
     padding-bottom: 20px;
   }
+
+
 
   /* ── sections ── */
   section {
     margin-bottom: 52px;
   }
+
+
 
   h2 {
     font-family: system-ui, -apple-system, sans-serif;
@@ -71,20 +61,13 @@
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--color-ash);
     margin-bottom: 16px;
     padding-top: 8px;
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--color-dew);
   }
 
-  h3 {
-    font-family: Georgia, serif;
-    font-size: 1.08rem;
-    font-weight: bold;
-    font-style: italic;
-    margin: 28px 0 8px;
-    color: var(--text);
-  }
+
 
   h4 {
     font-family: system-ui, -apple-system, sans-serif;
@@ -92,54 +75,62 @@
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--dim);
+    color: var(--color-fog);
     margin: 22px 0 6px;
   }
 
-  p {
-    margin-bottom: 16px;
-  }
+
 
   p:last-child {
     margin-bottom: 0;
   }
 
+
+
   /* ── pull quote ── */
   blockquote {
-    background: var(--pull-bg);
-    border-left: 3px solid var(--pull-border);
+    background: var(--color-dew);
+    border-left: 3px solid var(--color-sprout);
     margin: 24px 0;
     padding: 16px 20px;
     font-style: italic;
-    color: var(--text);
+    color: var(--color-slate-ink);
     font-size: 1rem;
   }
+
+
 
   blockquote cite {
     display: block;
     margin-top: 8px;
     font-style: normal;
     font-size: 0.82rem;
-    color: var(--muted);
+    color: var(--color-ash);
     font-family: system-ui, -apple-system, sans-serif;
     letter-spacing: 0.03em;
   }
+
+
 
   /* ── cycle diagram ── */
   .cycle {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1px;
-    background: var(--rule);
-    border: 1px solid var(--rule);
+    background: var(--color-dew);
+    border: 1px solid var(--color-dew);
     margin: 24px 0;
   }
 
+
+
   .cycle-step {
-    background: var(--bg);
+    background: var(--color-parchment);
     padding: 20px 14px;
     text-align: center;
   }
+
+
 
   .cycle-num {
     font-family: system-ui, -apple-system, sans-serif;
@@ -147,28 +138,36 @@
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--dim);
+    color: var(--color-fog);
     display: block;
     margin-bottom: 6px;
   }
+
+
 
   .cycle-step p {
     font-family: Georgia, serif;
     font-size: 0.92rem;
     font-style: italic;
     margin: 0;
-    color: var(--text);
+    color: var(--color-slate-ink);
   }
+
+
 
   /* ── commission cards ── */
   .commission {
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--color-dew);
     padding: 22px 0;
   }
 
+
+
   .commission:last-child {
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
 
   .commission-title {
     font-style: italic;
@@ -178,27 +177,35 @@
     margin-bottom: 2px;
   }
 
+
+
   .commission-meta {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 0.72rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--dim);
+    color: var(--color-fog);
     display: block;
     margin-bottom: 10px;
   }
 
+
+
   .commission p {
     font-size: 0.94rem;
-    color: var(--muted);
+    color: var(--color-ash);
     line-height: 1.65;
     margin: 0;
   }
+
+
 
   /* ── exercise grid ── */
   .exercise-group {
     margin-bottom: 32px;
   }
+
+
 
   .exercise-group-label {
     font-family: system-ui, -apple-system, sans-serif;
@@ -206,31 +213,39 @@
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--dim);
-    border-bottom: 1px solid var(--rule);
+    color: var(--color-fog);
+    border-bottom: 1px solid var(--color-dew);
     padding-bottom: 6px;
     margin-bottom: 12px;
   }
+
+
 
   .exercise-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1px;
-    background: var(--rule);
-    border: 1px solid var(--rule);
+    background: var(--color-dew);
+    border: 1px solid var(--color-dew);
   }
 
+
+
   .exercise-item {
-    background: var(--bg);
+    background: var(--color-parchment);
     padding: 12px 14px;
     font-size: 0.88rem;
-    color: var(--muted);
+    color: var(--color-ash);
   }
+
+
 
   /* ── definition list ── */
   dl {
     margin: 16px 0;
   }
+
+
 
   dt {
     font-family: system-ui, -apple-system, sans-serif;
@@ -238,31 +253,41 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-top: 16px;
     margin-bottom: 4px;
   }
+
+
 
   dt:first-child {
     margin-top: 0;
   }
 
+
+
   dd {
     font-size: 0.95rem;
-    color: var(--muted);
+    color: var(--color-ash);
     padding-left: 16px;
     line-height: 1.65;
   }
 
+
+
   /* ── further reading ── */
   .reading-entry {
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--color-dew);
     padding: 18px 0;
   }
 
+
+
   .reading-entry:last-child {
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
 
   .reading-title {
     font-style: italic;
@@ -272,38 +297,48 @@
     font-size: 1rem;
   }
 
+
+
   .reading-author {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 0.78rem;
-    color: var(--dim);
+    color: var(--color-fog);
     display: block;
     margin-bottom: 8px;
     letter-spacing: 0.04em;
   }
 
+
+
   .reading-entry p {
     font-size: 0.9rem;
-    color: var(--muted);
+    color: var(--color-ash);
     line-height: 1.6;
     margin: 0;
   }
 
+
+
   /* ── essay divider ── */
   .essay-header {
     margin: 64px 0 40px;
-    border-top: 2px solid var(--text);
+    border-top: 2px solid var(--color-slate-ink);
     padding-top: 20px;
   }
+
+
 
   .essay-label {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 11px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--dim);
+    color: var(--color-fog);
     display: block;
     margin-bottom: 8px;
   }
+
+
 
   .essay-title {
     font-family: Georgia, serif;
@@ -313,24 +348,32 @@
     margin-bottom: 6px;
   }
 
+
+
   .essay-byline {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 0.8rem;
-    color: var(--muted);
+    color: var(--color-ash);
     letter-spacing: 0.06em;
   }
+
+
 
   /* ── timeline ── */
   .timeline {
     margin: 20px 0;
-    border-left: 2px solid var(--rule);
+    border-left: 2px solid var(--color-dew);
     padding-left: 20px;
   }
+
+
 
   .timeline-entry {
     margin-bottom: 16px;
     position: relative;
   }
+
+
 
   .timeline-entry::before {
     content: '';
@@ -339,9 +382,11 @@
     top: 8px;
     width: 6px;
     height: 6px;
-    background: var(--rule);
-    border: 1px solid var(--muted);
+    background: var(--color-dew);
+    border: 1px solid var(--color-ash);
   }
+
+
 
   .timeline-date {
     font-family: system-ui, -apple-system, sans-serif;
@@ -349,25 +394,31 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--dim);
+    color: var(--color-fog);
     display: block;
     margin-bottom: 2px;
   }
 
+
+
   .timeline-entry p {
     font-size: 0.92rem;
-    color: var(--muted);
+    color: var(--color-ash);
     margin: 0;
     line-height: 1.6;
   }
 
+
+
   /* ── author bio ── */
   .author-bio {
-    background: var(--pull-bg);
+    background: var(--color-dew);
     padding: 20px 22px;
     margin-top: 32px;
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--color-dew);
   }
+
+
 
   .author-bio .bio-label {
     font-family: system-ui, -apple-system, sans-serif;
@@ -375,17 +426,21 @@
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--dim);
+    color: var(--color-fog);
     display: block;
     margin-bottom: 6px;
   }
 
+
+
   .author-bio p {
     font-size: 0.88rem;
-    color: var(--muted);
+    color: var(--color-ash);
     line-height: 1.6;
     margin: 0;
   }
+
+
 
   /* ── chapter navigation (added) ── */
   .book-topline {
@@ -393,30 +448,11 @@
     font-size: 12.5px;
     margin-bottom: 36px;
   }
-  .book-topline a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--rule);
-    font-family: system-ui, -apple-system, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--rule); border-radius: 10px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease, background .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); background: var(--pull-bg); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--dim); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/rules-of-play">← Rules of Play — Mục lục</a></p>
+<p class="book-topline"><a href="/rules-of-play">← Rules of Play — Mục lục</a></p>
 
 <p class="book-meta">Rules of Play — Katie Salen &amp; Eric Zimmerman · MIT Press, 2004</p>
 <span class="chapter-number">Chapter 2</span>
@@ -672,8 +708,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch1-rules-of-play.html"><span class="lbl">Chương trước</span>Chương 1: What Is This Book About?</a>
-  <a href="ch3-rules-of-play.html"><span class="lbl">Chương sau</span>Chương 3: Meaningful Play</a>
+  <a href="/rules-of-play/what-is-this-book-about"><span class="lbl">Chương trước</span>Chương 1: What Is This Book About?</a>
+  <a href="/rules-of-play/meaningful-play"><span class="lbl">Chương sau</span>Chương 3: Meaningful Play</a>
 </nav>
 </body>
 </html>

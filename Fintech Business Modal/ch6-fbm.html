@@ -4,52 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 6 — Cho vay bảng cân đối & Factoring</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa;
-    --text: #111111;
-    --text-secondary: #333333;
-    --text-muted: #888888;
-    --border: #d8d8d8;
-    --border-strong: #999999;
-    --surface: #f2f2f2;
-    --surface-dark: #e0e0e0;
-    --accent-line: #111111;
-  }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.8;
-    color: var(--text);
-    background: var(--bg);
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 60px 40px 100px;
-  }
 
   .chapter-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
     padding-bottom: 16px;
     margin-bottom: 60px;
     font-size: 13px;
-    color: var(--text-muted);
+    color: var(--color-ash);
   }
-  .chapter-nav a { color: var(--text-secondary); text-decoration: none; }
+
+
+  .chapter-nav a { color: var(--color-slate-ink); text-decoration: none; }
+
+
   .chapter-nav a:hover { text-decoration: underline; }
+
+
 
   .book-label {
     font-size: 12px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 12px;
   }
+
+
   h1 {
     font-size: 32px;
     font-weight: 700;
@@ -57,91 +43,127 @@
     letter-spacing: -0.02em;
     margin-bottom: 10px;
   }
+
+
   .chapter-subtitle {
     font-size: 18px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     font-weight: 400;
     margin-bottom: 32px;
     font-style: italic;
   }
+
+
   .chapter-meta {
     display: flex;
     gap: 24px;
     font-size: 13px;
-    color: var(--text-muted);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    color: var(--color-ash);
+    border-top: 1px solid var(--color-dew);
+    border-bottom: 1px solid var(--color-dew);
     padding: 12px 0;
     margin-bottom: 48px;
   }
+
+
 
   h2 {
     font-size: 22px;
     font-weight: 700;
     margin: 56px 0 16px;
     padding-bottom: 8px;
-    border-bottom: 2px solid var(--accent-line);
+    border-bottom: 2px solid var(--color-sprout);
   }
+
+
   h3 {
     font-size: 17px;
     font-weight: 700;
     margin: 36px 0 12px;
-    color: var(--text);
+    color: var(--color-slate-ink);
   }
+
+
   h4 {
     font-size: 15px;
     font-weight: 700;
     margin: 24px 0 8px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
 
+
+
   p { margin-bottom: 16px; }
+
+
   ul, ol { margin: 12px 0 16px 24px; }
+
+
   li { margin-bottom: 6px; }
+
+
   strong { font-weight: 700; }
+
+
   em { font-style: italic; }
 
+
+
   .callout {
-    border-left: 3px solid var(--accent-line);
+    border-left: 3px solid var(--color-sprout);
     padding: 16px 20px;
     margin: 24px 0;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   .callout-label {
     font-size: 11px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 6px;
   }
+
+
   .callout p { margin-bottom: 0; font-size: 15px; }
+
+
 
   .metrics-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
     gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
+    background: var(--color-dew);
+    border: 1px solid var(--color-dew);
     margin: 24px 0;
   }
+
+
   .metric-cell {
-    background: var(--bg);
+    background: var(--color-parchment);
     padding: 20px 16px;
     text-align: center;
   }
+
+
   .metric-value {
     font-size: 26px;
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 4px;
   }
+
+
   .metric-label {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     line-height: 1.4;
   }
+
+
 
   table {
     width: 100%;
@@ -149,115 +171,167 @@
     font-size: 14px;
     margin: 20px 0 32px;
   }
-  thead tr { border-bottom: 2px solid var(--accent-line); }
+
+
+  thead tr { border-bottom: 2px solid var(--color-sprout); }
+
+
   th {
     text-align: left;
     padding: 10px 12px;
     font-weight: 700;
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
+
+
   td {
     padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
     vertical-align: top;
   }
+
+
   tr:last-child td { border-bottom: none; }
-  tr:nth-child(even) td { background: var(--surface); }
+
+
+  tr:nth-child(even) td { background: #ffffff; }
+
+
 
   .company-card {
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     margin: 32px 0;
   }
+
+
   .company-header {
-    background: var(--surface-dark);
+    background: var(--color-dew);
     padding: 16px 20px;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    border-bottom: 1px solid var(--border-strong);
+    border-bottom: 1px solid var(--color-mist);
   }
+
+
   .company-name { font-size: 18px; font-weight: 700; }
+
+
   .company-tag {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
+
+
   .company-body { padding: 20px; }
+
+
   .company-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 12px;
     margin-bottom: 20px;
   }
+
+
   .stat-item {
     padding: 12px;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
   }
+
+
   .stat-value { font-weight: 700; font-size: 18px; }
-  .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+
+  .stat-label { font-size: 12px; color: var(--color-ash); margin-top: 2px; }
+
+
 
   .bmc-title {
     font-size: 13px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin: 36px 0 12px;
     display: flex;
     align-items: center;
     gap: 12px;
   }
+
+
   .bmc-title::after {
     content: '';
     flex: 1;
     height: 1px;
-    background: var(--border);
+    background: var(--color-dew);
   }
+
+
   .bmc-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: auto auto;
     gap: 1px;
-    background: var(--border-strong);
-    border: 1px solid var(--border-strong);
+    background: var(--color-mist);
+    border: 1px solid var(--color-mist);
     margin-bottom: 0;
     font-size: 13px;
   }
+
+
   .bmc-cell {
-    background: var(--bg);
+    background: var(--color-parchment);
     padding: 14px 12px;
     min-height: 110px;
   }
+
+
   .bmc-cell.span2 { grid-row: span 2; min-height: 220px; }
+
+
   .bmc-section-label {
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 6px;
   }
+
+
   .bmc-cell ul { margin: 0; padding-left: 14px; }
+
+
   .bmc-cell li { margin-bottom: 3px; font-size: 12px; }
+
+
   .bmc-bottom {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1px;
-    background: var(--border-strong);
-    border: 1px solid var(--border-strong);
+    background: var(--color-mist);
+    border: 1px solid var(--color-mist);
     border-top: none;
     margin-bottom: 48px;
   }
+
+
   .bmc-bottom-cell {
-    background: var(--bg);
+    background: var(--color-parchment);
     padding: 14px 12px;
     font-size: 13px;
   }
 
+
+
   .bar-chart { margin: 20px 0 32px; }
+
+
   .bar-row {
     display: flex;
     align-items: center;
@@ -265,73 +339,99 @@
     gap: 12px;
     font-size: 13px;
   }
-  .bar-label { width: 170px; flex-shrink: 0; color: var(--text-secondary); text-align: right; }
+
+
+  .bar-label { width: 170px; flex-shrink: 0; color: var(--color-slate-ink); text-align: right; }
+
+
   .bar-track {
     flex: 1;
     height: 22px;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     position: relative;
   }
+
+
   .bar-fill {
     height: 100%;
-    background: var(--text);
+    background: var(--color-slate-ink);
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding-right: 6px;
-    color: var(--bg);
+    color: var(--color-parchment);
     font-size: 11px;
     font-weight: 700;
   }
+
+
   .bar-val { width: 65px; flex-shrink: 0; font-weight: 700; }
 
+
+
   .comparison {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     margin: 24px 0;
   }
+
+
   .comparison-header {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr;
     gap: 1px;
-    background: var(--border-strong);
-    border-bottom: 2px solid var(--accent-line);
+    background: var(--color-mist);
+    border-bottom: 2px solid var(--color-sprout);
   }
+
+
   .comparison-row {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr;
     gap: 1px;
-    background: var(--border);
-    border-bottom: 1px solid var(--border);
+    background: var(--color-dew);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
   .comparison-row:last-child { border-bottom: none; }
+
+
   .comparison-cell {
-    background: var(--bg);
+    background: var(--color-parchment);
     padding: 10px 14px;
     font-size: 13px;
   }
+
+
   .comparison-cell.head {
-    background: var(--surface-dark);
+    background: var(--color-dew);
     font-weight: 700;
     font-size: 13px;
   }
 
+
+
   .section-divider {
     border: none;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
     margin: 48px 0;
   }
 
+
+
   .source-note {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-top: 8px;
     font-style: italic;
   }
 
+
+
   .round-badge {
     display: inline-block;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     padding: 2px 8px;
     font-size: 11px;
     font-weight: 700;
@@ -339,49 +439,28 @@
     margin-right: 4px;
   }
 
+
+
   .insight-box {
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     padding: 20px 24px;
     margin: 24px 0;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   .insight-box-title {
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 10px;
-  }
-
-  .book-topline {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 12.5px;
-    margin-bottom: 32px;
-  }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
   }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/fintech-business-models">← Về mục lục</a></p>
+<p class="book-topline"><a href="/fintech-business-models">← Về mục lục</a></p>
 
 
 
@@ -1042,8 +1121,8 @@
 </div>
 
 <nav class="chapnav">
-  <a href="ch5-fbm.html"><span class="lbl">Chương trước</span>Chương 5: Crowdfunding Có Thay Thế Vay Ngân Hàng Không?</a>
-  <a href="ch7-fbm.html"><span class="lbl">Chương sau</span>Chương 7: Tương Lai Của Quản Lý Tài Chính Cá Nhân (PFM)</a>
+  <a href="/fintech-business-models/crowdfunding-co-thay-the-vay-ngan-hang-khong"><span class="lbl">Chương trước</span>Chương 5: Crowdfunding Có Thay Thế Vay Ngân Hàng Không?</a>
+  <a href="/fintech-business-models/tuong-lai-cua-quan-ly-tai-chinh-ca-nhan-pfm"><span class="lbl">Chương sau</span>Chương 7: Tương Lai Của Quản Lý Tài Chính Cá Nhân (PFM)</a>
 </nav>
 </body>
 </html>

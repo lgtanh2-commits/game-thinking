@@ -341,12 +341,34 @@
     .case-row { grid-template-columns: 1fr; }
     .loop-center { flex-direction: column; }
   }
+
+  .book-topline {
+    display: block;
+    padding: 14px 24px;
+    background: var(--forest);
+  }
+  .book-topline a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.35);
+    color: #fff;
+    border-radius: 999px;
+    padding: 7px 19px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: border-color .15s ease;
+  }
+  .book-topline a:hover { border-color: #fff; }
 </style>
 </head>
 <body>
 
+<p class="book-topline"><a href="/game-thinking-blueprint">← Về mục lục</a></p>
+
 <nav class="topnav">
-  <a class="brand" href="../index.html">Tổng hợp insight</a>
+  <a class="brand" href="/">Tổng hợp insight</a>
   <span class="crumb">/ <b>Game Thinking Blueprint</b></span>
 </nav>
 

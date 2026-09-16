@@ -3,210 +3,245 @@
   "title": "The Art of Game Design",
   "author": "Jesse Schell",
   "tag": "Game Design · A Book of Lenses",
+  "category": "Game Design",
   "chapters": [
     {
       "n": 1,
       "title": "In the Beginning, There Is the Designer",
       "sub": "Chapter One · Chương Một",
-      "file": "C1-The beginning.html"
+      "file": "C1-The beginning.html",
+      "slug": "in-the-beginning-there-is-the-designer"
     },
     {
       "n": 2,
       "title": "The Designer Creates an Experience",
       "sub": "Jesse Schell • Câu hỏi căn bản nhất của game design: chúng ta thực sự đang tạo ra gì?",
-      "file": "C2-Create Experience.html"
+      "file": "C2-Create Experience.html",
+      "slug": "the-designer-creates-an-experience"
     },
     {
       "n": 3,
       "title": "The Experience Takes Place in a Venue",
       "sub": "Jesse Schell • Venue là lăng kính bất biến vượt qua mọi platform",
-      "file": "C3-The Experience Takes Place.html"
+      "file": "C3-The Experience Takes Place.html",
+      "slug": "the-experience-takes-place-in-a-venue"
     },
     {
       "n": 4,
       "title": "Trải Nghiệm Nảy Sinh Từ Chính Game",
       "sub": "Tìm hiểu game, đồ chơi, sự chơi và niềm vui — nền móng tư duy (Lens #4–#8)",
-      "file": "C4-The Experience Rises Out of a Game.html"
+      "file": "C4-The Experience Rises Out of a Game.html",
+      "slug": "trai-nghiem-nay-sinh-tu-chinh-game"
     },
     {
       "n": 5,
       "title": "The Game Consists of Elements",
       "sub": "Jesse Schell · Mọi trò chơi đều được tạo nên từ bốn thành phần cốt lõi",
-      "file": "C5-Element of game.html"
+      "file": "C5-Element of game.html",
+      "slug": "the-game-consists-of-elements"
     },
     {
       "n": 6,
       "title": "The Elements Support a Theme",
       "sub": "Jesse Schell · Khi mọi thứ cùng hướng về một ý tưởng duy nhất",
-      "file": "C6-Theme.html"
+      "file": "C6-Theme.html",
+      "slug": "the-elements-support-a-theme"
     },
     {
       "n": 7,
       "title": "The Game Begins with an Idea",
       "sub": "",
-      "file": "C7-Idea.html"
+      "file": "C7-Idea.html",
+      "slug": "the-game-begins-with-an-idea"
     },
     {
       "n": 8,
       "title": "The Game Improves Through Iteration",
       "sub": "",
-      "file": "C8-Improve Game.html"
+      "file": "C8-Improve Game.html",
+      "slug": "the-game-improves-through-iteration"
     },
     {
       "n": 9,
       "title": "The Player",
       "sub": "Hiểu người chơi từ nhân khẩu học đến tâm lý (2 Lenses #19–20)",
-      "file": "C9-The Player.html"
+      "file": "C9-The Player.html",
+      "slug": "the-player"
     },
     {
       "n": 10,
       "title": "Trải Nghiệm Nằm Trong Tâm Trí Người Chơi",
       "sub": "The Experience Is in the Player's Mind",
-      "file": "C10-Player Mind.html"
+      "file": "C10-Player Mind.html",
+      "slug": "trai-nghiem-nam-trong-tam-tri-nguoi-choi"
     },
     {
       "n": 11,
       "title": "Tâm Trí Người Chơi Bị Thúc Đẩy Bởi Động Lực của Người Chơi",
       "sub": "The Player's Mind Is Driven by the Player's Motivation",
-      "file": "C11-Player's Motivation.html"
+      "file": "C11-Player's Motivation.html",
+      "slug": "tam-tri-nguoi-choi-bi-thuc-day-boi-dong-luc-cua-nguoi-choi"
     },
     {
       "n": 12,
       "title": "Some Elements Are Game Mechanics",
       "sub": "7 cơ chế game cơ bản — Space, Time, Objects & States, Actions, Rules, Skill, Chance (11 Lens #26–#36)",
-      "file": "C12-Mechanic.html"
+      "file": "C12-Mechanic.html",
+      "slug": "some-elements-are-game-mechanics"
     },
     {
       "n": 13,
       "title": "Game Mechanics Must Be in Balance",
       "sub": "",
-      "file": "C13-Mechanic Balance.html"
+      "file": "C13-Mechanic Balance.html",
+      "slug": "game-mechanics-must-be-in-balance"
     },
     {
       "n": 14,
       "title": "Game Mechanics Support Puzzles",
       "sub": "Cơ chế trò chơi phục vụ thử thách tư duy — 10 Nguyên tắc Puzzle",
-      "file": "C14-Mechanic support puzzle.html"
+      "file": "C14-Mechanic support puzzle.html",
+      "slug": "game-mechanics-support-puzzles"
     },
     {
       "n": 15,
       "title": "Players Play Games through an Interface",
       "sub": "Người chơi chạm đến thế giới game qua lớp màng Interface (9 Lenses #59–#67)",
-      "file": "C15-Interface.html"
+      "file": "C15-Interface.html",
+      "slug": "players-play-games-through-an-interface"
     },
     {
       "n": 16,
       "title": "Trải Nghiệm Được Đánh Giá Qua Đường Cong Hứng Thú",
       "sub": "Không chỉ nội dung mà cả hình dạng trải nghiệm mới quyết định sức hút (5 Lenses mới)",
-      "file": "C16-Interest Curve.html"
+      "file": "C16-Interest Curve.html",
+      "slug": "trai-nghiem-duoc-danh-gia-qua-duong-cong-hung-thu"
     },
     {
       "n": 17,
       "title": "Một Loại Trải Nghiệm Là Story",
       "sub": "Story và gameplay là hai biểu hiện của cùng một hiện tượng (6 Lenses mới)",
-      "file": "C17-Story.html"
+      "file": "C17-Story.html",
+      "slug": "mot-loai-trai-nghiem-la-story"
     },
     {
       "n": 18,
       "title": "Story và Game Structures Có Thể Được Kết Hợp Khéo Léo Thông Qua Indirect Control",
       "sub": "Khiến người chơi muốn làm đúng điều bạn muốn họ làm (4 Lenses #79–#82)",
-      "file": "C18-Indirect Control.html"
+      "file": "C18-Indirect Control.html",
+      "slug": "story-va-game-structures-co-the-duoc-ket-hop-kheo-leo-thong-qua-indirect-control"
     },
     {
       "n": 19,
       "title": "Stories and Games Take Place in Worlds",
       "sub": "Game mở ra cánh cửa vào một thế giới có thể tồn tại mãi mãi (2 Lenses #83–#84)",
-      "file": "C19-World.html"
+      "file": "C19-World.html",
+      "slug": "stories-and-games-take-place-in-worlds"
     },
     {
       "n": 20,
       "title": "Worlds Contain Characters",
       "sub": "Nhân vật là linh hồn của thế giới game — 10 kỹ thuật xây dựng nhân vật (7 Lenses #85–#91)",
-      "file": "C20-Characters.html"
+      "file": "C20-Characters.html",
+      "slug": "worlds-contain-characters"
     },
     {
       "n": 21,
       "title": "Worlds Contain Spaces",
       "sub": "Thế Giới Chứa Đựng Không Gian",
-      "file": "C21-Game Space.html"
+      "file": "C21-Game Space.html",
+      "slug": "worlds-contain-spaces"
     },
     {
       "n": 22,
       "title": "The Look and Feel of a World Is Defined by Its Aesthetics",
       "sub": "Jesse Schell · Bản dịch & phân tích tiếng Việt",
-      "file": "C22-Aesthetics.html"
+      "file": "C22-Aesthetics.html",
+      "slug": "the-look-and-feel-of-a-world-is-defined-by-its-aesthetics"
     },
     {
       "n": 23,
       "title": "Some Games Are Played with Other Players",
       "sub": "Jesse Schell · Bản dịch & phân tích tiếng Việt",
-      "file": "C23-Play Together.html"
+      "file": "C23-Play Together.html",
+      "slug": "some-games-are-played-with-other-players"
     },
     {
       "n": 24,
       "title": "Other Players Sometimes Form Communities",
       "sub": "Jesse Schell · Bản dịch & phân tích tiếng Việt",
-      "file": "C24-Communities.html"
+      "file": "C24-Communities.html",
+      "slug": "other-players-sometimes-form-communities"
     },
     {
       "n": 25,
       "title": "Nhà Thiết Kế Thường Làm Việc Cùng Đội Nhóm",
       "sub": "The Designer Usually Works with a Team (2 Lenses mới)",
-      "file": "C25-Teamwork.html"
+      "file": "C25-Teamwork.html",
+      "slug": "nha-thiet-ke-thuong-lam-viec-cung-doi-nhom"
     },
     {
       "n": 26,
       "title": "Đội Nhóm Đôi Khi Giao Tiếp Qua Tài Liệu",
       "sub": "The Team Sometimes Communicates through Documents (1 Lens mới)",
-      "file": "C26-Game Design Document.html"
+      "file": "C26-Game Design Document.html",
+      "slug": "doi-nhom-doi-khi-giao-tiep-qua-tai-lieu"
     },
     {
       "n": 27,
       "title": "Good Games Are Created through Playtesting",
       "sub": "Jesse Schell · Tóm tắt & phân tích tiếng Việt (1 Lens)",
-      "file": "C27-Playtesting.html"
+      "file": "C27-Playtesting.html",
+      "slug": "good-games-are-created-through-playtesting"
     },
     {
       "n": 28,
       "title": "The Team Builds a Game with Technology",
       "sub": "Jesse Schell · Tóm tắt & phân tích tiếng Việt (3 Lenses)",
-      "file": "C28-Tech.html"
+      "file": "C28-Tech.html",
+      "slug": "the-team-builds-a-game-with-technology"
     },
     {
       "n": 29,
       "title": "Your Game Will Probably Have a Client",
       "sub": "Jesse Schell · Tóm tắt & phân tích tiếng Việt (1 Lens)",
-      "file": "C29-Client.html"
+      "file": "C29-Client.html",
+      "slug": "your-game-will-probably-have-a-client"
     },
     {
       "n": 30,
       "title": "The Designer Gives the Client a Pitch",
       "sub": "Thuyết phục người ra quyết định bằng nghệ thuật — không phải may mắn",
-      "file": "C30-Pitching.html"
+      "file": "C30-Pitching.html",
+      "slug": "the-designer-gives-the-client-a-pitch"
     },
     {
       "n": 31,
       "title": "The Designer and Client Want the Game to Make a Profit",
       "sub": "Game thành công không chỉ về nghệ thuật — nó còn phải đứng vững trên thị trường",
-      "file": "C31-Make Profit.html"
+      "file": "C31-Make Profit.html",
+      "slug": "the-designer-and-client-want-the-game-to-make-a-profit"
     },
     {
       "n": 32,
       "title": "Games Transform Their Players",
       "sub": "Game không chỉ giải trí — chúng thay đổi người chơi sâu sắc hơn ta nghĩ",
-      "file": "C32-Games Transform.html"
+      "file": "C32-Games Transform.html",
+      "slug": "games-transform-their-players"
     },
     {
       "n": 33,
       "title": "Designers Have Certain Responsibilities",
       "sub": "Game designer chịu trách nhiệm không chỉ với employer, mà với người chơi và xã hội",
-      "file": "C33-Responsibilities.html"
+      "file": "C33-Responsibilities.html",
+      "slug": "designers-have-certain-responsibilities"
     },
     {
       "n": 34,
       "title": "Each Designer Has a Purpose",
       "sub": "Đã học cách lắng nghe audience, team, client, game — giờ lắng nghe chính mình",
-      "file": "C34-End.html"
+      "file": "C34-End.html",
+      "slug": "each-designer-has-a-purpose"
     }
   ]
 }

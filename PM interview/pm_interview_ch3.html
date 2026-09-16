@@ -4,85 +4,138 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 3: Study Guides cho các Công ty Tech Hàng đầu — The Product Manager Interview</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-:root{--bg:#fafafa;--text:#111111;--text-secondary:#333333;--text-muted:#888888;--border:#d8d8d8;--border-strong:#999999;--surface:#f2f2f2;--surface-dark:#e0e0e0;--accent-line:#111111;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);max-width:820px;margin:0 auto;padding:60px 40px 100px;}
-.book-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
-h1{font-size:2.4rem;font-weight:700;line-height:1.2;margin-bottom:8px;color:var(--text);}
-.subtitle{font-size:1rem;color:var(--text-muted);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--accent-line);}
-h2{font-size:1.5rem;font-weight:700;margin:48px 0 6px;color:var(--text);padding-top:8px;}
-.guide-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;}
-h3{font-size:1.05rem;font-weight:700;margin:28px 0 10px;color:var(--text);}
-p{margin-bottom:14px;color:var(--text-secondary);}
-.intro-box{background:var(--surface);border-left:3px solid var(--accent-line);padding:20px 24px;margin:24px 0;font-size:1.05rem;line-height:1.7;color:var(--text);}
-.guide-divider{border:none;border-top:2px solid var(--accent-line);margin:56px 0 0;}
+
+.book-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--color-ash);margin-bottom:12px;}
+
+
+.subtitle{font-size:1rem;color:var(--color-ash);margin-bottom:48px;padding-bottom:32px;border-bottom:2px solid var(--color-sprout);}
+
+
+h2{font-size:1.5rem;font-weight:700;margin:48px 0 6px;color:var(--color-slate-ink);padding-top:8px;}
+
+
+.guide-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-ash);margin-bottom:20px;}
+
+
+h3{font-size:1.05rem;font-weight:700;margin:28px 0 10px;color:var(--color-slate-ink);}
+
+
+.intro-box{background:#ffffff;border-left:3px solid var(--color-sprout);padding:20px 24px;margin:24px 0;font-size:1.05rem;line-height:1.7;color:var(--color-slate-ink);}
+
+
+.guide-divider{border:none;border-top:2px solid var(--color-sprout);margin:56px 0 0;}
+
+
 .day-block{margin:0 0 4px;}
-.day-title{font-size:1rem;font-weight:700;color:var(--text);margin:24px 0 8px;}
-.day-sub{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin:14px 0 6px;}
+
+
+.day-title{font-size:1rem;font-weight:700;color:var(--color-slate-ink);margin:24px 0 8px;}
+
+
+.day-sub{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-ash);margin:14px 0 6px;}
+
+
 .task-list{list-style:none;margin:6px 0 12px;padding:0;}
-.task-list li{padding:6px 0 6px 20px;position:relative;font-size:.92rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+
+
+.task-list li{padding:6px 0 6px 20px;position:relative;font-size:.92rem;color:var(--color-slate-ink);border-bottom:1px solid var(--color-dew);}
+
+
 .task-list li:last-child{border-bottom:none;}
-.task-list li::before{content:"→";position:absolute;left:0;color:var(--text-muted);font-size:.85rem;}
+
+
+.task-list li::before{content:"→";position:absolute;left:0;color:var(--color-ash);font-size:.85rem;}
+
+
 .task-list li.sub{padding-left:36px;}
+
+
 .task-list li.sub::before{content:"·";}
+
+
 .exercise-list{list-style:none;margin:6px 0 12px;padding:0;}
-.exercise-list li{padding:5px 0 5px 20px;position:relative;font-size:.92rem;color:var(--text-secondary);}
-.exercise-list li::before{content:"▸";position:absolute;left:0;color:var(--text-muted);font-size:.8rem;top:7px;}
+
+
+.exercise-list li{padding:5px 0 5px 20px;position:relative;font-size:.92rem;color:var(--color-slate-ink);}
+
+
+.exercise-list li::before{content:"▸";position:absolute;left:0;color:var(--color-ash);font-size:.8rem;top:7px;}
+
+
 .numbered-list{margin:8px 0 12px;padding-left:22px;}
-.numbered-list li{font-size:.92rem;color:var(--text-secondary);margin-bottom:4px;}
-.goal-box{background:var(--surface);border-left:2px solid var(--border-strong);padding:12px 16px;margin:10px 0 16px;font-size:.92rem;color:var(--text-secondary);line-height:1.7;}
-.note-italic{font-style:italic;font-size:.88rem;color:var(--text-muted);margin:8px 0;}
+
+
+.numbered-list li{font-size:.92rem;color:var(--color-slate-ink);margin-bottom:4px;}
+
+
+.goal-box{background:#ffffff;border-left:2px solid var(--color-mist);padding:12px 16px;margin:10px 0 16px;font-size:.92rem;color:var(--color-slate-ink);line-height:1.7;}
+
+
+.note-italic{font-style:italic;font-size:.88rem;color:var(--color-ash);margin:8px 0;}
+
+
 .amazon-table{width:100%;border-collapse:collapse;margin:16px 0;}
-.amazon-table th{background:var(--surface-dark);padding:10px 12px;text-align:left;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--accent-line);}
-.amazon-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:.88rem;color:var(--text-secondary);vertical-align:top;}
-.amazon-table td:first-child{font-weight:700;color:var(--text);width:200px;}
+
+
+.amazon-table th{background:var(--color-dew);padding:10px 12px;text-align:left;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-ash);border-bottom:2px solid var(--color-sprout);}
+
+
+.amazon-table td{padding:10px 12px;border-bottom:1px solid var(--color-dew);font-size:.88rem;color:var(--color-slate-ink);vertical-align:top;}
+
+
+.amazon-table td:first-child{font-weight:700;color:var(--color-slate-ink);width:200px;}
+
+
 .amazon-table tr:last-child td{border-bottom:none;}
-.amazon-table tr:nth-child(even) td{background:var(--surface);}
-.source-note{font-size:.78rem;color:var(--text-muted);font-style:italic;text-align:right;margin-top:4px;}
-.highlight-box{background:var(--surface);border:1px solid var(--border-strong);padding:16px 20px;margin:16px 0;}
-.highlight-box p{font-size:.93rem;margin-bottom:8px;color:var(--text);}
+
+
+.amazon-table tr:nth-child(even) td{background:#ffffff;}
+
+
+.source-note{font-size:.78rem;color:var(--color-ash);font-style:italic;text-align:right;margin-top:4px;}
+
+
+.highlight-box{background:#ffffff;border:1px solid var(--color-mist);padding:16px 20px;margin:16px 0;}
+
+
+.highlight-box p{font-size:.93rem;margin-bottom:8px;color:var(--color-slate-ink);}
+
+
 .highlight-box p:last-child{margin-bottom:0;}
+
+
 .proficiency-list{list-style:none;margin:8px 0;padding:0;}
-.proficiency-list li{padding:8px 0 8px 20px;position:relative;font-size:.9rem;color:var(--text-secondary);border-bottom:1px solid var(--border);}
+
+
+.proficiency-list li{padding:8px 0 8px 20px;position:relative;font-size:.9rem;color:var(--color-slate-ink);border-bottom:1px solid var(--color-dew);}
+
+
 .proficiency-list li:last-child{border-bottom:none;}
-.proficiency-list li::before{content:"▸";position:absolute;left:0;color:var(--text-muted);font-size:.8rem;top:10px;}
-.divider{border:none;border-top:1px solid var(--border);margin:32px 0;}
-.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--accent-line);background:var(--surface);}
-.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
-.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:12px;}
+
+
+.proficiency-list li::before{content:"▸";position:absolute;left:0;color:var(--color-ash);font-size:.8rem;top:10px;}
+
+
+.conclusion-box{margin-top:64px;padding:32px 36px;border:2px solid var(--color-sprout);background:#ffffff;}
+
+
+.conclusion-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--color-ash);margin-bottom:16px;}
+
+
+.conclusion-box p{font-size:1rem;line-height:1.8;color:var(--color-slate-ink);margin-bottom:12px;}
+
+
 .conclusion-box p:last-child{margin-bottom:0;}
+
+
 @media(max-width:600px){body{padding:36px 20px 60px;}h1{font-size:1.8rem;}.amazon-table td:first-child{width:auto;}}
-
-.book-topline {
-  font-family: -apple-system, system-ui, sans-serif;
-  font-size: 12.5px;
-  margin-bottom: 32px;
-}
-.book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-.book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-.chapnav {
-  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-  font-family: -apple-system, system-ui, sans-serif;
-}
-.chapnav a {
-  flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-  font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-}
-.chapnav a:hover { border-color: var(--text); }
-.chapnav a:last-child { text-align: right; margin-left: auto; }
-.chapnav .lbl {
-  display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-  color: var(--text-muted); margin-bottom: 4px;
-}
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/product-manager-interview">← Về mục lục</a></p>
+<p class="book-topline"><a href="/product-manager-interview">← Về mục lục</a></p>
 
 
 <div class="book-label">The Product Manager Interview · Lewis C. Lin · Chương 3</div>
@@ -698,7 +751,7 @@ p{margin-bottom:14px;color:var(--text-secondary);}
 </div>
 
 <nav class="chapnav">
-  <a href="pm_interview_ch4.html"><span class="lbl">Chương sau</span>Chương 4: Từ viết tắt, Thuật ngữ và Khái niệm</a>
+  <a href="/product-manager-interview/tu-viet-tat-thuat-ngu-va-khai-niem"><span class="lbl">Chương sau</span>Chương 4: Từ viết tắt, Thuật ngữ và Khái niệm</a>
 </nav>
 </body>
 </html>

@@ -3,78 +3,91 @@
   "title": "Fintech Business Models",
   "author": "Matthias Fischer · De Gruyter · 2021",
   "tag": "Fintech · Business Model Canvas · Venture Capital",
+  "category": "BFSI",
   "chapters": [
     {
       "n": 1,
       "title": "Thị Trường Và Các Tác Nhân Fintech",
       "sub": "379 công ty fintech ở châu Âu và Mỹ, hơn 2.000 vòng tài trợ (2000–2020), phân tích qua Business Model Canvas và so sánh với GAFA, Big Tech Trung Quốc",
-      "file": "ch1-fbm.html"
+      "file": "ch1-fbm.html",
+      "slug": "thi-truong-va-cac-tac-nhan-fintech"
     },
     {
       "n": 2,
       "title": "Thanh Toán Thay Thế (APM)",
       "sub": "Alternative Payment Methods — PayPal, Alipay, WeChat Pay dẫn đầu làn sóng thay thế ngân hàng và thẻ tín dụng truyền thống",
-      "file": "ch2-fbm.html"
+      "file": "ch2-fbm.html",
+      "slug": "thanh-toan-thay-the-apm"
     },
     {
       "n": 3,
       "title": "Tại Sao Robo-Advisory Sẽ Thay Thế Nhiều Nhà Tư Vấn Đầu Tư",
       "sub": "Why Robo-Advisory Will Replace Many Investment Advisors — Phân tích mô hình kinh doanh tư vấn đầu tư tự động",
-      "file": "ch3-fbm.html"
+      "file": "ch3-fbm.html",
+      "slug": "tai-sao-robo-advisory-se-thay-the-nhieu-nha-tu-van-dau-tu"
     },
     {
       "n": 4,
       "title": "Nhu Cầu Về Social Trading",
       "sub": "The Need for Social Trading — Giao dịch xã hội: khi cộng đồng trở thành nhà quản lý quỹ",
-      "file": "ch4-fbm.html"
+      "file": "ch4-fbm.html",
+      "slug": "nhu-cau-ve-social-trading"
     },
     {
       "n": 5,
       "title": "Crowdfunding Có Thay Thế Vay Ngân Hàng Không?",
       "sub": "Năm mô hình crowdfunding, bốn Business Model Canvas đại diện, và dữ liệu tài trợ VC toàn ngành",
-      "file": "ch5-fbm.html"
+      "file": "ch5-fbm.html",
+      "slug": "crowdfunding-co-thay-the-vay-ngan-hang-khong"
     },
     {
       "n": 6,
       "title": "Cho Vay Bảng Cân Đối & Factoring",
       "sub": "Balance-sheet lending và marketplace lending — hai mô hình cốt lõi của fintech lending",
-      "file": "ch6-fbm.html"
+      "file": "ch6-fbm.html",
+      "slug": "cho-vay-bang-can-doi-factoring"
     },
     {
       "n": 7,
       "title": "Tương Lai Của Quản Lý Tài Chính Cá Nhân (PFM)",
       "sub": "Personal Finance Management — công cụ phân loại giao dịch, theo dõi ngân sách, và làn sóng PSD-2",
-      "file": "ch7-fbm.html"
+      "file": "ch7-fbm.html",
+      "slug": "tuong-lai-cua-quan-ly-tai-chinh-ca-nhan-pfm"
     },
     {
       "n": 8,
       "title": "Tác Động Của Công Nghệ Blockchain",
       "sub": "Từ nền tảng Bitcoin đến ứng dụng mở rộng khắp ngành tài chính — một trong những công nghệ nền tảng của cách mạng fintech",
-      "file": "ch8-fbm.html"
+      "file": "ch8-fbm.html",
+      "slug": "tac-dong-cua-cong-nghe-blockchain"
     },
     {
       "n": 9,
       "title": "Tiền Điện Tử Có Nghiêm Túc Không?",
       "sub": "How Serious Are Cryptocurrencies?",
-      "file": "ch9-fbm.html"
+      "file": "ch9-fbm.html",
+      "slug": "tien-dien-tu-co-nghiem-tuc-khong"
     },
     {
       "n": 10,
       "title": "Big Data Và Trí Tuệ Nhân Tạo Trong Ngân Hàng",
       "sub": "Big Data and Artificial Intelligence in Banking",
-      "file": "ch10-fbm.html"
+      "file": "ch10-fbm.html",
+      "slug": "big-data-va-tri-tue-nhan-tao-trong-ngan-hang"
     },
     {
       "n": 11,
       "title": "Tài Trợ Venture Capital Và Định Giá Fintech",
       "sub": "$102 tỷ USD vốn VC qua 8.448 vòng tài trợ toàn cầu (4/1992–4/2020) — bức tranh định giá toàn ngành fintech",
-      "file": "ch11-fbm.html"
+      "file": "ch11-fbm.html",
+      "slug": "tai-tro-venture-capital-va-dinh-gia-fintech"
     },
     {
       "n": 12,
       "title": "Kết Luận: Điều Chúng Ta Có Thể Và Không Thể Biết Về Tương Lai Fintech",
       "sub": "Ba con đường chiến lược của ngân hàng truyền thống trước làn sóng fintech",
-      "file": "ch12-fbm.html"
+      "file": "ch12-fbm.html",
+      "slug": "ket-luan-dieu-chung-ta-co-the-va-khong-the-biet-ve-tuong-lai-fintech"
     }
   ]
 }

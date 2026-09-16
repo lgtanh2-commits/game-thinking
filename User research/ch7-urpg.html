@@ -4,198 +4,222 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 07 – Card Sorting | User Research</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa;
-    --text: #111111;
-    --text-secondary: #333333;
-    --text-muted: #888888;
-    --border: #d8d8d8;
-    --border-strong: #999999;
-    --surface: #f2f2f2;
-    --surface-dark: #e0e0e0;
-    --accent-line: #111111;
-  }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.75;
-    color: var(--text);
-    background: var(--bg);
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 60px 40px 100px;
-  }
 
   .book-meta {
     font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-muted);
-    border-bottom: 1px solid var(--border);
+    color: var(--color-ash);
+    border-bottom: 1px solid var(--color-dew);
     padding-bottom: 14px;
     margin-bottom: 48px;
   }
 
+
+
   .chapter-header { margin-bottom: 56px; }
+
+
 
   .chapter-number {
     font-size: 11px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 12px;
   }
+
+
 
   .chapter-title {
     font-size: 38px;
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.02em;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 16px;
   }
 
+
+
   .chapter-subtitle {
     font-size: 17px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     font-style: italic;
-    border-left: 3px solid var(--accent-line);
+    border-left: 3px solid var(--color-sprout);
     padding-left: 16px;
   }
+
+
 
   h2 {
     font-size: 22px;
     font-weight: 700;
     letter-spacing: -0.01em;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-top: 52px;
     margin-bottom: 16px;
     padding-bottom: 8px;
-    border-bottom: 2px solid var(--accent-line);
+    border-bottom: 2px solid var(--color-sprout);
   }
+
+
 
   h3 {
     font-size: 17px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-top: 32px;
     margin-bottom: 10px;
   }
 
+
+
   h4 {
     font-size: 15px;
     font-weight: 700;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     margin-top: 24px;
     margin-bottom: 8px;
   }
 
+
+
   p {
     margin-bottom: 14px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
   }
 
-  p strong { color: var(--text); }
+
+
+  p strong { color: var(--color-slate-ink); }
+
+
 
   ul, ol {
     margin: 12px 0 18px 0;
     padding-left: 28px;
   }
 
+
+
   li {
     margin-bottom: 6px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     line-height: 1.65;
   }
 
-  li strong { color: var(--text); }
+
+
+  li strong { color: var(--color-slate-ink); }
+
+
 
   .highlight-box {
-    background: var(--surface);
-    border-left: 4px solid var(--accent-line);
+    background: #ffffff;
+    border-left: 4px solid var(--color-sprout);
     padding: 20px 24px;
     margin: 24px 0;
     border-radius: 0 4px 4px 0;
   }
+
+
 
   .highlight-box .box-label {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 8px;
   }
 
+
+
   .highlight-box p, .highlight-box li {
     font-size: 15px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
   }
 
+
+
   .definition {
-    background: var(--surface-dark);
-    border-left: 5px solid var(--text);
+    background: var(--color-dew);
+    border-left: 5px solid var(--color-slate-ink);
     padding: 18px 22px;
     margin: 24px 0;
     font-style: italic;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     font-size: 16px;
     line-height: 1.65;
   }
 
+
+
   .case-study {
-    border: 1px solid var(--border-strong);
-    border-top: 3px solid var(--accent-line);
+    border: 1px solid var(--color-mist);
+    border-top: 3px solid var(--color-sprout);
     padding: 24px 28px;
     margin: 32px 0;
-    background: var(--bg);
+    background: var(--color-parchment);
   }
+
+
 
   .case-study .cs-label {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 10px;
   }
+
+
 
   .case-study .cs-title {
     font-size: 15px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 12px;
   }
+
+
 
   .type-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1px;
-    background: var(--border-strong);
-    border: 1px solid var(--border-strong);
+    background: var(--color-mist);
+    border: 1px solid var(--color-mist);
     margin: 24px 0;
   }
 
+
+
   .type-grid .cell {
-    background: var(--bg);
+    background: var(--color-parchment);
     padding: 16px 18px;
   }
 
+
+
   .type-grid .cell-header {
-    background: var(--surface-dark);
+    background: var(--color-dew);
     padding: 12px 18px;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text);
+    color: var(--color-slate-ink);
   }
+
+
 
   .numbered-list {
     counter-reset: item;
@@ -204,24 +228,30 @@
     margin: 16px 0;
   }
 
+
+
   .numbered-list li {
     counter-increment: item;
     display: flex;
     gap: 14px;
     margin-bottom: 12px;
     padding-bottom: 12px;
-    border-bottom: 1px dashed var(--border);
+    border-bottom: 1px dashed var(--color-dew);
     align-items: flex-start;
   }
 
+
+
   .numbered-list li:last-child { border-bottom: none; }
+
+
 
   .numbered-list li::before {
     content: counter(item);
     min-width: 26px;
     height: 26px;
-    background: var(--text);
-    color: var(--bg);
+    background: var(--color-slate-ink);
+    color: var(--color-parchment);
     font-size: 12px;
     font-weight: 700;
     display: flex;
@@ -231,44 +261,54 @@
     margin-top: 2px;
   }
 
+
+
   .protocol-section {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     padding: 20px 24px;
     margin: 20px 0;
   }
+
+
 
   .protocol-section .ps-heading {
     font-size: 13px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text);
-    border-bottom: 1px solid var(--border);
+    color: var(--color-slate-ink);
+    border-bottom: 1px solid var(--color-dew);
     padding-bottom: 8px;
     margin-bottom: 12px;
   }
 
+
+
   .script-box {
-    background: var(--bg);
-    border: 1px solid var(--border);
+    background: var(--color-parchment);
+    border: 1px solid var(--color-dew);
     padding: 16px 20px;
     margin: 16px 0;
     font-size: 14px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     font-style: italic;
     line-height: 1.7;
   }
+
+
 
   .script-box .script-label {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 8px;
     font-style: normal;
   }
+
+
 
   .tool-checklist {
     list-style: none;
@@ -276,39 +316,51 @@
     margin: 12px 0;
   }
 
+
+
   .tool-checklist li {
     display: flex;
     gap: 10px;
     padding: 8px 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
     align-items: flex-start;
   }
 
+
+
   .tool-checklist li:last-child { border-bottom: none; }
+
+
 
   .tool-checklist li::before {
     content: "→";
-    color: var(--text-muted);
+    color: var(--color-ash);
     font-weight: 700;
     flex-shrink: 0;
   }
 
+
+
   .section-divider {
     height: 1px;
-    background: var(--border);
+    background: var(--color-dew);
     margin: 48px 0;
   }
+
+
 
   .chapter-footer {
     margin-top: 80px;
     padding-top: 24px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
     display: flex;
     justify-content: space-between;
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     letter-spacing: 0.06em;
   }
+
+
 
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -316,31 +368,12 @@
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
 
-<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<p class="book-topline"><a href="/user-research-practical-guide">← Về mục lục</a></p>
 <div class="book-meta">User Research: A Practical Guide — Stephanie Marsh &nbsp;·&nbsp; Phần Hai: Phương Pháp Nghiên Cứu &nbsp;·&nbsp; Trang 106–120</div>
 
 <div class="chapter-header">
@@ -598,8 +631,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch6-urpg.html"><span class="lbl">Chương trước</span>Chương 6: Kiểm Tra Nội Dung</a>
-  <a href="ch8-urpg.html"><span class="lbl">Chương sau</span>Chương 8: Khảo Sát</a>
+  <a href="/user-research-practical-guide/kiem-tra-noi-dung"><span class="lbl">Chương trước</span>Chương 6: Kiểm Tra Nội Dung</a>
+  <a href="/user-research-practical-guide/khao-sat"><span class="lbl">Chương sau</span>Chương 8: Khảo Sát</a>
 </nav>
 </body>
 </html>

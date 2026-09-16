@@ -4,137 +4,156 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 4 – Xu Hướng Ngân Hàng Bán Lẻ | BKRB</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa;
-    --text: #111111;
-    --text-secondary: #333333;
-    --text-muted: #888888;
-    --border: #d8d8d8;
-    --border-strong: #999999;
-    --surface: #f2f2f2;
-    --surface-dark: #e0e0e0;
-    --accent-line: #111111;
-  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.75;
-    color: var(--text);
-    background: var(--bg);
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 60px 40px 100px;
-  }
+
+
 
   /* ── NAV ── */
   .breadcrumb {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     letter-spacing: .06em;
     text-transform: uppercase;
     margin-bottom: 48px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
     padding-bottom: 16px;
   }
+
+
   .breadcrumb span { margin: 0 6px; }
+
+
 
   /* ── CHAPTER HEADER ── */
   .chapter-header {
     margin-bottom: 64px;
-    border-left: 4px solid var(--accent-line);
+    border-left: 4px solid var(--color-sprout);
     padding-left: 24px;
   }
+
+
   .chapter-label {
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 10px;
   }
+
+
   .chapter-title {
     font-size: 34px;
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -.01em;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 18px;
   }
+
+
   .chapter-subtitle {
     font-size: 17px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     font-weight: 400;
     margin-bottom: 20px;
   }
+
+
   .chapter-meta {
     font-size: 13px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     display: flex;
     gap: 24px;
     flex-wrap: wrap;
   }
+
+
   .chapter-meta span::before { content: '— '; }
+
+
 
   /* ── SECTIONS ── */
   .section {
     margin-bottom: 60px;
     padding-bottom: 60px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
   .section:last-child { border-bottom: none; }
+
+
   .section-number {
     font-size: 11px;
     letter-spacing: .12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 8px;
   }
+
+
   .section-title {
     font-size: 24px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 20px;
     line-height: 1.25;
   }
+
+
   .section-intro {
     font-size: 16px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin-bottom: 24px;
     padding-left: 16px;
-    border-left: 2px solid var(--border-strong);
+    border-left: 2px solid var(--color-mist);
   }
+
+
 
   /* ── SUBSECTIONS ── */
   h3 {
     font-size: 17px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin: 32px 0 12px;
     padding-bottom: 6px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
   h4 {
     font-size: 15px;
     font-weight: 700;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin: 24px 0 8px;
     text-transform: uppercase;
     letter-spacing: .06em;
     font-size: 13px;
   }
-  p { margin-bottom: 16px; color: var(--text-secondary); }
+
+
+  p { margin-bottom: 16px; color: var(--color-slate-ink); }
+
+
 
   /* ── CALLOUT / STAT BOX ── */
   .callout {
-    background: var(--surface);
-    border-left: 3px solid var(--accent-line);
+    background: #ffffff;
+    border-left: 3px solid var(--color-sprout);
     padding: 18px 20px;
     margin: 24px 0;
     font-size: 15px;
-    color: var(--text);
+    color: var(--color-slate-ink);
   }
-  .callout strong { color: var(--text); }
+
+
+  .callout strong { color: var(--color-slate-ink); }
+
+
 
   /* ── STAT ROW ── */
   .stat-row {
@@ -143,26 +162,34 @@
     gap: 16px;
     margin: 24px 0;
   }
+
+
   .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     padding: 18px 16px;
     text-align: center;
   }
+
+
   .stat-card .num {
     font-size: 26px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     line-height: 1.1;
     margin-bottom: 6px;
     letter-spacing: -.02em;
   }
+
+
   .stat-card .lbl {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     text-transform: uppercase;
     letter-spacing: .07em;
   }
+
+
 
   /* ── TREND GRID (overview cards) ── */
   .trend-grid {
@@ -171,32 +198,42 @@
     gap: 12px;
     margin: 32px 0;
   }
+
+
   .trend-card {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 18px 16px;
     background: #fff;
   }
+
+
   .trend-card .trend-num {
     font-size: 11px;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 6px;
   }
+
+
   .trend-card .trend-name {
     font-size: 14px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     line-height: 1.3;
   }
+
+
   .trend-card .trend-tag {
     display: inline-block;
     margin-top: 10px;
     font-size: 11px;
-    background: var(--surface-dark);
+    background: var(--color-dew);
     padding: 2px 8px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
   }
+
+
 
   /* ── PILLAR TABLE ── */
   table {
@@ -205,24 +242,32 @@
     margin: 20px 0;
     font-size: 14px;
   }
+
+
   th {
-    background: var(--surface-dark);
-    color: var(--text);
+    background: var(--color-dew);
+    color: var(--color-slate-ink);
     font-weight: 700;
     padding: 10px 14px;
     text-align: left;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: .05em;
   }
+
+
   td {
     padding: 10px 14px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     vertical-align: top;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
   }
-  tr:nth-child(even) td { background: var(--surface); }
+
+
+  tr:nth-child(even) td { background: #ffffff; }
+
+
 
   /* ── SOX SECTIONS ── */
   .sox-grid {
@@ -231,27 +276,39 @@
     gap: 12px;
     margin: 20px 0;
   }
+
+
   .sox-card {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 16px;
     background: #fff;
   }
+
+
   .sox-card .sox-sec {
     font-size: 20px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 4px;
   }
+
+
   .sox-card .sox-title {
     font-size: 13px;
     font-weight: 700;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: .05em;
   }
-  .sox-card p { font-size: 13px; color: var(--text-muted); margin: 0; }
-  .sox-card.highlight { background: var(--surface); border-color: var(--border-strong); }
+
+
+  .sox-card p { font-size: 13px; color: var(--color-ash); margin: 0; }
+
+
+  .sox-card.highlight { background: #ffffff; border-color: var(--color-mist); }
+
+
 
   /* ── RISK TYPE CARDS ── */
   .risk-row {
@@ -260,32 +317,44 @@
     gap: 12px;
     margin: 20px 0;
   }
+
+
   .risk-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     padding: 16px;
     text-align: center;
   }
+
+
   .risk-card .risk-name {
     font-size: 14px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 8px;
   }
+
+
   .risk-card .risk-vi {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
   }
+
+
 
   /* ── SWIFT MSG TABLE ── */
   .swift-table { font-size: 13px; }
+
+
   .swift-table .msg-code {
     font-family: 'Courier New', monospace;
     font-weight: 700;
-    color: var(--text);
-    background: var(--surface-dark);
+    color: var(--color-slate-ink);
+    background: var(--color-dew);
     padding: 2px 6px;
   }
+
+
 
   /* ── FACTOR TAG ── */
   .factor-list {
@@ -294,14 +363,18 @@
     gap: 10px;
     margin: 16px 0;
   }
+
+
   .factor-tag {
-    background: var(--surface-dark);
-    border: 1px solid var(--border);
+    background: var(--color-dew);
+    border: 1px solid var(--color-dew);
     padding: 6px 14px;
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     font-weight: 600;
   }
+
+
 
   /* ── SEPA COMPONENTS ── */
   .sepa-grid {
@@ -310,81 +383,105 @@
     gap: 10px;
     margin: 20px 0;
   }
+
+
   .sepa-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     padding: 14px 12px;
     font-size: 13px;
     font-weight: 600;
-    color: var(--text);
+    color: var(--color-slate-ink);
     text-align: center;
   }
 
+
+
   /* ── BUY TO LET TABLE ── */
   .buytlet-callout {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     padding: 20px;
     margin: 24px 0;
   }
 
+
+
   /* ── INLINE HIGHLIGHT ── */
-  .hl { background: var(--surface-dark); padding: 1px 5px; font-weight: 600; }
-  .en { color: var(--text-muted); font-style: italic; font-size: 14px; }
+  .hl { background: var(--color-dew); padding: 1px 5px; font-weight: 600; }
+
+
+  .en { color: var(--color-ash); font-style: italic; font-size: 14px; }
+
+
 
   /* ── PAGE REF ── */
   .page-ref {
     font-size: 11px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     float: right;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 1px 8px;
     margin-left: 12px;
   }
 
+
+
   /* ── TOC ── */
   .toc {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     padding: 28px 32px;
     margin-bottom: 60px;
   }
+
+
   .toc-title {
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: .1em;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 20px;
   }
+
+
   .toc ol {
     padding-left: 0;
     list-style: none;
     columns: 2;
     column-gap: 32px;
   }
+
+
   .toc li {
     font-size: 14px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin-bottom: 8px;
     break-inside: avoid;
   }
+
+
   .toc li span {
-    color: var(--text-muted);
+    color: var(--color-ash);
     font-size: 12px;
     margin-right: 8px;
     font-weight: 700;
   }
 
+
+
   /* ── FOOTER ── */
   .footer {
     margin-top: 80px;
     padding-top: 24px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     display: flex;
     justify-content: space-between;
   }
+
+
 
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -392,30 +489,11 @@
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/business-knowledge-it-retail-banking">← Về mục lục</a></p>
+<p class="book-topline"><a href="/business-knowledge-it-retail-banking">← Về mục lục</a></p>
 
 <div class="breadcrumb">
   Business Knowledge for IT in Retail Banking
@@ -1146,8 +1224,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch3-bkrb.html"><span class="lbl">Chương trước</span>Chương 3: Môi Trường Kinh Doanh Trong Ngân Hàng Bán Lẻ</a>
-  <a href="ch5-bkrb.html"><span class="lbl">Chương sau</span>Chương 5: Mở Tài Khoản Trong Ngân Hàng Bán Lẻ</a>
+  <a href="/business-knowledge-it-retail-banking/moi-truong-kinh-doanh-trong-ngan-hang-ban-le"><span class="lbl">Chương trước</span>Chương 3: Môi Trường Kinh Doanh Trong Ngân Hàng Bán Lẻ</a>
+  <a href="/business-knowledge-it-retail-banking/mo-tai-khoan-trong-ngan-hang-ban-le"><span class="lbl">Chương sau</span>Chương 5: Mở Tài Khoản Trong Ngân Hàng Bán Lẻ</a>
 </nav>
 </body>
 </html>

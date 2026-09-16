@@ -3,42 +3,49 @@
   "title": "Design Thinking Handbook",
   "author": "Eli Woolery · DesignBetter.Co by InVision",
   "tag": "Quy trình 5 giai đoạn · Empathize → Test",
+  "category": "UX/UI",
   "chapters": [
     {
       "n": 1,
       "title": "Tại Sao Chúng Ta Cần Design Thinking",
       "sub": "Giải quyết những thách thức phức tạp",
-      "file": "ch1-dt-handbook.html"
+      "file": "ch1-dt-handbook.html",
+      "slug": "tai-sao-chung-ta-can-design-thinking"
     },
     {
       "n": 2,
       "title": "Thấu Cảm: Trái Tim Của Thiết Kế",
       "sub": "",
-      "file": "ch2-dt-handbook.html"
+      "file": "ch2-dt-handbook.html",
+      "slug": "thau-cam-trai-tim-cua-thiet-ke"
     },
     {
       "n": 3,
       "title": "Định Nghĩa: Tái Định Khung Vấn Đề",
       "sub": "",
-      "file": "ch3-dt-handbook.html"
+      "file": "ch3-dt-handbook.html",
+      "slug": "dinh-nghia-tai-dinh-khung-van-de"
     },
     {
       "n": 4,
       "title": "Ý Tưởng Hóa: Vượt Ra Ngoài Brainstorm Thông Thường",
       "sub": "",
-      "file": "ch4-dt-handbook.html"
+      "file": "ch4-dt-handbook.html",
+      "slug": "y-tuong-hoa-vuot-ra-ngoai-brainstorm-thong-thuong"
     },
     {
       "n": 5,
       "title": "Tạo Mẫu Thử: Học Thông Minh Hơn, Nhanh Hơn",
       "sub": "",
-      "file": "ch5-dt-handbook.html"
+      "file": "ch5-dt-handbook.html",
+      "slug": "tao-mau-thu-hoc-thong-minh-hon-nhanh-hon"
     },
     {
       "n": 6,
       "title": "Kiểm Thử: Sớm Và Thường Xuyên",
       "sub": "",
-      "file": "ch6-dt-handbook.html"
+      "file": "ch6-dt-handbook.html",
+      "slug": "kiem-thu-som-va-thuong-xuyen"
     }
   ]
 }

@@ -3,48 +3,56 @@
   "title": "Thiết Kế Lấy Người Dùng Làm Trung Tâm",
   "author": "Don Norman · The Design of Everyday Things · Phương Lan dịch",
   "tag": "UX Design · Nguyên Lý Kinh Điển",
+  "category": "UX/UI",
   "chapters": [
     {
       "n": 1,
       "title": "Tâm Lý Học Trong Thiết Kế",
       "sub": "The Psychopathology of Everyday Things",
-      "file": "ch1-doet.html"
+      "file": "ch1-doet.html",
+      "slug": "tam-ly-hoc-trong-thiet-ke"
     },
     {
       "n": 2,
       "title": "Tâm Lý Học Trong Các Hoạt Động Thường Ngày",
       "sub": "The Psychology of Everyday Actions",
-      "file": "ch2-doet.html"
+      "file": "ch2-doet.html",
+      "slug": "tam-ly-hoc-trong-cac-hoat-dong-thuong-ngay"
     },
     {
       "n": 3,
       "title": "Kiến Thức Trong Đầu Và Kiến Thức Thực Tế",
       "sub": "Knowledge in the Head and in the World — Tại sao con người hành xử đúng dù kiến thức không hoàn toàn chính xác, và cách thiết kế khai thác điều đó",
-      "file": "ch3-doet.html"
+      "file": "ch3-doet.html",
+      "slug": "kien-thuc-trong-dau-va-kien-thuc-thuc-te"
     },
     {
       "n": 4,
       "title": "Biết Phải Làm Gì: Các Giới Hạn, Khả Năng Có Thể Được Khám Phá và Phản Hồi",
       "sub": "Khi gặp vật dụng lạ, con người vẫn tìm được cách dùng đúng — nhờ bộ tứ giới hạn vật lý, văn hóa, ngữ nghĩa và lô-gic",
-      "file": "ch4-doet.html"
+      "file": "ch4-doet.html",
+      "slug": "biet-phai-lam-gi-cac-gioi-han-kha-nang-co-the-duoc-kham-pha-va-phan-hoi"
     },
     {
       "n": 5,
       "title": "Lỗi Của Con Người? Không, Lỗi Của Thiết Kế",
       "sub": "Phân tích nguyên nhân gốc rễ, phân loại lỗi, và nguyên tắc thiết kế để đối phó với sai phạm của con người",
-      "file": "ch5-doet.html"
+      "file": "ch5-doet.html",
+      "slug": "loi-cua-con-nguoi-khong-loi-cua-thiet-ke"
     },
     {
       "n": 6,
       "title": "Tư Duy Thiết Kế",
       "sub": "Design Thinking — Từ việc xác định đúng vấn đề đến thiết kế lấy con người làm trung tâm",
-      "file": "ch6-doet.html"
+      "file": "ch6-doet.html",
+      "slug": "tu-duy-thiet-ke"
     },
     {
       "n": 7,
       "title": "Thiết Kế Trong Thế Giới Kinh Doanh",
       "sub": "Design in the World of Business — Từ cuồng tính năng đến công nghệ mới và bài học lịch sử",
-      "file": "ch7-doet.html"
+      "file": "ch7-doet.html",
+      "slug": "thiet-ke-trong-the-gioi-kinh-doanh"
     }
   ]
 }

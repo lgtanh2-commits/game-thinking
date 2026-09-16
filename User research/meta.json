@@ -3,180 +3,210 @@
   "title": "User Research: A Practical Guide to Designing Better Products and Services",
   "author": "Stephanie Marsh · Kogan Page · 2018",
   "tag": "UX Research · Practical Guide",
+  "category": "UX/UI",
   "chapters": [
     {
       "n": 1,
       "title": "Giới Thiệu: Tại Sao Nghiên Cứu Người Dùng Lại Quan Trọng?",
       "sub": "Introduction: Why User Research Matters",
-      "file": "ch1-urpg.html"
+      "file": "ch1-urpg.html",
+      "slug": "gioi-thieu-tai-sao-nghien-cuu-nguoi-dung-lai-quan-trong"
     },
     {
       "n": 2,
       "title": "Lập Kế Hoạch, Mục Tiêu và Các Vấn Đề Pháp Lý",
       "sub": "Planning, Goals and Legal Issues",
-      "file": "ch2-urpg.html"
+      "file": "ch2-urpg.html",
+      "slug": "lap-ke-hoach-muc-tieu-va-cac-van-de-phap-ly"
     },
     {
       "n": 3,
       "title": "Thực Hành Tốt Nhất trong Nghiên Cứu Người Dùng",
       "sub": "User Research Best Practice: Who, What, Why and How",
-      "file": "ch3-urpg.html"
+      "file": "ch3-urpg.html",
+      "slug": "thuc-hanh-tot-nhat-trong-nghien-cuu-nguoi-dung"
     },
     {
       "n": 4,
       "title": "Quản Lý Logistics Nghiên Cứu Người Dùng",
       "sub": "Managing User Research Logistics: Agencies, Facilities and Contracts",
-      "file": "ch4-urpg.html"
+      "file": "ch4-urpg.html",
+      "slug": "quan-ly-logistics-nghien-cuu-nguoi-dung"
     },
     {
       "n": 5,
       "title": "Kiểm Tra Khả Năng Sử Dụng",
       "sub": "Quan sát người dùng thực hiện nhiệm vụ để phát hiện vấn đề",
-      "file": "ch5-urpg.html"
+      "file": "ch5-urpg.html",
+      "slug": "kiem-tra-kha-nang-su-dung"
     },
     {
       "n": 6,
       "title": "Kiểm Tra Nội Dung",
       "sub": "Người dùng hiểu nội dung của bạn như thế nào?",
-      "file": "ch6-urpg.html"
+      "file": "ch6-urpg.html",
+      "slug": "kiem-tra-noi-dung"
     },
     {
       "n": 7,
       "title": "Card Sorting",
       "sub": "Hiểu cách người dùng phân nhóm và liên kết thông tin",
-      "file": "ch7-urpg.html"
+      "file": "ch7-urpg.html",
+      "slug": "card-sorting"
     },
     {
       "n": 8,
       "title": "Khảo Sát",
       "sub": "Cách đo lường phản hồi người dùng trên diện rộng",
-      "file": "ch8-urpg.html"
+      "file": "ch8-urpg.html",
+      "slug": "khao-sat"
     },
     {
       "n": 9,
       "title": "Phỏng Vấn Người Dùng",
       "sub": "Hiểu thái độ, sở thích, hành vi và bối cảnh của người dùng qua đối thoại trực tiếp",
-      "file": "ch9-urpg.html"
+      "file": "ch9-urpg.html",
+      "slug": "phong-van-nguoi-dung"
     },
     {
       "n": 10,
       "title": "Nghiên Cứu Nhật Ký",
       "sub": "Theo dõi trải nghiệm, hành vi và thái độ của người dùng theo thời gian qua nhật ký tự ghi",
-      "file": "ch10-urpg.html"
+      "file": "ch10-urpg.html",
+      "slug": "nghien-cuu-nhat-ky"
     },
     {
       "n": 11,
       "title": "Kiểm Định Kiến Trúc Thông Tin",
       "sub": "Cấu trúc thông tin của bạn có hoạt động đúng với người dùng không?",
-      "file": "ch11-urpg.html"
+      "file": "ch11-urpg.html",
+      "slug": "kiem-dinh-kien-truc-thong-tin"
     },
     {
       "n": 12,
       "title": "Dân Tộc Học",
       "sub": "Quan sát con người trong môi trường tự nhiên của họ",
-      "file": "ch12-urpg.html"
+      "file": "ch12-urpg.html",
+      "slug": "dan-toc-hoc"
     },
     {
       "n": 13,
       "title": "Nghiên Cứu Bối Cảnh",
       "sub": "Phỏng vấn người dùng ngay trong môi trường của họ",
-      "file": "ch13-urpg.html"
+      "file": "ch13-urpg.html",
+      "slug": "nghien-cuu-boi-canh"
     },
     {
       "n": 14,
       "title": "Kiểm Thử A/B",
       "sub": "Kỹ thuật nghiên cứu người dùng để so sánh các phương án",
-      "file": "ch14-urpg.html"
+      "file": "ch14-urpg.html",
+      "slug": "kiem-thu-a-b"
     },
     {
       "n": 15,
       "title": "Workshop Với Stakeholder",
       "sub": "Khai thác tối đa giá trị từ các buổi workshop",
-      "file": "ch15-urpg.html"
+      "file": "ch15-urpg.html",
+      "slug": "workshop-voi-stakeholder"
     },
     {
       "n": 16,
       "title": "Nghiên Cứu Gerilla",
       "sub": "Thực hiện nghiên cứu nhanh trong thế giới thực",
-      "file": "ch16-urpg.html"
+      "file": "ch16-urpg.html",
+      "slug": "nghien-cuu-gerilla"
     },
     {
       "n": 17,
       "title": "Kết Hợp Các Phương Pháp Nghiên Cứu Người Dùng",
       "sub": "",
-      "file": "ch17-urpg.html"
+      "file": "ch17-urpg.html",
+      "slug": "ket-hop-cac-phuong-phap-nghien-cuu-nguoi-dung"
     },
     {
       "n": 18,
       "title": "Phân Tích Nội Dung",
       "sub": "Mã hóa và phân loại dữ liệu định tính một cách có hệ thống",
-      "file": "ch18-urpg.html"
+      "file": "ch18-urpg.html",
+      "slug": "phan-tich-noi-dung"
     },
     {
       "n": 19,
       "title": "Sơ Đồ Ái Lực",
       "sub": "Hiểu dữ liệu thông qua việc xác định các chủ đề",
-      "file": "ch19-urpg.html"
+      "file": "ch19-urpg.html",
+      "slug": "so-do-ai-luc"
     },
     {
       "n": 20,
       "title": "Ưu Tiên Hóa Vấn Đề và Nhu Cầu Người Dùng",
       "sub": "Điều gì quan trọng và cần làm gì tiếp theo?",
-      "file": "ch20-urpg.html"
+      "file": "ch20-urpg.html",
+      "slug": "uu-tien-hoa-van-de-va-nhu-cau-nguoi-dung"
     },
     {
       "n": 21,
       "title": "Đưa Ra Khuyến Nghị",
       "sub": "Cách biến kết quả nghiên cứu thành hành động có thể thực hiện được",
-      "file": "ch21-urpg.html"
+      "file": "ch21-urpg.html",
+      "slug": "dua-ra-khuyen-nghi"
     },
     {
       "n": 22,
       "title": "Tóm Tắt Điều Hành và Báo Cáo",
       "sub": "Cách trình bày kết quả nghiên cứu một cách thực tế và hữu ích nhất",
-      "file": "ch22-urpg.html"
+      "file": "ch22-urpg.html",
+      "slug": "tom-tat-dieu-hanh-va-bao-cao"
     },
     {
       "n": 23,
       "title": "Sử Dụng Video để Trình Bày Kết Quả Nghiên Cứu",
       "sub": "Video là công cụ mạnh mẽ để truyền đạt phát hiện và tạo sự đồng cảm với người dùng",
-      "file": "ch23-urpg.html"
+      "file": "ch23-urpg.html",
+      "slug": "su-dung-video-de-trinh-bay-ket-qua-nghien-cuu"
     },
     {
       "n": 24,
       "title": "Sử Dụng Persona để Truyền Đạt Đặc Điểm và Hành Vi Người Dùng",
       "sub": "Đưa nhóm người dùng vào cuộc sống — giúp tổ chức xây dựng sản phẩm tốt hơn cho con người thực",
-      "file": "ch24-urpg.html"
+      "file": "ch24-urpg.html",
+      "slug": "su-dung-persona-de-truyen-dat-dac-diem-va-hanh-vi-nguoi-dung"
     },
     {
       "n": 25,
       "title": "Sử Dụng Mô Hình Tư Duy để Trực Quan Hóa Cách Người Dùng Nghĩ và Xác Định Cơ Hội",
       "sub": "Lấp đầy khoảng cách giữa cách người dùng nghĩ về sản phẩm và những gì sản phẩm thực sự cung cấp",
-      "file": "ch25-urpg.html"
+      "file": "ch25-urpg.html",
+      "slug": "su-dung-mo-hinh-tu-duy-de-truc-quan-hoa-cach-nguoi-dung-nghi-va-xac-dinh-co-hoi"
     },
     {
       "n": 26,
       "title": "Sử Dụng Bản Đồ Hành Trình và Trải Nghiệm để Trực Quan Hóa Dữ Liệu Nghiên Cứu",
       "sub": "Cung cấp cái nhìn tổng thể về trải nghiệm người dùng trên tất cả các kênh và điểm tiếp xúc",
-      "file": "ch26-urpg.html"
+      "file": "ch26-urpg.html",
+      "slug": "su-dung-ban-do-hanh-trinh-va-trai-nghiem-de-truc-quan-hoa-du-lieu-nghien-cuu"
     },
     {
       "n": 27,
       "title": "Sử Dụng Kịch Bản và Storyboard để Đại Diện cho Hành Trình Người Dùng",
       "sub": "Đặt người dùng vào trung tâm của quy trình thiết kế và phát triển",
-      "file": "ch27-urpg.html"
+      "file": "ch27-urpg.html",
+      "slug": "su-dung-kich-ban-va-storyboard-de-dai-dien-cho-hanh-trinh-nguoi-dung"
     },
     {
       "n": 28,
       "title": "Sử Dụng Infographic để Chuyển Đổi Dữ Liệu Số và Thống Kê",
       "sub": "Biến dữ liệu phức tạp thành trực quan dễ hiểu và dễ nhớ",
-      "file": "ch28-urpg.html"
+      "file": "ch28-urpg.html",
+      "slug": "su-dung-infographic-de-chuyen-doi-du-lieu-so-va-thong-ke"
     },
     {
       "n": 29,
       "title": "Đề Xuất Thay Đổi Thiết Kế về Hình Ảnh, Tương Tác và Kiến Trúc Thông Tin",
       "sub": "How to recommend changes to visual, interaction and information architecture design",
-      "file": "ch29-urpg.html"
+      "file": "ch29-urpg.html",
+      "slug": "de-xuat-thay-doi-thiet-ke-ve-hinh-anh-tuong-tac-va-kien-truc-thong-tin"
     }
   ]
 }

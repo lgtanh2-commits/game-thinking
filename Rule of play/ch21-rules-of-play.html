@@ -4,179 +4,208 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ch. 21 — Breaking the Rules · Rules of Play</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-:root {
-  --bg: #f8f7f4;
-  --text: #1a1a1a;
-  --muted: #555;
-  --dim: #888;
-  --rule: #c8c4bc;
-  --pull-bg: #eeece8;
-  --pull-border: #1a1a1a;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 17px;
-  line-height: 1.75;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 64px 28px 96px;
-}
+
 header { margin-bottom: 56px; }
+
+
 .eyebrow {
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--dim);
+  color: var(--color-fog);
   display: block;
   margin-bottom: 10px;
 }
-h1 {
-  font-family: Georgia, serif;
-  font-size: 1.85rem;
-  font-weight: normal;
-  line-height: 1.25;
-  margin-bottom: 14px;
-}
-.subtitle { font-size: 1rem; color: var(--muted); font-style: italic; }
+
+
+.subtitle { font-size: 1rem; color: var(--color-ash); font-style: italic; }
+
+
 h2 {
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--color-ash);
   padding-top: 8px;
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid var(--color-dew);
   margin-top: 52px;
   margin-bottom: 16px;
 }
-h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
-p { margin-bottom: 1em; }
+
+
 blockquote {
-  background: var(--pull-bg);
-  border-left: 3px solid var(--pull-border);
+  background: var(--color-dew);
+  border-left: 3px solid var(--color-sprout);
   margin: 24px 0;
   padding: 16px 20px;
   font-style: italic;
 }
-blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
-.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
-.grid-cell { background: var(--bg); padding: 18px 16px; }
+
+
+blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--color-ash); margin-top: 8px; }
+
+
+.grid { display: grid; gap: 1px; background: var(--color-dew); border: 1px solid var(--color-dew); margin: 24px 0; }
+
+
+.grid-cell { background: var(--color-parchment); padding: 18px 16px; }
+
+
 .grid-cell strong {
   font-family: system-ui, sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--color-ash);
   display: block;
   margin-bottom: 6px;
 }
+
+
 .cols-2 { grid-template-columns: 1fr 1fr; }
+
+
 .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+
 
 /* Player type table */
 .player-table {
-  border: 1px solid var(--rule);
+  border: 1px solid var(--color-dew);
   margin: 24px 0;
 }
+
+
 .player-header {
   display: grid;
   grid-template-columns: 160px 1fr 1fr 1fr;
   gap: 1px;
-  background: var(--rule);
-  border-bottom: 2px solid var(--rule);
+  background: var(--color-dew);
+  border-bottom: 2px solid var(--color-dew);
 }
+
+
 .player-header-cell {
-  background: var(--pull-bg);
+  background: var(--color-dew);
   padding: 10px 14px;
   font-family: system-ui, sans-serif;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--color-ash);
 }
+
+
 .player-row {
   display: grid;
   grid-template-columns: 160px 1fr 1fr 1fr;
   gap: 1px;
-  background: var(--rule);
-  border-bottom: 1px solid var(--rule);
+  background: var(--color-dew);
+  border-bottom: 1px solid var(--color-dew);
 }
+
+
 .player-row:last-child { border-bottom: none; }
+
+
 .player-name {
-  background: var(--pull-bg);
+  background: var(--color-dew);
   padding: 14px 16px;
   font-family: system-ui, sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--text);
+  color: var(--color-slate-ink);
 }
+
+
 .player-cell {
-  background: var(--bg);
+  background: var(--color-parchment);
   padding: 14px 16px;
   font-size: 0.9rem;
 }
 
+
+
 /* Digital rule-breaking list */
 .rulebreak-list {
   list-style: none;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--color-dew);
   margin: 20px 0 24px;
 }
+
+
 .rulebreak-list li {
   padding: 16px 20px;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--color-dew);
 }
+
+
 .rulebreak-list li:last-child { border-bottom: none; }
+
+
 .rulebreak-list li strong {
   font-family: system-ui, sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--color-ash);
   display: block;
   margin-bottom: 5px;
 }
 
+
+
 /* Illuminati rules */
 .illuminati-box {
-  border: 1px solid var(--rule);
+  border: 1px solid var(--color-dew);
   margin: 24px 0;
 }
+
+
 .illuminati-header {
-  background: var(--pull-bg);
+  background: var(--color-dew);
   padding: 12px 20px;
   font-family: system-ui, sans-serif;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--muted);
-  border-bottom: 1px solid var(--rule);
+  color: var(--color-ash);
+  border-bottom: 1px solid var(--color-dew);
 }
+
+
 .illuminati-content {
   padding: 16px 20px;
 }
+
+
 .illuminati-content ul {
   padding-left: 22px;
   margin-bottom: 0.5em;
 }
+
+
 .illuminati-content li { margin-bottom: 0.4em; }
 
+
+
 .summary-box {
-  border: 1px solid var(--rule);
+  border: 1px solid var(--color-dew);
   padding: 28px 32px;
   margin: 40px 0 0;
 }
+
+
 .summary-box h3 {
   margin-top: 0;
   font-style: normal;
@@ -184,19 +213,27 @@ blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color:
   font-family: system-ui, sans-serif;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--color-ash);
   margin-bottom: 16px;
 }
+
+
 .summary-box ul { padding-left: 22px; }
+
+
 .summary-box li { margin-bottom: 0.6em; }
+
+
 .callout {
   font-family: system-ui, sans-serif;
   font-size: 0.82rem;
-  color: var(--muted);
-  border-top: 1px solid var(--rule);
+  color: var(--color-ash);
+  border-top: 1px solid var(--color-dew);
   padding-top: 12px;
   margin-top: 32px;
 }
+
+
 
   /* ── chapter navigation (added) ── */
   .book-topline {
@@ -204,30 +241,11 @@ blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color:
     font-size: 12.5px;
     margin-bottom: 36px;
   }
-  .book-topline a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--rule);
-    font-family: system-ui, -apple-system, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--rule); border-radius: 10px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease, background .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); background: var(--pull-bg); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--dim); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/rules-of-play">← Rules of Play — Mục lục</a></p>
+<p class="book-topline"><a href="/rules-of-play">← Rules of Play — Mục lục</a></p>
 
 <header>
   <span class="eyebrow">Rules of Play &nbsp;·&nbsp; Unit Two: Rules &nbsp;·&nbsp; Chapter 21</span>
@@ -383,8 +401,8 @@ blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color:
 
 
 <nav class="chapnav">
-  <a href="ch20-rules-of-play.html"><span class="lbl">Chương trước</span>Chương 20: Games as Systems of Conflict</a>
-  <a href="ch22-rules-of-play.html"><span class="lbl">Chương sau</span>Chương 22: Defining Play</a>
+  <a href="/rules-of-play/games-as-systems-of-conflict"><span class="lbl">Chương trước</span>Chương 20: Games as Systems of Conflict</a>
+  <a href="/rules-of-play/defining-play"><span class="lbl">Chương sau</span>Chương 22: Defining Play</a>
 </nav>
 </body>
 </html>

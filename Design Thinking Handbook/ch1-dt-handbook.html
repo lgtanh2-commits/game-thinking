@@ -4,253 +4,311 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 1 — Tại Sao Chúng Ta Cần Design Thinking</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-:root {
-  --bg: #fafafa;
-  --text: #111111;
-  --text-secondary: #333333;
-  --text-muted: #888888;
-  --border: #d8d8d8;
-  --border-strong: #999999;
-  --surface: #f2f2f2;
-  --surface-dark: #e0e0e0;
-  --accent-line: #111111;
-}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+
 html { font-size: 16px; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.75;
-  max-width: 780px;
-  margin: 0 auto;
-  padding: 60px 40px 100px;
-}
+
+
 /* ── HEADER ── */
 .book-meta {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--color-ash);
   font-family: 'Courier New', monospace;
   margin-bottom: 8px;
 }
+
+
 .chapter-label {
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--color-ash);
   margin-bottom: 18px;
 }
+
+
 h1.chapter-title {
   font-size: 2.6rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;
-  color: var(--text);
+  color: var(--color-slate-ink);
   margin-bottom: 8px;
 }
+
+
 .chapter-subtitle {
   font-size: 1rem;
-  color: var(--text-muted);
+  color: var(--color-ash);
   font-style: italic;
   font-family: Georgia, 'Times New Roman', serif;
   margin-bottom: 48px;
   padding-bottom: 32px;
-  border-bottom: 2px solid var(--accent-line);
+  border-bottom: 2px solid var(--color-sprout);
 }
+
+
 /* ── HEADINGS ── */
 h2 {
   font-size: 1.45rem;
   font-weight: 700;
-  color: var(--text);
+  color: var(--color-slate-ink);
   margin: 48px 0 16px;
   letter-spacing: -0.01em;
 }
+
+
 h3 {
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--text);
+  color: var(--color-slate-ink);
   margin: 32px 0 10px;
   letter-spacing: 0.01em;
 }
+
+
 h4 {
   font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--color-ash);
   margin: 28px 0 8px;
 }
+
+
 /* ── BODY TEXT ── */
-p { margin-bottom: 18px; color: var(--text-secondary); font-size: 0.97rem; }
+p { margin-bottom: 18px; color: var(--color-slate-ink); font-size: 0.97rem; }
+
+
 /* ── BLOCKQUOTE ── */
 blockquote {
-  border-left: 3px solid var(--accent-line);
+  border-left: 3px solid var(--color-sprout);
   margin: 32px 0;
   padding: 20px 28px;
-  background: var(--surface);
+  background: #ffffff;
 }
+
+
 blockquote p {
   font-size: 1.08rem;
   font-style: italic;
   font-family: Georgia, 'Times New Roman', serif;
-  color: var(--text);
+  color: var(--color-slate-ink);
   margin-bottom: 10px;
   line-height: 1.65;
 }
+
+
 blockquote .attribution {
   font-size: 0.78rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--color-ash);
   font-style: normal;
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
+
+
 /* ── FRAMEWORK BOX ── */
 .framework-box {
-  border: 1.5px solid var(--border-strong);
+  border: 1.5px solid var(--color-mist);
   padding: 28px 32px;
   margin: 36px 0;
-  background: var(--surface);
+  background: #ffffff;
 }
+
+
 .framework-box .fw-title {
   font-size: 0.72rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--color-ash);
   margin-bottom: 20px;
   font-family: 'Courier New', monospace;
 }
+
+
 .framework-steps {
   display: flex;
   gap: 0;
   margin: 0;
   flex-wrap: wrap;
 }
+
+
 .framework-step {
   flex: 1;
   min-width: 120px;
-  border-right: 1px solid var(--border);
+  border-right: 1px solid var(--color-dew);
   padding: 14px 16px;
   text-align: center;
 }
+
+
 .framework-step:last-child { border-right: none; }
+
+
 .step-num {
   font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--color-ash);
   display: block;
   margin-bottom: 6px;
   font-family: 'Courier New', monospace;
 }
+
+
 .step-name {
   font-size: 0.9rem;
   font-weight: 700;
-  color: var(--text);
+  color: var(--color-slate-ink);
   display: block;
 }
+
+
 .step-vi {
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: var(--color-ash);
   display: block;
   margin-top: 4px;
   font-style: italic;
 }
+
+
 /* ── DEFINITION BOX ── */
 .def-box {
-  border-top: 2px solid var(--accent-line);
-  border-bottom: 1px solid var(--border);
+  border-top: 2px solid var(--color-sprout);
+  border-bottom: 1px solid var(--color-dew);
   padding: 24px 0;
   margin: 36px 0;
 }
+
+
 .def-box .def-label {
   font-size: 0.68rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--color-ash);
   margin-bottom: 8px;
   font-family: 'Courier New', monospace;
 }
+
+
 .def-box p {
   font-size: 1.02rem;
   font-family: Georgia, 'Times New Roman', serif;
   font-style: italic;
-  color: var(--text);
+  color: var(--color-slate-ink);
   line-height: 1.6;
 }
+
+
 /* ── INFO BOX ── */
 .info-box {
-  background: var(--surface-dark);
-  border-left: 3px solid var(--text);
+  background: var(--color-dew);
+  border-left: 3px solid var(--color-slate-ink);
   padding: 20px 24px;
   margin: 28px 0;
 }
+
+
 .info-box .ib-label {
   font-size: 0.68rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--color-ash);
   margin-bottom: 6px;
   font-family: 'Courier New', monospace;
 }
+
+
 .info-box p { font-size: 0.92rem; margin-bottom: 8px; }
+
+
 .info-box p:last-child { margin-bottom: 0; }
+
+
 /* ── PRINCIPLE LIST ── */
 .principle-list { list-style: none; margin: 16px 0 24px 0; }
+
+
 .principle-list li {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--color-dew);
   padding: 12px 0;
   font-size: 0.95rem;
-  color: var(--text-secondary);
+  color: var(--color-slate-ink);
   display: flex;
   gap: 16px;
   align-items: flex-start;
 }
+
+
 .principle-list li .pl-num {
   font-size: 0.68rem;
   font-family: 'Courier New', monospace;
-  color: var(--text-muted);
+  color: var(--color-ash);
   min-width: 24px;
   padding-top: 3px;
 }
+
+
 /* ── FURTHER READING ── */
 .further-reading {
   margin-top: 56px;
   padding-top: 24px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--color-dew);
 }
+
+
 .further-reading h2 { font-size: 1.1rem; margin-top: 0; margin-bottom: 16px; }
+
+
 .reading-list { list-style: none; }
+
+
 .reading-list li {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--color-dew);
   padding: 10px 0;
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: var(--color-slate-ink);
 }
+
+
 .reading-list li::before {
   content: "→ ";
-  color: var(--text-muted);
+  color: var(--color-ash);
   font-family: 'Courier New', monospace;
 }
+
+
 /* ── DIVIDER ── */
 .divider {
   border: none;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--color-dew);
   margin: 40px 0;
 }
+
+
 /* ── FOOTER ── */
 footer {
   margin-top: 72px;
   padding-top: 24px;
-  border-top: 2px solid var(--accent-line);
+  border-top: 2px solid var(--color-sprout);
   font-size: 0.72rem;
-  color: var(--text-muted);
+  color: var(--color-ash);
   font-family: 'Courier New', monospace;
   letter-spacing: 0.06em;
 }
+
+
 
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -258,30 +316,11 @@ footer {
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/design-thinking-handbook">← Về mục lục</a></p>
+<p class="book-topline"><a href="/design-thinking-handbook">← Về mục lục</a></p>
 
 <div class="book-meta">DesignBetter.Co by InVision · Eli Woolery</div>
 <div class="chapter-label">Chương — 01</div>
@@ -417,7 +456,7 @@ footer {
 
 
 <nav class="chapnav">
-  <a href="ch2-dt-handbook.html"><span class="lbl">Chương sau</span>Chương 2: Thấu Cảm: Trái Tim Của Thiết Kế</a>
+  <a href="/design-thinking-handbook/thau-cam-trai-tim-cua-thiet-ke"><span class="lbl">Chương sau</span>Chương 2: Thấu Cảm: Trái Tim Của Thiết Kế</a>
 </nav>
 </body>
 </html>

@@ -4,60 +4,132 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 25 – Mô Hình Tư Duy</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa; --text: #111111; --text-secondary: #333333;
-    --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
-    --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px; line-height: 1.75; color: var(--text);
-    background: var(--bg); max-width: 820px;
-    margin: 0 auto; padding: 60px 40px 100px;
-  }
-  .part-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
-  h1 { font-size: 2.2rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
-  .chapter-num { font-size: 5rem; font-weight: 900; line-height: 1; color: var(--surface-dark); letter-spacing: -0.04em; margin-bottom: 16px; display: block; }
-  .subtitle { font-size: 1.05rem; color: var(--text-secondary); font-style: italic; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 2px solid var(--accent-line); }
-  h2 { font-size: 1.2rem; font-weight: 700; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); color: var(--text); }
-  h3 { font-size: 1rem; font-weight: 700; margin: 28px 0 8px; color: var(--text); }
-  p { margin-bottom: 16px; color: var(--text-secondary); }
+
+  .part-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-ash); margin-bottom: 12px; }
+
+
+  h1 { font-size: 2.2rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--color-slate-ink); margin-bottom: 8px; }
+
+
+  .chapter-num { font-size: 5rem; font-weight: 900; line-height: 1; color: var(--color-dew); letter-spacing: -0.04em; margin-bottom: 16px; display: block; }
+
+
+  .subtitle { font-size: 1.05rem; color: var(--color-slate-ink); font-style: italic; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 2px solid var(--color-sprout); }
+
+
+  h2 { font-size: 1.2rem; font-weight: 700; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--color-dew); color: var(--color-slate-ink); }
+
+
+  h3 { font-size: 1rem; font-weight: 700; margin: 28px 0 8px; color: var(--color-slate-ink); }
+
+
+  p { margin-bottom: 16px; color: var(--color-slate-ink); }
+
+
   ul, ol { padding-left: 24px; margin-bottom: 16px; }
-  li { margin-bottom: 6px; color: var(--text-secondary); }
-  .method-box { border: 1.5px solid var(--border-strong); background: var(--surface); padding: 20px 24px; margin: 32px 0; border-radius: 2px; }
-  .method-box .method-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+
+
+  li { margin-bottom: 6px; color: var(--color-slate-ink); }
+
+
+  .method-box { border: 1.5px solid var(--color-mist); background: #ffffff; padding: 20px 24px; margin: 32px 0; border-radius: 2px; }
+
+
+  .method-box .method-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-ash); margin-bottom: 14px; }
+
+
   .method-row { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
-  .method-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); min-width: 110px; padding-top: 2px; }
-  .method-value { font-size: 0.9rem; color: var(--text-secondary); flex: 1; }
-  .compare-box { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border-strong); margin: 24px 0; }
-  .compare-side { background: var(--bg); padding: 16px 18px; }
-  .compare-side h4 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+
+
+  .method-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-slate-ink); min-width: 110px; padding-top: 2px; }
+
+
+  .method-value { font-size: 0.9rem; color: var(--color-slate-ink); flex: 1; }
+
+
+  .compare-box { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--color-mist); margin: 24px 0; }
+
+
+  .compare-side { background: var(--color-parchment); padding: 16px 18px; }
+
+
+  .compare-side h4 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-slate-ink); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--color-dew); }
+
+
   .compare-side p { font-size: 0.88rem; margin-bottom: 0; }
-  .case-study { border: 1px solid var(--border-strong); margin: 24px 0; }
-  .case-study .cs-header { background: var(--surface-dark); padding: 8px 16px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text); }
+
+
+  .case-study { border: 1px solid var(--color-mist); margin: 24px 0; }
+
+
+  .case-study .cs-header { background: var(--color-dew); padding: 8px 16px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-slate-ink); }
+
+
   .case-study .cs-body { padding: 14px 16px; }
+
+
   .case-study .cs-body p { font-size: 0.88rem; margin-bottom: 8px; }
+
+
   .case-study .cs-body p:last-child { margin-bottom: 0; }
-  .important-note { border: 1.5px solid var(--border-strong); padding: 14px 18px; margin: 20px 0; background: var(--surface); }
-  .important-note .note-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text); margin-bottom: 8px; }
+
+
+  .important-note { border: 1.5px solid var(--color-mist); padding: 14px 18px; margin: 20px 0; background: #ffffff; }
+
+
+  .important-note .note-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-slate-ink); margin-bottom: 8px; }
+
+
   .important-note p { margin-bottom: 0; font-size: 0.9rem; font-style: italic; }
-  .mental-model-diagram { border: 1px solid var(--border-strong); padding: 0; margin: 24px 0; }
-  .mmd-title { background: var(--surface-dark); padding: 8px 14px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text); }
-  .mmd-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
-  .mmd-col { background: var(--bg); }
-  .mmd-col-head { background: var(--surface); padding: 8px 10px; font-size: 0.75rem; font-weight: 700; color: var(--text); border-bottom: 1px solid var(--border); text-align: center; min-height: 50px; display: flex; align-items: center; justify-content: center; }
-  .mmd-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
-  .mmd-cell { background: var(--bg); padding: 8px 10px; font-size: 0.75rem; color: var(--text-secondary); min-height: 60px; }
-  .mmd-cell.box1 { background: var(--surface); }
-  .mmd-cell.box2 { background: var(--bg); }
-  .mmd-cell.box3 { background: var(--surface); }
-  .mmd-cell-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 4px; }
+
+
+  .mental-model-diagram { border: 1px solid var(--color-mist); padding: 0; margin: 24px 0; }
+
+
+  .mmd-title { background: var(--color-dew); padding: 8px 14px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-slate-ink); }
+
+
+  .mmd-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--color-dew); }
+
+
+  .mmd-col { background: var(--color-parchment); }
+
+
+  .mmd-col-head { background: #ffffff; padding: 8px 10px; font-size: 0.75rem; font-weight: 700; color: var(--color-slate-ink); border-bottom: 1px solid var(--color-dew); text-align: center; min-height: 50px; display: flex; align-items: center; justify-content: center; }
+
+
+  .mmd-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--color-dew); }
+
+
+  .mmd-cell { background: var(--color-parchment); padding: 8px 10px; font-size: 0.75rem; color: var(--color-slate-ink); min-height: 60px; }
+
+
+  .mmd-cell.box1 { background: #ffffff; }
+
+
+  .mmd-cell.box2 { background: var(--color-parchment); }
+
+
+  .mmd-cell.box3 { background: #ffffff; }
+
+
+  .mmd-cell-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-ash); margin-bottom: 4px; }
+
+
   .mmd-cell ul { list-style: none; padding-left: 0; margin-bottom: 0; }
-  .mmd-cell li { font-size: 0.72rem; color: var(--text-secondary); padding-left: 8px; position: relative; margin-bottom: 3px; }
+
+
+  .mmd-cell li { font-size: 0.72rem; color: var(--color-slate-ink); padding-left: 8px; position: relative; margin-bottom: 3px; }
+
+
   .mmd-cell li::before { content: '·'; position: absolute; left: 0; }
-  .horizontal-line { border: none; border-top: 2px solid var(--border-strong); margin: 0; }
+
+
+  .horizontal-line { border: none; border-top: 2px solid var(--color-mist); margin: 0; }
+
+
 
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -65,31 +137,12 @@
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
 
-<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<p class="book-topline"><a href="/user-research-practical-guide">← Về mục lục</a></p>
 <div class="part-label">Phần Ba · Phân Tích và Trình Bày Dữ Liệu</div>
 <span class="chapter-num">25</span>
 <h1>Sử Dụng Mô Hình Tư Duy để Trực Quan Hóa Cách Người Dùng Nghĩ và Xác Định Cơ Hội</h1>
@@ -217,8 +270,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch24-urpg.html"><span class="lbl">Chương trước</span>Chương 24: Sử Dụng Persona để Truyền Đạt Đặc Điểm và Hành Vi Người Dùng</a>
-  <a href="ch26-urpg.html"><span class="lbl">Chương sau</span>Chương 26: Sử Dụng Bản Đồ Hành Trình và Trải Nghiệm để Trực Quan Hóa Dữ Liệu Nghiên Cứu</a>
+  <a href="/user-research-practical-guide/su-dung-persona-de-truyen-dat-dac-diem-va-hanh-vi-nguoi-dung"><span class="lbl">Chương trước</span>Chương 24: Sử Dụng Persona để Truyền Đạt Đặc Điểm và Hành Vi Người Dùng</a>
+  <a href="/user-research-practical-guide/su-dung-ban-do-hanh-trinh-va-trai-nghiem-de-truc-quan-hoa-du-lieu-nghien-cuu"><span class="lbl">Chương sau</span>Chương 26: Sử Dụng Bản Đồ Hành Trình và Trải Nghiệm để Trực Quan Hóa Dữ Liệu Nghiên Cứu</a>
 </nav>
 </body>
 </html>

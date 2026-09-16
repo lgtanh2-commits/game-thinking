@@ -3,60 +3,70 @@
   "title": "Design Thinking for New Business Contexts",
   "author": "Yujia Huang & David Hands · Palgrave Macmillan, 2022",
   "tag": "Academic · Design & Business",
+  "category": "UX/UI",
   "chapters": [
     {
       "n": 2,
       "title": "Evolution of the Relationship Between Design and Business Activities",
       "sub": "",
-      "file": "ch2-dt-nbc.html"
+      "file": "ch2-dt-nbc.html",
+      "slug": "evolution-of-the-relationship-between-design-and-business-activities"
     },
     {
       "n": 3,
       "title": "Crossing Boundaries: Design into Business and Management",
       "sub": "",
-      "file": "ch3-dt-nbc.html"
+      "file": "ch3-dt-nbc.html",
+      "slug": "crossing-boundaries-design-into-business-and-management"
     },
     {
       "n": 4,
       "title": "Organisational Complexity and Change by Design",
       "sub": "",
-      "file": "ch4-dt-nbc.html"
+      "file": "ch4-dt-nbc.html",
+      "slug": "organisational-complexity-and-change-by-design"
     },
     {
       "n": 5,
       "title": "Tư Duy Kinh Doanh Qua Thiết Kế",
       "sub": "",
-      "file": "ch5-dt-nbc.html"
+      "file": "ch5-dt-nbc.html",
+      "slug": "tu-duy-kinh-doanh-qua-thiet-ke"
     },
     {
       "n": 6,
       "title": "Tư Duy Thiết Kế Vì Tương Lai Bền Vững",
       "sub": "",
-      "file": "ch6-dt-nbc.html"
+      "file": "ch6-dt-nbc.html",
+      "slug": "tu-duy-thiet-ke-vi-tuong-lai-ben-vung"
     },
     {
       "n": 7,
       "title": "Tư Duy Thiết Kế cho Xây dựng Thương Hiệu",
       "sub": "",
-      "file": "ch7-dt-nbc.html"
+      "file": "ch7-dt-nbc.html",
+      "slug": "tu-duy-thiet-ke-cho-xay-dung-thuong-hieu"
     },
     {
       "n": 8,
       "title": "Tư Duy Thiết Kế Trong Thực Tiễn: Ba Nghiên Cứu Tình Huống",
       "sub": "",
-      "file": "ch8-dt-nbc.html"
+      "file": "ch8-dt-nbc.html",
+      "slug": "tu-duy-thiet-ke-trong-thuc-tien-ba-nghien-cuu-tinh-huong"
     },
     {
       "n": 9,
       "title": "Định hướng Thiết kế & Tương lai Bất định",
       "sub": "",
-      "file": "ch9-dt-nbc.html"
+      "file": "ch9-dt-nbc.html",
+      "slug": "dinh-huong-thiet-ke-tuong-lai-bat-dinh"
     },
     {
       "n": 10,
       "title": "Tổng hợp: Năm Chiều kích của Tư duy Thiết kế",
       "sub": "",
-      "file": "ch10-dt-nbc.html"
+      "file": "ch10-dt-nbc.html",
+      "slug": "tong-hop-nam-chieu-kich-cua-tu-duy-thiet-ke"
     }
   ]
 }

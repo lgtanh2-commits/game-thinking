@@ -4,60 +4,73 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 10 — Tổng hợp: Năm Chiều kích của Tư duy Thiết kế</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa;
-    --text: #111111;
-    --text-secondary: #333333;
-    --text-muted: #888888;
-    --border: #d8d8d8;
-    --border-strong: #999999;
-    --surface: #f2f2f2;
-    --surface-dark: #e0e0e0;
-    --accent-line: #111111;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   html { font-size: 17px; scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.72;
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 48px 32px 96px;
-  }
+
+
 
   /* ── Typography ── */
   h1 { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 6px; }
-  h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; margin: 52px 0 14px; border-bottom: 2px solid var(--text); padding-bottom: 6px; }
+
+
+  h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; margin: 52px 0 14px; border-bottom: 2px solid var(--color-slate-ink); padding-bottom: 6px; }
+
+
   h3 { font-size: 1.08rem; font-weight: 700; margin: 28px 0 10px; }
-  h4 { font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-secondary); margin: 20px 0 8px; }
+
+
+  h4 { font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--color-slate-ink); margin: 20px 0 8px; }
+
+
   p { margin-bottom: 14px; }
+
+
   ul, ol { padding-left: 22px; margin-bottom: 14px; }
+
+
   li { margin-bottom: 6px; }
+
+
   strong { font-weight: 700; }
+
+
   em { font-style: italic; }
+
+
   blockquote {
-    border-left: 4px solid var(--text);
+    border-left: 4px solid var(--color-slate-ink);
     padding: 12px 20px;
     margin: 24px 0;
-    background: var(--surface);
+    background: #ffffff;
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 1.05rem;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
   }
-  blockquote cite { display: block; margin-top: 8px; font-size: 0.85rem; color: var(--text-muted); font-style: normal; }
-  .doi { font-family: 'Courier New', monospace; font-size: 0.8rem; color: var(--text-muted); }
+
+
+  blockquote cite { display: block; margin-top: 8px; font-size: 0.85rem; color: var(--color-ash); font-style: normal; }
+
+
+  .doi { font-family: 'Courier New', monospace; font-size: 0.8rem; color: var(--color-ash); }
+
+
 
   /* ── Chapter Header ── */
-  .chapter-header { border-bottom: 3px solid var(--text); padding-bottom: 32px; margin-bottom: 48px; }
-  .chapter-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-muted); margin-bottom: 12px; }
-  .subtitle { font-size: 1.1rem; color: var(--text-secondary); margin-top: 10px; font-family: Georgia, serif; font-style: italic; }
+  .chapter-header { border-bottom: 3px solid var(--color-slate-ink); padding-bottom: 32px; margin-bottom: 48px; }
+
+
+  .chapter-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--color-ash); margin-bottom: 12px; }
+
+
+  .subtitle { font-size: 1.1rem; color: var(--color-slate-ink); margin-top: 10px; font-family: Georgia, serif; font-style: italic; }
+
+
   .synthesis-badge {
     display: inline-block;
-    background: var(--text);
-    color: var(--bg);
+    background: var(--color-slate-ink);
+    color: var(--color-parchment);
     font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -66,39 +79,49 @@
     margin-top: 18px;
   }
 
+
+
   /* ── Section intro ── */
   .section-intro {
-    border-left: 4px solid var(--accent-line);
+    border-left: 4px solid var(--color-sprout);
     padding: 14px 20px;
-    background: var(--surface);
+    background: #ffffff;
     margin-bottom: 24px;
     font-size: 0.97rem;
   }
 
+
+
   /* ── Five Dimensions diagram ── */
   .five-dims {
     margin: 32px 0;
-    border: 2px solid var(--text);
+    border: 2px solid var(--color-slate-ink);
     padding: 32px 24px 24px;
     position: relative;
   }
+
+
   .five-dims .fig-label {
     position: absolute;
     top: -1px;
     left: 20px;
-    background: var(--text);
-    color: var(--bg);
+    background: var(--color-slate-ink);
+    color: var(--color-parchment);
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     padding: 3px 10px;
   }
+
+
   .dims-layout {
     display: flex;
     gap: 0;
     margin-top: 8px;
   }
+
+
   .dims-levels {
     display: flex;
     flex-direction: column;
@@ -106,21 +129,27 @@
     width: 110px;
     flex-shrink: 0;
   }
+
+
   .level-tag {
-    background: var(--surface-dark);
+    background: var(--color-dew);
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.07em;
     padding: 8px 10px;
     text-align: center;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .level-tag.top { background: var(--text); color: var(--bg); }
+
+
+  .level-tag.top { background: var(--color-slate-ink); color: var(--color-parchment); }
+
+
   .dims-radial {
     flex: 1;
     display: grid;
@@ -128,14 +157,20 @@
     gap: 6px;
     padding-left: 12px;
   }
+
+
   .dim-segment {
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     padding: 14px 8px;
     text-align: center;
-    background: var(--bg);
+    background: var(--color-parchment);
     position: relative;
   }
-  .dim-segment:nth-child(3) { background: var(--surface-dark); border-color: var(--text); border-width: 2px; }
+
+
+  .dim-segment:nth-child(3) { background: var(--color-dew); border-color: var(--color-slate-ink); border-width: 2px; }
+
+
   .dim-segment .dim-name {
     font-size: 0.72rem;
     font-weight: 900;
@@ -149,76 +184,106 @@
     height: 90px;
     line-height: 1.2;
   }
+
+
   .dim-segment .dim-vi {
     font-size: 0.65rem;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-top: 8px;
     display: block;
     text-align: center;
   }
+
+
   .dims-caption {
     font-size: 0.78rem;
-    color: var(--text-muted);
+    color: var(--color-ash);
     text-align: center;
     margin-top: 12px;
     font-style: italic;
   }
 
+
+
   /* ── Dimension detail blocks ── */
   .dim-detail {
-    border-top: 3px solid var(--text);
+    border-top: 3px solid var(--color-slate-ink);
     padding: 28px 0 0;
     margin: 36px 0 0;
   }
+
+
   .dim-detail .dim-header {
     display: flex;
     align-items: baseline;
     gap: 16px;
     margin-bottom: 16px;
   }
+
+
   .dim-detail .dim-num {
     font-size: 3rem;
     font-weight: 900;
-    color: var(--surface-dark);
+    color: var(--color-dew);
     line-height: 1;
     flex-shrink: 0;
   }
+
+
   .dim-detail .dim-title {
     font-size: 1.3rem;
     font-weight: 900;
     letter-spacing: -0.02em;
   }
+
+
   .dim-detail .dim-title-vi {
     font-size: 0.85rem;
     font-weight: 400;
-    color: var(--text-muted);
+    color: var(--color-ash);
     font-family: Georgia, serif;
     font-style: italic;
     display: block;
     margin-top: 2px;
   }
 
+
+
   /* ── Chapter cross-ref tags ── */
   .xref-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0; }
+
+
   .xref-tag {
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     padding: 4px 11px;
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
   }
-  .xref-tag strong { color: var(--text); }
+
+
+  .xref-tag strong { color: var(--color-slate-ink); }
+
+
 
   /* ── Case highlight ── */
   .case-box {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 16px 20px;
     margin: 14px 0;
-    background: var(--surface);
+    background: #ffffff;
   }
-  .case-box .case-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 5px; }
-  .case-box h4 { margin: 0 0 6px; font-size: 0.96rem; color: var(--text); text-transform: none; letter-spacing: 0; }
-  .case-box p { font-size: 0.88rem; margin: 0; color: var(--text-secondary); }
+
+
+  .case-box .case-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ash); margin-bottom: 5px; }
+
+
+  .case-box h4 { margin: 0 0 6px; font-size: 0.96rem; color: var(--color-slate-ink); text-transform: none; letter-spacing: 0; }
+
+
+  .case-box p { font-size: 0.88rem; margin: 0; color: var(--color-slate-ink); }
+
+
 
   /* ── Three-stage flow ── */
   .flow-stages {
@@ -227,14 +292,20 @@
     gap: 0;
     margin: 18px 0;
   }
+
+
   .flow-stage {
     flex: 1;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 14px 16px;
-    background: var(--bg);
+    background: var(--color-parchment);
     position: relative;
   }
+
+
   .flow-stage + .flow-stage { border-left: none; }
+
+
   .flow-stage::after {
     content: '→';
     position: absolute;
@@ -242,45 +313,79 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 1rem;
-    color: var(--text-muted);
+    color: var(--color-ash);
     z-index: 1;
-    background: var(--bg);
+    background: var(--color-parchment);
     padding: 0 2px;
   }
+
+
   .flow-stage:last-child::after { display: none; }
-  .flow-stage .stage-num { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px; }
+
+
+  .flow-stage .stage-num { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ash); margin-bottom: 4px; }
+
+
   .flow-stage .stage-name { font-size: 0.9rem; font-weight: 700; }
-  .flow-stage .stage-desc { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
+
+
+  .flow-stage .stage-desc { font-size: 0.8rem; color: var(--color-slate-ink); margin-top: 4px; }
+
+
 
   /* ── Final quote ── */
   .final-quote {
     margin: 56px 0 0;
     padding: 36px 32px;
-    background: var(--text);
-    color: var(--bg);
+    background: var(--color-slate-ink);
+    color: var(--color-parchment);
   }
+
+
   .final-quote blockquote {
     border: none;
     background: none;
     padding: 0;
-    color: var(--bg);
+    color: var(--color-parchment);
     font-size: 1.2rem;
     line-height: 1.6;
   }
+
+
   .final-quote blockquote cite { color: rgba(255,255,255,0.55); font-size: 0.88rem; margin-top: 14px; }
+
+
 
   /* ── Synthesis matrix ── */
   .synth-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.85rem; }
-  .synth-table th { background: var(--text); color: var(--bg); padding: 9px 12px; text-align: left; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
-  .synth-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  .synth-table tr:nth-child(even) td { background: var(--surface); }
+
+
+  .synth-table th { background: var(--color-slate-ink); color: var(--color-parchment); padding: 9px 12px; text-align: left; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
+
+
+  .synth-table td { padding: 9px 12px; border-bottom: 1px solid var(--color-dew); vertical-align: top; }
+
+
+  .synth-table tr:nth-child(even) td { background: #ffffff; }
+
+
   .synth-table td:first-child { font-weight: 700; white-space: nowrap; }
+
+
 
   /* ── Nav ── */
   .page-nav { display: flex; justify-content: space-between; margin-bottom: 36px; font-size: 0.82rem; }
-  .page-nav a { color: var(--text-secondary); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
-  .page-nav a:hover { color: var(--text); border-color: var(--text); }
-  .page-nav .center { color: var(--text-muted); font-size: 0.76rem; }
+
+
+  .page-nav a { color: var(--color-slate-ink); text-decoration: none; border-bottom: 1px solid var(--color-dew); padding-bottom: 2px; }
+
+
+  .page-nav a:hover { color: var(--color-slate-ink); border-color: var(--color-slate-ink); }
+
+
+  .page-nav .center { color: var(--color-ash); font-size: 0.76rem; }
+
+
 
   @media (max-width: 600px) {
     body { padding: 28px 16px 60px; }
@@ -292,36 +397,19 @@
     .flow-stage::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -14px; }
   }
 
+
+
   /* -- chapter navigation (added) -- */
   .book-topline {
     font-family: -apple-system, system-ui, sans-serif;
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+<p class="book-topline"><a href="/design-thinking-new-business-contexts">← Về mục lục</a></p>
 
 <nav class="page-nav">
   <a href="ch9-dt-nbc.html">← Chương 9</a>
@@ -641,7 +729,7 @@
 
 
 <nav class="chapnav">
-  <a href="ch9-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 9: Định hướng Thiết kế & Tương lai Bất định</a>
+  <a href="/design-thinking-new-business-contexts/dinh-huong-thiet-ke-tuong-lai-bat-dinh"><span class="lbl">Chương trước</span>Chương 9: Định hướng Thiết kế & Tương lai Bất định</a>
 </nav>
 </body>
 </html>

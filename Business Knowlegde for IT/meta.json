@@ -3,78 +3,91 @@
   "title": "Business Knowledge for IT in Retail Banking",
   "author": "Essvale Corporation Limited",
   "tag": "Retail Banking · Cẩm nang cho IT",
+  "category": "BFSI",
   "chapters": [
     {
       "n": 2,
       "title": "Các Loại Sản Phẩm Ngân Hàng Bán Lẻ",
       "sub": "",
-      "file": "ch2-bkrb.html"
+      "file": "ch2-bkrb.html",
+      "slug": "cac-loai-san-pham-ngan-hang-ban-le"
     },
     {
       "n": 3,
       "title": "Môi Trường Kinh Doanh Trong Ngân Hàng Bán Lẻ",
       "sub": "",
-      "file": "ch3-bkrb.html"
+      "file": "ch3-bkrb.html",
+      "slug": "moi-truong-kinh-doanh-trong-ngan-hang-ban-le"
     },
     {
       "n": 4,
       "title": "Xu Hướng Ngân Hàng Bán Lẻ",
       "sub": "",
-      "file": "ch4-bkrb.html"
+      "file": "ch4-bkrb.html",
+      "slug": "xu-huong-ngan-hang-ban-le"
     },
     {
       "n": 5,
       "title": "Mở Tài Khoản Trong Ngân Hàng Bán Lẻ",
       "sub": "",
-      "file": "ch5-bkrb.html"
+      "file": "ch5-bkrb.html",
+      "slug": "mo-tai-khoan-trong-ngan-hang-ban-le"
     },
     {
       "n": 6,
       "title": "Cho Vay Trong Ngân Hàng Bán Lẻ",
       "sub": "",
-      "file": "ch6-bkrb.html"
+      "file": "ch6-bkrb.html",
+      "slug": "cho-vay-trong-ngan-hang-ban-le"
     },
     {
       "n": 7,
       "title": "Thanh Toán Trong Ngân Hàng Bán Lẻ",
       "sub": "",
-      "file": "ch7-bkrb.html"
+      "file": "ch7-bkrb.html",
+      "slug": "thanh-toan-trong-ngan-hang-ban-le"
     },
     {
       "n": 8,
       "title": "Các Hệ Thống Phổ Biến Trong Ngân Hàng Bán Lẻ",
       "sub": "",
-      "file": "ch8-bkrb.html"
+      "file": "ch8-bkrb.html",
+      "slug": "cac-he-thong-pho-bien-trong-ngan-hang-ban-le"
     },
     {
       "n": 9,
       "title": "Các Dự Án CNTT Trong Ngân Hàng Bán Lẻ",
       "sub": "",
-      "file": "ch9-bkrb.html"
+      "file": "ch9-bkrb.html",
+      "slug": "cac-du-an-cntt-trong-ngan-hang-ban-le"
     },
     {
       "n": 10,
       "title": "Thuật Ngữ Thông Dụng Trong Ngân Hàng Bán Lẻ",
       "sub": "",
-      "file": "ch10-bkrb.html"
+      "file": "ch10-bkrb.html",
+      "slug": "thuat-ngu-thong-dung-trong-ngan-hang-ban-le"
     },
     {
       "n": 11,
       "title": "Phương Pháp Luận, Kỹ Năng và Công Cụ",
       "sub": "",
-      "file": "ch11-bkrb.html"
+      "file": "ch11-bkrb.html",
+      "slug": "phuong-phap-luan-ky-nang-va-cong-cu"
     },
     {
       "n": 12,
       "title": "Tương Lai của Ngân Hàng Bán Lẻ",
       "sub": "",
-      "file": "ch12-bkrb.html"
+      "file": "ch12-bkrb.html",
+      "slug": "tuong-lai-cua-ngan-hang-ban-le"
     },
     {
       "n": 13,
       "title": "Phụ Lục",
       "sub": "",
-      "file": "ch13-bkrb-appendix.html"
+      "file": "ch13-bkrb-appendix.html",
+      "slug": "phu-luc"
     }
   ]
 }

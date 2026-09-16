@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 27 – Good Games Are Created through Playtesting | The Art of Game Design</title>
 <style>
+
  :root {
  --orange: #27ae60;
  --orange-light: #6cc999;
@@ -27,7 +28,11 @@
  --mint: #edf9f2;
  --sprout-d: #1c8a4c;}
 
+
+
  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+
 
  body {
  background: var(--bg);
@@ -37,6 +42,8 @@
  font-size: 17px;
  }
 
+
+
  /* HERO */
  .hero {
  background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
@@ -44,6 +51,8 @@
  padding: 80px 24px 64px;
  text-align: center;
  }
+
+
 
  .hero-badge {
  display: inline-block;
@@ -60,6 +69,8 @@
  margin-bottom: 28px;
  }
 
+
+
  .hero h1 {
  font-size: clamp(28px, 5vw, 46px);
  font-weight: 400;
@@ -68,10 +79,14 @@
  line-height: 1.2;
  }
 
+
+
  .hero h1 em {
  color: var(--orange-light);
  font-style: italic;
  }
+
+
 
  .hero-sub {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -80,6 +95,8 @@
  margin-bottom: 36px;
  }
 
+
+
  .hero-stats {
  display: flex;
  justify-content: center;
@@ -87,9 +104,13 @@
  flex-wrap: wrap;
  }
 
+
+
  .hero-stat {
  text-align: center;
  }
+
+
 
  .hero-stat .num {
  display: block;
@@ -99,6 +120,8 @@
  color: var(--orange-light);
  }
 
+
+
  .hero-stat .lbl {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 11px;
@@ -107,6 +130,8 @@
  letter-spacing: 1.5px;
  }
 
+
+
  /* CHAPTER MAP */
  .chapter-map {
  background: white;
@@ -114,10 +139,14 @@
  padding: 48px 24px;
  }
 
+
+
  .map-inner {
  max-width: 880px;
  margin: 0 auto;
  }
+
+
 
  .map-label {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -130,6 +159,8 @@
  margin-bottom: 32px;
  }
 
+
+
  .map-nodes {
  display: flex;
  align-items: center;
@@ -138,6 +169,8 @@
  gap: 0;
  }
 
+
+
  .map-node {
  display: flex;
  flex-direction: column;
@@ -145,6 +178,8 @@
  text-align: center;
  width: 120px;
  }
+
+
 
  .node-dot {
  width: 64px;
@@ -162,12 +197,26 @@
  z-index: 1;
  }
 
+
+
  .node-dot.orange { background: var(--orange); }
+
+
  .node-dot.teal { background: var(--accent-teal); }
+
+
  .node-dot.blue { background: var(--accent-blue); }
+
+
  .node-dot.purple { background: var(--accent-purple); }
+
+
  .node-dot.green { background: var(--accent-green); }
+
+
  .node-dot.gold { background: var(--accent-gold); }
+
+
 
  .node-title {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -177,6 +226,8 @@
  line-height: 1.3;
  }
 
+
+
  .map-arrow {
  font-size: 22px;
  color: var(--gray-light);
@@ -185,12 +236,16 @@
  flex-shrink: 0;
  }
 
+
+
  /* MAIN CONTENT */
  main {
  max-width: 880px;
  margin: 0 auto;
  padding: 60px 24px 120px;
  }
+
+
 
  /* SECTION HEADER */
  .section-header {
@@ -201,9 +256,13 @@
  margin-top: 64px;
   scroll-margin-top: 108px;}
 
+
+
  .section-header:first-of-type {
  margin-top: 0;
  }
+
+
 
  .section-num {
  flex-shrink: 0;
@@ -219,16 +278,32 @@
  color: white;
  }
 
+
+
  .section-num.orange { background: var(--orange); }
+
+
  .section-num.teal { background: var(--accent-teal); }
+
+
  .section-num.blue { background: var(--accent-blue); }
+
+
  .section-num.purple { background: var(--accent-purple); }
+
+
  .section-num.green { background: var(--accent-green); }
+
+
  .section-num.gold { background: var(--accent-gold); }
+
+
 
  .section-title {
  padding-top: 6px;
  }
+
+
 
  .section-title h2 {
  font-size: 24px;
@@ -237,11 +312,15 @@
  margin-bottom: 4px;
  }
 
+
+
  .section-title p {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 14px;
  color: var(--gray-light);
  }
+
+
 
  /* CARD */
  .card {
@@ -253,12 +332,16 @@
  margin-bottom: 20px;
  }
 
+
+
  .card h3 {
  font-size: 18px;
  font-weight: 700;
  color: var(--dark);
  margin-bottom: 14px;
  }
+
+
 
  .card h4 {
  font-size: 15px;
@@ -268,8 +351,14 @@
  margin-top: 18px;
  }
 
+
+
  .card p { color: var(--gray); margin-bottom: 12px; }
+
+
  .card p:last-child { margin-bottom: 0; }
+
+
 
  /* QUOTE */
  .quote-block {
@@ -280,6 +369,8 @@
  margin: 20px 0;
  }
 
+
+
  .quote-block p {
  font-style: italic;
  color: var(--dark);
@@ -288,6 +379,8 @@
  margin-bottom: 8px;
  }
 
+
+
  .quote-block .attr {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px;
@@ -295,6 +388,8 @@
  font-weight: 600;
  font-style: normal;
  }
+
+
 
  /* HIGHLIGHT BOXES */
  .hl-orange {
@@ -305,6 +400,8 @@
  margin: 20px 0;
  }
 
+
+
  .hl-teal {
  background: #edf9f2;
  border: 1px solid rgba(39,174,96,0.3);
@@ -312,6 +409,8 @@
  padding: 22px 26px;
  margin: 20px 0;
  }
+
+
 
  .hl-blue {
  background: #edf9f2;
@@ -321,6 +420,8 @@
  margin: 20px 0;
  }
 
+
+
  .hl-purple {
  background: #edf9f2;
  border: 1px solid rgba(39,174,96,0.3);
@@ -328,6 +429,8 @@
  padding: 22px 26px;
  margin: 20px 0;
  }
+
+
 
  .hl-green {
  background: #edf9f2;
@@ -337,6 +440,8 @@
  margin: 20px 0;
  }
 
+
+
  .hl-gold {
  background: #edf9f2;
  border: 1px solid rgba(39,174,96,0.3);
@@ -344,6 +449,8 @@
  padding: 22px 26px;
  margin: 20px 0;
  }
+
+
 
  .hl-orange h4, .hl-teal h4, .hl-blue h4,
  .hl-purple h4, .hl-green h4, .hl-gold h4 {
@@ -355,12 +462,26 @@
  margin-bottom: 10px;
  }
 
+
+
  .hl-orange h4 { color: var(--orange); }
+
+
  .hl-teal h4 { color: var(--accent-teal); }
+
+
  .hl-blue h4 { color: var(--accent-blue); }
+
+
  .hl-purple h4 { color: var(--accent-purple); }
+
+
  .hl-green h4 { color: var(--accent-green); }
+
+
  .hl-gold h4 { color: var(--accent-gold); }
+
+
 
  .hl-orange p, .hl-teal p, .hl-blue p,
  .hl-purple p, .hl-green p, .hl-gold p {
@@ -370,10 +491,14 @@
  line-height: 1.65;
  }
 
+
+
  .hl-orange p:last-child, .hl-teal p:last-child, .hl-blue p:last-child,
  .hl-purple p:last-child, .hl-green p:last-child, .hl-gold p:last-child {
  margin-bottom: 0;
  }
+
+
 
  /* LENS BOX */
  .lens-box {
@@ -384,6 +509,8 @@
  margin: 32px 0;
  position: relative;
  }
+
+
 
  .lens-eyepiece {
  position: absolute;
@@ -400,6 +527,8 @@
  border-radius: 10px;
  }
 
+
+
  .lens-box h3 {
  font-size: 20px;
  font-weight: 700;
@@ -407,6 +536,8 @@
  margin-bottom: 6px;
  margin-top: 8px;
  }
+
+
 
  .lens-box .lens-sub {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -416,16 +547,22 @@
  margin-bottom: 18px;
  }
 
+
+
  .lens-box p {
  color: var(--gray);
  font-size: 15px;
  margin-bottom: 10px;
  }
 
+
+
  .lens-questions {
  list-style: none;
  margin-top: 14px;
  }
+
+
 
  .lens-questions li {
  display: flex;
@@ -437,7 +574,11 @@
  color: var(--dark);
  }
 
+
+
  .lens-questions li:last-child { border-bottom: none; }
+
+
 
  .lens-q-num {
  flex-shrink: 0;
@@ -455,6 +596,8 @@
  margin-top: 1px;
  }
 
+
+
  /* GRID CARDS */
  .grid-2 {
  display: grid;
@@ -463,9 +606,13 @@
  margin-bottom: 20px;
  }
 
+
+
  @media (max-width: 600px) {
  .grid-2 { grid-template-columns: 1fr; }
  }
+
+
 
  .grid-card {
  background: white;
@@ -474,10 +621,14 @@
  padding: 22px 24px;
  }
 
+
+
  .grid-card .gc-icon {
  font-size: 28px;
  margin-bottom: 10px;
  }
+
+
 
  .grid-card h4 {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -487,11 +638,15 @@
  margin-bottom: 8px;
  }
 
+
+
  .grid-card p {
  font-size: 14px;
  color: var(--gray);
  line-height: 1.6;
  }
+
+
 
  /* TABLE */
  .comparison-table {
@@ -500,6 +655,8 @@
  margin: 20px 0;
  font-size: 14px;
  }
+
+
 
  .comparison-table th {
  background: var(--dark);
@@ -513,8 +670,14 @@
  text-align: left;
  }
 
+
+
  .comparison-table th:first-child { border-radius: 10px 0 0 0; }
+
+
  .comparison-table th:last-child { border-radius: 0 10px 0 0; }
+
+
 
  .comparison-table td {
  padding: 12px 16px;
@@ -524,8 +687,14 @@
  line-height: 1.55;
  }
 
+
+
  .comparison-table tr:last-child td { border-bottom: none; }
+
+
  .comparison-table tr:nth-child(even) td { background: rgba(244,247,242,0.6); }
+
+
 
  .tag {
  display: inline-block;
@@ -537,18 +706,34 @@
  letter-spacing: 0.5px;
  }
 
+
+
  .tag-orange { background: var(--orange-pale); color: var(--sprout-d); }
+
+
  .tag-teal { background: #EAF5F5; color: var(--sprout-d); }
+
+
  .tag-blue { background: #EAF0F8; color: var(--sprout-d); }
+
+
  .tag-purple { background: #F3EFF9; color: var(--sprout-d); }
+
+
  .tag-green { background: #EAF3EE; color: var(--sprout-d); }
+
+
  .tag-gold { background: #FBF5E6; color: var(--sprout-d); }
+
+
 
  /* NUMBERED LIST */
  .num-list {
  list-style: none;
  margin: 14px 0;
  }
+
+
 
  .num-list li {
  display: flex;
@@ -559,6 +744,8 @@
  color: var(--dark);
  line-height: 1.65;
  }
+
+
 
  .num-badge {
  flex-shrink: 0;
@@ -575,12 +762,26 @@
  margin-top: 1px;
  }
 
+
+
  .nb-orange { background: var(--orange); }
+
+
  .nb-teal { background: var(--accent-teal); }
+
+
  .nb-blue { background: var(--accent-blue); }
+
+
  .nb-purple { background: var(--accent-purple); }
+
+
  .nb-green { background: var(--accent-green); }
+
+
  .nb-gold { background: var(--accent-gold); }
+
+
 
  /* DIVIDER */
  .divider {
@@ -589,8 +790,12 @@
  margin: 48px 0;
  }
 
+
+
  /* READING LIST */
  .reading-list { list-style: none; margin: 0; }
+
+
 
  .reading-list li {
  display: flex;
@@ -602,7 +807,11 @@
  color: var(--gray);
  }
 
+
+
  .reading-list li:last-child { border-bottom: none; }
+
+
 
  .reading-list .book-icon {
  font-size: 22px;
@@ -610,12 +819,16 @@
  margin-top: 1px;
  }
 
+
+
  .reading-list strong {
  color: var(--dark);
  display: block;
  font-size: 15px;
  margin-bottom: 3px;
  }
+
+
 
  /* FOOTER */
  footer {
@@ -627,12 +840,22 @@
  font-size: 13px;
  }
 
+
+
  footer span { color: var(--orange-light); }
+
+
 
  /* UTILITY */
  .en { font-style: italic; color: var(--gray-light); font-size: 0.92em; }
+
+
  strong.key { color: var(--orange); }
+
+
  .mt-0 { margin-top: 0 !important; }
+
+
 
  /* VENUE CARDS */
  .venue-row {
@@ -641,6 +864,8 @@
  gap: 12px;
  margin-bottom: 20px;
  }
+
+
 
  .venue-card {
  background: white;
@@ -652,11 +877,15 @@
  align-items: flex-start;
  }
 
+
+
  .venue-icon {
  font-size: 26px;
  flex-shrink: 0;
  margin-top: 2px;
  }
+
+
 
  .venue-card h4 {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -666,12 +895,16 @@
  margin-bottom: 6px;
  }
 
+
+
  .venue-card p {
  font-size: 14px;
  color: var(--gray);
  line-height: 1.6;
  margin: 0;
  }
+
+
 
  /* TIPS GRID */
  .tips-grid {
@@ -681,7 +914,11 @@
  margin: 14px 0;
  }
 
+
+
  @media (max-width: 600px) { .tips-grid { grid-template-columns: 1fr; } }
+
+
 
  .tip-chip {
  background: white;
@@ -695,6 +932,8 @@
  color: var(--dark);
  line-height: 1.5;
  }
+
+
 
  .tip-num {
  flex-shrink: 0;
@@ -711,6 +950,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+<p class="book-topline"><a href="/the-art-of-game-design">← Về mục lục</a></p>
+
 <style>
   .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
@@ -727,10 +968,80 @@
   .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
 
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+
+/* __FIX_CHAPNAV_LEAK_START__ */
+/* book-topline: sách này không link assets/theme.css nên cần style riêng ở đây */
+.book-topline {
+  display: block;
+  padding: 14px 24px;
+  background: var(--forest, #0e231c);
+}
+.book-topline a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 19px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color .15s ease;
+}
+.book-topline a:hover { border-color: #fff; }
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+/* __FIX_CHAPNAV_LEAK_END__ */
 </style>
 <nav class="topnav">
-  <a class="brand" href="../index.html">Tổng hợp insight</a>
-  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 27</b></span>
+  <a class="brand" href="/">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 27</b></span>
 </nav>
 
 <nav class="tocnav">
@@ -1197,7 +1508,7 @@
  <p style="margin-top: 8px; font-size: 12px; opacity: 0.6;">Tóm tắt &amp; trình bày bằng tiếng Việt · Lens #103</p>
 </footer>
 
-<div class="chapnav-wrap"><div class="chapnav"><a href="C26-Game Design Document.html"><span class="lbl">Chương trước</span>Chương 26: Đội Nhóm Đôi Khi Giao Tiếp Qua Tài Liệu</a><a href="C28-Tech.html"><span class="lbl">Chương sau</span>Chương 28: The Team Builds a Game with Technology</a></div></div>
+<div class="chapnav-wrap"><nav class="chapnav"><a href="/the-art-of-game-design/doi-nhom-doi-khi-giao-tiep-qua-tai-lieu"><span class="lbl">Chương trước</span>Chương 26: Đội Nhóm Đôi Khi Giao Tiếp Qua Tài Liệu</a><a href="/the-art-of-game-design/the-team-builds-a-game-with-technology"><span class="lbl">Chương sau</span>Chương 28: The Team Builds a Game with Technology</a></nav></div>
 
 <script>
   (function(){

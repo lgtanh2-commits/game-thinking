@@ -4,56 +4,87 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 27: Games as the Play of Simulation — Rules of Play</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-:root {
-  --bg: #f8f7f4;
-  --text: #1a1a1a;
-  --muted: #555;
-  --dim: #888;
-  --rule: #c8c4bc;
-  --pull-bg: #eeece8;
-  --pull-border: #1a1a1a;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 17px;
-  line-height: 1.75;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 64px 28px 96px;
-}
+
 header { margin-bottom: 56px; }
-.eyebrow { font-family: system-ui, -apple-system, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 10px; }
-h1 { font-family: Georgia, serif; font-size: 1.85rem; font-weight: normal; line-height: 1.25; margin-bottom: 14px; }
-.subtitle { font-size: 1rem; color: var(--muted); font-style: italic; }
-h2 { font-family: system-ui, -apple-system, sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-top: 8px; border-top: 1px solid var(--rule); margin-top: 52px; margin-bottom: 16px; }
-h3 { font-family: Georgia, serif; font-size: 1.08rem; font-weight: bold; font-style: italic; margin: 28px 0 8px; }
-p { margin-bottom: 1em; }
-blockquote { background: var(--pull-bg); border-left: 3px solid var(--pull-border); margin: 24px 0; padding: 16px 20px; font-style: italic; }
-blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
-.grid { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
-.grid-cell { background: var(--bg); padding: 18px 16px; }
-.grid-cell strong { font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+
+
+.eyebrow { font-family: system-ui, -apple-system, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-fog); display: block; margin-bottom: 10px; }
+
+
+.subtitle { font-size: 1rem; color: var(--color-ash); font-style: italic; }
+
+
+h2 { font-family: system-ui, -apple-system, sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ash); padding-top: 8px; border-top: 1px solid var(--color-dew); margin-top: 52px; margin-bottom: 16px; }
+
+
+blockquote { background: var(--color-dew); border-left: 3px solid var(--color-sprout); margin: 24px 0; padding: 16px 20px; font-style: italic; }
+
+
+blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--color-ash); margin-top: 8px; }
+
+
+.grid { display: grid; gap: 1px; background: var(--color-dew); border: 1px solid var(--color-dew); margin: 24px 0; }
+
+
+.grid-cell { background: var(--color-parchment); padding: 18px 16px; }
+
+
+.grid-cell strong { font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ash); display: block; margin-bottom: 6px; }
+
+
 .cols-2 { grid-template-columns: 1fr 1fr; }
+
+
 .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+
 .cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
-.summary-box { border: 1px solid var(--rule); padding: 28px 32px; margin: 40px 0 0; }
-.summary-box h3 { margin-top: 0; font-style: normal; font-size: 0.75rem; font-family: system-ui, sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+
+
+.summary-box { border: 1px solid var(--color-dew); padding: 28px 32px; margin: 40px 0 0; }
+
+
+.summary-box h3 { margin-top: 0; font-style: normal; font-size: 0.75rem; font-family: system-ui, sans-serif; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ash); margin-bottom: 16px; }
+
+
 .summary-box ul { padding-left: 22px; }
+
+
 .summary-box li { margin-bottom: 0.6em; }
-.callout { font-family: system-ui, sans-serif; font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 12px; margin-top: 32px; }
-.definition-box { border: 2px solid var(--text); padding: 24px 28px; margin: 32px 0; text-align: center; }
-.definition-box .def-label { font-family: system-ui, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 12px; }
+
+
+.callout { font-family: system-ui, sans-serif; font-size: 0.82rem; color: var(--color-ash); border-top: 1px solid var(--color-dew); padding-top: 12px; margin-top: 32px; }
+
+
+.definition-box { border: 2px solid var(--color-slate-ink); padding: 24px 28px; margin: 32px 0; text-align: center; }
+
+
+.definition-box .def-label { font-family: system-ui, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-fog); display: block; margin-bottom: 12px; }
+
+
 .definition-box .def-text { font-size: 1.2rem; font-style: italic; line-height: 1.5; }
-.paradox-frame { border: 2px dashed var(--text); padding: 24px 28px; margin: 28px 0; max-width: 320px; }
+
+
+.paradox-frame { border: 2px dashed var(--color-slate-ink); padding: 24px 28px; margin: 28px 0; max-width: 320px; }
+
+
 .paradox-frame p { margin-bottom: 0.5em; font-style: italic; }
+
+
 .paradox-frame p:last-child { margin-bottom: 0; }
-.character-row { display: grid; grid-template-columns: 100px 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 8px 0; }
-.character-row .label { background: var(--pull-bg); padding: 14px 16px; font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; }
-.character-row .content { background: var(--bg); padding: 14px 16px; font-size: 0.92em; }
+
+
+.character-row { display: grid; grid-template-columns: 100px 1fr; gap: 1px; background: var(--color-dew); border: 1px solid var(--color-dew); margin: 8px 0; }
+
+
+.character-row .label { background: var(--color-dew); padding: 14px 16px; font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ash); display: flex; align-items: center; }
+
+
+.character-row .content { background: var(--color-parchment); padding: 14px 16px; font-size: 0.92em; }
+
+
 
   /* ── chapter navigation (added) ── */
   .book-topline {
@@ -61,30 +92,11 @@ blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color:
     font-size: 12.5px;
     margin-bottom: 36px;
   }
-  .book-topline a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--rule);
-    font-family: system-ui, -apple-system, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--rule); border-radius: 10px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease, background .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); background: var(--pull-bg); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--dim); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/rules-of-play">← Rules of Play — Mục lục</a></p>
+<p class="book-topline"><a href="/rules-of-play">← Rules of Play — Mục lục</a></p>
 
 <header>
   <span class="eyebrow">Rules of Play · Unit 3: Play · Chapter 27</span>
@@ -322,8 +334,8 @@ blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color:
 
 
 <nav class="chapnav">
-  <a href="ch26-rules-of-play.html"><span class="lbl">Chương trước</span>Chương 26: Games as Narrative Play</a>
-  <a href="ch28-rules-of-play.html"><span class="lbl">Chương sau</span>Chương 28: Games as Social Play</a>
+  <a href="/rules-of-play/games-as-narrative-play"><span class="lbl">Chương trước</span>Chương 26: Games as Narrative Play</a>
+  <a href="/rules-of-play/games-as-social-play"><span class="lbl">Chương sau</span>Chương 28: Games as Social Play</a>
 </nav>
 </body>
 </html>

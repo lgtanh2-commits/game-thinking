@@ -4,74 +4,155 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 17 – Kết Hợp Các Phương Pháp | User Research</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-:root {
-  --bg: #fafafa; --text: #111111; --text-secondary: #333333;
-  --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
-  --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
-}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px; line-height: 1.75; color: var(--text);
-  background: var(--bg); max-width: 820px;
-  margin: 0 auto; padding: 60px 40px 100px;
-}
+
+
 h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+
+
 h2 { font-size: 1.25rem; font-weight: 700; margin: 48px 0 14px; letter-spacing: -0.2px; }
-h3 { font-size: 1.05rem; font-weight: 700; margin: 32px 0 10px; color: var(--text-secondary); }
-p { margin-bottom: 14px; color: var(--text-secondary); }
-strong { color: var(--text); font-weight: 700; }
+
+
+h3 { font-size: 1.05rem; font-weight: 700; margin: 32px 0 10px; color: var(--color-slate-ink); }
+
+
+p { margin-bottom: 14px; color: var(--color-slate-ink); }
+
+
+strong { color: var(--color-slate-ink); font-weight: 700; }
+
+
 em { font-style: italic; }
-ul, ol { margin: 0 0 16px 24px; color: var(--text-secondary); }
+
+
+ul, ol { margin: 0 0 16px 24px; color: var(--color-slate-ink); }
+
+
 li { margin-bottom: 6px; }
-.chapter-meta { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
-.chapter-divider { width: 48px; height: 3px; background: var(--accent-line); margin: 22px 0 36px; }
-.section-rule { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+
+.chapter-meta { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-ash); margin-bottom: 18px; }
+
+
+.chapter-divider { width: 48px; height: 3px; background: var(--color-sprout); margin: 22px 0 36px; }
+
+
+.section-rule { border: none; border-top: 1px solid var(--color-dew); margin: 48px 0; }
+
+
 .box {
-  border: 1px solid var(--border); border-radius: 4px;
-  padding: 22px 26px; margin: 28px 0; background: var(--surface);
+  border: 1px solid var(--color-dew); border-radius: 4px;
+  padding: 22px 26px; margin: 28px 0; background: #ffffff;
 }
+
+
 .box-title {
   font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: 12px;
+  color: var(--color-ash); margin-bottom: 12px;
 }
+
+
 .box p:last-child, .box ul:last-child { margin-bottom: 0; }
+
+
 /* Show don't tell callout */
-.callout-strong { border: 2px solid var(--text); border-radius: 4px; padding: 20px 24px; margin: 28px 0; }
-.callout-strong .callout-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
-.callout-strong p { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0; }
+.callout-strong { border: 2px solid var(--color-slate-ink); border-radius: 4px; padding: 20px 24px; margin: 28px 0; }
+
+
+.callout-strong .callout-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-ash); margin-bottom: 8px; }
+
+
+.callout-strong p { font-size: 1rem; font-weight: 700; color: var(--color-slate-ink); margin-bottom: 0; }
+
+
 /* Scenario tables */
 .scenario-block { margin: 32px 0; }
-.scenario-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+
+
+.scenario-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-ash); margin-bottom: 10px; }
+
+
 .scenario-block h3 { margin: 0 0 16px; font-size: 1.05rem; }
+
+
 .method-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-.method-table th { text-align: left; padding: 10px 14px; background: var(--surface-dark); font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border-strong); }
-.method-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-secondary); }
+
+
+.method-table th { text-align: left; padding: 10px 14px; background: var(--color-dew); font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-ash); border-bottom: 1px solid var(--color-mist); }
+
+
+.method-table td { padding: 12px 14px; border-bottom: 1px solid var(--color-dew); vertical-align: top; color: var(--color-slate-ink); }
+
+
 .method-table tr:last-child td { border-bottom: none; }
-.method-table td:first-child { font-weight: 700; color: var(--text); width: 36px; text-align: center; }
-.method-table td:nth-child(2) { font-weight: 700; color: var(--text); width: 200px; }
-.method-ref { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; display: block; margin-top: 2px; }
+
+
+.method-table td:first-child { font-weight: 700; color: var(--color-slate-ink); width: 36px; text-align: center; }
+
+
+.method-table td:nth-child(2) { font-weight: 700; color: var(--color-slate-ink); width: 200px; }
+
+
+.method-ref { font-size: 0.75rem; color: var(--color-ash); font-weight: 400; display: block; margin-top: 2px; }
+
+
 /* Funnel diagram */
 .funnel-wrap { margin: 32px 0; display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+
 .funnel-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
-.funnel-label-left { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; width: 70px; text-align: right; }
-.funnel-label-right { font-size: 0.8rem; color: var(--text-muted); width: 180px; }
+
+
+.funnel-label-left { font-size: 0.8rem; color: var(--color-ash); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; width: 70px; text-align: right; }
+
+
+.funnel-label-right { font-size: 0.8rem; color: var(--color-ash); width: 180px; }
+
+
 .funnel-shape { display: flex; flex-direction: column; align-items: center; }
-.funnel-top { width: 220px; height: 0; border-left: 110px solid transparent; border-right: 110px solid transparent; border-top: 40px solid var(--surface-dark); }
-.funnel-mid { width: 0; height: 0; border-left: 60px solid transparent; border-right: 60px solid transparent; border-top: 70px solid var(--surface); margin-top: -2px; }
-.funnel-label-inside { font-size: 0.78rem; color: var(--text-secondary); text-align: center; margin: 4px 0; }
+
+
+.funnel-top { width: 220px; height: 0; border-left: 110px solid transparent; border-right: 110px solid transparent; border-top: 40px solid var(--color-dew); }
+
+
+.funnel-mid { width: 0; height: 0; border-left: 60px solid transparent; border-right: 60px solid transparent; border-top: 70px solid #ffffff; margin-top: -2px; }
+
+
+.funnel-label-inside { font-size: 0.78rem; color: var(--color-slate-ink); text-align: center; margin: 4px 0; }
+
+
 /* Part Two summary box */
 .summary-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 20px 0; }
-.method-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; padding: 8px 12px; font-size: 0.85rem; color: var(--text-secondary); }
-.method-pill strong { display: block; font-size: 0.75rem; color: var(--text); margin-bottom: 1px; }
-.back-nav { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 48px; }
+
+
+.method-pill { background: #ffffff; border: 1px solid var(--color-dew); border-radius: 3px; padding: 8px 12px; font-size: 0.85rem; color: var(--color-slate-ink); }
+
+
+.method-pill strong { display: block; font-size: 0.75rem; color: var(--color-slate-ink); margin-bottom: 1px; }
+
+
+.back-nav { font-size: 0.8rem; color: var(--color-ash); margin-bottom: 48px; }
+
+
 .back-nav span { margin: 0 6px; }
+
+
 /* Part closing */
-.part-close { border: 2px solid var(--border-strong); border-radius: 4px; padding: 28px 30px; margin: 40px 0; background: var(--bg); }
-.part-close h3 { font-size: 1rem; color: var(--text); margin: 0 0 14px; }
+.part-close { border: 2px solid var(--color-mist); border-radius: 4px; padding: 28px 30px; margin: 40px 0; background: var(--color-parchment); }
+
+
+.part-close h3 { font-size: 1rem; color: var(--color-slate-ink); margin: 0 0 14px; }
+
+
 .part-close p:last-child { margin-bottom: 0; }
-footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); }
+
+
+footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--color-dew); font-size: 0.8rem; color: var(--color-ash); }
+
+
 
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -79,31 +160,12 @@ footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
 
-<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<p class="book-topline"><a href="/user-research-practical-guide">← Về mục lục</a></p>
 <div class="back-nav">User Research – Stephanie Marsh<span>·</span>Phần Hai: Phương Pháp<span>·</span>Chương 17</div>
 
 <div class="chapter-meta">Chương 17</div>
@@ -368,8 +430,8 @@ footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border
 
 
 <nav class="chapnav">
-  <a href="ch16-urpg.html"><span class="lbl">Chương trước</span>Chương 16: Nghiên Cứu Gerilla</a>
-  <a href="ch18-urpg.html"><span class="lbl">Chương sau</span>Chương 18: Phân Tích Nội Dung</a>
+  <a href="/user-research-practical-guide/nghien-cuu-gerilla"><span class="lbl">Chương trước</span>Chương 16: Nghiên Cứu Gerilla</a>
+  <a href="/user-research-practical-guide/phan-tich-noi-dung"><span class="lbl">Chương sau</span>Chương 18: Phân Tích Nội Dung</a>
 </nav>
 </body>
 </html>

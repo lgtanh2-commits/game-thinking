@@ -4,157 +4,133 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 2 — Hướng Dẫn Từng Bước Thực Hiện Product Discovery</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa;
-    --text: #111111;
-    --text-secondary: #333333;
-    --text-muted: #888888;
-    --border: #d8d8d8;
-    --border-strong: #999999;
-    --surface: #f2f2f2;
-    --surface-dark: #e0e0e0;
-    --accent-line: #111111;
-  }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.75;
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 60px 40px 100px;
-  }
 
   .book-label {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 8px;
   }
+
+
 
   .chapter-label {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 16px;
   }
+
+
 
   h1 {
     font-size: 38px;
     font-weight: 900;
     line-height: 1.1;
     letter-spacing: -0.02em;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 12px;
   }
 
+
+
   .chapter-subtitle {
     font-size: 17px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     line-height: 1.55;
     margin-bottom: 48px;
     max-width: 620px;
     font-weight: 600;
   }
 
-  .divider {
-    border: none;
-    border-top: 2px solid var(--accent-line);
-    margin: 48px 0;
-  }
+
 
   .divider-light {
     border: none;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
     margin: 36px 0;
   }
 
-  h2 {
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: -0.01em;
-    color: var(--text);
-    margin-bottom: 16px;
-    margin-top: 48px;
-  }
 
-  h3 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 10px;
-    margin-top: 32px;
-  }
 
   h4 {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 8px;
     margin-top: 24px;
   }
 
-  p {
-    color: var(--text-secondary);
-    margin-bottom: 18px;
-  }
 
-  strong { color: var(--text); font-weight: 700; }
+
+  strong { color: var(--color-slate-ink); font-weight: 700; }
+
+
   em { font-style: italic; }
 
+
+
   blockquote {
-    border-left: 3px solid var(--accent-line);
+    border-left: 3px solid var(--color-sprout);
     padding: 16px 24px;
     margin: 32px 0;
   }
+
+
 
   blockquote p {
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 19px;
     font-style: italic;
     line-height: 1.55;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 12px;
   }
+
+
 
   blockquote .attribution {
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     font-style: normal;
     font-family: 'Helvetica Neue', Arial, sans-serif;
   }
 
+
+
   /* ── Double Diamond diagram ── */
   .diamond-diagram {
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     padding: 32px;
     margin: 32px 0;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
 
   .diamond-title {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 24px;
     text-align: center;
   }
+
+
 
   .diamond-row {
     display: grid;
@@ -163,34 +139,44 @@
     margin-bottom: 2px;
   }
 
+
+
   .diamond-half {
     background: white;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 20px 20px;
   }
+
+
 
   .diamond-half .dh-label {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 6px;
   }
+
+
 
   .diamond-half .dh-title {
     font-size: 15px;
     font-weight: 800;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 8px;
   }
+
+
 
   .diamond-half p {
     font-size: 13px;
     line-height: 1.5;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin-bottom: 0;
   }
+
+
 
   .diamond-footer {
     display: flex;
@@ -198,139 +184,185 @@
     margin-top: 16px;
   }
 
+
+
   .diamond-footer-label {
     font-size: 13px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     letter-spacing: 0.04em;
   }
 
+
+
   /* ── Step blocks ── */
   .step-block {
-    border-left: 4px solid var(--accent-line);
+    border-left: 4px solid var(--color-sprout);
     padding: 24px 28px;
     margin: 36px 0;
     background: white;
-    border-top: 1px solid var(--border);
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
+    border-right: 1px solid var(--color-dew);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
 
   .step-number {
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 6px;
   }
+
+
 
   .step-title {
     font-size: 22px;
     font-weight: 800;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 16px;
     line-height: 1.2;
   }
+
+
 
   /* ── Tool cards grid ── */
   .tool-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     margin: 20px 0;
   }
 
+
+
   .tool-card {
     padding: 16px 18px;
-    border-right: 1px solid var(--border-strong);
-    border-bottom: 1px solid var(--border-strong);
+    border-right: 1px solid var(--color-mist);
+    border-bottom: 1px solid var(--color-mist);
   }
 
+
+
   .tool-card:nth-child(even) { border-right: none; }
+
+
   .tool-card:nth-last-child(-n+2) { border-bottom: none; }
+
+
 
   .tc-name {
     font-size: 13px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 5px;
   }
 
+
+
   .tool-card p {
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin-bottom: 0;
     line-height: 1.5;
   }
+
+
 
   /* ── Risk grid ── */
   .risk-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     margin: 20px 0;
   }
 
+
+
   .risk-card {
     padding: 20px 20px;
-    border-right: 1px solid var(--border-strong);
-    border-bottom: 1px solid var(--border-strong);
+    border-right: 1px solid var(--color-mist);
+    border-bottom: 1px solid var(--color-mist);
   }
 
+
+
   .risk-card:nth-child(even) { border-right: none; }
+
+
   .risk-card:nth-last-child(-n+2) { border-bottom: none; }
+
+
 
   .rc-label {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 5px;
   }
+
+
 
   .rc-title {
     font-size: 15px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 8px;
   }
 
+
+
   .risk-card p {
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin-bottom: 0;
     line-height: 1.5;
   }
 
+
+
   /* ── Callout ── */
   .callout {
-    background: var(--surface);
-    border-left: 4px solid var(--accent-line);
+    background: #ffffff;
+    border-left: 4px solid var(--color-sprout);
     padding: 20px 24px;
     margin: 28px 0;
   }
 
-  .callout p { margin-bottom: 0; color: var(--text-secondary); }
-  .callout strong { color: var(--text); }
+
+
+  .callout p { margin-bottom: 0; color: var(--color-slate-ink); }
+
+
+  .callout strong { color: var(--color-slate-ink); }
+
+
 
   .callout-bold {
-    background: var(--surface-dark);
+    background: var(--color-dew);
     padding: 24px 28px;
     margin: 28px 0;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
   }
+
+
 
   .callout-bold p {
     font-size: 17px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 0;
     line-height: 1.45;
   }
+
+
 
   /* ── Bullet list ── */
   ul.bullets {
@@ -339,25 +371,33 @@
     margin: 12px 0 20px;
   }
 
+
+
   ul.bullets li {
     position: relative;
     padding-left: 18px;
     margin-bottom: 10px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     font-size: 15px;
     line-height: 1.6;
   }
+
+
 
   ul.bullets li::before {
     content: '◆';
     position: absolute;
     left: 0;
     font-size: 9px;
-    color: var(--text);
+    color: var(--color-slate-ink);
     line-height: 1.9;
   }
 
-  ul.bullets li strong { color: var(--text); }
+
+
+  ul.bullets li strong { color: var(--color-slate-ink); }
+
+
 
   /* ── Numbered list ── */
   ol.numbered {
@@ -367,22 +407,26 @@
     margin: 16px 0 24px;
   }
 
+
+
   ol.numbered li {
     counter-increment: num;
     display: flex;
     gap: 16px;
     margin-bottom: 12px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     font-size: 15px;
     align-items: flex-start;
   }
+
+
 
   ol.numbered li::before {
     content: counter(num);
     font-size: 11px;
     font-weight: 800;
-    color: var(--text);
-    background: var(--surface-dark);
+    color: var(--color-slate-ink);
+    background: var(--color-dew);
     min-width: 26px;
     height: 26px;
     display: flex;
@@ -390,6 +434,8 @@
     justify-content: center;
     flex-shrink: 0;
   }
+
+
 
   /* ── Phase table ── */
   .phase-table {
@@ -399,8 +445,10 @@
     font-size: 14px;
   }
 
+
+
   .phase-table th {
-    background: var(--text);
+    background: var(--color-slate-ink);
     color: white;
     padding: 12px 16px;
     text-align: left;
@@ -410,33 +458,45 @@
     text-transform: uppercase;
   }
 
+
+
   .phase-table td {
     padding: 14px 16px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
     vertical-align: top;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     line-height: 1.55;
   }
 
+
+
   .phase-table td:first-child {
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     white-space: nowrap;
     width: 28%;
   }
 
+
+
   .phase-table tr:last-child td { border-bottom: none; }
-  .phase-table tr:nth-child(even) td { background: var(--surface); }
+
+
+  .phase-table tr:nth-child(even) td { background: #ffffff; }
+
+
 
   .page-footer {
     margin-top: 80px;
     padding-top: 24px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
     display: flex;
     justify-content: space-between;
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
   }
+
+
 
   @media (max-width: 600px) {
     body { padding: 40px 20px 80px; }
@@ -446,36 +506,19 @@
     .diamond-row { grid-template-columns: 1fr; }
   }
 
+
+
   /* -- chapter navigation (added) -- */
   .book-topline {
     font-family: -apple-system, system-ui, sans-serif;
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/product-discovery-playbook">← Về mục lục</a></p>
+<p class="book-topline"><a href="/product-discovery-playbook">← Về mục lục</a></p>
 
 <div class="book-label">The Product Discovery Playbook · Productboard</div>
 <div class="chapter-label">Chương 2</div>
@@ -737,8 +780,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch1-product-discovery.html"><span class="lbl">Chương trước</span>Chương 1: Nền Tảng Của Product Discovery</a>
-  <a href="ch3-product-discovery.html"><span class="lbl">Chương sau</span>Chương 3: Làm Sao Biết Product Discovery Đang Hiệu Quả?</a>
+  <a href="/product-discovery-playbook/nen-tang-cua-product-discovery"><span class="lbl">Chương trước</span>Chương 1: Nền Tảng Của Product Discovery</a>
+  <a href="/product-discovery-playbook/lam-sao-biet-product-discovery-dang-hieu-qua"><span class="lbl">Chương sau</span>Chương 3: Làm Sao Biết Product Discovery Đang Hiệu Quả?</a>
 </nav>
 </body>
 </html>

@@ -4,250 +4,300 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 7 – Thiết Kế Trong Thế Giới Kinh Doanh | TKLN Người Dùng Làm Trung Tâm</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa;
-    --text: #111111;
-    --text-secondary: #333333;
-    --text-muted: #888888;
-    --border: #d8d8d8;
-    --border-strong: #999999;
-    --surface: #f2f2f2;
-    --surface-dark: #e0e0e0;
-    --accent-line: #111111;
-  }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.75;
-    color: var(--text);
-    background: var(--bg);
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 60px 40px 100px;
-  }
 
   .book-meta {
     font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 8px;
   }
+
+
 
   .chapter-label {
     font-size: 11px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 16px;
   }
+
+
 
   h1.chapter-title {
     font-size: 28px;
     font-weight: 700;
     line-height: 1.25;
     letter-spacing: -0.01em;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 8px;
   }
+
+
 
   .chapter-subtitle {
     font-size: 15px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 40px;
     font-style: italic;
   }
+
+
 
   .header-rule {
     border: none;
-    border-top: 2px solid var(--accent-line);
+    border-top: 2px solid var(--color-sprout);
     margin-bottom: 40px;
   }
 
+
+
   .opening-quote {
-    border-left: 3px solid var(--accent-line);
+    border-left: 3px solid var(--color-sprout);
     padding: 16px 24px;
     margin: 0 0 40px;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   .opening-quote p {
     font-size: 15px;
     font-style: italic;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin-bottom: 8px;
   }
+
+
   .opening-quote .attribution {
     font-size: 13px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     font-style: normal;
   }
+
+
 
   h2 {
     font-size: 18px;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin: 56px 0 16px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
 
   h3 {
     font-size: 16px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin: 32px 0 12px;
   }
+
+
 
   h4 {
     font-size: 14px;
     font-weight: 700;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin: 20px 0 8px;
   }
 
+
+
   p {
     margin-bottom: 16px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
   }
 
+
+
   .concept-box {
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     padding: 24px 28px;
     margin: 32px 0;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   .concept-box .concept-label {
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 10px;
   }
+
+
   .concept-box .concept-title {
     font-size: 15px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 12px;
   }
+
+
   .concept-box p {
     font-size: 14px;
     margin-bottom: 10px;
   }
+
+
   .concept-box p:last-child { margin-bottom: 0; }
+
+
 
   .pull-quote {
     margin: 32px 0;
     padding: 20px 0;
-    border-top: 2px solid var(--accent-line);
-    border-bottom: 1px solid var(--border);
+    border-top: 2px solid var(--color-sprout);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
   .pull-quote p {
     font-size: 19px;
     font-weight: 600;
     line-height: 1.5;
-    color: var(--text);
+    color: var(--color-slate-ink);
     font-style: italic;
     margin: 0;
   }
 
+
+
   .law-box {
-    border: 2px solid var(--accent-line);
+    border: 2px solid var(--color-sprout);
     padding: 24px 28px;
     margin: 32px 0;
   }
+
+
   .law-box .law-label {
     font-size: 10px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 12px;
   }
+
+
   .law-box blockquote {
     font-size: 17px;
     font-weight: 600;
     line-height: 1.55;
-    color: var(--text);
+    color: var(--color-slate-ink);
     font-style: italic;
     border: none;
     padding: 0;
     margin: 0 0 10px;
   }
+
+
   .law-box .law-context {
     font-size: 13px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin: 0;
   }
 
+
+
   .case-study {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 24px 28px;
     margin: 32px 0;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   .case-study .cs-label {
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 10px;
   }
+
+
   .case-study h3 { margin: 0 0 12px; font-size: 15px; }
+
+
   .case-study p { font-size: 14px; margin-bottom: 10px; }
+
+
   .case-study p:last-child { margin-bottom: 0; }
+
+
 
   ul.styled {
     margin: 12px 0 20px 0;
     padding: 0;
     list-style: none;
   }
+
+
   ul.styled li {
     display: flex;
     gap: 12px;
     font-size: 14px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin-bottom: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
     line-height: 1.55;
   }
+
+
   ul.styled li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+
   ul.styled li::before {
     content: '—';
     flex-shrink: 0;
-    color: var(--text-muted);
+    color: var(--color-ash);
     font-weight: 700;
   }
 
+
+
   .key-insight {
-    background: var(--surface-dark);
+    background: var(--color-dew);
     padding: 20px 24px;
     margin: 28px 0;
-    border-right: 3px solid var(--accent-line);
+    border-right: 3px solid var(--color-sprout);
   }
+
+
   .key-insight p {
     font-size: 14px;
     margin: 0;
     font-style: italic;
-    color: var(--text);
+    color: var(--color-slate-ink);
   }
+
+
 
   .timeline {
     margin: 24px 0;
     position: relative;
     padding-left: 20px;
-    border-left: 2px solid var(--border-strong);
+    border-left: 2px solid var(--color-mist);
   }
+
+
   .timeline-item {
     margin-bottom: 20px;
     padding-left: 16px;
     position: relative;
   }
+
+
   .timeline-item::before {
     content: '';
     position: absolute;
@@ -256,21 +306,27 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--text);
+    background: var(--color-slate-ink);
   }
+
+
   .timeline-item .tl-year {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 4px;
   }
+
+
   .timeline-item .tl-desc {
     font-size: 14px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     line-height: 1.55;
   }
+
+
 
   .info-table {
     width: 100%;
@@ -278,99 +334,92 @@
     margin: 24px 0;
     font-size: 14px;
   }
+
+
   .info-table th {
     text-align: left;
     padding: 10px 12px;
-    background: var(--surface-dark);
+    background: var(--color-dew);
     font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text);
-    border-bottom: 2px solid var(--border-strong);
+    color: var(--color-slate-ink);
+    border-bottom: 2px solid var(--color-mist);
   }
+
+
   .info-table td {
     padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text-secondary);
+    border-bottom: 1px solid var(--color-dew);
+    color: var(--color-slate-ink);
     vertical-align: top;
   }
+
+
   .info-table tr:last-child td { border-bottom: none; }
+
+
 
   .figure-ref {
     margin: 24px 0;
     padding: 14px 18px;
-    background: var(--surface);
-    border-left: 3px solid var(--border-strong);
+    background: #ffffff;
+    border-left: 3px solid var(--color-mist);
     font-size: 13px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     font-style: italic;
   }
+
+
   .figure-ref strong {
     font-style: normal;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
   }
+
+
 
   .final-note {
     margin-top: 60px;
     padding: 32px;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     text-align: center;
   }
+
+
   .final-note p {
     font-size: 15px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     font-style: italic;
     margin: 0;
   }
 
+
+
   .chapter-nav {
     margin-top: 80px;
     padding-top: 24px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
     display: flex;
     justify-content: space-between;
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
+
+
 
   @media (max-width: 600px) {
     body { padding: 32px 20px 60px; }
     h1.chapter-title { font-size: 22px; }
     h2 { font-size: 15px; }
   }
-
-  .book-topline {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 12.5px;
-    margin-bottom: 32px;
-  }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/design-of-everyday-things">← Về mục lục</a></p>
+<p class="book-topline"><a href="/design-of-everyday-things">← Về mục lục</a></p>
 
 
 <p class="book-meta">Thiết Kế Lấy Người Dùng Làm Trung Tâm — Don Norman</p>
@@ -576,7 +625,7 @@
 
 
 <nav class="chapnav">
-  <a href="ch6-doet.html"><span class="lbl">Chương trước</span>Chương 6: Tư Duy Thiết Kế</a>
+  <a href="/design-of-everyday-things/tu-duy-thiet-ke"><span class="lbl">Chương trước</span>Chương 6: Tư Duy Thiết Kế</a>
 </nav>
 </body>
 </html>

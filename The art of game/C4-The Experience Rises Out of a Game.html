@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 4: Trải Nghiệm Nảy Sinh Từ Game — The Art of Game Design</title>
 <style>
+
  :root {
  --orange: #27ae60;
  --orange-dark: #1c8a4c;
@@ -29,7 +30,11 @@
  --mint: #edf9f2;
  --sprout-d: #1c8a4c;}
 
+
+
  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+
 
  body {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -38,6 +43,8 @@
  line-height: 1.75;
  font-size: 16px;
  }
+
+
 
  /* ── NAV ── */
  nav {
@@ -51,7 +58,11 @@
  scrollbar-width: none;
  box-shadow: 0 2px 12px rgba(0,0,0,0.35);
  }
+
+
  nav::-webkit-scrollbar { display: none; }
+
+
  .nav-brand {
  padding: 14px 20px;
  color: #fff;
@@ -64,6 +75,8 @@
  margin-right: 4px;
  flex-shrink: 0;
  }
+
+
  nav a {
  display: block;
  padding: 14px 16px;
@@ -78,7 +91,11 @@
  border-bottom: 3px solid transparent;
  transition: color .2s, border-color .2s;
  }
+
+
  nav a:hover { color: var(--orange); border-bottom-color: var(--orange); }
+
+
 
  /* ── HERO ── */
  .hero {
@@ -88,6 +105,8 @@
  position: relative;
  overflow: hidden;
  }
+
+
  .hero::before {
  content: '';
  position: absolute;
@@ -96,6 +115,8 @@
  background: none;
  pointer-events: none;
  }
+
+
  .hero-label {
  display: inline-block;
  background: rgba(39,174,96,0.15);
@@ -109,13 +130,19 @@
  margin-bottom: 1.5rem;
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  }
+
+
  .hero h1 {
  font-size: clamp(1.9rem, 5vw, 3rem);
  color: #fff;
  line-height: 1.25;
  margin-bottom: 0.75rem;
  }
+
+
  .hero h1 span { color: var(--orange-light); }
+
+
  .hero-subtitle {
  font-size: 1.05rem;
  color: rgba(255,255,255,0.55);
@@ -123,12 +150,16 @@
  max-width: 600px;
  margin: 0 auto 2rem;
  }
+
+
  .hero-meta {
  display: flex;
  justify-content: center;
  gap: 2.5rem;
  flex-wrap: wrap;
  }
+
+
  .hero-meta-item .label {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 0.68rem;
@@ -138,11 +169,15 @@
  display: block;
  margin-bottom: 0.2rem;
  }
+
+
  .hero-meta-item .value {
  font-size: 0.92rem;
  color: rgba(255,255,255,0.72);
  font-style: italic;
  }
+
+
 
  /* ── LAYOUT ── */
  .container {
@@ -151,8 +186,12 @@
  padding: 0 2rem 5rem;
  }
 
+
+
  /* ── SECTION HEADERS ── */
  .section { padding: 3.5rem 0 1.5rem; }
+
+
  .section-label {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 0.68rem;
@@ -162,16 +201,28 @@
  margin-bottom: 0.6rem;
  display: block;
  }
+
+
  h2 { font-size: 1.85rem; color: var(--dark); line-height: 1.25; margin-bottom: 0.4rem; }
+
+
  h3 { font-size: 1.25rem; color: var(--dark); margin-top: 2rem; margin-bottom: 0.75rem; }
+
+
  h4 { font-size: 1rem; color: var(--gray); margin-top: 1.25rem; margin-bottom: 0.5rem; }
+
+
  p { margin-bottom: 1rem; color: var(--gray); }
+
+
  .section-divider {
  width: 48px; height: 3px;
  background: var(--orange);
  border-radius: 2px;
  margin: 0.5rem 0 1.5rem;
  }
+
+
 
  /* ── CALLOUT ── */
  .callout {
@@ -180,7 +231,11 @@
  border-left: 4px solid;
  margin: 1.5rem 0;
  }
+
+
  .callout.orange, .callout.info, .callout.success, .callout.warning, .callout.purple { background: rgba(39,174,96,0.07); border-color: rgba(39,174,96,0.3); }
+
+
  .callout-title {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 0.7rem;
@@ -189,9 +244,17 @@
  font-weight: 700;
  margin-bottom: 0.5rem;
  }
+
+
  .callout.orange .callout-title, .callout.info .callout-title, .callout.success .callout-title, .callout.warning .callout-title, .callout.purple .callout-title { color: var(--orange-dark); }
+
+
  .callout p { margin-bottom: 0; color: var(--dark); }
+
+
  .callout p + p { margin-top: 0.5rem; }
+
+
 
  /* ── QUOTE ── */
  blockquote {
@@ -201,8 +264,14 @@
  background: var(--orange-pale);
  border-radius: 0 6px 6px 0;
  }
+
+
  blockquote p { font-style: italic; font-size: 1.05rem; color: var(--dark); margin-bottom: 0.25rem; }
+
+
  blockquote cite { font-size: 0.8rem; font-style: normal; color: var(--gray-light); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+
 
  /* ── LENS CARD ── */
  .lens-card {
@@ -214,6 +283,8 @@
  position: relative;
  overflow: hidden;
  }
+
+
  .lens-card::before {
  content: '';
  position: absolute;
@@ -221,6 +292,8 @@
  width: 160px; height: 160px;
  background: none;
  }
+
+
  .lens-number {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 0.68rem;
@@ -230,9 +303,17 @@
  margin-bottom: 0.4rem;
  opacity: 0.8;
  }
+
+
  .lens-title { font-size: 1.45rem; color: #fff; margin-bottom: 0.3rem; }
+
+
  .lens-subtitle { font-style: italic; color: rgba(255,255,255,0.48); font-size: 0.88rem; margin-bottom: 1.25rem; }
+
+
  .lens-questions { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+
+
  .lens-questions li {
  font-size: 0.92rem;
  color: rgba(255,255,255,0.8);
@@ -240,6 +321,8 @@
  position: relative;
  line-height: 1.5;
  }
+
+
  .lens-questions li::before {
  content: '◆';
  position: absolute;
@@ -249,14 +332,20 @@
  top: 0.42rem;
  }
 
+
+
  /* ── DEFINITION CHAIN ── */
  .def-chain { display: flex; flex-direction: column; gap: 0; margin: 2rem 0; }
+
+
  .def-step {
  background: #fff;
  border: 1px solid rgba(39,174,96,0.2);
  border-radius: 8px;
  padding: 1.25rem 1.5rem;
  }
+
+
  .def-step .def-term {
  font-size: 0.7rem;
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -265,9 +354,17 @@
  color: var(--orange);
  margin-bottom: 0.3rem;
  }
+
+
  .def-step .def-main { font-size: 1.05rem; color: var(--dark); font-style: italic; margin-bottom: 0; }
+
+
  .def-step .def-note { font-size: 0.84rem; color: var(--gray-light); margin-top: 0.35rem; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+
  .def-arrow { text-align: center; font-size: 1.3rem; color: var(--orange); line-height: 1.6; }
+
+
 
  /* ── PLAY DEFS TABLE ── */
  .play-defs {
@@ -280,10 +377,20 @@
  margin: 1.5rem 0;
  border: 1px solid rgba(39,174,96,0.15);
  }
+
+
  .play-def-row { display: grid; grid-template-columns: 140px 1fr 90px; background: #fff; }
+
+
  .play-def-row.header { background: var(--orange-pale); }
+
+
  .play-def-row > div { padding: 0.8rem 1rem; border-right: 1px solid rgba(39,174,96,0.1); font-size: 0.85rem; }
+
+
  .play-def-row > div:last-child { border-right: none; }
+
+
  .play-def-row.header > div {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 0.7rem;
@@ -292,17 +399,37 @@
  letter-spacing: 0.08em;
  color: var(--orange-dark);
  }
+
+
  .thinker-name { font-weight: bold; color: var(--dark); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 0.84rem; }
+
+
  .def-italic { color: var(--gray); font-style: italic; }
+
+
  .verdict { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 0.75rem; font-weight: 600; }
+
+
  .verdict.pass { color: var(--green); }
+
+
  .verdict.fail { color: #EF4444; }
+
+
  .verdict.partial { color: var(--amber); }
+
+
  @media(max-width:600px) { .play-def-row { grid-template-columns: 1fr; } .play-def-row.header { display: none; } }
+
+
 
  /* ── 10 QUALITIES ── */
  .qualities-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+
+
  @media(max-width:600px) { .qualities-grid { grid-template-columns: 1fr; } }
+
+
  .quality-card {
  background: #fff;
  border: 1px solid rgba(39,174,96,0.15);
@@ -312,6 +439,8 @@
  gap: 1rem;
  align-items: flex-start;
  }
+
+
  .q-number {
  min-width: 2rem; height: 2rem;
  background: var(--orange-pale);
@@ -323,8 +452,14 @@
  color: var(--orange-dark);
  flex-shrink: 0;
  }
+
+
  .q-name { font-size: 0.88rem; font-weight: bold; color: var(--dark); margin-bottom: 0.2rem; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+
  .q-desc { font-size: 0.82rem; color: var(--gray-light); line-height: 1.45; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+
 
  /* ── SOURCE BLOCK ── */
  .source-badge {
@@ -336,10 +471,20 @@
  font-weight: 600;
  letter-spacing: 0.05em;
  }
+
+
  .badge-red { background: #FEE2E2; color: #991B1B; }
+
+
  .badge-blue { background: #DBEAFE; color: #1E3A8A; }
+
+
  .badge-green { background: #D1FAE5; color: #064E3B; }
+
+
  .def-source-block { border: 1px solid rgba(39,174,96,0.15); border-radius: 10px; overflow: hidden; margin: 1.5rem 0; }
+
+
  .def-source-header {
  background: var(--orange-pale);
  padding: 0.85rem 1.25rem;
@@ -347,12 +492,26 @@
  border-bottom: 1px solid rgba(39,174,96,0.2);
  flex-wrap: wrap;
  }
+
+
  .def-source-header .who { font-weight: bold; color: var(--dark); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 0.95rem; }
+
+
  .def-source-header .year { font-size: 0.72rem; color: var(--gray-light); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+
  .def-source-body { padding: 1.25rem; background: #fff; }
+
+
  .def-source-body blockquote { background: none; border-left-color: var(--orange-light); padding: 0.5rem 1rem; margin: 0 0 0.75rem; }
+
+
  .def-source-body blockquote p { font-size: 0.92rem; }
+
+
  .qualities-from { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+
+
  .q-tag {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 0.7rem;
@@ -363,8 +522,12 @@
  border: 1px solid rgba(39,174,96,0.2);
  }
 
+
+
  /* ── PROBLEM SOLVING MAP ── */
  .ps-map { display: flex; flex-direction: column; gap: 0.6rem; margin: 1.5rem 0; }
+
+
  .ps-row {
  display: flex; align-items: flex-start; gap: 1rem;
  background: #fff;
@@ -372,6 +535,8 @@
  border-radius: 7px;
  padding: 0.85rem 1.1rem;
  }
+
+
  .ps-q {
  min-width: 2.2rem;
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -384,8 +549,14 @@
  flex-shrink: 0;
  margin-top: 0.12rem;
  }
+
+
  .ps-ps { flex: 1; font-size: 0.9rem; color: var(--gray); line-height: 1.5; }
+
+
  .ps-ps strong { color: var(--dark); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+
 
  /* ── STORY BOX ── */
  .story-box {
@@ -394,10 +565,20 @@
  border-radius: 10px;
  padding: 1.5rem; margin: 1.5rem 0;
  }
+
+
  .story-label { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-light); margin-bottom: 0.75rem; }
+
+
  .story-box p { color: var(--gray); margin-bottom: 0.75rem; }
+
+
  .story-box p:last-child { margin-bottom: 0; }
+
+
  .story-highlight { border-left: 3px solid var(--orange); padding-left: 1rem; font-style: italic; color: var(--dark); }
+
+
 
  /* ── MAGIC CIRCLE ── */
  .magic-circle-visual {
@@ -406,6 +587,8 @@
  padding: 2.5rem; margin: 2rem 0;
  text-align: center; position: relative; overflow: hidden;
  }
+
+
  .mc-outer {
  display: inline-block;
  width: 260px; height: 260px;
@@ -413,6 +596,8 @@
  border-radius: 50%;
  position: relative; margin: 0 auto 1.5rem;
  }
+
+
  .mc-inner {
  position: absolute; top: 50%; left: 50%;
  transform: translate(-50%, -50%);
@@ -422,7 +607,11 @@
  border-radius: 50%;
  display: flex; align-items: center; justify-content: center;
  }
+
+
  .mc-inner-text { color: rgba(255,255,255,0.88); font-size: 0.82rem; font-style: italic; text-align: center; line-height: 1.5; padding: 0.5rem; }
+
+
  .mc-label-outer {
  position: absolute; top: -1rem; left: 50%; transform: translateX(-50%);
  color: rgba(39,174,96,0.7);
@@ -430,7 +619,11 @@
  font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
  white-space: nowrap; background: #1a1a2e; padding: 0 0.5rem;
  }
+
+
  .mc-caption { color: rgba(255,255,255,0.6); font-size: 0.88rem; font-style: italic; max-width: 500px; margin: 0 auto; line-height: 1.65; }
+
+
 
  /* ── FINAL DEF ── */
  .final-def-box {
@@ -439,33 +632,75 @@
  border-radius: 12px;
  padding: 2.5rem; text-align: center; margin: 2rem 0;
  }
+
+
  .final-def-label { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(108,201,153,0.75); margin-bottom: 0.75rem; }
+
+
  .final-def-text { font-size: 1.5rem; color: #fff; font-style: italic; line-height: 1.4; margin-bottom: 0.5rem; }
+
+
  .final-def-text span { color: var(--orange-light); }
+
+
  .final-def-sub { font-size: 0.85rem; color: rgba(255,255,255,0.42); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+
 
  /* ── SUMMARY GRID ── */
  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+
+
  @media(max-width:600px) { .summary-grid { grid-template-columns: 1fr; } }
+
+
  .summary-item { background: #fff; border: 1px solid rgba(39,174,96,0.15); border-radius: 8px; padding: 1rem 1.25rem; }
+
+
  .si-label { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.3rem; }
+
+
  .si-text { font-size: 0.92rem; color: var(--dark); font-style: italic; line-height: 1.5; }
+
+
 
  /* ── LENSES MINI ROW ── */
  .lenses-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 0.75rem; margin: 1.5rem 0; }
+
+
  .lens-mini { background: var(--dark); border: 1px solid rgba(39,174,96,0.25); border-radius: 8px; padding: 1rem; text-align: center; }
+
+
  .lens-mini-num { font-size: 0.65rem; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+
+
  .lens-mini-name { font-size: 0.9rem; color: #fff; font-style: italic; }
+
+
 
  /* ── READING ── */
  .reading-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.25rem 0; }
+
+
  @media(max-width:600px) { .reading-grid { grid-template-columns: 1fr; } }
+
+
  .reading-item { background: #fff; border: 1px solid #e5e5ea; border-radius: 7px; padding: 0.85rem 1rem; }
+
+
  .reading-title { font-size: 0.88rem; font-weight: bold; color: var(--dark); margin-bottom: 0.2rem; }
+
+
  .reading-author { font-size: 0.78rem; color: var(--gray-light); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+
  .reading-note { font-size: 0.8rem; color: var(--gray); font-style: italic; margin-top: 0.3rem; }
 
+
+
  hr { border: none; border-top: 1px solid rgba(39,174,96,0.15); margin: 2rem 0; }
+
+
 
  footer {
  background: var(--dark);
@@ -476,6 +711,8 @@
  font-size: 0.78rem;
  margin-top: 4rem;
  }
+
+
  footer strong { color: rgba(255,255,255,0.65); }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -483,6 +720,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+<p class="book-topline"><a href="/the-art-of-game-design">← Về mục lục</a></p>
+
 <style>
   .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
@@ -494,10 +733,80 @@
   .chapnav a { flex: 1; max-width: 380px; text-decoration: none; background: #fff; border: 1px solid #e4ebe2; border-radius: 14px; padding: 14px 18px; color: #313942; font-size: 13.5px; }
   .chapnav a:last-child { text-align: right; margin-left: auto; }
   .chapnav .lbl { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: #656a75; margin-bottom: 3px; }
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+
+/* __FIX_CHAPNAV_LEAK_START__ */
+/* book-topline: sách này không link assets/theme.css nên cần style riêng ở đây */
+.book-topline {
+  display: block;
+  padding: 14px 24px;
+  background: var(--forest, #0e231c);
+}
+.book-topline a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 19px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color .15s ease;
+}
+.book-topline a:hover { border-color: #fff; }
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+/* __FIX_CHAPNAV_LEAK_END__ */
 </style>
 <nav class="topnav">
-  <a class="brand" href="../index.html">Tổng hợp insight</a>
-  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 4</b></span>
+  <a class="brand" href="/">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 4</b></span>
 </nav>
 
 
@@ -1168,6 +1477,6 @@
  Tài liệu học tập cá nhân
 </footer>
 
-<div class="chapnav-wrap"><div class="chapnav"><a href="C3-The Experience Takes Place.html"><span class="lbl">Chương trước</span>Chương 3: The Experience Takes Place in a Venue</a><a href="C5-Element of game.html"><span class="lbl">Chương sau</span>Chương 5: The Game Consists of Elements</a></div></div>
+<div class="chapnav-wrap"><nav class="chapnav"><a href="/the-art-of-game-design/the-experience-takes-place-in-a-venue"><span class="lbl">Chương trước</span>Chương 3: The Experience Takes Place in a Venue</a><a href="/the-art-of-game-design/the-game-consists-of-elements"><span class="lbl">Chương sau</span>Chương 5: The Game Consists of Elements</a></nav></div>
 </body>
 </html>

@@ -4,123 +4,157 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 8: Các Hệ Thống Phổ Biến Trong Ngân Hàng Bán Lẻ</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-:root {
-  --bg: #fafafa; --text: #111111; --text-secondary: #333333;
-  --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
-  --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px; line-height: 1.75; color: var(--text);
-  background: var(--bg); max-width: 820px;
-  margin: 0 auto; padding: 60px 40px 100px;
-}
+
 /* Chapter header */
 .chapter-header {
-  border-top: 3px solid var(--accent-line);
-  border-bottom: 1px solid var(--border);
+  border-top: 3px solid var(--color-sprout);
+  border-bottom: 1px solid var(--color-dew);
   padding: 40px 0 32px;
   margin-bottom: 48px;
 }
+
+
 .chapter-label {
   font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--text-muted);
+  text-transform: uppercase; color: var(--color-ash);
   margin-bottom: 12px;
 }
+
+
 .chapter-number {
   font-size: 72px; font-weight: 900; line-height: 1;
-  color: var(--surface-dark); letter-spacing: -2px;
+  color: var(--color-dew); letter-spacing: -2px;
   margin-bottom: 16px;
 }
+
+
 .chapter-title {
   font-size: 28px; font-weight: 700; line-height: 1.25;
-  color: var(--text); margin-bottom: 16px;
+  color: var(--color-slate-ink); margin-bottom: 16px;
 }
+
+
 .chapter-subtitle {
-  font-size: 15px; color: var(--text-secondary);
+  font-size: 15px; color: var(--color-slate-ink);
   font-style: italic; line-height: 1.6;
-  border-left: 3px solid var(--border-strong);
+  border-left: 3px solid var(--color-mist);
   padding-left: 16px;
 }
+
+
 /* Table of contents */
 .toc {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: #ffffff;
+  border: 1px solid var(--color-dew);
   padding: 24px 28px;
   margin-bottom: 52px;
 }
+
+
 .toc-title {
   font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
-  text-transform: uppercase; color: var(--text-muted);
+  text-transform: uppercase; color: var(--color-ash);
   margin-bottom: 14px;
 }
+
+
 .toc a {
-  display: block; color: var(--text-secondary);
+  display: block; color: var(--color-slate-ink);
   text-decoration: none; font-size: 14px;
   padding: 3px 0;
   border-bottom: 1px solid transparent;
   transition: color 0.15s;
 }
-.toc a:hover { color: var(--text); }
+
+
+.toc a:hover { color: var(--color-slate-ink); }
+
+
 .toc-num {
-  color: var(--text-muted); margin-right: 8px; font-variant-numeric: tabular-nums;
+  color: var(--color-ash); margin-right: 8px; font-variant-numeric: tabular-nums;
 }
+
+
 /* Sections */
 h2 {
   font-size: 20px; font-weight: 700;
   margin: 52px 0 18px;
   padding-bottom: 8px;
-  border-bottom: 2px solid var(--accent-line);
+  border-bottom: 2px solid var(--color-sprout);
 }
+
+
 h3 {
   font-size: 16px; font-weight: 700;
   margin: 28px 0 12px;
-  color: var(--text);
+  color: var(--color-slate-ink);
 }
+
+
 h4 {
   font-size: 14px; font-weight: 700;
   margin: 20px 0 8px;
-  color: var(--text-secondary);
+  color: var(--color-slate-ink);
   text-transform: uppercase; letter-spacing: 0.06em;
 }
-p { margin-bottom: 14px; color: var(--text-secondary); }
-strong { color: var(--text); font-weight: 700; }
+
+
+p { margin-bottom: 14px; color: var(--color-slate-ink); }
+
+
+strong { color: var(--color-slate-ink); font-weight: 700; }
+
+
 /* Vendor cards */
 .vendor-grid {
   display: grid;
   gap: 0;
   margin: 28px 0;
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-dew);
 }
+
+
 .vendor-card {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--color-dew);
   padding: 24px 28px;
 }
+
+
 .vendor-card:last-child { border-bottom: none; }
+
+
 .vendor-header {
   display: flex;
   align-items: baseline;
   gap: 12px;
   margin-bottom: 10px;
 }
+
+
 .vendor-name {
-  font-size: 17px; font-weight: 700; color: var(--text);
+  font-size: 17px; font-weight: 700; color: var(--color-slate-ink);
 }
+
+
 .vendor-tag {
   font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--text-muted);
-  background: var(--surface);
-  border: 1px solid var(--border);
+  text-transform: uppercase; color: var(--color-ash);
+  background: #ffffff;
+  border: 1px solid var(--color-dew);
   padding: 2px 8px;
   border-radius: 2px;
 }
+
+
 .vendor-clients {
-  font-size: 12px; color: var(--text-muted);
+  font-size: 12px; color: var(--color-ash);
   margin-top: 10px;
   font-style: italic;
 }
+
+
 /* Module list */
 .module-list {
   display: grid;
@@ -128,91 +162,137 @@ strong { color: var(--text); font-weight: 700; }
   gap: 8px 20px;
   margin: 12px 0;
 }
+
+
 .module-item {
-  font-size: 14px; color: var(--text-secondary);
+  font-size: 14px; color: var(--color-slate-ink);
   padding: 6px 10px;
-  background: var(--surface);
-  border-left: 2px solid var(--border-strong);
+  background: #ffffff;
+  border-left: 2px solid var(--color-mist);
 }
-.module-item strong { color: var(--text); font-size: 13px; }
+
+
+.module-item strong { color: var(--color-slate-ink); font-size: 13px; }
+
+
 /* Feature list */
 .feature-list {
   margin: 10px 0;
   padding-left: 0;
   list-style: none;
 }
+
+
 .feature-list li {
   padding: 5px 0 5px 16px;
   position: relative;
   font-size: 14px;
-  color: var(--text-secondary);
-  border-bottom: 1px solid var(--border);
+  color: var(--color-slate-ink);
+  border-bottom: 1px solid var(--color-dew);
 }
+
+
 .feature-list li:last-child { border-bottom: none; }
+
+
 .feature-list li::before {
   content: '→';
   position: absolute; left: 0;
-  color: var(--text-muted); font-size: 12px;
+  color: var(--color-ash); font-size: 12px;
 }
+
+
 /* IT Spend bar chart */
 .spend-chart {
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-dew);
   padding: 24px 28px;
   margin: 24px 0;
-  background: var(--surface);
+  background: #ffffff;
 }
+
+
 .spend-chart-title {
-  font-size: 13px; font-weight: 700; color: var(--text);
+  font-size: 13px; font-weight: 700; color: var(--color-slate-ink);
   margin-bottom: 6px;
 }
+
+
 .spend-chart-sub {
-  font-size: 11px; color: var(--text-muted); margin-bottom: 20px;
+  font-size: 11px; color: var(--color-ash); margin-bottom: 20px;
 }
+
+
 .bar-group {
   margin-bottom: 16px;
 }
+
+
 .bar-label {
-  font-size: 12px; color: var(--text-secondary); margin-bottom: 6px;
+  font-size: 12px; color: var(--color-slate-ink); margin-bottom: 6px;
 }
+
+
 .bar-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
 }
+
+
 .bar-year {
-  font-size: 10px; color: var(--text-muted); width: 30px; text-align: right;
+  font-size: 10px; color: var(--color-ash); width: 30px; text-align: right;
   flex-shrink: 0;
 }
+
+
 .bar-track {
-  flex: 1; height: 14px; background: var(--border);
+  flex: 1; height: 14px; background: var(--color-dew);
   position: relative; overflow: hidden;
 }
+
+
 .bar-fill {
   height: 100%;
-  background: var(--text-muted);
+  background: var(--color-ash);
 }
-.bar-fill.dark { background: var(--text); }
+
+
+.bar-fill.dark { background: var(--color-slate-ink); }
+
+
 .bar-value {
-  font-size: 11px; color: var(--text-muted); width: 50px; flex-shrink: 0;
+  font-size: 11px; color: var(--color-ash); width: 50px; flex-shrink: 0;
 }
+
+
 /* Stats strip */
 .stats-strip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-dew);
   margin: 24px 0;
 }
+
+
 .stat-cell {
   padding: 16px 20px;
-  border-right: 1px solid var(--border);
+  border-right: 1px solid var(--color-dew);
   text-align: center;
 }
+
+
 .stat-cell:last-child { border-right: none; }
+
+
 .stat-value {
-  font-size: 20px; font-weight: 800; color: var(--text);
+  font-size: 20px; font-weight: 800; color: var(--color-slate-ink);
   line-height: 1;
 }
+
+
 .stat-label {
-  font-size: 11px; color: var(--text-muted); margin-top: 4px;
+  font-size: 11px; color: var(--color-ash); margin-top: 4px;
 }
+
+
 /* Other systems table */
 .systems-table {
   width: 100%;
@@ -220,8 +300,10 @@ strong { color: var(--text); font-weight: 700; }
   margin: 20px 0;
   font-size: 13px;
 }
+
+
 .systems-table th {
-  background: var(--text);
+  background: var(--color-slate-ink);
   color: white;
   padding: 10px 14px;
   text-align: left;
@@ -230,82 +312,114 @@ strong { color: var(--text); font-weight: 700; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
+
 .systems-table td {
   padding: 9px 14px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text-secondary);
+  border-bottom: 1px solid var(--color-dew);
+  color: var(--color-slate-ink);
   vertical-align: top;
 }
-.systems-table tr:nth-child(even) td { background: var(--surface); }
+
+
+.systems-table tr:nth-child(even) td { background: #ffffff; }
+
+
 .cat-badge {
   display: inline-block;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-muted);
-  background: var(--surface-dark);
+  color: var(--color-ash);
+  background: var(--color-dew);
   padding: 2px 7px;
   border-radius: 2px;
 }
+
+
 /* Architecture diagram */
 .arch-diagram {
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-dew);
   padding: 20px;
   margin: 24px 0;
-  background: var(--surface);
+  background: #ffffff;
 }
+
+
 .arch-title {
   font-size: 12px; font-weight: 700; text-align: center;
-  color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-ash); letter-spacing: 0.08em; text-transform: uppercase;
   margin-bottom: 16px;
 }
+
+
 .arch-layer {
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--color-mist);
   background: white;
   padding: 10px 14px;
   margin-bottom: 8px;
 }
+
+
 .arch-layer-title {
   font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
+  text-transform: uppercase; color: var(--color-ash); margin-bottom: 6px;
 }
+
+
 .arch-modules {
   display: flex; flex-wrap: wrap; gap: 6px;
 }
+
+
 .arch-mod {
-  font-size: 11px; color: var(--text-secondary);
-  border: 1px solid var(--border);
+  font-size: 11px; color: var(--color-slate-ink);
+  border: 1px solid var(--color-dew);
   padding: 3px 8px;
-  background: var(--surface);
+  background: #ffffff;
 }
+
+
 /* Callout box */
 .callout {
-  border-left: 3px solid var(--accent-line);
-  background: var(--surface);
+  border-left: 3px solid var(--color-sprout);
+  background: #ffffff;
   padding: 16px 20px;
   margin: 20px 0;
 }
+
+
 .callout p { margin-bottom: 0; font-size: 15px; }
+
+
 /* Conclusion */
 .conclusion-box {
-  border: 1px solid var(--border);
-  background: var(--text);
+  border: 1px solid var(--color-dew);
+  background: var(--color-slate-ink);
   color: white;
   padding: 28px 32px;
   margin-top: 48px;
 }
+
+
 .conclusion-box h3 { color: white; margin-top: 0; }
+
+
 .conclusion-box p { color: rgba(255,255,255,0.82); margin-bottom: 0; }
+
+
 /* Footer */
 .doc-footer {
   margin-top: 64px;
   padding-top: 20px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--color-dew);
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--color-ash);
   display: flex; justify-content: space-between;
 }
+
+
 
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -313,30 +427,11 @@ strong { color: var(--text); font-weight: 700; }
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/business-knowledge-it-retail-banking">← Về mục lục</a></p>
+<p class="book-topline"><a href="/business-knowledge-it-retail-banking">← Về mục lục</a></p>
 
 <div class="chapter-header">
   <div class="chapter-label">Chương 8</div>
@@ -871,8 +966,8 @@ strong { color: var(--text); font-weight: 700; }
 
 
 <nav class="chapnav">
-  <a href="ch7-bkrb.html"><span class="lbl">Chương trước</span>Chương 7: Thanh Toán Trong Ngân Hàng Bán Lẻ</a>
-  <a href="ch9-bkrb.html"><span class="lbl">Chương sau</span>Chương 9: Các Dự Án CNTT Trong Ngân Hàng Bán Lẻ</a>
+  <a href="/business-knowledge-it-retail-banking/thanh-toan-trong-ngan-hang-ban-le"><span class="lbl">Chương trước</span>Chương 7: Thanh Toán Trong Ngân Hàng Bán Lẻ</a>
+  <a href="/business-knowledge-it-retail-banking/cac-du-an-cntt-trong-ngan-hang-ban-le"><span class="lbl">Chương sau</span>Chương 9: Các Dự Án CNTT Trong Ngân Hàng Bán Lẻ</a>
 </nav>
 </body>
 </html>

@@ -4,69 +4,63 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 11 — Tài trợ Venture Capital và định giá Fintech</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-:root {
-  --bg: #fafafa;
-  --text: #111111;
-  --text-secondary: #333333;
-  --text-muted: #888888;
-  --border: #d8d8d8;
-  --border-strong: #999999;
-  --surface: #f2f2f2;
-  --surface-dark: #e0e0e0;
-  --accent-line: #111111;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--text);
-  background: var(--bg);
-  max-width: 820px;
-  margin: 0 auto;
-  padding: 60px 40px 100px;
-}
+
 h1 {
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: -0.5px;
-  border-bottom: 3px solid var(--accent-line);
+  border-bottom: 3px solid var(--color-sprout);
   padding-bottom: 16px;
   margin-bottom: 10px;
 }
+
+
 .chapter-meta {
-  color: var(--text-muted);
+  color: var(--color-ash);
   font-size: 0.85rem;
   margin-bottom: 40px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
+
 h2 {
   font-size: 1.3rem;
   font-weight: 700;
   margin-top: 50px;
   margin-bottom: 18px;
   padding-left: 12px;
-  border-left: 4px solid var(--accent-line);
+  border-left: 4px solid var(--color-sprout);
 }
+
+
 h3 {
   font-size: 1.05rem;
   font-weight: 700;
   margin-top: 30px;
   margin-bottom: 12px;
-  color: var(--text-secondary);
+  color: var(--color-slate-ink);
 }
+
+
 p {
   margin-bottom: 16px;
-  color: var(--text-secondary);
+  color: var(--color-slate-ink);
 }
-strong { color: var(--text); }
+
+
+strong { color: var(--color-slate-ink); }
+
+
 .section-divider {
   border: none;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--color-dew);
   margin: 40px 0;
 }
+
+
 /* Key metric cards */
 .metric-grid {
   display: grid;
@@ -74,63 +68,85 @@ strong { color: var(--text); }
   gap: 16px;
   margin: 24px 0;
 }
+
+
 .metric-card {
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-dew);
   padding: 18px 16px;
-  background: var(--surface);
+  background: #ffffff;
 }
+
+
 .metric-value {
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: 4px;
 }
+
+
 .metric-label {
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: var(--color-ash);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
+
+
 /* Regional bar chart */
 .bar-chart { margin: 24px 0; }
+
+
 .bar-row {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
   gap: 10px;
 }
+
+
 .bar-label {
   font-size: 0.82rem;
   width: 140px;
   min-width: 140px;
-  color: var(--text-secondary);
+  color: var(--color-slate-ink);
   text-align: right;
 }
+
+
 .bar-track {
   flex: 1;
-  background: var(--surface-dark);
+  background: var(--color-dew);
   height: 22px;
   position: relative;
 }
+
+
 .bar-fill {
   height: 100%;
-  background: var(--text);
+  background: var(--color-slate-ink);
   display: flex;
   align-items: center;
   padding-left: 6px;
 }
+
+
 .bar-value {
   font-size: 0.75rem;
-  color: var(--bg);
+  color: var(--color-parchment);
   white-space: nowrap;
   font-weight: 600;
 }
+
+
 .bar-value-outside {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--color-ash);
   white-space: nowrap;
   margin-left: 6px;
 }
+
+
 /* Data table */
 table {
   width: 100%;
@@ -138,25 +154,35 @@ table {
   font-size: 0.84rem;
   margin: 20px 0;
 }
+
+
 th {
-  background: var(--surface-dark);
-  border: 1px solid var(--border);
+  background: var(--color-dew);
+  border: 1px solid var(--color-dew);
   padding: 8px 10px;
   text-align: left;
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  color: var(--text);
+  color: var(--color-slate-ink);
 }
+
+
 td {
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-dew);
   padding: 8px 10px;
-  color: var(--text-secondary);
+  color: var(--color-slate-ink);
   vertical-align: top;
 }
-tr:nth-child(even) td { background: var(--surface); }
-tr.highlight td { background: var(--surface-dark); font-weight: 700; color: var(--text); }
+
+
+tr:nth-child(even) td { background: #ffffff; }
+
+
+tr.highlight td { background: var(--color-dew); font-weight: 700; color: var(--color-slate-ink); }
+
+
 /* Segment scorecard */
 .scorecard {
   display: grid;
@@ -164,137 +190,150 @@ tr.highlight td { background: var(--surface-dark); font-weight: 700; color: var(
   gap: 12px;
   margin: 20px 0;
 }
+
+
 .scorecard-item {
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-dew);
   padding: 12px 14px;
   display: flex;
   align-items: center;
   gap: 12px;
 }
+
+
 .scorecard-rank {
   font-size: 1.4rem;
   font-weight: 700;
   min-width: 36px;
   text-align: center;
 }
+
+
 .scorecard-name {
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 2px;
 }
+
+
 .scorecard-score {
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: var(--color-ash);
 }
+
+
 /* Valuation table */
 .val-table-wrap { overflow-x: auto; margin: 20px 0; }
+
+
 /* Funding funnel */
 .funnel { margin: 24px 0; }
+
+
 .funnel-stage {
   display: flex;
   align-items: stretch;
   margin-bottom: 4px;
   gap: 12px;
 }
+
+
 .funnel-label {
   width: 120px;
   min-width: 120px;
   font-size: 0.82rem;
   font-weight: 700;
-  color: var(--text);
+  color: var(--color-slate-ink);
   display: flex;
   align-items: center;
 }
+
+
 .funnel-bar {
   flex: 1;
-  background: var(--surface-dark);
+  background: var(--color-dew);
   padding: 10px 14px;
   font-size: 0.82rem;
-  color: var(--text-secondary);
+  color: var(--color-slate-ink);
   display: flex;
   align-items: center;
   gap: 20px;
 }
-.funnel-eu { border-left: 4px solid var(--text); }
-.funnel-us { border-left: 4px dashed var(--border-strong); }
+
+
+.funnel-eu { border-left: 4px solid var(--color-slate-ink); }
+
+
+.funnel-us { border-left: 4px dashed var(--color-mist); }
+
+
 .funnel-sep {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--color-ash);
   font-style: italic;
 }
+
+
 /* Callout box */
 .callout {
-  border: 1px solid var(--border-strong);
-  border-left: 4px solid var(--accent-line);
+  border: 1px solid var(--color-mist);
+  border-left: 4px solid var(--color-sprout);
   padding: 16px 20px;
   margin: 24px 0;
-  background: var(--surface);
+  background: #ffffff;
 }
+
+
 .callout-title {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.6px;
   font-weight: 700;
-  color: var(--text-muted);
+  color: var(--color-ash);
   margin-bottom: 8px;
 }
+
+
 /* Timeline line */
 .timeline { margin: 20px 0; }
+
+
 .tl-item {
   display: flex;
   gap: 16px;
   margin-bottom: 12px;
 }
+
+
 .tl-year {
   font-weight: 700;
   font-size: 0.85rem;
   min-width: 60px;
-  color: var(--text);
+  color: var(--color-slate-ink);
   padding-top: 2px;
 }
+
+
 .tl-desc {
   font-size: 0.85rem;
-  color: var(--text-secondary);
-  border-left: 2px solid var(--border);
+  color: var(--color-slate-ink);
+  border-left: 2px solid var(--color-dew);
   padding-left: 14px;
 }
+
+
 footer {
   margin-top: 80px;
   padding-top: 20px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--color-dew);
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: var(--color-ash);
 }
-
-  .book-topline {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 12.5px;
-    margin-bottom: 32px;
-  }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/fintech-business-models">← Về mục lục</a></p>
+<p class="book-topline"><a href="/fintech-business-models">← Về mục lục</a></p>
 
 
 <p class="chapter-meta">Fintech Business Models · Matthias Fischer · De Gruyter 2021 · Chương 11</p>
@@ -1074,8 +1113,8 @@ footer {
 </footer>
 
 <nav class="chapnav">
-  <a href="ch10-fbm.html"><span class="lbl">Chương trước</span>Chương 10: Big Data Và Trí Tuệ Nhân Tạo Trong Ngân Hàng</a>
-  <a href="ch12-fbm.html"><span class="lbl">Chương sau</span>Chương 12: Kết Luận: Điều Chúng Ta Có Thể Và Không Thể Biết Về Tương Lai Fintech</a>
+  <a href="/fintech-business-models/big-data-va-tri-tue-nhan-tao-trong-ngan-hang"><span class="lbl">Chương trước</span>Chương 10: Big Data Và Trí Tuệ Nhân Tạo Trong Ngân Hàng</a>
+  <a href="/fintech-business-models/ket-luan-dieu-chung-ta-co-the-va-khong-the-biet-ve-tuong-lai-fintech"><span class="lbl">Chương sau</span>Chương 12: Kết Luận: Điều Chúng Ta Có Thể Và Không Thể Biết Về Tương Lai Fintech</a>
 </nav>
 </body>
 </html>

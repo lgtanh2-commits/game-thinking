@@ -4,100 +4,94 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 3 — Làm Sao Biết Product Discovery Đang Hiệu Quả?</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa;
-    --text: #111111;
-    --text-secondary: #333333;
-    --text-muted: #888888;
-    --border: #d8d8d8;
-    --border-strong: #999999;
-    --surface: #f2f2f2;
-    --surface-dark: #e0e0e0;
-    --accent-line: #111111;
-  }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.75;
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 60px 40px 100px;
-  }
 
   .book-label {
     font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;
+    text-transform: uppercase; color: var(--color-ash); margin-bottom: 8px;
   }
+
+
   .chapter-label {
     font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
+    text-transform: uppercase; color: var(--color-ash); margin-bottom: 16px;
   }
+
+
   h1 {
     font-size: 36px; font-weight: 900; line-height: 1.1;
-    letter-spacing: -0.02em; color: var(--text); margin-bottom: 12px;
+    letter-spacing: -0.02em; color: var(--color-slate-ink); margin-bottom: 12px;
   }
+
+
   .chapter-subtitle {
-    font-size: 16px; color: var(--text-secondary); line-height: 1.6;
+    font-size: 16px; color: var(--color-slate-ink); line-height: 1.6;
     margin-bottom: 48px; max-width: 620px;
   }
-  .divider {
-    border: none; border-top: 2px solid var(--accent-line); margin: 48px 0;
-  }
+
+
   .divider-light {
-    border: none; border-top: 1px solid var(--border); margin: 36px 0;
+    border: none; border-top: 1px solid var(--color-dew); margin: 36px 0;
   }
-  h2 {
-    font-size: 26px; font-weight: 800; letter-spacing: -0.01em;
-    color: var(--text); margin-bottom: 16px; margin-top: 48px;
-  }
-  h3 {
-    font-size: 18px; font-weight: 700; color: var(--text);
-    margin-bottom: 10px; margin-top: 32px;
-  }
+
+
   h4 {
     font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--text-muted);
+    text-transform: uppercase; color: var(--color-ash);
     margin-bottom: 8px; margin-top: 24px;
   }
-  p { color: var(--text-secondary); margin-bottom: 18px; }
-  strong { color: var(--text); font-weight: 700; }
+
+
+  strong { color: var(--color-slate-ink); font-weight: 700; }
+
+
   em { font-style: italic; }
 
+
+
   blockquote {
-    border-left: 3px solid var(--accent-line);
+    border-left: 3px solid var(--color-sprout);
     padding: 16px 24px; margin: 32px 0;
   }
+
+
   blockquote p {
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 19px; font-style: italic; line-height: 1.55;
-    color: var(--text); margin-bottom: 12px;
+    color: var(--color-slate-ink); margin-bottom: 12px;
   }
+
+
   blockquote .attribution {
     font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--text-muted);
+    text-transform: uppercase; color: var(--color-ash);
     font-style: normal; font-family: 'Helvetica Neue', Arial, sans-serif;
   }
+
+
 
   /* ── Indicator comparison ── */
   .indicator-compare {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     margin: 28px 0;
   }
 
+
+
   .indicator-col {
     padding: 24px 24px;
-    border-right: 1px solid var(--border-strong);
+    border-right: 1px solid var(--color-mist);
   }
+
+
   .indicator-col:last-child { border-right: none; }
+
+
 
   .ic-badge {
     display: inline-block;
@@ -108,56 +102,82 @@
     padding: 3px 8px;
     margin-bottom: 12px;
   }
-  .ic-badge-lag { background: var(--surface-dark); color: var(--text-muted); }
-  .ic-badge-lead { background: var(--text); color: white; }
+
+
+  .ic-badge-lag { background: var(--color-dew); color: var(--color-ash); }
+
+
+  .ic-badge-lead { background: var(--color-slate-ink); color: white; }
+
+
 
   .ic-title {
-    font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 10px;
+    font-size: 18px; font-weight: 800; color: var(--color-slate-ink); margin-bottom: 10px;
   }
+
+
   .indicator-col p {
-    font-size: 14px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.55;
+    font-size: 14px; color: var(--color-slate-ink); margin-bottom: 10px; line-height: 1.55;
   }
+
+
   .indicator-col ul {
     list-style: none; padding: 0; margin: 0;
   }
+
+
   .indicator-col ul li {
     position: relative; padding-left: 16px; margin-bottom: 8px;
-    font-size: 13px; color: var(--text-secondary); line-height: 1.5;
+    font-size: 13px; color: var(--color-slate-ink); line-height: 1.5;
   }
+
+
   .indicator-col ul li::before {
-    content: '—'; position: absolute; left: 0; color: var(--text-muted);
+    content: '—'; position: absolute; left: 0; color: var(--color-ash);
   }
+
+
 
   /* ── Step blocks ── */
   .step-block {
-    border-left: 4px solid var(--accent-line);
+    border-left: 4px solid var(--color-sprout);
     padding: 24px 28px; margin: 36px 0;
-    border-top: 1px solid var(--border);
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
+    border-right: 1px solid var(--color-dew);
+    border-bottom: 1px solid var(--color-dew);
     background: white;
   }
+
+
   .step-number {
     font-size: 10px; font-weight: 800; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
+    text-transform: uppercase; color: var(--color-ash); margin-bottom: 6px;
   }
+
+
   .step-title {
-    font-size: 22px; font-weight: 800; color: var(--text);
+    font-size: 22px; font-weight: 800; color: var(--color-slate-ink);
     margin-bottom: 16px; line-height: 1.2;
   }
 
+
+
   /* ── Onion diagram ── */
   .onion-diagram {
-    border: 1px solid var(--border-strong);
-    background: var(--surface);
+    border: 1px solid var(--color-mist);
+    background: #ffffff;
     padding: 28px;
     margin: 24px 0;
     text-align: center;
   }
+
+
   .onion-title {
     font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;
+    text-transform: uppercase; color: var(--color-ash); margin-bottom: 20px;
   }
+
+
   .onion-layers {
     display: flex;
     flex-direction: column;
@@ -165,110 +185,170 @@
     max-width: 400px;
     margin: 0 auto;
   }
+
+
   .onion-layer {
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     background: white;
     padding: 14px 20px;
     margin: 3px 0;
     font-size: 14px;
     font-weight: 600;
-    color: var(--text);
+    color: var(--color-slate-ink);
   }
+
+
   .onion-layer:nth-child(1) { margin-left: 0; margin-right: 0; }
+
+
   .onion-layer:nth-child(2) { margin-left: 24px; margin-right: 24px; }
+
+
   .onion-layer:nth-child(3) { margin-left: 48px; margin-right: 48px; }
+
+
   .onion-layer p {
-    font-size: 12px; font-weight: 400; color: var(--text-muted);
+    font-size: 12px; font-weight: 400; color: var(--color-ash);
     margin: 2px 0 0; line-height: 1.4;
   }
 
+
+
   /* ── Callout ── */
   .callout {
-    background: var(--surface);
-    border-left: 4px solid var(--accent-line);
+    background: #ffffff;
+    border-left: 4px solid var(--color-sprout);
     padding: 20px 24px; margin: 28px 0;
   }
-  .callout p { margin-bottom: 0; color: var(--text-secondary); }
-  .callout strong { color: var(--text); }
+
+
+  .callout p { margin-bottom: 0; color: var(--color-slate-ink); }
+
+
+  .callout strong { color: var(--color-slate-ink); }
+
+
 
   .callout-bold {
-    background: var(--surface-dark);
-    border: 1px solid var(--border-strong);
+    background: var(--color-dew);
+    border: 1px solid var(--color-mist);
     padding: 24px 28px; margin: 28px 0;
   }
+
+
   .callout-bold p {
-    font-size: 17px; font-weight: 700; color: var(--text);
+    font-size: 17px; font-weight: 700; color: var(--color-slate-ink);
     margin-bottom: 0; line-height: 1.45;
   }
 
+
+
   /* ── Retro questions ── */
   .retro-questions {
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     margin: 24px 0;
   }
+
+
   .retro-q {
     padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
   .retro-q:last-child { border-bottom: none; }
+
+
   .retro-q .rq-label {
     font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;
+    text-transform: uppercase; color: var(--color-ash); margin-bottom: 4px;
   }
+
+
   .retro-q p {
-    font-size: 15px; font-weight: 600; color: var(--text);
+    font-size: 15px; font-weight: 600; color: var(--color-slate-ink);
     margin-bottom: 4px; line-height: 1.4;
   }
+
+
   .retro-q .rq-explain {
-    font-size: 13px; color: var(--text-secondary); margin-bottom: 0;
+    font-size: 13px; color: var(--color-slate-ink); margin-bottom: 0;
     font-weight: 400;
   }
+
+
 
   /* ── Metric cards ── */
   .metric-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     margin: 24px 0;
   }
+
+
   .metric-card {
     padding: 20px 22px;
-    border-right: 1px solid var(--border-strong);
-    border-bottom: 1px solid var(--border-strong);
+    border-right: 1px solid var(--color-mist);
+    border-bottom: 1px solid var(--color-mist);
   }
+
+
   .metric-card:nth-child(even) { border-right: none; }
+
+
   .metric-card:nth-last-child(-n+2) { border-bottom: none; }
+
+
   .mc-icon { font-size: 24px; margin-bottom: 8px; }
-  .mc-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
-  .metric-card p { font-size: 13px; color: var(--text-secondary); margin-bottom: 0; line-height: 1.5; }
+
+
+  .mc-title { font-size: 15px; font-weight: 700; color: var(--color-slate-ink); margin-bottom: 6px; }
+
+
+  .metric-card p { font-size: 13px; color: var(--color-slate-ink); margin-bottom: 0; line-height: 1.5; }
+
+
 
   /* ── Bullets ── */
   ul.bullets { padding-left: 0; list-style: none; margin: 12px 0 20px; }
+
+
   ul.bullets li {
     position: relative; padding-left: 18px; margin-bottom: 10px;
-    color: var(--text-secondary); font-size: 15px; line-height: 1.6;
+    color: var(--color-slate-ink); font-size: 15px; line-height: 1.6;
   }
+
+
   ul.bullets li::before {
     content: '◆'; position: absolute; left: 0;
-    font-size: 9px; color: var(--text); line-height: 1.9;
+    font-size: 9px; color: var(--color-slate-ink); line-height: 1.9;
   }
-  ul.bullets li strong { color: var(--text); }
+
+
+  ul.bullets li strong { color: var(--color-slate-ink); }
+
+
 
   .page-footer {
-    margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border);
+    margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--color-dew);
     display: flex; justify-content: space-between;
-    font-size: 12px; color: var(--text-muted);
+    font-size: 12px; color: var(--color-ash);
   }
+
+
 
   @media (max-width: 600px) {
     body { padding: 40px 20px 80px; }
     h1 { font-size: 28px; }
     .indicator-compare, .metric-grid { grid-template-columns: 1fr; }
-    .indicator-col { border-right: none; border-bottom: 1px solid var(--border-strong); }
+    .indicator-col { border-right: none; border-bottom: 1px solid var(--color-mist); }
     .metric-card { border-right: none; }
     .onion-layer:nth-child(2), .onion-layer:nth-child(3) { margin-left: 0; margin-right: 0; }
   }
+
+
 
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -276,30 +356,11 @@
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/product-discovery-playbook">← Về mục lục</a></p>
+<p class="book-topline"><a href="/product-discovery-playbook">← Về mục lục</a></p>
 
 <div class="book-label">The Product Discovery Playbook · Productboard</div>
 <div class="chapter-label">Chương 3</div>
@@ -506,8 +567,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch2-product-discovery.html"><span class="lbl">Chương trước</span>Chương 2: Hướng Dẫn Từng Bước Thực Hiện Product Discovery</a>
-  <a href="ch4-product-discovery.html"><span class="lbl">Chương sau</span>Chương 4: Điều Chỉnh Product Discovery Cho Tổ Chức Của Bạn</a>
+  <a href="/product-discovery-playbook/huong-dan-tung-buoc-thuc-hien-product-discovery"><span class="lbl">Chương trước</span>Chương 2: Hướng Dẫn Từng Bước Thực Hiện Product Discovery</a>
+  <a href="/product-discovery-playbook/dieu-chinh-product-discovery-cho-to-chuc-cua-ban"><span class="lbl">Chương sau</span>Chương 4: Điều Chỉnh Product Discovery Cho Tổ Chức Của Bạn</a>
 </nav>
 </body>
 </html>

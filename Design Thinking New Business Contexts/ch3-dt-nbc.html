@@ -4,30 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chapter 3 — Crossing Boundaries: Design into Business and Management</title>
-  <style>
-    :root {
-      --bg: #ffffff;
-      --surface: #f7f7f7;
-      --border: #e0e0e0;
-      --border-strong: #999;
-      --text: #1a1a1a;
-      --text-muted: #555;
-      --accent: #1a1a1a;
-      --rule: #ccc;
-    }
+  <link rel="stylesheet" href="../assets/theme.css">
+<style>
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 17px;
-      line-height: 1.8;
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 60px 32px 100px;
-    }
 
     /* ── HEADER ── */
     .book-meta {
@@ -35,11 +14,13 @@
       font-size: 12px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-bottom: 48px;
       padding-bottom: 16px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--color-dew);
     }
+
+
 
     .chapter-number {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -47,9 +28,11 @@
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-bottom: 12px;
     }
+
+
 
     h1 {
       font-size: 2rem;
@@ -57,16 +40,20 @@
       line-height: 1.25;
       letter-spacing: -0.02em;
       margin-bottom: 8px;
-      color: var(--text);
+      color: var(--color-slate-ink);
     }
+
+
 
     .chapter-authors {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 13px;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-top: 10px;
       margin-bottom: 40px;
     }
+
+
 
     /* ── SECTION HEADINGS ── */
     h2 {
@@ -76,8 +63,10 @@
       margin-top: 56px;
       margin-bottom: 16px;
       padding-bottom: 8px;
-      border-bottom: 2px solid var(--text);
+      border-bottom: 2px solid var(--color-slate-ink);
     }
+
+
 
     h3 {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -87,27 +76,37 @@
       text-transform: uppercase;
       margin-top: 32px;
       margin-bottom: 10px;
-      color: var(--text);
+      color: var(--color-slate-ink);
     }
+
+
 
     /* ── BODY TEXT ── */
     p {
       margin-bottom: 16px;
-      color: var(--text);
+      color: var(--color-slate-ink);
     }
 
+
+
     p + p { text-indent: 1.5em; }
+
+
     p:first-of-type { text-indent: 0; }
+
+
 
     /* ── INFOBOX ── */
     .infobox {
-      background: var(--surface);
-      border-left: 3px solid var(--text);
+      background: #ffffff;
+      border-left: 3px solid var(--color-slate-ink);
       padding: 20px 24px;
       margin: 28px 0;
       font-size: 15.5px;
       line-height: 1.7;
     }
+
+
 
     .infobox-title {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -116,15 +115,19 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       margin-bottom: 12px;
-      color: var(--text);
+      color: var(--color-slate-ink);
     }
+
+
 
     /* ── LEARNING OBJECTIVES ── */
     .objectives-box {
-      border: 1px solid var(--border-strong);
+      border: 1px solid var(--color-mist);
       padding: 24px 28px;
       margin-bottom: 40px;
     }
+
+
 
     .objectives-box .box-label {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -133,13 +136,17 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       margin-bottom: 14px;
-      color: var(--text-muted);
+      color: var(--color-ash);
     }
+
+
 
     .objectives-box ul {
       list-style: none;
       padding: 0;
     }
+
+
 
     .objectives-box ul li {
       padding-left: 1.2em;
@@ -149,12 +156,16 @@
       line-height: 1.65;
     }
 
+
+
     .objectives-box ul li::before {
       content: '—';
       position: absolute;
       left: 0;
-      color: var(--text-muted);
+      color: var(--color-ash);
     }
+
+
 
     /* ── NUMBERED LIST ── */
     ol.content-list {
@@ -162,10 +173,14 @@
       margin: 16px 0 20px;
     }
 
+
+
     ol.content-list li {
       margin-bottom: 12px;
       line-height: 1.7;
     }
+
+
 
     /* ── BULLET LIST ── */
     ul.content-list {
@@ -174,6 +189,8 @@
       margin: 16px 0 20px;
     }
 
+
+
     ul.content-list li {
       padding-left: 1.4em;
       position: relative;
@@ -181,54 +198,66 @@
       line-height: 1.7;
     }
 
+
+
     ul.content-list li::before {
       content: '·';
       position: absolute;
       left: 0;
       font-size: 1.4em;
       line-height: 1.2;
-      color: var(--text-muted);
+      color: var(--color-ash);
     }
+
+
 
     /* ── BLOCKQUOTE ── */
     blockquote {
-      border-left: 2px solid var(--border-strong);
+      border-left: 2px solid var(--color-mist);
       margin: 20px 0;
       padding: 12px 20px;
-      color: var(--text-muted);
+      color: var(--color-ash);
       font-style: italic;
       font-size: 16px;
       line-height: 1.7;
     }
 
+
+
     /* ── FIGURE CAPTION ── */
     .fig-caption {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 13px;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-top: 6px;
       margin-bottom: 20px;
       font-style: italic;
     }
 
+
+
     /* ── DIAGRAM (text-based) ── */
     .diagram {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid var(--color-dew);
       padding: 24px;
       margin: 20px 0;
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 13px;
     }
 
+
+
     .diagram-title {
       font-weight: 700;
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-bottom: 16px;
     }
+
+
 
     .diagram-row {
       display: flex;
@@ -237,32 +266,40 @@
       margin-bottom: 6px;
     }
 
+
+
     .diagram-label {
       min-width: 120px;
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--text-muted);
-      border-right: 1px solid var(--border);
+      color: var(--color-ash);
+      border-right: 1px solid var(--color-dew);
       padding-right: 12px;
       padding-top: 8px;
       flex-shrink: 0;
     }
+
+
 
     .diagram-content {
       padding: 8px 0 8px 16px;
       line-height: 1.5;
     }
 
+
+
     .diagram-node {
       display: inline-block;
-      border: 1.5px solid var(--text);
+      border: 1.5px solid var(--color-slate-ink);
       padding: 5px 10px;
       font-size: 12px;
       font-weight: 600;
       margin: 3px 4px 3px 0;
     }
+
+
 
     /* ── TABLE ── */
     .data-table {
@@ -272,63 +309,81 @@
       font-size: 14.5px;
     }
 
+
+
     .data-table th {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      background: var(--surface);
+      background: #ffffff;
       padding: 10px 12px;
       text-align: left;
-      border-bottom: 2px solid var(--text);
+      border-bottom: 2px solid var(--color-slate-ink);
     }
+
+
 
     .data-table td {
       padding: 9px 12px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--color-dew);
       line-height: 1.5;
       vertical-align: top;
     }
+
+
 
     .data-table tr:last-child td {
       border-bottom: none;
     }
 
+
+
     .data-table .table-note {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 12px;
-      color: var(--text-muted);
+      color: var(--color-ash);
       font-style: italic;
       text-align: right;
       padding-top: 8px;
     }
 
+
+
     .table-caption {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 12.5px;
       font-weight: 700;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-bottom: 6px;
       letter-spacing: 0.04em;
     }
 
+
+
     /* ── CHAPTER SUMMARY ── */
     .summary-box {
-      background: var(--surface);
-      border: 1px solid var(--border-strong);
+      background: #ffffff;
+      border: 1px solid var(--color-mist);
       padding: 28px 32px;
       margin-top: 48px;
     }
 
+
+
     .summary-box p { text-indent: 0 !important; }
+
+
 
     /* ── REVIEW / PROJECT / TASK BOX ── */
     .review-box {
-      border: 1px solid var(--border);
+      border: 1px solid var(--color-dew);
       padding: 24px 28px;
       margin-top: 28px;
     }
+
+
 
     .review-box-title {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -337,12 +392,16 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       margin-bottom: 14px;
-      color: var(--text);
+      color: var(--color-slate-ink);
     }
+
+
 
     .review-box ol {
       padding-left: 1.4em;
     }
+
+
 
     .review-box ol li {
       margin-bottom: 12px;
@@ -350,12 +409,16 @@
       font-size: 15.5px;
     }
 
+
+
     /* ── REFERENCES ── */
     .references-list {
       list-style: none;
       padding: 0;
       margin-top: 16px;
     }
+
+
 
     .references-list li {
       font-size: 14.5px;
@@ -365,40 +428,52 @@
       text-indent: -1.5em;
     }
 
+
+
     /* ── CITE ── */
     cite {
       font-style: normal;
-      color: var(--text-muted);
+      color: var(--color-ash);
     }
+
+
 
     /* ── DIVIDER ── */
     hr {
       border: none;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid var(--color-dew);
       margin: 48px 0;
     }
+
+
 
     /* ── KEYWORD ── */
     .keywords {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 13px;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-bottom: 28px;
       line-height: 1.6;
     }
 
+
+
     .keywords strong {
-      color: var(--text);
+      color: var(--color-slate-ink);
       font-weight: 700;
     }
 
+
+
     /* ── CASE STUDY INFOBOX ── */
     .casestudy-box {
-      background: var(--surface);
-      border: 1.5px solid var(--border-strong);
+      background: #ffffff;
+      border: 1.5px solid var(--color-mist);
       padding: 24px 28px;
       margin: 36px 0;
     }
+
+
 
     .casestudy-box .cs-title {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -407,17 +482,23 @@
       letter-spacing: 0.10em;
       text-transform: uppercase;
       margin-bottom: 6px;
-      color: var(--text);
+      color: var(--color-slate-ink);
     }
+
+
 
     .casestudy-box .cs-subtitle {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 12px;
-      color: var(--text-muted);
+      color: var(--color-ash);
       margin-bottom: 16px;
     }
 
+
+
     .casestudy-box p { text-indent: 0 !important; }
+
+
 
     @media (max-width: 600px) {
       body { font-size: 15px; padding: 32px 20px 80px; }
@@ -425,6 +506,8 @@
       h2 { font-size: 1.2rem; }
       .data-table { font-size: 13px; }
     }
+
+
   
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -432,30 +515,11 @@
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-  <p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+  <p class="book-topline"><a href="/design-thinking-new-business-contexts">← Về mục lục</a></p>
 
 <!-- BOOK META -->
   <div class="book-meta">
@@ -890,8 +954,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch2-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 2: Evolution of the Relationship Between Design and Business Activities</a>
-  <a href="ch4-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 4: Organisational Complexity and Change by Design</a>
+  <a href="/design-thinking-new-business-contexts/evolution-of-the-relationship-between-design-and-business-activities"><span class="lbl">Chương trước</span>Chương 2: Evolution of the Relationship Between Design and Business Activities</a>
+  <a href="/design-thinking-new-business-contexts/organisational-complexity-and-change-by-design"><span class="lbl">Chương sau</span>Chương 4: Organisational Complexity and Change by Design</a>
 </nav>
 </body>
 </html>

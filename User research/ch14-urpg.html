@@ -4,75 +4,158 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 14 – Kiểm Thử A/B | User Research</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-:root {
-  --bg: #fafafa; --text: #111111; --text-secondary: #333333;
-  --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
-  --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
-}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px; line-height: 1.75; color: var(--text);
-  background: var(--bg); max-width: 820px;
-  margin: 0 auto; padding: 60px 40px 100px;
-}
+
+
 h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+
+
 h2 { font-size: 1.25rem; font-weight: 700; margin: 48px 0 14px; letter-spacing: -0.2px; }
-h3 { font-size: 1.05rem; font-weight: 700; margin: 32px 0 10px; color: var(--text-secondary); }
-p { margin-bottom: 14px; color: var(--text-secondary); }
-strong { color: var(--text); font-weight: 700; }
+
+
+h3 { font-size: 1.05rem; font-weight: 700; margin: 32px 0 10px; color: var(--color-slate-ink); }
+
+
+p { margin-bottom: 14px; color: var(--color-slate-ink); }
+
+
+strong { color: var(--color-slate-ink); font-weight: 700; }
+
+
 em { font-style: italic; }
-ul, ol { margin: 0 0 16px 24px; color: var(--text-secondary); }
+
+
+ul, ol { margin: 0 0 16px 24px; color: var(--color-slate-ink); }
+
+
 li { margin-bottom: 6px; }
-.chapter-meta { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
-.chapter-divider { width: 48px; height: 3px; background: var(--accent-line); margin: 22px 0 36px; }
-.subtitle { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0; font-style: italic; }
-.section-rule { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+
+.chapter-meta { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-ash); margin-bottom: 18px; }
+
+
+.chapter-divider { width: 48px; height: 3px; background: var(--color-sprout); margin: 22px 0 36px; }
+
+
+.subtitle { font-size: 1.1rem; color: var(--color-ash); margin-bottom: 0; font-style: italic; }
+
+
+.section-rule { border: none; border-top: 1px solid var(--color-dew); margin: 48px 0; }
+
+
 .box {
-  border: 1px solid var(--border); border-radius: 4px;
-  padding: 22px 26px; margin: 28px 0; background: var(--surface);
+  border: 1px solid var(--color-dew); border-radius: 4px;
+  padding: 22px 26px; margin: 28px 0; background: #ffffff;
 }
+
+
 .box-title {
   font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: 12px;
+  color: var(--color-ash); margin-bottom: 12px;
 }
+
+
 .box p:last-child, .box ul:last-child, .box ol:last-child { margin-bottom: 0; }
-.fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 28px 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+
+
+.fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 28px 0; border: 1px solid var(--color-dew); border-radius: 4px; overflow: hidden; }
+
+
 .fit-col { padding: 22px 24px; }
-.fit-col:first-child { border-right: 1px solid var(--border); background: var(--surface); }
-.fit-col:last-child { background: var(--bg); }
+
+
+.fit-col:first-child { border-right: 1px solid var(--color-dew); background: #ffffff; }
+
+
+.fit-col:last-child { background: var(--color-parchment); }
+
+
 .fit-col .box-title { margin-bottom: 12px; }
+
+
 .fit-col ul { margin-left: 18px; }
+
+
 .fit-col p:last-child, .fit-col ul:last-child { margin-bottom: 0; }
+
+
 /* AB diagram */
 .ab-diagram { display: grid; grid-template-columns: 1fr 36px 1fr; gap: 0; margin: 32px 0; align-items: center; }
-.ab-variant { border: 1px solid var(--border); border-radius: 4px; padding: 20px; background: var(--surface); }
-.ab-variant.winner { background: var(--bg); border-color: var(--border-strong); }
-.ab-vs { text-align: center; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: var(--text-muted); }
-.ab-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+
+
+.ab-variant { border: 1px solid var(--color-dew); border-radius: 4px; padding: 20px; background: #ffffff; }
+
+
+.ab-variant.winner { background: var(--color-parchment); border-color: var(--color-mist); }
+
+
+.ab-vs { text-align: center; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: var(--color-ash); }
+
+
+.ab-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-ash); margin-bottom: 8px; }
+
+
 /* 6-step process */
 .process-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 28px 0; }
-.process-step { border: 1px solid var(--border); border-radius: 4px; padding: 18px 18px 16px; }
-.process-num { font-size: 1.5rem; font-weight: 700; color: var(--border-strong); margin-bottom: 6px; }
-.process-step h4 { font-size: 0.85rem; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+
+
+.process-step { border: 1px solid var(--color-dew); border-radius: 4px; padding: 18px 18px 16px; }
+
+
+.process-num { font-size: 1.5rem; font-weight: 700; color: var(--color-mist); margin-bottom: 6px; }
+
+
+.process-step h4 { font-size: 0.85rem; font-weight: 700; color: var(--color-slate-ink); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+
+
 .process-step p { font-size: 0.88rem; margin-bottom: 0; }
+
+
 /* Content types table */
 .content-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
-.content-table th { text-align: left; padding: 10px 14px; background: var(--surface-dark); font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border-strong); }
-.content-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-secondary); }
+
+
+.content-table th { text-align: left; padding: 10px 14px; background: var(--color-dew); font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-ash); border-bottom: 1px solid var(--color-mist); }
+
+
+.content-table td { padding: 10px 14px; border-bottom: 1px solid var(--color-dew); vertical-align: top; color: var(--color-slate-ink); }
+
+
 .content-table tr:last-child td { border-bottom: none; }
+
+
 /* Best practice cards */
 .best-practices { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
-.bp-card { border: 1px solid var(--border); border-radius: 4px; padding: 18px; background: var(--surface); }
+
+
+.bp-card { border: 1px solid var(--color-dew); border-radius: 4px; padding: 18px; background: #ffffff; }
+
+
 .bp-card strong { display: block; margin-bottom: 6px; font-size: 0.95rem; }
+
+
 .bp-card p { font-size: 0.9rem; margin-bottom: 0; }
+
+
 /* Tools list */
 .tools-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
-.tool-tag { font-size: 0.82rem; color: var(--text-secondary); background: var(--surface); border: 1px solid var(--border); border-radius: 3px; padding: 4px 10px; }
-.back-nav { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 48px; }
+
+
+.tool-tag { font-size: 0.82rem; color: var(--color-slate-ink); background: #ffffff; border: 1px solid var(--color-dew); border-radius: 3px; padding: 4px 10px; }
+
+
+.back-nav { font-size: 0.8rem; color: var(--color-ash); margin-bottom: 48px; }
+
+
 .back-nav span { margin: 0 6px; }
-footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); }
+
+
+footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--color-dew); font-size: 0.8rem; color: var(--color-ash); }
+
+
 
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -80,31 +163,12 @@ footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
 
-<p class="book-topline"><a href="../index.html#/book/user-research-practical-guide">← Về mục lục</a></p>
+<p class="book-topline"><a href="/user-research-practical-guide">← Về mục lục</a></p>
 <div class="back-nav">User Research – Stephanie Marsh<span>·</span>Phần Hai: Phương Pháp<span>·</span>Chương 14</div>
 
 <div class="chapter-meta">Chương 14</div>
@@ -310,8 +374,8 @@ footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border
 
 
 <nav class="chapnav">
-  <a href="ch13-urpg.html"><span class="lbl">Chương trước</span>Chương 13: Nghiên Cứu Bối Cảnh</a>
-  <a href="ch15-urpg.html"><span class="lbl">Chương sau</span>Chương 15: Workshop Với Stakeholder</a>
+  <a href="/user-research-practical-guide/nghien-cuu-boi-canh"><span class="lbl">Chương trước</span>Chương 13: Nghiên Cứu Bối Cảnh</a>
+  <a href="/user-research-practical-guide/workshop-voi-stakeholder"><span class="lbl">Chương sau</span>Chương 15: Workshop Với Stakeholder</a>
 </nav>
 </body>
 </html>

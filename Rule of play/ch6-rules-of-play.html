@@ -4,40 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 6: Interactivity — Rules of Play</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --bg: #f8f7f4;
-    --text: #1a1a1a;
-    --muted: #555;
-    --dim: #888;
-    --rule: #c8c4bc;
-    --pull-bg: #eeece8;
-    --pull-border: #1a1a1a;
-  }
 
-  html { background: var(--bg); }
+  html { background: var(--color-parchment); }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 17px;
-    line-height: 1.75;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 64px 28px 96px;
-  }
+
 
   .book-meta {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 11.5px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--dim);
+    color: var(--color-fog);
     margin-bottom: 32px;
   }
+
+
 
   h1.chapter-title {
     font-family: Georgia, serif;
@@ -45,9 +29,11 @@
     font-weight: normal;
     line-height: 1.15;
     margin-bottom: 48px;
-    border-bottom: 2px solid var(--text);
+    border-bottom: 2px solid var(--color-slate-ink);
     padding-bottom: 24px;
   }
+
+
 
   h1.chapter-title .chapter-label {
     display: block;
@@ -56,13 +42,17 @@
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--dim);
+    color: var(--color-fog);
     margin-bottom: 10px;
   }
+
+
 
   section {
     margin-bottom: 52px;
   }
+
+
 
   h2 {
     font-family: system-ui, -apple-system, sans-serif;
@@ -70,64 +60,68 @@
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--color-ash);
     margin-bottom: 16px;
     padding-top: 8px;
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--color-dew);
   }
 
-  h3 {
-    font-family: Georgia, serif;
-    font-size: 1.08rem;
-    font-weight: bold;
-    font-style: italic;
-    margin: 28px 0 8px;
-  }
 
-  p {
-    margin-bottom: 16px;
-  }
 
   p:last-child {
     margin-bottom: 0;
   }
 
+
+
   blockquote {
-    background: var(--pull-bg);
-    border-left: 3px solid var(--pull-border);
+    background: var(--color-dew);
+    border-left: 3px solid var(--color-sprout);
     margin: 24px 0 32px;
     padding: 16px 20px;
     font-style: italic;
-    color: var(--text);
+    color: var(--color-slate-ink);
     font-size: 1rem;
   }
+
+
 
   blockquote cite {
     display: block;
     margin-top: 10px;
     font-style: normal;
     font-size: 0.82rem;
-    color: var(--muted);
+    color: var(--color-ash);
     font-family: system-ui, -apple-system, sans-serif;
     letter-spacing: 0.03em;
   }
+
+
 
   /* ── grid ── */
   .grid {
     display: grid;
     gap: 1px;
-    background: var(--rule);
-    border: 1px solid var(--rule);
+    background: var(--color-dew);
+    border: 1px solid var(--color-dew);
     margin: 24px 0;
   }
 
+
+
   .grid-2 { grid-template-columns: 1fr 1fr; }
+
+
   .grid-4 { grid-template-columns: repeat(4, 1fr); }
 
+
+
   .grid-cell {
-    background: var(--bg);
+    background: var(--color-parchment);
     padding: 18px 16px;
   }
+
+
 
   .cell-label {
     font-family: system-ui, -apple-system, sans-serif;
@@ -135,34 +129,44 @@
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--dim);
+    color: var(--color-fog);
     display: block;
     margin-bottom: 6px;
   }
+
+
 
   /* ── modes ── */
   .mode-row {
     display: grid;
     grid-template-columns: 32px 1fr;
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--color-dew);
     padding: 16px 0;
     gap: 20px;
     align-items: baseline;
   }
 
+
+
   .mode-row:last-child {
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
 
   .mode-num {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 1.1rem;
     font-weight: 300;
-    color: var(--dim);
+    color: var(--color-fog);
     padding-top: 2px;
   }
 
+
+
   .mode-body {}
+
+
 
   .mode-title {
     font-family: Georgia, serif;
@@ -172,11 +176,15 @@
     margin-bottom: 6px;
   }
 
+
+
   .mode-desc {
     font-size: 0.95rem;
     line-height: 1.65;
-    color: var(--text);
+    color: var(--color-slate-ink);
   }
+
+
 
   /* ── anatomy table ── */
   .anatomy-table {
@@ -186,39 +194,49 @@
     font-size: 0.9rem;
   }
 
+
+
   .anatomy-table th {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--dim);
+    color: var(--color-fog);
     text-align: left;
     padding: 10px 12px;
-    border-bottom: 2px solid var(--rule);
-    background: var(--bg);
+    border-bottom: 2px solid var(--color-dew);
+    background: var(--color-parchment);
   }
+
+
 
   .anatomy-table td {
     padding: 12px 12px;
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px solid var(--color-dew);
     font-family: Georgia, serif;
     line-height: 1.6;
     vertical-align: top;
   }
 
+
+
   .anatomy-table tr:last-child td {
     border-bottom: none;
   }
+
+
 
   .anatomy-table .stage-col {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.08em;
-    color: var(--muted);
+    color: var(--color-ash);
     white-space: nowrap;
   }
+
+
 
   .tag-int, .tag-ext {
     font-family: system-ui, -apple-system, sans-serif;
@@ -227,21 +245,29 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     padding: 1px 5px;
-    border: 1px solid var(--rule);
-    color: var(--muted);
+    border: 1px solid var(--color-dew);
+    color: var(--color-ash);
   }
+
+
 
   /* ── further reading ── */
   .reading-list { margin: 0; }
 
+
+
   .reading-row {
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--color-dew);
     padding: 12px 0;
   }
 
+
+
   .reading-row:last-child {
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
 
   .reading-title {
     font-family: Georgia, serif;
@@ -249,20 +275,26 @@
     font-size: 0.97rem;
   }
 
+
+
   .reading-author {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 0.75rem;
-    color: var(--muted);
+    color: var(--color-ash);
     margin-top: 3px;
   }
+
+
 
   .reading-note {
     font-family: Georgia, serif;
     font-size: 0.85rem;
-    color: var(--muted);
+    color: var(--color-ash);
     margin-top: 3px;
     font-style: italic;
   }
+
+
 
   /* ── chapter navigation (added) ── */
   .book-topline {
@@ -270,30 +302,11 @@
     font-size: 12.5px;
     margin-bottom: 36px;
   }
-  .book-topline a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--rule);
-    font-family: system-ui, -apple-system, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--rule); border-radius: 10px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease, background .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); background: var(--pull-bg); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--dim); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/rules-of-play">← Rules of Play — Mục lục</a></p>
+<p class="book-topline"><a href="/rules-of-play">← Rules of Play — Mục lục</a></p>
 
 <p class="book-meta">Rules of Play — Katie Salen &amp; Eric Zimmerman · MIT Press, 2004 · Unit 1: Core Concepts</p>
 
@@ -534,8 +547,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch5-rules-of-play.html"><span class="lbl">Chương trước</span>Chương 5: Systems</a>
-  <a href="ch07-rules-of-play.html"><span class="lbl">Chương sau</span>Chương 7: Defining Games</a>
+  <a href="/rules-of-play/systems"><span class="lbl">Chương trước</span>Chương 5: Systems</a>
+  <a href="/rules-of-play/defining-games"><span class="lbl">Chương sau</span>Chương 7: Defining Games</a>
 </nav>
 </body>
 </html>

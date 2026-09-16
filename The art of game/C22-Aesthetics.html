@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 22 – The Art of Game Design</title>
 <style>
+
  :root {
  --orange: #27ae60;
  --orange-light: #6cc999;
@@ -26,7 +27,11 @@
  --sage: #defaca;
  --mint: #edf9f2;
  --sprout-d: #1c8a4c;}
+
+
  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+
  body {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  background: var(--bg);
@@ -34,7 +39,11 @@
  line-height: 1.75;
  font-size: 17px;
  }
+
+
  main { max-width: 880px; margin: 0 auto; padding: 60px 24px 120px; }
+
+
 
  /* HERO */
  .hero {
@@ -46,6 +55,8 @@
  position: relative;
  overflow: hidden;
  }
+
+
  .hero::before {
  content: '';
  position: absolute; top: -60px; right: -60px;
@@ -53,6 +64,8 @@
  background: none;
  border-radius: 50%;
  }
+
+
  .hero-badge {
  display: inline-block;
  background: rgba(39,174,96,0.12);
@@ -67,6 +80,8 @@
  border-radius: 20px;
  margin-bottom: 20px;
  }
+
+
  .hero h1 {
  font-size: 36px;
  font-weight: normal;
@@ -74,7 +89,11 @@
  margin-bottom: 12px;
  color: #ffffff;
  }
+
+
  .hero h1 span { color: var(--orange-light); }
+
+
  .hero-subtitle {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 15px;
@@ -82,9 +101,13 @@
  margin-bottom: 32px;
  font-style: italic;
  }
+
+
  .hero-stats {
  display: flex; gap: 24px; flex-wrap: wrap;
  }
+
+
  .stat {
  background: rgba(255,255,255,0.07);
  border: 1px solid rgba(255,255,255,0.12);
@@ -93,13 +116,19 @@
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  min-width: 120px;
  }
+
+
  .stat-num {
  font-size: 26px; font-weight: 700;
  color: var(--orange-light);
  line-height: 1;
  margin-bottom: 4px;
  }
+
+
  .stat-label { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; }
+
+
 
  /* CHAPTER MAP */
  .chapter-map {
@@ -110,6 +139,8 @@
  margin-bottom: 52px;
  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
  }
+
+
  .chapter-map h2 {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px; font-weight: 600;
@@ -117,13 +148,19 @@
  color: var(--gray-light);
  margin-bottom: 28px;
  }
+
+
  .map-flow {
  display: flex; flex-wrap: wrap; gap: 0; align-items: center;
  }
+
+
  .map-node {
  display: flex; align-items: center; gap: 10px;
  margin-bottom: 12px;
  }
+
+
  .map-dot {
  width: 44px; height: 44px; border-radius: 50%;
  display: flex; align-items: center; justify-content: center;
@@ -131,28 +168,50 @@
  font-size: 15px; font-weight: 700; color: white;
  flex-shrink: 0;
  }
+
+
  .map-dot.orange { background: var(--orange); }
+
+
  .map-dot.teal { background: var(--accent-teal); }
+
+
  .map-dot.blue { background: var(--accent-blue); }
+
+
  .map-dot.purple { background: var(--accent-purple); }
+
+
  .map-dot.green { background: var(--accent-green); }
+
+
  .map-dot.gold { background: var(--accent-gold); }
+
+
  .map-label {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px; font-weight: 500; color: var(--gray);
  max-width: 130px; line-height: 1.3;
  }
+
+
  .map-arrow {
  font-size: 18px; color: var(--gray-light);
  margin: 0 6px 12px; flex-shrink: 0;
  }
 
+
+
  /* SECTION */
  .section { margin-bottom: 56px; }
+
+
  .section-header {
  display: flex; align-items: center; gap: 16px;
  margin-bottom: 28px;
   scroll-margin-top: 108px;}
+
+
  .section-num {
  width: 52px; height: 52px;
  border-radius: 14px;
@@ -161,19 +220,37 @@
  font-size: 18px; font-weight: 700; color: white;
  flex-shrink: 0;
  }
+
+
  .sn-orange { background: var(--orange); }
+
+
  .sn-teal { background: var(--accent-teal); }
+
+
  .sn-blue { background: var(--accent-blue); }
+
+
  .sn-purple { background: var(--accent-purple); }
+
+
  .sn-green { background: var(--accent-green); }
+
+
  .sn-gold { background: var(--accent-gold); }
+
+
  .section-title {
  font-size: 24px; font-weight: normal; color: var(--dark);
  line-height: 1.3;
  }
+
+
  .section-title em {
  font-style: normal; color: var(--orange);
  }
+
+
 
  /* CARD */
  .card {
@@ -184,8 +261,14 @@
  margin-bottom: 20px;
  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
  }
+
+
  .card p { margin-bottom: 14px; }
+
+
  .card p:last-child { margin-bottom: 0; }
+
+
 
  /* QUOTE */
  .quote-block {
@@ -197,6 +280,8 @@
  font-style: italic;
  color: var(--gray);
  }
+
+
  .quote-block .attribution {
  display: block; margin-top: 10px;
  font-style: normal;
@@ -205,6 +290,8 @@
  color: var(--orange);
  font-weight: 600;
  }
+
+
 
  /* POEM BLOCK */
  .poem-block {
@@ -215,23 +302,31 @@
  margin-bottom: 20px;
  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
  }
+
+
  .poem-title {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px; font-weight: 600;
  text-transform: uppercase; letter-spacing: 0.1em;
  color: var(--orange); margin-bottom: 20px;
  }
+
+
  .poem-text {
  font-style: italic;
  line-height: 1.9;
  color: var(--gray);
  white-space: pre-line;
  }
+
+
  .poem-attribution {
  margin-top: 20px;
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px; color: var(--gray-light);
  }
+
+
 
  /* HIGHLIGHT BOXES */
  .hl-box {
@@ -241,25 +336,55 @@
  border-width: 1px;
  border-style: solid;
  }
+
+
  .hl-box .hl-icon { font-size: 22px; margin-bottom: 8px; display: block; }
+
+
  .hl-box .hl-title {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px; font-weight: 700;
  text-transform: uppercase; letter-spacing: 0.08em;
  margin-bottom: 10px;
  }
+
+
  .hl-orange { background: #edf9f2; border-color: rgba(39,174,96,0.3); }
+
+
  .hl-orange .hl-title { color: var(--orange); }
+
+
  .hl-teal { background: #edf9f2; border-color: rgba(39,174,96,0.3); }
+
+
  .hl-teal .hl-title { color: var(--accent-teal); }
+
+
  .hl-blue { background: #edf9f2; border-color: rgba(39,174,96,0.3); }
+
+
  .hl-blue .hl-title { color: var(--accent-blue); }
+
+
  .hl-purple { background: #edf9f2; border-color: rgba(39,174,96,0.3); }
+
+
  .hl-purple .hl-title { color: var(--accent-purple); }
+
+
  .hl-green { background: #edf9f2; border-color: rgba(39,174,96,0.3); }
+
+
  .hl-green .hl-title { color: var(--accent-green); }
+
+
  .hl-gold { background: #edf9f2; border-color: rgba(39,174,96,0.3); }
+
+
  .hl-gold .hl-title { color: var(--accent-gold); }
+
+
 
  /* LENS BOX */
  .lens-box {
@@ -269,32 +394,46 @@
  padding: 32px 36px;
  margin-bottom: 24px;
  }
+
+
  .lens-header {
  display: flex; align-items: center; gap: 16px;
  margin-bottom: 20px;
  }
+
+
  .lens-icon {
  width: 60px; height: 60px; border-radius: 14px;
  background: var(--orange);
  display: flex; align-items: center; justify-content: center;
  font-size: 28px; flex-shrink: 0;
  }
+
+
  .lens-meta { flex: 1; }
+
+
  .lens-num {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 12px; font-weight: 600;
  letter-spacing: 0.1em; text-transform: uppercase;
  color: var(--orange); margin-bottom: 4px;
  }
+
+
  .lens-name {
  font-size: 20px; font-weight: 600; color: var(--dark);
  }
+
+
  .lens-questions {
  background: rgba(255,255,255,0.7);
  border-radius: 10px;
  padding: 16px 20px;
  margin-top: 16px;
  }
+
+
  .lens-questions p {
  font-style: italic;
  color: var(--gray);
@@ -302,19 +441,33 @@
  padding-left: 16px;
  border-left: 3px solid var(--orange-light);
  }
+
+
  .lens-questions p:last-child { margin-bottom: 0; }
+
+
  .lens-desc { color: var(--gray); margin-top: 16px; line-height: 1.7; }
+
+
 
  /* GRID */
  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+
+
  @media(max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+
 
  /* NUMBERED LIST */
  .num-list { list-style: none; padding: 0; }
+
+
  .num-list li {
  display: flex; gap: 14px; align-items: flex-start;
  margin-bottom: 14px;
  }
+
+
  .num-badge {
  width: 28px; height: 28px; border-radius: 8px;
  background: var(--orange);
@@ -324,11 +477,23 @@
  display: flex; align-items: center; justify-content: center;
  flex-shrink: 0; margin-top: 2px;
  }
+
+
  .num-badge.teal { background: var(--accent-teal); }
+
+
  .num-badge.blue { background: var(--accent-blue); }
+
+
  .num-badge.purple { background: var(--accent-purple); }
+
+
  .num-badge.green { background: var(--accent-green); }
+
+
  .num-badge.gold { background: var(--accent-gold); }
+
+
 
  /* LENSES GRID */
  .lenses-grid {
@@ -337,6 +502,8 @@
  gap: 10px;
  margin-top: 16px;
  }
+
+
  .lens-tag {
  background: var(--white);
  border: 1px solid var(--card-border);
@@ -346,6 +513,8 @@
  font-size: 13px;
  color: var(--gray);
  }
+
+
  .lens-tag span {
  display: block;
  font-size: 11px;
@@ -354,18 +523,26 @@
  margin-bottom: 2px;
  }
 
+
+
  /* TWO-COL COMPARE */
  .compare-grid {
  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
  margin-bottom: 20px;
  }
+
+
  @media(max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
+
+
  .compare-card {
  background: var(--white);
  border: 1px solid var(--card-border);
  border-radius: 14px;
  padding: 22px 24px;
  }
+
+
  .compare-card-title {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 13px; font-weight: 700;
@@ -374,14 +551,20 @@
  border-bottom: 1px solid var(--card-border);
  }
 
+
+
  /* DIVIDER */
  .divider {
  border: none; border-top: 1px solid var(--card-border);
  margin: 48px 0;
  }
 
+
+
  /* READING LIST */
  .reading-list { list-style: none; padding: 0; }
+
+
  .reading-list li {
  background: var(--white);
  border: 1px solid var(--card-border);
@@ -390,9 +573,17 @@
  margin-bottom: 12px;
  display: flex; gap: 14px; align-items: flex-start;
  }
+
+
  .book-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+
+
  .book-title { font-weight: 600; color: var(--dark); font-style: italic; }
+
+
  .book-author { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; color: var(--gray-light); margin-top: 2px; }
+
+
 
  /* SEESAW DIAGRAM */
  .seesaw {
@@ -403,11 +594,15 @@
  margin-bottom: 20px;
  text-align: center;
  }
+
+
  .seesaw-row {
  display: flex; align-items: center; justify-content: center; gap: 16px;
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 14px; color: var(--gray);
  }
+
+
  .seesaw-box {
  background: var(--orange-pale);
  border: 1px solid rgba(39,174,96,0.35);
@@ -416,12 +611,18 @@
  color: var(--sprout-d);
  font-weight: 600;
  }
+
+
  .seesaw-arrow { font-size: 24px; color: var(--gray-light); }
+
+
  .seesaw-label {
  font-size: 12px; color: var(--gray-light);
  margin-top: 12px;
  font-style: italic;
  }
+
+
 
  /* FOOTER */
  .chapter-footer {
@@ -433,6 +634,8 @@
  font-size: 13px; color: var(--gray-light);
  flex-wrap: wrap; gap: 12px;
  }
+
+
  .footer-next {
  color: var(--orange);
  font-weight: 600;
@@ -443,6 +646,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+<p class="book-topline"><a href="/the-art-of-game-design">← Về mục lục</a></p>
+
 <style>
   .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
@@ -459,10 +664,80 @@
   .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
 
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+
+/* __FIX_CHAPNAV_LEAK_START__ */
+/* book-topline: sách này không link assets/theme.css nên cần style riêng ở đây */
+.book-topline {
+  display: block;
+  padding: 14px 24px;
+  background: var(--forest, #0e231c);
+}
+.book-topline a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 19px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color .15s ease;
+}
+.book-topline a:hover { border-color: #fff; }
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+/* __FIX_CHAPNAV_LEAK_END__ */
 </style>
 <nav class="topnav">
-  <a class="brand" href="../index.html">Tổng hợp insight</a>
-  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 22</b></span>
+  <a class="brand" href="/">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 22</b></span>
 </nav>
 
 <nav class="tocnav">
@@ -944,7 +1219,7 @@ I have become accustomed to my blindness.</div>
  </div>
 
 </main>
-<div class="chapnav-wrap"><div class="chapnav"><a href="C21-Game Space.html"><span class="lbl">Chương trước</span>Chương 21: Worlds Contain Spaces</a><a href="C23-Play Together.html"><span class="lbl">Chương sau</span>Chương 23: Some Games Are Played with Other Players</a></div></div>
+<div class="chapnav-wrap"><nav class="chapnav"><a href="/the-art-of-game-design/worlds-contain-spaces"><span class="lbl">Chương trước</span>Chương 21: Worlds Contain Spaces</a><a href="/the-art-of-game-design/some-games-are-played-with-other-players"><span class="lbl">Chương sau</span>Chương 23: Some Games Are Played with Other Players</a></nav></div>
 
 <script>
   (function(){

@@ -4,105 +4,180 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 2 – Thanh toán thay thế (APM)</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa; --text: #111111; --text-secondary: #333333;
-    --text-muted: #888888; --border: #d8d8d8; --border-strong: #999999;
-    --surface: #f2f2f2; --surface-dark: #e0e0e0; --accent-line: #111111;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px; line-height: 1.8; color: var(--text);
-    background: var(--bg); max-width: 820px;
-    margin: 0 auto; padding: 60px 40px 100px;
-  }
-  .book-header { border-bottom: 2px solid var(--accent-line); padding-bottom: 32px; margin-bottom: 48px; }
-  .book-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
-  .chapter-number { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
-  h1 { font-size: 32px; font-weight: 700; line-height: 1.25; color: var(--text); margin-bottom: 16px; }
-  .chapter-meta { font-size: 13px; color: var(--text-muted); }
-  h2 { font-size: 21px; font-weight: 700; color: var(--text); margin: 52px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-  h3 { font-size: 15px; font-weight: 700; color: var(--text-secondary); margin: 30px 0 10px; text-transform: uppercase; letter-spacing: 0.05em; }
-  p { margin-bottom: 18px; color: var(--text-secondary); }
-  .lead { font-size: 17px; line-height: 1.7; color: var(--text); margin-bottom: 36px; padding: 20px 24px; border-left: 3px solid var(--accent-line); background: var(--surface); }
-  .concept-block { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; margin: 28px 0; }
-  .concept-block-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+
+  .book-header { border-bottom: 2px solid var(--color-sprout); padding-bottom: 32px; margin-bottom: 48px; }
+
+
+  .book-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-ash); margin-bottom: 12px; }
+
+
+  .chapter-number { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-ash); margin-bottom: 10px; }
+
+
+  h1 { font-size: 32px; font-weight: 700; line-height: 1.25; color: var(--color-slate-ink); margin-bottom: 16px; }
+
+
+  .chapter-meta { font-size: 13px; color: var(--color-ash); }
+
+
+  h2 { font-size: 21px; font-weight: 700; color: var(--color-slate-ink); margin: 52px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--color-dew); }
+
+
+  h3 { font-size: 15px; font-weight: 700; color: var(--color-slate-ink); margin: 30px 0 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+
+  p { margin-bottom: 18px; color: var(--color-slate-ink); }
+
+
+  .lead { font-size: 17px; line-height: 1.7; color: var(--color-slate-ink); margin-bottom: 36px; padding: 20px 24px; border-left: 3px solid var(--color-sprout); background: #ffffff; }
+
+
+  .concept-block { background: #ffffff; border: 1px solid var(--color-dew); padding: 24px 28px; margin: 28px 0; }
+
+
+  .concept-block-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-ash); margin-bottom: 14px; }
+
+
   table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
-  th { background: var(--surface-dark); color: var(--text); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--border-strong); }
-  td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: top; }
+
+
+  th { background: var(--color-dew); color: var(--color-slate-ink); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--color-mist); }
+
+
+  td { padding: 9px 12px; border-bottom: 1px solid var(--color-dew); color: var(--color-slate-ink); vertical-align: top; }
+
+
   tr:last-child td { border-bottom: none; }
-  tr:nth-child(even) td { background: var(--surface); }
+
+
+  tr:nth-child(even) td { background: #ffffff; }
+
+
   .num { text-align: right; font-variant-numeric: tabular-nums; }
-  .callout { border: 1px solid var(--border-strong); border-left: 4px solid var(--accent-line); padding: 18px 22px; margin: 24px 0; background: var(--surface); }
-  .callout-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 8px; }
-  .callout p { font-size: 14px; color: var(--text); margin: 0; font-style: italic; }
+
+
+  .callout { border: 1px solid var(--color-mist); border-left: 4px solid var(--color-sprout); padding: 18px 22px; margin: 24px 0; background: #ffffff; }
+
+
+  .callout-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-ash); margin-bottom: 8px; }
+
+
+  .callout p { font-size: 14px; color: var(--color-slate-ink); margin: 0; font-style: italic; }
+
+
   .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
-  .stat-box { border: 1px solid var(--border); padding: 18px 20px; background: var(--bg); text-align: center; }
-  .stat-number { font-size: 26px; font-weight: 700; color: var(--text); line-height: 1.1; margin-bottom: 6px; }
-  .stat-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
-  .fig-caption { font-size: 12px; color: var(--text-muted); font-style: italic; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
-  .section-divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
-  .company-profile { border: 1px solid var(--border); padding: 20px 24px; margin: 20px 0; }
-  .company-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-  .company-tagline { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+
+
+  .stat-box { border: 1px solid var(--color-dew); padding: 18px 20px; background: var(--color-parchment); text-align: center; }
+
+
+  .stat-number { font-size: 26px; font-weight: 700; color: var(--color-slate-ink); line-height: 1.1; margin-bottom: 6px; }
+
+
+  .stat-desc { font-size: 12px; color: var(--color-ash); line-height: 1.4; }
+
+
+  .fig-caption { font-size: 12px; color: var(--color-ash); font-style: italic; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--color-dew); }
+
+
+  .section-divider { border: none; border-top: 1px solid var(--color-dew); margin: 48px 0; }
+
+
+  .company-profile { border: 1px solid var(--color-dew); padding: 20px 24px; margin: 20px 0; }
+
+
+  .company-title { font-size: 18px; font-weight: 700; color: var(--color-slate-ink); margin-bottom: 4px; }
+
+
+  .company-tagline { font-size: 12px; color: var(--color-ash); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; border-bottom: 1px solid var(--color-dew); padding-bottom: 10px; }
+
+
   .kv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 30px; margin: 10px 0; }
+
+
   .kv-item { font-size: 13px; }
-  .kv-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 2px; }
-  .kv-value { color: var(--text-secondary); }
-  .highlight-row td { font-weight: 600; color: var(--text); }
+
+
+  .kv-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ash); margin-bottom: 2px; }
+
+
+  .kv-value { color: var(--color-slate-ink); }
+
+
+  .highlight-row td { font-weight: 600; color: var(--color-slate-ink); }
+
+
   .timeline { margin: 20px 0; }
+
+
   .tl-item { display: flex; gap: 16px; margin-bottom: 14px; }
-  .tl-year { width: 52px; font-size: 12px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; padding-top: 2px; }
-  .tl-content { flex: 1; font-size: 13px; color: var(--text-secondary); border-left: 2px solid var(--border); padding-left: 14px; padding-bottom: 10px; }
-  .canvas-summary { border: 1px solid var(--border-strong); margin: 24px 0; }
+
+
+  .tl-year { width: 52px; font-size: 12px; font-weight: 700; color: var(--color-ash); flex-shrink: 0; padding-top: 2px; }
+
+
+  .tl-content { flex: 1; font-size: 13px; color: var(--color-slate-ink); border-left: 2px solid var(--color-dew); padding-left: 14px; padding-bottom: 10px; }
+
+
+  .canvas-summary { border: 1px solid var(--color-mist); margin: 24px 0; }
+
+
   .canvas-row { display: grid; }
-  .canvas-row-top { grid-template-columns: 1fr 1fr 2fr 1fr 1fr; border-bottom: 1px solid var(--border); }
+
+
+  .canvas-row-top { grid-template-columns: 1fr 1fr 2fr 1fr 1fr; border-bottom: 1px solid var(--color-dew); }
+
+
   .canvas-row-bottom { grid-template-columns: 1fr 1fr; }
-  .canvas-cell { padding: 12px 14px; border-right: 1px solid var(--border); font-size: 12px; }
+
+
+  .canvas-cell { padding: 12px 14px; border-right: 1px solid var(--color-dew); font-size: 12px; }
+
+
   .canvas-cell:last-child { border-right: none; }
-  .canvas-cell-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 6px; }
-  .canvas-cell p { font-size: 12px; color: var(--text-secondary); margin: 0; line-height: 1.5; }
-  .canvas-vp { background: var(--surface); }
-  .canvas-cost { background: var(--surface); border-right: 1px solid var(--border); }
-  .canvas-rev { background: var(--surface); }
+
+
+  .canvas-cell-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ash); margin-bottom: 6px; }
+
+
+  .canvas-cell p { font-size: 12px; color: var(--color-slate-ink); margin: 0; line-height: 1.5; }
+
+
+  .canvas-vp { background: #ffffff; }
+
+
+  .canvas-cost { background: #ffffff; border-right: 1px solid var(--color-dew); }
+
+
+  .canvas-rev { background: #ffffff; }
+
+
   .bar-chart { margin: 16px 0; }
+
+
   .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 7px; }
-  .bar-label { width: 150px; font-size: 12px; color: var(--text-secondary); text-align: right; flex-shrink: 0; }
-  .bar-track { flex: 1; height: 18px; background: var(--surface); }
-  .bar-fill { height: 100%; background: var(--surface-dark); }
-  .bar-value { font-size: 12px; color: var(--text-muted); white-space: nowrap; min-width: 80px; }
-  .nav-footer { margin-top: 80px; padding-top: 24px; border-top: 2px solid var(--accent-line); display: flex; justify-content: space-between; font-size: 13px; color: var(--text-muted); }
 
-  .book-topline {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 12.5px;
-    margin-bottom: 32px;
-  }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
 
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
+  .bar-label { width: 150px; font-size: 12px; color: var(--color-slate-ink); text-align: right; flex-shrink: 0; }
+
+
+  .bar-track { flex: 1; height: 18px; background: #ffffff; }
+
+
+  .bar-fill { height: 100%; background: var(--color-dew); }
+
+
+  .bar-value { font-size: 12px; color: var(--color-ash); white-space: nowrap; min-width: 80px; }
+
+
+  .nav-footer { margin-top: 80px; padding-top: 24px; border-top: 2px solid var(--color-sprout); display: flex; justify-content: space-between; font-size: 13px; color: var(--color-ash); }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/fintech-business-models">← Về mục lục</a></p>
+<p class="book-topline"><a href="/fintech-business-models">← Về mục lục</a></p>
 
 
 <div class="book-header">
@@ -690,8 +765,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch1-fbm.html"><span class="lbl">Chương trước</span>Chương 1: Thị Trường Và Các Tác Nhân Fintech</a>
-  <a href="ch3-fbm.html"><span class="lbl">Chương sau</span>Chương 3: Tại Sao Robo-Advisory Sẽ Thay Thế Nhiều Nhà Tư Vấn Đầu Tư</a>
+  <a href="/fintech-business-models/thi-truong-va-cac-tac-nhan-fintech"><span class="lbl">Chương trước</span>Chương 1: Thị Trường Và Các Tác Nhân Fintech</a>
+  <a href="/fintech-business-models/tai-sao-robo-advisory-se-thay-the-nhieu-nha-tu-van-dau-tu"><span class="lbl">Chương sau</span>Chương 3: Tại Sao Robo-Advisory Sẽ Thay Thế Nhiều Nhà Tư Vấn Đầu Tư</a>
 </nav>
 </body>
 </html>

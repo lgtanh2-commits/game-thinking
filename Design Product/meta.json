@@ -3,48 +3,56 @@
   "title": "Designing Products for Evolving Digital Users",
   "author": "Anastasia Utesheva · Apress · 2020",
   "tag": "UX Research · Digital Identity & Trends",
+  "category": "UX/UI",
   "chapters": [
     {
       "n": 1,
       "title": "Tiến Hóa Kỹ Thuật Số",
       "sub": "Coevolution của Con Người và Công Nghệ",
-      "file": "ch1-dpfed.html"
+      "file": "ch1-dpfed.html",
+      "slug": "tien-hoa-ky-thuat-so"
     },
     {
       "n": 2,
       "title": "Tiến Hóa Bản Sắc",
       "sub": "Identity Evolution — Từ Cái Tôi Tĩnh đến Bản Sắc Kỹ Thuật Số",
-      "file": "ch2-dpfed.html"
+      "file": "ch2-dpfed.html",
+      "slug": "tien-hoa-ban-sac"
     },
     {
       "n": 3,
       "title": "Thiết Kế Cho Người Dùng Tiến Hóa",
       "sub": "Designing for Evolving Users",
-      "file": "ch3-dpfed.html"
+      "file": "ch3-dpfed.html",
+      "slug": "thiet-ke-cho-nguoi-dung-tien-hoa"
     },
     {
       "n": 4,
       "title": "Bộ Công Cụ Tư Duy Thiết Kế",
       "sub": "The Design Thinking Toolkit",
-      "file": "ch4-dpfed.html"
+      "file": "ch4-dpfed.html",
+      "slug": "bo-cong-cu-tu-duy-thiet-ke"
     },
     {
       "n": 5,
       "title": "Thiết Kế Cho Thay Đổi",
       "sub": "Design for Change",
-      "file": "ch5-dpfed.html"
+      "file": "ch5-dpfed.html",
+      "slug": "thiet-ke-cho-thay-doi"
     },
     {
       "n": 6,
       "title": "Xu Hướng Kỹ Thuật Số",
       "sub": "Digital Trends",
-      "file": "ch6-dpfed.html"
+      "file": "ch6-dpfed.html",
+      "slug": "xu-huong-ky-thuat-so"
     },
     {
       "n": 7,
       "title": "Nhà Thiết Kế Kỹ Thuật Số Được Trao Quyền",
       "sub": "Kết luận — Empowered Digital Designers",
-      "file": "ch7-dpfed.html"
+      "file": "ch7-dpfed.html",
+      "slug": "nha-thiet-ke-ky-thuat-so-duoc-trao-quyen"
     }
   ]
 }

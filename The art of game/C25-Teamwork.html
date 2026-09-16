@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 25 – Nhà Thiết Kế Thường Làm Việc Cùng Đội Nhóm</title>
 <style>
+
  :root {
  --orange: #27ae60;
  --orange-light: #6cc999;
@@ -27,7 +28,11 @@
  --mint: #edf9f2;
  --sprout-d: #1c8a4c;}
 
+
+
  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+
 
  body {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -37,6 +42,8 @@
  font-size: 17px;
  }
 
+
+
  /* ── HERO ── */
  .hero {
  background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
@@ -44,6 +51,8 @@
  padding: 80px 24px 60px;
  text-align: center;
  }
+
+
  .hero-badge {
  display: inline-block;
  background: rgba(39,174,96,0.12);
@@ -58,6 +67,8 @@
  color: var(--orange-light);
  margin-bottom: 24px;
  }
+
+
  .hero h1 {
  font-size: clamp(26px, 4vw, 40px);
  font-weight: 700;
@@ -65,10 +76,14 @@
  margin-bottom: 14px;
  letter-spacing: -0.01em;
  }
+
+
  .hero h1 em {
  color: var(--orange-light);
  font-style: normal;
  }
+
+
  .hero-sub {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 16px;
@@ -76,12 +91,16 @@
  margin-bottom: 40px;
  font-style: italic;
  }
+
+
  .hero-stats {
  display: flex;
  justify-content: center;
  gap: 12px;
  flex-wrap: wrap;
  }
+
+
  .stat-chip {
  background: rgba(255,255,255,0.06);
  border: 1px solid rgba(255,255,255,0.14);
@@ -91,6 +110,8 @@
  font-size: 13px;
  color: rgba(255,255,255,0.80);
  }
+
+
  .stat-chip strong {
  display: block;
  font-size: 20px;
@@ -99,12 +120,16 @@
  line-height: 1.2;
  }
 
+
+
  /* ── MAIN LAYOUT ── */
  main {
  max-width: 880px;
  margin: 0 auto;
  padding: 60px 24px 120px;
  }
+
+
 
  /* ── CHAPTER MAP ── */
  .chapter-map {
@@ -115,6 +140,8 @@
  margin-bottom: 56px;
  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
  }
+
+
  .chapter-map h2 {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 12px;
@@ -124,12 +151,16 @@
  color: var(--gray-light);
  margin-bottom: 28px;
  }
+
+
  .map-flow {
  display: flex;
  align-items: center;
  gap: 8px;
  flex-wrap: wrap;
  }
+
+
  .map-node {
  display: flex;
  align-items: center;
@@ -141,6 +172,8 @@
  flex: 1;
  min-width: 150px;
  }
+
+
  .map-dot {
  width: 36px;
  height: 36px;
@@ -154,12 +187,26 @@
  color: white;
  flex-shrink: 0;
  }
+
+
  .dot-orange { background: var(--orange); }
+
+
  .dot-teal { background: var(--accent-teal); }
+
+
  .dot-blue { background: var(--accent-blue); }
+
+
  .dot-purple { background: var(--accent-purple); }
+
+
  .dot-green { background: var(--accent-green); }
+
+
  .dot-gold { background: var(--accent-gold); }
+
+
 
  .map-label {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -168,11 +215,15 @@
  color: var(--gray);
  line-height: 1.3;
  }
+
+
  .map-arrow {
  font-size: 18px;
  color: var(--gray-light);
  flex-shrink: 0;
  }
+
+
 
  /* ── SECTION HEADERS ── */
  .section-header {
@@ -181,6 +232,8 @@
  gap: 18px;
  margin: 56px 0 24px;
   scroll-margin-top: 108px;}
+
+
  .section-num {
  width: 52px;
  height: 52px;
@@ -194,12 +247,16 @@
  color: white;
  flex-shrink: 0;
  }
+
+
  .section-header h2 {
  font-size: clamp(18px, 2.5vw, 23px);
  font-weight: 700;
  line-height: 1.3;
  color: var(--dark);
  }
+
+
 
  /* ── CARDS ── */
  .card {
@@ -210,14 +267,22 @@
  margin-bottom: 20px;
  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
  }
+
+
  .card h3 {
  font-size: 17px;
  font-weight: 700;
  margin-bottom: 12px;
  color: var(--dark);
  }
+
+
  .card p { color: var(--gray); margin-bottom: 10px; }
+
+
  .card p:last-child { margin-bottom: 0; }
+
+
 
  /* ── QUOTE BLOCK ── */
  .quote-block {
@@ -229,6 +294,8 @@
  font-style: italic;
  color: var(--gray);
  }
+
+
  .quote-block cite {
  display: block;
  margin-top: 10px;
@@ -239,6 +306,8 @@
  color: var(--orange);
  }
 
+
+
  /* ── HIGHLIGHT BOXES ── */
  .hl-box {
  border-radius: 14px;
@@ -248,7 +317,11 @@
  gap: 16px;
  align-items: flex-start;
  }
+
+
  .hl-icon { font-size: 24px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+
+
  .hl-body h4 {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 14px;
@@ -257,25 +330,53 @@
  text-transform: uppercase;
  letter-spacing: 0.05em;
  }
+
+
  .hl-body p { font-size: 15px; line-height: 1.65; color: var(--gray); margin: 0; }
 
+
+
  .hl-orange { background: #edf9f2; border: 1px solid #6cc999; }
+
+
  .hl-orange .hl-body h4 { color: var(--orange); }
 
+
+
  .hl-teal { background: #EAF5F5; border: 1px solid #7BBFBF; }
+
+
  .hl-teal .hl-body h4 { color: var(--accent-teal); }
 
+
+
  .hl-blue { background: #EAF0F8; border: 1px solid #8AB0CC; }
+
+
  .hl-blue .hl-body h4 { color: var(--accent-blue); }
 
+
+
  .hl-purple { background: #F3EFF8; border: 1px solid #B09DCF; }
+
+
  .hl-purple .hl-body h4 { color: var(--accent-purple); }
 
+
+
  .hl-green { background: #EBF4EF; border: 1px solid #88BB9F; }
+
+
  .hl-green .hl-body h4 { color: var(--accent-green); }
 
+
+
  .hl-gold { background: #FDF6E3; border: 1px solid #D4AC4A; }
+
+
  .hl-gold .hl-body h4 { color: var(--accent-gold); }
+
+
 
  /* ── LENS BOX ── */
  .lens-box {
@@ -285,12 +386,16 @@
  padding: 32px 36px;
  margin: 32px 0;
  }
+
+
  .lens-header {
  display: flex;
  align-items: center;
  gap: 16px;
  margin-bottom: 20px;
  }
+
+
  .lens-icon {
  width: 56px;
  height: 56px;
@@ -302,7 +407,11 @@
  font-size: 26px;
  flex-shrink: 0;
  }
+
+
  .lens-title-block {}
+
+
  .lens-number {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 12px;
@@ -312,16 +421,22 @@
  color: var(--orange);
  margin-bottom: 2px;
  }
+
+
  .lens-title {
  font-size: 20px;
  font-weight: 700;
  color: var(--dark);
  }
+
+
  .lens-desc {
  color: var(--gray);
  margin-bottom: 20px;
  font-size: 15.5px;
  }
+
+
  .lens-questions {
  list-style: none;
  border-top: 1px solid rgba(39,174,96,0.20);
@@ -330,6 +445,8 @@
  flex-direction: column;
  gap: 10px;
  }
+
+
  .lens-questions li {
  display: flex;
  gap: 10px;
@@ -337,12 +454,16 @@
  color: var(--gray);
  line-height: 1.6;
  }
+
+
  .lens-questions li::before {
  content: "→";
  color: var(--orange);
  font-weight: 700;
  flex-shrink: 0;
  }
+
+
 
  /* ── NUMBERED LIST ── */
  .num-list {
@@ -351,11 +472,15 @@
  gap: 14px;
  margin: 16px 0;
  }
+
+
  .num-item {
  display: flex;
  gap: 16px;
  align-items: flex-start;
  }
+
+
  .num-badge {
  width: 30px;
  height: 30px;
@@ -370,19 +495,27 @@
  flex-shrink: 0;
  margin-top: 2px;
  }
+
+
  .num-content { flex: 1; }
+
+
  .num-content strong {
  display: block;
  font-size: 15px;
  margin-bottom: 4px;
  color: var(--dark);
  }
+
+
  .num-content p {
  font-size: 14.5px;
  color: var(--gray);
  line-height: 1.65;
  margin: 0;
  }
+
+
 
  /* ── GRID 3 ── */
  .grid-3 {
@@ -391,6 +524,8 @@
  gap: 14px;
  margin: 18px 0;
  }
+
+
  .grid-card {
  background: white;
  border: 1px solid var(--card-border);
@@ -398,6 +533,8 @@
  padding: 20px 20px 18px;
  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
  }
+
+
  .grid-card .gc-num {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 11px;
@@ -406,18 +543,24 @@
  text-transform: uppercase;
  margin-bottom: 6px;
  }
+
+
  .grid-card h4 {
  font-size: 15px;
  font-weight: 700;
  margin-bottom: 8px;
  color: var(--dark);
  }
+
+
  .grid-card p {
  font-size: 13.5px;
  color: var(--gray);
  line-height: 1.6;
  margin: 0;
  }
+
+
 
  /* ── READING LIST ── */
  .reading-list {
@@ -426,6 +569,8 @@
  gap: 12px;
  margin: 16px 0;
  }
+
+
  .reading-item {
  display: flex;
  gap: 14px;
@@ -434,13 +579,19 @@
  border-radius: 12px;
  padding: 16px 18px;
  }
+
+
  .reading-icon { font-size: 22px; flex-shrink: 0; }
+
+
  .reading-body h4 {
  font-size: 15px;
  font-weight: 700;
  color: var(--dark);
  margin-bottom: 4px;
  }
+
+
  .reading-body p {
  font-size: 13.5px;
  color: var(--gray);
@@ -448,12 +599,16 @@
  margin: 0;
  }
 
+
+
  /* ── DIVIDER ── */
  .divider {
  border: none;
  border-top: 1px solid var(--card-border);
  margin: 40px 0;
  }
+
+
 
  /* ── FOOTER ── */
  footer {
@@ -463,6 +618,8 @@
  font-size: 13px;
  color: var(--gray-light);
  }
+
+
 
  @media (max-width: 600px) {
  .map-flow { gap: 6px; }
@@ -476,6 +633,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+<p class="book-topline"><a href="/the-art-of-game-design">← Về mục lục</a></p>
+
 <style>
   .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
@@ -492,10 +651,80 @@
   .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
 
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+
+/* __FIX_CHAPNAV_LEAK_START__ */
+/* book-topline: sách này không link assets/theme.css nên cần style riêng ở đây */
+.book-topline {
+  display: block;
+  padding: 14px 24px;
+  background: var(--forest, #0e231c);
+}
+.book-topline a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 19px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color .15s ease;
+}
+.book-topline a:hover { border-color: #fff; }
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+/* __FIX_CHAPNAV_LEAK_END__ */
 </style>
 <nav class="topnav">
-  <a class="brand" href="../index.html">Tổng hợp insight</a>
-  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 25</b></span>
+  <a class="brand" href="/">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 25</b></span>
 </nav>
 
 <nav class="tocnav">
@@ -896,7 +1125,7 @@
  The Art of Game Design · Jesse Schell · Chương 25 · Tóm tắt học thuật bằng tiếng Việt
 </footer>
 
-<div class="chapnav-wrap"><div class="chapnav"><a href="C24-Communities.html"><span class="lbl">Chương trước</span>Chương 24: Other Players Sometimes Form Communities</a><a href="C26-Game Design Document.html"><span class="lbl">Chương sau</span>Chương 26: Đội Nhóm Đôi Khi Giao Tiếp Qua Tài Liệu</a></div></div>
+<div class="chapnav-wrap"><nav class="chapnav"><a href="/the-art-of-game-design/other-players-sometimes-form-communities"><span class="lbl">Chương trước</span>Chương 24: Other Players Sometimes Form Communities</a><a href="/the-art-of-game-design/doi-nhom-doi-khi-giao-tiep-qua-tai-lieu"><span class="lbl">Chương sau</span>Chương 26: Đội Nhóm Đôi Khi Giao Tiếp Qua Tài Liệu</a></nav></div>
 
 <script>
   (function(){

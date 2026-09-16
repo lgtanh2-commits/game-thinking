@@ -4,114 +4,114 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 1 – Thị trường và các tác nhân Fintech</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa;
-    --text: #111111;
-    --text-secondary: #333333;
-    --text-muted: #888888;
-    --border: #d8d8d8;
-    --border-strong: #999999;
-    --surface: #f2f2f2;
-    --surface-dark: #e0e0e0;
-    --accent-line: #111111;
-  }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.8;
-    color: var(--text);
-    background: var(--bg);
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 60px 40px 100px;
-  }
 
   /* Header */
   .book-header {
-    border-bottom: 2px solid var(--accent-line);
+    border-bottom: 2px solid var(--color-sprout);
     padding-bottom: 32px;
     margin-bottom: 48px;
   }
+
+
   .book-label {
     font-size: 11px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 12px;
   }
+
+
   .chapter-number {
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 10px;
   }
+
+
   h1 {
     font-size: 32px;
     font-weight: 700;
     line-height: 1.25;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 16px;
   }
+
+
   .chapter-meta {
     font-size: 13px;
-    color: var(--text-muted);
+    color: var(--color-ash);
   }
+
+
 
   /* Sections */
   h2 {
     font-size: 21px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin: 52px 0 16px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
   h3 {
     font-size: 16px;
     font-weight: 700;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin: 32px 0 10px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
+
+
   p {
     margin-bottom: 18px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
   }
+
+
 
   /* Lead paragraph */
   .lead {
     font-size: 17px;
     line-height: 1.7;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 36px;
     padding: 20px 24px;
-    border-left: 3px solid var(--accent-line);
-    background: var(--surface);
+    border-left: 3px solid var(--color-sprout);
+    background: #ffffff;
   }
+
+
 
   /* Key concept blocks */
   .concept-block {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     padding: 24px 28px;
     margin: 28px 0;
   }
+
+
   .concept-block-title {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 14px;
   }
+
+
 
   /* Canvas grid */
   .canvas-grid {
@@ -119,39 +119,53 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: auto auto auto;
     gap: 2px;
-    background: var(--border);
-    border: 1px solid var(--border-strong);
+    background: var(--color-dew);
+    border: 1px solid var(--color-mist);
     margin: 24px 0;
     font-size: 13px;
   }
+
+
   .canvas-cell {
-    background: var(--bg);
+    background: var(--color-parchment);
     padding: 12px 14px;
     line-height: 1.5;
   }
+
+
   .canvas-cell strong {
     display: block;
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 6px;
   }
+
+
   .canvas-cell p {
     font-size: 12px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin: 0;
   }
+
+
   .canvas-cell.span2 { grid-column: span 2; }
+
+
   .canvas-cost {
     grid-column: 1 / 4;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   .canvas-revenue {
     grid-column: 4 / 6;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
 
   /* Data tables */
   table {
@@ -160,60 +174,84 @@
     margin: 20px 0;
     font-size: 13px;
   }
+
+
   th {
-    background: var(--surface-dark);
-    color: var(--text);
+    background: var(--color-dew);
+    color: var(--color-slate-ink);
     font-weight: 700;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     padding: 10px 12px;
     text-align: left;
-    border-bottom: 2px solid var(--border-strong);
+    border-bottom: 2px solid var(--color-mist);
   }
+
+
   td {
     padding: 9px 12px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text-secondary);
+    border-bottom: 1px solid var(--color-dew);
+    color: var(--color-slate-ink);
     vertical-align: top;
   }
+
+
   tr:last-child td { border-bottom: none; }
-  tr:nth-child(even) td { background: var(--surface); }
+
+
+  tr:nth-child(even) td { background: #ffffff; }
+
+
   .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+
 
   /* Bar chart */
   .bar-chart {
     margin: 20px 0;
   }
+
+
   .bar-row {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 8px;
   }
+
+
   .bar-label {
     width: 180px;
     font-size: 12px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     text-align: right;
     flex-shrink: 0;
   }
+
+
   .bar-track {
     flex: 1;
     height: 20px;
-    background: var(--surface);
+    background: #ffffff;
     position: relative;
   }
+
+
   .bar-fill {
     height: 100%;
-    background: var(--surface-dark);
+    background: var(--color-dew);
   }
+
+
   .bar-value {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     white-space: nowrap;
     margin-left: 6px;
   }
+
+
 
   /* Company cards */
   .company-grid {
@@ -222,35 +260,47 @@
     gap: 16px;
     margin: 20px 0;
   }
+
+
   .company-card {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 16px 18px;
-    background: var(--bg);
+    background: var(--color-parchment);
   }
+
+
   .company-name {
     font-size: 14px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 4px;
   }
+
+
   .company-origin {
     font-size: 11px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-bottom: 8px;
   }
+
+
   .company-stats {
     font-size: 12px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     line-height: 1.6;
   }
+
+
   .company-valuation {
     font-size: 18px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 2px;
   }
+
+
 
   /* Process flow */
   .process-flow {
@@ -259,51 +309,67 @@
     gap: 0;
     margin: 20px 0;
     font-size: 13px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     overflow: hidden;
   }
+
+
   .process-step {
     flex: 1;
     padding: 14px 16px;
-    background: var(--bg);
-    border-right: 1px solid var(--border);
+    background: var(--color-parchment);
+    border-right: 1px solid var(--color-dew);
     position: relative;
   }
+
+
   .process-step:last-child { border-right: none; }
+
+
   .process-num {
     font-size: 20px;
     font-weight: 700;
-    color: var(--border-strong);
+    color: var(--color-mist);
     margin-bottom: 6px;
   }
+
+
   .process-text {
     font-size: 12px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     line-height: 1.5;
   }
 
+
+
   /* Callout */
   .callout {
-    border: 1px solid var(--border-strong);
-    border-left: 4px solid var(--accent-line);
+    border: 1px solid var(--color-mist);
+    border-left: 4px solid var(--color-sprout);
     padding: 18px 22px;
     margin: 24px 0;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   .callout-label {
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 8px;
   }
+
+
   .callout p {
     font-size: 14px;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin: 0;
     font-style: italic;
   }
+
+
 
   /* Stat highlights */
   .stat-row {
@@ -312,85 +378,74 @@
     gap: 16px;
     margin: 24px 0;
   }
+
+
   .stat-box {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 18px 20px;
-    background: var(--bg);
+    background: var(--color-parchment);
     text-align: center;
   }
+
+
   .stat-number {
     font-size: 26px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     line-height: 1.1;
     margin-bottom: 6px;
   }
+
+
   .stat-desc {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     line-height: 1.4;
   }
+
+
 
   /* Figure captions */
   .fig-caption {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     font-style: italic;
     margin-top: 8px;
     padding-top: 8px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
   }
+
+
 
   /* Section divider */
   .section-divider {
     border: none;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
     margin: 48px 0;
   }
+
+
 
   /* Navigation */
   .nav-footer {
     margin-top: 80px;
     padding-top: 24px;
-    border-top: 2px solid var(--accent-line);
+    border-top: 2px solid var(--color-sprout);
     display: flex;
     justify-content: space-between;
     font-size: 13px;
-    color: var(--text-muted);
+    color: var(--color-ash);
   }
+
+
 
   /* Segment table highlight */
-  .highlight-row td { font-weight: 600; color: var(--text); }
-
-  .book-topline {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 12.5px;
-    margin-bottom: 32px;
-  }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
+  .highlight-row td { font-weight: 600; color: var(--color-slate-ink); }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/fintech-business-models">← Về mục lục</a></p>
+<p class="book-topline"><a href="/fintech-business-models">← Về mục lục</a></p>
 
 
 <div class="book-header">
@@ -722,7 +777,7 @@
 
 
 <nav class="chapnav">
-  <a href="ch2-fbm.html"><span class="lbl">Chương sau</span>Chương 2: Thanh Toán Thay Thế (APM)</a>
+  <a href="/fintech-business-models/thanh-toan-thay-the-apm"><span class="lbl">Chương sau</span>Chương 2: Thanh Toán Thay Thế (APM)</a>
 </nav>
 </body>
 </html>

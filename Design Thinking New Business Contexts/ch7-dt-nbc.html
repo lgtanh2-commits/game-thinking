@@ -4,42 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 7 – Tư Duy Thiết Kế cho Xây dựng Thương Hiệu</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #ffffff;
-    --surface: #f7f7f7;
-    --border: #e0e0e0;
-    --border-strong: #999;
-    --text: #1a1a1a;
-    --text-muted: #555;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 17px;
-    line-height: 1.8;
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 60px 32px 100px;
-  }
+
   /* ── TYPOGRAPHY ── */
   h1, h2, h3, h4, .label {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
+
+
   h1 { font-size: 28px; font-weight: 800; letter-spacing: -.5px; margin-bottom: 6px; line-height: 1.25; }
-  h2 { font-size: 21px; font-weight: 700; margin: 48px 0 14px; border-bottom: 2px solid var(--text); padding-bottom: 6px; }
+
+
+  h2 { font-size: 21px; font-weight: 700; margin: 48px 0 14px; border-bottom: 2px solid var(--color-slate-ink); padding-bottom: 6px; }
+
+
   h3 { font-size: 17px; font-weight: 700; margin: 32px 0 10px; }
-  h4 { font-size: 15px; font-weight: 700; margin: 22px 0 8px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted); }
+
+
+  h4 { font-size: 15px; font-weight: 700; margin: 22px 0 8px; text-transform: uppercase; letter-spacing: .04em; color: var(--color-ash); }
+
+
   p { margin-bottom: 16px; }
+
+
   blockquote {
-    border-left: 3px solid var(--border-strong);
+    border-left: 3px solid var(--color-mist);
     margin: 20px 0;
     padding: 10px 20px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     font-style: italic;
   }
+
+
   /* ── HEADER META ── */
   .chapter-label {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -47,34 +44,58 @@
     font-weight: 700;
     letter-spacing: .12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 18px;
   }
-  .doi { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-  .doi a { color: var(--text-muted); }
+
+
+  .doi { font-size: 13px; color: var(--color-ash); margin-bottom: 24px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+
+  .doi a { color: var(--color-ash); }
+
+
   .authors { font-size: 15px; margin-bottom: 4px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-  .affiliation { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+
+  .affiliation { font-size: 13px; color: var(--color-ash); margin-bottom: 16px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+
   .keywords {
     font-size: 13px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
+    border-bottom: 1px solid var(--color-dew);
     padding: 10px 0;
     margin: 20px 0 40px;
   }
-  .keywords strong { color: var(--text); }
-  hr.section-rule { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+
+  .keywords strong { color: var(--color-slate-ink); }
+
+
+  hr.section-rule { border: none; border-top: 1px solid var(--color-dew); margin: 48px 0; }
+
+
   /* ── LEARNING OBJECTIVES ── */
   .objectives {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     padding: 22px 26px;
     margin: 32px 0;
   }
+
+
   .objectives h3 { margin-top: 0; font-size: 15px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; }
+
+
   .objectives ol { padding-left: 22px; }
+
+
   .objectives ol li { margin-bottom: 8px; font-size: 15.5px; }
+
+
   /* ── ETHNOGRAPHY TYPES ── */
   .ethno-grid {
     display: grid;
@@ -82,11 +103,15 @@
     gap: 10px;
     margin: 18px 0;
   }
+
+
   .ethno-item {
-    border: 1px solid var(--border);
-    background: var(--surface);
+    border: 1px solid var(--color-dew);
+    background: #ffffff;
     padding: 12px 14px;
   }
+
+
   .ethno-item .etitle {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 13px;
@@ -95,56 +120,72 @@
     letter-spacing: .05em;
     margin-bottom: 4px;
   }
-  .ethno-item p { font-size: 14px; margin: 0; color: var(--text-muted); }
+
+
+  .ethno-item p { font-size: 14px; margin: 0; color: var(--color-ash); }
+
+
   /* ── EMPATHY LEVELS ── */
   .empathy-levels {
     list-style: none;
     padding: 0;
     margin: 18px 0;
   }
+
+
   .empathy-levels li {
     display: flex;
     gap: 16px;
     align-items: flex-start;
     margin-bottom: 16px;
-    border-left: 3px solid var(--border-strong);
+    border-left: 3px solid var(--color-mist);
     padding: 10px 14px;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   .emp-num {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 20px;
     font-weight: 800;
-    color: var(--border-strong);
+    color: var(--color-mist);
     min-width: 26px;
     line-height: 1;
     padding-top: 2px;
   }
+
+
   /* ── CBBE PYRAMID ── */
   .cbbe-pyramid {
-    border: 1px solid var(--border);
-    background: var(--surface);
+    border: 1px solid var(--color-dew);
+    background: #ffffff;
     padding: 24px 20px;
     margin: 20px 0;
     text-align: center;
   }
+
+
   .cbbe-pyramid .fig-label {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .07em;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 18px;
   }
+
+
   .pyr-row {
     display: flex;
     justify-content: center;
     margin-bottom: 4px;
   }
+
+
   .pyr-cell {
-    background: var(--text);
-    color: var(--bg);
+    background: var(--color-slate-ink);
+    color: var(--color-parchment);
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
     font-weight: 700;
@@ -154,13 +195,19 @@
     letter-spacing: .04em;
     margin: 2px;
   }
+
+
   .pyr-cell.light {
-    background: var(--border-strong);
+    background: var(--color-mist);
   }
+
+
   .pyr-cell.lighter {
-    background: var(--border);
-    color: var(--text);
+    background: var(--color-dew);
+    color: var(--color-slate-ink);
   }
+
+
   /* ── BRAND RESONANCE LIST ── */
   .resonance-list {
     list-style: none;
@@ -168,6 +215,8 @@
     counter-reset: res-counter;
     margin: 16px 0;
   }
+
+
   .resonance-list li {
     counter-increment: res-counter;
     display: flex;
@@ -175,13 +224,15 @@
     align-items: flex-start;
     margin-bottom: 14px;
   }
+
+
   .resonance-list li::before {
     content: counter(res-counter);
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 13px;
     font-weight: 800;
-    color: var(--bg);
-    background: var(--text);
+    color: var(--color-parchment);
+    background: var(--color-slate-ink);
     min-width: 26px;
     height: 26px;
     border-radius: 50%;
@@ -191,70 +242,92 @@
     flex-shrink: 0;
     margin-top: 2px;
   }
+
+
   /* ── BRAND AMBIDEXTERITY PROCESS ── */
   .ambidex-process {
     display: flex;
     gap: 0;
     margin: 20px 0;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
   }
+
+
   .ambidex-stage {
     flex: 1;
     padding: 16px 14px;
-    border-right: 1px solid var(--border);
-    background: var(--surface);
+    border-right: 1px solid var(--color-dew);
+    background: #ffffff;
   }
+
+
   .ambidex-stage:last-child { border-right: none; }
+
+
   .ambidex-stage .stage-title {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: .08em;
-    background: var(--text);
-    color: var(--bg);
+    background: var(--color-slate-ink);
+    color: var(--color-parchment);
     padding: 5px 8px;
     text-align: center;
     margin-bottom: 10px;
   }
+
+
   .ambidex-stage ul {
     list-style: none;
     padding: 0;
   }
+
+
   .ambidex-stage ul li {
     font-size: 13px;
     padding: 3px 0;
-    color: var(--text-muted);
+    color: var(--color-ash);
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    border-bottom: 1px dotted var(--border);
+    border-bottom: 1px dotted var(--color-dew);
   }
+
+
   .ambidex-stage ul li:last-child { border-bottom: none; }
+
+
   .ambidex-arrow {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 24px;
     font-size: 18px;
-    color: var(--border-strong);
+    color: var(--color-mist);
     flex-shrink: 0;
   }
+
+
   /* ── FRAMEWORK FIGURE ── */
   .framework-fig {
-    border: 1px solid var(--border);
-    background: var(--surface);
+    border: 1px solid var(--color-dew);
+    background: #ffffff;
     padding: 20px;
     margin: 20px 0;
   }
+
+
   .framework-fig .fig-label {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .07em;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 16px;
     text-align: center;
   }
+
+
   .fw-row {
     display: flex;
     gap: 8px;
@@ -262,84 +335,136 @@
     margin-bottom: 8px;
     justify-content: center;
   }
+
+
   .fw-box {
     flex: 1;
-    border: 2px solid var(--border-strong);
+    border: 2px solid var(--color-mist);
     padding: 10px 12px;
     text-align: center;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 13px;
     font-weight: 700;
   }
+
+
   .fw-box.dark {
-    background: var(--text);
-    color: var(--bg);
-    border-color: var(--text);
+    background: var(--color-slate-ink);
+    color: var(--color-parchment);
+    border-color: var(--color-slate-ink);
   }
+
+
   .fw-arrow {
     display: flex;
     align-items: center;
     font-size: 20px;
-    color: var(--border-strong);
+    color: var(--color-mist);
     padding: 0 4px;
   }
+
+
   /* ── CHAPTER SUMMARY ── */
   .summary-box {
-    background: var(--surface);
-    border: 2px solid var(--border-strong);
+    background: #ffffff;
+    border: 2px solid var(--color-mist);
     padding: 26px 28px;
     margin: 40px 0;
   }
+
+
   .summary-box h3 { margin-top: 0; font-size: 15px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; }
+
+
   /* ── QA BOXES ── */
   .qa-box {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 22px 26px;
     margin: 28px 0;
-    background: var(--surface);
+    background: #ffffff;
   }
-  .qa-box h3 { margin-top: 0; font-size: 14px; text-transform: uppercase; letter-spacing: .07em; color: var(--text-muted); margin-bottom: 16px; }
+
+
+  .qa-box h3 { margin-top: 0; font-size: 14px; text-transform: uppercase; letter-spacing: .07em; color: var(--color-ash); margin-bottom: 16px; }
+
+
   .qa-box ol { padding-left: 22px; }
+
+
   .qa-box ol li { margin-bottom: 10px; font-size: 15.5px; }
+
+
   /* ── PROJECT STEPS ── */
   .project-box {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 22px 26px;
     margin: 28px 0;
   }
+
+
   .project-box h3 { margin-top: 0; font-size: 14px; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+
+
   .project-box .main-task {
-    border-left: 3px solid var(--border-strong);
+    border-left: 3px solid var(--color-mist);
     padding: 10px 14px;
     margin-bottom: 18px;
     font-size: 15.5px;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   .project-box ol { padding-left: 22px; }
+
+
   .project-box ol li { margin-bottom: 10px; font-size: 15px; }
+
+
   /* ── CHAPTER TASKS ── */
   .tasks-box {
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     padding: 22px 26px;
     margin: 28px 0;
   }
+
+
   .tasks-box h3 { margin-top: 0; font-size: 14px; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
+
+
   .tasks-box ol { padding-left: 22px; }
+
+
   .tasks-box ol li { margin-bottom: 8px; font-size: 15px; }
+
+
   .tasks-box ol ol { list-style: lower-alpha; margin-top: 6px; }
+
+
   /* ── REFERENCES ── */
   .references h2 { font-size: 19px; }
+
+
   .ref-list { list-style: none; padding: 0; }
+
+
   .ref-list li {
     font-size: 14px;
     line-height: 1.6;
     padding: 8px 0;
-    border-bottom: 1px solid var(--border);
-    color: var(--text-muted);
+    border-bottom: 1px solid var(--color-dew);
+    color: var(--color-ash);
   }
+
+
   .ref-list li:last-child { border-bottom: none; }
+
+
   .rec-reading { margin-top: 36px; }
+
+
   .rec-reading h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+
+
 
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -347,30 +472,11 @@
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+<p class="book-topline"><a href="/design-thinking-new-business-contexts">← Về mục lục</a></p>
 
 <div class="chapter-label">Chương 7</div>
 <h1>Tư Duy Thiết Kế cho Xây dựng Thương Hiệu</h1>
@@ -805,8 +911,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch6-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 6: Tư Duy Thiết Kế Vì Tương Lai Bền Vững</a>
-  <a href="ch8-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 8: Tư Duy Thiết Kế Trong Thực Tiễn: Ba Nghiên Cứu Tình Huống</a>
+  <a href="/design-thinking-new-business-contexts/tu-duy-thiet-ke-vi-tuong-lai-ben-vung"><span class="lbl">Chương trước</span>Chương 6: Tư Duy Thiết Kế Vì Tương Lai Bền Vững</a>
+  <a href="/design-thinking-new-business-contexts/tu-duy-thiet-ke-trong-thuc-tien-ba-nghien-cuu-tinh-huong"><span class="lbl">Chương sau</span>Chương 8: Tư Duy Thiết Kế Trong Thực Tiễn: Ba Nghiên Cứu Tình Huống</a>
 </nav>
 </body>
 </html>

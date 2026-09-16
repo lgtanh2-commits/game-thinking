@@ -4,66 +4,52 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 2 — Tâm Lý Học Trong Các Hoạt Động Thường Ngày</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa;
-    --text: #111111;
-    --text-secondary: #333333;
-    --text-muted: #888888;
-    --border: #d8d8d8;
-    --border-strong: #999999;
-    --surface: #f2f2f2;
-    --surface-dark: #e0e0e0;
-    --accent-line: #111111;
-  }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.75;
-    color: var(--text);
-    background: var(--bg);
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 60px 40px 100px;
-  }
 
   /* ── HEADER ── */
   .book-meta {
     font-size: 12px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-muted);
-    border-bottom: 1px solid var(--border);
+    color: var(--color-ash);
+    border-bottom: 1px solid var(--color-dew);
     padding-bottom: 16px;
     margin-bottom: 48px;
   }
+
+
 
   .chapter-label {
     font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 12px;
   }
+
+
 
   h1 {
     font-size: 28px;
     font-weight: 700;
     line-height: 1.25;
     letter-spacing: -0.02em;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 8px;
   }
 
+
+
   .chapter-subtitle {
     font-size: 14px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 48px;
     font-style: italic;
   }
+
+
 
   /* ── SECTIONS ── */
   h2 {
@@ -71,123 +57,159 @@
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin: 52px 0 18px;
     padding-bottom: 8px;
-    border-bottom: 2px solid var(--accent-line);
+    border-bottom: 2px solid var(--color-sprout);
   }
+
+
 
   h3 {
     font-size: 16px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin: 32px 0 12px;
   }
 
+
+
   p {
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     margin-bottom: 16px;
   }
 
-  strong { color: var(--text); }
 
-  em { font-style: italic; color: var(--text-secondary); }
+
+  strong { color: var(--color-slate-ink); }
+
+
+
+  em { font-style: italic; color: var(--color-slate-ink); }
+
+
 
   /* ── OPENING STORY ── */
   .opening-story {
-    background: var(--surface);
-    border-left: 3px solid var(--accent-line);
+    background: #ffffff;
+    border-left: 3px solid var(--color-sprout);
     padding: 24px 28px;
     margin: 0 0 40px;
     border-radius: 0 4px 4px 0;
   }
 
+
+
   .opening-story p {
     margin-bottom: 10px;
     font-size: 15px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
   }
+
+
 
   .opening-story p:last-child { margin-bottom: 0; }
 
+
+
   /* ── FIGURE BOXES ── */
   .figure-box {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     border-radius: 4px;
     padding: 28px 32px;
     margin: 32px 0;
     background: #fff;
   }
 
+
+
   .figure-label {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 16px;
   }
 
+
+
   .figure-caption {
     font-size: 13px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-top: 14px;
     font-style: italic;
     line-height: 1.5;
   }
+
+
 
   /* ── GULF DIAGRAM ── */
   .gulf-diagram {
     display: flex;
     gap: 0;
     margin: 20px 0;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     border-radius: 4px;
     overflow: hidden;
   }
 
+
+
   .gulf-side {
     flex: 1;
     padding: 20px 22px;
-    background: var(--surface);
+    background: #ffffff;
     text-align: center;
   }
 
+
+
   .gulf-side:first-child {
-    border-right: 1px solid var(--border-strong);
+    border-right: 1px solid var(--color-mist);
   }
+
+
 
   .gulf-label {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 8px;
   }
+
+
 
   .gulf-title {
     font-size: 15px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 8px;
   }
 
+
+
   .gulf-desc {
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     line-height: 1.5;
   }
+
+
 
   .gulf-arrow {
     width: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--surface-dark);
+    background: var(--color-dew);
     font-size: 22px;
-    color: var(--text-muted);
+    color: var(--color-ash);
   }
+
+
 
   /* ── ACTION STAGES CYCLE ── */
   .action-cycle {
@@ -197,9 +219,11 @@
     margin: 16px 0;
   }
 
+
+
   .action-stage {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     border-radius: 4px;
     padding: 14px 16px;
     display: flex;
@@ -207,39 +231,51 @@
     gap: 12px;
   }
 
+
+
   .stage-num {
     font-size: 11px;
     font-weight: 700;
-    color: var(--text-muted);
+    color: var(--color-ash);
     min-width: 18px;
     padding-top: 2px;
   }
 
+
+
   .stage-content {}
+
+
 
   .stage-name {
     font-size: 14px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 3px;
   }
 
+
+
   .stage-desc {
     font-size: 12px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     line-height: 1.45;
   }
 
+
+
   .goal-center {
     grid-column: 1 / -1;
-    background: var(--surface-dark);
-    border: 1px solid var(--border-strong);
+    background: var(--color-dew);
+    border: 1px solid var(--color-mist);
     border-radius: 4px;
     padding: 14px 16px;
     display: flex;
     align-items: center;
     gap: 12px;
   }
+
+
 
   /* ── TWO-COL COMPARISON TABLE ── */
   .compare-table {
@@ -249,34 +285,44 @@
     font-size: 14px;
   }
 
+
+
   .compare-table th {
-    background: var(--surface-dark);
-    border: 1px solid var(--border-strong);
+    background: var(--color-dew);
+    border: 1px solid var(--color-mist);
     padding: 10px 14px;
     text-align: left;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text);
+    color: var(--color-slate-ink);
   }
 
+
+
   .compare-table td {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 10px 14px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     vertical-align: top;
     line-height: 1.5;
   }
 
+
+
   .compare-table tr:nth-child(even) td {
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
 
   /* ── THREE LEVELS DIAGRAM ── */
   .three-levels {
     margin: 20px 0;
   }
+
+
 
   .level-row {
     display: flex;
@@ -284,6 +330,8 @@
     margin-bottom: 4px;
     gap: 0;
   }
+
+
 
   .level-tag {
     width: 120px;
@@ -298,31 +346,45 @@
     border-radius: 4px 0 0 4px;
   }
 
+
+
   .level-content {
     flex: 1;
     padding: 14px 18px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     border-left: none;
     border-radius: 0 4px 4px 0;
     background: #fff;
   }
 
+
+
   .level-name {
     font-size: 14px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 4px;
   }
 
+
+
   .level-desc {
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     line-height: 1.5;
   }
 
-  .level-visceral .level-tag { background: var(--surface); color: var(--text-muted); }
-  .level-behavioral .level-tag { background: var(--surface-dark); color: var(--text-secondary); }
-  .level-reflective .level-tag { background: #e8e8e8; color: var(--text); }
+
+
+  .level-visceral .level-tag { background: #ffffff; color: var(--color-ash); }
+
+
+  .level-behavioral .level-tag { background: var(--color-dew); color: var(--color-slate-ink); }
+
+
+  .level-reflective .level-tag { background: #e8e8e8; color: var(--color-slate-ink); }
+
+
 
   /* ── PRINCIPLE CARDS ── */
   .principles-grid {
@@ -332,83 +394,107 @@
     margin: 20px 0;
   }
 
+
+
   .principle-card {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     border-radius: 4px;
     padding: 18px 20px;
     background: #fff;
     position: relative;
   }
 
+
+
   .principle-num {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 6px;
   }
+
+
 
   .principle-name {
     font-size: 14px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 6px;
     line-height: 1.3;
   }
 
+
+
   .principle-desc {
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     line-height: 1.5;
   }
 
+
+
   /* ── QUOTE BLOCK ── */
   .quote-block {
-    border-left: 3px solid var(--border-strong);
+    border-left: 3px solid var(--color-mist);
     padding: 18px 24px;
     margin: 28px 0;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
 
   .quote-text {
     font-size: 15px;
     font-style: italic;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     line-height: 1.6;
     margin-bottom: 8px;
   }
 
+
+
   .quote-source {
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     letter-spacing: 0.06em;
   }
 
+
+
   /* ── INFO BOX ── */
   .info-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     border-radius: 4px;
     padding: 20px 24px;
     margin: 28px 0;
   }
+
+
 
   .info-box-label {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 10px;
   }
+
+
 
   .info-box p {
     font-size: 14px;
     margin-bottom: 8px;
   }
 
+
+
   .info-box p:last-child { margin-bottom: 0; }
+
+
 
   /* ── SEVEN QUESTIONS DIAGRAM ── */
   .questions-flow {
@@ -416,22 +502,30 @@
     flex-direction: column;
     gap: 0;
     margin: 20px 0;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     border-radius: 4px;
     overflow: hidden;
   }
+
+
 
   .q-item {
     display: flex;
     align-items: center;
     gap: 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
     background: #fff;
   }
 
+
+
   .q-item:last-child { border-bottom: none; }
 
-  .q-item:nth-child(odd) { background: var(--surface); }
+
+
+  .q-item:nth-child(odd) { background: #ffffff; }
+
+
 
   .q-side {
     width: 80px;
@@ -440,30 +534,36 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     text-align: center;
-    border-right: 1px solid var(--border);
+    border-right: 1px solid var(--color-dew);
     line-height: 1.3;
   }
+
+
 
   .q-main {
     flex: 1;
     padding: 12px 18px;
     font-size: 13px;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
     line-height: 1.5;
   }
+
+
 
   .q-stage {
     width: 100px;
     padding: 12px 14px;
     font-size: 11px;
     font-weight: 600;
-    color: var(--text);
-    border-left: 1px solid var(--border);
+    color: var(--color-slate-ink);
+    border-left: 1px solid var(--color-dew);
     text-align: right;
     line-height: 1.4;
   }
+
+
 
   /* ── FLOW DIAGRAM ── */
   .flow-diagram {
@@ -472,16 +572,18 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid var(--color-dew);
     border-radius: 4px;
     margin: 16px 0;
     flex-wrap: wrap;
   }
 
+
+
   .flow-item {
     padding: 8px 16px;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     border-radius: 2px;
     font-size: 12px;
     font-weight: 600;
@@ -490,97 +592,127 @@
     min-width: 90px;
   }
 
+
+
   .flow-arrow {
     font-size: 14px;
-    color: var(--text-muted);
+    color: var(--color-ash);
   }
 
+
+
   .flow-highlight {
-    background: var(--surface-dark);
-    border-color: var(--accent-line);
-    color: var(--text);
+    background: var(--color-dew);
+    border-color: var(--color-sprout);
+    color: var(--color-slate-ink);
   }
+
+
 
   /* ── NEST EXAMPLE ── */
   .example-box {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
+    background: var(--color-dew);
+    border: 1px solid var(--color-dew);
     border-radius: 4px;
     overflow: hidden;
     margin: 20px 0;
   }
+
+
 
   .example-col {
     background: #fff;
     padding: 18px 20px;
   }
 
-  .example-col:first-child { background: var(--surface); }
+
+
+  .example-col:first-child { background: #ffffff; }
+
+
 
   .example-col-label {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 10px;
   }
+
+
 
   .example-col-title {
     font-size: 14px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-slate-ink);
     margin-bottom: 8px;
   }
+
+
 
   .example-col p {
     font-size: 13px;
     margin-bottom: 6px;
   }
 
+
+
   /* ── TAKEAWAY BOX ── */
   .takeaway-box {
-    border: 2px solid var(--accent-line);
+    border: 2px solid var(--color-sprout);
     border-radius: 4px;
     padding: 28px 32px;
     margin: 52px 0 0;
     background: #fff;
   }
 
+
+
   .takeaway-label {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 18px;
   }
+
+
 
   .takeaway-box h3 {
     font-size: 14px;
     margin: 0 0 6px;
   }
 
+
+
   .takeaway-box p {
     font-size: 14px;
     margin-bottom: 14px;
   }
 
+
+
   .takeaway-box p:last-child { margin-bottom: 0; }
+
+
 
   /* ── FOOTER ── */
   .chapter-footer {
     margin-top: 72px;
     padding-top: 20px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--color-dew);
     display: flex;
     justify-content: space-between;
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
   }
+
+
 
   /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
@@ -591,36 +723,11 @@
     .gulf-diagram { flex-direction: column; }
     .gulf-arrow { width: 100%; height: 36px; }
   }
-
-  .book-topline {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 12.5px;
-    margin-bottom: 32px;
-  }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/design-of-everyday-things">← Về mục lục</a></p>
+<p class="book-topline"><a href="/design-of-everyday-things">← Về mục lục</a></p>
 
 
 <div class="book-meta">Thiết kế lấy người dùng làm trung tâm · Don Norman · Phương Lan dịch</div>
@@ -1011,8 +1118,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch1-doet.html"><span class="lbl">Chương trước</span>Chương 1: Tâm Lý Học Trong Thiết Kế</a>
-  <a href="ch3-doet.html"><span class="lbl">Chương sau</span>Chương 3: Kiến Thức Trong Đầu Và Kiến Thức Thực Tế</a>
+  <a href="/design-of-everyday-things/tam-ly-hoc-trong-thiet-ke"><span class="lbl">Chương trước</span>Chương 1: Tâm Lý Học Trong Thiết Kế</a>
+  <a href="/design-of-everyday-things/kien-thuc-trong-dau-va-kien-thuc-thuc-te"><span class="lbl">Chương sau</span>Chương 3: Kiến Thức Trong Đầu Và Kiến Thức Thực Tế</a>
 </nav>
 </body>
 </html>

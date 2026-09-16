@@ -4,152 +4,267 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 9 — Định hướng Thiết kế & Tương lai Bất định</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa;
-    --text: #111111;
-    --text-secondary: #333333;
-    --text-muted: #888888;
-    --border: #d8d8d8;
-    --border-strong: #999999;
-    --surface: #f2f2f2;
-    --surface-dark: #e0e0e0;
-    --accent-line: #111111;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   html { font-size: 17px; scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.72;
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 48px 32px 96px;
-  }
+
+
 
   /* ── Typography ── */
   h1 { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 6px; }
-  h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; margin: 52px 0 14px; border-bottom: 2px solid var(--text); padding-bottom: 6px; }
+
+
+  h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; margin: 52px 0 14px; border-bottom: 2px solid var(--color-slate-ink); padding-bottom: 6px; }
+
+
   h3 { font-size: 1.08rem; font-weight: 700; margin: 28px 0 10px; }
-  h4 { font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-secondary); margin: 20px 0 8px; }
+
+
+  h4 { font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--color-slate-ink); margin: 20px 0 8px; }
+
+
   p { margin-bottom: 14px; }
+
+
   ul, ol { padding-left: 22px; margin-bottom: 14px; }
+
+
   li { margin-bottom: 6px; }
+
+
   strong { font-weight: 700; }
+
+
   em { font-style: italic; }
+
+
   blockquote {
-    border-left: 4px solid var(--text);
+    border-left: 4px solid var(--color-slate-ink);
     padding: 12px 20px;
     margin: 24px 0;
-    background: var(--surface);
+    background: #ffffff;
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 1.05rem;
-    color: var(--text-secondary);
+    color: var(--color-slate-ink);
   }
-  blockquote cite { display: block; margin-top: 8px; font-size: 0.85rem; color: var(--text-muted); font-style: normal; }
-  .doi { font-family: 'Courier New', monospace; font-size: 0.8rem; color: var(--text-muted); }
+
+
+  blockquote cite { display: block; margin-top: 8px; font-size: 0.85rem; color: var(--color-ash); font-style: normal; }
+
+
+  .doi { font-family: 'Courier New', monospace; font-size: 0.8rem; color: var(--color-ash); }
+
+
 
   /* ── Chapter Header ── */
-  .chapter-header { border-bottom: 3px solid var(--text); padding-bottom: 32px; margin-bottom: 48px; }
-  .chapter-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-muted); margin-bottom: 12px; }
-  .subtitle { font-size: 1.1rem; color: var(--text-secondary); margin-top: 10px; font-family: Georgia, serif; font-style: italic; }
+  .chapter-header { border-bottom: 3px solid var(--color-slate-ink); padding-bottom: 32px; margin-bottom: 48px; }
+
+
+  .chapter-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--color-ash); margin-bottom: 12px; }
+
+
+  .subtitle { font-size: 1.1rem; color: var(--color-slate-ink); margin-top: 10px; font-family: Georgia, serif; font-style: italic; }
+
+
   .keyword-row { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
-  .kw { border: 1px solid var(--border-strong); padding: 4px 12px; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+
+
+  .kw { border: 1px solid var(--color-mist); padding: 4px 12px; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+
+
 
   /* ── Pull stat ── */
   .pull-stat {
-    border: 2px solid var(--text);
+    border: 2px solid var(--color-slate-ink);
     padding: 20px 24px;
     margin: 28px 0;
     display: flex;
     align-items: baseline;
     gap: 16px;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   .pull-stat .num { font-size: 2.6rem; font-weight: 900; letter-spacing: -0.04em; flex-shrink: 0; }
-  .pull-stat .desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.45; }
+
+
+  .pull-stat .desc { font-size: 0.9rem; color: var(--color-slate-ink); line-height: 1.45; }
+
+
 
   /* ── Section divider ── */
   .section-intro {
-    border-left: 4px solid var(--accent-line);
+    border-left: 4px solid var(--color-sprout);
     padding: 14px 20px;
-    background: var(--surface);
+    background: #ffffff;
     margin-bottom: 24px;
     font-size: 0.97rem;
   }
 
+
+
   /* ── Network block ── */
   .network-block {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     padding: 18px 22px;
     margin: 18px 0;
-    background: var(--surface);
+    background: #ffffff;
   }
-  .network-block .net-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 6px; }
-  .network-block h4 { margin: 0 0 8px; font-size: 1rem; color: var(--text); text-transform: none; letter-spacing: 0; }
+
+
+  .network-block .net-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ash); margin-bottom: 6px; }
+
+
+  .network-block h4 { margin: 0 0 8px; font-size: 1rem; color: var(--color-slate-ink); text-transform: none; letter-spacing: 0; }
+
+
 
   /* ── Framework grid ── */
   .framework-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0; }
-  .fw-cell { border: 1px solid var(--border); padding: 14px 16px; background: var(--bg); }
-  .fw-cell.dark { background: var(--surface-dark); border-color: var(--border-strong); }
-  .fw-cell .fw-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 5px; }
+
+
+  .fw-cell { border: 1px solid var(--color-dew); padding: 14px 16px; background: var(--color-parchment); }
+
+
+  .fw-cell.dark { background: var(--color-dew); border-color: var(--color-mist); }
+
+
+  .fw-cell .fw-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ash); margin-bottom: 5px; }
+
+
   .fw-cell p { font-size: 0.88rem; margin: 0; }
+
+
 
   /* ── Living Lab table ── */
   .ll-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.86rem; }
-  .ll-table th { background: var(--text); color: var(--bg); padding: 9px 12px; text-align: left; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
-  .ll-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  .ll-table tr:nth-child(even) td { background: var(--surface); }
+
+
+  .ll-table th { background: var(--color-slate-ink); color: var(--color-parchment); padding: 9px 12px; text-align: left; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
+
+
+  .ll-table td { padding: 9px 12px; border-bottom: 1px solid var(--color-dew); vertical-align: top; }
+
+
+  .ll-table tr:nth-child(even) td { background: #ffffff; }
+
+
 
   /* ── IoT elements ── */
   .iot-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 18px 0; }
-  .iot-item { border: 1px solid var(--border); padding: 16px 18px; background: var(--bg); }
-  .iot-item .iot-num { font-size: 1.8rem; font-weight: 900; color: var(--text-muted); line-height: 1; margin-bottom: 6px; }
-  .iot-item h4 { margin: 0 0 6px; font-size: 0.9rem; color: var(--text); text-transform: none; letter-spacing: 0; }
-  .iot-item p { font-size: 0.86rem; margin: 0; color: var(--text-secondary); }
+
+
+  .iot-item { border: 1px solid var(--color-dew); padding: 16px 18px; background: var(--color-parchment); }
+
+
+  .iot-item .iot-num { font-size: 1.8rem; font-weight: 900; color: var(--color-ash); line-height: 1; margin-bottom: 6px; }
+
+
+  .iot-item h4 { margin: 0 0 6px; font-size: 0.9rem; color: var(--color-slate-ink); text-transform: none; letter-spacing: 0; }
+
+
+  .iot-item p { font-size: 0.86rem; margin: 0; color: var(--color-slate-ink); }
+
+
 
   /* ── Consumer concerns ── */
   .concern-list { list-style: none; padding: 0; margin: 16px 0; }
-  .concern-list li { border-left: 3px solid var(--border-strong); padding: 10px 14px; margin-bottom: 6px; background: var(--surface); display: flex; gap: 14px; align-items: baseline; }
+
+
+  .concern-list li { border-left: 3px solid var(--color-mist); padding: 10px 14px; margin-bottom: 6px; background: #ffffff; display: flex; gap: 14px; align-items: baseline; }
+
+
   .concern-list li .pct { font-size: 1.4rem; font-weight: 900; flex-shrink: 0; min-width: 54px; }
-  .concern-list li .detail { font-size: 0.88rem; color: var(--text-secondary); }
+
+
+  .concern-list li .detail { font-size: 0.88rem; color: var(--color-slate-ink); }
+
+
 
   /* ── Marketing table ── */
   .mkt-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.86rem; }
-  .mkt-table th { background: var(--surface-dark); color: var(--text); padding: 9px 12px; text-align: left; font-weight: 700; border-bottom: 2px solid var(--border-strong); }
-  .mkt-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  .mkt-table tr:nth-child(even) td { background: var(--surface); }
+
+
+  .mkt-table th { background: var(--color-dew); color: var(--color-slate-ink); padding: 9px 12px; text-align: left; font-weight: 700; border-bottom: 2px solid var(--color-mist); }
+
+
+  .mkt-table td { padding: 9px 12px; border-bottom: 1px solid var(--color-dew); vertical-align: top; }
+
+
+  .mkt-table tr:nth-child(even) td { background: #ffffff; }
+
+
 
   /* ── Trend section ── */
-  .trend-block { border-top: 2px solid var(--text); padding: 22px 0; margin-bottom: 10px; }
-  .trend-block .trend-num { font-size: 3.5rem; font-weight: 900; color: var(--surface-dark); line-height: 1; float: left; margin-right: 18px; margin-top: -6px; }
+  .trend-block { border-top: 2px solid var(--color-slate-ink); padding: 22px 0; margin-bottom: 10px; }
+
+
+  .trend-block .trend-num { font-size: 3.5rem; font-weight: 900; color: var(--color-dew); line-height: 1; float: left; margin-right: 18px; margin-top: -6px; }
+
+
   .trend-block h3 { font-size: 1.2rem; font-weight: 700; margin: 0 0 10px; }
+
+
   .trend-block::after { content: ''; display: block; clear: both; }
 
+
+
   /* ── Chapter summary box ── */
-  .summary-box { border: 2px solid var(--text); padding: 26px 28px; margin: 44px 0; }
-  .summary-box .sum-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 14px; }
+  .summary-box { border: 2px solid var(--color-slate-ink); padding: 26px 28px; margin: 44px 0; }
+
+
+  .summary-box .sum-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-ash); margin-bottom: 14px; }
+
+
   .summary-box blockquote { border: none; background: none; padding: 0; margin: 0 0 16px; font-size: 1.1rem; }
+
+
 
   /* ── Q&T sections ── */
   .qt-section { margin: 44px 0 0; }
-  .qt-section h3 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 16px; }
+
+
+  .qt-section h3 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-ash); border-bottom: 1px solid var(--color-dew); padding-bottom: 8px; margin-bottom: 16px; }
+
+
   .qt-list { list-style: none; padding: 0; }
-  .qt-list li { border-left: 3px solid var(--border); padding: 10px 14px; margin-bottom: 8px; font-size: 0.92rem; }
-  .qt-list li strong { display: inline-block; min-width: 26px; color: var(--text-muted); }
+
+
+  .qt-list li { border-left: 3px solid var(--color-dew); padding: 10px 14px; margin-bottom: 8px; font-size: 0.92rem; }
+
+
+  .qt-list li strong { display: inline-block; min-width: 26px; color: var(--color-ash); }
+
+
 
   /* ── References ── */
-  .ref-section { margin-top: 56px; border-top: 1px solid var(--border); padding-top: 32px; }
-  .ref-section h2 { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); border: none; margin: 0 0 20px; }
+  .ref-section { margin-top: 56px; border-top: 1px solid var(--color-dew); padding-top: 32px; }
+
+
+  .ref-section h2 { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ash); border: none; margin: 0 0 20px; }
+
+
   .ref-list { list-style: none; padding: 0; }
-  .ref-list li { font-size: 0.82rem; color: var(--text-secondary); padding: 6px 0 6px 22px; border-bottom: 1px solid var(--border); position: relative; }
-  .ref-list li::before { content: '—'; position: absolute; left: 0; color: var(--text-muted); }
+
+
+  .ref-list li { font-size: 0.82rem; color: var(--color-slate-ink); padding: 6px 0 6px 22px; border-bottom: 1px solid var(--color-dew); position: relative; }
+
+
+  .ref-list li::before { content: '—'; position: absolute; left: 0; color: var(--color-ash); }
+
+
 
   /* ── Nav ── */
   .page-nav { display: flex; justify-content: space-between; margin-bottom: 36px; font-size: 0.82rem; }
-  .page-nav a { color: var(--text-secondary); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
-  .page-nav a:hover { color: var(--text); border-color: var(--text); }
+
+
+  .page-nav a { color: var(--color-slate-ink); text-decoration: none; border-bottom: 1px solid var(--color-dew); padding-bottom: 2px; }
+
+
+  .page-nav a:hover { color: var(--color-slate-ink); border-color: var(--color-slate-ink); }
+
+
 
   @media (max-width: 600px) {
     body { padding: 28px 16px 60px; }
@@ -157,36 +272,19 @@
     .framework-grid, .iot-grid { grid-template-columns: 1fr; }
   }
 
+
+
   /* -- chapter navigation (added) -- */
   .book-topline {
     font-family: -apple-system, system-ui, sans-serif;
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+<p class="book-topline"><a href="/design-thinking-new-business-contexts">← Về mục lục</a></p>
 
 <nav class="page-nav">
   <a href="ch8-dt-nbc.html">← Chương 8</a>
@@ -599,8 +697,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch8-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 8: Tư Duy Thiết Kế Trong Thực Tiễn: Ba Nghiên Cứu Tình Huống</a>
-  <a href="ch10-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 10: Tổng hợp: Năm Chiều kích của Tư duy Thiết kế</a>
+  <a href="/design-thinking-new-business-contexts/tu-duy-thiet-ke-trong-thuc-tien-ba-nghien-cuu-tinh-huong"><span class="lbl">Chương trước</span>Chương 8: Tư Duy Thiết Kế Trong Thực Tiễn: Ba Nghiên Cứu Tình Huống</a>
+  <a href="/design-thinking-new-business-contexts/tong-hop-nam-chieu-kich-cua-tu-duy-thiet-ke"><span class="lbl">Chương sau</span>Chương 10: Tổng hợp: Năm Chiều kích của Tư duy Thiết kế</a>
 </nav>
 </body>
 </html>

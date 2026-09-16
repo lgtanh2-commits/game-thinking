@@ -3,204 +3,238 @@
   "title": "Rules of Play",
   "author": "Katie Salen & Eric Zimmerman",
   "tag": "Game Design Fundamentals · MIT Press, 2004",
+  "category": "Game Design",
   "chapters": [
     {
       "n": 1,
       "title": "What Is This Book About?",
       "sub": "",
-      "file": "ch1-rules-of-play.html"
+      "file": "ch1-rules-of-play.html",
+      "slug": "what-is-this-book-about"
     },
     {
       "n": 2,
       "title": "The Design Process",
       "sub": "",
-      "file": "ch2-rules-of-play.html"
+      "file": "ch2-rules-of-play.html",
+      "slug": "the-design-process"
     },
     {
       "n": 3,
       "title": "Meaningful Play",
       "sub": "",
-      "file": "ch3-rules-of-play.html"
+      "file": "ch3-rules-of-play.html",
+      "slug": "meaningful-play"
     },
     {
       "n": 4,
       "title": "Design",
       "sub": "",
-      "file": "ch4-rules-of-play.html"
+      "file": "ch4-rules-of-play.html",
+      "slug": "design"
     },
     {
       "n": 5,
       "title": "Systems",
       "sub": "",
-      "file": "ch5-rules-of-play.html"
+      "file": "ch5-rules-of-play.html",
+      "slug": "systems"
     },
     {
       "n": 6,
       "title": "Interactivity",
       "sub": "",
-      "file": "ch6-rules-of-play.html"
+      "file": "ch6-rules-of-play.html",
+      "slug": "interactivity"
     },
     {
       "n": 7,
       "title": "Defining Games",
       "sub": "",
-      "file": "ch07-rules-of-play.html"
+      "file": "ch07-rules-of-play.html",
+      "slug": "defining-games"
     },
     {
       "n": 8,
       "title": "Defining Digital Games",
       "sub": "",
-      "file": "ch8-rules-of-play.html"
+      "file": "ch8-rules-of-play.html",
+      "slug": "defining-digital-games"
     },
     {
       "n": 9,
       "title": "The Magic Circle",
       "sub": "",
-      "file": "ch9-rules-of-play.html"
+      "file": "ch9-rules-of-play.html",
+      "slug": "the-magic-circle"
     },
     {
       "n": 10,
       "title": "The Primary Schemas: Rules, Play, Culture",
       "sub": "",
-      "file": "ch10-rules-of-play.html"
+      "file": "ch10-rules-of-play.html",
+      "slug": "the-primary-schemas-rules-play-culture"
     },
     {
       "n": 11,
       "title": "Defining Rules",
       "sub": "What are rules — really? The formal, abstract structure that makes a game a game.",
-      "file": "ch11-rules-of-play.html"
+      "file": "ch11-rules-of-play.html",
+      "slug": "defining-rules"
     },
     {
       "n": 12,
       "title": "Rules on Three Levels",
       "sub": "Every game has three simultaneous layers of rules: Operational, Constituative, and Implicit.",
-      "file": "ch12-rules-of-play.html"
+      "file": "ch12-rules-of-play.html",
+      "slug": "rules-on-three-levels"
     },
     {
       "n": 13,
       "title": "Rules of Digital Games",
       "sub": "Code enforces rules automatically — but the three-level model still applies.",
-      "file": "ch13-rules-of-play.html"
+      "file": "ch13-rules-of-play.html",
+      "slug": "rules-of-digital-games"
     },
     {
       "n": 14,
       "title": "Games as Emergent Systems",
       "sub": "How simple rules generate unpredictable complexity — and why this is the engine of meaningful play.",
-      "file": "ch14-rules-of-play.html"
+      "file": "ch14-rules-of-play.html",
+      "slug": "games-as-emergent-systems"
     },
     {
       "n": 15,
       "title": "Games as Systems of Uncertainty",
       "sub": "Chance, probability, and randomness — why uncertainty is not a flaw but the engine of meaningful play.",
-      "file": "ch15-rules-of-play.html"
+      "file": "ch15-rules-of-play.html",
+      "slug": "games-as-systems-of-uncertainty"
     },
     {
       "n": 16,
       "title": "Games as Information Theory Systems",
       "sub": "Information is not meaning — it is a measure of uncertainty.",
-      "file": "ch16-rules-of-play.html"
+      "file": "ch16-rules-of-play.html",
+      "slug": "games-as-information-theory-systems"
     },
     {
       "n": 17,
       "title": "Games as Systems of Information",
       "sub": "Information as knowledge — hidden, revealed, and manipulated during play.",
-      "file": "ch17-rules-of-play.html"
+      "file": "ch17-rules-of-play.html",
+      "slug": "games-as-systems-of-information"
     },
     {
       "n": 18,
       "title": "Games as Cybernetic Systems",
       "sub": "",
-      "file": "ch18-rules-of-play.html"
+      "file": "ch18-rules-of-play.html",
+      "slug": "games-as-cybernetic-systems"
     },
     {
       "n": 19,
       "title": "Games as Game Theory Systems",
       "sub": "",
-      "file": "ch19-rules-of-play.html"
+      "file": "ch19-rules-of-play.html",
+      "slug": "games-as-game-theory-systems"
     },
     {
       "n": 20,
       "title": "Games as Systems of Conflict",
       "sub": "",
-      "file": "ch20-rules-of-play.html"
+      "file": "ch20-rules-of-play.html",
+      "slug": "games-as-systems-of-conflict"
     },
     {
       "n": 21,
       "title": "Breaking the Rules",
       "sub": "Cheating, rule-bending, and the spoil-sport illuminate the edges of the magic circle.",
-      "file": "ch21-rules-of-play.html"
+      "file": "ch21-rules-of-play.html",
+      "slug": "breaking-the-rules"
     },
     {
       "n": 22,
       "title": "Defining Play",
       "sub": "The experiential dimension of games — free movement within rigid structure",
-      "file": "ch22-rules-of-play.html"
+      "file": "ch22-rules-of-play.html",
+      "slug": "defining-play"
     },
     {
       "n": 23,
       "title": "Games as the Play of Experience",
       "sub": "How formal game systems transform into experiential ones through the core mechanic",
-      "file": "ch23-rules-of-play.html"
+      "file": "ch23-rules-of-play.html",
+      "slug": "games-as-the-play-of-experience"
     },
     {
       "n": 24,
       "title": "Games as the Play of Pleasure",
       "sub": "Constraint, flow, entrainment, and the architecture of desire in games",
-      "file": "ch24-rules-of-play.html"
+      "file": "ch24-rules-of-play.html",
+      "slug": "games-as-the-play-of-pleasure"
     },
     {
       "n": 25,
       "title": "Games as the Play of Meaning",
       "sub": "How games generate meaning through signs, systems, frames, and metacommunication",
-      "file": "ch25-rules-of-play.html"
+      "file": "ch25-rules-of-play.html",
+      "slug": "games-as-the-play-of-meaning"
     },
     {
       "n": 26,
       "title": "Games as Narrative Play",
       "sub": "How games tell stories through structure, space, descriptors, and retelling",
-      "file": "ch26-rules-of-play.html"
+      "file": "ch26-rules-of-play.html",
+      "slug": "games-as-narrative-play"
     },
     {
       "n": 27,
       "title": "Games as the Play of Simulation",
       "sub": "Procedural representation, the immersive fallacy, and the double-consciousness of play",
-      "file": "ch27-rules-of-play.html"
+      "file": "ch27-rules-of-play.html",
+      "slug": "games-as-the-play-of-simulation"
     },
     {
       "n": 28,
       "title": "Games as Social Play",
       "sub": "How games create, shape, and are shaped by communities of players",
-      "file": "ch28-rules-of-play.html"
+      "file": "ch28-rules-of-play.html",
+      "slug": "games-as-social-play"
     },
     {
       "n": 29,
       "title": "Defining Culture",
       "sub": "",
-      "file": "ch29-rules-of-play.html"
+      "file": "ch29-rules-of-play.html",
+      "slug": "defining-culture"
     },
     {
       "n": 30,
       "title": "Games as Cultural Rhetoric",
       "sub": "",
-      "file": "ch30-rules-of-play.html"
+      "file": "ch30-rules-of-play.html",
+      "slug": "games-as-cultural-rhetoric"
     },
     {
       "n": 31,
       "title": "Games as Open Culture",
       "sub": "",
-      "file": "ch31-rules-of-play.html"
+      "file": "ch31-rules-of-play.html",
+      "slug": "games-as-open-culture"
     },
     {
       "n": 32,
       "title": "Games as Cultural Resistance",
       "sub": "",
-      "file": "ch32-rules-of-play.html"
+      "file": "ch32-rules-of-play.html",
+      "slug": "games-as-cultural-resistance"
     },
     {
       "n": 33,
       "title": "Games as Cultural Environment",
       "sub": "",
-      "file": "ch33-rules-of-play.html"
+      "file": "ch33-rules-of-play.html",
+      "slug": "games-as-cultural-environment"
     }
   ]
 }

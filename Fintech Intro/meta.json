@@ -3,66 +3,77 @@
   "title": "Giới Thiệu Fintech",
   "author": "Dr. Mohan Cherian · Module 1",
   "tag": "Fintech · Nhập Môn · Công Nghệ Nền Tảng",
+  "category": "BFSI",
   "chapters": [
     {
       "n": 1,
       "title": "Fintech Là Gì?",
       "sub": "Slide 1–6 · Định nghĩa, các thành phần & mục tiêu của Công nghệ Tài chính",
-      "file": "fintech_m1_s1.html"
+      "file": "fintech_m1_s1.html",
+      "slug": "fintech-la-gi"
     },
     {
       "n": 2,
       "title": "BFSI & Chuỗi Giá Trị BFSI",
       "sub": "Slide 7–19 · Tổng quan về Ngân hàng, Dịch vụ Tài chính & Bảo hiểm, và chuỗi giá trị của ngành",
-      "file": "fintech_m1_s2.html"
+      "file": "fintech_m1_s2.html",
+      "slug": "bfsi-chuoi-gia-tri-bfsi"
     },
     {
       "n": 3,
       "title": "Tác Động Của Fintech Đối Với BFSI",
       "sub": "Slide 20–29 · Công nghệ tài chính đang biến đổi Ngân hàng, Dịch vụ Tài chính & Bảo hiểm như thế nào",
-      "file": "fintech_m1_s3.html"
+      "file": "fintech_m1_s3.html",
+      "slug": "tac-dong-cua-fintech-doi-voi-bfsi"
     },
     {
       "n": 4,
       "title": "Giới Thiệu Bức Tranh Fintech",
       "sub": "Slide 30–37 · Các thành phần cốt lõi, xu hướng mới nổi & hình dạng hệ sinh thái Fintech hiện đại",
-      "file": "fintech_m1_s4.html"
+      "file": "fintech_m1_s4.html",
+      "slug": "gioi-thieu-buc-tranh-fintech"
     },
     {
       "n": 5,
       "title": "Công Nghệ Fintech",
       "sub": "Slide 38–53 · Mười công nghệ cốt lõi thúc đẩy cuộc cách mạng Fintech",
-      "file": "fintech_m1_s5.html"
+      "file": "fintech_m1_s5.html",
+      "slug": "cong-nghe-fintech"
     },
     {
       "n": 6,
       "title": "Xu Hướng Mới Nhất & Tương Lai Của Fintech",
       "sub": "Slide 54–67 · Chín xu hướng định hình hiện tại & tám hướng đi cho tương lai",
-      "file": "fintech_m1_s6.html"
+      "file": "fintech_m1_s6.html",
+      "slug": "xu-huong-moi-nhat-tuong-lai-cua-fintech"
     },
     {
       "n": 7,
       "title": "Ứng Dụng Fintech Trong Ngân Hàng",
       "sub": "Slide 68–79 · Mười ca ứng dụng định hình lại dịch vụ ngân hàng hiện đại",
-      "file": "fintech_m1_s7.html"
+      "file": "fintech_m1_s7.html",
+      "slug": "ung-dung-fintech-trong-ngan-hang"
     },
     {
       "n": 8,
       "title": "Startup Fintech, Kỳ Lân & Mô Hình Kinh Doanh",
       "sub": "Slide 80–103 · Hệ sinh thái startup, các kỳ lân Ấn Độ & sáu mô hình kinh doanh cốt lõi",
-      "file": "fintech_m1_s8.html"
+      "file": "fintech_m1_s8.html",
+      "slug": "startup-fintech-ky-lan-mo-hinh-kinh-doanh"
     },
     {
       "n": 9,
       "title": "Giới Thiệu Học Máy",
       "sub": "Slide 104–113 · Khái niệm cốt lõi, ba loại hình ML & ứng dụng trong tài chính",
-      "file": "fintech_m1_s9.html"
+      "file": "fintech_m1_s9.html",
+      "slug": "gioi-thieu-hoc-may"
     },
     {
       "n": 10,
       "title": "Giới Thiệu Điện Toán Đám Mây",
       "sub": "Slide 114–127 · Đặc điểm, mô hình dịch vụ, triển khai & vai trò trong Fintech",
-      "file": "fintech_m1_s10.html"
+      "file": "fintech_m1_s10.html",
+      "slug": "gioi-thieu-dien-toan-dam-may"
     }
   ]
 }

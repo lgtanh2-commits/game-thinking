@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 29 – Your Game Will Probably Have a Client | The Art of Game Design</title>
 <style>
+
  :root {
  --orange: #27ae60;
  --orange-light: #6cc999;
@@ -27,7 +28,11 @@
  --mint: #edf9f2;
  --sprout-d: #1c8a4c;}
 
+
+
  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+
 
  body {
  background: var(--bg);
@@ -37,6 +42,8 @@
  font-size: 17px;
  }
 
+
+
  /* HERO */
  .hero {
  background: linear-gradient(140deg, #0e231c 0%, #1a3029 55%, #0e231c 100%);
@@ -44,6 +51,8 @@
  padding: 80px 24px 64px;
  text-align: center;
  }
+
+
 
  .hero-badge {
  display: inline-block;
@@ -60,6 +69,8 @@
  margin-bottom: 28px;
  }
 
+
+
  .hero h1 {
  font-size: clamp(28px, 5vw, 46px);
  font-weight: 400;
@@ -68,7 +79,11 @@
  line-height: 1.2;
  }
 
+
+
  .hero h1 em { color: var(--orange-light); font-style: italic; }
+
+
 
  .hero-sub {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -77,6 +92,8 @@
  margin-bottom: 36px;
  }
 
+
+
  .hero-stats {
  display: flex;
  justify-content: center;
@@ -84,7 +101,11 @@
  flex-wrap: wrap;
  }
 
+
+
  .hero-stat { text-align: center; }
+
+
 
  .hero-stat .num {
  display: block;
@@ -94,6 +115,8 @@
  color: var(--orange-light);
  }
 
+
+
  .hero-stat .lbl {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 11px;
@@ -102,6 +125,8 @@
  letter-spacing: 1.5px;
  }
 
+
+
  /* CHAPTER MAP */
  .chapter-map {
  background: white;
@@ -109,7 +134,11 @@
  padding: 48px 24px;
  }
 
+
+
  .map-inner { max-width: 880px; margin: 0 auto; }
+
+
 
  .map-label {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -122,6 +151,8 @@
  margin-bottom: 32px;
  }
 
+
+
  .map-nodes {
  display: flex;
  align-items: center;
@@ -130,6 +161,8 @@
  gap: 0;
  }
 
+
+
  .map-node {
  display: flex;
  flex-direction: column;
@@ -137,6 +170,8 @@
  text-align: center;
  width: 130px;
  }
+
+
 
  .node-dot {
  width: 64px;
@@ -152,12 +187,26 @@
  margin-bottom: 10px;
  }
 
+
+
  .node-dot.orange { background: var(--orange); }
+
+
  .node-dot.teal { background: var(--accent-teal); }
+
+
  .node-dot.blue { background: var(--accent-blue); }
+
+
  .node-dot.purple { background: var(--accent-purple); }
+
+
  .node-dot.green { background: var(--accent-green); }
+
+
  .node-dot.gold { background: var(--accent-gold); }
+
+
 
  .node-title {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -167,6 +216,8 @@
  line-height: 1.3;
  }
 
+
+
  .map-arrow {
  font-size: 22px;
  color: var(--gray-light);
@@ -175,12 +226,16 @@
  flex-shrink: 0;
  }
 
+
+
  /* MAIN */
  main {
  max-width: 880px;
  margin: 0 auto;
  padding: 60px 24px 120px;
  }
+
+
 
  /* SECTION HEADER */
  .section-header {
@@ -190,6 +245,8 @@
  margin-bottom: 28px;
  margin-top: 64px;
   scroll-margin-top: 108px;}
+
+
 
  .section-num {
  flex-shrink: 0;
@@ -205,14 +262,30 @@
  color: white;
  }
 
+
+
  .section-num.orange { background: var(--orange); }
+
+
  .section-num.teal { background: var(--accent-teal); }
+
+
  .section-num.blue { background: var(--accent-blue); }
+
+
  .section-num.purple { background: var(--accent-purple); }
+
+
  .section-num.green { background: var(--accent-green); }
+
+
  .section-num.gold { background: var(--accent-gold); }
 
+
+
  .section-title { padding-top: 6px; }
+
+
 
  .section-title h2 {
  font-size: 24px;
@@ -221,11 +294,15 @@
  margin-bottom: 4px;
  }
 
+
+
  .section-title p {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 14px;
  color: var(--gray-light);
  }
+
+
 
  /* CARD */
  .card {
@@ -237,12 +314,16 @@
  margin-bottom: 20px;
  }
 
+
+
  .card h3 {
  font-size: 18px;
  font-weight: 700;
  color: var(--dark);
  margin-bottom: 14px;
  }
+
+
 
  .card h4 {
  font-size: 15px;
@@ -252,8 +333,14 @@
  margin-top: 18px;
  }
 
+
+
  .card p { color: var(--gray); margin-bottom: 12px; }
+
+
  .card p:last-child { margin-bottom: 0; }
+
+
 
  /* QUOTE */
  .quote-block {
@@ -264,6 +351,8 @@
  margin: 20px 0;
  }
 
+
+
  .quote-block p {
  font-style: italic;
  color: var(--dark);
@@ -271,6 +360,8 @@
  line-height: 1.7;
  margin-bottom: 8px;
  }
+
+
 
  .quote-block .attr {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -280,6 +371,8 @@
  font-style: normal;
  }
 
+
+
  /* TRIPLE QUOTE OPENER */
  .triple-quotes {
  display: grid;
@@ -288,7 +381,11 @@
  margin-bottom: 32px;
  }
 
+
+
  @media (max-width: 640px) { .triple-quotes { grid-template-columns: 1fr; } }
+
+
 
  .tq-card {
  border-radius: 14px;
@@ -296,9 +393,17 @@
  text-align: center;
  }
 
+
+
  .tq-card.tq-1 { background: #EAF3EE; border: 1px solid rgba(39,174,96,0.3); }
+
+
  .tq-card.tq-2 { background: var(--orange-pale); border: 1px solid rgba(39,174,96,0.3); }
+
+
  .tq-card.tq-3 { background: #F3EFF9; border: 1px solid rgba(39,174,96,0.3); }
+
+
 
  .tq-text {
  font-style: italic;
@@ -308,6 +413,8 @@
  color: var(--dark);
  }
 
+
+
  .tq-attr {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  font-size: 12px;
@@ -315,9 +422,17 @@
  letter-spacing: 0.5px;
  }
 
+
+
  .tq-1 .tq-attr { color: var(--accent-green); }
+
+
  .tq-2 .tq-attr { color: var(--orange); }
+
+
  .tq-3 .tq-attr { color: var(--accent-purple); }
+
+
 
  /* HIGHLIGHT BOXES */
  .hl-orange {
@@ -328,6 +443,8 @@
  margin: 20px 0;
  }
 
+
+
  .hl-teal {
  background: #edf9f2;
  border: 1px solid rgba(39,174,96,0.3);
@@ -335,6 +452,8 @@
  padding: 22px 26px;
  margin: 20px 0;
  }
+
+
 
  .hl-blue {
  background: #edf9f2;
@@ -344,6 +463,8 @@
  margin: 20px 0;
  }
 
+
+
  .hl-purple {
  background: #edf9f2;
  border: 1px solid rgba(39,174,96,0.3);
@@ -351,6 +472,8 @@
  padding: 22px 26px;
  margin: 20px 0;
  }
+
+
 
  .hl-green {
  background: #edf9f2;
@@ -360,6 +483,8 @@
  margin: 20px 0;
  }
 
+
+
  .hl-gold {
  background: #edf9f2;
  border: 1px solid rgba(39,174,96,0.3);
@@ -367,6 +492,8 @@
  padding: 22px 26px;
  margin: 20px 0;
  }
+
+
 
  .hl-orange h4, .hl-teal h4, .hl-blue h4,
  .hl-purple h4, .hl-green h4, .hl-gold h4 {
@@ -378,12 +505,26 @@
  margin-bottom: 10px;
  }
 
+
+
  .hl-orange h4 { color: var(--orange); }
+
+
  .hl-teal h4 { color: var(--accent-teal); }
+
+
  .hl-blue h4 { color: var(--accent-blue); }
+
+
  .hl-purple h4 { color: var(--accent-purple); }
+
+
  .hl-green h4 { color: var(--accent-green); }
+
+
  .hl-gold h4 { color: var(--accent-gold); }
+
+
 
  .hl-orange p, .hl-teal p, .hl-blue p,
  .hl-purple p, .hl-green p, .hl-gold p {
@@ -393,10 +534,14 @@
  line-height: 1.65;
  }
 
+
+
  .hl-orange p:last-child, .hl-teal p:last-child, .hl-blue p:last-child,
  .hl-purple p:last-child, .hl-green p:last-child, .hl-gold p:last-child {
  margin-bottom: 0;
  }
+
+
 
  /* LENS BOX */
  .lens-box {
@@ -407,6 +552,8 @@
  margin: 32px 0;
  position: relative;
  }
+
+
 
  .lens-eyepiece {
  position: absolute;
@@ -423,6 +570,8 @@
  border-radius: 10px;
  }
 
+
+
  .lens-box h3 {
  font-size: 20px;
  font-weight: 700;
@@ -430,6 +579,8 @@
  margin-bottom: 6px;
  margin-top: 8px;
  }
+
+
 
  .lens-box .lens-sub {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -439,9 +590,15 @@
  margin-bottom: 18px;
  }
 
+
+
  .lens-box p { color: var(--gray); font-size: 15px; margin-bottom: 10px; }
 
+
+
  .lens-questions { list-style: none; margin-top: 14px; }
+
+
 
  .lens-questions li {
  display: flex;
@@ -453,7 +610,11 @@
  color: var(--dark);
  }
 
+
+
  .lens-questions li:last-child { border-bottom: none; }
+
+
 
  .lens-q-num {
  flex-shrink: 0;
@@ -471,8 +632,12 @@
  margin-top: 1px;
  }
 
+
+
  /* NUM LIST */
  .num-list { list-style: none; margin: 14px 0; }
+
+
 
  .num-list li {
  display: flex;
@@ -483,6 +648,8 @@
  color: var(--dark);
  line-height: 1.65;
  }
+
+
 
  .num-badge {
  flex-shrink: 0;
@@ -499,12 +666,26 @@
  margin-top: 2px;
  }
 
+
+
  .nb-orange { background: var(--orange); }
+
+
  .nb-teal { background: var(--accent-teal); }
+
+
  .nb-blue { background: var(--accent-blue); }
+
+
  .nb-purple { background: var(--accent-purple); }
+
+
  .nb-green { background: var(--accent-green); }
+
+
  .nb-gold { background: var(--accent-gold); }
+
+
 
  /* DIALOGUE BOX */
  .dialogue {
@@ -516,6 +697,8 @@
  font-style: italic;
  }
 
+
+
  .dialogue-line {
  display: flex;
  gap: 12px;
@@ -525,7 +708,11 @@
  line-height: 1.6;
  }
 
+
+
  .dialogue-line:last-child { margin-bottom: 0; }
+
+
 
  .d-speaker {
  flex-shrink: 0;
@@ -538,8 +725,14 @@
  margin-top: 2px;
  }
 
+
+
  .d-client { background: #EAF0F8; color: var(--sprout-d); }
+
+
  .d-designer { background: #EAF3EE; color: var(--sprout-d); }
+
+
 
  .d-note {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -552,6 +745,8 @@
  border-top: 1px dashed var(--card-border);
  }
 
+
+
  /* THREE LAYERS */
  .layers-stack {
  display: flex;
@@ -563,13 +758,19 @@
  border: 1px solid var(--card-border);
  }
 
+
+
  .layer-row {
  display: flex;
  align-items: stretch;
  border-bottom: 1px solid var(--card-border);
  }
 
+
+
  .layer-row:last-child { border-bottom: none; }
+
+
 
  .layer-icon-col {
  width: 64px;
@@ -581,15 +782,25 @@
  padding: 20px 0;
  }
 
+
+
  .layer-icon-col.lc-1 { background: #EAF0F8; }
+
+
  .layer-icon-col.lc-2 { background: #F3EFF9; }
+
+
  .layer-icon-col.lc-3 { background: var(--orange-pale); }
+
+
 
  .layer-body {
  flex: 1;
  padding: 18px 22px;
  background: white;
  }
+
+
 
  .layer-body h4 {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -600,9 +811,17 @@
  margin-bottom: 6px;
  }
 
+
+
  .lc-1 + .layer-body h4 { color: var(--accent-blue); }
+
+
  .lc-2 + .layer-body h4 { color: var(--accent-purple); }
+
+
  .lc-3 + .layer-body h4 { color: var(--orange); }
+
+
 
  .layer-body .l-label {
  font-size: 16px;
@@ -611,12 +830,16 @@
  margin-bottom: 4px;
  }
 
+
+
  .layer-body p {
  font-size: 14px;
  color: var(--gray);
  line-height: 1.6;
  margin: 0;
  }
+
+
 
  /* STORY TIMELINE */
  .story-block {
@@ -626,6 +849,8 @@
  overflow: hidden;
  margin: 20px 0;
  }
+
+
 
  .story-header {
  background: var(--dark);
@@ -641,9 +866,13 @@
  gap: 10px;
  }
 
+
+
  .story-body {
  padding: 22px 28px;
  }
+
+
 
  .story-body p {
  font-size: 15px;
@@ -652,9 +881,15 @@
  margin-bottom: 12px;
  }
 
+
+
  .story-body p:last-child { margin-bottom: 0; }
 
+
+
  .story-body p strong { color: var(--dark); }
+
+
 
  /* COMPARISON: WRONG vs RIGHT */
  .vs-grid {
@@ -664,22 +899,32 @@
  margin: 16px 0;
  }
 
+
+
  @media (max-width: 580px) { .vs-grid { grid-template-columns: 1fr; } }
+
+
 
  .vs-card {
  border-radius: 14px;
  padding: 18px 20px;
  }
 
+
+
  .vs-wrong {
  background: #FFF5F5;
  border: 1px solid rgba(200,60,60,0.2);
  }
 
+
+
  .vs-right {
  background: #EAF3EE;
  border: 1px solid rgba(39,174,96,0.3);
  }
+
+
 
  .vs-label {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -690,10 +935,18 @@
  margin-bottom: 8px;
  }
 
+
+
  .vs-wrong .vs-label { color: #C83C3C; }
+
+
  .vs-right .vs-label { color: var(--accent-green); }
 
+
+
  .vs-card p { font-size: 14px; color: var(--gray); line-height: 1.6; margin: 0; font-style: italic; }
+
+
 
  /* DIVIDER */
  .divider {
@@ -702,8 +955,12 @@
  margin: 48px 0;
  }
 
+
+
  /* READING LIST */
  .reading-list { list-style: none; margin: 0; }
+
+
 
  .reading-list li {
  display: flex;
@@ -715,9 +972,17 @@
  color: var(--gray);
  }
 
+
+
  .reading-list li:last-child { border-bottom: none; }
+
+
  .reading-list .book-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+
+
  .reading-list strong { color: var(--dark); display: block; font-size: 15px; margin-bottom: 3px; }
+
+
 
  /* FOOTER */
  footer {
@@ -729,6 +994,8 @@
  font-size: 13px;
  }
 
+
+
  footer span { color: var(--orange-light); }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -736,6 +1003,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+<p class="book-topline"><a href="/the-art-of-game-design">← Về mục lục</a></p>
+
 <style>
   .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
@@ -752,10 +1021,80 @@
   .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
 
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+
+/* __FIX_CHAPNAV_LEAK_START__ */
+/* book-topline: sách này không link assets/theme.css nên cần style riêng ở đây */
+.book-topline {
+  display: block;
+  padding: 14px 24px;
+  background: var(--forest, #0e231c);
+}
+.book-topline a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 19px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color .15s ease;
+}
+.book-topline a:hover { border-color: #fff; }
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+/* __FIX_CHAPNAV_LEAK_END__ */
 </style>
 <nav class="topnav">
-  <a class="brand" href="../index.html">Tổng hợp insight</a>
-  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 29</b></span>
+  <a class="brand" href="/">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 29</b></span>
 </nav>
 
 <nav class="tocnav">
@@ -1150,7 +1489,7 @@
  <p style="margin-top: 8px; font-size: 12px; opacity: 0.6;">Tóm tắt &amp; trình bày bằng tiếng Việt · Lens #107</p>
 </footer>
 
-<div class="chapnav-wrap"><div class="chapnav"><a href="C28-Tech.html"><span class="lbl">Chương trước</span>Chương 28: The Team Builds a Game with Technology</a><a href="C30-Pitching.html"><span class="lbl">Chương sau</span>Chương 30: The Designer Gives the Client a Pitch</a></div></div>
+<div class="chapnav-wrap"><nav class="chapnav"><a href="/the-art-of-game-design/the-team-builds-a-game-with-technology"><span class="lbl">Chương trước</span>Chương 28: The Team Builds a Game with Technology</a><a href="/the-art-of-game-design/the-designer-gives-the-client-a-pitch"><span class="lbl">Chương sau</span>Chương 30: The Designer Gives the Client a Pitch</a></nav></div>
 
 <script>
   (function(){

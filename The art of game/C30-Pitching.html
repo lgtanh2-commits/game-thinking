@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 30 – The Designer Gives the Client a Pitch</title>
 <style>
+
  :root {
  --orange: #27ae60;
  --orange-light: #6cc999;
@@ -26,143 +27,355 @@
  --sage: #defaca;
  --mint: #edf9f2;
  --sprout-d: #1c8a4c;}
+
+
  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+
  body { background: var(--bg); color: var(--dark); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.75; }
+
+
  main { max-width: 880px; margin: 0 auto; padding: 60px 24px 120px; }
+
+
 
  /* HERO */
  .hero { background: var(--white); border: 1px solid var(--card-border); border-radius: 24px; padding: 48px 48px 40px; margin-bottom: 48px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+
+
  .hero-badge { display: inline-block; background: rgba(39,174,96,0.12); border: 1px solid rgba(39,174,96,0.35); color: var(--orange); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
+
+
  .hero h1 { font-size: 36px; font-weight: 700; color: var(--dark); line-height: 1.25; margin-bottom: 8px; }
+
+
  .hero h1 em { color: var(--orange); font-style: italic; }
+
+
  .hero-subtitle { font-size: 17px; color: var(--gray); font-style: italic; margin-bottom: 28px; }
+
+
  .hero-stats { display: flex; gap: 24px; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--card-border); }
+
+
  .stat { text-align: center; }
+
+
  .stat-num { font-size: 28px; font-weight: 700; color: var(--orange); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1; }
+
+
  .stat-label { font-size: 12px; color: var(--gray-light); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+
 
  /* CHAPTER MAP */
  .chapter-map { background: var(--white); border: 1px solid var(--card-border); border-radius: 20px; padding: 36px 40px; margin-bottom: 48px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+
+
  .chapter-map h2 { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-light); margin-bottom: 28px; }
+
+
  .map-nodes { display: flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: center; }
+
+
  .map-node { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+
+
  .node-dot { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 18px; font-weight: 800; color: white; flex-shrink: 0; }
+
+
  .node-label { font-size: 11px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--gray); text-align: center; max-width: 72px; line-height: 1.3; font-weight: 600; }
+
+
  .map-arrow { font-size: 18px; color: var(--gray-light); margin: 0 6px; padding-bottom: 24px; }
+
+
 
  /* SECTION */
  .section { margin-bottom: 56px; }
+
+
  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px;  scroll-margin-top: 108px;}
+
+
  .section-num { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 20px; font-weight: 800; color: white; flex-shrink: 0; }
+
+
  .section-title { font-size: 26px; font-weight: 700; color: var(--dark); }
+
+
 
  /* CARD */
  .card { background: white; border: 1px solid var(--card-border); border-radius: 16px; padding: 28px 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 20px; }
+
+
  .card p { font-size: 16px; color: var(--gray); margin-bottom: 14px; }
+
+
  .card p:last-child { margin-bottom: 0; }
+
+
 
  /* QUOTE */
  .quote-block { border-left: 4px solid var(--orange); background: var(--orange-pale); border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 16px 0; }
+
+
  .quote-text { font-size: 17px; font-style: italic; color: var(--dark); line-height: 1.6; }
+
+
  .quote-author { font-size: 13px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--gray-light); font-weight: 600; margin-top: 10px; }
+
+
 
  /* HIGHLIGHT BOXES */
  .hl-orange { background: #edf9f2; border: 1px solid rgba(39,174,96,0.3); border-radius: 14px; padding: 20px 24px; margin: 16px 0; }
+
+
  .hl-teal { background: #edf9f2; border: 1px solid rgba(39,174,96,0.3); border-radius: 14px; padding: 20px 24px; margin: 16px 0; }
+
+
  .hl-blue { background: #edf9f2; border: 1px solid rgba(39,174,96,0.3); border-radius: 14px; padding: 20px 24px; margin: 16px 0; }
+
+
  .hl-purple { background: #edf9f2; border: 1px solid rgba(39,174,96,0.3); border-radius: 14px; padding: 20px 24px; margin: 16px 0; }
+
+
  .hl-green { background: #edf9f2; border: 1px solid rgba(39,174,96,0.3); border-radius: 14px; padding: 20px 24px; margin: 16px 0; }
+
+
  .hl-gold { background: #edf9f2; border: 1px solid rgba(39,174,96,0.3); border-radius: 14px; padding: 20px 24px; margin: 16px 0; }
+
+
  .hl-title { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+
+
  .hl-orange .hl-title { color: var(--orange); }
+
+
  .hl-teal .hl-title { color: var(--accent-teal); }
+
+
  .hl-blue .hl-title { color: var(--accent-blue); }
+
+
  .hl-purple .hl-title { color: var(--accent-purple); }
+
+
  .hl-green .hl-title { color: var(--accent-green); }
+
+
  .hl-gold .hl-title { color: var(--accent-gold); }
+
+
  .hl-body { font-size: 15px; color: var(--gray); line-height: 1.65; }
+
+
 
  /* HIERARCHY TABLE */
  .hier-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 15px; border-radius: 12px; overflow: hidden; }
+
+
  .hier-table th { background: var(--dark); color: white; padding: 12px 16px; text-align: left; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 700; }
+
+
  .hier-table td { padding: 12px 16px; border-bottom: 1px solid var(--card-border); color: var(--gray); }
+
+
  .hier-table tr:last-child td { border-bottom: none; }
+
+
  .hier-table tr:nth-child(even) { background: #FAFAFA; }
+
+
  .hier-table tr.highlight-row td { background: var(--orange-pale); color: var(--dark); font-weight: 600; }
+
+
  .val-low { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; color: var(--gray-light); }
+
+
  .val-mid { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; color: var(--accent-green); }
+
+
  .val-top { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; color: var(--orange); }
+
+
 
  /* POWER EQ */
  .power-eq { text-align: center; padding: 24px; background: #edf9f2; border: 1px solid rgba(39,174,96,0.25); border-radius: 14px; margin: 20px 0; }
+
+
  .eq-text { font-size: 20px; font-weight: 700; color: var(--accent-blue); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+
  .eq-sub { font-size: 13px; color: var(--gray); margin-top: 8px; }
+
+
 
  /* TIPS GRID */
  .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+
+
  @media (max-width: 640px) { .tips-grid { grid-template-columns: 1fr; } }
 
+
+
  .tip-card { background: white; border: 1px solid var(--card-border); border-radius: 16px; padding: 24px 26px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); position: relative; overflow: hidden; }
+
+
  .tip-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+
+
  .tip-1::before, .tip-2::before, .tip-3::before { background: var(--orange); }
+
+
  .tip-4::before, .tip-5::before, .tip-6::before { background: var(--accent-teal); }
+
+
  .tip-7::before, .tip-8::before, .tip-9::before { background: var(--accent-blue); }
+
+
  .tip-10::before,.tip-11::before,.tip-12::before { background: var(--accent-purple); }
 
+
+
  .tip-number { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray-light); margin-bottom: 6px; }
+
+
  .tip-title { font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 12px; }
+
+
  .tip-body { font-size: 14px; color: var(--gray); line-height: 1.65; }
+
+
  .tip-body p { margin-bottom: 10px; }
+
+
  .tip-body p:last-child { margin-bottom: 0; }
+
+
  .tip-body strong { color: var(--dark); }
+
+
 
  /* STORY BLOCK */
  .story-block { border-radius: 14px; overflow: hidden; margin: 14px 0; border: 1px solid var(--card-border); }
+
+
  .story-header { background: var(--dark); color: white; padding: 14px 20px; display: flex; align-items: center; gap: 12px; }
+
+
  .story-icon { font-size: 22px; }
+
+
  .story-label { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 2px; }
+
+
  .story-header-title { font-size: 14px; font-weight: 700; color: white; }
+
+
  .story-body { background: white; padding: 16px 20px; font-size: 14px; color: var(--gray); line-height: 1.65; }
+
+
  .story-body p { margin-bottom: 8px; }
+
+
  .story-body p:last-child { margin-bottom: 0; }
+
+
 
  /* MAGIC RESULT BADGE */
  .magic-result { display: inline-flex; align-items: center; gap: 8px; background: var(--orange-pale); border: 1px solid rgba(39,174,96,0.3); border-radius: 20px; padding: 8px 14px; margin-top: 10px; }
+
+
  .magic-result-text { font-size: 13px; font-weight: 700; color: var(--orange); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+
 
  /* POINT LIST */
  .point-list { list-style: none; padding: 0; margin: 10px 0; }
+
+
  .point-list li { display: flex; gap: 10px; padding: 5px 0; font-size: 14px; color: var(--gray); }
+
+
  .point-list li::before { content: '→'; color: var(--orange); font-weight: 700; flex-shrink: 0; }
+
+
 
  /* KICKSTARTER TIPS */
  .ks-tip { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--card-border); align-items: flex-start; }
+
+
  .ks-tip:last-child { border-bottom: none; }
+
+
  .ks-num { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-purple); color: white; display: flex; align-items: center; justify-content: center; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+
+
  .ks-title { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+
+
  .ks-desc { font-size: 14px; color: var(--gray); line-height: 1.6; }
+
+
 
  /* LENS */
  .lens-box { border: 2px solid var(--orange); border-radius: 20px; overflow: hidden; margin: 40px 0; }
+
+
  .lens-header { background: var(--orange); padding: 20px 28px; display: flex; align-items: center; gap: 16px; }
+
+
  .lens-icon { font-size: 32px; }
+
+
  .lens-header span { color: rgba(255,255,255,0.8); font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+
  .lens-header h3 { color: white; font-size: 22px; font-weight: 700; font-style: italic; }
+
+
  .lens-body { background: var(--orange-pale); padding: 28px; }
+
+
  .lens-body p { font-size: 16px; color: var(--dark); margin-bottom: 16px; font-style: italic; }
+
+
  .lens-questions { list-style: none; padding: 0; }
+
+
  .lens-questions li { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(39,174,96,0.2); font-size: 15px; color: var(--dark); }
+
+
  .lens-questions li:last-child { border-bottom: none; }
+
+
  .lens-questions li::before { content: ''; flex-shrink: 0; }
+
+
 
  /* OTHER READING */
  .reading-card { background: white; border: 1px solid var(--card-border); border-radius: 16px; padding: 28px 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+
+
  .reading-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--card-border); }
+
+
  .reading-item:last-child { border-bottom: none; }
+
+
  .reading-icon { font-size: 28px; flex-shrink: 0; }
+
+
  .reading-title { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+
+
  .reading-title em { font-style: italic; }
+
+
  .reading-desc { font-size: 14px; color: var(--gray); line-height: 1.55; }
+
+
  .reading-note { display: inline-block; margin-top: 6px; font-size: 12px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; color: var(--sprout-d); background: var(--orange-pale); padding: 3px 10px; border-radius: 20px; }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -170,6 +383,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+<p class="book-topline"><a href="/the-art-of-game-design">← Về mục lục</a></p>
+
 <style>
   .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
@@ -186,10 +401,80 @@
   .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
 
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+
+/* __FIX_CHAPNAV_LEAK_START__ */
+/* book-topline: sách này không link assets/theme.css nên cần style riêng ở đây */
+.book-topline {
+  display: block;
+  padding: 14px 24px;
+  background: var(--forest, #0e231c);
+}
+.book-topline a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 19px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color .15s ease;
+}
+.book-topline a:hover { border-color: #fff; }
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+/* __FIX_CHAPNAV_LEAK_END__ */
 </style>
 <nav class="topnav">
-  <a class="brand" href="../index.html">Tổng hợp insight</a>
-  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 30</b></span>
+  <a class="brand" href="/">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 30</b></span>
 </nav>
 
 <nav class="tocnav">
@@ -688,7 +973,7 @@
  </section>
 
 </main>
-<div class="chapnav-wrap"><div class="chapnav"><a href="C29-Client.html"><span class="lbl">Chương trước</span>Chương 29: Your Game Will Probably Have a Client</a><a href="C31-Make Profit.html"><span class="lbl">Chương sau</span>Chương 31: The Designer and Client Want the Game to Make a Profit</a></div></div>
+<div class="chapnav-wrap"><nav class="chapnav"><a href="/the-art-of-game-design/your-game-will-probably-have-a-client"><span class="lbl">Chương trước</span>Chương 29: Your Game Will Probably Have a Client</a><a href="/the-art-of-game-design/the-designer-and-client-want-the-game-to-make-a-profit"><span class="lbl">Chương sau</span>Chương 31: The Designer and Client Want the Game to Make a Profit</a></nav></div>
 
 <script>
   (function(){

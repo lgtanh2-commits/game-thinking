@@ -4,26 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 6 – Tư Duy Thiết Kế Vì Tương Lai Bền Vững</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #ffffff;
-    --surface: #f7f7f7;
-    --border: #e0e0e0;
-    --border-strong: #999;
-    --text: #1a1a1a;
-    --text-muted: #555;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 17px;
-    line-height: 1.8;
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 60px 32px 100px;
-  }
+
   /* ── Header ── */
   .chapter-eyebrow {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -31,19 +14,23 @@
     font-weight: 700;
     letter-spacing: .18em;
     text-transform: uppercase;
-    color: var(--text-muted);
-    border-bottom: 1px solid var(--border);
+    color: var(--color-ash);
+    border-bottom: 1px solid var(--color-dew);
     padding-bottom: 10px;
     margin-bottom: 36px;
   }
+
+
   .chapter-number {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 64px;
     font-weight: 800;
     line-height: 1;
-    color: var(--border);
+    color: var(--color-dew);
     margin-bottom: 8px;
   }
+
+
   h1 {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 32px;
@@ -51,28 +38,38 @@
     line-height: 1.2;
     margin-bottom: 28px;
   }
+
+
   /* ── Meta block ── */
   .meta-block {
-    border-top: 3px solid var(--text);
-    border-bottom: 1px solid var(--border);
+    border-top: 3px solid var(--color-slate-ink);
+    border-bottom: 1px solid var(--color-dew);
     padding: 18px 0;
     margin-bottom: 40px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px 24px;
   }
+
+
   .meta-label {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: .12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     display: block;
     margin-bottom: 3px;
   }
+
+
   .meta-value { font-size: 14px; line-height: 1.5; }
+
+
   .meta-full { grid-column: 1 / -1; }
+
+
   /* ── Keywords ── */
   .keywords {
     display: flex;
@@ -80,20 +77,26 @@
     gap: 7px;
     margin-bottom: 40px;
   }
+
+
   .kw {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 11.5px;
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     padding: 3px 10px;
     border-radius: 2px;
   }
+
+
   /* ── Learning objectives ── */
   .objectives-box {
-    background: var(--surface);
-    border-left: 4px solid var(--text);
+    background: #ffffff;
+    border-left: 4px solid var(--color-slate-ink);
     padding: 20px 22px;
     margin-bottom: 48px;
   }
+
+
   .objectives-box h3 {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
@@ -102,10 +105,16 @@
     text-transform: uppercase;
     margin-bottom: 14px;
   }
+
+
   .objectives-box ol {
     padding-left: 20px;
   }
+
+
   .objectives-box li { margin-bottom: 8px; font-size: 15.5px; }
+
+
   /* ── Sections ── */
   h2 {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -114,8 +123,10 @@
     margin-top: 52px;
     margin-bottom: 16px;
     padding-bottom: 7px;
-    border-bottom: 2px solid var(--text);
+    border-bottom: 2px solid var(--color-slate-ink);
   }
+
+
   h3 {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 17px;
@@ -123,7 +134,11 @@
     margin-top: 30px;
     margin-bottom: 12px;
   }
+
+
   p { margin-bottom: 16px; }
+
+
   /* ── Tables ── */
   .data-table {
     width: 100%;
@@ -131,9 +146,11 @@
     font-size: 13.5px;
     margin: 20px 0 8px;
   }
+
+
   .data-table th {
-    background: var(--text);
-    color: var(--bg);
+    background: var(--color-slate-ink);
+    color: var(--color-parchment);
     padding: 8px 10px;
     text-align: left;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -141,49 +158,65 @@
     letter-spacing: .06em;
     text-transform: uppercase;
   }
+
+
   .data-table td {
     padding: 8px 10px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
     vertical-align: top;
   }
-  .data-table tr:nth-child(even) td { background: var(--surface); }
+
+
+  .data-table tr:nth-child(even) td { background: #ffffff; }
+
+
   .table-caption {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 6px;
   }
+
+
   .table-note {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-top: 6px;
     margin-bottom: 24px;
   }
+
+
   /* ── TBL Venn diagram (CSS) ── */
   .tbl-diagram {
-    border: 1px solid var(--border);
-    background: var(--surface);
+    border: 1px solid var(--color-dew);
+    background: #ffffff;
     padding: 20px 18px;
     margin: 20px 0 24px;
   }
+
+
   .tbl-diagram .tbl-title {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 14px;
   }
+
+
   .tbl-pillars {
     display: flex;
     gap: 12px;
     margin-bottom: 8px;
   }
+
+
   .tbl-pillar {
     flex: 1;
-    border: 2px solid var(--border-strong);
+    border: 2px solid var(--color-mist);
     border-radius: 50%;
     min-height: 100px;
     display: flex;
@@ -194,6 +227,8 @@
     padding: 14px 10px;
     font-size: 12px;
   }
+
+
   .tbl-pillar strong {
     display: block;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -201,6 +236,8 @@
     font-weight: 800;
     margin-bottom: 4px;
   }
+
+
   .tbl-center-label {
     text-align: center;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -210,45 +247,61 @@
     text-transform: uppercase;
     margin-bottom: 4px;
   }
+
+
   /* ── Strategies list ── */
   .strategy-list {
     list-style: none;
     padding: 0;
     margin: 18px 0;
   }
+
+
   .strategy-list li {
     display: flex;
     gap: 16px;
     margin-bottom: 22px;
     align-items: flex-start;
   }
+
+
   .strat-num {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 22px;
     font-weight: 800;
-    color: var(--border-strong);
+    color: var(--color-mist);
     min-width: 28px;
     line-height: 1.3;
   }
+
+
   .strat-content { flex: 1; }
+
+
   .strat-title {
     font-style: italic;
     font-weight: bold;
     margin-bottom: 4px;
     display: block;
   }
+
+
   /* ── CSR stakeholders ── */
   .csr-list {
     list-style: none;
     padding: 0;
     margin: 16px 0;
   }
+
+
   .csr-list li {
-    border-left: 3px solid var(--border-strong);
+    border-left: 3px solid var(--color-mist);
     padding: 10px 14px;
     margin-bottom: 12px;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   /* ── SE business models ── */
   .se-models {
     list-style: none;
@@ -256,6 +309,8 @@
     margin: 16px 0;
     counter-reset: se-counter;
   }
+
+
   .se-models li {
     counter-increment: se-counter;
     display: flex;
@@ -263,13 +318,15 @@
     margin-bottom: 14px;
     align-items: flex-start;
   }
+
+
   .se-models li::before {
     content: counter(se-counter);
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 15px;
     font-weight: 800;
-    color: var(--bg);
-    background: var(--text);
+    color: var(--color-parchment);
+    background: var(--color-slate-ink);
     min-width: 26px;
     height: 26px;
     display: flex;
@@ -278,54 +335,68 @@
     margin-top: 2px;
     flex-shrink: 0;
   }
+
+
   /* ── Triangle model ── */
   .triangle-model {
-    border: 1px solid var(--border);
-    background: var(--surface);
+    border: 1px solid var(--color-dew);
+    background: #ffffff;
     padding: 18px;
     margin: 20px 0 24px;
   }
+
+
   .triangle-model .fig-title {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: .08em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-bottom: 14px;
   }
+
+
   .triangle-vertices {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
   }
+
+
   .tri-top, .tri-bottom {
     display: flex;
     gap: 20px;
     justify-content: center;
   }
+
+
   .tri-node {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
     font-weight: 700;
-    background: var(--text);
-    color: var(--bg);
+    background: var(--color-slate-ink);
+    color: var(--color-parchment);
     padding: 8px 16px;
     text-transform: uppercase;
     letter-spacing: .06em;
     text-align: center;
   }
+
+
   .tri-center {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 11px;
     font-weight: 700;
-    border: 2px solid var(--text);
+    border: 2px solid var(--color-slate-ink);
     padding: 8px 14px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: .06em;
   }
+
+
   /* ── BMB tool ── */
   .bmb-table {
     width: 100%;
@@ -333,9 +404,11 @@
     font-size: 11px;
     margin: 16px 0 8px;
   }
+
+
   .bmb-table th {
-    background: var(--text);
-    color: var(--bg);
+    background: var(--color-slate-ink);
+    color: var(--color-parchment);
     padding: 6px 8px;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 10px;
@@ -343,28 +416,36 @@
     letter-spacing: .06em;
     text-transform: uppercase;
     text-align: center;
-    border: 1px solid var(--bg);
+    border: 1px solid var(--color-parchment);
   }
+
+
   .bmb-table td {
     padding: 7px 8px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-dew);
     vertical-align: top;
     font-size: 11px;
   }
+
+
   .bmb-table .cell-label {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 10.5px;
     font-weight: 700;
     margin-bottom: 3px;
   }
+
+
   /* ── Infobox / case study ── */
   .infobox {
-    border: 1px solid var(--border-strong);
-    border-left: 4px solid var(--text);
+    border: 1px solid var(--color-mist);
+    border-left: 4px solid var(--color-slate-ink);
     padding: 18px 20px;
     margin: 24px 0;
-    background: var(--surface);
+    background: #ffffff;
   }
+
+
   .infobox-title {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
@@ -373,17 +454,27 @@
     text-transform: uppercase;
     margin-bottom: 10px;
   }
+
+
   .infobox p { font-size: 14.5px; margin-bottom: 12px; }
+
+
   .infobox ul { padding-left: 18px; font-size: 14px; }
+
+
   .infobox li { margin-bottom: 7px; }
+
+
   /* ── Chapter summary box ── */
   .summary-box {
-    background: var(--surface);
-    border-top: 3px solid var(--text);
-    border-bottom: 1px solid var(--border);
+    background: #ffffff;
+    border-top: 3px solid var(--color-slate-ink);
+    border-bottom: 1px solid var(--color-dew);
     padding: 22px 24px;
     margin: 52px 0 36px;
   }
+
+
   .summary-box h3 {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
@@ -393,56 +484,94 @@
     margin-bottom: 14px;
     margin-top: 0;
   }
+
+
   .summary-box p { font-size: 15px; margin-bottom: 12px; }
+
+
   /* ── Q&A boxes ── */
   .qa-section { margin: 36px 0; }
+
+
   .qa-section h3 {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: .12em;
     text-transform: uppercase;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
     padding-bottom: 7px;
     margin-bottom: 16px;
     margin-top: 0;
   }
+
+
   .qa-section ol { padding-left: 20px; }
+
+
   .qa-section li { margin-bottom: 12px; font-size: 15px; }
+
+
   /* ── References ── */
   .references { margin-top: 52px; }
+
+
   .references h2 { font-size: 20px; }
+
+
   .ref-list { list-style: none; padding: 0; margin-top: 16px; }
+
+
   .ref-list li {
     padding-left: 28px;
     text-indent: -28px;
     margin-bottom: 12px;
     font-size: 14px;
     line-height: 1.6;
-    color: var(--text);
+    color: var(--color-slate-ink);
   }
+
+
   blockquote {
-    border-left: 3px solid var(--border-strong);
+    border-left: 3px solid var(--color-mist);
     padding: 10px 18px;
     margin: 16px 0;
-    color: var(--text-muted);
+    color: var(--color-ash);
     font-style: italic;
     font-size: 15.5px;
   }
+
+
   em { font-style: italic; }
+
+
   strong { font-weight: bold; }
+
+
   .content-list { padding-left: 22px; margin: 14px 0; }
+
+
   .content-list li { margin-bottom: 8px; }
+
+
   .fig-note {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
-    color: var(--text-muted);
+    color: var(--color-ash);
     margin-top: 8px;
     font-style: italic;
   }
+
+
   .findings-list { padding-left: 22px; margin: 14px 0; }
+
+
   .findings-list li { margin-bottom: 10px; font-size: 15px; }
+
+
   .findings-list li em { display: block; margin-bottom: 3px; }
+
+
 
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -450,30 +579,11 @@
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/design-thinking-new-business-contexts">← Về mục lục</a></p>
+<p class="book-topline"><a href="/design-thinking-new-business-contexts">← Về mục lục</a></p>
 
 <div class="chapter-eyebrow">Design Thinking for New Business Contexts &nbsp;·&nbsp; Huang &amp; Hands (2022)</div>
 
@@ -826,8 +936,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch5-dt-nbc.html"><span class="lbl">Chương trước</span>Chương 5: Tư Duy Kinh Doanh Qua Thiết Kế</a>
-  <a href="ch7-dt-nbc.html"><span class="lbl">Chương sau</span>Chương 7: Tư Duy Thiết Kế cho Xây dựng Thương Hiệu</a>
+  <a href="/design-thinking-new-business-contexts/tu-duy-kinh-doanh-qua-thiet-ke"><span class="lbl">Chương trước</span>Chương 5: Tư Duy Kinh Doanh Qua Thiết Kế</a>
+  <a href="/design-thinking-new-business-contexts/tu-duy-thiet-ke-cho-xay-dung-thuong-hieu"><span class="lbl">Chương sau</span>Chương 7: Tư Duy Thiết Kế cho Xây dựng Thương Hiệu</a>
 </nav>
 </body>
 </html>

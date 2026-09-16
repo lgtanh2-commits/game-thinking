@@ -5,6 +5,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>Chương 9 – The Player | The Art of Game Design</title>
  <style>
+
  :root {
  --orange: #27ae60;
  --orange-light: #6cc999;
@@ -30,13 +31,19 @@
  --sage: #defaca;
  --mint: #edf9f2;
  --sprout-d: #1c8a4c;}
+
+
  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+
  body {
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  background: var(--bg);
  color: var(--dark);
  line-height: 1.7;
  }
+
+
 
 
  /* ── HERO ── */
@@ -46,6 +53,8 @@
  padding: 5rem 2rem 3.5rem;
  text-align: center;
  }
+
+
  .hero-tag {
  display: inline-block;
  background: var(--orange);
@@ -57,6 +66,8 @@
  border-radius: 20px;
  margin-bottom: 1.8rem;
  }
+
+
  .hero h1 {
  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
  font-weight: normal;
@@ -64,7 +75,11 @@
  margin-bottom: 0.3rem;
  line-height: 1.15;
  }
+
+
  .hero h1 em { color: var(--orange-light); font-style: italic; }
+
+
  .hero-sub {
  font-size: 1.05rem;
  color: #bbb;
@@ -73,13 +88,19 @@
  margin: 1.2rem auto 3rem;
  line-height: 1.65;
  }
+
+
  .hero-stats {
  display: flex;
  justify-content: center;
  gap: 3.5rem;
  flex-wrap: wrap;
  }
+
+
  .stat { text-align: center; }
+
+
  .stat-num {
  display: block;
  font-size: 2.2rem;
@@ -88,6 +109,8 @@
  line-height: 1;
  margin-bottom: 0.3rem;
  }
+
+
  .stat-label {
  font-size: 0.7rem;
  color: #999;
@@ -95,8 +118,12 @@
  text-transform: uppercase;
  }
 
+
+
  /* ── MAIN LAYOUT ── */
  .content { max-width: 920px; margin: 0 auto; padding: 3.5rem 2rem; }
+
+
 
  /* ── CHAPTER MAP ── */
  .chapter-map {
@@ -106,6 +133,8 @@
  margin-bottom: 3rem;
  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
  }
+
+
  .map-title {
  font-size: 0.76rem;
  color: var(--gray);
@@ -113,6 +142,8 @@
  text-transform: uppercase;
  margin-bottom: 1.4rem;
  }
+
+
  .map-flow {
  display: flex;
  align-items: center;
@@ -120,10 +151,20 @@
  gap: 0.4rem;
  row-gap: 0.9rem;
  }
+
+
  .map-node { display: flex; align-items: center; gap: 0.4rem; }
+
+
  .dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+
+
  .node-text { font-size: 0.8rem; color: var(--dark); }
+
+
  .arrow { color: #ccc; font-size: 0.9rem; margin: 0 0.1rem; }
+
+
 
  /* ── SECTION HEADER ── */
  .section-header {
@@ -132,6 +173,8 @@
  gap: 1.1rem;
  margin: 3.5rem 0 1.5rem;
   scroll-margin-top: 108px;}
+
+
  .sec-num {
  width: 44px; height: 44px;
  border-radius: 50%;
@@ -139,12 +182,16 @@
  font-size: 1.1rem; font-weight: bold; color: white;
  flex-shrink: 0; margin-top: 3px;
  }
+
+
  .sec-info h2 {
  font-size: 1.55rem;
  font-weight: normal;
  color: var(--dark);
  line-height: 1.2;
  }
+
+
  .sec-en {
  font-size: 0.82rem;
  color: var(--gray);
@@ -152,8 +199,12 @@
  margin-top: 0.15rem;
  }
 
+
+
  /* ── BODY TEXT ── */
  p.bp { font-size: 1rem; line-height: 1.85; margin-bottom: 1.3rem; }
+
+
 
  /* ── CALLOUT ── */
  .callout {
@@ -161,11 +212,23 @@
  padding: 1.4rem 1.6rem;
  margin: 1.5rem 0;
  }
+
+
  .callout-icon { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
+
+
  .callout h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+
+
  .callout p { font-size: 0.93rem; line-height: 1.75; }
+
+
  .callout ul { font-size: 0.93rem; padding-left: 1.2rem; line-height: 1.75; }
+
+
  .callout li { margin-bottom: 0.25rem; }
+
+
 
  /* ── DEMOGRAPHICS GRID ── */
  .demo-grid {
@@ -174,6 +237,8 @@
  gap: 1rem;
  margin: 1.5rem 0;
  }
+
+
  .demo-card {
  background: white;
  border-radius: 12px;
@@ -181,7 +246,11 @@
  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
  border-top: 4px solid;
  }
+
+
  .demo-age { font-size: 1.1rem; font-weight: bold; margin-bottom: 0.15rem; }
+
+
  .demo-nickname {
  font-size: 0.7rem;
  text-transform: uppercase;
@@ -189,7 +258,11 @@
  margin-bottom: 0.65rem;
  font-weight: bold;
  }
+
+
  .demo-desc { font-size: 0.86rem; color: var(--dark); line-height: 1.6; }
+
+
 
  /* ── GENDER COMPARE ── */
  .gender-compare {
@@ -198,21 +271,35 @@
  gap: 1.5rem;
  margin: 1.5rem 0;
  }
+
+
  .gender-col { border-radius: 12px; padding: 1.5rem; }
+
+
  .gender-col h3 { font-size: 1rem; margin-bottom: 1rem; }
+
+
  .gender-col ul { list-style: none; padding: 0; }
+
+
  .gender-col li {
  padding: 0.55rem 0 0.55rem 1.3rem;
  border-bottom: 1px solid rgba(0,0,0,0.07);
  font-size: 0.9rem;
  position: relative;
  }
+
+
  .gender-col li:last-child { border-bottom: none; }
+
+
  .gender-col li::before {
  content: '▸';
  position: absolute; left: 0;
  font-size: 0.75rem; top: 0.65rem;
  }
+
+
 
  /* ── PIRATES GRID ── */
  .pirates-grid {
@@ -221,6 +308,8 @@
  gap: 1rem;
  margin: 1.5rem 0;
  }
+
+
  .pirate-card {
  background: white;
  border-radius: 12px;
@@ -228,6 +317,8 @@
  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
  border-top: 4px solid;
  }
+
+
  .pirate-who {
  font-size: 0.7rem;
  font-weight: bold;
@@ -235,8 +326,14 @@
  text-transform: uppercase;
  margin-bottom: 0.5rem;
  }
+
+
  .pirate-title { font-size: 0.97rem; font-weight: bold; margin-bottom: 0.4rem; }
+
+
  .pirate-desc { font-size: 0.87rem; color: var(--gray); line-height: 1.6; }
+
+
 
  /* ── LENS BOX ── */
  .lens-box {
@@ -246,10 +343,14 @@
  margin: 2rem 0;
  background: white;
  }
+
+
  .lens-header {
  display: flex; align-items: center; gap: 1.1rem;
  margin-bottom: 1.4rem;
  }
+
+
  .lens-icon {
  width: 54px; height: 54px;
  background: var(--orange);
@@ -257,6 +358,8 @@
  display: flex; align-items: center; justify-content: center;
  font-size: 1.65rem; flex-shrink: 0;
  }
+
+
  .lens-num {
  font-size: 0.73rem;
  color: var(--gray);
@@ -264,20 +367,32 @@
  text-transform: uppercase;
  margin-bottom: 0.15rem;
  }
+
+
  .lens-title { font-size: 1.4rem; color: var(--orange); }
+
+
  .lens-desc { font-size: 0.93rem; color: var(--gray); margin-bottom: 1.2rem; }
+
+
  .lens-q { list-style: none; padding: 0; }
+
+
  .lens-q li {
  padding: 0.75rem 0 0.75rem 1.7rem;
  border-top: 1px solid #eee;
  font-size: 0.95rem;
  position: relative;
  }
+
+
  .lens-q li::before {
  content: '→';
  position: absolute; left: 0;
  color: var(--orange);
  }
+
+
 
  /* ── LEBLANC PLEASURE GRID ── */
  .pleasure-grid {
@@ -286,6 +401,8 @@
  gap: 1rem;
  margin: 1.5rem 0;
  }
+
+
  .pleasure-card {
  background: white;
  border-radius: 12px;
@@ -293,15 +410,25 @@
  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
  border-left: 4px solid;
  }
+
+
  .p-num {
  font-size: 0.7rem;
  text-transform: uppercase;
  letter-spacing: 0.1em;
  margin-bottom: 0.25rem;
  }
+
+
  .p-name { font-size: 1rem; font-weight: bold; margin-bottom: 0.15rem; }
+
+
  .p-vi { font-size: 0.82rem; color: var(--gray); font-style: italic; margin-bottom: 0.45rem; }
+
+
  .p-desc { font-size: 0.84rem; line-height: 1.55; color: var(--dark); }
+
+
 
  /* ── BARTLE MAP ── */
  .bartle-wrap {
@@ -311,12 +438,16 @@
  margin: 1.5rem 0;
  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
  }
+
+
  .bartle-intro {
  font-size: 0.93rem;
  color: var(--gray);
  margin-bottom: 1.2rem;
  font-style: italic;
  }
+
+
  .axis-row {
  display: flex;
  justify-content: space-between;
@@ -326,6 +457,8 @@
  margin-bottom: 0.5rem;
  padding: 0 0.5rem;
  }
+
+
  .axis-world {
  text-align: center;
  font-size: 0.72rem;
@@ -333,14 +466,24 @@
  margin-bottom: 0.5rem;
  font-style: italic;
  }
+
+
  .bartle-grid {
  display: grid;
  grid-template-columns: 1fr 1fr;
  gap: 1rem;
  }
+
+
  .bq { border-radius: 12px; padding: 1.2rem; }
+
+
  .bq-suit { font-size: 1.8rem; margin-bottom: 0.15rem; line-height: 1; }
+
+
  .bq-name { font-size: 1rem; font-weight: bold; margin-bottom: 0.1rem; }
+
+
  .bq-axis {
  font-size: 0.7rem;
  text-transform: uppercase;
@@ -348,7 +491,11 @@
  color: var(--gray);
  margin-bottom: 0.5rem;
  }
+
+
  .bq-desc { font-size: 0.85rem; line-height: 1.55; }
+
+
  .bartle-axis-bottom {
  display: flex;
  justify-content: space-between;
@@ -358,6 +505,8 @@
  padding: 0 0.5rem;
  font-style: italic;
  }
+
+
  .bartle-note {
  margin-top: 1.2rem;
  font-size: 0.85rem;
@@ -367,6 +516,8 @@
  line-height: 1.6;
  }
 
+
+
  /* ── MORE PLEASURES (CHIPS) ── */
  .pleasure-chips {
  display: flex;
@@ -374,6 +525,8 @@
  gap: 0.75rem;
  margin: 1.5rem 0;
  }
+
+
  .chip {
  background: white;
  border-radius: 20px;
@@ -386,6 +539,8 @@
  line-height: 1;
  }
 
+
+
  /* ── INSIGHT STRIP ── */
  .insight-strip {
  background: var(--orange-pale);
@@ -394,6 +549,8 @@
  border-radius: 0 12px 12px 0;
  margin: 3rem 0;
  }
+
+
  .insight-label {
  font-size: 0.71rem;
  color: var(--orange);
@@ -402,6 +559,8 @@
  font-weight: bold;
  margin-bottom: 0.55rem;
  }
+
+
  .insight-text {
  font-size: 1.05rem;
  color: var(--dark);
@@ -409,13 +568,19 @@
  line-height: 1.75;
  }
 
+
+
  /* ── QUOTE GRID ── */
  .quote-section { margin: 3rem 0; }
+
+
  .quote-grid {
  display: grid;
  grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
  gap: 1.5rem;
  }
+
+
  .quote-card {
  background: white;
  border-radius: 16px;
@@ -423,6 +588,8 @@
  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
  position: relative;
  }
+
+
  .quote-card::before {
  content: '\201C';
  position: absolute;
@@ -432,6 +599,8 @@
  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
  line-height: 1;
  }
+
+
  .quote-card blockquote {
  font-size: 0.97rem;
  line-height: 1.75;
@@ -440,12 +609,16 @@
  padding-top: 1.2rem;
  margin-bottom: 1rem;
  }
+
+
  .quote-source {
  font-size: 0.77rem;
  color: var(--gray);
  text-transform: uppercase;
  letter-spacing: 0.1em;
  }
+
+
 
  /* ── FOOTER ── */
  footer {
@@ -456,10 +629,16 @@
  font-size: 0.82rem;
  line-height: 1.8;
  }
+
+
  footer .hi { color: var(--orange); }
+
+
 
  /* ── DIVIDER ── */
  hr.div { border: none; border-top: 1px solid #e5e0d8; margin: 2.5rem 0; }
+
+
 
  /* ── RESPONSIVE ── */
  @media (max-width: 640px) {
@@ -471,12 +650,14 @@
  nav { padding: 0.75rem 1rem; gap: 1rem; }
  .content { padding: 2.5rem 1.2rem; }
  }
- </style>
+</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+<p class="book-topline"><a href="/the-art-of-game-design">← Về mục lục</a></p>
+
 <style>
   .topnav { position: sticky; top: 0; z-index: 110; background: #0e231c; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 32px; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .topnav .brand { color: #fff; font-weight: 700; font-size: 16px; text-decoration: none; }
@@ -493,10 +674,80 @@
   .tocnav a { display: block; padding: 13px 18px; color: var(--fog); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .tocnav a:hover, .tocnav a.active { color: #fff; border-bottom-color: var(--orange); }
 
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+
+/* __FIX_CHAPNAV_LEAK_START__ */
+/* book-topline: sách này không link assets/theme.css nên cần style riêng ở đây */
+.book-topline {
+  display: block;
+  padding: 14px 24px;
+  background: var(--forest, #0e231c);
+}
+.book-topline a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 19px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color .15s ease;
+}
+.book-topline a:hover { border-color: #fff; }
+
+/* Reset chapnav khỏi CSS thẻ nav trần (dùng cho tocnav) — xem ghi chú script fix-chapnav-leak.mjs */
+nav.chapnav {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: auto !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  overflow-x: visible !important;
+  z-index: auto !important;
+  padding: 0 !important;
+}
+nav.chapnav a {
+  white-space: normal !important;
+  letter-spacing: normal !important;
+}
+nav.chapnav a:hover, nav.chapnav a.active {
+  background: #fff !important;
+  color: var(--ink, #313942) !important;
+}
+/* __FIX_CHAPNAV_LEAK_END__ */
 </style>
 <nav class="topnav">
-  <a class="brand" href="../index.html">Tổng hợp insight</a>
-  <span class="crumb">/ <a href="../index.html#/book/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 9</b></span>
+  <a class="brand" href="/">Tổng hợp insight</a>
+  <span class="crumb">/ <a href="/the-art-of-game-design">The Art of Game Design</a> / <b>Chương 9</b></span>
 </nav>
 
 <nav class="tocnav">
@@ -1100,7 +1351,7 @@
  <p style="margin-top:0.5rem;font-size:0.75rem;color:#666;">Lens #19 · Lens #20 · Demographics · Psychographics · LeBlanc · Bartle</p>
 </footer>
 
-<div class="chapnav-wrap"><div class="chapnav"><a href="C8-Improve Game.html"><span class="lbl">Chương trước</span>Chương 8: The Game Improves Through Iteration</a><a href="C10-Player Mind.html"><span class="lbl">Chương sau</span>Chương 10: Trải Nghiệm Nằm Trong Tâm Trí Người Chơi</a></div></div>
+<div class="chapnav-wrap"><nav class="chapnav"><a href="/the-art-of-game-design/the-game-improves-through-iteration"><span class="lbl">Chương trước</span>Chương 8: The Game Improves Through Iteration</a><a href="/the-art-of-game-design/trai-nghiem-nam-trong-tam-tri-nguoi-choi"><span class="lbl">Chương sau</span>Chương 10: Trải Nghiệm Nằm Trong Tâm Trí Người Chơi</a></nav></div>
 
 <script>
   (function(){

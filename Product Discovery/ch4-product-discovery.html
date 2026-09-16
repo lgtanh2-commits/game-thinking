@@ -4,98 +4,90 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chương 4 — Điều Chỉnh Product Discovery Cho Tổ Chức Của Bạn</title>
+<link rel="stylesheet" href="../assets/theme.css">
 <style>
-  :root {
-    --bg: #fafafa;
-    --text: #111111;
-    --text-secondary: #333333;
-    --text-muted: #888888;
-    --border: #d8d8d8;
-    --border-strong: #999999;
-    --surface: #f2f2f2;
-    --surface-dark: #e0e0e0;
-    --accent-line: #111111;
-  }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.75;
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 60px 40px 100px;
-  }
 
   .book-label {
     font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;
+    text-transform: uppercase; color: var(--color-ash); margin-bottom: 8px;
   }
+
+
   .chapter-label {
     font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
+    text-transform: uppercase; color: var(--color-ash); margin-bottom: 16px;
   }
+
+
   h1 {
     font-size: 36px; font-weight: 900; line-height: 1.1;
-    letter-spacing: -0.02em; color: var(--text); margin-bottom: 12px;
+    letter-spacing: -0.02em; color: var(--color-slate-ink); margin-bottom: 12px;
   }
+
+
   .chapter-subtitle {
-    font-size: 16px; color: var(--text-secondary); line-height: 1.6;
+    font-size: 16px; color: var(--color-slate-ink); line-height: 1.6;
     margin-bottom: 48px; max-width: 620px;
   }
-  .divider {
-    border: none; border-top: 2px solid var(--accent-line); margin: 48px 0;
-  }
+
+
   .divider-light {
-    border: none; border-top: 1px solid var(--border); margin: 36px 0;
+    border: none; border-top: 1px solid var(--color-dew); margin: 36px 0;
   }
-  h2 {
-    font-size: 26px; font-weight: 800; letter-spacing: -0.01em;
-    color: var(--text); margin-bottom: 16px; margin-top: 48px;
-  }
-  h3 {
-    font-size: 18px; font-weight: 700; color: var(--text);
-    margin-bottom: 10px; margin-top: 32px;
-  }
+
+
   h4 {
     font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--text-muted);
+    text-transform: uppercase; color: var(--color-ash);
     margin-bottom: 8px; margin-top: 24px;
   }
-  p { color: var(--text-secondary); margin-bottom: 18px; }
-  strong { color: var(--text); font-weight: 700; }
+
+
+  strong { color: var(--color-slate-ink); font-weight: 700; }
+
+
   em { font-style: italic; }
 
+
+
   blockquote {
-    border-left: 3px solid var(--accent-line);
+    border-left: 3px solid var(--color-sprout);
     padding: 16px 24px; margin: 32px 0;
   }
+
+
   blockquote p {
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 19px; font-style: italic; line-height: 1.55;
-    color: var(--text); margin-bottom: 12px;
+    color: var(--color-slate-ink); margin-bottom: 12px;
   }
+
+
   blockquote .attribution {
     font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--text-muted);
+    text-transform: uppercase; color: var(--color-ash);
     font-style: normal; font-family: 'Helvetica Neue', Arial, sans-serif;
   }
 
+
+
   /* ── Startup vs Enterprise comparison ── */
   .org-compare {
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     margin: 32px 0;
   }
+
+
 
   .org-row-header {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background: var(--text);
+    background: var(--color-slate-ink);
     color: white;
   }
+
+
 
   .org-header-cell {
     padding: 14px 20px;
@@ -105,138 +97,208 @@
     text-transform: uppercase;
     border-right: 1px solid rgba(255,255,255,0.2);
   }
+
+
   .org-header-cell:last-child { border-right: none; }
+
+
 
   .org-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border-top: 1px solid var(--border-strong);
+    border-top: 1px solid var(--color-mist);
   }
+
+
 
   .org-cell {
     padding: 18px 20px;
-    border-right: 1px solid var(--border-strong);
+    border-right: 1px solid var(--color-mist);
   }
+
+
   .org-cell:last-child { border-right: none; }
+
+
 
   .oc-label {
     font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px;
+    text-transform: uppercase; color: var(--color-ash); margin-bottom: 5px;
   }
+
+
   .oc-title {
-    font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px;
+    font-size: 15px; font-weight: 700; color: var(--color-slate-ink); margin-bottom: 6px;
   }
+
+
   .org-cell p {
-    font-size: 13px; color: var(--text-secondary); margin-bottom: 0; line-height: 1.5;
+    font-size: 13px; color: var(--color-slate-ink); margin-bottom: 0; line-height: 1.5;
   }
+
+
 
   /* ── Callout ── */
   .callout {
-    background: var(--surface);
-    border-left: 4px solid var(--accent-line);
+    background: #ffffff;
+    border-left: 4px solid var(--color-sprout);
     padding: 20px 24px; margin: 28px 0;
   }
-  .callout p { margin-bottom: 0; color: var(--text-secondary); }
-  .callout strong { color: var(--text); }
+
+
+  .callout p { margin-bottom: 0; color: var(--color-slate-ink); }
+
+
+  .callout strong { color: var(--color-slate-ink); }
+
+
 
   .callout-bold {
-    background: var(--surface-dark);
-    border: 1px solid var(--border-strong);
+    background: var(--color-dew);
+    border: 1px solid var(--color-mist);
     padding: 24px 28px; margin: 28px 0;
   }
+
+
   .callout-bold p {
-    font-size: 17px; font-weight: 700; color: var(--text);
+    font-size: 17px; font-weight: 700; color: var(--color-slate-ink);
     margin-bottom: 0; line-height: 1.45; text-align: center;
   }
 
+
+
   /* ── Stat ── */
   .stat-box {
-    border: 2px solid var(--accent-line);
+    border: 2px solid var(--color-sprout);
     padding: 24px 28px; margin: 28px 0;
     text-align: center;
   }
+
+
   .stat-box .stat-number {
-    font-size: 48px; font-weight: 900; color: var(--text);
+    font-size: 48px; font-weight: 900; color: var(--color-slate-ink);
     line-height: 1; margin-bottom: 8px;
   }
+
+
   .stat-box p {
-    font-size: 16px; color: var(--text-secondary); margin-bottom: 0;
+    font-size: 16px; color: var(--color-slate-ink); margin-bottom: 0;
   }
+
+
 
   /* ── Section header ── */
   .section-header {
-    background: var(--text);
+    background: var(--color-slate-ink);
     color: white;
     padding: 16px 24px;
     margin: 40px 0 0;
   }
+
+
   .section-header h2 {
     font-size: 20px; font-weight: 800; color: white; margin: 0;
   }
 
+
+
   /* ── Strategy cards ── */
   .strategy-list {
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--color-mist);
     border-top: none;
     margin: 0 0 40px;
   }
+
+
   .strategy-item {
     padding: 20px 24px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-dew);
   }
+
+
   .strategy-item:last-child { border-bottom: none; }
+
+
   .si-title {
-    font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px;
+    font-size: 16px; font-weight: 700; color: var(--color-slate-ink); margin-bottom: 6px;
   }
+
+
   .strategy-item p {
-    font-size: 14px; color: var(--text-secondary); margin-bottom: 0; line-height: 1.55;
+    font-size: 14px; color: var(--color-slate-ink); margin-bottom: 0; line-height: 1.55;
   }
+
+
 
   /* ── Bullet list ── */
   ul.bullets { padding-left: 0; list-style: none; margin: 12px 0 20px; }
+
+
   ul.bullets li {
     position: relative; padding-left: 18px; margin-bottom: 10px;
-    color: var(--text-secondary); font-size: 15px; line-height: 1.6;
+    color: var(--color-slate-ink); font-size: 15px; line-height: 1.6;
   }
+
+
   ul.bullets li::before {
     content: '◆'; position: absolute; left: 0;
-    font-size: 9px; color: var(--text); line-height: 1.9;
+    font-size: 9px; color: var(--color-slate-ink); line-height: 1.9;
   }
-  ul.bullets li strong { color: var(--text); }
+
+
+  ul.bullets li strong { color: var(--color-slate-ink); }
+
+
 
   /* ── Risk mitigation grid ── */
   .risk-grid {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 0; border: 1px solid var(--border-strong); margin: 24px 0;
-  }
-  .risk-card {
-    padding: 16px 18px;
-    border-right: 1px solid var(--border-strong);
-    border-bottom: 1px solid var(--border-strong);
-  }
-  .risk-card:nth-child(even) { border-right: none; }
-  .risk-card:nth-last-child(-n+2) { border-bottom: none; }
-  .rc-num {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;
-  }
-  .risk-card p {
-    font-size: 14px; color: var(--text-secondary); margin-bottom: 0; line-height: 1.5;
+    gap: 0; border: 1px solid var(--color-mist); margin: 24px 0;
   }
 
-  .page-footer {
-    margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between;
-    font-size: 12px; color: var(--text-muted);
+
+  .risk-card {
+    padding: 16px 18px;
+    border-right: 1px solid var(--color-mist);
+    border-bottom: 1px solid var(--color-mist);
   }
+
+
+  .risk-card:nth-child(even) { border-right: none; }
+
+
+  .risk-card:nth-last-child(-n+2) { border-bottom: none; }
+
+
+  .rc-num {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--color-ash); margin-bottom: 4px;
+  }
+
+
+  .risk-card p {
+    font-size: 14px; color: var(--color-slate-ink); margin-bottom: 0; line-height: 1.5;
+  }
+
+
+
+  .page-footer {
+    margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--color-dew);
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--color-ash);
+  }
+
+
 
   @media (max-width: 600px) {
     body { padding: 40px 20px 80px; }
     h1 { font-size: 28px; }
     .org-row, .org-row-header, .risk-grid { grid-template-columns: 1fr; }
-    .org-cell, .org-header-cell { border-right: none; border-bottom: 1px solid var(--border-strong); }
+    .org-cell, .org-header-cell { border-right: none; border-bottom: 1px solid var(--color-mist); }
     .risk-card { border-right: none; }
   }
+
+
 
   /* -- chapter navigation (added) -- */
   .book-topline {
@@ -244,30 +306,11 @@
     font-size: 12.5px;
     margin-bottom: 32px;
   }
-  .book-topline a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
-  .book-topline a:hover { color: var(--text); border-bottom-color: var(--text); }
-
-  .chapnav {
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--border);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .chapnav a {
-    flex: 1 1 240px; max-width: 320px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
-    font-size: 13.5px; line-height: 1.4; transition: border-color .15s ease;
-  }
-  .chapnav a:hover { border-color: var(--text); }
-  .chapnav a:last-child { text-align: right; margin-left: auto; }
-  .chapnav .lbl {
-    display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--text-muted); margin-bottom: 4px;
-  }
 </style>
 </head>
 <body>
 
-<p class="book-topline"><a href="../index.html#/book/product-discovery-playbook">← Về mục lục</a></p>
+<p class="book-topline"><a href="/product-discovery-playbook">← Về mục lục</a></p>
 
 <div class="book-label">The Product Discovery Playbook · Productboard</div>
 <div class="chapter-label">Chương 4</div>
@@ -451,8 +494,8 @@
 
 
 <nav class="chapnav">
-  <a href="ch3-product-discovery.html"><span class="lbl">Chương trước</span>Chương 3: Làm Sao Biết Product Discovery Đang Hiệu Quả?</a>
-  <a href="ch5-product-discovery.html"><span class="lbl">Chương sau</span>Chương 5: Xây Dựng Sản Phẩm Tốt Hơn Qua Continuous Product Discovery</a>
+  <a href="/product-discovery-playbook/lam-sao-biet-product-discovery-dang-hieu-qua"><span class="lbl">Chương trước</span>Chương 3: Làm Sao Biết Product Discovery Đang Hiệu Quả?</a>
+  <a href="/product-discovery-playbook/xay-dung-san-pham-tot-hon-qua-continuous-product-discovery"><span class="lbl">Chương sau</span>Chương 5: Xây Dựng Sản Phẩm Tốt Hơn Qua Continuous Product Discovery</a>
 </nav>
 </body>
 </html>
