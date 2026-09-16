@@ -70,8 +70,8 @@ Field bắt buộc:
 1. Fork repo (hoặc tạo branch nếu bạn đã là collaborator).
 2. Thêm đúng 1 folder sách mới (hoặc sửa nội dung 1 sách đã có) — không chạm file/folder khác.
 3. Mở Pull Request. Đợi check **validate-books** chạy xong (vài chục giây) — nếu fail, đọc annotation trên tab "Files changed" để biết sai ở đâu, sửa rồi push tiếp vào cùng PR.
-4. Cloudflare Pages tự động comment 1 link **Preview Deployment** trên PR — bấm vào xem sách của bạn hiển thị thật trên site (mục lục, đọc từng chương, nav chuyển chương) trước khi merge.
-5. Sau khi merge vào `main`: 1 GitHub Action khác tự quét lại toàn bộ sách và cập nhật `Books/manifest.json` — **không cần bạn làm gì thêm**, site sẽ tự có sách mới trong vài chục giây tới vài phút.
+4. Cloudflare Pages tự động comment 1 link **Preview Deployment** trên PR. Lưu ý: `manifest.json` chỉ tự sinh **sau khi merge**, nên sách mới của bạn **chưa hiện trong trang chủ/mục lục** của bản preview — để review, mở trực tiếp `{preview-url}/{folder-sách}/meta.json` và `{preview-url}/{folder-sách}/{file-chương}.html` theo URL (chương vẫn render đầy đủ CSS/nav vì mỗi file HTML tự chứa, không phụ thuộc `index.html`).
+5. Sau khi merge vào `main`: 1 GitHub Action khác tự quét lại toàn bộ sách và cập nhật `manifest.json` — **không cần bạn làm gì thêm**, site chính thức sẽ tự có sách mới (hiện trong mục lục, điều hướng đầy đủ) trong vài chục giây tới vài phút.
 
 ## 5. Automation kiểm tra gì
 
