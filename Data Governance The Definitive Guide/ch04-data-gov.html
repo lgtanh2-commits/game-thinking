@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 4: Chính Sách Và Quy Tắc Dữ Liệu — Data Governance: The Definitive Guide</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+<p class="book-topline"><a href="/data-governance-definitive-guide">← Về mục lục</a></p>
+
+<div class="book-label">Data Governance: The Definitive Guide · Evren Eryurek, Uri Gilad, Valliappa Lakshmanan et al. · Chương 4</div>
+<h1>Chính Sách Và Quy Tắc Dữ Liệu</h1>
+<p class="chapter-subtitle">Xây dựng policy, rule và tiêu chuẩn để đảm bảo dữ liệu được dùng đúng cách</p>
+
+
+<h2>Kiến Trúc Chính Sách Dữ Liệu</h2>
+<p>Chính sách dữ liệu (data policy) là văn bản chính thức mô tả cách dữ liệu phải được thu thập, xử lý, lưu trữ, chia sẻ và xóa. Chính sách có thể được tổ chức theo nhiều cấp độ:</p>
+<p><strong>Cấp 1 — Nguyên Tắc:</strong> Tuyên bố cấp cao về giá trị và cam kết của tổ chức đối với dữ liệu. Ví dụ: "Chúng tôi thu thập dữ liệu tối thiểu cần thiết và luôn bảo vệ quyền riêng tư của người dùng."</p>
+<p><strong>Cấp 2 — Chính Sách:</strong> Quy định cụ thể hơn về hành vi được phép và không được phép. Ví dụ: "Dữ liệu PII không được lưu trên hệ thống không được mã hóa."</p>
+<p><strong>Cấp 3 — Tiêu Chuẩn:</strong> Đặc tả kỹ thuật để thực thi chính sách. Ví dụ: "Tất cả dữ liệu PII phải mã hóa bằng AES-256."</p>
+<p><strong>Cấp 4 — Quy Trình:</strong> Hướng dẫn từng bước để thực hiện tiêu chuẩn trong công việc hàng ngày.</p>
+
+<hr class="divider">
+
+<h2>Phân Loại Dữ Liệu</h2>
+<p>Để áp dụng chính sách đúng đắn, trước tiên cần phân loại dữ liệu theo mức độ nhạy cảm. Một schema phân loại điển hình:</p>
+<p><strong>Public:</strong> Dữ liệu có thể chia sẻ công khai, không rủi ro. Ví dụ: danh mục sản phẩm, thông tin liên hệ công ty.</p>
+<p><strong>Internal:</strong> Dữ liệu chỉ dùng nội bộ, không gây hại nghiêm trọng nếu lộ. Ví dụ: tài liệu nội bộ, kế hoạch dự án.</p>
+<p><strong>Confidential:</strong> Dữ liệu nhạy cảm về kinh doanh. Ví dụ: chiến lược kinh doanh, hợp đồng khách hàng.</p>
+<p><strong>Restricted:</strong> Dữ liệu cực kỳ nhạy cảm, chỉ một số người được phép truy cập. Ví dụ: dữ liệu PII, thông tin thẻ tín dụng, dữ liệu y tế.</p>
+
+<hr class="divider">
+
+<h2>Vòng Đời Của Chính Sách</h2>
+<p>Chính sách dữ liệu không phải tạo ra một lần rồi để đó. Nó cần được quản lý qua toàn bộ vòng đời:</p>
+<p><strong>Soạn thảo:</strong> Ai viết chính sách? Thường là Data Steward hoặc Data Owner, với tư vấn từ Legal và IT.</p>
+<p><strong>Phê duyệt:</strong> Data Governance Council xem xét và phê duyệt trước khi ban hành.</p>
+<p><strong>Phổ biến:</strong> Chính sách được công bố và đào tạo cho tất cả người liên quan.</p>
+<p><strong>Thực thi:</strong> Theo dõi và kiểm tra tuân thủ định kỳ. Xử lý vi phạm theo quy trình đã định.</p>
+<p><strong>Rà soát:</strong> Định kỳ (ít nhất hàng năm) xem xét lại chính sách để đảm bảo còn phù hợp với thực tế kinh doanh và pháp lý.</p>
+<p><strong>Kết thúc:</strong> Khi chính sách không còn phù hợp, chính thức rút nó và thay bằng phiên bản mới.</p>
+
+<hr class="divider">
+
+
+<nav class="chapnav">
+  <a href="/data-governance-definitive-guide/con-nguoi-va-to-chuc"><span class="lbl">Chương trước</span>Chương 3: Con Người Và Tổ Chức</a>
+  <a href="/data-governance-definitive-guide/data-catalog"><span class="lbl">Chương sau</span>Chương 5: Data Catalog — Danh Mục Dữ Liệu</a>
+</nav>
+
+</body>
+</html>

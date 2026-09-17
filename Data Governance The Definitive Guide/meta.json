@@ -1,0 +1,86 @@
+{
+  "slug": "data-governance-definitive-guide",
+  "title": "Data Governance: The Definitive Guide",
+  "author": "Evren Eryurek, Uri Gilad, Valliappa Lakshmanan, Jessi Ashdown, Oly Bhatt",
+  "tag": "Data Governance · Quản Trị Dữ Liệu",
+  "category": "Data/Tech",
+  "chapters": [
+    {
+      "n": 1,
+      "title": "Giới Thiệu Về Data Governance",
+      "sub": "Data là tài sản — tại sao quản trị dữ liệu là nền tảng của mọi tổ chức hiện đại",
+      "slug": "gioi-thieu-data-governance",
+      "file": "ch01-data-gov.html"
+    },
+    {
+      "n": 2,
+      "title": "Hành Trình Data Governance",
+      "sub": "Lộ trình xây dựng chương trình quản trị dữ liệu từ khởi đầu đến trưởng thành",
+      "slug": "hanh-trinh-data-governance",
+      "file": "ch02-data-gov.html"
+    },
+    {
+      "n": 3,
+      "title": "Con Người Và Tổ Chức",
+      "sub": "Vai trò Data Steward, Data Owner, Chief Data Officer và cách tổ chức vận hành",
+      "slug": "con-nguoi-va-to-chuc",
+      "file": "ch03-data-gov.html"
+    },
+    {
+      "n": 4,
+      "title": "Chính Sách Và Quy Tắc Dữ Liệu",
+      "sub": "Xây dựng policy, rule và tiêu chuẩn để đảm bảo dữ liệu được dùng đúng cách",
+      "slug": "chinh-sach-va-quy-tac",
+      "file": "ch04-data-gov.html"
+    },
+    {
+      "n": 5,
+      "title": "Data Catalog — Danh Mục Dữ Liệu",
+      "sub": "Tổ chức khám phá, tìm kiếm và hiểu dữ liệu trong toàn tổ chức",
+      "slug": "data-catalog",
+      "file": "ch05-data-gov.html"
+    },
+    {
+      "n": 6,
+      "title": "Chất Lượng Dữ Liệu",
+      "sub": "Framework đo lường, giám sát và cải thiện chất lượng dữ liệu liên tục",
+      "slug": "chat-luong-du-lieu",
+      "file": "ch06-data-gov.html"
+    },
+    {
+      "n": 7,
+      "title": "Master Data Management",
+      "sub": "Quản lý dữ liệu chủ để đảm bảo nhất quán xuyên suốt các hệ thống",
+      "slug": "master-data-management",
+      "file": "ch07-data-gov.html"
+    },
+    {
+      "n": 8,
+      "title": "Bảo Mật Và Quyền Riêng Tư Dữ Liệu",
+      "sub": "Kiểm soát truy cập, mã hóa, phân loại dữ liệu nhạy cảm và tuân thủ GDPR/CCPA",
+      "slug": "bao-mat-va-quyen-rieng-tu",
+      "file": "ch08-data-gov.html"
+    },
+    {
+      "n": 9,
+      "title": "Kiến Trúc Dữ Liệu Và Metadata",
+      "sub": "Lineage, schema evolution và thiết kế kiến trúc phục vụ quản trị dữ liệu dài hạn",
+      "slug": "kien-truc-du-lieu-va-metadata",
+      "file": "ch09-data-gov.html"
+    },
+    {
+      "n": 10,
+      "title": "Data Governance Lập Trình Hóa",
+      "sub": "Tự động hóa quản trị dữ liệu trên cloud với pipeline, tagging và policy-as-code",
+      "slug": "data-governance-lap-trinh-hoa",
+      "file": "ch10-data-gov.html"
+    },
+    {
+      "n": 11,
+      "title": "Đo Lường Thành Công",
+      "sub": "KPI, OKR và cách đánh giá hiệu quả chương trình data governance theo thời gian",
+      "slug": "do-luong-thanh-cong",
+      "file": "ch11-data-gov.html"
+    }
+  ]
+}

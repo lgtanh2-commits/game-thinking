@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 10: Data Governance Lập Trình Hóa — Data Governance: The Definitive Guide</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+<p class="book-topline"><a href="/data-governance-definitive-guide">← Về mục lục</a></p>
+
+<div class="book-label">Data Governance: The Definitive Guide · Evren Eryurek, Uri Gilad, Valliappa Lakshmanan et al. · Chương 10</div>
+<h1>Data Governance Lập Trình Hóa</h1>
+<p class="chapter-subtitle">Tự động hóa quản trị dữ liệu trên cloud với pipeline, tagging và policy-as-code</p>
+
+
+<h2>Tại Sao Cần Lập Trình Hóa Governance?</h2>
+<p>Governance thủ công — dựa vào con người để kiểm tra tuân thủ, nhập metadata, theo dõi lineage — không thể mở rộng khi dữ liệu tăng về khối lượng, tốc độ và sự đa dạng. Với hàng ngàn dataset và hàng triệu bản ghi mới mỗi ngày, cần một cách tiếp cận khác.</p>
+<p><strong>Lập trình hóa governance</strong> (Programmatic Data Governance) nghĩa là tự động hóa tối đa các hoạt động governance — tagging dữ liệu, phát hiện vi phạm chính sách, enforcement access control, thu thập lineage — thông qua code, pipeline và tool tích hợp.</p>
+<p>Lợi ích: quy mô không giới hạn, nhất quán cao, phản ứng nhanh với vi phạm, và audit trail tự động.</p>
+
+<hr class="divider">
+
+<h2>Policy-as-Code</h2>
+<p>Policy-as-Code là cách diễn đạt và thực thi chính sách governance dưới dạng code có thể version, test và deploy như software bình thường.</p>
+<p>Thay vì một tài liệu Word mô tả "dữ liệu PII không được ra khỏi region VN", bạn có một đoạn code chạy trong pipeline, tự động detect và block bất kỳ dữ liệu PII nào được ghi ra ngoài region VN — và ghi lại vi phạm vào audit log.</p>
+<p>Ưu điểm của policy-as-code:</p>
+<p>— Chính sách không thể bị bỏ qua vì "không biết" hay "quên" — nó được enforce tự động.</p>
+<p>— Thay đổi chính sách được review như code change — có approval process, có rollback nếu sai.</p>
+<p>— Có thể test chính sách trước khi áp dụng production.</p>
+<p>— Phiên bản chính sách có thể track cùng với dữ liệu — biết một dataset đang được govern bởi policy version nào.</p>
+
+<hr class="divider">
+
+<h2>Tự Động Hóa Tagging Và Classification</h2>
+<p>Một trong những bottleneck lớn nhất của governance là việc tag và classify dữ liệu — hiện tại thường phải làm thủ công. Khi có hàng nghìn dataset và hàng triệu cột, điều này là bất khả thi.</p>
+<p>Giải pháp là tự động phát hiện và tag dữ liệu nhạy cảm:</p>
+<p><strong>Pattern Matching:</strong> Cột có tên "email", "phone", "address" hoặc giá trị khớp regex email/phone → tự động tag là PII.</p>
+<p><strong>ML-Based Classification:</strong> Model được train để phân loại nội dung dữ liệu — phát hiện PII ngay cả khi tên cột không gợi ý.</p>
+<p><strong>Sampling:</strong> Với dataset lớn, không cần scan toàn bộ — lấy sample đủ lớn để phân loại với độ chính xác cao.</p>
+<p>Sau khi tag tự động, Data Steward review và confirm — thay vì phải làm từ đầu, họ chỉ cần validate.</p>
+
+<hr class="divider">
+
+
+<nav class="chapnav">
+  <a href="/data-governance-definitive-guide/kien-truc-du-lieu-va-metadata"><span class="lbl">Chương trước</span>Chương 9: Kiến Trúc Dữ Liệu Và Metadata</a>
+  <a href="/data-governance-definitive-guide/do-luong-thanh-cong"><span class="lbl">Chương sau</span>Chương 11: Đo Lường Thành Công</a>
+</nav>
+
+</body>
+</html>

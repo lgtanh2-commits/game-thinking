@@ -93,7 +93,7 @@ function loadMeta(folder) {
   }
 }
 
-const VALID_CATEGORIES = ['BFSI', 'UX/UI', 'Game Design', 'Product Management'];
+const VALID_CATEGORIES = ['BFSI', 'UX/UI', 'Game Design', 'Product Management', 'Data/Tech'];
 
 function validateMetaShape(folder, meta) {
   const relFile = `${folder}/meta.json`;

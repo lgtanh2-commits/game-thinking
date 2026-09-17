@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 7: Master Data Management — Data Governance: The Definitive Guide</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+<p class="book-topline"><a href="/data-governance-definitive-guide">← Về mục lục</a></p>
+
+<div class="book-label">Data Governance: The Definitive Guide · Evren Eryurek, Uri Gilad, Valliappa Lakshmanan et al. · Chương 7</div>
+<h1>Master Data Management</h1>
+<p class="chapter-subtitle">Quản lý dữ liệu chủ để đảm bảo nhất quán xuyên suốt các hệ thống</p>
+
+
+<h2>Master Data Là Gì?</h2>
+<p>Master Data (Dữ liệu chủ) là tập hợp các bản ghi cốt lõi của tổ chức — đại diện cho các thực thể nghiệp vụ chính như khách hàng, sản phẩm, nhà cung cấp, nhân viên, địa điểm. Đây là "sự thật duy nhất" (single source of truth) mà mọi hệ thống trong tổ chức phải tham chiếu.</p>
+<p>Ví dụ điển hình: Một ngân hàng có hàng chục hệ thống — core banking, CRM, internet banking, mobile app, risk management. Mỗi hệ thống có thể lưu thông tin khách hàng theo cách khác nhau. Master Data Management (MDM) đảm bảo tất cả cùng tham chiếu về một "hồ sơ khách hàng vàng" duy nhất.</p>
+
+<hr class="divider">
+
+<h2>Master Data Management — Kiến Trúc</h2>
+<p>Có ba kiến trúc MDM phổ biến:</p>
+<p><strong>Registry Style (Đăng ký):</strong> Hệ thống MDM không lưu dữ liệu, chỉ tạo ra các liên kết (link) giữa các bản ghi khớp nhau trong các hệ thống khác nhau. Dữ liệu vẫn ở hệ thống nguồn. Ưu điểm: ít xâm phạm vào hệ thống hiện có. Nhược điểm: không có "golden record" thực sự.</p>
+<p><strong>Consolidation Style (Tổng hợp):</strong> Dữ liệu từ các hệ thống nguồn được copy vào MDM hub để tạo golden record, nhưng các hệ thống nguồn vẫn là nơi dữ liệu được tạo và cập nhật. MDM chỉ đọc, không ghi ngược lại.</p>
+<p><strong>Coexistence/Transaction Style:</strong> MDM hub là nguồn sự thật chính thức. Các hệ thống đọc từ MDM và ghi vào MDM. Phức tạp nhất nhưng đảm bảo nhất quán cao nhất.</p>
+
+<hr class="divider">
+
+<h2>Thách Thức Của MDM Trong Thực Tế</h2>
+<p>MDM là một trong những thách thức khó nhất trong data governance. Một số điểm cần lưu ý:</p>
+<p><strong>Entity Resolution:</strong> Làm thế nào biết "Nguyen Van A" trong CRM và "NGUYEN VAN ANH" trong core banking là cùng một người? Đây là bài toán entity matching đòi hỏi kết hợp quy tắc và machine learning.</p>
+<p><strong>Data Conflicts:</strong> Khi hai hệ thống có thông tin mâu thuẫn về cùng một thực thể, hệ thống nào đúng? Cần có quy tắc ưu tiên (survivorship rules) rõ ràng.</p>
+<p><strong>Governance Of Master Data:</strong> Master data cũng cần được govern — ai được thêm/sửa/xóa bản ghi master? Quy trình phê duyệt như thế nào?</p>
+<p><strong>Legacy Systems:</strong> Hệ thống cũ thường không có API để tích hợp dễ dàng. Đây thường là điểm nghẽn kỹ thuật lớn nhất.</p>
+
+<hr class="divider">
+
+
+<nav class="chapnav">
+  <a href="/data-governance-definitive-guide/chat-luong-du-lieu"><span class="lbl">Chương trước</span>Chương 6: Chất Lượng Dữ Liệu</a>
+  <a href="/data-governance-definitive-guide/bao-mat-va-quyen-rieng-tu"><span class="lbl">Chương sau</span>Chương 8: Bảo Mật Và Quyền Riêng Tư Dữ Liệu</a>
+</nav>
+
+</body>
+</html>

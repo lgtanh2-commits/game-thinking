@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 6: Chất Lượng Dữ Liệu — Data Governance: The Definitive Guide</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+<p class="book-topline"><a href="/data-governance-definitive-guide">← Về mục lục</a></p>
+
+<div class="book-label">Data Governance: The Definitive Guide · Evren Eryurek, Uri Gilad, Valliappa Lakshmanan et al. · Chương 6</div>
+<h1>Chất Lượng Dữ Liệu</h1>
+<p class="chapter-subtitle">Framework đo lường, giám sát và cải thiện chất lượng dữ liệu liên tục</p>
+
+
+<h2>Năm Chiều Của Chất Lượng Dữ Liệu</h2>
+<p>Chất lượng dữ liệu (data quality) không phải là một số đơn lẻ mà là một vector đa chiều. Các tác giả đề xuất đánh giá theo năm chiều cốt lõi:</p>
+<p><strong>1. Tính Đầy Đủ (Completeness):</strong> Dữ liệu có bị thiếu trường, thiếu bản ghi không? Ví dụ: 15% bản ghi khách hàng thiếu số điện thoại.</p>
+<p><strong>2. Tính Chính Xác (Accuracy):</strong> Giá trị dữ liệu có đúng với thực tế không? Ví dụ: địa chỉ email có thực sự tồn tại không?</p>
+<p><strong>3. Tính Nhất Quán (Consistency):</strong> Cùng một thực thể có được biểu diễn giống nhau ở mọi nơi không? Ví dụ: tên công ty "Ngân hàng VCB" vs "VCB" vs "Vietcombank".</p>
+<p><strong>4. Tính Kịp Thời (Timeliness):</strong> Dữ liệu có còn fresh và được cập nhật đúng tần suất cần thiết không?</p>
+<p><strong>5. Tính Hợp Lệ (Validity):</strong> Dữ liệu có tuân thủ các quy tắc và ràng buộc đã định không? Ví dụ: tuổi không thể là số âm, ngày sinh không thể sau ngày hôm nay.</p>
+
+<hr class="divider">
+
+<h2>Data Quality Rules Và Monitoring</h2>
+<p>Để theo dõi chất lượng dữ liệu liên tục, cần định nghĩa <strong>Data Quality Rules</strong> — các phép kiểm tra có thể tự động chạy trên dataset:</p>
+<p><strong>Schema rules:</strong> Cột X phải có kiểu dữ liệu Y, không được null.</p>
+<p><strong>Referential rules:</strong> Giá trị trong cột customer_id phải tồn tại trong bảng customers.</p>
+<p><strong>Range rules:</strong> Giá trị age phải nằm trong khoảng 0–150.</p>
+<p><strong>Pattern rules:</strong> email phải khớp regex chuẩn. Số điện thoại phải có định dạng đúng.</p>
+<p><strong>Business rules:</strong> Nếu status = "shipped" thì shipped_date không được null.</p>
+<p>Các rules này được chạy định kỳ (theo schedule) hoặc trong pipeline (mỗi khi có dữ liệu mới). Kết quả được track theo thời gian để phát hiện xu hướng xuống cấp chất lượng sớm.</p>
+
+<hr class="divider">
+
+<h2>Quy Trình Cải Thiện Chất Lượng</h2>
+<p>Phát hiện vấn đề chất lượng chỉ là bước đầu tiên. Cần có quy trình rõ ràng để xử lý:</p>
+<p><strong>1. Phát hiện (Detect):</strong> Monitoring tự động hoặc người dùng báo cáo vấn đề.</p>
+<p><strong>2. Phân loại (Triage):</strong> Đánh giá mức độ nghiêm trọng và tác động. Cần fix ngay hay có thể chờ?</p>
+<p><strong>3. Root Cause Analysis:</strong> Vấn đề xuất phát từ nguồn dữ liệu, pipeline, hay logic nghiệp vụ?</p>
+<p><strong>4. Sửa chữa (Remediation):</strong> Fix dữ liệu bị lỗi (backfill), sửa pipeline, hoặc cập nhật rule nghiệp vụ.</p>
+<p><strong>5. Ngăn ngừa (Prevention):</strong> Thêm validation rule mới để ngăn lỗi tương tự tái diễn.</p>
+<p>Điểm quan trọng: <strong>không nên fix dữ liệu trực tiếp trong production</strong> mà không có audit trail. Mọi thay đổi dữ liệu cần được ghi lại, ai sửa, sửa gì, lý do.</p>
+
+<hr class="divider">
+
+
+<nav class="chapnav">
+  <a href="/data-governance-definitive-guide/data-catalog"><span class="lbl">Chương trước</span>Chương 5: Data Catalog — Danh Mục Dữ Liệu</a>
+  <a href="/data-governance-definitive-guide/master-data-management"><span class="lbl">Chương sau</span>Chương 7: Master Data Management</a>
+</nav>
+
+</body>
+</html>

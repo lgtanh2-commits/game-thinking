@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 9: Kiến Trúc Dữ Liệu Và Metadata — Data Governance: The Definitive Guide</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+<p class="book-topline"><a href="/data-governance-definitive-guide">← Về mục lục</a></p>
+
+<div class="book-label">Data Governance: The Definitive Guide · Evren Eryurek, Uri Gilad, Valliappa Lakshmanan et al. · Chương 9</div>
+<h1>Kiến Trúc Dữ Liệu Và Metadata</h1>
+<p class="chapter-subtitle">Lineage, schema evolution và thiết kế kiến trúc phục vụ quản trị dữ liệu dài hạn</p>
+
+
+<h2>Metadata — Dữ Liệu Về Dữ Liệu</h2>
+<p>Metadata là dữ liệu mô tả, giải thích, hoặc hỗ trợ tìm kiếm các dữ liệu khác. Có ba loại metadata chính:</p>
+<p><strong>Technical Metadata:</strong> Thông tin kỹ thuật về cấu trúc dữ liệu — tên bảng, tên cột, kiểu dữ liệu, kích thước, ràng buộc (constraints), partitioning scheme, storage location. Loại này thường được thu thập tự động từ hệ thống.</p>
+<p><strong>Business Metadata:</strong> Ý nghĩa nghiệp vụ của dữ liệu — mô tả, định nghĩa, business owner, domain, tags, cách dùng. Loại này thường phải được nhập thủ công bởi Data Steward và Business Analyst.</p>
+<p><strong>Operational Metadata:</strong> Thông tin về quá trình xử lý dữ liệu — khi nào được tạo/cập nhật, bao nhiêu bản ghi được xử lý trong mỗi pipeline run, ai đã truy cập gần đây, các audit log. Tự động từ hệ thống.</p>
+
+<hr class="divider">
+
+<h2>Kiến Trúc Dữ Liệu Hỗ Trợ Governance</h2>
+<p>Kiến trúc dữ liệu (data architecture) ảnh hưởng trực tiếp đến khả năng thực thi governance. Một kiến trúc được thiết kế tốt sẽ làm cho governance dễ dàng hơn; kiến trúc tệ làm cho governance gần như không thể.</p>
+<p>Một số nguyên tắc kiến trúc thân thiện với governance:</p>
+<p><strong>Phân tầng rõ ràng:</strong> Raw layer (dữ liệu gốc không thay đổi), Cleansed layer (đã làm sạch), Curated/Business layer (đã transform theo business logic). Mỗi tầng có governance rules riêng.</p>
+<p><strong>Schema Registry:</strong> Quản lý tập trung tất cả schema của các data stream và dataset. Khi schema thay đổi, thay đổi được version và tracked.</p>
+<p><strong>Immutable Raw Layer:</strong> Dữ liệu raw không bao giờ bị xóa hoặc sửa đổi — đây là nguồn chân lý tuyệt đối có thể dùng để replay hoặc audit.</p>
+
+<hr class="divider">
+
+<h2>Data Mesh — Hướng Tiếp Cận Phân Tán</h2>
+<p>Data Mesh là một paradigm kiến trúc mới (được giới thiệu bởi Zhamak Dehghani) thách thức mô hình data lake/warehouse tập trung truyền thống. Thay vì một team data trung tâm quản lý tất cả dữ liệu, Data Mesh phân quyền sở hữu dữ liệu cho các domain team.</p>
+<p>Bốn nguyên tắc cốt lõi của Data Mesh:</p>
+<p><strong>Domain Ownership:</strong> Mỗi business domain (marketing, finance, operations...) sở hữu và vận hành data platform của riêng mình.</p>
+<p><strong>Data as a Product:</strong> Mỗi domain coi dữ liệu của mình như một sản phẩm — có SLA, documentation, và phải đáp ứng nhu cầu của "khách hàng nội bộ" (các team khác).</p>
+<p><strong>Self-serve Infrastructure:</strong> Có platform chung để mọi domain có thể tự phục vụ mà không cần xin phép team trung tâm.</p>
+<p><strong>Federated Governance:</strong> Có tiêu chuẩn chung (interoperability, security baseline) nhưng mỗi domain tự quản lý policy chi tiết của mình.</p>
+<p>Data Mesh không mâu thuẫn với data governance — nó chỉ thay đổi mô hình tổ chức để governance được phân tán và embed vào từng domain.</p>
+
+<hr class="divider">
+
+
+<nav class="chapnav">
+  <a href="/data-governance-definitive-guide/bao-mat-va-quyen-rieng-tu"><span class="lbl">Chương trước</span>Chương 8: Bảo Mật Và Quyền Riêng Tư Dữ Liệu</a>
+  <a href="/data-governance-definitive-guide/data-governance-lap-trinh-hoa"><span class="lbl">Chương sau</span>Chương 10: Data Governance Lập Trình Hóa</a>
+</nav>
+
+</body>
+</html>

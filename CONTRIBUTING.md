@@ -65,7 +65,7 @@ Field bắt buộc:
 | `title` | string | tên sách hiển thị |
 | `author` | string | tác giả · nguồn · năm (tuỳ chọn thêm vào chuỗi này) |
 | `tag` | string | 1 dòng mô tả chủ đề, hiện dưới dạng badge trên trang chủ |
-| `category` | string | 1 trong 4 giá trị cố định: `BFSI`, `UX/UI`, `Game Design`, `Product Management` — dùng để lọc theo tab trên trang chủ |
+| `category` | string | 1 trong 5 giá trị cố định: `BFSI`, `UX/UI`, `Game Design`, `Product Management`, `Data/Tech` — dùng để lọc theo tab trên trang chủ |
 | `chapters` | array | ≥1 phần tử, mỗi phần tử: `n` (số thứ tự), `title`, `sub` (có thể để chuỗi rỗng `""`), `slug` (kebab-case, **duy nhất trong sách** — dùng cho URL `/{slug-sách}/{slug-chương}`, xem Mục 5b), `file` (tên file HTML, **không** kèm đường dẫn folder — chỉ tên file, vì đã ở trong đúng folder sách) |
 
 `file` không được chứa `../` (không được trỏ ra ngoài folder sách của bạn).

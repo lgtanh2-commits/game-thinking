@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 5: Data Catalog — Danh Mục Dữ Liệu — Data Governance: The Definitive Guide</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+<p class="book-topline"><a href="/data-governance-definitive-guide">← Về mục lục</a></p>
+
+<div class="book-label">Data Governance: The Definitive Guide · Evren Eryurek, Uri Gilad, Valliappa Lakshmanan et al. · Chương 5</div>
+<h1>Data Catalog — Danh Mục Dữ Liệu</h1>
+<p class="chapter-subtitle">Tổ chức khám phá, tìm kiếm và hiểu dữ liệu trong toàn tổ chức</p>
+
+
+<h2>Data Catalog Là Gì Và Tại Sao Cần?</h2>
+<p>Data Catalog (Danh mục dữ liệu) là hệ thống trung tâm để tổ chức, tìm kiếm và hiểu tất cả dữ liệu trong tổ chức. Hãy tưởng tượng nó như một "Google" cho dữ liệu nội bộ của công ty.</p>
+<p>Không có data catalog, data scientist mất trung bình <strong>80% thời gian</strong> chỉ để tìm kiếm và hiểu dữ liệu, thay vì phân tích nó. Data catalog giải quyết vấn đề này bằng cách tạo ra một kho siêu dữ liệu (metadata) tập trung.</p>
+<p>Ngoài tìm kiếm, data catalog còn là nơi lưu trữ:</p>
+<p>— <strong>Business Glossary:</strong> Định nghĩa thống nhất các thuật ngữ kinh doanh (ví dụ: "khách hàng hoạt động" có nghĩa là gì chính xác?).</p>
+<p>— <strong>Data Lineage:</strong> Dữ liệu này đến từ đâu, đã bị chuyển đổi như thế nào, đang chạy đến đâu?</p>
+<p>— <strong>Data Ownership:</strong> Ai là Data Owner và Steward của dataset này?</p>
+<p>— <strong>Chất lượng:</strong> Điểm quality score hiện tại và lịch sử của dataset.</p>
+
+<hr class="divider">
+
+<h2>Business Glossary — Ngôn Ngữ Chung</h2>
+<p>Business Glossary là một trong những deliverable quan trọng nhất của data governance, nhưng cũng hay bị bỏ qua nhất. Nó là từ điển các thuật ngữ kinh doanh được định nghĩa chính xác và được toàn tổ chức thống nhất sử dụng.</p>
+<p>Tại sao cần? Vì trong hầu hết tổ chức, các team khác nhau dùng cùng một từ để chỉ những thứ khác nhau. "Revenue" của team tài chính có thể tính khác với "revenue" của team sales. "Active customer" của team marketing có thể khác với "active customer" của team product.</p>
+<p>Mỗi entry trong business glossary cần có: tên thuật ngữ, định nghĩa chính xác, ví dụ về cách dùng, ai là owner của định nghĩa này, và thời điểm được phê duyệt lần gần nhất.</p>
+
+<hr class="divider">
+
+<h2>Data Lineage — Dấu Vết Dữ Liệu</h2>
+<p>Data lineage là khả năng truy vết nguồn gốc và hành trình của dữ liệu — từ điểm tạo ra, qua các phép biến đổi, đến nơi nó được tiêu thụ cuối cùng.</p>
+<p>Lineage có giá trị trong nhiều tình huống:</p>
+<p><strong>Root cause analysis:</strong> Khi báo cáo có con số sai, bạn có thể truy ngược để tìm ra chính xác bước nào trong pipeline đã gây ra lỗi.</p>
+<p><strong>Impact analysis:</strong> Khi cần thay đổi một dataset gốc, bạn biết ngay downstream nào sẽ bị ảnh hưởng.</p>
+<p><strong>Compliance:</strong> Khi kiểm toán viên hỏi "dữ liệu PII này đến từ đâu và đi đến đâu?", bạn có câu trả lời ngay lập tức.</p>
+<p>Lineage có thể được thu thập tự động (từ ETL pipeline metadata, SQL query logs) hoặc thủ công (do Data Steward nhập). Tự động hóa tối đa là mục tiêu.</p>
+
+<hr class="divider">
+
+
+<nav class="chapnav">
+  <a href="/data-governance-definitive-guide/chinh-sach-va-quy-tac"><span class="lbl">Chương trước</span>Chương 4: Chính Sách Và Quy Tắc Dữ Liệu</a>
+  <a href="/data-governance-definitive-guide/chat-luong-du-lieu"><span class="lbl">Chương sau</span>Chương 6: Chất Lượng Dữ Liệu</a>
+</nav>
+
+</body>
+</html>

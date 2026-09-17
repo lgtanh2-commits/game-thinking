@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 8: Bảo Mật Và Quyền Riêng Tư Dữ Liệu — Data Governance: The Definitive Guide</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+<p class="book-topline"><a href="/data-governance-definitive-guide">← Về mục lục</a></p>
+
+<div class="book-label">Data Governance: The Definitive Guide · Evren Eryurek, Uri Gilad, Valliappa Lakshmanan et al. · Chương 8</div>
+<h1>Bảo Mật Và Quyền Riêng Tư Dữ Liệu</h1>
+<p class="chapter-subtitle">Kiểm soát truy cập, mã hóa, phân loại dữ liệu nhạy cảm và tuân thủ GDPR/CCPA</p>
+
+
+<h2>Tam Giác Bảo Mật Dữ Liệu</h2>
+<p>Bảo mật dữ liệu xoay quanh ba mục tiêu cốt lõi — thường được gọi là tam giác CIA:</p>
+<p><strong>Confidentiality (Bảo mật):</strong> Dữ liệu chỉ được truy cập bởi những người có quyền. Đây là mục tiêu quen thuộc nhất — kiểm soát ai được xem gì.</p>
+<p><strong>Integrity (Toàn vẹn):</strong> Dữ liệu không bị thay đổi trái phép, cố ý hay vô tình. Khi bạn đọc một bản ghi, bạn có thể tin rằng nó chưa bị chỉnh sửa mà không để lại dấu vết.</p>
+<p><strong>Availability (Khả dụng):</strong> Dữ liệu phải sẵn sàng cho những người có quyền khi họ cần. Bảo mật quá mức đến mức không ai dùng được cũng là thất bại.</p>
+
+<hr class="divider">
+
+<h2>Kiểm Soát Truy Cập</h2>
+<p>Access control là cơ chế đảm bảo chỉ người có quyền mới truy cập được dữ liệu. Có hai mô hình chính:</p>
+<p><strong>Role-Based Access Control (RBAC):</strong> Quyền truy cập được gán cho vai trò (role), không phải cá nhân. Người dùng được gán vào role. Ví dụ: role "Analyst" được đọc tất cả dataset đã được anonymize; role "Data Engineer" được đọc dữ liệu raw; role "Data Owner" được quản lý policy của domain mình.</p>
+<p><strong>Attribute-Based Access Control (ABAC):</strong> Quyền truy cập được quyết định dựa trên thuộc tính của người dùng, dữ liệu, và ngữ cảnh. Linh hoạt hơn RBAC nhưng phức tạp hơn để quản lý. Ví dụ: "Analyst ở region APAC chỉ được xem dữ liệu của khách hàng APAC".</p>
+<p>Nguyên tắc nền tảng: <strong>Least Privilege</strong> — mỗi người chỉ được quyền tối thiểu cần thiết để làm công việc của họ.</p>
+
+<hr class="divider">
+
+<h2>Quyền Riêng Tư Và Tuân Thủ</h2>
+<p>Trong kỷ nguyên GDPR (châu Âu), CCPA (California), PDPD (Việt Nam) và nhiều quy định khác, privacy không còn là tùy chọn — đây là yêu cầu pháp lý với hậu quả tài chính nghiêm trọng nếu vi phạm.</p>
+<p>Các khái niệm cần nắm:</p>
+<p><strong>PII (Personally Identifiable Information):</strong> Bất kỳ thông tin nào có thể dùng để nhận dạng một cá nhân — tên, email, số điện thoại, địa chỉ, CMND/CCCD, v.v.</p>
+<p><strong>Data Minimization:</strong> Chỉ thu thập dữ liệu cần thiết cho mục đích đã định, không thu thập dư.</p>
+<p><strong>Purpose Limitation:</strong> Dữ liệu chỉ được dùng cho mục đích mà người dùng đã đồng ý khi thu thập.</p>
+<p><strong>Right to be Forgotten:</strong> Người dùng có quyền yêu cầu xóa dữ liệu của họ. Tổ chức phải có quy trình để thực thi điều này trong tất cả các hệ thống.</p>
+<p><strong>Anonymization vs Pseudonymization:</strong> Anonymization xóa hoàn toàn khả năng nhận dạng (không thể khôi phục); pseudonymization thay thế thông tin nhận dạng bằng định danh giả (có thể khôi phục nếu có key). Mỗi loại có ứng dụng khác nhau trong analytics và production.</p>
+
+<hr class="divider">
+
+
+<nav class="chapnav">
+  <a href="/data-governance-definitive-guide/master-data-management"><span class="lbl">Chương trước</span>Chương 7: Master Data Management</a>
+  <a href="/data-governance-definitive-guide/kien-truc-du-lieu-va-metadata"><span class="lbl">Chương sau</span>Chương 9: Kiến Trúc Dữ Liệu Và Metadata</a>
+</nav>
+
+</body>
+</html>
