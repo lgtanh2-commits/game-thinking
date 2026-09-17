@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 6: Quản Lý Phiên Bản API — API Management</title>
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+.version-strategy { background:#fff; border:1px solid var(--color-dew); border-radius:var(--radius-chapter-row); padding:20px; margin-bottom:16px; }
+.version-strategy h3 { font-size:1rem; font-weight:700; color:var(--color-slate-ink); margin-bottom:8px; }
+.vs-example { background:var(--color-dew); border-radius:8px; padding:10px 14px; font-family:monospace; font-size:.85rem; margin:10px 0; color:var(--color-slate-ink); }
+.version-strategy p { font-size:.9rem; color:var(--color-ash); margin-bottom:8px; }
+.breaking-nonbreaking { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0; }
+.bc-card { border-radius:var(--radius-chapter-row); padding:18px; }
+.breaking { background:#fde8e8; border:1px solid #f5c6cb; }
+.nonbreaking { background:#e3f6ec; border:1px solid #b8e0c8; }
+.breaking h4 { color:#b00020; font-size:.95rem; font-weight:700; margin-bottom:10px; }
+.nonbreaking h4 { color:#1a6b3a; font-size:.95rem; font-weight:700; margin-bottom:10px; }
+.bc-card li { font-size:.88rem; margin-bottom:5px; }
+.lifecycle-steps { display:flex; gap:0; margin:24px 0; flex-wrap:wrap; }
+.lc-step { flex:1; min-width:80px; text-align:center; padding:14px 8px; background:var(--color-canopy-shadow); color:var(--color-parchment); font-size:.8rem; font-weight:600; position:relative; }
+.lc-step:not(:last-child)::after { content:'→'; position:absolute; right:-8px; top:50%; transform:translateY(-50%); color:var(--color-sprout); font-size:1rem; z-index:1; }
+.lc-step.active { background:var(--color-sprout-dark); }
+.lc-step.deprecated { background:var(--color-ash); }
+.semver-box { background:var(--color-sage-whisper); border-radius:var(--radius-chapter-row); padding:20px; margin:20px 0; }
+.semver-box h4 { font-weight:700; margin-bottom:12px; color:var(--color-sprout-dark); }
+.semver-parts { display:flex; gap:20px; flex-wrap:wrap; }
+.sv-part { text-align:center; }
+.sv-num { font-size:2rem; font-weight:900; color:var(--color-sprout-dark); display:block; }
+.sv-label { font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--color-ash); }
+@media(max-width:640px){ .breaking-nonbreaking{grid-template-columns:1fr;} .lifecycle-steps{flex-direction:column;} .lc-step::after{display:none;} }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="/api-management">← Về mục lục</a></p>
+
+<div class="book-label">API Management · Brajesh De · Chương 6</div>
+<h1>Quản Lý Phiên Bản API</h1>
+<p class="chapter-subtitle">Chiến lược versioning để API tiến hóa mà không phá vỡ ứng dụng hiện có</p>
+
+<h2>Tại Sao API Cần Versioning?</h2>
+<p>API là hợp đồng giữa provider và consumer. Khi hợp đồng thay đổi theo cách không tương thích ngược (breaking change), mọi consumer đang dùng API cũ sẽ bị ảnh hưởng — có thể dẫn đến lỗi production nghiêm trọng.</p>
+<p>Thực tế, API phải tiến hóa liên tục: thêm tính năng mới, cải thiện thiết kế, đáp ứng yêu cầu bảo mật mới, loại bỏ kỹ thuật nợ. Versioning cho phép API thay đổi mà vẫn đảm bảo <strong>backward compatibility</strong> — consumer hiện tại tiếp tục hoạt động bình thường trong khi consumer mới được khuyến khích dùng phiên bản mới hơn.</p>
+
+<h2>Breaking Changes vs Non-Breaking Changes</h2>
+
+<div class="breaking-nonbreaking">
+  <div class="bc-card breaking">
+    <h4>🚨 Breaking Changes — Cần Tăng Version</h4>
+    <ul>
+      <li>Xóa endpoint hoặc HTTP method</li>
+      <li>Đổi tên field bắt buộc trong request/response</li>
+      <li>Thay đổi kiểu dữ liệu (string → integer)</li>
+      <li>Thêm field bắt buộc mới vào request</li>
+      <li>Thay đổi format URL (đổi tên path parameter)</li>
+      <li>Thay đổi authentication mechanism</li>
+      <li>Thay đổi semantic của endpoint (behavior khác)</li>
+      <li>Xóa giá trị enum đang được dùng</li>
+    </ul>
+  </div>
+  <div class="bc-card nonbreaking">
+    <h4>✅ Non-Breaking Changes — Không Cần Version Mới</h4>
+    <ul>
+      <li>Thêm endpoint mới</li>
+      <li>Thêm field mới tùy chọn vào response</li>
+      <li>Thêm field mới tùy chọn vào request</li>
+      <li>Thêm giá trị enum mới</li>
+      <li>Bug fix (behavior đúng hơn, không thay đổi contract)</li>
+      <li>Cải thiện performance, không thay đổi giao diện</li>
+      <li>Thêm optional query parameter</li>
+      <li>Cải thiện tài liệu</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Semantic Versioning (SemVer)</h2>
+
+<div class="semver-box">
+  <h4>MAJOR.MINOR.PATCH — Ví dụ: 2.3.1</h4>
+  <div class="semver-parts">
+    <div class="sv-part"><span class="sv-num">2</span><span class="sv-label">MAJOR<br>Breaking changes</span></div>
+    <div style="font-size:2rem;color:var(--color-ash);padding-top:10px;">.</div>
+    <div class="sv-part"><span class="sv-num">3</span><span class="sv-label">MINOR<br>New features,<br>backward-compat</span></div>
+    <div style="font-size:2rem;color:var(--color-ash);padding-top:10px;">.</div>
+    <div class="sv-part"><span class="sv-num">1</span><span class="sv-label">PATCH<br>Bug fixes,<br>backward-compat</span></div>
+  </div>
+</div>
+
+<p>Trong API management, thường chỉ expose <strong>MAJOR version</strong> trong public URL/header (v1, v2) — consumer không cần biết minor và patch version vì chúng backward-compatible. MINOR/PATCH được manage nội bộ.</p>
+
+<h2>Các Chiến Lược Versioning</h2>
+
+<div class="version-strategy">
+  <h3>1. URI Path Versioning (Phổ biến nhất)</h3>
+  <div class="vs-example">GET https://api.example.com/v1/orders<br>GET https://api.example.com/v2/orders</div>
+  <p>Version được đặt trực tiếp trong URL path. Cách rõ ràng và dễ dùng nhất — developer thấy ngay đang dùng version nào. Dễ cache, dễ route ở gateway, dễ test bằng browser.</p>
+  <p><strong>Nhược điểm</strong>: URL không "RESTful thuần túy" (version không phải là phần của resource), cần cập nhật toàn bộ URL khi upgrade. Đây là trade-off được hầu hết API thực tế chấp nhận.</p>
+  <p>Được sử dụng bởi: Stripe API, Twilio, GitHub API v3/v4.</p>
+</div>
+
+<div class="version-strategy">
+  <h3>2. Header Versioning</h3>
+  <div class="vs-example">GET https://api.example.com/orders<br>API-Version: 2023-10-01<br><br>Accept: application/vnd.example.v2+json</div>
+  <p>Version được truyền qua HTTP header — hoặc custom header (<code>API-Version</code>, <code>X-API-Version</code>) hoặc <code>Accept</code> header với media type versioning. URL giữ "sạch" không chứa version.</p>
+  <p><strong>Nhược điểm</strong>: Khó test bằng browser (cần tool như Postman/curl), không cached mặc định bởi browser, ít trực quan hơn với developer mới.</p>
+  <p>Được sử dụng bởi: Microsoft Graph API (dùng API-Version header với date-based versioning như <code>2023-01-01</code>), Stripe cũng hỗ trợ header versioning song song.</p>
+</div>
+
+<div class="version-strategy">
+  <h3>3. Query Parameter Versioning</h3>
+  <div class="vs-example">GET https://api.example.com/orders?version=2<br>GET https://api.example.com/orders?api-version=2023-10-01</div>
+  <p>Version trong query parameter. Linh hoạt, không thay đổi URL path, dễ test. Tuy nhiên, ít rõ ràng hơn path versioning và thường bị coi là "last resort".</p>
+  <p>Được sử dụng bởi: Azure REST API (api-version parameter), Google Cloud APIs.</p>
+</div>
+
+<div class="version-strategy">
+  <h3>4. Date-based Versioning</h3>
+  <div class="vs-example">GET https://api.example.com/orders<br>Stripe-Version: 2023-10-16</div>
+  <p>Thay vì số version, dùng ngày để xác định "snapshot" của API. Mọi breaking change được đưa vào API với ngày mới. Consumer có thể pin vào ngày cụ thể để đảm bảo behavior không thay đổi.</p>
+  <p>Stripe là ví dụ điển hình — developer có thể dùng Stripe API hành xử như ngày 2019-05-16 cho đến khi họ sẵn sàng migrate.</p>
+</div>
+
+<h2>Vòng Đời Phiên Bản API</h2>
+<p>Mỗi version API trải qua các giai đoạn:</p>
+
+<div class="lifecycle-steps">
+  <div class="lc-step">Alpha<br>(nội bộ)</div>
+  <div class="lc-step">Beta<br>(early access)</div>
+  <div class="lc-step active">GA<br>(stable)</div>
+  <div class="lc-step">Deprecated<br>(warning)</div>
+  <div class="lc-step deprecated">Sunset<br>(removed)</div>
+</div>
+
+<ul>
+  <li><strong>Alpha</strong> — chỉ dùng nội bộ, có thể thay đổi bất cứ lúc nào</li>
+  <li><strong>Beta</strong> — mở cho early adopter, có thể có breaking change nhưng sẽ thông báo trước</li>
+  <li><strong>GA (Generally Available)</strong> — stable, backward-compatible, có SLA. Đây là version production.</li>
+  <li><strong>Deprecated</strong> — vẫn hoạt động nhưng sẽ bị xóa trong tương lai. Response header <code>Deprecation</code> và <code>Sunset</code> thông báo cho client.</li>
+  <li><strong>Sunset (Retired)</strong> — version bị xóa, trả về 410 Gone hoặc redirect đến version mới</li>
+</ul>
+
+<h2>Chiến Lược Deprecation Hiệu Quả</h2>
+<p>Deprecation không phải là tắt API — đó là quá trình có kế hoạch với timeline rõ ràng:</p>
+<ul>
+  <li><strong>Thông báo sớm</strong> — ít nhất 6-12 tháng trước khi sunset, càng sớm càng tốt</li>
+  <li><strong>Thông báo nhiều kênh</strong> — email đến developer đăng ký, developer portal, response header, changelog</li>
+  <li><strong>Response headers chuẩn</strong>:
+    <ul>
+      <li><code>Deprecation: Thu, 01 Jan 2025 00:00:00 GMT</code> — ngày deprecated</li>
+      <li><code>Sunset: Thu, 01 Jul 2025 00:00:00 GMT</code> — ngày bị xóa hoàn toàn</li>
+      <li><code>Link: &lt;/v2/orders&gt;; rel="successor-version"</code> — link đến version mới</li>
+    </ul>
+  </li>
+  <li><strong>Migration guide đầy đủ</strong> — hướng dẫn chi tiết cách chuyển từ v1 sang v2, kèm code sample</li>
+  <li><strong>Support song song</strong> — duy trì cả hai version trong giai đoạn transition</li>
+  <li><strong>Theo dõi usage</strong> — identify consumer vẫn dùng version cũ để liên hệ trực tiếp hỗ trợ migration</li>
+</ul>
+
+<blockquote>Quy tắc vàng: <em>Đừng bao giờ tắt API đột ngột.</em> Mỗi lần API bị tắt không báo trước là một lần mất đi trust của developer community — thứ rất khó xây dựng lại.</blockquote>
+
+<nav class="chapnav">
+  <a href="/api-management/cac-mau-thiet-ke-api"><span class="lbl">Chương trước</span>Chương 5: Các Mẫu Thiết Kế API</a>
+  <a href="/api-management/bao-mat-api"><span class="lbl">Chương sau</span>Chương 7: Bảo Mật API</a>
+</nav>
+
+</body>
+</html>

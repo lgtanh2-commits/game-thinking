@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 10: Phân Tích API — API Management</title>
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+.metric-category { background:#fff; border:1px solid var(--color-dew); border-radius:var(--radius-chapter-row); padding:20px; margin-bottom:16px; }
+.metric-category h3 { font-size:1rem; font-weight:700; color:var(--color-slate-ink); margin-bottom:10px; }
+.metric-category p { font-size:.9rem; color:var(--color-ash); margin-bottom:10px; }
+.metric-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.ml-item { background:var(--color-dew); border-radius:8px; padding:10px 12px; }
+.ml-item strong { font-size:.88rem; display:block; color:var(--color-sprout-dark); margin-bottom:2px; }
+.ml-item span { font-size:.82rem; color:var(--color-ash); }
+.funnel { margin:20px 0; }
+.funnel-step { display:flex; align-items:center; gap:16px; padding:12px 16px; border-radius:8px; margin-bottom:6px; background:var(--color-sage-whisper); }
+.funnel-step .num { font-size:1.4rem; font-weight:900; color:var(--color-sprout-dark); min-width:48px; text-align:center; }
+.funnel-step .label { font-size:.9rem; font-weight:600; color:var(--color-slate-ink); }
+.funnel-step .desc { font-size:.82rem; color:var(--color-ash); }
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:20px 0; }
+.kpi-box { background:var(--color-canopy-shadow); border-radius:10px; padding:16px; text-align:center; }
+.kpi-box .val { font-size:1.5rem; font-weight:900; color:var(--color-sprout); display:block; }
+.kpi-box .name { font-size:.78rem; color:var(--color-mist); margin-top:4px; display:block; }
+.dashboard-section { background:var(--color-dew); border-radius:var(--radius-chapter-row); padding:18px; margin:16px 0; }
+.dashboard-section h4 { font-weight:700; margin-bottom:8px; color:var(--color-sprout-dark); }
+@media(max-width:640px){ .metric-list{grid-template-columns:1fr;} .kpi-grid{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="/api-management">← Về mục lục</a></p>
+
+<div class="book-label">API Management · Brajesh De · Chương 10</div>
+<h1>Phân Tích API</h1>
+<p class="chapter-subtitle">Thu thập, phân tích và trực quan hóa metrics để tối ưu hóa hiệu suất và trải nghiệm nhà phát triển</p>
+
+<h2>Tầm Quan Trọng của API Analytics</h2>
+<p>Nếu bạn không đo lường, bạn không thể cải thiện. API analytics cung cấp visibility vào câu hỏi quan trọng nhất: ai đang dùng API của tôi, họ dùng như thế nào, và API đang hoạt động ra sao? Dữ liệu này là nền tảng để ra quyết định về product roadmap, infrastructure, pricing và support.</p>
+<p>API analytics khác với web analytics ở chỗ consumer là developer và app — không phải end user — và mỗi "click" thực ra là một API call có thể chứa dữ liệu kinh doanh có giá trị (transaction, user event, business metric).</p>
+
+<h2>Bốn Nhóm Metrics Quan Trọng</h2>
+
+<div class="metric-category">
+  <h3>1. Traffic Metrics — Lưu Lượng</h3>
+  <p>Đo lường volume và pattern của API traffic để hiểu demand và lập kế hoạch capacity.</p>
+  <div class="metric-list">
+    <div class="ml-item"><strong>Total API Calls</strong><span>Tổng số request trong khoảng thời gian; trending up/down</span></div>
+    <div class="ml-item"><strong>Calls per Endpoint</strong><span>Endpoint nào được gọi nhiều nhất, ít nhất</span></div>
+    <div class="ml-item"><strong>Calls per Consumer</strong><span>Developer/app nào chiếm nhiều traffic nhất</span></div>
+    <div class="ml-item"><strong>Traffic Pattern</strong><span>Peak hours, seasonality, sudden spikes</span></div>
+    <div class="ml-item"><strong>Geographic Distribution</strong><span>Traffic từ region nào — để tối ưu CDN, data residency</span></div>
+    <div class="ml-item"><strong>HTTP Method Distribution</strong><span>Tỷ lệ GET/POST/PUT/DELETE — có phù hợp với use case không</span></div>
+  </div>
+</div>
+
+<div class="metric-category">
+  <h3>2. Performance Metrics — Hiệu Suất</h3>
+  <p>Đo lường tốc độ và reliability của API để đảm bảo SLA và trải nghiệm tốt cho consumer.</p>
+  <div class="metric-list">
+    <div class="ml-item"><strong>Latency Percentiles</strong><span>p50, p95, p99 response time — p99 thường quan trọng nhất với SLA</span></div>
+    <div class="ml-item"><strong>Throughput</strong><span>Số request xử lý được mỗi giây (RPS/QPS)</span></div>
+    <div class="ml-item"><strong>Time to First Byte (TTFB)</strong><span>Thời gian từ request đến byte đầu tiên của response</span></div>
+    <div class="ml-item"><strong>Backend Latency</strong><span>Thời gian backend xử lý — phân biệt với network latency</span></div>
+    <div class="ml-item"><strong>Cache Hit Rate</strong><span>Tỷ lệ request được phục vụ từ cache — tốt: >80% với cacheable endpoints</span></div>
+    <div class="ml-item"><strong>Concurrent Connections</strong><span>Số connection đồng thời — detect connection pool exhaustion</span></div>
+  </div>
+</div>
+
+<div class="metric-category">
+  <h3>3. Error Metrics — Lỗi</h3>
+  <p>Theo dõi lỗi để phát hiện sự cố, hiểu nguyên nhân và cải thiện reliability.</p>
+  <div class="metric-list">
+    <div class="ml-item"><strong>Error Rate</strong><span>% request trả về 4xx hoặc 5xx — alert khi >1%</span></div>
+    <div class="ml-item"><strong>Error Distribution</strong><span>4xx (client error) vs 5xx (server error) — phân biệt lỗi ở đâu</span></div>
+    <div class="ml-item"><strong>Top Error Codes</strong><span>400/401/403/404/429/500 — loại nào phổ biến nhất</span></div>
+    <div class="ml-item"><strong>Error by Endpoint</strong><span>Endpoint nào có error rate cao nhất — ưu tiên fix</span></div>
+    <div class="ml-item"><strong>Error Trend</strong><span>Error rate tăng đột ngột = có thể có incident</span></div>
+    <div class="ml-item"><strong>Validation Error Details</strong><span>Field nào bị reject nhiều nhất — cải thiện docs/validation message</span></div>
+  </div>
+</div>
+
+<div class="metric-category">
+  <h3>4. Business Metrics — Kinh Doanh</h3>
+  <p>Kết nối API usage với business outcome để chứng minh giá trị và ra quyết định chiến lược.</p>
+  <div class="metric-list">
+    <div class="ml-item"><strong>Active Developers</strong><span>Số developer gọi API ít nhất 1 lần trong 30 ngày</span></div>
+    <div class="ml-item"><strong>API Adoption Rate</strong><span>Tỷ lệ developer đăng ký → thực sự dùng API</span></div>
+    <div class="ml-item"><strong>Revenue per API</strong><span>Doanh thu trực tiếp hoặc gián tiếp từ mỗi API product</span></div>
+    <div class="ml-item"><strong>Developer Retention</strong><span>Tỷ lệ developer dùng API tháng này vs tháng trước</span></div>
+    <div class="ml-item"><strong>Plan Upgrade Rate</strong><span>Tỷ lệ free → paid — đo hiệu quả freemium model</span></div>
+    <div class="ml-item"><strong>API-Driven Transactions</strong><span>Giá trị kinh doanh tạo ra qua API (đặt hàng, thanh toán...)</span></div>
+  </div>
+</div>
+
+<h2>Developer Journey Funnel</h2>
+<p>Phân tích analytics theo hành trình của developer giúp tìm ra điểm nghẽn trong adoption:</p>
+
+<div class="funnel">
+  <div class="funnel-step">
+    <span class="num">100%</span>
+    <div><div class="label">Discovery</div><div class="desc">Tìm thấy API — qua docs, search, word-of-mouth</div></div>
+  </div>
+  <div class="funnel-step">
+    <span class="num">60%</span>
+    <div><div class="label">Registration</div><div class="desc">Đăng ký tài khoản, lấy API key</div></div>
+  </div>
+  <div class="funnel-step">
+    <span class="num">40%</span>
+    <div><div class="label">First API Call</div><div class="desc">Gọi API thành công lần đầu trong Sandbox</div></div>
+  </div>
+  <div class="funnel-step">
+    <span class="num">25%</span>
+    <div><div class="label">Active Development</div><div class="desc">Build app thực với API, gọi nhiều endpoint</div></div>
+  </div>
+  <div class="funnel-step">
+    <span class="num">15%</span>
+    <div><div class="label">Production Launch</div><div class="desc">App lên production, traffic thực</div></div>
+  </div>
+  <div class="funnel-step">
+    <span class="num">10%</span>
+    <div><div class="label">Paid Customer</div><div class="desc">Upgrade lên paid plan</div></div>
+  </div>
+</div>
+<p>Mỗi tỷ lệ drop-off là cơ hội cải thiện: tỷ lệ Registration thấp → onboarding quá phức tạp; tỷ lệ First API Call thấp → docs/sandbox chưa tốt; tỷ lệ Production Launch thấp → developer dùng competitor hoặc gặp blocker kỹ thuật.</p>
+
+<h2>KPI Mẫu cho API Analytics Dashboard</h2>
+
+<div class="kpi-grid">
+  <div class="kpi-box"><span class="val">99.97%</span><span class="name">API Availability (30d)</span></div>
+  <div class="kpi-box"><span class="val">142ms</span><span class="name">Median Latency (p50)</span></div>
+  <div class="kpi-box"><span class="val">0.3%</span><span class="name">Error Rate</span></div>
+  <div class="kpi-box"><span class="val">2,847</span><span class="name">Active Developers</span></div>
+</div>
+
+<h2>Cơ Sở Hạ Tầng Analytics</h2>
+
+<div class="dashboard-section">
+  <h4>Data Collection</h4>
+  <p>Mọi API request/response phải được log tại API gateway. Log cần ghi: timestamp, consumer ID, endpoint, method, status code, latency, request size, response size, error code (nếu có), geographic location. Tránh log sensitive data (password, token, PII).</p>
+</div>
+
+<div class="dashboard-section">
+  <h4>Data Pipeline</h4>
+  <p>Từ gateway log → streaming pipeline (Kafka, Kinesis, Pub/Sub) → data warehouse (BigQuery, Snowflake, Redshift) → analytics layer (Looker, Superset, Grafana). Real-time metrics cho alerting, batch aggregation cho business reporting.</p>
+</div>
+
+<div class="dashboard-section">
+  <h4>Alerting</h4>
+  <p>Đặt alert cho các ngưỡng quan trọng: error rate >1%, latency p95 >1000ms, throughput giảm >30%, số active developer giảm >20% so với tuần trước. Alert qua Slack, PagerDuty, email với on-call rotation.</p>
+</div>
+
+<div class="dashboard-section">
+  <h4>Dedicated API Analytics Platforms</h4>
+  <p>Moesif, Treblle, Tyk, và các API gateway tích hợp sẵn analytics (Apigee, Kong, AWS API Gateway CloudWatch). Lợi thế: API-native data model, built-in dashboards, DX metrics mà general purpose tools không có.</p>
+</div>
+
+<h2>Developer Experience (DX) Analytics</h2>
+<p>Ngoài technical metrics, đo lường trải nghiệm developer qua behavioral signals:</p>
+<ul>
+  <li><strong>Time to First Successful Call</strong> — từ đăng ký đến API call thành công đầu tiên. Mục tiêu: &lt;15 phút</li>
+  <li><strong>Documentation Bounce Rate</strong> — developer rời trang docs ngay lập tức — trang nào gây confusion nhất</li>
+  <li><strong>Support Ticket Topics</strong> — lỗi, tính năng, pricing — clustering để thấy pattern</li>
+  <li><strong>SDK Download Trends</strong> — ngôn ngữ nào developer thực sự dùng vs docs viết cho</li>
+  <li><strong>Forum/Community Engagement</strong> — số câu hỏi, thời gian trả lời, sentiment</li>
+</ul>
+
+<nav class="chapnav">
+  <a href="/api-management/chien-luoc-kiem-thu-api"><span class="lbl">Chương trước</span>Chương 9: Chiến Lược Kiểm Thử API</a>
+  <a href="/api-management/cong-thong-tin-nha-phat-trien"><span class="lbl">Chương sau</span>Chương 11: Cổng Thông Tin Nhà Phát Triển</a>
+</nav>
+
+</body>
+</html>

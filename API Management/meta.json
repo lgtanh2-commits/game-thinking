@@ -1,0 +1,121 @@
+{
+  "slug": "api-management",
+  "title": "API Management",
+  "author": "Brajesh De · Apress · 2023",
+  "tag": "API Design · Kiến Trúc Hệ Thống",
+  "category": "Product Management",
+  "chapters": [
+    {
+      "n": 1,
+      "title": "Giới Thiệu về API",
+      "sub": "Hiểu bản chất của API: định nghĩa, lịch sử tiến hóa, phân loại và chuỗi giá trị kinh doanh",
+      "slug": "gioi-thieu-ve-api",
+      "file": "ch01-apimgmt.html"
+    },
+    {
+      "n": 2,
+      "title": "Quản Lý API",
+      "sub": "Nền tảng quản lý API: gateway, bảo mật, traffic, interface translation, analytics và developer portal",
+      "slug": "quan-ly-api",
+      "file": "ch02-apimgmt.html"
+    },
+    {
+      "n": 3,
+      "title": "Thiết Kế Giao Diện RESTful",
+      "sub": "Nguyên tắc thiết kế REST API chuẩn: resource, HTTP method, status code và request/response",
+      "slug": "thiet-ke-giao-dien-restful",
+      "file": "ch03-apimgmt.html"
+    },
+    {
+      "n": 4,
+      "title": "Tài Liệu API",
+      "sub": "Viết tài liệu API chất lượng cao với OpenAPI/Swagger và các thực hành tốt nhất",
+      "slug": "tai-lieu-api",
+      "file": "ch04-apimgmt.html"
+    },
+    {
+      "n": 5,
+      "title": "Các Mẫu Thiết Kế API",
+      "sub": "Facade, Aggregator, BFF và các pattern kiến trúc giải quyết thách thức thực tế",
+      "slug": "cac-mau-thiet-ke-api",
+      "file": "ch05-apimgmt.html"
+    },
+    {
+      "n": 6,
+      "title": "Quản Lý Phiên Bản API",
+      "sub": "Chiến lược versioning để API tiến hóa mà không phá vỡ ứng dụng hiện có",
+      "slug": "quan-ly-phien-ban-api",
+      "file": "ch06-apimgmt.html"
+    },
+    {
+      "n": 7,
+      "title": "Bảo Mật API",
+      "sub": "OAuth 2.0, JWT, mTLS, OWASP API Top 10 và chiến lược bảo vệ API toàn diện",
+      "slug": "bao-mat-api",
+      "file": "ch07-apimgmt.html"
+    },
+    {
+      "n": 8,
+      "title": "Kiếm Tiền Từ API",
+      "sub": "Các mô hình kinh doanh để tạo doanh thu từ API: freemium, subscription, pay-per-use",
+      "slug": "kiem-tien-tu-api",
+      "file": "ch08-apimgmt.html"
+    },
+    {
+      "n": 9,
+      "title": "Chiến Lược Kiểm Thử API",
+      "sub": "Unit test, integration test, contract test và performance test để đảm bảo chất lượng API",
+      "slug": "chien-luoc-kiem-thu-api",
+      "file": "ch09-apimgmt.html"
+    },
+    {
+      "n": 10,
+      "title": "Phân Tích API",
+      "sub": "Thu thập, phân tích và trực quan hóa metrics để tối ưu hóa hiệu suất và trải nghiệm nhà phát triển",
+      "slug": "phan-tich-api",
+      "file": "ch10-apimgmt.html"
+    },
+    {
+      "n": 11,
+      "title": "Cổng Thông Tin Nhà Phát Triển",
+      "sub": "Xây dựng developer portal chất lượng cao để tăng adoption và giữ chân cộng đồng nhà phát triển",
+      "slug": "cong-thong-tin-nha-phat-trien",
+      "file": "ch11-apimgmt.html"
+    },
+    {
+      "n": 12,
+      "title": "Quản Trị API",
+      "sub": "Thiết lập chính sách, tiêu chuẩn và quy trình để quản lý toàn bộ vòng đời API ở quy mô tổ chức",
+      "slug": "quan-tri-api",
+      "file": "ch12-apimgmt.html"
+    },
+    {
+      "n": 13,
+      "title": "Xây Dựng Chiến Lược API Hiệu Quả",
+      "sub": "Lập lộ trình API, xây dựng Center of Excellence và căn chỉnh với mục tiêu kinh doanh",
+      "slug": "xay-dung-chien-luoc-api",
+      "file": "ch13-apimgmt.html"
+    },
+    {
+      "n": 14,
+      "title": "Tiếp Cận API-First cho Chuyển Đổi Số",
+      "sub": "Triết lý API-First và cách nó thúc đẩy chuyển đổi kỹ thuật số trong tổ chức hiện đại",
+      "slug": "tiep-can-api-first",
+      "file": "ch14-apimgmt.html"
+    },
+    {
+      "n": 15,
+      "title": "Xây Dựng API Như Một Sản Phẩm",
+      "sub": "Tư duy product management áp dụng cho API: roadmap, customer discovery và đo lường thành công",
+      "slug": "api-nhu-san-pham",
+      "file": "ch15-apimgmt.html"
+    },
+    {
+      "n": 16,
+      "title": "Xu Hướng Kiến Trúc API năm 2023",
+      "sub": "GraphQL, gRPC, AsyncAPI, serverless, event-driven APIs và tương lai của kiến trúc API",
+      "slug": "xu-huong-kien-truc-api-2023",
+      "file": "ch16-apimgmt.html"
+    }
+  ]
+}

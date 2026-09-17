@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 5: Các Mẫu Thiết Kế API — API Management</title>
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+.pattern-card { background:#fff; border:1px solid var(--color-dew); border-radius:var(--radius-chapter-row); padding:22px; margin-bottom:20px; }
+.pattern-card h3 { font-size:1.05rem; font-weight:700; color:var(--color-slate-ink); margin-bottom:6px; }
+.pattern-meta { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+.pattern-tag { background:var(--color-sage-whisper); color:var(--color-sprout-dark); font-size:11px; font-weight:700; padding:2px 8px; border-radius:var(--radius-badges); }
+.pattern-card p { font-size:.9rem; color:var(--color-ash); margin-bottom:10px; }
+.pattern-card .use-case { font-size:.88rem; background:var(--color-dew); border-radius:8px; padding:10px 14px; }
+.pattern-card .use-case strong { color:var(--color-slate-ink); }
+.diagram { background:var(--color-dew); border-radius:var(--radius-chapter-row); padding:16px; margin:14px 0; font-family:monospace; font-size:.82rem; line-height:2; color:var(--color-slate-ink); text-align:center; }
+.pros-cons { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+.pros { background:#e3f6ec; border-radius:8px; padding:10px 14px; }
+.cons { background:#fde8e8; border-radius:8px; padding:10px 14px; }
+.pros h5, .cons h5 { font-size:.82rem; font-weight:700; margin-bottom:6px; }
+.pros h5 { color:#1a6b3a; }
+.cons h5 { color:#b00020; }
+.pros li, .cons li { font-size:.82rem; margin-bottom:3px; }
+@media(max-width:640px){ .pros-cons{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="/api-management">← Về mục lục</a></p>
+
+<div class="book-label">API Management · Brajesh De · Chương 5</div>
+<h1>Các Mẫu Thiết Kế API</h1>
+<p class="chapter-subtitle">Facade, Aggregator, BFF và các pattern kiến trúc giải quyết thách thức thực tế</p>
+
+<h2>Tại Sao Cần API Patterns?</h2>
+<p>Trong quá trình xây dựng API cho hệ thống phức tạp, các vấn đề lặp đi lặp lại: backend quá chi tiết (chatty API), client quá phụ thuộc vào cấu trúc internal, cần tích hợp nhiều service khác nhau. <strong>API patterns</strong> là giải pháp đã được kiểm chứng để giải quyết các thách thức này một cách có cấu trúc.</p>
+
+<div class="pattern-card">
+  <h3>1. Facade Pattern (Mặt Tiền)</h3>
+  <div class="pattern-meta">
+    <span class="pattern-tag">Abstraction</span>
+    <span class="pattern-tag">Simplification</span>
+    <span class="pattern-tag">Decoupling</span>
+  </div>
+  <p>Facade tạo ra một giao diện đơn giản hóa che giấu sự phức tạp của hệ thống phía sau. Client tương tác với Facade thay vì trực tiếp với các subsystem phức tạp.</p>
+  <div class="diagram">Client App → [ Facade API ] → Subsystem A<br>↘ Subsystem B<br>↘ Subsystem C (Legacy)</div>
+  <p><strong>Ứng dụng trong API</strong>: Khi backend là hệ thống legacy phức tạp, API gateway tạo ra Facade RESTful hiện đại bên trên. Client không cần biết backend dùng SOAP, CORBA hay cấu trúc database như thế nào.</p>
+  <div class="use-case"><strong>Ví dụ thực tế:</strong> Một ngân hàng có core banking system 30 năm tuổi. Thay vì để fintech partner tích hợp trực tiếp với SOAP service cũ, họ xây Facade API RESTful/JSON hiện đại bên trên — đơn giản hóa tích hợp và che giấu complexity nội bộ.</div>
+  <div class="pros-cons">
+    <div class="pros"><h5>✅ Lợi ích</h5><ul><li>Đơn giản hóa giao diện cho consumer</li><li>Backend tự do thay đổi implementation</li><li>Giảm coupling giữa client và backend</li></ul></div>
+    <div class="cons"><h5>❌ Lưu ý</h5><ul><li>Facade có thể trở thành bottleneck</li><li>Cần maintain cả Facade lẫn backend</li><li>Abstraction layer thêm latency nhỏ</li></ul></div>
+  </div>
+</div>
+
+<div class="pattern-card">
+  <h3>2. Aggregator Pattern (Tổng Hợp)</h3>
+  <div class="pattern-meta">
+    <span class="pattern-tag">Composition</span>
+    <span class="pattern-tag">Microservices</span>
+    <span class="pattern-tag">Reduce Round-trips</span>
+  </div>
+  <p>Aggregator nhận một request từ client, gọi nhiều downstream API/service, tổng hợp kết quả và trả về một response duy nhất. Giải quyết vấn đề "chatty" — client phải gọi quá nhiều API để lấy đủ dữ liệu cần.</p>
+  <div class="diagram">Client → [ Aggregator ] → Product Service<br>↘ Inventory Service<br>↘ Review Service<br>↘ Pricing Service<br>← [ Tổng hợp kết quả ]</div>
+  <p><strong>Hai loại aggregation</strong>:</p>
+  <ul>
+    <li><strong>Sequential</strong> — gọi service theo thứ tự, output của service này là input của service tiếp theo</li>
+    <li><strong>Parallel</strong> — gọi tất cả service đồng thời, tổng hợp kết quả sau. Giảm latency tổng thể.</li>
+  </ul>
+  <div class="use-case"><strong>Ví dụ thực tế:</strong> Trang product detail của Amazon gọi hàng chục microservice song song: product info, inventory, reviews, recommendations, seller info, shipping options — tất cả được aggregated thành một response duy nhất cho browser.</div>
+  <div class="pros-cons">
+    <div class="pros"><h5>✅ Lợi ích</h5><ul><li>Giảm số round-trips từ client</li><li>Client code đơn giản hơn</li><li>Parallel call giảm latency</li></ul></div>
+    <div class="cons"><h5>❌ Lưu ý</h5><ul><li>Aggregator phức tạp, khó test</li><li>Partial failure handling khó</li><li>Circuit breaker cần thiết</li></ul></div>
+  </div>
+</div>
+
+<div class="pattern-card">
+  <h3>3. Backend for Frontend (BFF) Pattern</h3>
+  <div class="pattern-meta">
+    <span class="pattern-tag">Multi-client</span>
+    <span class="pattern-tag">Optimization</span>
+    <span class="pattern-tag">Experience API</span>
+  </div>
+  <p>BFF tạo ra một API backend riêng biệt cho mỗi loại client (mobile, web, TV, partner). Thay vì một API chung phải đáp ứng nhu cầu của tất cả client, mỗi client có API được tối ưu riêng cho nhu cầu của nó.</p>
+  <div class="diagram">Mobile App → [ Mobile BFF ] ↘<br>Web Browser → [ Web BFF ] → Backend Services<br>3rd Party → [ Partner BFF ] ↗</div>
+  <p><strong>Tại sao cần BFF?</strong> Mobile app cần data ít hơn web (bandwidth hạn chế), cần cấu trúc dữ liệu khác (flat cho list view), cần cache strategy khác. Nếu dùng chung API, sẽ luôn over-fetch hoặc under-fetch với ít nhất một loại client.</p>
+  <div class="use-case"><strong>Ví dụ thực tế:</strong> Netflix có BFF riêng cho smart TV, iOS, Android, web browser — mỗi BFF tối ưu dữ liệu và format cho khả năng render của từng thiết bị, giảm bandwidth và cải thiện UX.</div>
+  <div class="pros-cons">
+    <div class="pros"><h5>✅ Lợi ích</h5><ul><li>API tối ưu cho từng client</li><li>Team frontend tự chủ BFF của mình</li><li>Giảm over/under-fetching</li></ul></div>
+    <div class="cons"><h5>❌ Lưu ý</h5><ul><li>Nhiều BFF = nhiều code trùng lặp</li><li>Cần maintain nhiều service</li><li>Phù hợp khi client có nhu cầu thực sự khác nhau</li></ul></div>
+  </div>
+</div>
+
+<div class="pattern-card">
+  <h3>4. Gateway Pattern</h3>
+  <div class="pattern-meta">
+    <span class="pattern-tag">Single Entry Point</span>
+    <span class="pattern-tag">Cross-cutting Concerns</span>
+    <span class="pattern-tag">Microservices</span>
+  </div>
+  <p>API Gateway là điểm vào duy nhất cho tất cả client request, xử lý cross-cutting concerns (auth, rate limiting, logging, SSL termination) tập trung thay vì implement ở từng service.</p>
+  <p>Gateway tách biệt hai loại concern: <strong>north-south traffic</strong> (client ↔ API, cần auth, rate limiting nặng) và <strong>east-west traffic</strong> (service ↔ service nội bộ, cần discovery, circuit breaking). Nhiều tổ chức dùng service mesh (Istio, Linkerd) cho east-west và API gateway cho north-south.</p>
+  <div class="use-case"><strong>Ví dụ thực tế:</strong> AWS API Gateway xử lý auth, throttling, caching, logging cho tất cả service của một doanh nghiệp — các Lambda function backend chỉ cần focus vào business logic.</div>
+</div>
+
+<div class="pattern-card">
+  <h3>5. Proxy Pattern</h3>
+  <div class="pattern-meta">
+    <span class="pattern-tag">Mediation</span>
+    <span class="pattern-tag">Legacy Integration</span>
+    <span class="pattern-tag">Protocol Translation</span>
+  </div>
+  <p>API Proxy đứng giữa client và backend service, forwarding request và response với (hoặc không có) transformation. Cho phép thêm capabilities (auth, logging, rate limiting) vào existing service mà không cần thay đổi service đó.</p>
+  <p><strong>Reverse Proxy vs Forward Proxy</strong>: Reverse proxy (NGINX, Apache) bảo vệ backend từ client. Forward proxy bảo vệ client khi truy cập internet. API proxy thường là reverse proxy với thêm API management capabilities.</p>
+</div>
+
+<div class="pattern-card">
+  <h3>6. Circuit Breaker Pattern</h3>
+  <div class="pattern-meta">
+    <span class="pattern-tag">Resilience</span>
+    <span class="pattern-tag">Fault Tolerance</span>
+    <span class="pattern-tag">Microservices</span>
+  </div>
+  <p>Khi một downstream service fail liên tục, Circuit Breaker "ngắt mạch" — dừng gọi service đó trong thời gian ngắn, trả về fallback response ngay lập tức. Ngăn cascade failure (lỗi lan rộng qua toàn hệ thống).</p>
+  <p><strong>Ba trạng thái</strong>: <em>Closed</em> (bình thường, cho phép request qua), <em>Open</em> (đã ngắt, block request, trả fallback ngay), <em>Half-Open</em> (thử lại một số request để kiểm tra service đã phục hồi chưa).</p>
+  <div class="use-case"><strong>Netflix Hystrix</strong> (sau này là Resilience4j) là implementation Circuit Breaker nổi tiếng nhất, được Netflix dùng để đảm bảo trải nghiệm streaming luôn hoạt động kể cả khi một số microservice gặp sự cố.</div>
+</div>
+
+<div class="pattern-card">
+  <h3>7. Retry Pattern với Exponential Backoff</h3>
+  <div class="pattern-meta">
+    <span class="pattern-tag">Resilience</span>
+    <span class="pattern-tag">Transient Failures</span>
+  </div>
+  <p>Tự động retry request khi gặp lỗi tạm thời (network blip, service restart). Kết hợp với <strong>Exponential Backoff</strong> — tăng thời gian chờ theo cấp số nhân sau mỗi lần retry — để tránh "thundering herd" (tất cả client retry cùng lúc làm sập server đang hồi phục).</p>
+  <p>Chỉ retry với idempotent operations (GET, PUT, DELETE). Không retry POST (có thể tạo duplicate). Thêm Jitter (ngẫu nhiên hóa thời gian retry) để phân tán load.</p>
+</div>
+
+<h2>Chọn Pattern Phù Hợp</h2>
+<p>Không có pattern nào phù hợp cho mọi tình huống. Nguyên tắc chọn lựa:</p>
+<ul>
+  <li><strong>Nhiều client với nhu cầu khác nhau</strong> → BFF</li>
+  <li><strong>Nhiều microservice, client cần tổng hợp</strong> → Aggregator</li>
+  <li><strong>Backend legacy, cần modern interface</strong> → Facade</li>
+  <li><strong>Cần một điểm vào tập trung</strong> → Gateway</li>
+  <li><strong>Hệ thống cần resilient</strong> → Circuit Breaker + Retry + Timeout kết hợp</li>
+</ul>
+<p>Trong thực tế, các pattern thường được kết hợp: Gateway + BFF + Circuit Breaker là bộ ba phổ biến trong kiến trúc microservices hiện đại.</p>
+
+<nav class="chapnav">
+  <a href="/api-management/tai-lieu-api"><span class="lbl">Chương trước</span>Chương 4: Tài Liệu API</a>
+  <a href="/api-management/quan-ly-phien-ban-api"><span class="lbl">Chương sau</span>Chương 6: Quản Lý Phiên Bản API</a>
+</nav>
+
+</body>
+</html>

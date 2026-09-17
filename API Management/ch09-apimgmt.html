@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 9: Chiến Lược Kiểm Thử API — API Management</title>
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+.test-type { background:#fff; border:1px solid var(--color-dew); border-radius:var(--radius-chapter-row); padding:22px; margin-bottom:16px; }
+.test-type h3 { font-size:1rem; font-weight:700; color:var(--color-slate-ink); margin-bottom:6px; }
+.test-tag { display:inline-block; font-size:11px; font-weight:700; padding:2px 8px; border-radius:var(--radius-badges); margin-right:6px; margin-bottom:8px; }
+.tag-unit { background:#e3f6ec; color:#1a6b3a; }
+.tag-integration { background:#cce5ff; color:#004085; }
+.tag-contract { background:#e2d9f3; color:#491e7d; }
+.tag-e2e { background:#fff3cd; color:#856404; }
+.tag-perf { background:#fde8e8; color:#b00020; }
+.tag-security { background:var(--color-canopy-shadow); color:var(--color-sage-whisper); }
+.test-type p { font-size:.9rem; color:var(--color-ash); margin-bottom:10px; }
+.test-example { background:var(--color-dew); border-radius:8px; padding:10px 14px; font-size:.85rem; }
+.test-example strong { color:var(--color-sprout-dark); }
+.pyramid { margin:24px 0; text-align:center; }
+.pyramid-level { margin:4px auto; border-radius:6px; padding:10px; font-size:.85rem; font-weight:600; color:#fff; }
+.p-unit { width:280px; background:#1a6b3a; }
+.p-integration { width:220px; background:#004085; }
+.p-contract { width:180px; background:#491e7d; }
+.p-e2e { width:140px; background:#856404; }
+.p-manual { width:100px; background:#b00020; }
+.code-block { background:var(--color-canopy-shadow); border-radius:var(--radius-chapter-row); padding:16px 20px; font-family:monospace; font-size:.82rem; color:var(--color-sage-whisper); overflow-x:auto; margin:16px 0; white-space:pre; }
+.metric-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:20px 0; }
+.metric-item { background:var(--color-sage-whisper); border-radius:10px; padding:14px; text-align:center; }
+.metric-item strong { display:block; font-size:.9rem; color:var(--color-sprout-dark); margin-bottom:4px; }
+.metric-item span { font-size:.82rem; color:var(--color-ash); }
+@media(max-width:640px){ .metric-grid{grid-template-columns:1fr 1fr;} .pyramid-level{width:100%!important;} }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="/api-management">← Về mục lục</a></p>
+
+<div class="book-label">API Management · Brajesh De · Chương 9</div>
+<h1>Chiến Lược Kiểm Thử API</h1>
+<p class="chapter-subtitle">Unit test, integration test, contract test và performance test để đảm bảo chất lượng API</p>
+
+<h2>Tại Sao Kiểm Thử API Quan Trọng?</h2>
+<p>API là "hợp đồng" giữa provider và consumer — khi API lỗi, hàng chục ứng dụng phụ thuộc cùng lỗi theo. Không giống UI có thể sửa nhanh mà user không để ý, lỗi API ảnh hưởng trực tiếp đến tất cả integration và thường phát hiện muộn nhất. Kiểm thử API toàn diện không phải là lựa chọn — đó là điều kiện để API tin cậy đủ để publish.</p>
+
+<h2>Test Pyramid cho API</h2>
+<p>Chiến lược kiểm thử hiệu quả dựa trên nguyên tắc: nhiều test rẻ (unit) ở đáy, ít test đắt (E2E) ở đỉnh. Pyramid này áp dụng trực tiếp cho API testing:</p>
+
+<div class="pyramid">
+  <div class="pyramid-level p-manual">Manual / Exploratory</div>
+  <div class="pyramid-level p-e2e">End-to-End Tests</div>
+  <div class="pyramid-level p-contract">Contract Tests</div>
+  <div class="pyramid-level p-integration">Integration Tests</div>
+  <div class="pyramid-level p-unit">Unit Tests (Business Logic)</div>
+</div>
+
+<h2>Các Loại Kiểm Thử API</h2>
+
+<div class="test-type">
+  <h3>1. Unit Testing — Kiểm Thử Đơn Vị</h3>
+  <span class="test-tag tag-unit">Nhanh</span><span class="test-tag tag-unit">Nhiều nhất</span><span class="test-tag tag-unit">Isolate</span>
+  <p>Test từng hàm, method, business logic riêng lẻ mà không cần dependency thực (database, external service). Sử dụng mock/stub để thay thế dependency. Chạy trong milliseconds, có thể có hàng nghìn test case.</p>
+  <div class="test-example"><strong>Mục tiêu:</strong> Validate business logic — tính toán giá, validate input, transform data. Không phải test HTTP layer hay routing. Tools: JUnit, pytest, Jest, Go test.</div>
+</div>
+
+<div class="test-type">
+  <h3>2. Integration Testing — Kiểm Thử Tích Hợp</h3>
+  <span class="test-tag tag-integration">Database thật</span><span class="test-tag tag-integration">Service thật</span>
+  <p>Test API thực sự qua HTTP, với database và external service thật (hoặc testcontainer). Verify endpoint hoạt động đúng từ đầu đến cuối trong environment kiểm soát được. Chạy chậm hơn unit test nhưng cover những bug mà unit test bỏ sót.</p>
+  <div class="test-example"><strong>Ví dụ:</strong> Gọi POST /orders với body hợp lệ → expect 201 với orderId trong response, kiểm tra database có record tương ứng. Tools: Postman, RestAssured, Supertest (Node.js), pytest + httpx.</div>
+</div>
+
+<div class="test-type">
+  <h3>3. Contract Testing — Kiểm Thử Hợp Đồng</h3>
+  <span class="test-tag tag-contract">Consumer-Driven</span><span class="test-tag tag-contract">Breaking Change Detection</span>
+  <p>Verify rằng API provider và consumer đồng thuận về "hợp đồng" — cấu trúc request/response. Consumer định nghĩa expectations, provider verify rằng họ đáp ứng. Phát hiện breaking change sớm nhất, trước khi code đến production.</p>
+  <div class="test-example"><strong>Pact framework:</strong> Consumer tạo pact file mô tả những gì họ gửi/nhận. Provider verify pact file này. Nếu provider thay đổi response structure → pact test fail ngay, không cần deploy mới biết lỗi.</div>
+</div>
+
+<div class="test-type">
+  <h3>4. End-to-End Testing — Kiểm Thử Toàn Trình</h3>
+  <span class="test-tag tag-e2e">Production-like</span><span class="test-tag tag-e2e">Ít nhất</span>
+  <p>Test full workflow thực tế: từ API call đầu tiên đến kết quả cuối cùng, qua tất cả service thật trong môi trường staging. Tốn kém nhất, chạy chậm nhất, brittle nhất — dành cho critical user journey chính.</p>
+  <div class="test-example"><strong>Ví dụ:</strong> Full e-commerce checkout flow: tìm sản phẩm → thêm giỏ hàng → thanh toán → xác nhận đơn hàng → kiểm tra email, inventory update, payment record. Mỗi bước là API call thực.</div>
+</div>
+
+<div class="test-type">
+  <h3>5. Performance Testing — Kiểm Thử Hiệu Năng</h3>
+  <span class="test-tag tag-perf">Load Test</span><span class="test-tag tag-perf">Stress Test</span><span class="test-tag tag-perf">Soak Test</span>
+  <p>Kiểm tra API hoạt động như thế nào dưới tải. Ba loại chính: <strong>Load test</strong> (traffic bình thường và cao điểm dự kiến), <strong>Stress test</strong> (tăng tải đến khi hệ thống fail — tìm điểm giới hạn), <strong>Soak test</strong> (traffic bình thường trong nhiều giờ/ngày — phát hiện memory leak).</p>
+  <div class="test-example"><strong>Tools phổ biến:</strong> Apache JMeter, k6 (JavaScript-native, CI-friendly), Gatling (Scala DSL), Artillery (Node.js). Metrics quan trọng: throughput (req/s), latency percentiles (p50/p95/p99), error rate.</div>
+</div>
+
+<div class="test-type">
+  <h3>6. Security Testing — Kiểm Thử Bảo Mật</h3>
+  <span class="test-tag tag-security">OWASP</span><span class="test-tag tag-security">Automated Scan</span>
+  <p>Tự động kiểm tra các lỗ hổng bảo mật trong API: SQL injection, broken authentication, excessive data exposure, BOLA/BFLA. Tích hợp vào CI/CD pipeline để phát hiện regression bảo mật sớm.</p>
+  <div class="test-example"><strong>Tools:</strong> OWASP ZAP (automated scanning), Burp Suite (manual + automated), 42Crunch API Security (OpenAPI-based), Checkmarx, Snyk. Ưu tiên test theo OWASP API Top 10.</div>
+</div>
+
+<h2>Viết API Test Hiệu Quả — Ví Dụ Thực Tế</h2>
+
+<h3>Integration Test với Supertest (Node.js)</h3>
+<div class="code-block">const request = require('supertest');
+const app = require('../app');
+const db = require('../db');
+
+describe('POST /orders', () => {
+  beforeEach(async () => {
+    await db.clearOrders(); // Setup sạch trước mỗi test
+  });
+
+  it('should create order and return 201 with orderId', async () => {
+    const response = await request(app)
+      .post('/v1/orders')
+      .set('Authorization', `Bearer ${testToken}`)
+      .send({
+        customerId: 'cust-123',
+        items: [{ productId: 'prod-456', quantity: 2 }]
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body).toMatchObject({
+      id: expect.stringMatching(/^ord-/),
+      status: 'pending',
+      customerId: 'cust-123'
+    });
+    // Verify database state
+    const order = await db.findOrder(response.body.id);
+    expect(order).toBeTruthy();
+  });
+
+  it('should return 400 for missing required fields', async () => {
+    const response = await request(app)
+      .post('/v1/orders')
+      .set('Authorization', `Bearer ${testToken}`)
+      .send({ customerId: 'cust-123' }); // Thiếu items
+
+    expect(response.status).toBe(400);
+    expect(response.body.code).toBe('VALIDATION_ERROR');
+  });
+
+  it('should return 401 without auth token', async () => {
+    const response = await request(app)
+      .post('/v1/orders')
+      .send({ customerId: 'cust-123', items: [] });
+
+    expect(response.status).toBe(401);
+  });
+});</div>
+
+<h3>Performance Test với k6</h3>
+<div class="code-block">import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export const options = {
+  stages: [
+    { duration: '1m', target: 50 },   // Ramp up đến 50 users
+    { duration: '5m', target: 50 },   // Giữ 50 users trong 5 phút
+    { duration: '1m', target: 200 },  // Tăng lên 200 users (peak)
+    { duration: '2m', target: 200 },  // Giữ peak
+    { duration: '1m', target: 0 },    // Ramp down
+  ],
+  thresholds: {
+    http_req_duration: ['p95<500'],   // 95% requests < 500ms
+    http_req_failed: ['rate<0.01'],   // Error rate < 1%
+  },
+};
+
+export default function () {
+  const response = http.get('https://api.example.com/v1/products', {
+    headers: { Authorization: `Bearer ${__ENV.API_TOKEN}` },
+  });
+
+  check(response, {
+    'status is 200': (r) => r.status === 200,
+    'response time < 500ms': (r) => r.timings.duration < 500,
+    'response has products': (r) => JSON.parse(r.body).items.length > 0,
+  });
+
+  sleep(1);
+}</div>
+
+<h2>Test Coverage và Quality Metrics</h2>
+
+<div class="metric-grid">
+  <div class="metric-item"><strong>Happy Path</strong><span>Tất cả endpoint với input hợp lệ phải được test</span></div>
+  <div class="metric-item"><strong>Error Cases</strong><span>400, 401, 403, 404, 409, 429, 500 — mỗi loại ít nhất 1 test</span></div>
+  <div class="metric-item"><strong>Boundary Values</strong><span>Min/max, empty, null, type mismatches</span></div>
+  <div class="metric-item"><strong>Auth Scenarios</strong><span>No token, invalid token, expired token, insufficient scope</span></div>
+  <div class="metric-item"><strong>Idempotency</strong><span>PUT/DELETE gọi hai lần → cùng kết quả</span></div>
+  <div class="metric-item"><strong>Pagination</strong><span>First page, last page, empty results, invalid page number</span></div>
+</div>
+
+<h2>Tích Hợp Vào CI/CD Pipeline</h2>
+<p>Kiểm thử API hiệu quả nhất khi tự động chạy trong CI/CD:</p>
+<ul>
+  <li><strong>Pre-commit hooks</strong> — unit test chạy local trước khi push (fast, ≤30s)</li>
+  <li><strong>Pull Request CI</strong> — unit test + integration test + contract test. Gate: phải pass mới được merge</li>
+  <li><strong>Staging deployment</strong> — E2E test, API security scan tự động sau khi deploy staging</li>
+  <li><strong>Performance regression test</strong> — chạy nightly hoặc trước release lớn, so sánh với baseline</li>
+  <li><strong>Production smoke test</strong> — sau mỗi production deployment, chạy tập test nhỏ (5-10 test) verify critical paths</li>
+</ul>
+
+<blockquote>Quy tắc: Test phải là first-class citizen, không phải afterthought. Nếu API thay đổi mà không có test fail — đó là dấu hiệu test coverage chưa đủ, không phải code tốt.</blockquote>
+
+<h2>API Mocking — Test Khi Dependency Chưa Sẵn Sàng</h2>
+<p>Khi phát triển consumer trước khi provider API sẵn sàng, hoặc khi external API tốn tiền/không ổn định, mock server là giải pháp:</p>
+<ul>
+  <li><strong>WireMock</strong> — Java-based mock server, configure qua JSON hoặc code, record & replay real API calls</li>
+  <li><strong>Mockoon</strong> — GUI tool tạo mock API nhanh chóng, export thành Docker container</li>
+  <li><strong>Prism</strong> (Stoplight) — sinh mock server tự động từ OpenAPI spec, validate request/response theo schema</li>
+  <li><strong>MSW (Mock Service Worker)</strong> — intercept network request trong browser/Node.js, phù hợp với frontend test</li>
+</ul>
+
+<nav class="chapnav">
+  <a href="/api-management/kiem-tien-tu-api"><span class="lbl">Chương trước</span>Chương 8: Kiếm Tiền Từ API</a>
+  <a href="/api-management/phan-tich-api"><span class="lbl">Chương sau</span>Chương 10: Phân Tích API</a>
+</nav>
+
+</body>
+</html>

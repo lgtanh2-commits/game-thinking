@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 4: Tài Liệu API — API Management</title>
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+.doc-type-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0; }
+.doc-card { background:#fff; border:1px solid var(--color-dew); border-radius:var(--radius-chapter-row); padding:20px; }
+.doc-card h4 { font-weight:700; font-size:.95rem; color:var(--color-sprout-dark); margin-bottom:8px; }
+.doc-card p { font-size:.9rem; color:var(--color-ash); margin:0; }
+.openapi-section { background:var(--color-dew); border-radius:var(--radius-chapter-row); padding:20px; margin:20px 0; }
+.openapi-section h4 { font-weight:700; font-size:.95rem; margin-bottom:10px; }
+.code-block { background:var(--color-canopy-shadow); border-radius:var(--radius-chapter-row); padding:16px 20px; font-family:monospace; font-size:.82rem; color:var(--color-sage-whisper); overflow-x:auto; margin:16px 0; white-space:pre; }
+.best-practice { display:flex; gap:12px; padding:14px 0; border-bottom:1px solid var(--color-dew); }
+.best-practice:last-child { border-bottom:none; }
+.bp-icon { font-size:1.2rem; flex-shrink:0; }
+.bp-body h4 { font-weight:700; font-size:.9rem; margin-bottom:4px; }
+.bp-body p { margin:0; font-size:.88rem; color:var(--color-ash); }
+.doc-quality { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:20px 0; }
+.dq-item { background:var(--color-sage-whisper); border-radius:10px; padding:14px; text-align:center; }
+.dq-item strong { display:block; font-size:.9rem; margin-bottom:4px; color:var(--color-sprout-dark); }
+.dq-item span { font-size:.82rem; color:var(--color-ash); }
+@media(max-width:640px){ .doc-type-grid{grid-template-columns:1fr;} .doc-quality{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="/api-management">← Về mục lục</a></p>
+
+<div class="book-label">API Management · Brajesh De · Chương 4</div>
+<h1>Tài Liệu API</h1>
+<p class="chapter-subtitle">Viết tài liệu API chất lượng cao với OpenAPI/Swagger và các thực hành tốt nhất</p>
+
+<h2>Tầm Quan Trọng của Tài Liệu API</h2>
+<p>Tài liệu API (API documentation) là nền tảng của developer experience. Một API dù được thiết kế hoàn hảo nhưng tài liệu kém sẽ thất bại trong adoption. Ngược lại, tài liệu tốt biến API phức tạp trở nên tiếp cận được với mọi developer.</p>
+<p>Khảo sát Smartbear State of the API Report cho thấy <strong>tài liệu là yếu tố quan trọng nhất</strong> khi developer quyết định dùng một API. Tài liệu không chỉ là "sách hướng dẫn" — đó là công cụ marketing, onboarding và retention của developer.</p>
+
+<h2>Các Loại Tài Liệu API</h2>
+
+<div class="doc-type-grid">
+  <div class="doc-card">
+    <h4>📖 API Reference Documentation</h4>
+    <p>Mô tả kỹ thuật chính xác và đầy đủ: mọi endpoint, parameter, request/response format, error code. Là "sự thật duy nhất" về những gì API làm được. Thường được sinh tự động từ code annotations hoặc OpenAPI spec.</p>
+  </div>
+  <div class="doc-card">
+    <h4>🚀 Getting Started Guide</h4>
+    <p>Hướng dẫn nhanh để developer gọi API thành công trong 5-10 phút đầu tiên. Gồm: đăng ký tài khoản, lấy API key, ví dụ "Hello World" đầu tiên. Quyết định ấn tượng ban đầu của developer.</p>
+  </div>
+  <div class="doc-card">
+    <h4>📚 Tutorials & Guides</h4>
+    <p>Hướng dẫn từng bước cho use case cụ thể: "Cách tích hợp thanh toán", "Cách upload file". Giúp developer hiểu cách kết hợp nhiều API call để đạt mục tiêu nghiệp vụ thực tế.</p>
+  </div>
+  <div class="doc-card">
+    <h4>💻 Code Samples & SDKs</h4>
+    <p>Ví dụ code bằng nhiều ngôn ngữ (JavaScript, Python, Java, Go) để developer copy-paste và customize. SDK (Software Development Kit) đóng gói API call thành thư viện sẵn dùng.</p>
+  </div>
+  <div class="doc-card">
+    <h4>🔄 Changelog & Release Notes</h4>
+    <p>Ghi lại mọi thay đổi theo phiên bản: tính năng mới, bug fix, deprecation, breaking change. Giúp developer existing biết khi nào cần cập nhật tích hợp của họ.</p>
+  </div>
+  <div class="doc-card">
+    <h4>❓ FAQ & Troubleshooting</h4>
+    <p>Giải đáp câu hỏi phổ biến và cách xử lý lỗi thường gặp. Giảm tải cho support team và giúp developer tự giải quyết vấn đề nhanh hơn.</p>
+  </div>
+</div>
+
+<h2>OpenAPI Specification (OAS) — Chuẩn Mô Tả API</h2>
+<p><strong>OpenAPI Specification</strong> (trước đây gọi là Swagger Specification) là chuẩn mô tả REST API theo định dạng JSON hoặc YAML mà cả người và máy đều có thể đọc được. Được duy trì bởi OpenAPI Initiative (Linux Foundation), OAS cho phép:</p>
+<ul>
+  <li>Tự động sinh tài liệu interactive (Swagger UI, Redoc)</li>
+  <li>Tự động sinh SDK/client code bằng nhiều ngôn ngữ (OpenAPI Generator)</li>
+  <li>Tự động sinh mock server để test khi backend chưa ready</li>
+  <li>Validation request/response tự động trong CI/CD</li>
+  <li>Import vào API management platform để configure gateway</li>
+</ul>
+
+<h3>Cấu Trúc OpenAPI 3.0</h3>
+<div class="code-block">openapi: "3.0.3"
+info:
+  title: Order Management API
+  description: API quản lý đơn hàng cho hệ thống thương mại điện tử
+  version: "1.0.0"
+  contact:
+    name: API Support
+    email: api@example.com
+
+servers:
+  - url: https://api.example.com/v1
+    description: Production
+  - url: https://sandbox.example.com/v1
+    description: Sandbox
+
+paths:
+  /orders:
+    post:
+      summary: Tạo đơn hàng mới
+      description: Tạo một đơn hàng mới trong hệ thống
+      tags: [Orders]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+            example:
+              customerId: "cust-456"
+              items:
+                - productId: "prod-123"
+                  quantity: 2
+      responses:
+        '201':
+          description: Đơn hàng được tạo thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Dữ liệu request không hợp lệ
+        '401':
+          description: Chưa xác thực
+
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "ord-789"
+        status:
+          type: string
+          enum: [pending, confirmed, shipped, delivered, cancelled]
+        totalAmount:
+          type: number
+          format: float
+          example: 199.98
+        createdAt:
+          type: string
+          format: date-time
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []</div>
+
+<h2>Swagger UI — Tài Liệu Interactive</h2>
+<p>Swagger UI là công cụ render OpenAPI spec thành giao diện web interactive đẹp mắt, cho phép developer:</p>
+<ul>
+  <li>Duyệt tất cả endpoints được nhóm theo tag</li>
+  <li>Xem chi tiết parameter, schema, ví dụ request/response</li>
+  <li><strong>Thử API ngay trực tiếp</strong> trên trình duyệt (Try it out) bằng tài khoản của họ</li>
+  <li>Tải OpenAPI spec file để import vào tool yêu thích</li>
+</ul>
+<p>Nhiều API management platform (Apigee, Kong, AWS API Gateway, Azure APIM) tích hợp Swagger UI hoặc tương tự vào developer portal.</p>
+
+<h2>API Description Approaches: Design-First vs Code-First</h2>
+<p>Có hai cách tiếp cận để tạo OpenAPI spec:</p>
+<ul>
+  <li><strong>Design-First (API-First)</strong> — viết OpenAPI spec trước, rồi mới implement API. Spec là hợp đồng đồng thuận giữa frontend, backend và API team. Giúp phát hiện vấn đề design sớm trước khi code. Phù hợp với team lớn và API public.</li>
+  <li><strong>Code-First</strong> — implement API trước, rồi sinh spec từ code annotations (Swagger annotations trong Java/Spring, FastAPI tự động sinh spec). Nhanh hơn cho prototype, nhưng dễ bị spec "drift" so với thực tế.</li>
+</ul>
+<p>Design-first được khuyến nghị cho API production vì đảm bảo chất lượng và nhất quán hơn.</p>
+
+<h2>Thực Hành Tốt Nhất Khi Viết Tài Liệu</h2>
+
+<div class="best-practice">
+  <span class="bp-icon">✍️</span>
+  <div class="bp-body"><h4>Viết cho developer, không phải cho máy</h4><p>Dùng ngôn ngữ đơn giản, rõ ràng. Giải thích "tại sao" chứ không chỉ "cái gì". Tránh jargon nội bộ và assumption rằng developer biết codebase của bạn.</p></div>
+</div>
+<div class="best-practice">
+  <span class="bp-icon">📝</span>
+  <div class="bp-body"><h4>Mọi tham số phải có description và example</h4><p>Không để field trống hoặc chỉ ghi kiểu dữ liệu. Ví dụ thực tế (không phải "string123") giúp developer hiểu format mong đợi ngay lập tức.</p></div>
+</div>
+<div class="best-practice">
+  <span class="bp-icon">🧪</span>
+  <div class="bp-body"><h4>Cung cấp Sandbox & ví dụ có thể chạy được</h4><p>Developer học tốt nhất bằng cách thử. Sandbox environment với dữ liệu thử nghiệm sẵn có và API key miễn phí giảm rào cản onboarding đáng kể.</p></div>
+</div>
+<div class="best-practice">
+  <span class="bp-icon">🔄</span>
+  <div class="bp-body"><h4>Cập nhật tài liệu song song với code</h4><p>Tài liệu lỗi thời còn tệ hơn không có tài liệu. Tích hợp doc update vào quy trình release — đây là lý do design-first (spec = source of truth) mang lại lợi thế lớn.</p></div>
+</div>
+<div class="best-practice">
+  <span class="bp-icon">📊</span>
+  <div class="bp-body"><h4>Mô tả đầy đủ error responses</h4><p>Nhiều tài liệu chỉ mô tả happy path. Developer cần biết khi nào nhận 400 vs 422, lỗi nào có thể retry, format error message để hiển thị cho end user.</p></div>
+</div>
+<div class="best-practice">
+  <span class="bp-icon">🌐</span>
+  <div class="bp-body"><h4>Cung cấp code sample bằng nhiều ngôn ngữ</h4><p>JavaScript, Python, Java, Go, curl — developer có ngôn ngữ ưa thích. Code sample sẵn giúp họ tích hợp trong vài phút thay vì vài giờ dịch từ spec sang ngôn ngữ họ dùng.</p></div>
+</div>
+
+<h2>Đo Lường Chất Lượng Tài Liệu</h2>
+
+<div class="doc-quality">
+  <div class="dq-item"><strong>Coverage</strong><span>Mọi endpoint, parameter và response đều được mô tả</span></div>
+  <div class="dq-item"><strong>Accuracy</strong><span>Tài liệu khớp 100% với behavior thực tế của API</span></div>
+  <div class="dq-item"><strong>Completeness</strong><span>Có đủ ví dụ, error codes, changelogs</span></div>
+  <div class="dq-item"><strong>Clarity</strong><span>Developer hiểu không cần hỏi thêm</span></div>
+  <div class="dq-item"><strong>Freshness</strong><span>Cập nhật ngay khi API thay đổi</span></div>
+  <div class="dq-item"><strong>Discoverability</strong><span>Developer tìm thấy thông tin cần trong ≤3 click</span></div>
+</div>
+
+<h2>API Changelog — Minh Bạch về Thay Đổi</h2>
+<p>Changelog là cam kết minh bạch với cộng đồng developer. Mỗi entry changelog tốt cần:</p>
+<ul>
+  <li><strong>Ngày phát hành</strong> và số phiên bản</li>
+  <li><strong>Breaking changes</strong> được highlight nổi bật, kèm migration guide</li>
+  <li><strong>New features</strong> — tính năng mới và cách dùng</li>
+  <li><strong>Deprecation notice</strong> — thông báo endpoint/feature nào sẽ bị xóa và timeline</li>
+  <li><strong>Bug fixes</strong> — lỗi nào đã sửa và khi nào</li>
+</ul>
+<p>Đối với breaking changes, cung cấp đủ thời gian migration (thường 6-12 tháng) và hỗ trợ cả version cũ và mới song song trong giai đoạn transition.</p>
+
+<nav class="chapnav">
+  <a href="/api-management/thiet-ke-giao-dien-restful"><span class="lbl">Chương trước</span>Chương 3: Thiết Kế Giao Diện RESTful</a>
+  <a href="/api-management/cac-mau-thiet-ke-api"><span class="lbl">Chương sau</span>Chương 5: Các Mẫu Thiết Kế API</a>
+</nav>
+
+</body>
+</html>

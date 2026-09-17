@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 1: Giới Thiệu về API — API Management</title>
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+.timeline-item { display:flex; gap:16px; margin-bottom:20px; align-items:flex-start; }
+.timeline-year { min-width:100px; font-weight:700; color:var(--color-sprout-dark); font-size:.9rem; padding-top:2px; }
+.timeline-content { flex:1; }
+.api-type-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:20px 0; }
+.api-type-card { background:#fff; border:1px solid var(--color-dew); border-radius:var(--radius-chapter-row); padding:18px; }
+.api-type-card h4 { font-size:.95rem; font-weight:700; margin-bottom:8px; color:var(--color-sprout-dark); }
+.api-type-card p { font-size:.9rem; margin:0; color:var(--color-ash); }
+.value-chain { display:flex; align-items:center; gap:0; margin:24px 0; flex-wrap:wrap; }
+.vc-step { background:var(--color-canopy-shadow); color:var(--color-parchment); padding:12px 16px; border-radius:8px; text-align:center; font-size:.85rem; font-weight:600; flex:1; min-width:100px; }
+.vc-arrow { color:var(--color-sprout); font-size:1.4rem; padding:0 4px; }
+.biz-model-list { list-style:none; margin:0; padding:0; }
+.biz-model-list li { display:flex; align-items:flex-start; gap:12px; padding:14px 0; border-bottom:1px solid var(--color-dew); }
+.biz-model-list li:last-child { border-bottom:none; }
+.biz-badge { background:var(--color-sage-whisper); color:var(--color-sprout-dark); font-size:11px; font-weight:700; padding:3px 10px; border-radius:var(--radius-badges); white-space:nowrap; min-width:120px; text-align:center; margin-top:2px; }
+.compare-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:.9rem; }
+.compare-table th { background:var(--color-canopy-shadow); color:var(--color-parchment); padding:10px 14px; text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:.05em; }
+.compare-table td { padding:10px 14px; border-bottom:1px solid var(--color-dew); vertical-align:top; }
+.compare-table tr:last-child td { border-bottom:none; }
+@media(max-width:640px){ .api-type-grid{grid-template-columns:1fr;} .value-chain{flex-direction:column;} .vc-arrow{transform:rotate(90deg);} }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="/api-management">← Về mục lục</a></p>
+
+<div class="book-label">API Management · Brajesh De · Chương 1</div>
+<h1>Giới Thiệu về API</h1>
+<p class="chapter-subtitle">Hiểu bản chất của API: định nghĩa, lịch sử tiến hóa, phân loại và chuỗi giá trị kinh doanh</p>
+
+<h2>API Là Gì? — Ẩn Dụ Nhà Hàng</h2>
+<p>Cách dễ nhất để hiểu API là thông qua ẩn dụ nhà hàng. Khi bạn đến nhà hàng, bạn xem thực đơn để chọn món, rồi gọi phục vụ để đặt. Bạn có thể yêu cầu điều chỉnh đặc biệt — mức cay, thêm rau. Phục vụ ghi lại yêu cầu và chuyển vào bếp. Đầu bếp chế biến, phục vụ mang món ra bàn. Bạn kiểm tra, ăn, rồi để lại đánh giá.</p>
+
+<p>Trong ẩn dụ này, mỗi thành phần đóng vai trò cụ thể:</p>
+<ul>
+  <li><strong>Bạn là consumer của API</strong> — người gửi yêu cầu và nhận kết quả.</li>
+  <li><strong>Phục vụ là API</strong> — nhận yêu cầu từ consumer, chuyển đến bếp, mang phản hồi về. Phục vụ là trung gian giao tiếp dữ liệu.</li>
+  <li><strong>Thực đơn là tài liệu API</strong> — liệt kê những gì có thể gọi, điều kiện và giá cả. Phục vụ chỉ hiểu những gì ghi trong thực đơn.</li>
+  <li><strong>Bếp là API server</strong> — xử lý yêu cầu theo nghiệp vụ, bạn không biết và không cần biết đầu bếp tên gì hay họ nấu thế nào. Bếp phục vụ theo chuẩn công thức, đảm bảo tính nhất quán.</li>
+</ul>
+
+<p>Trong kỹ thuật, <strong>API (Application Programming Interface)</strong> là giao diện phần mềm xác định hợp đồng — cách hai ứng dụng giao tiếp: hành động có thể thực hiện, định dạng dữ liệu trao đổi, giao thức sử dụng. Triển khai bên trong có thể thay đổi, nhưng hợp đồng phải ổn định — đây là điểm mấu chốt phân biệt API với website.</p>
+
+<h2>Tiến Hóa của API (2000–2023)</h2>
+<p>Lịch sử web API bắt đầu từ năm 2000 và phát triển qua nhiều làn sóng công nghệ:</p>
+
+<div class="timeline-item"><span class="timeline-year">Năm 2000</span><div class="timeline-content">Roy Thomas Fielding công bố luận án tiến sĩ "Architectural Styles and Design of Network-Based Software Architectures", đặt nền tảng lý thuyết cho REST. Cùng năm, Salesforce lần đầu trình diễn XML API tại IDG Demo 2000 — cột mốc API thương mại đầu tiên.</div></div>
+<div class="timeline-item"><span class="timeline-year">Tháng 11/2000</span><div class="timeline-content">eBay ra mắt eBay API và eBay Developers Program, mở ra kỷ nguyên API cho thương mại điện tử và tích hợp đối tác.</div></div>
+<div class="timeline-item"><span class="timeline-year">Tháng 7/2002</span><div class="timeline-content">Amazon Web Services ra mắt, cho phép bên thứ ba tìm kiếm và hiển thị sản phẩm Amazon qua XML. Đây là nền tảng của "nền kinh tế API".</div></div>
+<div class="timeline-item"><span class="timeline-year">2004–2006</span><div class="timeline-content">Làn sóng mạng xã hội: Flickr API (8/2004), Facebook Developer Platform (8/2006), Twitter API (9/2006). API trở thành xương sống của thời đại Web 2.0. Amazon S3 (3/2006) và EC2 (9/2006) mở ra kỷ nguyên cloud computing.</div></div>
+<div class="timeline-item"><span class="timeline-year">Tháng 6/2005</span><div class="timeline-content">Google Maps API ra mắt — một trong những API phổ biến nhất mọi thời đại, với hơn một triệu trang web tích hợp.</div></div>
+<div class="timeline-item"><span class="timeline-year">2009–2010</span><div class="timeline-content">Kỷ nguyên mobile: Foursquare (3/2009), Apple iPhone 3G App Store (6/2009), Instagram (10/2010). API trở thành động lực của nền kinh tế app. REST API và JSON thống trị.</div></div>
+<div class="timeline-item"><span class="timeline-year">2012</span><div class="timeline-content">API trưởng thành. REST APIs thống lĩnh thị trường nhờ tính đơn giản và khả năng mở rộng. JSON trở thành tiêu chuẩn thực tế cho trao đổi dữ liệu.</div></div>
+<div class="timeline-item"><span class="timeline-year">2015</span><div class="timeline-content">Facebook giới thiệu GraphQL như một thay thế cho REST — cho phép client truy vấn đúng dữ liệu cần, giảm over-fetching và under-fetching.</div></div>
+<div class="timeline-item"><span class="timeline-year">2020–2023</span><div class="timeline-content">COVID-19 tăng tốc chuyển đổi số. OpenAPI, AsyncAPI, gRPC chuẩn hóa đặc tả API. Cloud native và microservices bùng nổ. ChatGPT API (2023) mở ra thời đại tích hợp AI/LLM.</div></div>
+
+<h2>API Khác Website Ở Chỗ Nào?</h2>
+<p>Website xuất bản thông tin để người dùng đọc — giao diện, bố cục, nội dung có thể thay đổi bất cứ lúc nào mà không cần báo trước. Không có hợp đồng cứng. Khi website redesign, người dùng chỉ cần thích nghi với giao diện mới.</p>
+<p>API ngược lại, có <strong>hợp đồng cứng</strong>. Các ứng dụng phụ thuộc vào hợp đồng này. Chương trình không linh hoạt như người — nếu hợp đồng API thay đổi, tất cả ứng dụng đang dùng API đó đều bị ảnh hưởng. Do đó, thay đổi API phải được quản lý cẩn thận, có versioning và backward compatibility.</p>
+
+<h2>Phân Loại API: Public, Private, Partner</h2>
+
+<div class="api-type-grid">
+  <div class="api-type-card">
+    <h4>🌐 Public API</h4>
+    <p>Mở cho toàn bộ cộng đồng nhà phát triển. Tối đa hóa adoption và đổi mới. Ví dụ: Google Maps, Twitter, OpenWeather. Thách thức: quản lý bảo mật và phiên bản phức tạp.</p>
+  </div>
+  <div class="api-type-card">
+    <h4>🤝 Partner API</h4>
+    <p>Dành cho đối tác B2B có thỏa thuận hợp tác. Kiểm soát truy cập chặt hơn public API. Ví dụ: API tích hợp giữa ngân hàng và fintech.</p>
+  </div>
+  <div class="api-type-card">
+    <h4>🏢 Private/Internal API</h4>
+    <p>Chỉ dùng nội bộ tổ chức — kết nối hệ thống, xây dựng mobile app doanh nghiệp. Chiếm phần lớn "núi băng" API không nhìn thấy được. Mọi Facebook, Google đều có hàng nghìn internal API.</p>
+  </div>
+</div>
+
+<p>Private API thực chất là phần lớn "núi băng" trong nền kinh tế API — chúng không xuất hiện trên internet nhưng vận hành toàn bộ hệ thống doanh nghiệp. Mỗi doanh nghiệp xây dựng public API đều bắt đầu từ private API nội bộ.</p>
+
+<h2>Đặc Tính của Một API Tốt</h2>
+<p>API provider cần cung cấp thông tin đầy đủ về API của mình:</p>
+<ul>
+  <li><strong>Hành động (Actions)</strong> — API có thể thực hiện chức năng nghiệp vụ gì</li>
+  <li><strong>Vị trí (Location)</strong> — URI/endpoint để truy cập tài nguyên</li>
+  <li><strong>Tham số (Parameters)</strong> — tên tham số đầu vào/đầu ra, định dạng dữ liệu (JSON/XML), kiểu dữ liệu</li>
+  <li><strong>Giao thức (Protocol)</strong> — HTTP/HTTPS, FTP/SFTP, JMS, v.v.</li>
+  <li><strong>Bảo mật (Security)</strong> — cơ chế xác thực: API key, OAuth, mTLS, xác thực đa yếu tố</li>
+  <li><strong>SLA</strong> — response time, throughput, availability cam kết</li>
+  <li><strong>Rate Limits</strong> — giới hạn số lượng request trong khoảng thời gian nhất định</li>
+  <li><strong>Ràng buộc pháp lý</strong> — điều khoản thương mại, phí, yêu cầu branding</li>
+  <li><strong>Tài liệu (Documentation)</strong> — hỗ trợ nhà phát triển hiểu và sử dụng API</li>
+</ul>
+<p>Ngoài ra, API provider có thể cung cấp thêm: developer portal, sample code, community forum, testing tools, health dashboard.</p>
+
+<h2>Các Nhóm API Phổ Biến theo Lĩnh Vực</h2>
+<p>Hiện nay, hầu hết ngành công nghiệp đều có các API nổi bật:</p>
+<ul>
+  <li><strong>Mạng xã hội & messaging</strong>: Facebook, Instagram, LinkedIn, X (Twitter) — truy cập dữ liệu xã hội, người dùng, nội dung</li>
+  <li><strong>Bản đồ & địa điểm</strong>: Google Maps, Mapbox, OpenStreetMap — routing, geolocation, tìm kiếm địa điểm</li>
+  <li><strong>Thanh toán</strong>: Stripe, PayPal, Google Pay, Razorpay — xử lý giao dịch, subscription, ví điện tử</li>
+  <li><strong>Giao tiếp & cộng tác</strong>: Twilio, Slack, Zoom, Microsoft Teams — SMS, voice, video, alerting</li>
+  <li><strong>Thương mại điện tử</strong>: Amazon, eBay, Shopify, Etsy — quản lý đơn hàng, sản phẩm, giỏ hàng</li>
+  <li><strong>Y tế</strong>: Cerner, Allscripts, OpenFDA — hồ sơ bệnh nhân, lịch sử y tế, thiết bị đeo tay</li>
+  <li><strong>Vận tải & du lịch</strong>: Uber, Lyft, Amadeus, Skyscanner — đặt vé, định tuyến, tra cứu thời gian thực</li>
+  <li><strong>Chính phủ & dữ liệu công</strong>: UN Data, NASA, Census Bureau, World Bank — dữ liệu kinh tế, xã hội, khoa học</li>
+  <li><strong>AI & Machine Learning</strong>: TensorFlow, OpenAI, Google Cloud AI — xử lý ngôn ngữ tự nhiên, nhận dạng hình ảnh, chatbot</li>
+  <li><strong>Cloud</strong>: AWS, Azure, Google Cloud — quản lý tài nguyên điện toán đám mây theo chương trình</li>
+</ul>
+
+<h2>Web Service vs REST API: Điểm Khác Biệt</h2>
+
+<table class="compare-table">
+  <thead><tr><th>Tiêu chí</th><th>SOAP Web Service</th><th>REST API</th></tr></thead>
+  <tbody>
+    <tr><td>Giao thức</td><td>HTTP, JMS, FTP, SMTP — linh hoạt</td><td>HTTP/HTTPS — tiêu chuẩn web</td></tr>
+    <tr><td>Định dạng dữ liệu</td><td>XML bắt buộc (SOAP envelope)</td><td>JSON, XML, YAML — JSON phổ biến nhất</td></tr>
+    <tr><td>Mô tả giao diện</td><td>WSDL (cụ thể, máy có thể đọc)</td><td>OpenAPI Specification, RAML</td></tr>
+    <tr><td>Trọng lượng</td><td>Nặng — nhiều header SOAP overhead</td><td>Nhẹ — request/response gọn gàng</td></tr>
+    <tr><td>Cache</td><td>Không hỗ trợ tốt</td><td>HTTP caching tích hợp sẵn</td></tr>
+    <tr><td>Phù hợp</td><td>Tích hợp nội bộ doanh nghiệp truyền thống</td><td>Mobile app, public API, web app hiện đại</td></tr>
+  </tbody>
+</table>
+
+<p>Lưu ý quan trọng: mọi web service đều là API, nhưng không phải API nào cũng là web service. REST API sử dụng HTTP verbs (GET, POST, PUT, DELETE) để thực hiện các thao tác CRUD trên tài nguyên, dùng URL sạch (RESTful URLs) và JSON là định dạng ưa chuộng vì nhẹ và dễ đọc với con người.</p>
+
+<h2>API vs SOA: Hợp Tác, Không Đối Lập</h2>
+<p>Service-Oriented Architecture (SOA) là kiến trúc doanh nghiệp tập trung vào việc xây dựng lại các dịch vụ có thể tái sử dụng, thường dùng SOAP/WSDL, được mô tả trong UDDI registry. SOA giúp agility và pace của delivery dịch vụ nội bộ.</p>
+<p>API tập trung hơn vào tiêu dùng — làm cho dịch vụ dễ sử dụng, thân thiện với developer, dễ adopt qua HTTP/REST/JSON. API không thay thế SOA mà là lớp trên SOA — APIs "đóng gói" lại các dịch vụ SOA để chia sẻ dễ dàng hơn.</p>
+<p>Sự khác biệt thực sự giữa SOA và API nằm ở mục tiêu và quản trị: SOA tập trung kiểm soát và tích hợp nội bộ; API tập trung adoption và đổi mới từ bên ngoài. Cùng nhau, chúng tạo thành nền tảng hoàn chỉnh của doanh nghiệp kỹ thuật số.</p>
+
+<h2>Chuỗi Giá Trị API</h2>
+<p>Để hiểu giá trị kinh tế của API, cần theo dõi chuỗi giá trị từ tài sản doanh nghiệp đến người dùng cuối:</p>
+
+<div class="value-chain">
+  <div class="vc-step">Tài sản<br>doanh nghiệp</div>
+  <div class="vc-arrow">→</div>
+  <div class="vc-step">API Provider<br>(thiết kế API)</div>
+  <div class="vc-arrow">→</div>
+  <div class="vc-step">{ API }</div>
+  <div class="vc-arrow">→</div>
+  <div class="vc-step">App Developer<br>(xây dựng app)</div>
+  <div class="vc-arrow">→</div>
+  <div class="vc-step">App</div>
+  <div class="vc-arrow">→</div>
+  <div class="vc-step">End User</div>
+</div>
+
+<p>Thành công của chiến lược API phụ thuộc vào tất cả mắt xích trong chuỗi giá trị. API provider cần hiểu giá trị tài sản và thiết kế interface tốt nhất để expose nó. Developer phải hiểu tài sản và interface để xây app đáp ứng nhu cầu người dùng. App phải dễ dùng và mang lại giá trị thực sự. Chỉ khi tất cả stakeholders đều hiểu mục tiêu kinh doanh cốt lõi, API mới thành công.</p>
+
+<h2>Động Lực Kinh Doanh của API</h2>
+<p>API là nền tảng của kinh doanh kỹ thuật số. Các động lực kinh doanh chính thúc đẩy doanh nghiệp xây dựng API:</p>
+<ul>
+  <li>Phát triển khả năng và cơ hội kinh doanh mới</li>
+  <li>Mở kênh phân phối và dòng doanh thu mới</li>
+  <li>Cải thiện tiếp cận khách hàng và tăng loyalty</li>
+  <li>Đổi mới tại biên của kinh doanh (edge innovation)</li>
+  <li>Tăng tốc thời gian ra thị trường</li>
+  <li>Nâng cao hiệu quả vận hành và kiểm soát</li>
+  <li>Tăng traffic và thúc đẩy dự án nội bộ</li>
+</ul>
+
+<h2>Mô Hình Kinh Doanh API</h2>
+<p>API tạo ra doanh thu thông qua nhiều mô hình khác nhau:</p>
+
+<ul class="biz-model-list">
+  <li><span class="biz-badge">Freemium / Free</span><div><strong>API miễn phí / Freemium</strong> — Cung cấp API hoàn toàn miễn phí để tối đa hóa adoption. Khách hàng trả phí để có giới hạn cao hơn hoặc tính năng nâng cao. Ví dụ: Google Maps miễn phí đến 25,000 requests/ngày.</div></li>
+  <li><span class="biz-badge">Pay-as-you-go</span><div><strong>Trả theo mức dùng</strong> — Consumer trả tiền tương ứng với số lần gọi API, giao dịch hoặc dữ liệu sử dụng. Mô hình linh hoạt cho doanh nghiệp nhỏ và startup.</div></li>
+  <li><span class="biz-badge">Subscription</span><div><strong>Đăng ký định kỳ</strong> — Phí cố định hàng tháng/năm theo gói, có thể phân tầng theo mức độ sử dụng và tính năng. Tạo doanh thu ổn định và dự báo được.</div></li>
+  <li><span class="biz-badge">Transaction Fee</span><div><strong>Phí giao dịch</strong> — API provider thu một phần phí từ mỗi giao dịch thành công qua API. Phổ biến trong thanh toán, đặt vé, thương mại điện tử.</div></li>
+  <li><span class="biz-badge">Data Licensing</span><div><strong>Cấp phép dữ liệu</strong> — Doanh thu từ việc cấp phép dữ liệu hoặc tính phí truy cập bộ dữ liệu premium cho nghiên cứu, phân tích.</div></li>
+  <li><span class="biz-badge">Affiliate</span><div><strong>Giới thiệu & hoa hồng</strong> — API provider kiếm hoa hồng khi người dùng API đăng ký dịch vụ đối tác thành công.</div></li>
+</ul>
+
+<blockquote>Nhiều API provider kết hợp hai hay nhiều mô hình để đa dạng hóa nguồn thu và phục vụ các phân khúc khách hàng khác nhau.</blockquote>
+
+<nav class="chapnav">
+  <a href="/api-management/quan-ly-api"><span class="lbl">Chương sau</span>Chương 2: Quản Lý API</a>
+</nav>
+
+</body>
+</html>

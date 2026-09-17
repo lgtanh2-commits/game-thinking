@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 11: Cổng Thông Tin Nhà Phát Triển — API Management</title>
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+.portal-section { background:#fff; border:1px solid var(--color-dew); border-radius:var(--radius-chapter-row); padding:20px; margin-bottom:16px; display:flex; gap:16px; }
+.ps-icon { font-size:2rem; flex-shrink:0; }
+.ps-body h3 { font-size:1rem; font-weight:700; margin-bottom:6px; }
+.ps-body p { font-size:.9rem; color:var(--color-ash); margin-bottom:8px; }
+.ps-body ul { padding-left:1.2em; }
+.ps-body li { font-size:.88rem; color:var(--color-ash); margin-bottom:3px; }
+.journey-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:20px 0; }
+.journey-step { background:var(--color-sage-whisper); border-radius:10px; padding:14px; text-align:center; }
+.journey-step .icon { font-size:1.5rem; display:block; margin-bottom:6px; }
+.journey-step .title { font-size:.88rem; font-weight:700; color:var(--color-slate-ink); display:block; margin-bottom:4px; }
+.journey-step .desc { font-size:.78rem; color:var(--color-ash); }
+.platform-compare { width:100%; border-collapse:collapse; margin:20px 0; }
+.platform-compare th { background:var(--color-canopy-shadow); color:var(--color-sage-whisper); padding:10px 14px; text-align:left; font-size:12px; text-transform:uppercase; }
+.platform-compare td { padding:10px 14px; border-bottom:1px solid var(--color-dew); font-size:.88rem; vertical-align:top; }
+.platform-compare tr:hover td { background:var(--color-sage-whisper); }
+.check { color:#1a6b3a; font-weight:700; }
+.partial { color:#856404; }
+.no { color:#b00020; }
+.onboarding-flow { display:flex; flex-direction:column; gap:8px; margin:16px 0; }
+.of-step { display:flex; align-items:flex-start; gap:14px; padding:12px 16px; background:var(--color-dew); border-radius:8px; }
+.of-num { background:var(--color-sprout-dark); color:#fff; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem; flex-shrink:0; }
+.of-content strong { font-size:.9rem; display:block; margin-bottom:2px; }
+.of-content span { font-size:.82rem; color:var(--color-ash); }
+@media(max-width:640px){ .journey-steps{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="/api-management">← Về mục lục</a></p>
+
+<div class="book-label">API Management · Brajesh De · Chương 11</div>
+<h1>Cổng Thông Tin Nhà Phát Triển</h1>
+<p class="chapter-subtitle">Xây dựng developer portal chất lượng cao để tăng adoption và giữ chân cộng đồng nhà phát triển</p>
+
+<h2>Developer Portal Là Gì?</h2>
+<p>Developer Portal (Cổng Thông Tin Nhà Phát Triển) là "mặt tiền" của API program — nơi developer khám phá, học cách dùng, đăng ký và quản lý việc tích hợp API. Nó không chỉ là nơi host tài liệu — đó là toàn bộ trải nghiệm của developer với API của bạn, từ lần đầu tiên tìm thấy cho đến khi họ trở thành customer trung thành.</p>
+<p>Salesforce, Stripe và Twilio xây dựng developer communities hàng triệu người phần lớn nhờ vào chất lượng của developer portal. Đây là competitive advantage thực sự trong API economy.</p>
+
+<h2>Hành Trình Developer qua Portal</h2>
+
+<div class="journey-steps">
+  <div class="journey-step">
+    <span class="icon">🔍</span>
+    <span class="title">Discover</span>
+    <span class="desc">Tìm thấy API qua search, marketplace, recommendation</span>
+  </div>
+  <div class="journey-step">
+    <span class="icon">📖</span>
+    <span class="title">Learn</span>
+    <span class="desc">Đọc docs, xem examples, hiểu capabilities</span>
+  </div>
+  <div class="journey-step">
+    <span class="icon">🔑</span>
+    <span class="title">Register</span>
+    <span class="desc">Tạo account, lấy API key, chọn plan</span>
+  </div>
+  <div class="journey-step">
+    <span class="icon">🚀</span>
+    <span class="title">Build</span>
+    <span class="desc">Tích hợp vào app, debug, test trong sandbox</span>
+  </div>
+</div>
+
+<h2>Các Thành Phần Cốt Lõi của Developer Portal</h2>
+
+<div class="portal-section">
+  <span class="ps-icon">🏠</span>
+  <div class="ps-body">
+    <h3>API Catalog — Danh Mục API</h3>
+    <p>Trang chủ liệt kê tất cả API product với tên, mô tả ngắn, category, version, trạng thái (stable/beta/deprecated). Có search và filter để developer tìm nhanh API phù hợp. Mỗi API card link đến trang chi tiết.</p>
+    <ul>
+      <li>Categorization rõ ràng (Payments, Logistics, Identity, Analytics...)</li>
+      <li>Badges hiển thị trạng thái và version</li>
+      <li>Rating và số developer đang dùng (social proof)</li>
+      <li>Quick-start badge: "5 phút để gọi API đầu tiên"</li>
+    </ul>
+  </div>
+</div>
+
+<div class="portal-section">
+  <span class="ps-icon">📚</span>
+  <div class="ps-body">
+    <h3>Interactive Documentation</h3>
+    <p>Tài liệu API đầy đủ với khả năng try-it-out ngay trên trình duyệt. Tích hợp Swagger UI hoặc Redoc cho API reference, kết hợp với guides và tutorials dạng prose.</p>
+    <ul>
+      <li>API reference với try-it-out (gọi API thật bằng credentials của developer)</li>
+      <li>Code samples tự động trong nhiều ngôn ngữ</li>
+      <li>Request/response examples có thể copy</li>
+      <li>Error code reference với giải thích và cách fix</li>
+    </ul>
+  </div>
+</div>
+
+<div class="portal-section">
+  <span class="ps-icon">🔐</span>
+  <div class="ps-body">
+    <h3>Self-Service Registration & Key Management</h3>
+    <p>Developer phải có thể tự đăng ký, lấy API key và bắt đầu test mà không cần liên hệ với ai. Friction ở đây trực tiếp giảm adoption rate.</p>
+    <ul>
+      <li>Social login (GitHub, Google) để giảm friction đăng ký</li>
+      <li>Immediate sandbox access sau đăng ký — không cần approve manual</li>
+      <li>Key rotation, revoke, tạo nhiều key cho nhiều app/environment</li>
+      <li>Usage dashboard tự phục vụ: xem consumption real-time</li>
+    </ul>
+  </div>
+</div>
+
+<div class="portal-section">
+  <span class="ps-icon">🧪</span>
+  <div class="ps-body">
+    <h3>Sandbox Environment</h3>
+    <p>Môi trường test với dữ liệu giả, không ảnh hưởng production, không tốn tiền. Developer phải có thể test toàn bộ happy path và error scenario trước khi chuyển sang production.</p>
+    <ul>
+      <li>Pre-populated test data (users, products, transactions)</li>
+      <li>Test cards/accounts (với payment API)</li>
+      <li>Simulated error injection (503, timeout) để test error handling</li>
+      <li>Request inspector — xem log mọi sandbox call</li>
+    </ul>
+  </div>
+</div>
+
+<div class="portal-section">
+  <span class="ps-icon">💬</span>
+  <div class="ps-body">
+    <h3>Community & Support</h3>
+    <p>Developer thành công khi có community để hỏi và nhận trợ giúp. Portal tốt tích hợp community trực tiếp, không yêu cầu switch sang tool khác.</p>
+    <ul>
+      <li>Forum hoặc Q&A tích hợp (Discourse, Stack Overflow for Teams)</li>
+      <li>Status page với lịch sử uptime và incident</li>
+      <li>Changelog dễ đọc và subscribe</li>
+      <li>Support ticket system với SLA rõ ràng theo plan</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Onboarding Flow — 5 Phút Đến API Call Đầu Tiên</h2>
+<p>Mục tiêu: developer có thể gọi API thành công trong vòng 5 phút từ khi tìm thấy portal. Mỗi phút thêm là cơ hội họ bỏ đi:</p>
+
+<div class="onboarding-flow">
+  <div class="of-step">
+    <div class="of-num">1</div>
+    <div class="of-content"><strong>Trang chủ rõ ràng</strong><span>Nêu rõ "API này làm gì" và "bắt đầu ngay" — không quá 2 click đến quick start guide</span></div>
+  </div>
+  <div class="of-step">
+    <div class="of-num">2</div>
+    <div class="of-content"><strong>Đăng ký nhanh</strong><span>GitHub/Google login, hoặc email + tạo password trong 1 form, không cần verify email để dùng sandbox</span></div>
+  </div>
+  <div class="of-step">
+    <div class="of-num">3</div>
+    <div class="of-content"><strong>API key ngay</strong><span>Sau đăng ký, hiển thị API key ngay — copy 1 click</span></div>
+  </div>
+  <div class="of-step">
+    <div class="of-num">4</div>
+    <div class="of-content"><strong>Hello World example</strong><span>Ví dụ curl/code với API key đã được điền sẵn, chạy ngay được mà không cần chỉnh sửa</span></div>
+  </div>
+  <div class="of-step">
+    <div class="of-num">5</div>
+    <div class="of-content"><strong>Success state</strong><span>Hiển thị response rõ ràng, explain từng field — kết thúc bằng link đến tutorial tiếp theo</span></div>
+  </div>
+</div>
+
+<h2>So Sánh Giải Pháp Developer Portal</h2>
+
+<table class="platform-compare">
+  <thead>
+    <tr><th>Giải Pháp</th><th>Loại</th><th>Tự Hosting</th><th>API Catalog</th><th>Try-it-out</th><th>Phù Hợp Với</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Apigee Developer Portal</strong></td><td>Managed</td><td class="no">❌</td><td class="check">✅</td><td class="check">✅</td><td>Enterprise, Google Cloud users</td></tr>
+    <tr><td><strong>AWS API Gateway + Developer Portal</strong></td><td>Managed</td><td class="no">❌</td><td class="check">✅</td><td class="check">✅</td><td>AWS ecosystem</td></tr>
+    <tr><td><strong>Kong Developer Portal</strong></td><td>Self-host / SaaS</td><td class="check">✅</td><td class="check">✅</td><td class="check">✅</td><td>Kong gateway users</td></tr>
+    <tr><td><strong>Readme.io</strong></td><td>SaaS</td><td class="no">❌</td><td class="partial">△</td><td class="check">✅</td><td>Startup đến mid-size</td></tr>
+    <tr><td><strong>Stoplight</strong></td><td>SaaS</td><td class="partial">△</td><td class="check">✅</td><td class="check">✅</td><td>Design-first API teams</td></tr>
+    <tr><td><strong>Custom-built</strong></td><td>Custom</td><td class="check">✅</td><td class="check">✅</td><td class="check">✅</td><td>Large enterprise, unique needs</td></tr>
+  </tbody>
+</table>
+
+<h2>Đo Lường Thành Công của Developer Portal</h2>
+<ul>
+  <li><strong>Time to First Hello World</strong> — median thời gian từ đăng ký đến call thành công đầu tiên. Mục tiêu: &lt;5 phút</li>
+  <li><strong>Developer Activation Rate</strong> — % developer đăng ký → gọi API ít nhất 1 lần trong 7 ngày đầu</li>
+  <li><strong>Documentation Satisfaction Score</strong> — khảo sát đơn giản sau mỗi trang docs (👍/👎)</li>
+  <li><strong>Support Deflection Rate</strong> — % câu hỏi được giải quyết bởi docs/forum, không cần ticket</li>
+  <li><strong>Developer NPS</strong> — Net Promoter Score riêng cho developer experience</li>
+  <li><strong>Monthly Active Developers</strong> — growth trend của community</li>
+</ul>
+
+<nav class="chapnav">
+  <a href="/api-management/phan-tich-api"><span class="lbl">Chương trước</span>Chương 10: Phân Tích API</a>
+  <a href="/api-management/quan-tri-api"><span class="lbl">Chương sau</span>Chương 12: Quản Trị API</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 3: Thiết Kế Giao Diện RESTful — API Management</title>
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+.rest-principle { background:#fff; border:1px solid var(--color-dew); border-radius:var(--radius-chapter-row); padding:18px; margin-bottom:14px; display:flex; gap:16px; align-items:flex-start; }
+.rp-num { background:var(--color-canopy-shadow); color:var(--color-sage-whisper); font-weight:700; font-size:.85rem; padding:6px 12px; border-radius:8px; white-space:nowrap; flex-shrink:0; }
+.rp-body h4 { font-weight:700; font-size:.95rem; margin-bottom:6px; }
+.rp-body p { margin:0; font-size:.9rem; color:var(--color-ash); }
+.http-methods { width:100%; border-collapse:collapse; margin:20px 0; }
+.http-methods th { background:var(--color-canopy-shadow); color:var(--color-sage-whisper); padding:10px 14px; text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:.05em; }
+.http-methods td { padding:10px 14px; border-bottom:1px solid var(--color-dew); font-size:.9rem; vertical-align:top; }
+.http-methods tr:last-child td { border-bottom:none; }
+.method-badge { display:inline-block; font-weight:700; font-size:12px; padding:2px 8px; border-radius:4px; font-family:monospace; }
+.get { background:#e3f6ec; color:#1a6b3a; }
+.post { background:#fff3cd; color:#856404; }
+.put { background:#cce5ff; color:#004085; }
+.patch { background:#e2d9f3; color:#491e7d; }
+.delete { background:#f8d7da; color:#721c24; }
+.status-group { margin-bottom:20px; }
+.status-group h4 { font-size:.9rem; font-weight:700; color:var(--color-ash); margin-bottom:10px; }
+.status-row { display:flex; gap:10px; align-items:flex-start; padding:8px 0; border-bottom:1px solid var(--color-dew); }
+.status-row:last-child { border-bottom:none; }
+.status-code { font-family:monospace; font-weight:700; font-size:.9rem; min-width:50px; }
+.code-block { background:var(--color-dew); border-radius:var(--radius-chapter-row); padding:16px 20px; font-family:monospace; font-size:.85rem; color:var(--color-slate-ink); overflow-x:auto; margin:16px 0; white-space:pre; }
+.naming-rule { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--color-dew); align-items:flex-start; }
+.naming-rule:last-child { border-bottom:none; }
+.nr-good { color:var(--color-sprout-dark); font-weight:700; font-size:.9rem; font-family:monospace; }
+.nr-bad { color:#b00020; text-decoration:line-through; font-size:.9rem; font-family:monospace; }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="/api-management">← Về mục lục</a></p>
+
+<div class="book-label">API Management · Brajesh De · Chương 3</div>
+<h1>Thiết Kế Giao Diện RESTful</h1>
+<p class="chapter-subtitle">Nguyên tắc thiết kế REST API chuẩn: resource, HTTP method, status code và request/response</p>
+
+<h2>REST Là Gì?</h2>
+<p>REST (Representational State Transfer) là phong cách kiến trúc được Roy Fielding định nghĩa trong luận án tiến sĩ năm 2000. REST không phải chuẩn hay giao thức — đó là tập hợp ràng buộc kiến trúc hướng dẫn thiết kế hệ thống phân tán qua HTTP. API tuân thủ REST được gọi là <strong>RESTful API</strong>.</p>
+<p>RESTful API được ưa chuộng nhất cho API hiện đại vì tính đơn giản, nhẹ, dễ sử dụng và khả năng mở rộng cao. JSON là định dạng dữ liệu chuẩn thực tế cho REST API.</p>
+
+<h2>Sáu Ràng Buộc Kiến Trúc REST</h2>
+
+<div class="rest-principle">
+  <span class="rp-num">1</span>
+  <div class="rp-body"><h4>Client-Server</h4><p>Client và server tách biệt hoàn toàn — client không biết logic server, server không biết UI client. Điều này cho phép cả hai tiến hóa độc lập, tăng tính portable và scalability.</p></div>
+</div>
+<div class="rest-principle">
+  <span class="rp-num">2</span>
+  <div class="rp-body"><h4>Stateless</h4><p>Mỗi request từ client phải chứa đủ thông tin để server xử lý — server không lưu trạng thái client giữa các request. Session state được lưu hoàn toàn ở phía client (thường trong token). Điều này cải thiện visibility, reliability và scalability.</p></div>
+</div>
+<div class="rest-principle">
+  <span class="rp-num">3</span>
+  <div class="rp-body"><h4>Cacheable</h4><p>Response có thể được đánh dấu cacheable hoặc non-cacheable. Client và proxy có thể cache response cacheable, giảm tải server và cải thiện performance tổng thể.</p></div>
+</div>
+<div class="rest-principle">
+  <span class="rp-num">4</span>
+  <div class="rp-body"><h4>Uniform Interface</h4><p>Giao diện thống nhất qua toàn hệ thống: resource được xác định qua URI, thao tác trên representation (không phải resource gốc), message tự mô tả (self-descriptive), HATEOAS (hypermedia as engine of application state).</p></div>
+</div>
+<div class="rest-principle">
+  <span class="rp-num">5</span>
+  <div class="rp-body"><h4>Layered System</h4><p>Client không biết đang giao tiếp trực tiếp với server hay qua intermediary (proxy, load balancer, gateway). Các layer này có thể được thêm vào để improve scalability và security mà không ảnh hưởng giao diện.</p></div>
+</div>
+<div class="rest-principle">
+  <span class="rp-num">6</span>
+  <div class="rp-body"><h4>Code on Demand (tùy chọn)</h4><p>Server có thể gửi code thực thi (JavaScript, applet) về client khi cần. Đây là ràng buộc duy nhất không bắt buộc trong REST.</p></div>
+</div>
+
+<h2>Tài Nguyên (Resource) — Khái Niệm Trung Tâm</h2>
+<p>Trong REST, <strong>tài nguyên (resource)</strong> là trừu tượng trung tâm — bất kỳ thứ gì có thể đặt tên: tài liệu, ảnh, bộ sưu tập dữ liệu, dịch vụ. Mỗi resource được xác định duy nhất bởi <strong>URI (Uniform Resource Identifier)</strong>.</p>
+<p>Client thao tác trên <em>representation</em> của resource (JSON/XML) — không phải resource thực tế. Server lưu resource theo cách riêng của nó, nhưng giao tiếp qua representation.</p>
+
+<h2>Đặt Tên URI — Quy Tắc Vàng</h2>
+<p>URI tốt là URI mô tả tài nguyên theo nghiệp vụ, không phải theo hành động. Quy tắc đặt tên:</p>
+
+<div class="naming-rule">
+  <div style="flex:1"><strong>Dùng danh từ số nhiều cho collection</strong></div>
+  <div><span class="nr-good">/orders</span> &nbsp; <span class="nr-bad">/getOrders</span></div>
+</div>
+<div class="naming-rule">
+  <div style="flex:1"><strong>Dùng kebab-case (gạch ngang) để phân tách từ</strong></div>
+  <div><span class="nr-good">/order-items</span> &nbsp; <span class="nr-bad">/orderItems</span></div>
+</div>
+<div class="naming-rule">
+  <div style="flex:1"><strong>Dùng chữ thường</strong></div>
+  <div><span class="nr-good">/users</span> &nbsp; <span class="nr-bad">/Users</span></div>
+</div>
+<div class="naming-rule">
+  <div style="flex:1"><strong>Phân cấp theo quan hệ cha-con</strong></div>
+  <div><span class="nr-good">/customers/123/orders</span></div>
+</div>
+<div class="naming-rule">
+  <div style="flex:1"><strong>Không dùng động từ trong URI</strong></div>
+  <div><span class="nr-good">DELETE /orders/456</span> &nbsp; <span class="nr-bad">/deleteOrder/456</span></div>
+</div>
+<div class="naming-rule">
+  <div style="flex:1"><strong>Không có dấu "/" cuối URI</strong></div>
+  <div><span class="nr-good">/products/123</span> &nbsp; <span class="nr-bad">/products/123/</span></div>
+</div>
+
+<h2>HTTP Methods — Hành Động Trên Resource</h2>
+<p>REST dùng HTTP method để thể hiện hành động. Mỗi method có ngữ nghĩa rõ ràng:</p>
+
+<table class="http-methods">
+  <thead>
+    <tr><th>Method</th><th>CRUD</th><th>Idempotent</th><th>Safe</th><th>Mô tả & Ví dụ</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="method-badge get">GET</span></td>
+      <td>Read</td><td>✅</td><td>✅</td>
+      <td>Lấy dữ liệu, không thay đổi server state. <code>GET /products</code> — lấy danh sách; <code>GET /products/123</code> — lấy chi tiết.</td>
+    </tr>
+    <tr>
+      <td><span class="method-badge post">POST</span></td>
+      <td>Create</td><td>❌</td><td>❌</td>
+      <td>Tạo mới resource. <code>POST /orders</code> — tạo đơn hàng mới. Mỗi lần gọi tạo một resource mới.</td>
+    </tr>
+    <tr>
+      <td><span class="method-badge put">PUT</span></td>
+      <td>Update (full)</td><td>✅</td><td>❌</td>
+      <td>Thay thế hoàn toàn resource. <code>PUT /customers/123</code> — ghi đè toàn bộ customer 123. Phải gửi đầy đủ representation.</td>
+    </tr>
+    <tr>
+      <td><span class="method-badge patch">PATCH</span></td>
+      <td>Update (partial)</td><td>✅*</td><td>❌</td>
+      <td>Cập nhật một phần resource. <code>PATCH /users/456</code> — chỉ cập nhật các field được gửi lên. Tiết kiệm bandwidth.</td>
+    </tr>
+    <tr>
+      <td><span class="method-badge delete">DELETE</span></td>
+      <td>Delete</td><td>✅</td><td>❌</td>
+      <td>Xóa resource. <code>DELETE /orders/789</code> — xóa đơn hàng 789. Gọi lần 2 vẫn trả về 404 (idempotent về kết quả).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>HTTP Status Codes — Giao Tiếp Kết Quả</h2>
+<p>Status code chuẩn là cách API giao tiếp kết quả request với client. Sử dụng đúng status code giúp client xử lý phản hồi chính xác mà không cần phân tích body.</p>
+
+<div class="status-group">
+  <h4>2xx — Thành Công</h4>
+  <div class="status-row"><span class="status-code" style="color:var(--color-sprout-dark)">200</span><div><strong>OK</strong> — Request thành công, response body chứa kết quả (GET, PUT, PATCH)</div></div>
+  <div class="status-row"><span class="status-code" style="color:var(--color-sprout-dark)">201</span><div><strong>Created</strong> — Resource mới được tạo thành công (POST). Header Location chứa URI của resource mới.</div></div>
+  <div class="status-row"><span class="status-code" style="color:var(--color-sprout-dark)">204</span><div><strong>No Content</strong> — Thành công nhưng không có body (DELETE, PUT khi không cần trả về)</div></div>
+  <div class="status-row"><span class="status-code" style="color:var(--color-sprout-dark)">206</span><div><strong>Partial Content</strong> — Trả về một phần resource (phân trang, streaming)</div></div>
+</div>
+
+<div class="status-group">
+  <h4>4xx — Lỗi Client</h4>
+  <div class="status-row"><span class="status-code" style="color:#b00020">400</span><div><strong>Bad Request</strong> — Request sai cú pháp, tham số không hợp lệ, validation fail</div></div>
+  <div class="status-row"><span class="status-code" style="color:#b00020">401</span><div><strong>Unauthorized</strong> — Chưa xác thực hoặc token không hợp lệ. Client cần đăng nhập lại.</div></div>
+  <div class="status-row"><span class="status-code" style="color:#b00020">403</span><div><strong>Forbidden</strong> — Đã xác thực nhưng không có quyền truy cập resource này</div></div>
+  <div class="status-row"><span class="status-code" style="color:#b00020">404</span><div><strong>Not Found</strong> — Resource không tồn tại hoặc đã bị xóa</div></div>
+  <div class="status-row"><span class="status-code" style="color:#b00020">409</span><div><strong>Conflict</strong> — Conflict với state hiện tại của resource (duplicate key, optimistic lock fail)</div></div>
+  <div class="status-row"><span class="status-code" style="color:#b00020">422</span><div><strong>Unprocessable Entity</strong> — Dữ liệu đúng cú pháp nhưng sai logic nghiệp vụ</div></div>
+  <div class="status-row"><span class="status-code" style="color:#b00020">429</span><div><strong>Too Many Requests</strong> — Vượt rate limit. Header Retry-After cho biết khi nào có thể thử lại.</div></div>
+</div>
+
+<div class="status-group">
+  <h4>5xx — Lỗi Server</h4>
+  <div class="status-row"><span class="status-code" style="color:#6c757d">500</span><div><strong>Internal Server Error</strong> — Lỗi không mong đợi ở server</div></div>
+  <div class="status-row"><span class="status-code" style="color:#6c757d">503</span><div><strong>Service Unavailable</strong> — Server tạm thời không phục vụ (maintenance, overload)</div></div>
+  <div class="status-row"><span class="status-code" style="color:#6c757d">504</span><div><strong>Gateway Timeout</strong> — Gateway không nhận được phản hồi từ upstream kịp thời</div></div>
+</div>
+
+<h2>Thiết Kế Request & Response</h2>
+
+<h3>Cấu Trúc Request</h3>
+<div class="code-block">POST /api/v1/orders HTTP/1.1
+Host: api.example.com
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
+Accept: application/json
+
+{
+  "customerId": "cust-456",
+  "items": [
+    { "productId": "prod-123", "quantity": 2, "price": 99.99 }
+  ],
+  "shippingAddress": {
+    "street": "123 Nguyễn Văn Linh",
+    "city": "Hà Nội"
+  }
+}</div>
+
+<h3>Cấu Trúc Response Tốt</h3>
+<div class="code-block">HTTP/1.1 201 Created
+Location: /api/v1/orders/ord-789
+Content-Type: application/json
+
+{
+  "id": "ord-789",
+  "status": "pending",
+  "customerId": "cust-456",
+  "totalAmount": 199.98,
+  "createdAt": "2023-10-15T14:30:00Z",
+  "_links": {
+    "self": { "href": "/api/v1/orders/ord-789" },
+    "cancel": { "href": "/api/v1/orders/ord-789/cancel" },
+    "customer": { "href": "/api/v1/customers/cust-456" }
+  }
+}</div>
+
+<h3>Error Response Chuẩn</h3>
+<div class="code-block">HTTP/1.1 422 Unprocessable Entity
+
+{
+  "error": {
+    "code": "INSUFFICIENT_STOCK",
+    "message": "Không đủ hàng trong kho",
+    "details": [
+      { "field": "items[0].quantity", "issue": "Chỉ còn 1 sản phẩm trong kho" }
+    ],
+    "requestId": "req-abc-123",
+    "timestamp": "2023-10-15T14:30:00Z"
+  }
+}</div>
+
+<h2>Phân Trang, Lọc & Sắp Xếp</h2>
+<p>Khi collection có nhiều item, cần cơ chế phân trang để tránh trả về toàn bộ dữ liệu một lần:</p>
+<ul>
+  <li><strong>Offset-based pagination</strong>: <code>GET /products?offset=20&limit=10</code> — đơn giản nhưng kém hiệu quả khi dữ liệu lớn</li>
+  <li><strong>Cursor-based pagination</strong>: <code>GET /products?after=cursor_xyz&limit=10</code> — hiệu quả hơn, dùng con trỏ vào vị trí cụ thể</li>
+  <li><strong>Lọc (Filter)</strong>: <code>GET /orders?status=pending&customerId=cust-456</code></li>
+  <li><strong>Sắp xếp (Sort)</strong>: <code>GET /products?sort=price&order=asc</code></li>
+  <li><strong>Projection (chọn field)</strong>: <code>GET /users?fields=id,name,email</code> — giảm bandwidth</li>
+</ul>
+
+<h2>HATEOAS — Hypermedia As The Engine of Application State</h2>
+<p>HATEOAS là ràng buộc cao nhất của REST (Level 3 trong Richardson Maturity Model). Mỗi response chứa links đến các hành động tiếp theo liên quan — giúp client khám phá API dynamically mà không cần biết trước toàn bộ URL structure. Xem ví dụ <code>_links</code> trong response ở trên.</p>
+<p>Tuy HATEOAS là "pure REST", trong thực tế nhiều API chỉ đạt Level 2 (URI + HTTP Methods) vì HATEOAS phức tạp để implement và ít được client tận dụng đúng nghĩa. API level 2 vẫn được coi là "RESTful" trong ngành.</p>
+
+<h2>API Design Best Practices Tổng Hợp</h2>
+<ul>
+  <li><strong>Nhất quán</strong> — đặt tên, format, error structure phải nhất quán toàn bộ API</li>
+  <li><strong>Consumer-first</strong> — thiết kế theo nhu cầu consumer, không theo cấu trúc database hay backend</li>
+  <li><strong>Backward compatible</strong> — tránh breaking changes; dùng versioning khi bắt buộc thay đổi</li>
+  <li><strong>Idempotent</strong> — PUT/DELETE phải idempotent; cân nhắc idempotency key cho POST</li>
+  <li><strong>Validation sớm</strong> — validate ở gateway trước khi request đến backend</li>
+  <li><strong>Security by design</strong> — HTTPS bắt buộc; không leak thông tin nội bộ trong error message</li>
+  <li><strong>Tài liệu đầy đủ</strong> — OpenAPI spec đi kèm với mọi API thay đổi</li>
+</ul>
+
+<nav class="chapnav">
+  <a href="/api-management/quan-ly-api"><span class="lbl">Chương trước</span>Chương 2: Quản Lý API</a>
+  <a href="/api-management/tai-lieu-api"><span class="lbl">Chương sau</span>Chương 4: Tài Liệu API</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 12: Quản Trị API — API Management</title>
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+.governance-pillar { background:#fff; border:1px solid var(--color-dew); border-radius:var(--radius-chapter-row); padding:20px; margin-bottom:16px; }
+.governance-pillar h3 { font-size:1rem; font-weight:700; color:var(--color-sprout-dark); margin-bottom:8px; }
+.governance-pillar p { font-size:.9rem; color:var(--color-ash); margin-bottom:10px; }
+.governance-pillar ul { padding-left:1.2em; }
+.governance-pillar li { font-size:.88rem; color:var(--color-ash); margin-bottom:4px; }
+.maturity-table { width:100%; border-collapse:collapse; margin:20px 0; }
+.maturity-table th { background:var(--color-canopy-shadow); color:var(--color-sage-whisper); padding:10px 14px; text-align:left; font-size:12px; text-transform:uppercase; }
+.maturity-table td { padding:10px 14px; border-bottom:1px solid var(--color-dew); font-size:.88rem; vertical-align:top; }
+.maturity-table .level { font-weight:700; }
+.level-1 { color:#856404; }
+.level-2 { color:#004085; }
+.level-3 { color:#491e7d; }
+.level-4 { color:#1a6b3a; }
+.policy-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0; }
+.policy-item { background:var(--color-dew); border-radius:8px; padding:14px; }
+.policy-item h4 { font-size:.9rem; font-weight:700; color:var(--color-slate-ink); margin-bottom:6px; }
+.policy-item p { font-size:.83rem; color:var(--color-ash); margin:0; }
+.review-flow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:16px 0; }
+.rf-step { background:var(--color-canopy-shadow); color:var(--color-parchment); padding:8px 14px; border-radius:6px; font-size:.85rem; font-weight:600; }
+.rf-arrow { color:var(--color-ash); font-size:1.2rem; }
+@media(max-width:640px){ .policy-grid{grid-template-columns:1fr;} .review-flow{flex-direction:column; align-items:flex-start;} }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="/api-management">← Về mục lục</a></p>
+
+<div class="book-label">API Management · Brajesh De · Chương 12</div>
+<h1>Quản Trị API</h1>
+<p class="chapter-subtitle">Thiết lập chính sách, tiêu chuẩn và quy trình để quản lý toàn bộ vòng đời API ở quy mô tổ chức</p>
+
+<h2>Quản Trị API Là Gì?</h2>
+<p>Quản trị API (API Governance) là tập hợp chính sách, tiêu chuẩn, quy trình và vai trò để đảm bảo rằng API trong tổ chức được thiết kế, phát triển, vận hành và retire một cách nhất quán, an toàn và hiệu quả.</p>
+<p>Khi tổ chức có 5 API, governance là vấn đề của team. Khi có 500 API do 20 team khác nhau xây dựng, governance là điều kiện sống còn để tránh chaos: API không nhất quán, bảo mật không đồng đều, không ai biết API nào tồn tại, không ai chịu trách nhiệm khi có incident.</p>
+
+<h2>Các Trụ Cột Quản Trị API</h2>
+
+<div class="governance-pillar">
+  <h3>1. API Design Standards — Tiêu Chuẩn Thiết Kế</h3>
+  <p>Tập tài liệu định nghĩa cách mọi API trong tổ chức phải được thiết kế: naming convention, URL structure, HTTP method usage, error format, pagination, versioning, authentication. Đây là "constitution" của API program.</p>
+  <ul>
+    <li>Style guide viết dưới dạng do/don't với ví dụ cụ thể</li>
+    <li>Linting tool tự động enforce (Spectral, Stoplight) — check OpenAPI spec</li>
+    <li>Design review checklist trước khi API được approve publish</li>
+    <li>Ví dụ API "chuẩn mực" làm reference cho team mới</li>
+  </ul>
+</div>
+
+<div class="governance-pillar">
+  <h3>2. API Lifecycle Management — Quản Lý Vòng Đời</h3>
+  <p>Quy trình chính thức cho mỗi giai đoạn: từ ideation đến design review, đến publish, đến deprecation và sunset. Không có API nào được publish mà không qua review, không có API nào bị tắt đột ngột.</p>
+  <ul>
+    <li>Design review gate: bắt buộc trước khi bắt đầu implementation</li>
+    <li>Security review: OWASP checklist, threat modeling cho mỗi API mới</li>
+    <li>API Registry: catalog tập trung — mọi API đều được đăng ký, có owner</li>
+    <li>Deprecation policy: quy trình và timeline bắt buộc cho mọi sunset</li>
+  </ul>
+</div>
+
+<div class="governance-pillar">
+  <h3>3. Security & Compliance Policies — Chính Sách Bảo Mật</h3>
+  <p>Quy định bảo mật tối thiểu mà mọi API phải đáp ứng: authentication scheme nào được phép, rate limiting tối thiểu, PII handling, data retention, audit logging. Không phải option — là requirement.</p>
+  <ul>
+    <li>Authentication: mọi API phải dùng OAuth 2.0 hoặc JWT (API key chỉ cho internal)</li>
+    <li>PII: không được log personal data trong request/response log</li>
+    <li>TLS: chỉ TLS 1.2+, tự động reject kết nối cũ hơn</li>
+    <li>Rate limiting: mọi public API phải có rate limit, không exception</li>
+    <li>Data classification: mỗi API endpoint phải được classify (public/internal/confidential)</li>
+  </ul>
+</div>
+
+<div class="governance-pillar">
+  <h3>4. API Ownership & Accountability — Sở Hữu và Trách Nhiệm</h3>
+  <p>Mỗi API phải có owner rõ ràng — team hoặc cá nhân chịu trách nhiệm về chất lượng, uptime, documentation, và deprecation. "API không có owner là API đang chết chậm."</p>
+  <ul>
+    <li>API Registry field "owner" là bắt buộc — tên team và contact cụ thể</li>
+    <li>On-call rotation: ai chịu trách nhiệm khi API có incident ngoài giờ</li>
+    <li>SLA commitments: owner cam kết uptime, latency, support response time</li>
+    <li>Review cycle: owner review usage data và health hàng tháng</li>
+  </ul>
+</div>
+
+<div class="governance-pillar">
+  <h3>5. API Review Process — Quy Trình Review</h3>
+  <p>Cơ chế kiểm soát chất lượng tập trung: Design Review Board (DRB) hoặc API Center of Excellence (CoE) review mọi API mới và breaking change quan trọng trước khi publish.</p>
+  <ul>
+    <li>Tiêu chí submit: OpenAPI spec đầy đủ, security assessment, test plan</li>
+    <li>Review SLA: phản hồi trong 5 ngày làm việc, không block team</li>
+    <li>Approve vs Request Changes vs Reject với lý do rõ ràng</li>
+    <li>Fast-track cho hotfix và minor changes</li>
+  </ul>
+</div>
+
+<h2>API Review Process Flow</h2>
+
+<div class="review-flow">
+  <span class="rf-step">Design Proposal</span>
+  <span class="rf-arrow">→</span>
+  <span class="rf-step">Design Review</span>
+  <span class="rf-arrow">→</span>
+  <span class="rf-step">Security Review</span>
+  <span class="rf-arrow">→</span>
+  <span class="rf-step">Implementation</span>
+  <span class="rf-arrow">→</span>
+  <span class="rf-step">QA Review</span>
+  <span class="rf-arrow">→</span>
+  <span class="rf-step">Staging</span>
+  <span class="rf-arrow">→</span>
+  <span class="rf-step">Production</span>
+</div>
+
+<h2>API Governance Maturity Model</h2>
+
+<table class="maturity-table">
+  <thead>
+    <tr><th>Level</th><th>Đặc Điểm</th><th>Dấu Hiệu Nhận Biết</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="level level-1">Level 1: Ad-hoc</span></td>
+      <td>Không có tiêu chuẩn, mỗi team tự quyết định</td>
+      <td>API không nhất quán, không biết bao nhiêu API tồn tại, không ai chịu trách nhiệm</td>
+    </tr>
+    <tr>
+      <td><span class="level level-2">Level 2: Defined</span></td>
+      <td>Có style guide và review process, nhưng áp dụng không đều</td>
+      <td>Một số API follow standard, nhiều API là exception, review tốn nhiều thời gian</td>
+    </tr>
+    <tr>
+      <td><span class="level level-3">Level 3: Managed</span></td>
+      <td>Governance tự động hóa phần lớn, metrics rõ ràng, ownership rõ</td>
+      <td>Linting tự động, API registry đầy đủ, SLA được monitor, review nhanh</td>
+    </tr>
+    <tr>
+      <td><span class="level level-4">Level 4: Optimizing</span></td>
+      <td>Continuous improvement, AI-assisted governance, developer-first culture</td>
+      <td>Governance giúp team nhanh hơn, không làm chậm; self-service hoàn toàn</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Policies Thực Hành</h2>
+
+<div class="policy-grid">
+  <div class="policy-item">
+    <h4>Naming Convention</h4>
+    <p>Resources dùng danh từ số nhiều (orders, not order). URL dùng kebab-case (product-categories, not productCategories). Version trong URL (/v1, /v2). Query params dùng camelCase.</p>
+  </div>
+  <div class="policy-item">
+    <h4>Error Response Format</h4>
+    <p>Tất cả error đều trả về: { "code": "ERROR_CODE", "message": "Human readable", "details": [...], "traceId": "..." }. Không trả về stack trace trong production.</p>
+  </div>
+  <div class="policy-item">
+    <h4>Pagination Standard</h4>
+    <p>Dùng cursor-based pagination cho list lớn (cursor/limit), offset cho list nhỏ (page/pageSize/totalCount). Không trả về toàn bộ collection không paginated.</p>
+  </div>
+  <div class="policy-item">
+    <h4>Deprecation Timeline</h4>
+    <p>Thông báo deprecation tối thiểu 6 tháng trước. Maintain song song cả hai version trong period này. Thông báo qua email, header, developer portal.</p>
+  </div>
+  <div class="policy-item">
+    <h4>Rate Limiting Minimum</h4>
+    <p>Public API: tối thiểu rate limit theo API key. Internal API: tối thiểu circuit breaker. SLA tier higher → higher limits, không phải không limit.</p>
+  </div>
+  <div class="policy-item">
+    <h4>Data Residency</h4>
+    <p>API xử lý data của EU residents phải comply GDPR. Data không rời khỏi region khi có yêu cầu data residency. Log PII phải được mask hoặc encrypt.</p>
+  </div>
+</div>
+
+<h2>API Governance Tooling</h2>
+<ul>
+  <li><strong>Spectral</strong> — open-source linter cho OpenAPI spec, enforce style rules tự động trong CI</li>
+  <li><strong>Stoplight Platform</strong> — thiết kế API, style guide enforcement, cộng tác team</li>
+  <li><strong>Apigee / Kong / Azure APIM</strong> — gateway enforcement: policies apply tự động ở runtime</li>
+  <li><strong>Backstage (Spotify)</strong> — internal developer portal, service catalog, API registry</li>
+  <li><strong>42Crunch</strong> — API security audit tự động, scan OpenAPI spec và live traffic</li>
+</ul>
+
+<blockquote>Governance hiệu quả là governance vô hình — developer làm đúng mà không cần nghĩ về governance vì tools và process đã dẫn dắt họ đến quyết định đúng một cách tự nhiên.</blockquote>
+
+<nav class="chapnav">
+  <a href="/api-management/cong-thong-tin-nha-phat-trien"><span class="lbl">Chương trước</span>Chương 11: Cổng Thông Tin Nhà Phát Triển</a>
+  <a href="/api-management/xay-dung-chien-luoc-api"><span class="lbl">Chương sau</span>Chương 13: Xây Dựng Chiến Lược API Hiệu Quả</a>
+</nav>
+
+</body>
+</html>

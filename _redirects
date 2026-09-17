@@ -1,6 +1,23 @@
 # File này TỰ SINH bởi scripts/generate-redirects.mjs — ĐỪNG tay sửa.
 # Ánh xạ URL sạch /{book-slug}/{chapter-slug} sang file vật lý thật.
 
+/api-management / 200
+/api-management/gioi-thieu-ve-api /API%20Management/ch01-apimgmt 200
+/api-management/quan-ly-api /API%20Management/ch02-apimgmt 200
+/api-management/thiet-ke-giao-dien-restful /API%20Management/ch03-apimgmt 200
+/api-management/tai-lieu-api /API%20Management/ch04-apimgmt 200
+/api-management/cac-mau-thiet-ke-api /API%20Management/ch05-apimgmt 200
+/api-management/quan-ly-phien-ban-api /API%20Management/ch06-apimgmt 200
+/api-management/bao-mat-api /API%20Management/ch07-apimgmt 200
+/api-management/kiem-tien-tu-api /API%20Management/ch08-apimgmt 200
+/api-management/chien-luoc-kiem-thu-api /API%20Management/ch09-apimgmt 200
+/api-management/phan-tich-api /API%20Management/ch10-apimgmt 200
+/api-management/cong-thong-tin-nha-phat-trien /API%20Management/ch11-apimgmt 200
+/api-management/quan-tri-api /API%20Management/ch12-apimgmt 200
+/api-management/xay-dung-chien-luoc-api /API%20Management/ch13-apimgmt 200
+/api-management/tiep-can-api-first /API%20Management/ch14-apimgmt 200
+/api-management/api-nhu-san-pham /API%20Management/ch15-apimgmt 200
+/api-management/xu-huong-kien-truc-api-2023 /API%20Management/ch16-apimgmt 200
 /business-knowledge-it-retail-banking / 200
 /business-knowledge-it-retail-banking/cac-loai-san-pham-ngan-hang-ban-le /Business%20Knowlegde%20for%20IT/ch2-bkrb 200
 /business-knowledge-it-retail-banking/moi-truong-kinh-doanh-trong-ngan-hang-ban-le /Business%20Knowlegde%20for%20IT/ch3-bkrb 200

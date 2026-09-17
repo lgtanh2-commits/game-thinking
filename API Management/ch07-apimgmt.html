@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 7: Bảo Mật API — API Management</title>
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+.security-layer { display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--color-dew); align-items:flex-start; }
+.security-layer:last-child { border-bottom:none; }
+.sl-icon { width:40px; height:40px; background:var(--color-canopy-shadow); color:var(--color-sage-whisper); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+.sl-body h4 { font-weight:700; font-size:.95rem; margin-bottom:6px; }
+.sl-body p { margin:0; font-size:.9rem; color:var(--color-ash); }
+.oauth-flow { background:var(--color-dew); border-radius:var(--radius-chapter-row); padding:20px; margin:20px 0; }
+.oauth-flow h4 { font-weight:700; font-size:.95rem; margin-bottom:12px; }
+.flow-step { display:flex; gap:10px; margin-bottom:8px; font-size:.88rem; align-items:flex-start; }
+.fs-num { background:var(--color-sprout-dark); color:white; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.8rem; flex-shrink:0; margin-top:1px; }
+.owasp-item { background:#fff; border:1px solid var(--color-dew); border-left:4px solid #b00020; border-radius:0 var(--radius-chapter-row) var(--radius-chapter-row) 0; padding:16px; margin-bottom:12px; }
+.owasp-item h4 { font-size:.95rem; font-weight:700; color:#b00020; margin-bottom:6px; }
+.owasp-item p { font-size:.88rem; color:var(--color-ash); margin:0; }
+.owasp-item .mitigation { font-size:.85rem; color:var(--color-sprout-dark); margin-top:8px; font-weight:600; }
+.code-block { background:var(--color-canopy-shadow); border-radius:var(--radius-chapter-row); padding:14px 18px; font-family:monospace; font-size:.82rem; color:var(--color-sage-whisper); overflow-x:auto; margin:14px 0; white-space:pre; }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="/api-management">← Về mục lục</a></p>
+
+<div class="book-label">API Management · Brajesh De · Chương 7</div>
+<h1>Bảo Mật API</h1>
+<p class="chapter-subtitle">OAuth 2.0, JWT, mTLS, OWASP API Top 10 và chiến lược bảo vệ API toàn diện</p>
+
+<h2>Tại Sao Bảo Mật API Là Ưu Tiên Số Một?</h2>
+<p>API là cửa sổ vào dữ liệu và dịch vụ doanh nghiệp. Không giống website (người dùng thấy giao diện), API trực tiếp expose business logic và dữ liệu nhạy cảm qua internet. Một API kém bảo mật có thể dẫn đến: lộ dữ liệu khách hàng, gian lận tài chính, mất kiểm soát hệ thống, thiệt hại danh tiếng và pháp lý.</p>
+<p>Gartner dự báo rằng đến năm 2025, API sẽ trở thành vector tấn công phổ biến nhất, vượt qua cả web application. Đây không phải cường điệu — Salt Security API Security Report 2023 cho thấy 94% tổ chức đã trải qua sự cố bảo mật API trong 12 tháng qua.</p>
+
+<h2>Ba Tầng Bảo Mật API</h2>
+
+<div class="security-layer">
+  <div class="sl-icon">🔑</div>
+  <div class="sl-body"><h4>Tầng 1: Xác Thực (Authentication) — "Bạn là ai?"</h4><p>Xác minh danh tính của caller — người dùng hay ứng dụng. API key, OAuth 2.0 access token, JWT, mutual TLS certificate. Không có authn, không thể biết ai đang gọi API.</p></div>
+</div>
+<div class="security-layer">
+  <div class="sl-icon">🔓</div>
+  <div class="sl-body"><h4>Tầng 2: Phân Quyền (Authorization) — "Bạn được làm gì?"</h4><p>Sau khi xác minh danh tính, kiểm tra quyền truy cập tài nguyên cụ thể. Role-based (RBAC), attribute-based (ABAC), scope-based (OAuth). Đảm bảo user A không đọc được data của user B.</p></div>
+</div>
+<div class="security-layer">
+  <div class="sl-icon">🛡️</div>
+  <div class="sl-body"><h4>Tầng 3: Bảo Vệ & Phát Hiện — "Ngăn chặn lạm dụng"</h4><p>Rate limiting, threat detection, input validation, data masking, audit logging. Phát hiện và ngăn chặn tấn công kể cả từ client đã xác thực hợp lệ.</p></div>
+</div>
+
+<h2>API Key — Đơn Giản Nhưng Hữu Hạn</h2>
+<p>API key là chuỗi token dài, ngẫu nhiên được cấp cho mỗi app/developer. App gửi key trong header (<code>Authorization: ApiKey abc123</code> hoặc <code>X-API-Key: abc123</code>) hoặc query param (<code>?api_key=abc123</code>).</p>
+<p><strong>Phù hợp</strong>: xác thực server-to-server, developer portal access, public API với rate limiting đơn giản.</p>
+<p><strong>Hạn chế</strong>: key không có expiry mặc định (risk nếu bị leak), không mang thông tin user (không biết key thuộc về ai trong một org), không phù hợp cho user-facing app (key dễ bị expose trong JavaScript).</p>
+
+<h2>OAuth 2.0 — Chuẩn Phân Quyền Hiện Đại</h2>
+<p>OAuth 2.0 là framework phân quyền — cho phép ứng dụng truy cập tài nguyên của user mà không cần user chia sẻ mật khẩu. OAuth 2.0 định nghĩa bốn roles:</p>
+<ul>
+  <li><strong>Resource Owner</strong> — user sở hữu dữ liệu</li>
+  <li><strong>Client</strong> — ứng dụng muốn truy cập dữ liệu</li>
+  <li><strong>Authorization Server</strong> — cấp access token (Google, Facebook, Okta, Auth0...)</li>
+  <li><strong>Resource Server</strong> — API server chứa dữ liệu được bảo vệ</li>
+</ul>
+
+<h3>OAuth 2.0 Authorization Code Flow (cho Web App)</h3>
+<div class="oauth-flow">
+  <h4>Luồng phổ biến nhất — dùng khi có user interaction</h4>
+  <div class="flow-step"><span class="fs-num">1</span><span>App redirect user đến Authorization Server: <code>GET /authorize?response_type=code&client_id=...&scope=read:orders&redirect_uri=...</code></span></div>
+  <div class="flow-step"><span class="fs-num">2</span><span>User đăng nhập và chấp thuận quyền (consent screen). Authorization Server sinh <strong>authorization code</strong> ngắn hạn (vài giây).</span></div>
+  <div class="flow-step"><span class="fs-num">3</span><span>Authorization Server redirect về app với code: <code>GET /callback?code=AUTH_CODE</code></span></div>
+  <div class="flow-step"><span class="fs-num">4</span><span>App đổi code lấy access token: <code>POST /token</code> với client_secret. <strong>Bước này xảy ra server-side</strong> — client_secret không bao giờ expose ra browser.</span></div>
+  <div class="flow-step"><span class="fs-num">5</span><span>App dùng access token gọi API: <code>Authorization: Bearer {access_token}</code></span></div>
+  <div class="flow-step"><span class="fs-num">6</span><span>API server validate token (với Authorization Server hoặc local nếu dùng JWT), trả về data.</span></div>
+</div>
+
+<h3>OAuth 2.0 Grants Khác</h3>
+<ul>
+  <li><strong>Client Credentials</strong> — server-to-server, không có user. App dùng client_id + client_secret để lấy token trực tiếp. Phổ biến nhất cho machine-to-machine API calls.</li>
+  <li><strong>PKCE (Proof Key for Code Exchange)</strong> — Authorization Code Flow cho mobile/SPA không thể giữ bí mật client_secret. Thay bằng code_verifier/code_challenge.</li>
+  <li><strong>Device Authorization</strong> — cho thiết bị không có browser (smart TV, IoT). User xác thực trên thiết bị khác.</li>
+</ul>
+
+<h2>JWT — JSON Web Token</h2>
+<p>JWT là định dạng token tự chứa (self-contained) — mang đủ thông tin để Resource Server xác minh mà không cần gọi Authorization Server mỗi lần. Cấu trúc: <code>HEADER.PAYLOAD.SIGNATURE</code></p>
+<div class="code-block">// Header (Base64URL encoded)
+{ "alg": "RS256", "typ": "JWT" }
+
+// Payload (Base64URL encoded)
+{
+  "sub": "user-123",           // Subject (user ID)
+  "iss": "https://auth.example.com",  // Issuer
+  "aud": "api.example.com",    // Audience (API resource server)
+  "exp": 1697400000,           // Expiration (Unix timestamp)
+  "iat": 1697396400,           // Issued At
+  "scope": "read:orders write:orders",
+  "roles": ["admin"]
+}
+
+// Signature (RSA/HMAC over header.payload)
+RSASHA256(base64(header) + "." + base64(payload), private_key)</div>
+<p>Resource Server verify JWT bằng public key của Authorization Server — không cần network call. Nhanh và có thể scale. Nhược điểm: JWT không thể revoke trước khi expire (dùng short expiry + refresh token để giảm risk).</p>
+
+<h2>OpenID Connect (OIDC)</h2>
+<p>OIDC là lớp identity trên OAuth 2.0. OAuth chỉ xử lý <em>authorization</em> (quyền truy cập), còn OIDC thêm <em>authentication</em> — trả về <strong>ID Token</strong> (JWT chứa thông tin user: name, email, profile). OIDC là chuẩn "Sign In with Google/Facebook/Microsoft" mà mọi web app đều dùng.</p>
+
+<h2>Mutual TLS (mTLS) — Bảo Mật Cấp Service</h2>
+<p>TLS thông thường: chỉ client verify certificate của server. mTLS: cả hai bên verify certificate của nhau. Thường dùng cho:</p>
+<ul>
+  <li>Service-to-service communication trong microservices (service mesh như Istio dùng mTLS mặc định)</li>
+  <li>High-security B2B API (fintech, banking) — partner phải có certificate hợp lệ mới gọi được API</li>
+  <li>Bổ sung cho OAuth trong zero-trust architecture (Sender-Constrained Token / DPoP)</li>
+</ul>
+
+<h2>OWASP API Security Top 10 — 2023</h2>
+<p>OWASP (Open Web Application Security Project) công bố danh sách 10 rủi ro bảo mật API phổ biến nhất. Đây là checklist bắt buộc cho mọi API team:</p>
+
+<div class="owasp-item">
+  <h4>API1: Broken Object Level Authorization (BOLA)</h4>
+  <p>API không kiểm tra user có quyền truy cập object ID cụ thể không. User A gửi <code>GET /orders/999</code> và nhận được order của User B nếu API chỉ verify authentication mà không verify authorization theo object.</p>
+  <p class="mitigation">✅ Mitigation: Luôn validate quyền sở hữu object theo user đang gọi API. Không dùng sequential ID — dùng UUID để ngăn enumeration.</p>
+</div>
+<div class="owasp-item">
+  <h4>API2: Broken Authentication</h4>
+  <p>Cơ chế xác thực yếu: không có brute-force protection, credential stuffing, token không expire, JWT với "none" algorithm được chấp nhận.</p>
+  <p class="mitigation">✅ Mitigation: Dùng short-lived token, refresh token rotation, account lockout, MFA, không implement auth tự làm — dùng IdP chuẩn.</p>
+</div>
+<div class="owasp-item">
+  <h4>API3: Broken Object Property Level Authorization</h4>
+  <p>API trả về hoặc cho phép cập nhật nhiều field hơn user được phép — "mass assignment" hay "excessive data exposure". User có thể đọc trường <code>isAdmin</code> hoặc tệ hơn, set nó thành true.</p>
+  <p class="mitigation">✅ Mitigation: Dùng allowlist field (whitelist), không trả về model database trực tiếp, phân biệt rõ read vs write permissions theo từng field.</p>
+</div>
+<div class="owasp-item">
+  <h4>API4: Unrestricted Resource Consumption</h4>
+  <p>Không có rate limiting, quota hay cost control. Attacker khai thác API để gây DoS, tốn chi phí cloud (API calls tốn tiền), hay extract toàn bộ database qua pagination.</p>
+  <p class="mitigation">✅ Mitigation: Rate limiting, consumption quota, spike arrest, max page size, timeout cho API call. Monitor và alert khi usage bất thường.</p>
+</div>
+<div class="owasp-item">
+  <h4>API5: Broken Function Level Authorization</h4>
+  <p>API expose admin/privileged endpoints mà regular user có thể gọi nếu biết URL. Ví dụ: <code>DELETE /admin/users/{id}</code> không kiểm tra role admin.</p>
+  <p class="mitigation">✅ Mitigation: Default deny — mọi endpoint mặc định require authorization. Tách admin và user API, kiểm tra role ở mọi endpoint.</p>
+</div>
+<div class="owasp-item">
+  <h4>API6: Unrestricted Access to Sensitive Business Flows</h4>
+  <p>Không có rate limiting nghiệp vụ. Bot có thể mua toàn bộ hàng giới hạn, gửi spam OTP, enumerate tài khoản qua "forgot password" response khác nhau.</p>
+  <p class="mitigation">✅ Mitigation: Device fingerprinting, CAPTCHA, velocity checking, business rate limiting tách biệt với technical rate limiting.</p>
+</div>
+<div class="owasp-item">
+  <h4>API7: Server-Side Request Forgery (SSRF)</h4>
+  <p>API nhận URL từ client và gọi URL đó — attacker có thể chỉ vào internal service (<code>http://169.254.169.254</code> để lấy AWS metadata, internal databases).</p>
+  <p class="mitigation">✅ Mitigation: Whitelist allowed URL patterns và domains, không resolve internal IP từ URL được user cung cấp.</p>
+</div>
+<div class="owasp-item">
+  <h4>API8: Security Misconfiguration</h4>
+  <p>TLS version cũ, không có security headers, CORS quá rộng (<code>Access-Control-Allow-Origin: *</code> cho authenticated API), stack trace lộ trong error response, debug endpoint không tắt ở production.</p>
+  <p class="mitigation">✅ Mitigation: Security hardening checklist, automated security scanning trong CI/CD, regular security audit.</p>
+</div>
+<div class="owasp-item">
+  <h4>API9: Improper Inventory Management</h4>
+  <p>Không biết tất cả API đang có — shadow API (chạy không có ai biết), deprecated API chưa tắt, API với version cũ không được bảo vệ như version mới.</p>
+  <p class="mitigation">✅ Mitigation: API catalog/registry đầy đủ, API discovery tool, lifecycle governance, tắt API không dùng.</p>
+</div>
+<div class="owasp-item">
+  <h4>API10: Unsafe Consumption of APIs</h4>
+  <p>API của bạn consume third-party API mà không validate, dẫn đến inject attack khi third-party trả dữ liệu độc hại. Supply chain risk.</p>
+  <p class="mitigation">✅ Mitigation: Validate và sanitize dữ liệu từ mọi external API. Đừng tin tưởng blindly kể cả trusted partner.</p>
+</div>
+
+<nav class="chapnav">
+  <a href="/api-management/quan-ly-phien-ban-api"><span class="lbl">Chương trước</span>Chương 6: Quản Lý Phiên Bản API</a>
+  <a href="/api-management/kiem-tien-tu-api"><span class="lbl">Chương sau</span>Chương 8: Kiếm Tiền Từ API</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 2: Quản Lý API — API Management</title>
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+.capability-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:24px 0; }
+.cap-card { background:#fff; border:1px solid var(--color-dew); border-radius:var(--radius-chapter-row); padding:20px; }
+.cap-card h4 { font-size:.95rem; font-weight:700; color:var(--color-sprout-dark); margin-bottom:10px; }
+.cap-card ul { margin:0; padding-left:16px; }
+.cap-card li { font-size:.88rem; color:var(--color-ash); margin-bottom:5px; }
+.gateway-feature { display:flex; gap:14px; padding:14px 0; border-bottom:1px solid var(--color-dew); align-items:flex-start; }
+.gateway-feature:last-child { border-bottom:none; }
+.gf-icon { width:36px; height:36px; background:var(--color-sage-whisper); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+.gf-body h4 { font-size:.95rem; font-weight:700; margin-bottom:4px; }
+.gf-body p { margin:0; font-size:.9rem; color:var(--color-ash); }
+.platform-services { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:20px 0; }
+.ps-card { background:var(--color-canopy-shadow); color:var(--color-parchment); border-radius:var(--radius-chapter-row); padding:18px; }
+.ps-card h4 { font-size:.9rem; font-weight:700; color:var(--color-sage-whisper); margin-bottom:8px; }
+.ps-card li { font-size:.82rem; color:var(--color-mist); margin-bottom:4px; }
+@media(max-width:640px){ .capability-grid{grid-template-columns:1fr;} .platform-services{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<p class="book-topline"><a href="/api-management">← Về mục lục</a></p>
+
+<div class="book-label">API Management · Brajesh De · Chương 2</div>
+<h1>Quản Lý API</h1>
+<p class="chapter-subtitle">Nền tảng quản lý API: gateway, bảo mật, traffic, interface translation, analytics và developer portal</p>
+
+<h2>Tại Sao Cần Quản Lý API?</h2>
+<p>Khách hàng hiện đại muốn truy cập dữ liệu và dịch vụ doanh nghiệp qua nhiều thiết bị và kênh kỹ thuật số. Để đáp ứng, doanh nghiệp cần mở tài sản của mình theo cách linh hoạt, bảo mật, có thể mở rộng. API là cửa sổ vào dữ liệu và dịch vụ doanh nghiệp.</p>
+<p>Khi đã tạo ra API, chúng phải được quản lý bằng một <strong>nền tảng quản lý API (API management platform)</strong>. Nền tảng này giúp doanh nghiệp:</p>
+<ul>
+  <li>Xuất bản API tới các nhà phát triển nội bộ, đối tác và bên ngoài</li>
+  <li>Đảm bảo chương trình API thành công qua developer engagement, business insights, analytics, security và protection</li>
+  <li>Tăng tốc outreach qua các kênh kỹ thuật số, thúc đẩy partner adoption</li>
+  <li>Kiếm tiền từ tài sản kỹ thuật số và cung cấp analytics để tối ưu đầu tư chuyển đổi số</li>
+</ul>
+
+<h2>Bốn Trụ Cột của Nền Tảng Quản Lý API</h2>
+
+<div class="capability-grid">
+  <div class="cap-card">
+    <h4>🔒 Giao Tiếp Bảo Mật, Đáng Tin Cậy & Linh Hoạt</h4>
+    <ul>
+      <li>Xác thực và phân quyền (Authentication & Authorization)</li>
+      <li>Phát hiện mối đe dọa (Threat Detection)</li>
+      <li>Quyền riêng tư dữ liệu (Data Privacy)</li>
+      <li>Quản lý traffic (Traffic Management)</li>
+      <li>Chuyển đổi giao diện (Interface Translation)</li>
+      <li>Service Orchestration và Routing</li>
+    </ul>
+  </div>
+  <div class="cap-card">
+    <h4>📊 Kiểm Toán, Ghi Log & Analytics</h4>
+    <ul>
+      <li>Activity Logging</li>
+      <li>User Auditing</li>
+      <li>Business Value Reporting</li>
+      <li>Contract Management</li>
+      <li>Advanced Analytics</li>
+      <li>Service Level Monitoring</li>
+    </ul>
+  </div>
+  <div class="cap-card">
+    <h4>🔄 Quản Lý Vòng Đời API</h4>
+    <ul>
+      <li>API Publication</li>
+      <li>Version Management</li>
+      <li>Change Notification</li>
+      <li>Issue Management</li>
+    </ul>
+  </div>
+  <div class="cap-card">
+    <h4>👨‍💻 Kích Hoạt Nhà Phát Triển</h4>
+    <ul>
+      <li>API Discovery</li>
+      <li>Developer & App Onboarding</li>
+      <li>Collaboration & Community</li>
+      <li>Developer Enablement Administration</li>
+    </ul>
+  </div>
+</div>
+
+<p>Nền tảng quản lý API cung cấp các khả năng này qua <strong>ba loại dịch vụ chính</strong>:</p>
+
+<div class="platform-services">
+  <div class="ps-card">
+    <h4>API Gateway Services</h4>
+    <ul>
+      <li>API Security</li>
+      <li>Traffic Management</li>
+      <li>Interface Translation</li>
+      <li>Orchestration & Routing</li>
+    </ul>
+  </div>
+  <div class="ps-card">
+    <h4>Analytics Services</h4>
+    <ul>
+      <li>Business Metrics</li>
+      <li>Operational Metrics</li>
+      <li>Developer Metrics</li>
+      <li>App Performance</li>
+    </ul>
+  </div>
+  <div class="ps-card">
+    <h4>Developer Services</h4>
+    <ul>
+      <li>Developer Onboarding</li>
+      <li>API Documentation</li>
+      <li>Community Management</li>
+      <li>Monetization</li>
+    </ul>
+  </div>
+</div>
+
+<h2>API Gateway — Trái Tim của Quản Lý API</h2>
+<p>API gateway là trung tâm của bất kỳ giải pháp quản lý API nào. Nó đứng trước các back-end service, chặn toàn bộ API request để thực thi bảo mật, kiểm tra dữ liệu, throttle traffic và route đến đúng service. Response có thể được cache để cải thiện performance.</p>
+
+<div class="gateway-feature">
+  <div class="gf-icon">🔐</div>
+  <div class="gf-body"><h4>Bảo Mật API</h4><p>Thực thi xác thực (xác minh danh tính app/user), phân quyền (kiểm soát quyền truy cập tài nguyên cụ thể), phát hiện mối đe dọa và bảo vệ dữ liệu nhạy cảm.</p></div>
+</div>
+<div class="gateway-feature">
+  <div class="gf-icon">⚡</div>
+  <div class="gf-body"><h4>Kiểm Tra & Validate Dữ Liệu</h4><p>Phát hiện payload malformed — XML/JSON sai cấu trúc, SQL injection, script độc hại — trước khi request đến back-end, giảm thiểu rủi ro bảo mật content-based.</p></div>
+</div>
+<div class="gateway-feature">
+  <div class="gf-icon">🔄</div>
+  <div class="gf-body"><h4>Throttle & Traffic Management</h4><p>Kiểm soát tốc độ request (consumption quota, spike arrest, usage throttling, traffic prioritization) để bảo vệ back-end và đảm bảo SLA.</p></div>
+</div>
+<div class="gateway-feature">
+  <div class="gf-icon">🔁</div>
+  <div class="gf-body"><h4>Interface Translation</h4><p>Chuyển đổi định dạng dữ liệu (SOAP/XML sang REST/JSON), chuyển đổi giao thức (SOAP sang REST), mapping service và data để kết nối consumer với back-end khác định dạng.</p></div>
+</div>
+<div class="gateway-feature">
+  <div class="gf-icon">💾</div>
+  <div class="gf-body"><h4>Caching</h4><p>Lưu trữ response tĩnh trong bộ nhớ để phục vụ request lặp lại mà không cần gọi back-end. Giảm latency và network traffic đáng kể cho dữ liệu ít thay đổi.</p></div>
+</div>
+<div class="gateway-feature">
+  <div class="gf-icon">🗺️</div>
+  <div class="gf-body"><h4>Service Routing</h4><p>URL mapping, service dispatching, connection pooling, load balancing — đảm bảo request được route đến đúng instance back-end, phân phối tải hiệu quả.</p></div>
+</div>
+<div class="gateway-feature">
+  <div class="gf-icon">🎵</div>
+  <div class="gf-body"><h4>Service Orchestration</h4><p>API gateway gọi nhiều back-end service theo thứ tự hoặc song song, tổng hợp kết quả thành một phản hồi duy nhất cho client — tạo ra coarse-grained service, giảm latency tổng thể.</p></div>
+</div>
+
+<h2>Bảo Mật API: Chi Tiết</h2>
+
+<h3>Xác Thực (Authentication)</h3>
+<p>Xác thực là quá trình xác minh danh tính client. Mỗi app được xác định bằng tên và UUID duy nhất gọi là <strong>App Key</strong> (cũng gọi là API key, app ID, client ID). App key được nền tảng quản lý API cấp phát, theo dõi và thu hồi khi cần. Nền tảng phải có khả năng issue, track và revoke app key.</p>
+
+<h3>Phân Quyền (Authorization)</h3>
+<p>Phân quyền kiểm soát mức truy cập của app — những tài nguyên và method nào app có quyền gọi. Cơ chế phổ biến nhất là <strong>OAuth với access token</strong>. Token này được gửi trong HTTP header, được sinh ra qua OAuth handshake và gắn với các <em>scope</em> xác định API có thể truy cập. Token có thời hạn — khi hết hạn, app dùng <em>refresh token</em> để lấy token mới mà không cần người dùng đăng nhập lại.</p>
+
+<h3>Identity Mediation</h3>
+<p>API thường dùng OAuth cho bảo mật, nhưng back-end service có thể dùng SAML hoặc WS-Security headers. Nền tảng quản lý API phải có khả năng <em>identity mediation</em> — ví dụ chuyển đổi OAuth sang SAML — để kết nối consumer và provider sử dụng chuẩn bảo mật khác nhau.</p>
+
+<h3>Data Privacy & Bảo Vệ Dữ Liệu</h3>
+<p>Dữ liệu nhạy cảm truyền qua API phải được mã hóa (SSL/TLS) và masked trong log. Nền tảng cần hỗ trợ SSL/TLS, mã hóa element-level, quản lý key và certificate.</p>
+
+<h3>Phát Hiện Mối Đe Dọa & DoS Protection</h3>
+<p>Public API mở rộng attack surface doanh nghiệp. DoS attack cố gắng làm sập back-end bằng traffic đột biến. Content-based attack gửi payload malformed (XML/JSON sai, script độc, SQL injection). Nền tảng phải phát hiện và chặn các attack này trước khi chúng đến back-end.</p>
+
+<h2>Quản Lý Traffic: Điều Tiết Lưu Lượng</h2>
+
+<p>Tuỳ vào loại dữ liệu và dịch vụ, các nhóm khách hàng khác nhau có nhu cầu và sẵn sàng trả giá khác nhau. Nền tảng quản lý API cần hỗ trợ:</p>
+<ul>
+  <li><strong>Consumption Quota</strong> — giới hạn số API call trong khoảng thời gian nhất định (ngày/tuần/tháng). App vượt quota bị throttle hoặc chặn.</li>
+  <li><strong>Spike Arrest</strong> — phát hiện traffic tăng đột ngột và drop bớt request để bảo vệ back-end không bị quá tải (đặc biệt quan trọng khi bị DoS).</li>
+  <li><strong>Usage Throttling</strong> — làm chậm các API call tiếp theo một cách có kiểm soát để giảm tải trong giờ cao điểm.</li>
+  <li><strong>Traffic Prioritization</strong> — ưu tiên request từ khách hàng giá trị cao hơn, đảm bảo SLA cho premium tier.</li>
+</ul>
+
+<h2>API Analytics — Đo Lường Giá Trị Kinh Doanh</h2>
+<p>Doanh nghiệp cần insight để biện minh cho đầu tư API và đưa ra quyết định đúng. Các câu hỏi quan trọng cần analytics trả lời:</p>
+<ul>
+  <li>Adoption có tăng trong cộng đồng developer không?</li>
+  <li>Số app xây dựng trên API có tăng không?</li>
+  <li>Performance (latency, throughput) đang như thế nào?</li>
+  <li>Các loại thiết bị nào đang dùng API?</li>
+  <li>API được adopt như thế nào trên toàn cầu?</li>
+</ul>
+
+<h3>Activity Logging</h3>
+<p>Ghi log cơ bản về mọi API access: ai gọi (IP, app), API nào, method nào, HTTP verb, URI, thời điểm, response time, error code. Dữ liệu thô này được xử lý để tạo báo cáo có ý nghĩa.</p>
+
+<h3>User Auditing</h3>
+<p>Cho phép admin xem lịch sử truy cập: ai truy cập API, khi nào, dùng như thế nào, tần suất ra sao. Hỗ trợ compliance và phát hiện bất thường.</p>
+
+<h3>Business Value Reports</h3>
+<p>Đo lường giá trị tiền tệ của chương trình API: doanh thu từ monetization, số unique user, developer đăng ký, app xây dựng, app active — không chỉ là technical metrics.</p>
+
+<h3>Advanced Analytics</h3>
+<p>Extract và log custom variables từ payload message để báo cáo phân tích nâng cao. Cho phép admin và product manager tạo báo cáo tuỳ chỉnh từ dữ liệu captured.</p>
+
+<h3>Service-level Monitoring</h3>
+<p>Theo dõi latency trong platform và latency của back-end calls, phân loại lỗi theo loại, tần suất và mức độ nghiêm trọng. Hỗ trợ troubleshooting và đảm bảo SLA.</p>
+
+<h2>Kích Hoạt Nhà Phát Triển</h2>
+<p>Không có sự tham gia tích cực của cộng đồng developer, chương trình API không thể thành công. Developer cần biết API nào có, tính năng gì, cách dùng ra sao, và cần một môi trường để thử nghiệm trước khi tích hợp vào app production.</p>
+<p>Một <strong>developer portal</strong> (cổng thông tin nhà phát triển) cung cấp:</p>
+<ul>
+  <li>API Discovery — tìm kiếm và khám phá API catalog</li>
+  <li>Developer & App Onboarding — đăng ký, nhận API key, tạo app</li>
+  <li>Tài liệu API đầy đủ và cập nhật</li>
+  <li>Sandbox / interactive console để thử nghiệm API</li>
+  <li>Community forum, blog, sample code, tutorial</li>
+  <li>Hỗ trợ monetization và subscription management</li>
+</ul>
+
+<h2>Quản Lý Vòng Đời API</h2>
+<p>API có vòng đời riêng: được thiết kế, phát triển, xuất bản, vận hành, cập nhật và cuối cùng ngừng hoạt động (deprecated). Nền tảng quản lý API phải hỗ trợ toàn bộ vòng đời này:</p>
+<ul>
+  <li><strong>API Publication</strong> — xuất bản API lên developer portal một cách có kiểm soát</li>
+  <li><strong>Version Management</strong> — quản lý nhiều phiên bản song song để backward compatibility</li>
+  <li><strong>Change Notification</strong> — thông báo cho developer khi API thay đổi hay deprecated</li>
+  <li><strong>Issue Management</strong> — theo dõi và giải quyết vấn đề được báo cáo bởi developer</li>
+</ul>
+
+<h2>Triển Khai: Cloud, On-Premise hay Hybrid</h2>
+<p>Nền tảng quản lý API có thể được triển khai theo nhiều mô hình:</p>
+<ul>
+  <li><strong>Public Cloud (SaaS)</strong> — hosted hoàn toàn bởi API management vendor, dễ setup, scale nhanh</li>
+  <li><strong>On-Premise (Private Cloud)</strong> — deploy trong data center doanh nghiệp, kiểm soát và bảo mật cao hơn</li>
+  <li><strong>Hybrid</strong> — một số thành phần hosted trên cloud, một số on-premise để cân bằng giữa linh hoạt và kiểm soát</li>
+</ul>
+
+<nav class="chapnav">
+  <a href="/api-management/gioi-thieu-ve-api"><span class="lbl">Chương trước</span>Chương 1: Giới Thiệu về API</a>
+  <a href="/api-management/thiet-ke-giao-dien-restful"><span class="lbl">Chương sau</span>Chương 3: Thiết Kế Giao Diện RESTful</a>
+</nav>
+
+</body>
+</html>
