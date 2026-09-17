@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 13: Câu Hỏi Ước Lượng — Cracking the PM Interview</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<p class="book-topline"><a href="/cracking-the-pm-interview">← Về mục lục</a></p>
+<div class="book-label">Cracking the PM Interview · Gayle Laakmann McDowell &amp; Jackie Bavaro · Chương 13</div>
+<h1>Câu Hỏi Ước Lượng</h1>
+<p class="chapter-subtitle">Market sizing và estimation không cần đáp án chính xác — chúng kiểm tra cách bạn tư duy có cấu trúc</p>
+
+<h2>Mục Đích Thực Sự Của Câu Hỏi Ước Lượng</h2>
+<p>Nhiều ứng viên lo lắng về việc tìm ra "số đúng" trong câu hỏi estimation. Đây là hiểu lầm căn bản. Interviewer không cần bạn biết dân số Việt Nam chính xác là 96 hay 98 triệu người — họ muốn thấy bạn có thể chia nhỏ một vấn đề phức tạp thành các phần có thể estimate được, đưa ra assumption hợp lý, tính toán có logic, và kiểm tra kết quả có reasonable không.</p>
+<p>Đây là kỹ năng PM cần hàng ngày: ước lượng market size cho một tính năng mới, ước tính impact của một thay đổi, hay ước lượng ROI của một dự án khi chưa có đủ data. Câu hỏi estimation trong phỏng vấn là phiên bản đơn giản hóa của những quyết định thực tế này.</p>
+
+<h2>Framework 5 Bước Cho Câu Hỏi Estimation</h2>
+<p><strong>Bước 1 — Clarify:</strong> Đặt câu hỏi để hiểu rõ bài toán trước khi bắt đầu. "Khi nói 'số lượng xe taxi ở Hà Nội', bạn muốn bao gồm xe ride-hailing như Grab không?" hay "Chúng ta đang ước lượng trong thời điểm hiện tại hay trong tương lai?"</p>
+<p><strong>Bước 2 — Structure:</strong> Chia bài toán thành các thành phần nhỏ hơn. Nói to approach của bạn ra: "Tôi sẽ ước lượng bằng cách tính số người Hà Nội cần xe, chia cho số lượt trung bình mỗi xe phục vụ được trong một ngày."</p>
+<p><strong>Bước 3 — Estimate từng phần:</strong> Đưa ra số cho từng thành phần với assumption rõ ràng. "Hà Nội có khoảng 8 triệu người. Tôi giả sử khoảng 15% dân số — tức 1.2 triệu người — dùng taxi/ride-hailing ít nhất một lần mỗi tuần..."</p>
+<p><strong>Bước 4 — Tính toán:</strong> Kết hợp các con số lại để có đáp án. Làm toán đơn giản và tránh tính nhẩm phức tạp — không ai muốn thấy bạn bị stalled vì phép nhân 247 × 18.</p>
+<p><strong>Bước 5 — Sanity check:</strong> Kiểm tra kết quả có reasonable không. "Số này nghe có reasonable không? 20.000 xe taxi cho 8 triệu người Hà Nội — tức 1 xe/400 người. Tôi nghĩ con số này hợp lý vì..." Nếu kết quả quá cao hoặc quá thấp, hãy revisit assumption.</p>
+
+<h2>Các Loại Câu Hỏi Estimation Phổ Biến</h2>
+<p><strong>Market sizing:</strong> "Revenue của Google là bao nhiêu?", "Thị trường giao đồ ăn online tại Việt Nam lớn cỡ nào?" — Loại này yêu cầu ước lượng từ trên xuống (top-down) hoặc từ dưới lên (bottom-up).</p>
+<p><strong>Product metrics:</strong> "Gmail phục vụ bao nhiêu email mỗi ngày?", "YouTube có bao nhiêu video được upload mỗi phút?" — Loại này yêu cầu hiểu user behavior và scale.</p>
+<p><strong>Physical estimation:</strong> "Bao nhiêu bóng golf có thể nhét vào chiếc xe bus trường học?", "Có bao nhiêu cây ATM tại Hà Nội?" — Loại này kiểm tra khả năng chia nhỏ vấn đề vật lý.</p>
+<p><strong>Business estimation:</strong> "Starbucks kiếm bao nhiêu tiền mỗi ngày ở một cửa hàng điển hình?", "Nên charge bao nhiêu tiền cho tính năng premium mới?" — Loại này kết hợp business sense và số học.</p>
+
+<h2>Ví Dụ Walkthrough: "Có Bao Nhiêu Grab Driver Ở TP.HCM?"</h2>
+<p><strong>Clarify:</strong> "Bạn muốn tính GrabCar, GrabBike, hay cả hai? Và tính thời điểm peak hay average?"</p>
+<p><strong>Structure:</strong> "Tôi sẽ estimate từ demand side: số lượt ride mỗi ngày, chia cho số lượt trung bình mỗi driver phục vụ được."</p>
+<p><strong>Estimate:</strong> TP.HCM có ~10 triệu dân. Giả sử 20% dân số dùng Grab ít nhất 1 lần/tuần = 2 triệu người. Trung bình 1.5 lần/tuần = 3 triệu lượt/tuần = ~430.000 lượt/ngày. Mỗi driver trung bình làm 8 giờ/ngày, mỗi lượt trung bình 25 phút (bao gồm wait time) = khoảng 15-18 lượt/ngày/driver. Số driver cần: 430.000 / 16 ≈ 27.000 driver.</p>
+<p><strong>Sanity check:</strong> "27.000 Grab driver cho 10 triệu dân — tức khoảng 1 driver/370 dân. Nghe có vẻ hợp lý cho một thành phố lớn ở Đông Nam Á với văn hóa ride-hailing phổ biến."</p>
+
+<h2>Những Gì Nên Tránh</h2>
+<p>Đừng im lặng và cố tính trong đầu — interviewer muốn thấy cách bạn tư duy, không chỉ kết quả cuối cùng. Hãy nói to reasoning của bạn. Đừng xin gợi ý quá sớm — thử explore một mình trước. Đừng quá lo lắng về accuracy — một estimate sai nhưng có logic tốt vẫn tốt hơn một estimate đúng ngẫu nhiên mà không có reasoning.</p>
+
+<nav class="chapnav">
+  <a href="/cracking-the-pm-interview/cau-hoi-hanh-vi"><span class="lbl">Chương trước</span>Chương 12: Câu Hỏi Hành Vi</a>
+  <a href="/cracking-the-pm-interview/cau-hoi-thiet-ke-san-pham"><span class="lbl">Chương sau</span>Chương 14: Câu Hỏi Thiết Kế Sản Phẩm</a>
+</nav>
+</body>
+</html>

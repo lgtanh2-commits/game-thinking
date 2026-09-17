@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 15: Câu Hỏi Case Study — Cracking the PM Interview</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<p class="book-topline"><a href="/cracking-the-pm-interview">← Về mục lục</a></p>
+<div class="book-label">Cracking the PM Interview · Gayle Laakmann McDowell &amp; Jackie Bavaro · Chương 15</div>
+<h1>Câu Hỏi Case Study</h1>
+<p class="chapter-subtitle">Câu hỏi thực thi và phân tích — kiểm tra khả năng đo lường, chẩn đoán, và quyết định dựa trên dữ liệu</p>
+
+<h2>Loại Câu Hỏi Case Study Trong Phỏng Vấn PM</h2>
+<p>Câu hỏi case study (hay còn gọi là execution questions) kiểm tra khả năng phân tích tình huống thực tế, chẩn đoán vấn đề, và đưa ra quyết định dựa trên dữ liệu. Không giống câu hỏi thiết kế sản phẩm tập trung vào "build cái gì", case study tập trung vào "tại sao metric này lại như vậy" và "chúng ta nên làm gì tiếp theo".</p>
+<p>Các dạng phổ biến: phân tích metric drop ("Daily Active Users của chúng ta vừa giảm 20% — điều gì có thể đã xảy ra?"), quyết định launch ("Chúng ta có nên launch tính năng này không?"), hoặc quyết định chiến lược ("Google có nên mua Airbnb không?").</p>
+
+<h2>Phân Tích Metric Drop — Framework</h2>
+<p>Đây là loại câu hỏi phổ biến nhất trong phỏng vấn execution. Khi được hỏi "Metric X của chúng ta vừa giảm Y% — bạn sẽ làm gì?", hãy tiếp cận có hệ thống:</p>
+<p><strong>1. Clarify metric và context:</strong> "Metric này giảm trong timeframe nào? Gradual hay sudden? Chỉ một segment hay toàn bộ? Chúng ta có thay đổi gì gần đây không — feature launch, A/B test, marketing campaign?"</p>
+<p><strong>2. Loại trừ data issues:</strong> Trước khi panic về business problem, hãy kiểm tra measurement problem. "Có thể có bug trong tracking code không? Pipeline data có bị ảnh hưởng không? Timezone có được tính đúng không?" Nhiều metric drop là do lỗi đo lường, không phải vấn đề thực tế.</p>
+<p><strong>3. Phân tích theo segment:</strong> Break down metric theo: platform (iOS vs Android), region, user type (new vs returning), feature usage... Tìm xem nhóm nào bị ảnh hưởng nhiều nhất — điều này sẽ cho gợi ý về nguyên nhân.</p>
+<p><strong>4. Hypothesis và investigation:</strong> Dựa trên pattern phân tích, đề xuất 2–3 hypothesis về nguyên nhân. Với mỗi hypothesis, nói cách bạn sẽ validate: "Nếu đây là vấn đề do bug trong version mới, tôi sẽ kiểm tra crash rate và error log trong version đó."</p>
+<p><strong>5. Recommend action:</strong> Dựa trên investigation, đề xuất next steps. Quan trọng: phân biệt "immediate mitigation" (làm ngay để stop bleeding) và "long-term fix" (giải quyết root cause).</p>
+
+<h2>Ví Dụ: "DAU App Của Chúng Ta Giảm 15% Trong 2 Tuần Qua"</h2>
+<p><strong>Clarify:</strong> "Gradual hay sudden? Chỉ một platform hay tất cả? Chúng ta có launch feature mới hay thay đổi marketing gì không?"</p>
+<p>Giả sử: Sudden drop bắt đầu từ thứ Hai tuần trước, chủ yếu trên Android, sau khi chúng ta launch app update v3.2.</p>
+<p><strong>Segment phân tích:</strong> Android users bị ảnh hưởng nhiều nhất → gợi ý vấn đề liên quan đến Android build. Kiểm tra crash rate v3.2 vs v3.1 trên Android.</p>
+<p><strong>Hypothesis:</strong> (A) Bug trong v3.2 gây crash hoặc loading issue trên Android → users uninstall hoặc không open. (B) Push notification bị break trên Android → giảm re-engagement.</p>
+<p><strong>Validate:</strong> Check crash rate, check notification delivery rate, check uninstall rate theo version.</p>
+<p><strong>Action:</strong> Nếu là bug: hotfix ngay, rollback v3.2 nếu cần. Long-term: cải thiện QA process cho Android testing trước launch.</p>
+
+<h2>Câu Hỏi Quyết Định Chiến Lược</h2>
+<p>Loại câu hỏi "Công ty A có nên mua công ty B không?" hay "Chúng ta có nên enter market X không?" đòi hỏi tư duy chiến lược và framework rõ ràng:</p>
+<p><strong>Framework Make/Buy/Partner:</strong> Trong bối cảnh muốn expand capability, hãy cân nhắc ba lựa chọn: tự build (Make), mua lại (Buy), hay hợp tác (Partner). Mỗi lựa chọn có trade-off về time, cost, control, và risk.</p>
+<p><strong>Khi nào nên M&amp;A:</strong> Khi speed to market quan trọng hơn control, khi technology hoặc talent quá khó build in-house, khi target company có user base hoặc distribution channel bạn muốn.</p>
+<p>Ví dụ: "Google có nên mua Fitbit không?" → Strategic fit? (health data + hardware ecosystem), Cost? (2.1 tỷ USD), Risk? (antitrust, integration), Alternative? (partnership hoặc tự build wearable). Framework này cho phép structure câu trả lời có chiều sâu mà không lan man.</p>
+
+<h2>Câu Hỏi Launch Decision</h2>
+<p>Khi được hỏi "Bạn có launch tính năng này không?", hãy tiếp cận bằng framework Launch/No Launch:</p>
+<p>Evaluate: Impact kỳ vọng là gì (upside)? Risk nếu có bug là gì (downside)? Confidence level vào estimation? Rollback dễ hay khó? Có urgency deadline nào không? Dựa trên đánh giá này, đưa ra recommendation rõ ràng: launch, delay để fix X, hay A/B test trước với Y% users.</p>
+<p>Điều quan trọng không phải là bạn chọn launch hay không — mà là bạn có reasoning rõ ràng, cân nhắc đầy đủ các yếu tố, và có thể defend decision của mình.</p>
+
+<nav class="chapnav">
+  <a href="/cracking-the-pm-interview/cau-hoi-thiet-ke-san-pham"><span class="lbl">Chương trước</span>Chương 14: Câu Hỏi Thiết Kế Sản Phẩm</a>
+  <a href="/cracking-the-pm-interview/cau-hoi-ky-thuat-va-code"><span class="lbl">Chương sau</span>Chương 16: Câu Hỏi Kỹ Thuật &amp; Code</a>
+</nav>
+</body>
+</html>

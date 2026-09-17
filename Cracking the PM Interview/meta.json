@@ -1,0 +1,121 @@
+{
+  "slug": "cracking-the-pm-interview",
+  "title": "Cracking the PM Interview",
+  "author": "Gayle Laakmann McDowell & Jackie Bavaro",
+  "tag": "PM Interview · Tuyển Dụng Product Manager",
+  "category": "Product Management",
+  "chapters": [
+    {
+      "n": 1,
+      "title": "Giới Thiệu",
+      "sub": "Tại sao phỏng vấn PM khó và cách tiếp cận đúng để vượt qua",
+      "slug": "gioi-thieu",
+      "file": "ch01-cracking-pm.html"
+    },
+    {
+      "n": 2,
+      "title": "Vai Trò Product Manager",
+      "sub": "PM làm gì, khác gì với các vai trò khác, và tư duy cần có",
+      "slug": "vai-tro-product-manager",
+      "file": "ch02-cracking-pm.html"
+    },
+    {
+      "n": 3,
+      "title": "Các Công Ty",
+      "sub": "Văn hóa PM khác nhau giữa Google, Microsoft, Amazon và startup",
+      "slug": "cac-cong-ty",
+      "file": "ch03-cracking-pm.html"
+    },
+    {
+      "n": 4,
+      "title": "Tích Lũy Kinh Nghiệm Đúng Hướng",
+      "sub": "Xây dựng hồ sơ PM từ con số 0 và các bước chuyển ngành hiệu quả",
+      "slug": "tich-luy-kinh-nghiem",
+      "file": "ch04-cracking-pm.html"
+    },
+    {
+      "n": 5,
+      "title": "Thăng Tiến Sự Nghiệp",
+      "sub": "Con đường từ APM đến CPO và cách định vị bản thân để thăng tiến",
+      "slug": "thang-tien-su-nghiep",
+      "file": "ch05-cracking-pm.html"
+    },
+    {
+      "n": 6,
+      "title": "Hậu Trường Phỏng Vấn",
+      "sub": "Quy trình tuyển dụng PM thực tế và cách nhà tuyển dụng đánh giá ứng viên",
+      "slug": "hau-truong-phong-van",
+      "file": "ch06-cracking-pm.html"
+    },
+    {
+      "n": 7,
+      "title": "CV — Hồ Sơ Xin Việc",
+      "sub": "Viết CV PM chinh phục ATS và gây ấn tượng với hiring manager",
+      "slug": "cv-ho-so-xin-viec",
+      "file": "ch07-cracking-pm.html"
+    },
+    {
+      "n": 8,
+      "title": "CV Thực Tế: Trước & Sau",
+      "sub": "Phân tích CV thật và cách viết lại để tăng impact",
+      "slug": "cv-thuc-te-truoc-va-sau",
+      "file": "ch08-cracking-pm.html"
+    },
+    {
+      "n": 9,
+      "title": "Thư Xin Việc",
+      "sub": "Cover letter PM hiệu quả — khi nào cần và cách viết đúng",
+      "slug": "thu-xin-viec",
+      "file": "ch09-cracking-pm.html"
+    },
+    {
+      "n": 10,
+      "title": "Nghiên Cứu Công Ty",
+      "sub": "Cách chuẩn bị research công ty sâu trước buổi phỏng vấn PM",
+      "slug": "nghien-cuu-cong-ty",
+      "file": "ch10-cracking-pm.html"
+    },
+    {
+      "n": 11,
+      "title": "Định Nghĩa Bản Thân",
+      "sub": "Xây dựng narrative cá nhân thuyết phục và trả lời câu hỏi \"Hãy kể về bạn\"",
+      "slug": "dinh-nghia-ban-than",
+      "file": "ch11-cracking-pm.html"
+    },
+    {
+      "n": 12,
+      "title": "Câu Hỏi Hành Vi",
+      "sub": "Phương pháp STAR và cách trả lời câu hỏi behavioral interview PM",
+      "slug": "cau-hoi-hanh-vi",
+      "file": "ch12-cracking-pm.html"
+    },
+    {
+      "n": 13,
+      "title": "Câu Hỏi Ước Lượng",
+      "sub": "Framework estimation và cách tư duy số liệu kiểu PM",
+      "slug": "cau-hoi-uoc-luong",
+      "file": "ch13-cracking-pm.html"
+    },
+    {
+      "n": 14,
+      "title": "Câu Hỏi Thiết Kế Sản Phẩm",
+      "sub": "Cách approach câu hỏi product design từ user đến solution",
+      "slug": "cau-hoi-thiet-ke-san-pham",
+      "file": "ch14-cracking-pm.html"
+    },
+    {
+      "n": 15,
+      "title": "Câu Hỏi Case Study",
+      "sub": "Xử lý câu hỏi strategy, launch decision và analytical case study",
+      "slug": "cau-hoi-case-study",
+      "file": "ch15-cracking-pm.html"
+    },
+    {
+      "n": 16,
+      "title": "Câu Hỏi Kỹ Thuật & Code",
+      "sub": "Mức độ technical PM cần có và cách trả lời câu hỏi kỹ thuật",
+      "slug": "cau-hoi-ky-thuat-va-code",
+      "file": "ch16-cracking-pm.html"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chương 16: Câu Hỏi Kỹ Thuật &amp; Code — Cracking the PM Interview</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<p class="book-topline"><a href="/cracking-the-pm-interview">← Về mục lục</a></p>
+<div class="book-label">Cracking the PM Interview · Gayle Laakmann McDowell &amp; Jackie Bavaro · Chương 16</div>
+<h1>Câu Hỏi Kỹ Thuật &amp; Code</h1>
+<p class="chapter-subtitle">PM không cần biết code — nhưng cần hiểu đủ kỹ thuật để là người làm việc hiệu quả với engineering team</p>
+
+<h2>PM Cần Biết Bao Nhiêu Về Kỹ Thuật</h2>
+<p>Câu hỏi này không có câu trả lời duy nhất — nó phụ thuộc vào loại sản phẩm và công ty. Một consumer PM tại Facebook cần ít technical depth hơn so với infrastructure PM tại AWS. Nhưng có một baseline tất cả PM đều cần: đủ để có cuộc hội thoại có ý nghĩa với kỹ sư, đánh giá độ phức tạp kỹ thuật, và hiểu những gì feasible trong thời gian nhất định.</p>
+<p>Điều nguy hiểm không phải là thiếu kiến thức kỹ thuật — mà là thiếu kiến thức nhưng không biết mình thiếu. PM nói "tính năng này chỉ cần thêm một button" mà không hiểu backend implications đằng sau là PM khiến kỹ sư mất trust nhanh nhất.</p>
+
+<h2>Những Khái Niệm Kỹ Thuật PM Cần Nắm</h2>
+<p><strong>API (Application Programming Interface):</strong> API là cách các phần mềm giao tiếp với nhau. PM cần hiểu tại sao API quan trọng, tại sao breaking change trong API gây ra vấn đề lớn, và làm thế nào API design ảnh hưởng đến tốc độ phát triển của ecosystem.</p>
+<p><strong>Database basics:</strong> Sự khác biệt giữa SQL và NoSQL, tại sao query optimization quan trọng, và làm thế nào schema changes ảnh hưởng đến existing data và backward compatibility. PM không cần viết query, nhưng cần hiểu tại sao "thêm một field vào database" đôi khi là việc đơn giản và đôi khi cần migration phức tạp.</p>
+<p><strong>System design basics:</strong> Load balancing là gì và tại sao cần? Cache giúp gì? CDN giải quyết vấn đề gì? Microservices vs monolith có trade-off gì? Khi PM propose tính năng mới, cần hiểu sơ bộ architecture hiện tại để evaluate feasibility.</p>
+<p><strong>Performance fundamentals:</strong> Latency vs throughput. Tại sao page load time ảnh hưởng đến conversion? Tại sao một feature thêm 500ms latency là vấn đề nghiêm trọng? PM cần hiểu và quan tâm đến performance — không chỉ functionality.</p>
+<p><strong>Security basics:</strong> Authentication vs Authorization. Tại sao PII (Personally Identifiable Information) cần được bảo vệ đặc biệt. GDPR và privacy regulations. PM cần đảm bảo security không phải là afterthought trong product decision.</p>
+
+<h2>Khi Nào Phỏng Vấn PM Có Bài Coding</h2>
+<p>Không phải tất cả công ty đều yêu cầu PM viết code trong phỏng vấn, nhưng một số công ty có — đặc biệt Google và Microsoft với những vị trí PM kỹ thuật cao. Nếu bạn apply vào vị trí đòi hỏi technical PM (platform PM, API PM, infrastructure PM), khả năng cao bạn sẽ gặp ít nhất một vòng có yếu tố coding.</p>
+<p>Bài coding cho PM thường ở level thấp hơn so với software engineer — mục tiêu không phải là test coding skill mà là test khả năng tư duy có cấu trúc và basic programming literacy. Thường là bài easy/medium level trên LeetCode, hoặc câu hỏi về data manipulation đơn giản.</p>
+
+<h2>Chuẩn Bị Cho Technical Interview Nếu Không Có Background Kỹ Thuật</h2>
+<p>Nếu bạn không có background kỹ thuật nhưng đang apply vào vị trí PM kỹ thuật, đây là những bước chuẩn bị thực tế:</p>
+<p><strong>Học SQL cơ bản:</strong> Đây là kỹ năng kỹ thuật hữu ích nhất cho PM. Với SQL, bạn có thể tự phân tích data, validate hypothesis, và trả lời câu hỏi nhanh mà không cần request từ data analyst. Khan Academy, Mode Analytics, hoặc SQLBolt là những tài nguyên tốt để bắt đầu.</p>
+<p><strong>Hiểu HTTP và web basics:</strong> Biết request/response cycle, status codes (200/404/500), và cơ bản về REST API. Điều này giúp bạn hiểu error reports, log file, và giao tiếp với backend engineer tốt hơn.</p>
+<p><strong>Nếu cần coding:</strong> Ôn lại Python cơ bản hoặc JavaScript. Luyện một số bài easy LeetCode không phải để đỗ coding interview của engineer — mà để đủ comfortable với code để không panic khi interviewer hỏi "Bạn sẽ implement function này như thế nào?"</p>
+
+<h2>Cách Làm Việc Hiệu Quả Với Engineering Team</h2>
+<p>Technical knowledge của PM không phải là để thay thế engineer — mà là để giao tiếp hiệu quả hơn. PM giỏi làm việc với kỹ sư theo nguyên tắc: <em>define the what and why clearly; let engineers own the how</em>.</p>
+<p>Khi viết spec, rõ ràng về behavior và constraints, không về implementation. Khi review kỹ thuật, hỏi câu hỏi để học (không phải để kiểm tra), và sẵn sàng điều chỉnh requirement khi kỹ sư cho thấy feasibility issue. Khi kỹ sư nói "không làm được", hãy hỏi "tại sao" — đôi khi câu trả lời là "không làm được theo cách đó, nhưng có thể làm theo cách khác."</p>
+<p>Trust là yếu tố quan trọng nhất trong mối quan hệ PM-engineering. PM được kỹ sư trust sẽ nhận được candid feedback sớm về technical risk, điều này vô cùng quý giá. PM không được trust sẽ nhận được những cái gật đầu giả và sau đó là surprises không mong muốn vào deadline.</p>
+
+<h2>Kết Luận: PM Kỹ Thuật Của Tương Lai</h2>
+<p>Thế giới ngày càng phức tạp về mặt kỹ thuật — AI/ML, blockchain, AR/VR, quantum computing đang tạo ra những loại sản phẩm hoàn toàn mới. PM kỹ thuật — người có thể bridge gap giữa cutting-edge technology và real user value — sẽ ngày càng có giá trị.</p>
+<p>Đầu tư vào technical literacy không phải là "bonus" mà ngày càng trở thành competitive advantage thực sự cho PM. Ngay cả khi bạn không bao giờ viết code trong công việc, hiểu code và hệ thống đủ sâu sẽ làm bạn trở thành PM giỏi hơn — và ứng viên sáng giá hơn trong phỏng vấn.</p>
+
+<nav class="chapnav">
+  <a href="/cracking-the-pm-interview/cau-hoi-case-study"><span class="lbl">Chương trước</span>Chương 15: Câu Hỏi Case Study</a>
+</nav>
+</body>
+</html>
