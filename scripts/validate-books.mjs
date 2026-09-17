@@ -157,6 +157,10 @@ function validateChapterHtml(relPath) {
   if (!/<\/body>\s*<\/html>\s*$/i.test(html.trim())) {
     annotate(relPath, 'File không kết thúc bằng </body></html> — có thể bị cắt cụt.');
   }
+  const hasThemeLink = /<link\s+rel="stylesheet"\s+href="\.\.\/assets\/theme\.css"/i.test(html);
+  if (!hasThemeLink) {
+    annotate(relPath, 'Thiếu <link rel="stylesheet" href="../assets/theme.css"> — mọi chương phải dùng theme dùng chung của site, xem templates/chapter-template.html.');
+  }
   const hasBookTopline = /<p\s+class="book-topline">\s*<a\s+href="[^"]+"/i.test(html);
   if (!hasBookTopline) {
     annotate(relPath, 'Thiếu <p class="book-topline"><a href="...">...</a></p> (link quay về mục lục) — xem templates/chapter-template.html.');

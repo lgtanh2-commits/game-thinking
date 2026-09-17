@@ -86,7 +86,9 @@ Site dùng URL dạng `domain/{slug-sách}/{slug-chương}` cho mọi trang (vd 
 
 - `meta.json` đủ field bắt buộc, `slug` sách hợp lệ và không trùng toàn site, `slug` từng chương hợp lệ và không trùng trong cùng sách.
 - Mọi `file` trong `chapters[]` tồn tại thật trong folder sách đó.
-- File HTML chương (mới thêm/sửa trong PR) không rỗng, không bị cắt cụt, có `book-topline` + `chapnav` thật.
+- File HTML chương (mới thêm/sửa trong PR) không rỗng, không bị cắt cụt, có link `assets/theme.css`, có `book-topline` + `chapnav` thật.
+
+> Lưu ý: automation chỉ kiểm **có link theme.css hay không**, không kiểm màu/CSS riêng bạn tự thêm có khớp thẩm mỹ chung hay không — phần đó người review PR sẽ xem qua Preview Deployment trước khi merge.
 
 ## 6. Xem thử trên máy bạn (local preview)
 
